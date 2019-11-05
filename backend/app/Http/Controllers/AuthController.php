@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signup','adminLogin','updateprofile']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup','updateprofile']]);
     }
 
     /**
@@ -38,50 +38,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function adminLogin()
+    public function signup(SignUpRequest $request)
     {
-        $credentials = request(['email', 'password','role_id']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Email or password did not Exist'], 401);
-        }
-
-        return $this->respondWithToken($token);
+        $user= User::create($request-> all());
+        return $this->login($request);
     }
-
-    public function signup(SignUpRequest $request){
-        // $userReg = new User;
-        // $resp = array();
-        //     $userReg -> lname = $request -> input('lname');
-        //     $userReg -> fname = $request -> input('fname');
-        //     $userReg -> email = $request -> input('email');
-        //     $userReg -> address = $request -> input('address');
-        //     $userReg -> town = $request -> input('town');
-        //     $userReg -> image = $request -> input('img');
-        //     $userReg -> password = $request -> input('password');
-    
-    
-        //             $userReg ->save();
-        //             if($userReg->save()){
-        //                 $resp[] = $userReg;
-        //                 return json_encode($resp);                    
-        //             }
-
-            $user= User::create($request-> all());
-            return $this->login($request);
-            // $insert_id = DB::table('users_tb')->insertGetId(
-            //     [
-            //         'title' => $request->title,
-            //          'password' => bcrypt("password"),
-            //         'first_name' => $request->first_name,
-            //         'middle_name' => $request->middle_name,
-            //         'last_name' => $request->last_name,
-            //         'gender' => $request->gender,
-            //         'address'=>$request->address
-
-            //     ]
-            // );
-       }
 
     /**
      * Get the authenticated User.
@@ -135,12 +96,12 @@ class AuthController extends Controller
     public function setPasswordAttribute($value){
         $this->attributes['password']=bcsqrt($value);
     }
+
     public function updateprofile(Request $request)
     {
        $user= auth()->user();
-    $currentfile= $user->image;
-     $datas=$request->formdata;
-    // return  $datas['email'];
+	   $currentfile= $user->image;
+	   $datas=$request->formdata;
       
         if ($request->image != $currentfile){
             $file=$request->image;
@@ -156,17 +117,17 @@ class AuthController extends Controller
         $user->firstname = $datas['firstname'];
         $user->lastname = $datas['lastname'];
         $user->middlename = $datas['middlename'];
-     $user->email =  $datas['email'];
-     $user->town =  $datas['town'];
-    $user->address =  $datas['address'];
-     $user->phone =  $datas['phone'];
-     $user->gender =  $datas['gender'];
-     $user->family =  $datas['family'];
-     $user->familybackground =  $datas['familybackground'];
-    $user->save();
+     	$user->email =  $datas['email'];
+     	$user->town =  $datas['town'];
+	    $user->address =  $datas['address'];
+	    $user->phone =  $datas['phone'];
+	    $user->gender =  $datas['gender'];
+	    $user->family =  $datas['family'];
+	    $user->familybackground =  $datas['familybackground'];
+    	$user->save();
         // $user->update($request->all());
         
-         return $user;
+        return $user;
        //return response()->json(['success' => 'You have successfully uploaded an image'], 200);
-           }
+        }
 } 
