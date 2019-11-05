@@ -33,6 +33,12 @@ public role;
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
   ) { }
+
+  ngOnInit() {
+  
+    
+  }
+
  
   onSubmit() {
       this.disabled= true;
@@ -50,9 +56,9 @@ public role;
    
     this.Token.handle(data.access_token);
    
-    this.Auth.changeAuthStatus(true);
-  
-   this.router.navigateByUrl('/User/(side:Profile)');
+    this.Auth.changeAuthStatus(true);   
+   this.router.navigateByUrl('/Admin/(side:home)');
+   this.ngOnInit()
    this.disabled= false;
    this.sav= 'Submited'
 
@@ -71,10 +77,6 @@ public role;
 
   }
 
-  ngOnInit() {
-  
-    
-  }
-
+ 
 
 }

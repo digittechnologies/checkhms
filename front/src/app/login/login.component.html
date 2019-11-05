@@ -1,46 +1,36 @@
-<!-- Page Content -->
-<div id="page-content">
-  <!-- Breadcrumb -->
-  <div class="container">
-      <ol class="breadcrumb">
-          <li><a href="#">Home</a></li>
-          <li class="active">Sign In</li>
-      </ol>
-  </div>
-  <!-- end Breadcrumb -->
-
-  <div class="container">
-      <header><h1>Sign In</h1></header>
-      <div class="row">
-          <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-              <form role="form" id="form-create-account" #signupForm=ngForm (ngSubmit)="onSubmit()">
-                <!-- <div class="alert alert-success" [hidden]="!message">
-                    {{message}}
-                  </div>
-                  <div class="alert alert-danger" [hidden]="!error">
-                    {{error}}
-                  </div> -->
-                <div class="form-group">
-                            <label for="account-email">Email:</label>
-                            <input type="email" required class="form-control" id="account-email" name="email" [(ngModel)]="form.email" required>
+<div class="auth-main particles_js">
+        <div class="auth_div vivify popIn">
+            <div class="auth_brand">
+                <a class="navbar-brand" href="javascript:void(0);"><img src="../assets/images/icon.svg" width="30" height="30" class="d-inline-block align-top mr-2" alt="">Oculux</a>
+            </div>
+            <div class="card">
+                <div class="body">
+                    <p class="lead">Login to your account</p>
+                    <form class="form-auth-small m-t-20" role="form" #signupForm=ngForm (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="signin-email" class="control-label sr-only">Email</label>
+                            <input type="email" class="form-control round" id="signin-email" value="user@domain.com" placeholder="Email" name="email" [(ngModel)]="form.email" required>
                         </div>
                         <div class="form-group">
-                            <label for="account-password">Password:</label>
-                            <input type="password" required class="form-control" id="account-password" name="password" [(ngModel)]="form.password" required>
+                            <label for="signin-password" class="control-label sr-only">Password</label>
+                            <input type="password" class="form-control round" id="signin-password" value="thisisthepassword" placeholder="Password" name="password" [(ngModel)]="form.password" required>>
                         </div>
-
-                   
-                  <div class="form-group clearfix">
-                      <button type="submit" [disabled]= "disabled" class="btn pull-right btn-default" id="account-submit">
-                            <i id="loader2" *ngIf="disabled"  class="fa fa-spin fa-spinner"></i> {{sav}}</button>
-                  </div>
-              </form>
-              <hr>
-              <div class="center"><a [routerLink]="['/Signin']">Creat an Account</a></div>
-              <div class="center"><a [routerLink]="['/Fpassword']">I don't remember my password</a></div>
-          </div>
-      </div><!-- /.row -->
-  </div><!-- /.container -->
-</div>
-<!-- end Page Content -->
+                        <div class="form-group clearfix">
+                            <label class="fancy-checkbox element-left">
+                                <input type="checkbox">
+                                <span>Remember me</span>
+                            </label>								
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-round btn-block">LOGIN</button>
+                        <div class="bottom">
+                            <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="page-forgot-password.html">Forgot password?</a></span>
+                            <span>Don't have an account? <a [routerLink]="['/Signin']">Register</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="particles-js"></div>
+    </div>
+    <!-- END WRAPPER -->
 

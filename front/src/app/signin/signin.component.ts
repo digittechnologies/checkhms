@@ -34,8 +34,8 @@ export class SigninComponent implements OnInit {
     password_confirmation: null,
     role_id:null
   };
-  disable= "disabled";
-  disabled= true;
+  
+  disabled= false;
   sav= 'Register'
   public error: any;
   public gender;
@@ -72,7 +72,7 @@ export class SigninComponent implements OnInit {
     handleResponse(data) {
       this.disabled=true; 
       this.Token.handle(data.access_token);
-      this.router.navigateByUrl('/User/(side:Profile)');
+      this.router.navigateByUrl('/Admin/(side:home)');
       this.disabled=false; 
       this.sav= 'Saved';
       this.ngOnInit();

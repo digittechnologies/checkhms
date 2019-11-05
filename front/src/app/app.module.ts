@@ -8,7 +8,7 @@ import { JarwisService } from './service/jarwis.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CategoryComponent } from './category/category.component';
 import { ContentComponent } from './content/content.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './admin/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { AccountComponent } from './user/account/account.component';
@@ -30,11 +30,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { PopulationComponent } from './admin/population/population.component';
-import { UsersComponent } from './admin/users/users.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UpdateComponent } from './user/update/update.component';
-import { AdminLoginComponent } from './admin/admin-login/admin-login.component'​;
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
+import { PossitionComponent } from './admin/possition/possition.component';
+import { DepertmentComponent } from './admin/depertment/depertment.component';
+import { CustomerComponent } from './admin/customer/customer.component';
+import { StaffComponent } from './admin/staff/staff.component';
 
 
 @NgModule({
@@ -55,10 +57,12 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
     ContactComponent,
     DashboardComponent,
     PopulationComponent,
-    UsersComponent,
     SettingsComponent,
     UpdateComponent,
-    AdminLoginComponent
+    PossitionComponent,
+    DepertmentComponent,
+    CustomerComponent,
+    StaffComponent
   ],
   imports: [
     BrowserModule,

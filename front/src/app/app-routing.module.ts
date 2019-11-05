@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+// import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
@@ -16,19 +16,20 @@ import { AddcategoryComponent } from './addcategory/addcategory.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { UpdateComponent } from './user/update/update.component';
-import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-
+import { HomeComponent } from './admin/home/home.component';
+import { StaffComponent } from './admin/staff/staff.component';
 const routes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'Login', component: LoginComponent,canActivate: [BeforeLoginService] },
+  // {path: 'home', component: HomeComponent },
+  {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
   {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
-  {path: 'User', component: AccountComponent,canActivate: [AfterLoginService], 
+  {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService], 
 
   children: [
     
          {path: 'Profile', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
-         {path: 'Details', component: DetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
          {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
@@ -37,8 +38,7 @@ const routes: Routes = [
 
  
 
-  {path: 'Admin', component: DashboardComponent}, 
-  {path: 'Admin/signin', component: AdminLoginComponent},
+  // {path: 'Admin', component: DashboardComponent}, 
   // {path: 'home', component: DashboardComponent },
   {path: 'Category/:id', component: CategoryComponent},
   {path: 'Content/:id', component: ContentComponent },
