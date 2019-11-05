@@ -38,10 +38,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function signup(SignUpRequest $request){
-            $user= User::create($request-> all());
-            return $this->login($request);
-       }
+    public function signup(SignUpRequest $request)
+    {
+        $user= User::create($request-> all());
+        return $this->login($request);
+    }
 
     /**
      * Get the authenticated User.
@@ -95,6 +96,7 @@ class AuthController extends Controller
     public function setPasswordAttribute($value){
         $this->attributes['password']=bcsqrt($value);
     }
+
     public function updateprofile(Request $request)
     {
        $user= auth()->user();
@@ -127,5 +129,5 @@ class AuthController extends Controller
         
         return $user;
        //return response()->json(['success' => 'You have successfully uploaded an image'], 200);
-           }
+        }
 } 
