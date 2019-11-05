@@ -26,15 +26,12 @@ class SignUpRequest extends FormRequest
         return [
             'firstname' => 'required', 
             'lastname' => 'required', 
-            'middlename'=>'required',
+            'gender' => 'required', 
             'email' => 'required|email|unique:users', 
-            'town' => 'required', 
+            'mobile_number' => 'required',
             'address' => 'required', 
             'password' => 'required|confirmed',
-            'family' => 'required',
-            'familybackground' => 'required',
-            'phone' => 'required'
-
+            'license_number' => 'required'
         ];
     }
 }
