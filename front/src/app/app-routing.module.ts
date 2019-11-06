@@ -19,6 +19,7 @@ import { UpdateComponent } from './user/update/update.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
+import { PatientComponent } from './customer/patient/patient.component';
 const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
@@ -30,6 +31,7 @@ const routes: Routes = [
          {path: 'Profile', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
          {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
          {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}

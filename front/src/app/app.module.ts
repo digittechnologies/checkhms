@@ -35,8 +35,30 @@ import { UpdateComponent } from './user/update/update.component';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
 import { PossitionComponent } from './admin/possition/possition.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
-import { CustomerComponent } from './admin/customer/customer.component';
 import { StaffComponent } from './admin/staff/staff.component';
+import { PatientComponent } from './customer/patient/patient.component';
+import { AddPatientComponent } from './customer/add-patient/add-patient.component';
+import { PatientDetailsComponent } from './customer/patient-details/patient-details.component';
+import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
+import { AppointmentComponent } from './doctor/appointment/appointment.component';
+import { MakePrescriptionComponent } from './doctor/make-prescription/make-prescription.component';
+import { BookAppointmentComponent } from './doctor/book-appointment/book-appointment.component';
+import { VoucherComponent } from './pharmacy/voucher/voucher.component';
+import { RefillComponent } from './pharmacy/refill/refill.component';
+import { VHistoryComponent } from './pharmacy/v-history/v-history.component';
+import { AllItemsComponent } from './pharmacy/all-items/all-items.component';
+import { AddItemsComponent } from './pharmacy/add-items/add-items.component';
+import { UnitComponent } from './pharmacy/unit/unit.component';
+import { TypeComponent } from './pharmacy/type/type.component';
+import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.component';
+import { ShelfComponent } from './pharmacy/shelf/shelf.component';
+import { TransferItemsComponent } from './pharmacy/transfer-items/transfer-items.component';
+import { VarianceComponent } from './pharmacy/variance/variance.component';
+import { HistoryComponent } from './pharmacy/history/history.component';
+import { InvoiceComponent } from './payment/invoice/invoice.component';
+import { PHistoryComponent } from './payment/p-history/p-history.component';
+import { IncomeComponent } from './payment/income/income.component';
+import { TransHistoryComponent } from './pharmacy/trans-history/trans-history.component';
 
 
 @NgModule({
@@ -61,8 +83,54 @@ import { StaffComponent } from './admin/staff/staff.component';
     UpdateComponent,
     PossitionComponent,
     DepertmentComponent,
-    CustomerComponent,
-    StaffComponent
+  
+    StaffComponent,
+  
+    PatientComponent,
+  
+    AddPatientComponent,
+  
+    PatientDetailsComponent,
+  
+    MakeAppointmentComponent,
+  
+    AppointmentComponent,
+  
+    MakePrescriptionComponent,
+  
+    BookAppointmentComponent,
+  
+    VoucherComponent,
+  
+    RefillComponent,
+  
+    VHistoryComponent,
+  
+    AllItemsComponent,
+  
+    AddItemsComponent,
+  
+    UnitComponent,
+  
+    TypeComponent,
+  
+    ManufacturerComponent,
+  
+    ShelfComponent,
+  
+    TransferItemsComponent,
+  
+    VarianceComponent,
+  
+    HistoryComponent,
+  
+    InvoiceComponent,
+  
+    PHistoryComponent,
+  
+    IncomeComponent,
+  
+    TransHistoryComponent
   ],
   imports: [
     BrowserModule,

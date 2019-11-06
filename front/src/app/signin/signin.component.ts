@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { JarwisService } from '../service/jarwis.service';
 import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 declare var $: any;
 export interface Gender {
   value: string;
@@ -24,7 +25,7 @@ export class SigninComponent implements OnInit {
     firstname: null,
     lastname: null,
     middlename: null,
-    family: null,
+    family: 'hhhh',
     familybackground: null,
     gender: 'Male',
     address: null,
@@ -45,6 +46,7 @@ export class SigninComponent implements OnInit {
   options: { name: string; value: number; }[];
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
+    public snackBar: MatSnackBar,
     private router: Router) { }
     Genders: Gender[] = [
       {value: 'Miss', viewValue: 'Miss'},
@@ -57,7 +59,9 @@ export class SigninComponent implements OnInit {
       {value: 'Ota', viewValue: 'Ota'}
     ];
     onSubmit() {
-     
+      this.disabled=true;  
+      this.sav= 'Processing';
+      
       this.form.role_id=1
    
       this.Jarwis.signup(this.form).subscribe(
@@ -66,8 +70,7 @@ export class SigninComponent implements OnInit {
         error => this.handleError(error), 
              
       );
-      this.disabled=true;  
-      this.sav= 'Processing';
+      
     }
     handleResponse(data) {
       this.disabled=true; 
@@ -82,7 +85,10 @@ export class SigninComponent implements OnInit {
     handleError(error) {
       this.disabled=false; 
       this.error = error.error.errors;
-      console.log(this.error);
+      let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+        duration: 2000
+  
+      })
     }
     displayroleuser(){
       this.Jarwis.roleuser().subscribe(

@@ -686,10 +686,17 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <li class="header">Admin</li>
-                        <li class="active"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+                        <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
+                            <ul>
+                                <li><a href="patients-all.html">Admin Dashboard</a></li>
+                                <li><a href="patients-add.html">Customer</a></li>
+                                <li><a href="patients-profile.html">Doctor Dashboard</a></li>
+                                <li><a href="patients-invoice.html">Pharmacy dashboard</a></li>
+                                <li><a href="patients-invoice.html">Payment dashboard</a></li>
+                            </ul>
+                        </li>
                         <li><a href="app-appointment.html"><i class="icon-diamond"></i><span>Prescription</span></a></li>
                         <li><a href="departments.html"><i class="icon-grid"></i><span>Departments</span></a></li>
-                        <li><a href="our-centres.html"><i class="icon-pointer"></i><span>Our Centres</span></a></li>
                         <li><a href="our-staffs.html"><i class="icon-users"></i><span>Our Staffs</span></a></li>
                         <li>
                                 <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Patients</span></a>
@@ -705,6 +712,7 @@
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Cards</span></a>
                                 <ul>
                                     <li><a href="dr-profile.html">Patient</a></li>
+                                    <li><a href="dr-profile.html">see Doctor</a></li>
                                 </ul>
                             </li>
                         <li>
@@ -712,25 +720,42 @@
                             <ul>
                                 <li><a href="dr-all.html">Prescription</a></li>
                                 <li><a href="dr-add.html">History</a></li>
-                                <li><a href="dr-profile.html">Patient</a></li>
+                                <li><a href="dr-profile.html">Appointment</a></li>
                             </ul>
                         </li>
                         
                         <li>
                             <a href="#Room" class="has-arrow"><i class="icon-like"></i><span>Pharmacy</span></a>
-                            <ul>
-                                <li><a href="room-allotment.html">Items</a></li>
+                            <ul>                                
                                 <li><a href="room-allotment.html">Voucher</a></li>
                                 <li><a href="room-allotment.html">Refills</a></li>
                                 <li><a href="room-add.html">History</a></li>
+                                <li class="header">Items</li>
+                                <li><a href="room-allotment.html">All Items</a></li>
+                                <li><a href="room-allotment.html">Add Items</a></li>
+                                <li><a href="room-allotment.html">Category</a></li>
+                                <li><a href="room-allotment.html">Unit</a></li>
+                                <li><a href="room-allotment.html">Type</a></li>
+                                <li><a href="room-allotment.html">Manufacturer</a></li>
+                                <li><a href="room-allotment.html">Shelf</a></li>
+                                <li class="header">Transactions</li>
+                                <li><a href="room-allotment.html">Add items</a></li>
+                                <li><a href="room-allotment.html">Transfer Items</a></li>
+                                <li><a href="room-allotment.html">variance</a></li>
+                                <li><a href="room-allotment.html">History</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#Payments" class="has-arrow"><i class="icon-credit-card"></i><span>Payments</span></a>
                             <ul>
+                                <li class="header">Payment</li>
                                 <li><a href="payments.html">Payments</a></li>
                                 <li><a href="payments-add.html">Add Payments</a></li>
                                 <li><a href="payments-invoice.html">Invoice</a></li>
+                                <li class="header">Account</li>
+                                <li><a href="room-allotment.html">Income</a></li>
+                                <li><a href="room-allotment.html">Expences</a></li>
+                                <li><a href="room-allotment.html">Savings</a></li>
                             </ul>
                         </li>                       
 
@@ -754,10 +779,9 @@
                         <li>
                             <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
                             <ul>
-                                <li><a href="patients-all.html">Roles</a></li>
                                 <li><a href="patients-add.html">Depertents</a></li>
                                 <li><a href="patients-profile.html">Possition</a></li>
-                                <li><a href="patients-profile.html">Shelf</a></li>
+                                <li><a href="patients-profile.html">Points</a></li>
                                 <li><a href="patients-invoice.html">General Settings</a></li>
                                 
                             </ul>
