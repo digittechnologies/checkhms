@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->integer('licence_number')->unique();
-            $table->string('image')->default('anon.png');
+            $table->string('image')->default('male.png');
             $table->string('status');
             $table->timestamps();
             $table->string('position_id')->index();
