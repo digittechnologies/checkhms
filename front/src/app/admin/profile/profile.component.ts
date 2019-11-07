@@ -13,16 +13,6 @@ declare var $: any;
 export class ProfileComponent implements OnInit {
 
   
-  firstname: any;
-  family: any;
-  email: any;
-  lastname: any;
-  formdata: FormGroup;
-  middlename: any;
-  phone: any;
-  familybackground: any;
-  town: any;
-  gender: any;
   disabled= false;
   sav= 'Update';
   
@@ -61,9 +51,8 @@ export class ProfileComponent implements OnInit {
   displayprofile(){
  this.Jarwis.profile().subscribe(
    data=>{
-
+    
    this.response = data;
-  
    this.submissionForm = this.formBuilder.group(
     
     {

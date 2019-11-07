@@ -27,15 +27,27 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
    
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['email', 'password', 'status']);
+        $email=$request->email;
+        $psw=$request->password;
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password did not Exist'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $usr = User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                    ->select('users.*','departments.name')    
+                    ->where('email','=',$email)   
+                    ->where('password','=',$psw)         
+                    ->get();
+                    
+        return response()->json(
+            [
+                'details' => $usr,
+                'token' =>  $this->respondWithToken($token)
+            ]);
     }
 
     public function signup(SignUpRequest $request)

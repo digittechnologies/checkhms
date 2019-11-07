@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 public role;
   public form = {
     email: null,
-    password: null
+    password: null,
+    status:'approved'
   };
 
   disabled= false;
@@ -46,19 +47,24 @@ public role;
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
+      
       );
+      
+
     
   }
   handleResponse(data) {
+    console.log(data)
+    alert(data)
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
    
     this.Token.handle(data.access_token);
    
-    this.Auth.changeAuthStatus(true);   
+    this.Auth.changeAuthStatus(true);  
+    this.ngOnInit() 
    this.router.navigateByUrl('/Admin/(side:home)');
-   this.ngOnInit()
    this.disabled= false;
    this.sav= 'Submited'
 

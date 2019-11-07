@@ -9,7 +9,7 @@ import { AccountComponent } from './user/account/account.component';
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
 import { DetailsComponent } from './user/details/details.component';
-import { ProfileComponent } from './user/profile/profile.component';
+import { ProfileComponent } from './admin/profile/profile.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
 import { AddcategoryComponent } from './addcategory/addcategory.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
 
   children: [
     
-         {path: 'Profile', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
+         {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
          {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },

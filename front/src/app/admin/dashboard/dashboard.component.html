@@ -364,7 +364,7 @@
                             <li><a href="app-inbox.html"><i class="icon-envelope"></i><span>Inbox</span></a></li>
                             <li><a href="app-chat.html"><i class="icon-bubbles"></i><span>Messenger</span></a></li>
                             <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Event</span></a></li>
-                            <li><a href="page-profile.html"><i class="icon-user"></i><span>Profile</span></a></li>
+                            <li><a [routerLink]="['/Admin', {outlets: {side: ['Profile']}}]"><i class="icon-user"></i><span>Profile</span></a></li>
                             <li><a href="page-invoices.html"><i class="icon-printer"></i><span>Invoice</span></a></li>
                             <li><a href="page-timeline.html"><i class="icon-list"></i><span>Timeline</span></a></li>
                         </ul>

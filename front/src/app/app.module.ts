@@ -17,7 +17,7 @@ import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
 import { TokenService } from './service/token.service';
 import { AuthService } from './service/auth.service';
-import { ProfileComponent } from './user/profile/profile.component';
+import { ProfileComponent } from './admin/profile/profile.component';
 import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';

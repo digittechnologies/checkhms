@@ -35,133 +35,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let s of staff">
                                 <td class="w60">
-                                    <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{s.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
                                 </td>
                                 <td>
-                                    <a href="javascript:void(0);" title="">Michelle</a>
-                                    <div>+1-604-555-0110</div>
+                                    <a href="javascript:void(0);" title="">{{s.firstname}} {{s.lastname}}</a>
+                                    <div>{{s.mobile_number}}</div>
                                 </td>
-                                <td>Compounder</td>                    
-                                <td>Michelle@info.com</td>
-                                <td>20 Jun 2016</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                <td>{{s.name}}</td>                    
+                                <td style="color: #17C2D7;">{{s.id_number}}</td>
+                                <td>{{s.created_at}}</td>
+                                <td><span class="badge badge-warning" *ngIf ="s.status=== 'reg'">Registerd</span>
+                                    <span class="badge badge-success" *ngIf ="s.status=== 'approved'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="s.status=== 'disable'">In-Active</span>
                                 </td>
                                 <td>
-                                    <a href="javascript:void(0);" title="">Michelle</a>
-                                    <div>+1-604-555-0110</div>
+                                        <button type="button" class="btn btn-default btn-sm" title="View" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-eye"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button>
+                                        
+  
                                 </td>
-                                <td>Pharmacist</td>
-                            
-                                <td>Michelle@info.com</td>
-                                <td>20 Jun 2016</td>
-                                <td><span class="badge badge-success">Approved</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">Michelle</a>
-                                    <div>+1-604-555-0110</div>
-                                </td>
-                                <td>Receptionist</td>                                
-                                <td>Michelle@info.com</td>
-                                <td>20 Jun 2016</td>
-                                <td><span class="badge badge-success">Approved</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">Michelle</a>
-                                    <div>+1-604-555-0110</div>
-                                </td>
-                                <td>Compounder</td>                                
-                                <td>Michelle@info.com</td>
-                                <td>20 Jun 2017</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">Sean</a>
-                                    <div>+1-604-555-0110</div>
-                                </td>
-                                <td>Nurse</td>                                
-                                <td>Sean@info.com</td>
-                                <td>20 Jun 2018</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">Michelle</a>
-                                    <div>+1-604-555-0110</div>
-                                </td>
-                                <td>Compounder</td>                               
-                                <td>Michelle@info.com</td>
-                                <td>20 Aug 2018</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w60">
-                                    <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">David</a>
-                                    <div>+1-604-555-0110</div>
-                                </td>
-                                <td>Nurse</td>                               
-                                <td>David @info.com</td>
-                                <td>20 Feb 2019</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
+                            </tr>                    
 
                         </tbody>
                     </table>

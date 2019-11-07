@@ -21,15 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile_number')->unique();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('licence_number')->unique();
-            $table->string('image')->default('male.png');
-            $table->string('status');
+            $table->string('licence_number')->unique();
+            $table->string('image');
+            $table->string('status')->default('reg');
             $table->timestamps();
-            $table->string('position_id')->index();
-            $table->string('dept_id')->index();
+            // $table->string('position_id')->index();
+            $table->string('dept_id')->index()->nullable();
 
         });
     }

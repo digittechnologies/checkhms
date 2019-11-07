@@ -95,25 +95,6 @@ export class HomeComponent implements OnInit {
         };
       }
       })
-    
-
-      this.Jarwis.displayevent().subscribe(
-        data=>{
-          // All data which contain category and subcat
-        this.rese = data;  
-        //this is one category which is event
-        this.reseh=this.rese.event[0]
-        this.actname=this.reseh.actname
-        this.id=this.reseh.id 
-        //this is all subcat under event category
-        this.resec=this.rese.subevent
-
-        this.uimage='https://sabiogun.jtcheck.com/sce-ogun/backend/public/upload/uploads/'+this.resec.image;
-
-      
-        
-        }
-      )
 
       this.Jarwis.displayartifact().subscribe(
         data=>{
@@ -139,17 +120,7 @@ export class HomeComponent implements OnInit {
         
         }
       )
-      this.Jarwis.displaylocation().subscribe(
-        data=>{
-        this.resl = data;  
-        this.reslh=this.resb.event[0]
-        this.actname3=this.reslh.actname
-        this.id3=this.reslh.id
-        this.reslc=this.resl.subevent 
      
-        
-        }
-      )
       this.Jarwis.displaynews().subscribe(
         data=>{
         this.resn= data;  
