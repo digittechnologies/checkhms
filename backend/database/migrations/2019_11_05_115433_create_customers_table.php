@@ -22,10 +22,13 @@ class CreateCustomersTable extends Migration
             $table->string('d_o_b');
             $table->string('allergy');
             $table->string('n_h_i_s');
-            $table->string('previous_balance');
             $table->string('card_number');
             $table->string('status');
+            $table->string('about');
             $table->timestamps();
+            $table->string('blood_id')->index();
+            $table->string('account_id')->index();
+            $table->string('treatment_id')->index();
             $table->string('prescription_id')->index();
         });
     }

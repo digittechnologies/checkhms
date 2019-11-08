@@ -53,6 +53,10 @@ class DisplayController extends Controller
 
 
 
+    
+
+
+
 
     public function deleteUser(Request $request)
     {
@@ -63,116 +67,6 @@ class DisplayController extends Controller
     
     }
 
-    public function displayartifact()
-    {
-        return response()->json(
-            [
-
-                'event' =>Activities::where('id','=',2)->get(),
-                'arti_cat'=>title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-                ->select('titles.*','categories.catname','categories.destription','categories.activity_id')
-               ->where('activity_id','=',2)
-               ->where('status','=','Y')
-               ->inRandomOrder()->limit(4)
-               ->get()
-            ]
-        );
-    }
-    public function displaybusiness()
-    {
-        return response()->json(
-            [
-
-                'event' =>Activities::where('id','=',3)->get(),
-                
-                'subevent'=>title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-                ->select('titles.*','categories.catname','categories.destription','categories.activity_id')
-               ->where('activity_id','=',3)
-               ->where('status','=','Y')
-               ->inRandomOrder()->limit(4)
-                ->get()
-            ]
-        );
-    }
-    public function displaypeople()
-    {
-        return response()->json(
-            [
-                'event' =>Activities::where('id','=',4)->get(),
-                'subevent'=>title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-                ->select('titles.*','categories.catname','categories.destription','categories.activity_id')
-               ->where('activity_id','=',4)
-               ->where('status','=','Y')
-               ->inRandomOrder()->limit(4)
-              ->get()
-            ]
-        );
-    }
-    public function displaynews()
-    {
-        return response()->json(
-            [
-
-                'event' =>Activities::where('id','=',5)->get(),
-                'subevent'=>title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
-              ->where('activity_id','=',5)
-              ->where('status','=','Y')
-              ->inRandomOrder()->limit(4)
-               ->get()
-            ]
-        );
-    }
-
-    public function getalltitle()
-    {
-        return response()->json(
-          
-                title::orderBy('id')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename') 
-               ->get()
-        
-        );
-    }
-
-    public function getalladmintitle()
-    {
-        return response()->json(
-          
-                title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename') 
-            ->limit(10) 
-            ->get()
-        
-        );
-    }
-
-    public function getalltrashtitle()
-    {
-        return response()->json(
-          
-            title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id')
-        //    ->where('activity_id','=',3)
-           ->where('status','=','T')
-            ->get()
-    
-    );
-    }
-   
-    public function getfootertitle()
-    {
-        return response()->json([
-            title::orderBy('id', 'desc')->join('categories','titles.category_id','=','categories.id')
-            ->select('titles.*','categories.catname')
-            ->where('status','=','Y')
-            ->inRandomOrder()->limit(2)
-               ->get()
-        ]);
-    }
     
     public function search($searchTerm)
     {
