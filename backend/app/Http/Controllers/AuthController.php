@@ -27,15 +27,31 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
    
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['email', 'password', 'status']);
+        $email=$request->email;
+        $psw=$request->password;
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password did not Exist'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $usr = User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                    ->select('users.*','departments.name')    
+                    ->where('email','=',$email)   
+                    ->where('password','=',$psw)         
+                    ->get();
+                    
+        return response()->json(
+            [
+                'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                ->select('users.*','departments.name', 'departments.position_id')    
+                ->where('email','=',$email)   
+                // ->where('password','=',$psw)         
+                ->get(),
+                'token' =>  $this->respondWithToken($token)
+            ]);
     }
 
     public function signup(SignUpRequest $request)
@@ -51,9 +67,23 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $a = auth()->user();
+        $e = auth()->user()->email;
+        $p = auth()->user()->password;
+        return response()->json(
+            [
+                'aut'=> auth()->user(),
+                'det'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                ->select('users.*','departments.name', 'departments.position_id')    
+                ->where('email','=',$e)   
+                // ->where('password','=',$psw)         
+                ->get()
+            ]
+        );
     }
 
+
+    
     /**
      * Log the user out (Invalidate the token).
      *

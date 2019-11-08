@@ -6,9 +6,9 @@ import { HttpClient } from '@angular/common/http';
 )
 export class JarwisService {
 
-  private baseUrl = 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api';
+  // private baseUrl = 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api';
 
-  // private baseUrl = 'http://localhost/sce-platform/backend/public/api';
+  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
   roleuser() {
@@ -46,11 +46,7 @@ export class JarwisService {
   getact() {
     return this.http.get(`${this.baseUrl}/getact`,)
   }
-  profile() {
-    return this.http.get(`${this.baseUrl}/me`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
+  
   updateprofile(data) {
     return this.http.post(`${this.baseUrl}/me`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -62,10 +58,7 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
 
-  }
-  displayevent() {
-    return this.http.get(`${this.baseUrl}/displayevent`,)
-  }
+  } 
   displayartifact() {
     return this.http.get(`${this.baseUrl}/displayartifact`,)
   }
@@ -78,9 +71,36 @@ export class JarwisService {
   displaynews() {
     return this.http.get(`${this.baseUrl}/displaynews`,)
   }
-  displaylocation() {
-    return this.http.get(`${this.baseUrl}/displaylocation`,)
+
+
+
+
+
+
+  displayAllposition() {
+    return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
+  displayDepartments() {
+    return this.http.get(`${this.baseUrl}/displayDepartments`,)
+  }
+  displayAllstaff() {
+    return this.http.get(`${this.baseUrl}/displayAllstaff`,)
+  }
+  uStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
+  }
+
+  deleteUser(data) {
+    return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
+  }
+  profile() {
+    return this.http.get(`${this.baseUrl}/me`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+
+
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)

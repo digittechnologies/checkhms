@@ -34,12 +34,21 @@ Route::post('name_t','Name_titleController@store');
 Route::get('getact', 'ActivitiesController@index');
 Route::get('getcat', 'CategoryController@index');
 Route::get('post/{id}','ContentController@getactid');
-Route::get('displayevent','DisplayController@displayevent');
 Route::get('displayartifact','DisplayController@displayartifact');
 Route::get('displaybusiness','DisplayController@displaybusiness');
 Route::get('displaypeople','DisplayController@displaypeople');
 Route::get('displaynews','DisplayController@displaynews');
-Route::get('displaylocation','DisplayController@displaylocation');
+
+
+
+Route::get('displayDepartments','DisplayController@displayDepartments');
+Route::get('displayAllstaff','DisplayController@displayAllstaff');
+Route::post('uStatus','DisplayController@uStatus');
+Route::post('deleteUser','DisplayController@deleteUser');
+Route::get('displayAllposition','DisplayController@displayAllposition');
+
+
+
 
 Route::get('getcontent/{id}','ContentController@getcontent');
 Route::post('updatecontent','ContentController@update');

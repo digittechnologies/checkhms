@@ -8,7 +8,7 @@ import { JarwisService } from './service/jarwis.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CategoryComponent } from './category/category.component';
 import { ContentComponent } from './content/content.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './admin/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { AccountComponent } from './user/account/account.component';
@@ -17,7 +17,7 @@ import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
 import { TokenService } from './service/token.service';
 import { AuthService } from './service/auth.service';
-import { ProfileComponent } from './user/profile/profile.component';
+import { ProfileComponent } from './admin/profile/profile.component';
 import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
@@ -30,11 +30,35 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { PopulationComponent } from './admin/population/population.component';
-import { UsersComponent } from './admin/users/users.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UpdateComponent } from './user/update/update.component';
-import { AdminLoginComponent } from './admin/admin-login/admin-login.component'​;
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
+import { PossitionComponent } from './admin/possition/possition.component';
+import { DepertmentComponent } from './admin/depertment/depertment.component';
+import { StaffComponent } from './admin/staff/staff.component';
+import { PatientComponent } from './customer/patient/patient.component';
+import { AddPatientComponent } from './customer/add-patient/add-patient.component';
+import { PatientDetailsComponent } from './customer/patient-details/patient-details.component';
+import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
+import { AppointmentComponent } from './doctor/appointment/appointment.component';
+import { MakePrescriptionComponent } from './doctor/make-prescription/make-prescription.component';
+import { BookAppointmentComponent } from './doctor/book-appointment/book-appointment.component';
+import { VoucherComponent } from './pharmacy/voucher/voucher.component';
+import { RefillComponent } from './pharmacy/refill/refill.component';
+import { VHistoryComponent } from './pharmacy/v-history/v-history.component';
+import { AllItemsComponent } from './pharmacy/all-items/all-items.component';
+import { AddItemsComponent } from './pharmacy/add-items/add-items.component';
+import { UnitComponent } from './pharmacy/unit/unit.component';
+import { TypeComponent } from './pharmacy/type/type.component';
+import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.component';
+import { ShelfComponent } from './pharmacy/shelf/shelf.component';
+import { TransferItemsComponent } from './pharmacy/transfer-items/transfer-items.component';
+import { VarianceComponent } from './pharmacy/variance/variance.component';
+import { HistoryComponent } from './pharmacy/history/history.component';
+import { InvoiceComponent } from './payment/invoice/invoice.component';
+import { PHistoryComponent } from './payment/p-history/p-history.component';
+import { IncomeComponent } from './payment/income/income.component';
+import { TransHistoryComponent } from './pharmacy/trans-history/trans-history.component';
 
 
 @NgModule({
@@ -55,10 +79,58 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
     ContactComponent,
     DashboardComponent,
     PopulationComponent,
-    UsersComponent,
     SettingsComponent,
     UpdateComponent,
-    AdminLoginComponent
+    PossitionComponent,
+    DepertmentComponent,
+  
+    StaffComponent,
+  
+    PatientComponent,
+  
+    AddPatientComponent,
+  
+    PatientDetailsComponent,
+  
+    MakeAppointmentComponent,
+  
+    AppointmentComponent,
+  
+    MakePrescriptionComponent,
+  
+    BookAppointmentComponent,
+  
+    VoucherComponent,
+  
+    RefillComponent,
+  
+    VHistoryComponent,
+  
+    AllItemsComponent,
+  
+    AddItemsComponent,
+  
+    UnitComponent,
+  
+    TypeComponent,
+  
+    ManufacturerComponent,
+  
+    ShelfComponent,
+  
+    TransferItemsComponent,
+  
+    VarianceComponent,
+  
+    HistoryComponent,
+  
+    InvoiceComponent,
+  
+    PHistoryComponent,
+  
+    IncomeComponent,
+  
+    TransHistoryComponent
   ],
   imports: [
     BrowserModule,

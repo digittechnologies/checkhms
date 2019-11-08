@@ -27,17 +27,15 @@ class CreateUsersTable extends Migration
             $table->string('state')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('licence_number')->unique();
+            $table->integer('id_number')->unique();
             $table->string('image')->default('male.png');
-            $table->string('d_o_b')->nullable();
             $table->string('facebook_handle')->nullable();
             $table->string('twitter_handle')->nullable();
             $table->string('instagram_handle')->nullable();
             $table->string('degree')->nullable();
             $table->string('about')->nullable();
-            $table->string('status');
+            $table->string('status')->default('reg');
             $table->timestamps();
-            $table->string('position_id')->index();
             $table->string('dept_id')->index();
 
         });

@@ -15,6 +15,7 @@ class CreateDoctorPrescriptionsTable extends Migration
     {
         Schema::create('doctor_prescriptions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('item_id')->index();
             $table->string('quantity');
             $table->string('instruction');
             $table->string('day_supply');

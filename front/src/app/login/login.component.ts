@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 public role;
   public form = {
     email: null,
-    password: null
+    password: null,
+    status:'approved'
   };
 
   disabled= false;
@@ -33,6 +34,12 @@ public role;
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
   ) { }
+
+  ngOnInit() {
+  
+    
+  }
+
  
   onSubmit() {
       this.disabled= true;
@@ -40,19 +47,23 @@ public role;
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
+      
       );
+      
+
     
   }
   handleResponse(data) {
+    let pos = data.details[0].position_id;
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
    
-    this.Token.handle(data.access_token);
+    this.Token.handle(data.token.original.access_token);
    
-    this.Auth.changeAuthStatus(true);
-  
-   this.router.navigateByUrl('/User/(side:Profile)');
+    this.Auth.changeAuthStatus(true);  
+    this.ngOnInit() 
+   this.router.navigateByUrl('/Admin/(side:home)');
    this.disabled= false;
    this.sav= 'Submited'
 
@@ -71,10 +82,6 @@ public role;
 
   }
 
-  ngOnInit() {
-  
-    
-  }
-
+ 
 
 }
