@@ -41,6 +41,19 @@ class DisplayController extends Controller
      return $status;
     
     }
+
+    public function displayAllposition()
+    {
+        return DB::table("positions")->get();
+    }
+
+
+
+
+
+
+
+
     public function deleteUser(Request $request)
     {
         $id=$request[0];

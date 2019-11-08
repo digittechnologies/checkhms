@@ -54,13 +54,12 @@ public role;
     
   }
   handleResponse(data) {
-    console.log(data)
-    alert(data)
+    let pos = data.details[0].position_id;
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
    
-    this.Token.handle(data.access_token);
+    this.Token.handle(data.token.original.access_token);
    
     this.Auth.changeAuthStatus(true);  
     this.ngOnInit() 

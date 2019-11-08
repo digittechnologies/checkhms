@@ -46,11 +46,7 @@ export class JarwisService {
   getact() {
     return this.http.get(`${this.baseUrl}/getact`,)
   }
-  profile() {
-    return this.http.get(`${this.baseUrl}/me`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
+  
   updateprofile(data) {
     return this.http.post(`${this.baseUrl}/me`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -79,6 +75,11 @@ export class JarwisService {
 
 
 
+
+
+  displayAllposition() {
+    return this.http.get(`${this.baseUrl}/displayAllposition`,)
+  }
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
@@ -92,10 +93,15 @@ export class JarwisService {
   deleteUser(data) {
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
+  profile() {
+    return this.http.get(`${this.baseUrl}/me`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 
 
 
-  
+
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
   }

@@ -13,7 +13,13 @@ export class DashboardComponent implements OnInit {
 
   res: any;
   response: any;
- 
+  pos: any;
+  allPos: any;
+  pharmacist: any;
+  cashier: any;
+  physician: any;
+  admin: any;
+  card: any;
 
   constructor(
     private Auth: AuthService,
@@ -24,6 +30,27 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.Jarwis.profile().subscribe(
+      data=>{
+       
+      this.response = data;
+      this.pos= this.response.det[0].position_id
+    
+    })
+
+    this.Jarwis.displayAllposition().subscribe(
+      data=>{
+       
+      this.response = data
+      this.allPos= this.response
+      this.pharmacist=this.allPos[0].id
+      this.cashier=this.allPos[1].id
+      this.physician=this.allPos[2].id
+      this.admin=this.allPos[3].id
+      this.card=this.allPos[4].id
+    })
+
   }
 
   logout(event: MouseEvent) {

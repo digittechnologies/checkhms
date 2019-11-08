@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   image: any;
   datas: { formdata: any; };
   error: any;
+  res: any;
   constructor( private http: HttpClient,private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
   public response:any;
   public form ={
@@ -52,7 +53,10 @@ export class ProfileComponent implements OnInit {
  this.Jarwis.profile().subscribe(
    data=>{
     
-   this.response = data;
+   this.res = data;
+   this.response = this.res.aut;
+
+
    this.submissionForm = this.formBuilder.group(
     
     {

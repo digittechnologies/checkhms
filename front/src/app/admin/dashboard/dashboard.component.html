@@ -661,6 +661,9 @@
             </div>
         </div>
     
+
+
+
         <div id="left-sidebar" class="sidebar">
             <div class="navbar-brand">
                 <a href="index.html"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"><span>Oculux</span></a>
@@ -688,7 +691,7 @@
                         <li class="header">Admin</li>
                         <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                             <ul>
-                                <li><a href="patients-all.html">Admin Dashboard</a></li>
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Admin Dashboard</a></li>
                                 <li><a href="patients-add.html">Customer</a></li>
                                 <li><a href="patients-profile.html">Doctor Dashboard</a></li>
                                 <li><a href="patients-invoice.html">Pharmacy dashboard</a></li>
@@ -708,24 +711,31 @@
                                 </ul>
                             </li>
                         <li class="header">Depertments</li>
-                        <li>
+                        <li >
+                            <span *ngIf="card == pos || admin == pos">
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Cards</span></a>
                                 <ul>
                                     <li><a href="dr-profile.html">Patient</a></li>
                                     <li><a href="dr-profile.html">see Doctor</a></li>
                                 </ul>
+                            </span>
                             </li>
+                            
                         <li>
-                            <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
+                            <span *ngIf="physician == pos || admin == pos">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
                             <ul>
                                 <li><a href="dr-all.html">Prescription</a></li>
                                 <li><a href="dr-add.html">History</a></li>
                                 <li><a href="dr-profile.html">Appointment</a></li>
-                            </ul>
+                            </ul>   
+                        </span>                     
                         </li>
+                   
                         
                         <li>
-                            <a href="#Room" class="has-arrow"><i class="icon-like"></i><span>Pharmacy</span></a>
+                                <span *ngIf="pharmacist == pos || admin == pos">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-like"></i><span>Pharmacy</span></a>
                             <ul>                                
                                 <li><a href="room-allotment.html">Voucher</a></li>
                                 <li><a href="room-allotment.html">Refills</a></li>
@@ -744,8 +754,10 @@
                                 <li><a href="room-allotment.html">variance</a></li>
                                 <li><a href="room-allotment.html">History</a></li>
                             </ul>
+                            </span>
                         </li>
                         <li>
+                                <span *ngIf="cashier == pos || admin == pos">
                             <a href="#Payments" class="has-arrow"><i class="icon-credit-card"></i><span>Payments</span></a>
                             <ul>
                                 <li class="header">Payment</li>
@@ -757,6 +769,7 @@
                                 <li><a href="room-allotment.html">Expences</a></li>
                                 <li><a href="room-allotment.html">Savings</a></li>
                             </ul>
+                            </span>
                         </li>                       
 
                         <!-- <li class="header">Mail</li>
@@ -766,6 +779,7 @@
                        
                         <li class="header">Settings</li>
                         <li>
+                                <span *ngIf="admin == pos ">
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
                                 <ul>
                                     <li><a href="dr-all.html">All Doctors</a></li>
@@ -773,18 +787,20 @@
                                     <li><a href="dr-profile.html">Doctors Profile</a></li>
                                     <li><a href="dr-schedule.html">Doctors Schedule</a></li>
                                 </ul>
+                                </span>
                             </li>
-                        <li><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-envelope"></i><span>New Staffs</span></a></li>
-                        <li><a href="app-taskboard.html"><i class="icon-layers"></i><span>Our Centers</span></a></li>
+                        <li *ngIf="admin == pos"><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-envelope"></i><span>New Staffs</span></a></li>
+                        <li *ngIf="admin == pos"><a href="app-taskboard.html"><i class="icon-layers"></i><span>Our Centers</span></a></li>
                         <li>
+                                <span *ngIf="admin == pos">
                             <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
                             <ul>
-                                <li><a href="patients-add.html">Depertents</a></li>
-                                <li><a href="patients-profile.html">Possition</a></li>
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['department']}}]">Set Departments</a></li>                               
                                 <li><a href="patients-profile.html">Points</a></li>
                                 <li><a href="patients-invoice.html">General Settings</a></li>
                                 
-                            </ul>
+                            </ul> 
+                            </span>                       
                         </li>
                     </ul>
                 </nav>     

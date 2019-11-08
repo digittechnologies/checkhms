@@ -45,6 +45,7 @@ Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('deleteUser','DisplayController@deleteUser');
+Route::get('displayAllposition','DisplayController@displayAllposition');
 
 
 

@@ -45,7 +45,11 @@ class AuthController extends Controller
                     
         return response()->json(
             [
-                'details' => $usr,
+                'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                ->select('users.*','departments.name', 'departments.position_id')    
+                ->where('email','=',$email)   
+                // ->where('password','=',$psw)         
+                ->get(),
                 'token' =>  $this->respondWithToken($token)
             ]);
     }
@@ -63,9 +67,23 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $a = auth()->user();
+        $e = auth()->user()->email;
+        $p = auth()->user()->password;
+        return response()->json(
+            [
+                'aut'=> auth()->user(),
+                'det'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                ->select('users.*','departments.name', 'departments.position_id')    
+                ->where('email','=',$e)   
+                // ->where('password','=',$psw)         
+                ->get()
+            ]
+        );
     }
 
+
+    
     /**
      * Log the user out (Invalidate the token).
      *
