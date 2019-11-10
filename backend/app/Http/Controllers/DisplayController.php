@@ -42,6 +42,21 @@ class DisplayController extends Controller
     
     }
 
+    public function edtDept($id)
+    {
+        // $id=$request;
+
+        return response()->json(
+        
+            Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
+            ->select('departments.*','positions.position_name')     
+            ->where('departments.id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
     public function displayAllposition()
     {
         return DB::table("positions")->get();

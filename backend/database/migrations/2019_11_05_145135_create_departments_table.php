@@ -17,6 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
+            $table->string('image')->default('hospital.png');
             $table->timestamps();
             $table->string('position_id')->index();
         });

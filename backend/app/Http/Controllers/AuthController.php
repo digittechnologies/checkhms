@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Image;
 use App\Role;
+
 class AuthController extends Controller
 {
     /**
@@ -60,11 +61,7 @@ class AuthController extends Controller
         return $this->login($request);
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+   
     public function me()
     {
         $a = auth()->user();

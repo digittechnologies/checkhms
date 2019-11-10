@@ -59,6 +59,13 @@ import { InvoiceComponent } from './payment/invoice/invoice.component';
 import { PHistoryComponent } from './payment/p-history/p-history.component';
 import { IncomeComponent } from './payment/income/income.component';
 import { TransHistoryComponent } from './pharmacy/trans-history/trans-history.component';
+import { SetdepartmentComponent } from './admin/setdepartment/setdepartment.component';
+import { PrescriptionComponent } from './prescription/prescription/prescription.component';
+import { ProgressComponent } from './prescription/progress/progress.component';
+import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
+import { PaymentHomeComponent } from './payment/payment-home/payment-home.component';
+import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
+import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
 
 
 @NgModule({
@@ -130,7 +137,21 @@ import { TransHistoryComponent } from './pharmacy/trans-history/trans-history.co
   
     IncomeComponent,
   
-    TransHistoryComponent
+    TransHistoryComponent,
+  
+    SetdepartmentComponent,
+  
+    PrescriptionComponent,
+  
+    ProgressComponent,
+  
+    PharmHomeComponent,
+  
+    PaymentHomeComponent,
+  
+    DoctorHomeComponent,
+  
+    PatientHomeComponent
   ],
   imports: [
     BrowserModule,

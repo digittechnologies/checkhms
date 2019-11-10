@@ -21,6 +21,7 @@ import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
 import { PatientComponent } from './customer/patient/patient.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
+import { SetdepartmentComponent } from './admin/setdepartment/setdepartment.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
 
          {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },

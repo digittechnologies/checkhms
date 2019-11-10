@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'}
 )
 export class JarwisService {
+  displayPosition() {
+    throw new Error("Method not implemented.");
+  }
 
   // private baseUrl = 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api';
 
@@ -73,10 +76,18 @@ export class JarwisService {
   }
 
 
-
-
-
-
+ 
+  
+    
+  addDept(data) {
+    return this.http.post(`${this.baseUrl}/addDept`, data)
+  }
+  updateDept(data) {
+    return this.http.post(`${this.baseUrl}/updateDept`, data)
+  }
+  deleteDept(data) {
+    return this.http.post(`${this.baseUrl}/deleteDept`, data)
+  }  
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
@@ -89,7 +100,6 @@ export class JarwisService {
   uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
   }
-
   deleteUser(data) {
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
@@ -97,6 +107,9 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
+  }
+  edtDept(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtDept/${id}`)
   }
 
 

@@ -678,8 +678,8 @@
                         <span>Welcome,</span>
                         <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Louis Pierce</strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
-                            <li><a href="dr-profile.html"><i class="icon-user"></i>My Profile</a></li>
-                            <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                            <li><a href="#"><i class="icon-user"></i>My Profile</a></li>
+                            <li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>
                             <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
                             <li class="divider"></li>
                             <li><a (click)="logout($event)"><i class="icon-power"></i>Logout</a></li>
@@ -692,22 +692,22 @@
                         <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                             <ul>
                                 <li><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Admin Dashboard</a></li>
-                                <li><a href="patients-add.html">Customer</a></li>
-                                <li><a href="patients-profile.html">Doctor Dashboard</a></li>
-                                <li><a href="patients-invoice.html">Pharmacy dashboard</a></li>
-                                <li><a href="patients-invoice.html">Payment dashboard</a></li>
+                                <li><a href="#">Customer</a></li>
+                                <li><a href="#">Doctor Dashboard</a></li>
+                                <li><a href="#">Pharmacy dashboard</a></li>
+                                <li><a href="#">Payment dashboard</a></li>
                             </ul>
                         </li>
                         <li><a href="app-appointment.html"><i class="icon-diamond"></i><span>Prescription</span></a></li>
-                        <li><a href="departments.html"><i class="icon-grid"></i><span>Departments</span></a></li>
+                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li>
                         <li><a href="our-staffs.html"><i class="icon-users"></i><span>Our Staffs</span></a></li>
                         <li>
                                 <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Patients</span></a>
                                 <ul>
-                                    <li><a href="patients-all.html">All Patient</a></li>
-                                    <li><a href="patients-add.html">Add Patient</a></li>
-                                    <li><a href="patients-profile.html">Patient Profile</a></li>
-                                    <li><a href="patients-invoice.html">Patient Invoices</a></li>
+                                    <li><a href="#">All Patient</a></li>
+                                    <li><a href="#">Add Patient</a></li>
+                                    <li><a href="#">Patient Profile</a></li>
+                                    <li><a href="#">Patient Invoices</a></li>
                                 </ul>
                             </li>
                         <li class="header">Depertments</li>
@@ -715,8 +715,8 @@
                             <span *ngIf="card == pos || admin == pos">
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Cards</span></a>
                                 <ul>
-                                    <li><a href="dr-profile.html">Patient</a></li>
-                                    <li><a href="dr-profile.html">see Doctor</a></li>
+                                    <li><a href="#">Patient</a></li>
+                                    <li><a href="#">see Doctor</a></li>
                                 </ul>
                             </span>
                             </li>
@@ -725,9 +725,9 @@
                             <span *ngIf="physician == pos || admin == pos">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
                             <ul>
-                                <li><a href="dr-all.html">Prescription</a></li>
-                                <li><a href="dr-add.html">History</a></li>
-                                <li><a href="dr-profile.html">Appointment</a></li>
+                                <li><a href="#">Prescription</a></li>
+                                <li><a href="#">History</a></li>
+                                <li><a href="#">Appointment</a></li>
                             </ul>   
                         </span>                     
                         </li>
@@ -737,22 +737,22 @@
                                 <span *ngIf="pharmacist == pos || admin == pos">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-like"></i><span>Pharmacy</span></a>
                             <ul>                                
-                                <li><a href="room-allotment.html">Voucher</a></li>
-                                <li><a href="room-allotment.html">Refills</a></li>
+                                <li><a href="#">Voucher</a></li>
+                                <li><a href="#">Refills</a></li>
                                 <li><a href="room-add.html">History</a></li>
                                 <li class="header">Items</li>
-                                <li><a href="room-allotment.html">All Items</a></li>
-                                <li><a href="room-allotment.html">Add Items</a></li>
-                                <li><a href="room-allotment.html">Category</a></li>
-                                <li><a href="room-allotment.html">Unit</a></li>
-                                <li><a href="room-allotment.html">Type</a></li>
-                                <li><a href="room-allotment.html">Manufacturer</a></li>
-                                <li><a href="room-allotment.html">Shelf</a></li>
+                                <li><a href="#">All Items</a></li>
+                                <li><a href="#">Add Items</a></li>
+                                <li><a href="#">Category</a></li>
+                                <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['unit']}}]">Unit</a></li>
+                                <li><a href="#">Type</a></li>
+                                <li><a href="#">Manufacturer</a></li>
+                                <li><a href="#">Shelf</a></li>
                                 <li class="header">Transactions</li>
-                                <li><a href="room-allotment.html">Add items</a></li>
-                                <li><a href="room-allotment.html">Transfer Items</a></li>
-                                <li><a href="room-allotment.html">variance</a></li>
-                                <li><a href="room-allotment.html">History</a></li>
+                                <li><a href="#">Add items</a></li>
+                                <li><a href="#">Transfer Items</a></li>
+                                <li><a href="#">variance</a></li>
+                                <li><a href="#">History</a></li>
                             </ul>
                             </span>
                         </li>
@@ -760,14 +760,14 @@
                                 <span *ngIf="cashier == pos || admin == pos">
                             <a href="#Payments" class="has-arrow"><i class="icon-credit-card"></i><span>Payments</span></a>
                             <ul>
-                                <li class="header">Payment</li>
-                                <li><a href="payments.html">Payments</a></li>
-                                <li><a href="payments-add.html">Add Payments</a></li>
-                                <li><a href="payments-invoice.html">Invoice</a></li>
+                                <li class="#">Payment</li>
+                                <li><a href="#">Payments</a></li>
+                                <li><a href="#">Add Payments</a></li>
+                                <li><a href="#">Invoice</a></li>
                                 <li class="header">Account</li>
-                                <li><a href="room-allotment.html">Income</a></li>
-                                <li><a href="room-allotment.html">Expences</a></li>
-                                <li><a href="room-allotment.html">Savings</a></li>
+                                <li><a href="#">Income</a></li>
+                                <li><a href="#">Expences</a></li>
+                                <li><a href="#">Savings</a></li>
                             </ul>
                             </span>
                         </li>                       
@@ -782,10 +782,10 @@
                                 <span *ngIf="admin == pos ">
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
                                 <ul>
-                                    <li><a href="dr-all.html">All Doctors</a></li>
-                                    <li><a href="dr-add.html">Add Doctors</a></li>
-                                    <li><a href="dr-profile.html">Doctors Profile</a></li>
-                                    <li><a href="dr-schedule.html">Doctors Schedule</a></li>
+                                    <li><a href="#">All Doctors</a></li>
+                                    <li><a href="#">Add Doctors</a></li>
+                                    <li><a href="#">Doctors Profile</a></li>
+                                    <li><a href="#">Doctors Schedule</a></li>
                                 </ul>
                                 </span>
                             </li>
@@ -793,11 +793,11 @@
                         <li *ngIf="admin == pos"><a href="app-taskboard.html"><i class="icon-layers"></i><span>Our Centers</span></a></li>
                         <li>
                                 <span *ngIf="admin == pos">
-                            <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
+                            <a class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
                             <ul>
-                                <li><a [routerLink]="['/Admin', {outlets: {side: ['department']}}]">Set Departments</a></li>                               
-                                <li><a href="patients-profile.html">Points</a></li>
-                                <li><a href="patients-invoice.html">General Settings</a></li>
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]">Set Departments</a></li>                               
+                                <li><a href="#">Points</a></li>
+                                <li><a href="#">General Settings</a></li>
                                 
                             </ul> 
                             </span>                       

@@ -41,6 +41,9 @@ Route::get('displaynews','DisplayController@displaynews');
 
 
 
+Route::post('addDept', 'AddController@addDept');
+Route::post('updateDept', 'AddController@updateDept');
+Route::post('deleteDept', 'AddController@deleteDept');
 Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');
 Route::post('uStatus','DisplayController@uStatus');
@@ -48,8 +51,7 @@ Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 
 
-
-
+Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getcontent/{id}','ContentController@getcontent');
 Route::post('updatecontent','ContentController@update');
 Route::get('getcontentonly/{id}','ContentController@getcontentonly');
