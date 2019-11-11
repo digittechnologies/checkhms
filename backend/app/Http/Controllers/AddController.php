@@ -11,6 +11,7 @@ use App\Item_types;
 use App\Item_units;
 use App\Manufacturer_details;
 use App\Shelves;
+use App\Item_details;
 
 class AddController extends Controller
 {
@@ -303,7 +304,7 @@ class AddController extends Controller
             'name'=> $name,
             'point' => $point,
             'branch_id' => $branch_id,
-            'branch_id' => $status
+            'status' => $status
         ]);
         if($update){
             return '{
@@ -323,6 +324,85 @@ class AddController extends Controller
         $id=$request[0];
 
         $delete=DB::table('shelves')->where('id', $id)->delete();
+        if($delete){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+    }
+
+    // Item Details
+    public function addItem(Request $request)
+    {
+        $item= Item_details::create($request-> all());
+       
+        if($item){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateItem(Request $request)
+    {
+        $id=$request->id;
+        $generic_name= $request->generic_name;
+        $selling_price= $request->selling_price;
+        $purchasing_price= $request->purchasing_price;
+        $status= $request->status;
+        $item_unit_id= $request->item_unit_id;
+        $item_category_id= $request->item_category_id;
+        $item_type_id= $request->item_type_id;
+        $manufacturer_id= $request->manufacturer_id;
+        $tax_id= $request->tax_id;
+        $discount_id= $request->discount_id;
+        $staff_id= $request->staff_id;
+
+        $update = DB::table('item_details')->where('item_details.id','=',$id)
+        ->update([
+            'generic_name'=>  $generic_name,
+            'selling_price' => $selling_price,
+            'purchasing_price' => $selling_price,
+            'status' => $status,
+            'item_unit_id' => $item_unit_id,
+            'item_category_id' => $item_category_id,
+            'item_type_id' => $item_type_id,
+            'manufacturer_id' => $manufacturer_id,
+            'tax_id' => $tax_id,
+            'discount_id' => $discount_id,
+            'staff_id' => $staff_id
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteItem(Request $request)
+    {
+        $id=$request[0];
+
+        $delete=DB::table('item_details')->where('id', $id)->delete();
         if($delete){
             return '{
                 "success":true,
