@@ -9,6 +9,7 @@ use App\User;
 use Image;
 use App\Item_types;
 use App\Item_units;
+use App\Item_categories;
 use App\Manufacturer_details;
 
 class AddController extends Controller
@@ -257,6 +258,66 @@ class AddController extends Controller
         $id=$request[0];
 
     $deletec=DB::table('manufacturer_details')->where('id', $id)->delete();
+    if($deletec){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+    
+    }
+
+    // Categories
+    public function addCategories(Request $request)
+    {
+        $type= Item_categories::create($request-> all());
+       
+        if($type){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateCategories(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->name;       
+        $status= $request->status; 
+        $update = DB::table('item_categories')->where('item_categories.id','=',$id)
+        ->update([
+            'name'=> $name,            
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteCategories(Request $request)
+    {
+        $id=$request[0];
+
+    $deletec=DB::table('item_categories')->where('id', $id)->delete();
     if($deletec){
         return '{
             "success":true,

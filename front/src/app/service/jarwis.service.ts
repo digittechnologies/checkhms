@@ -97,7 +97,24 @@ export class JarwisService {
 
 
 
-  //Units
+   // Categories
+   displayCategories() {
+    return this.http.get(`${this.baseUrl}/displayCategories`,)
+  }
+  edtCategories(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
+  }
+  addCategories(data) {
+    return this.http.post(`${this.baseUrl}/addCategories`, data)
+  }
+  updateCategories(data) {
+    return this.http.post(`${this.baseUrl}/updateCategories`, data)
+  }
+  deleteCategories(data) {
+    return this.http.post(`${this.baseUrl}/deleteCategories`, data)
+  } 
+  
+  //Manufacturer
   displayManufacturer() {
     return this.http.get(`${this.baseUrl}/displayManufacturer`,)
   }

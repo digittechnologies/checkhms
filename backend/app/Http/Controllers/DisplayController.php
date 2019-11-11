@@ -8,6 +8,7 @@ use App\Departments;
 use App\User;
 use App\Item_units;
 use App\Item_types;
+use App\Item_categories;
 use App\Manufacturer_details;
 
 class DisplayController extends Controller
@@ -123,6 +124,27 @@ class DisplayController extends Controller
         
             Manufacturer_details::orderBy('id')
             ->select('manufacturer_details.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Categories
+
+    public function displayCategories()
+    {
+        return DB::table("item_categories")->get();
+    }
+
+    public function edtCategories($id)
+    {
+    
+        return response()->json(
+        
+            Item_categories::orderBy('id')
+            ->select('item_categories.*')     
             ->where('id','=',$id)          
             ->get()
            

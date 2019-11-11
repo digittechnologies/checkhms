@@ -19,17 +19,15 @@ export class CategoryComponent implements OnInit {
   posRes: any;
   pos: any;
   data: string;
-  typeimage: any;
   image: any;
-  manuf: any;
-  manufres: any;
-  manufid: string;
-  manufName: any;
-  typeid: any;
-  manufAdd: any;
-  manufNum: any;
-  manufDetail: any;
-
+  cat: any;
+  catres: any;
+  catid: string;
+  catName: any;
+  catAdd: any;
+  catNum: any;
+  catDetail: any;
+  
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -39,35 +37,32 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.Jarwis.displayManufacturer().subscribe(
+    this.Jarwis.displayCategories().subscribe(
       data=>{
       this.response = data;      
-      this.manuf = this.response   
+      this.cat = this.response   
     })
   
 }
 
 editdept(id: string) {
   console.log(id)
-  this.Jarwis.edtManufacturer(id).subscribe(
+  this.Jarwis.edtCategories(id).subscribe(
     data=>{      
-      this.manufres = data; 
-      this.manufid= id
-      this.manufName= this.manufres[0].name;
-      this.manufAdd= this.manufres[0].address
-      this.manufNum= this.manufres[0].contact_number
-      this.manufDetail= this.manufres[0].details
+      this.catres = data; 
+      this.catid= id
+      this.catName= this.catres[0].name;
     })
 }
 
 onUpdate(form: NgForm) {
 
   
-  form.value.id=this.manufid
+  form.value.id=this.catid
   // this.image= form.value.image
   //  console.log(form)
    console.log(form.value)
-  this.Jarwis.updateManufacturer(form.value).subscribe(        
+  this.Jarwis.updateCategories(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
     
@@ -76,7 +71,7 @@ onUpdate(form: NgForm) {
 
 onDelete(id: string) {
 
-  this.Jarwis.deleteManufacturer(id).subscribe(  
+  this.Jarwis.deleteCategories(id).subscribe(  
       
     data => this.handleResponse(data),
     error => this.handleError(error), 
@@ -87,7 +82,7 @@ onDelete(id: string) {
 
   onSubmit(form: NgForm) {
    
-    this.Jarwis.addManufacturer(form.value).subscribe(
+    this.Jarwis.addCategories(form.value).subscribe(
      
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -100,7 +95,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:manufacturer');
+    this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
     
   }
