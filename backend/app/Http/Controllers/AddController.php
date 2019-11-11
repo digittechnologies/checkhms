@@ -12,6 +12,9 @@ use App\Item_units;
 use App\Manufacturer_details;
 use App\Shelves;
 use App\Item_details;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Branches;
 
 class AddController extends Controller
 {
@@ -415,6 +418,62 @@ class AddController extends Controller
             }';
         }
         
+    }
+
+    // Branch
+
+    public function createBranch(Request $request)
+    {
+        $table_name=$request->br_name;
+        Schema::create($table_name, function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('open_stock');
+            $table->string('sales');
+            $table->string('transfer');
+            $table->string('receive');
+            $table->string('total_remain');
+            $table->string('close_balance');
+            $table->string('variance');
+            $table->string('physical_balance');
+            $table->string('amount');
+            $table->string('balance');
+            $table->timestamps();
+            $table->string('item_detail_id')->index();
+            $table->string('staff_id')->index();
+        });
+
+        $branch= Branches::create($request-> all());
+        if($branch){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteBranch(Request $request)
+    {
+        $table_name=$request->br_name;
+        Schema::dropIfExists($table_name);
+
+        $id=$request[0];
+        $delete=DB::table('branches')->where('id', $id)->delete();
+        if($delete){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 
 }
