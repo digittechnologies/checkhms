@@ -17,7 +17,7 @@ class CreateShelvesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('point');
-            $table->string('location');
+            $table->string('branch_id')->index();
             $table->string('status');
             $table->timestamps();
         });

@@ -9,6 +9,8 @@ use App\User;
 use App\Item_units;
 use App\Item_types;
 use App\Manufacturer_details;
+use App\Shelves;
+use App\Item_details;
 
 class DisplayController extends Controller
 {
@@ -123,6 +125,48 @@ class DisplayController extends Controller
         
             Manufacturer_details::orderBy('id')
             ->select('manufacturer_details.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Shelve
+
+    public function displayShelve()
+    {
+        return DB::table("shelves")->get();
+    }
+
+    public function edtShelve($id)
+    {
+    
+        return response()->json(
+        
+            Item_types::orderBy('id')
+            ->select('shelves.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Item Details
+
+    public function displayItem()
+    {
+        return DB::table("item_details")->get();
+    }
+
+    public function edtItem($id)
+    {
+    
+        return response()->json(
+        
+            Item_types::orderBy('id')
+            ->select('item_details.*')     
             ->where('id','=',$id)          
             ->get()
            
