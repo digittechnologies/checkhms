@@ -32,9 +32,9 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let d of type">
+                          <tr *ngFor="let d of type; let r = index">
                               <td>
-                                  1
+                                  {{r+1}}
                               </td>
                               <td>
                                 <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">

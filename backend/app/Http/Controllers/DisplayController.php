@@ -8,6 +8,7 @@ use App\Departments;
 use App\User;
 use App\Item_units;
 use App\Item_types;
+use App\Manufacturer_details;
 
 class DisplayController extends Controller
 {
@@ -107,6 +108,28 @@ class DisplayController extends Controller
         );
     
     }
+
+    // Manufacturer
+
+    public function displayManufacturer()
+    {
+        return DB::table("manufacturer_details")->get();
+    }
+
+    public function edtManufacturer($id)
+    {
+    
+        return response()->json(
+        
+            Manufacturer_details::orderBy('id')
+            ->select('manufacturer_details.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
 
 
 

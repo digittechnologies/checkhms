@@ -34,9 +34,9 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let d of unit">
+                          <tr *ngFor="let d of unit; let r = index">
                               <td>
-                                  1
+                                  {{r+1}}
                               </td>
                               <td style="color: #17C2D7;">{{d.name}}</td>
                               <td>{{d.box_size}}</td>                                               
