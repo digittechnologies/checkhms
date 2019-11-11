@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManufacturerDetailsTable extends Migration
+class CreateBloodDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateManufacturerDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('manufacturer_details', function (Blueprint $table) {
+        Schema::create('blood_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('contact_number')->unique();
-            $table->string('details');
-            $table->string('status');
+            $table->string('blood_pressure');
+            $table->string('heat_beat');
+            $table->string('haemoglobin');
+            $table->string('sugar_level');
+            $table->string('weight');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateManufacturerDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manufacturer_details');
+        Schema::dropIfExists('blood_details');
     }
 }
