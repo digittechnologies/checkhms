@@ -49,15 +49,26 @@ Route::get('displayAllstaff','DisplayController@displayAllstaff');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
-
-
 Route::get('edtDept/{id}','DisplayController@edtDept');
-Route::get('getcontent/{id}','ContentController@getcontent');
-Route::post('updatecontent','ContentController@update');
-Route::get('getcontentonly/{id}','ContentController@getcontentonly');
 Route::get('getalltitle','DisplayController@getalltitle');
-Route::get('getfootertitle','DisplayController@getfootertitle');
-Route::get('search/{searchTerm}','DisplayController@search');
+
+//Unit
+Route::get('edtUnit/{id}','DisplayController@edtUnit');
+Route::get('displayUnit','DisplayController@displayUnit');
+Route::post('addUnit', 'AddController@addUnit');
+Route::post('updateUnit', 'AddController@updateUnit');
+Route::post('deleteUnit', 'AddController@deleteUnit');
+
+//Type
+Route::get('edtType/{id}','DisplayController@edtType');
+Route::get('displayType','DisplayController@displayType');
+Route::post('addType', 'AddController@addType');
+Route::post('updateType', 'AddController@updateType');
+Route::post('deleteType', 'AddController@deleteType');
+
+
+
+
 
 Route::get('comments','UserController@getComments');
 Route::get('rates','UserController@getRates');

@@ -1,4 +1,4 @@
-<div id="main-content">
+ <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">
@@ -14,7 +14,7 @@
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments">Add</button>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
             </div>
         </div>
@@ -40,15 +40,15 @@
                                 </td>
                                 <td>{{d. name}}</td>
                                 <td>{{d.description}}</td>                               
-                                <!-- <td *ngFor="let t of staff"><span class="badge badge-primary" *ngIf="t.dept_id === d.id">{{t.length}}</span></td> -->
+                                
                                 <td>{{d.position_name}}</td>   
                                 <td>
                                     <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-trash-o"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>                                                   
                         </tbody>
-                    </table>
+                    </table>                    
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
 </div>
 
 
-<!-- Default Size -->
+
 <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -82,18 +82,13 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="col-lg-12">
-                    <input type="file" class="dropify">
-                </div> -->
+               
                 <div class="col-sm-12">
                     <div class="form-group mt-3">
                         <textarea rows="6" class="form-control no-resize" placeholder="Please type about the depertment..." ngModel name="description" required></textarea>
                     </div>
                 </div>
-                <!-- <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Add</button>
-                    <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                </div> -->
+              
             </div>
         </div>
         <div class="modal-footer">
@@ -106,7 +101,6 @@
 </div>
 
 
-<!-- Default Size -->
 <div class="modal fade" id="EditDepartments" tabindex="1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -121,32 +115,27 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <div class="form-group">
-                          <!-- <label>{{deptName}}</label> -->
+                       
                             <input type="text" class="form-control" [value]="deptName" ngModel name="name" >
                             <input hidden="true" [value]="deptid" ngModel name="id">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <!-- <label>{{posid}}</label> -->
+                           
                             <select class="form-control show-tick" ngModel name="position_id">
                                 <option value="">- Select Team -</option>
                                 <option *ngFor="let p of posRes" placeholder="Edit position name here..." [value]="p.id">{{p.position_name}}</option>                                
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-12">
-                        <input type="file" class="dropify">
-                    </div> -->
+                   
                     <div class="col-sm-12">
                         <div class="form-group mt-3">                            
                             <textarea rows="6" class="form-control no-resize" placeholder="Edit about the depertment..." [value]="deptDescrip" ngModel name="description"></textarea>
                         </div>
                     </div>
-                    <!-- <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                        <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                    </div> -->
+                   
                 </div>
             </div>
             <div class="modal-footer">
@@ -158,24 +147,6 @@
     </div>
     </div>
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Delete Department</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete the sellected department?.</p>
-                </div>
-                <div class="modal-footer">
-                   
-                    <button type="button" class="btn btn-round btn-primary" click)="onDelete(d.id)">Delete</button>
-                    <button type="button" class="btn btn-round btn-default" data-toggle="modal" >Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    
     

@@ -76,9 +76,47 @@ export class JarwisService {
   }
 
 
+
+  // Type
+  displayType() {
+    return this.http.get(`${this.baseUrl}/displayType`,)
+  }
+  edtType(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtType/${id}`)
+  }
+  addType(data) {
+    return this.http.post(`${this.baseUrl}/addType`, data)
+  }
+  updateType(data) {
+    return this.http.post(`${this.baseUrl}/updateType`, data)
+  }
+  deleteType(data) {
+    return this.http.post(`${this.baseUrl}/deleteType`, data)
+  }
+
+
+  //Units
+  displayUnit() {
+    return this.http.get(`${this.baseUrl}/displayUnit`,)
+  }
+  edtUnit(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtUnit/${id}`)
+  }
+  addUnit(data) {
+    return this.http.post(`${this.baseUrl}/addUnit`, data)
+  }
+  updateUnit(data) {
+    return this.http.post(`${this.baseUrl}/updateUnit`, data)
+  }
+  deleteUnit(data) {
+    return this.http.post(`${this.baseUrl}/deleteUnit`, data)
+  } 
  
   
-    
+  //Department
+  edtDept(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtDept/${id}`)
+  }
   addDept(data) {
     return this.http.post(`${this.baseUrl}/addDept`, data)
   }
@@ -94,6 +132,8 @@ export class JarwisService {
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
+
+  // Staffs
   displayAllstaff() {
     return this.http.get(`${this.baseUrl}/displayAllstaff`,)
   }
@@ -108,9 +148,7 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
-  edtDept(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/edtDept/${id}`)
-  }
+  
 
 
 

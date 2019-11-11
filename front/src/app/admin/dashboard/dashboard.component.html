@@ -666,17 +666,17 @@
 
         <div id="left-sidebar" class="sidebar">
             <div class="navbar-brand">
-                <a href="index.html"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"><span>Oculux</span></a>
+                <a href="index.html"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"><span>Check Pharmacy</span></a>
                 <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu icon-close"></i></button>
             </div>
             <div class="sidebar-scroll">
                 <div class="user-account">
                     <div class="user_div">
-                        <img src="../assets/images/user.png" class="user-photo" alt="User Profile Picture">
+                        <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{image}}" class="user-photo" alt="User Profile Picture">
                     </div>
                     <div class="dropdown">
                         <span>Welcome,</span>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Louis Pierce</strong></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{fname}} {{lname}}</strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                             <li><a href="#"><i class="icon-user"></i>My Profile</a></li>
                             <li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -745,7 +745,7 @@
                                 <li><a href="#">Add Items</a></li>
                                 <li><a href="#">Category</a></li>
                                 <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['unit']}}]">Unit</a></li>
-                                <li><a href="#">Type</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_type']}}]">Type</a></li>
                                 <li><a href="#">Manufacturer</a></li>
                                 <li><a href="#">Shelf</a></li>
                                 <li class="header">Transactions</li>
