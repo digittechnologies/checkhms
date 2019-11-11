@@ -65,21 +65,10 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Department</label>
                                     </div> 
-                                    <select class="custom-select" id="inputGroupSelect01"  ngModel name="dept_id">
-                                        <!-- <option selected>Choose...</option> -->
-                                        <option *ngFor="let d of department" [value]="d.id">{{d.name}}</option>
-                                        <!-- <option value="2">Two</option>
-                                        <option value="3">Three</option> -->
+                                    <select class="custom-select" id="inputGroupSelect01"  ngModel name="dept_id">                                        
+                                        <option *ngFor="let d of department" [value]="d.id">{{d.name}}</option>                                       
                                     </select>
-                                    <!-- <mat-form-field>                                       
-                                        <mat-label>Select Activity</mat-label>
-                                        <mat-select [(ngModel)]="form.dept_id" name="dept_id">
-                                        <mat-option value="" selected></mat-option>
-                                        <mat-option *ngFor="let d of department" [value]="d.id">
-                                            {{d.name}}
-                                        </mat-option>
-                                        </mat-select>
-                                    </mat-form-field> -->
+                                    
                                 </div>
                           <div class="text-danger" [hidden]="!error.dept_id">
                               {{error.dept_id}}

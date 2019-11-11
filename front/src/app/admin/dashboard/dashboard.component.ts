@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   physician: any;
   admin: any;
   card: any;
+  image: any;
+  name: any;
+  fname: any;
+  lname: any;
 
   constructor(
     private Auth: AuthService,
@@ -36,6 +40,9 @@ export class DashboardComponent implements OnInit {
        
       this.response = data;
       this.pos= this.response.det[0].position_id
+      this.image= this.response.det[0].image
+      this.fname= this.response.det[0].firstname
+      this.lname= this.response.det[0].lastname 
     
     })
 

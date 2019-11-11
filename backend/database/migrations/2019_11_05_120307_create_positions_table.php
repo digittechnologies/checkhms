@@ -18,6 +18,7 @@ class CreatePositionsTable extends Migration
             $table->string('position_name');
             $table->string('description');
             $table->string('kei');
+            $table->string('image');
             $table->string('status');
             $table->timestamps();
         });

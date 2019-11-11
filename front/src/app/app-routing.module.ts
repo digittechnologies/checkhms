@@ -21,6 +21,13 @@ import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
 import { PatientComponent } from './customer/patient/patient.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
+import { SetdepartmentComponent } from './admin/setdepartment/setdepartment.component';
+
+// Pharmacy
+import { UnitComponent } from './pharmacy/unit/unit.component';
+import { TypeComponent } from './pharmacy/type/type.component';
+
+
 
 
 const routes: Routes = [
@@ -36,6 +43,11 @@ const routes: Routes = [
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'setdepartment', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+         // pharmacy
+         {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'unit', component: UnitComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
 
          {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },

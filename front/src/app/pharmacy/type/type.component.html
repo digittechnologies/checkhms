@@ -1,3 +1,120 @@
-<p>
-  type works!
-</p>
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h1>Item Type</h1>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
+                      <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+                      <li class="breadcrumb-item active" aria-current="page">Item Type</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                  <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments">Add</button>
+                  <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
+              </div>
+          </div>
+      </div>
+
+      <div class="row clearfix">
+          <div class="col-sm-12">
+              <div class="table-responsive">
+                  <table class="table table-hover table-custom spacing8">
+                      <thead>
+                          <tr> 
+                              <th>#</th>
+                              <th>Image</th>
+                              <th>Item Unit</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let d of type">
+                              <td>
+                                  1
+                              </td>
+                              <td>
+                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                              </td>
+                              <td style="color: #17C2D7;">{{d.name}}</td>
+                           
+                              <td>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                              </td>
+                          </tr>                                                   
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title h4" id="myLargeModalLabel">Add Item Type</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Type Name" ngModel name="name" required>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-round btn-primary">Add</button>
+          <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+      </div>
+      </form>
+  </div>
+</div>
+</div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="EditDepartments" tabindex="1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Type</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <!-- <label>{{deptName}}</label> -->
+                          <input type="text" class="form-control" [value]="typeName" ngModel name="name" >
+                          <input hidden="true" [value]="unitid" ngModel name="id">
+                      </div>
+                  </div>                  
+                  <div class="col-lg-12">
+                      <input type="file" class="dropify" (change)="uploadFile($event)" [value]="typeimage" ngModel name="image">
+                  </div>                  
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update</button>
+              <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+          </form>
+      </div>
+  </div>
+  </div>

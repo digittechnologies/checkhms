@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Positions;
 use App\Departments;
 use App\User;
+use App\Item_units;
+use App\Item_types;
+
 class DisplayController extends Controller
 {
     /**
@@ -42,9 +45,67 @@ class DisplayController extends Controller
     
     }
 
+    //Depertment
+    public function edtDept($id)
+    {
+    
+        return response()->json(
+        
+            Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
+            ->select('departments.*','positions.position_name')     
+            ->where('departments.id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    //Position
     public function displayAllposition()
     {
         return DB::table("positions")->get();
+    }
+
+    // Unit
+
+    public function displayUnit()
+    {
+        return DB::table("item_units")->get();
+    }
+
+    public function edtUnit($id)
+    {
+    
+        return response()->json(
+        
+            Item_units::orderBy('id')
+            ->select('item_units.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // type
+
+    public function displayType()
+    {
+        return DB::table("item_types")->get();
+    }
+
+    public function edtType($id)
+    {
+    
+        return response()->json(
+        
+            Item_types::orderBy('id')
+            ->select('item_types.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
     }
 
 

@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'}
 )
 export class JarwisService {
+  displayPosition() {
+    throw new Error("Method not implemented.");
+  }
 
   // private baseUrl = 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api';
 
@@ -74,22 +77,69 @@ export class JarwisService {
 
 
 
+  // Type
+  displayType() {
+    return this.http.get(`${this.baseUrl}/displayType`,)
+  }
+  edtType(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtType/${id}`)
+  }
+  addType(data) {
+    return this.http.post(`${this.baseUrl}/addType`, data)
+  }
+  updateType(data) {
+    return this.http.post(`${this.baseUrl}/updateType`, data)
+  }
+  deleteType(data) {
+    return this.http.post(`${this.baseUrl}/deleteType`, data)
+  }
 
 
-
+  //Units
+  displayUnit() {
+    return this.http.get(`${this.baseUrl}/displayUnit`,)
+  }
+  edtUnit(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtUnit/${id}`)
+  }
+  addUnit(data) {
+    return this.http.post(`${this.baseUrl}/addUnit`, data)
+  }
+  updateUnit(data) {
+    return this.http.post(`${this.baseUrl}/updateUnit`, data)
+  }
+  deleteUnit(data) {
+    return this.http.post(`${this.baseUrl}/deleteUnit`, data)
+  } 
+ 
+  
+  //Department
+  edtDept(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtDept/${id}`)
+  }
+  addDept(data) {
+    return this.http.post(`${this.baseUrl}/addDept`, data)
+  }
+  updateDept(data) {
+    return this.http.post(`${this.baseUrl}/updateDept`, data)
+  }
+  deleteDept(data) {
+    return this.http.post(`${this.baseUrl}/deleteDept`, data)
+  }  
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
+
+  // Staffs
   displayAllstaff() {
     return this.http.get(`${this.baseUrl}/displayAllstaff`,)
   }
   uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
   }
-
   deleteUser(data) {
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
@@ -98,6 +148,7 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+  
 
 
 
