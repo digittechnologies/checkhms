@@ -19,7 +19,6 @@ class CreateManufacturerDetailsTable extends Migration
             $table->string('address');
             $table->string('contact_number')->unique();
             $table->string('details');
-            $table->string('previous_department');
             $table->string('status');
             $table->timestamps();
         });

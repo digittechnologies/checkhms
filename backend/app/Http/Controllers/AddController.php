@@ -9,6 +9,7 @@ use App\User;
 use Image;
 use App\Item_types;
 use App\Item_units;
+use App\Manufacturer_details;
 
 class AddController extends Controller
 {
@@ -190,6 +191,72 @@ class AddController extends Controller
         $id=$request[0];
 
     $deletec=DB::table('item_types')->where('id', $id)->delete();
+    if($deletec){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+    
+    }
+
+    // Manufacturer
+    public function addManufacturer(Request $request)
+    {
+        $type= Manufacturer_details::create($request-> all());
+       
+        if($type){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateManufacturer(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->name;
+        $address= $request->address;
+        $contact= $request->contact_number;
+        $details= $request->details;
+        $status= $request->status; 
+        $update = DB::table('manufacturer_details')->where('manufacturer_details.id','=',$id)
+        ->update([
+            'name'=> $name,
+            'address' => $address,
+            'contact_number' => $contact,
+            'details' => $details,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteManufacturer(Request $request)
+    {
+        $id=$request[0];
+
+    $deletec=DB::table('manufacturer_details')->where('id', $id)->delete();
     if($deletec){
         return '{
             "success":true,

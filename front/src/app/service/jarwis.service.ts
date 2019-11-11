@@ -95,6 +95,24 @@ export class JarwisService {
   }
 
 
+
+
+  //Units
+  displayManufacturer() {
+    return this.http.get(`${this.baseUrl}/displayManufacturer`,)
+  }
+  edtManufacturer(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtManufacturer/${id}`)
+  }
+  addManufacturer(data) {
+    return this.http.post(`${this.baseUrl}/addManufacturer`, data)
+  }
+  updateManufacturer(data) {
+    return this.http.post(`${this.baseUrl}/updateManufacturer`, data)
+  }
+  deleteManufacturer(data) {
+    return this.http.post(`${this.baseUrl}/deleteManufacturer`, data)
+  } 
   //Units
   displayUnit() {
     return this.http.get(`${this.baseUrl}/displayUnit`,)

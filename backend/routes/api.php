@@ -66,6 +66,13 @@ Route::post('addType', 'AddController@addType');
 Route::post('updateType', 'AddController@updateType');
 Route::post('deleteType', 'AddController@deleteType');
 
+//Manufacturer
+Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');
+Route::get('displayManufacturer','DisplayController@displayManufacturer');
+Route::post('addManufacturer', 'AddController@addManufacturer');
+Route::post('updateManufacturer', 'AddController@updateManufacturer');
+Route::post('deleteManufacturer', 'AddController@deleteManufacturer');
+
 
 
 

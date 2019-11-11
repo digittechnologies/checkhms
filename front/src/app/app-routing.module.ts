@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { HomeComponent } from './home/home.component';
-import { CategoryComponent } from './category/category.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
@@ -26,6 +24,9 @@ import { SetdepartmentComponent } from './admin/setdepartment/setdepartment.comp
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
 import { TypeComponent } from './pharmacy/type/type.component';
+import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.component';
+import { CategoryComponent } from './pharmacy/category/category.component';
+
 
 
 
@@ -48,19 +49,16 @@ const routes: Routes = [
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'unit', component: UnitComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
 
          {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
          {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
      ],
-        },
+        }, 
 
- 
-
-  // {path: 'Admin', component: DashboardComponent}, 
-  // {path: 'home', component: DashboardComponent },
-  {path: 'Category/:id', component: CategoryComponent},
   {path: 'Content/:id', component: ContentComponent },
   {path: 'addcat', component:  AddcategoryComponent },
   {path: 'About', component:  AboutComponent },
