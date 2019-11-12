@@ -22,11 +22,11 @@ class CreateVouchersTable extends Migration
             $table->string('paid_status');
             $table->string('delivery_status');
             $table->timestamps();
-            $table->string('item_detail_id')->index();
-            $table->string('customer_id')->index();
-            $table->string('staff_id')->index();
-            $table->string('branch_id')->index();
-            $table->string('invoice_id')->index();
+            $table->integer('item_detail_id')->index();
+            $table->integer('customer_id')->index();
+            $table->integer('staff_id')->index();
+            $table->integer('branch_id')->index();
+            $table->integer('invoice_id')->index();
         });
     }
 

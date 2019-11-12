@@ -21,10 +21,10 @@ class CreateDoctorPrescriptionsTable extends Migration
             $table->string('day_supply');
             $table->string('days');
             $table->timestamps();
-            $table->string('customer_id')->index();
-            $table->string('doctor_id')->index();
-            $table->string('pharmacist_id')->index();
-            $table->string('branch_id')->index();
+            $table->integer('customer_id')->index();
+            $table->integer('doctor_id')->index();
+            $table->integer('pharmacist_id')->index();
+            $table->integer('branch_id')->index();
         });
     }
 

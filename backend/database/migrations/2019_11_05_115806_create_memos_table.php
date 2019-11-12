@@ -20,8 +20,8 @@ class CreateMemosTable extends Migration
             $table->string('amount');
             $table->string('status');
             $table->timestamps();
-            $table->string('staff_id')->index();
-            $table->string('branch_id')->index();
+            $table->integer('staff_id')->index();
+            $table->integer('branch_id')->index();
         });
     }
 

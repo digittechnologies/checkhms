@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('expenses');
             $table->string('total_amount');
             $table->timestamps();
-            $table->string('branch_id')->index();
+            $table->integer('branch_id')->index();
         });
     }
 

@@ -22,8 +22,8 @@ class CreateInvoicesTable extends Migration
             $table->string('status');
             $table->string('delivery_status');
             $table->timestamps();
-            $table->string('branch_id')->index();
-            $table->string('staff_id')->index();
+            $table->integer('branch_id')->index();
+            $table->integer('staff_id')->index();
         });
     }
 

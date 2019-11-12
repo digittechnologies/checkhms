@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('about')->nullable();
             $table->string('status')->default('reg');
             $table->timestamps();
-            $table->string('dept_id')->index();
+            $table->integer('dept_id')->index();
 
         });
     }

@@ -17,9 +17,12 @@ class CreateAppointmentsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('status')->default('open');
-            $table->string('customer_id')->index();
-            $table->string('dept_id')->index();
-            $table->string('treatment_id')->index();
+            $table->integer('customer_id')->index();
+            $table->integer('dept_id')->index();
+            $table->integer('treatment_id')->index();
+            $table->integer('prescription_id')->index();
+            $table->integer('invoice_id')->index();
+            $table->integer('voucher_id')->index();
         });
     }
 
