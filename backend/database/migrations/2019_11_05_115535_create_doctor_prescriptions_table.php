@@ -25,8 +25,8 @@ class CreateDoctorPrescriptionsTable extends Migration
             $table->timestamp('time');
             $table->string('status');
             $table->string('supply_quantity');
-            $table->string('refillment_status');
-            $table->string('refillment_quantity');
+            $table->string('refill_status');
+            $table->string('refill_quantity');
             $table->string('cost');
             $table->string('paid');
             $table->string('to_balance');

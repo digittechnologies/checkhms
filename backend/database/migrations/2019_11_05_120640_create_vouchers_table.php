@@ -15,12 +15,13 @@ class CreateVouchersTable extends Migration
     {
         Schema::create('vouchers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('quantity');
-            $table->string('amount');
-            $table->string('paid');   
-            $table->string('balance'); 
-            $table->string('paid_status');
-            $table->string('delivery_status');
+            $table->string('no_of _item');
+            $table->string('open_quantity');
+            $table->string('supply_quantity');   
+            $table->string('amount_cost'); 
+            $table->string('refill_quantity');
+            $table->string('refill_amount');
+            $table->string('status');
             $table->timestamps();
             $table->date('date');
             $table->timestamp('time');
@@ -28,7 +29,6 @@ class CreateVouchersTable extends Migration
             $table->integer('customer_id')->index();
             $table->integer('staff_id')->index();
             $table->integer('branch_id')->index();
-            $table->integer('invoice_id')->index();
         });
     }
 
