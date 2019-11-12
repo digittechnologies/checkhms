@@ -243,7 +243,7 @@ class DisplayController extends Controller
 
     // Customers/ Patients
 
-    public function displayCustomers()
+    public function displayCustomer()
     {
         return DB::table("customers")->get();
     }
@@ -255,6 +255,27 @@ class DisplayController extends Controller
         
             Customers::orderBy('id')
             ->select('customers.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Prescriptions
+
+    public function displayPrescription()
+    {
+        return DB::table("prescriptions")->get();
+    }
+
+    public function edtPrescription($id)
+    {
+    
+        return response()->json(
+        
+            Customers::orderBy('id')
+            ->select('prescriptions.*')     
             ->where('id','=',$id)          
             ->get()
            

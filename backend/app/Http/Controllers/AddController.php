@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Branches;
 use App\Customers;
+use App\Doctor_prescriptions;
 
 class AddController extends Controller
 {
@@ -622,4 +623,98 @@ class AddController extends Controller
     
     }
 
+    // Prescription
+    public function addPrescription(Request $request)
+    {
+        $prescription= Doctor_prescriptions::create($request-> all());
+       
+        if($prescription){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updatePrescription(Request $request)
+    {
+        $id=$request->id;
+        $customer= $request->customer_id;
+        $item= $request->item_id;
+        $quantity= $request->quantity;
+        $instuction= $request->instruction;   
+        $daysupply= $request->day_supply;
+        $days= $request->days;    
+        $status= $request->status;
+        $supply_quantity= $request->supply_quantity;
+        $refillment_status= $request->refillment_status;
+        $refillment_quantity= $request->refillment_quantity;
+        $cost= $request->cost;
+        $paid= $request->paid;
+        $to_balance= $request->to_balance;
+        $date= $request->date;
+        $voucher= $request->voucher_id;
+        $payment= $request->payment_id;
+        $voucher= $request->doctor_id;
+        $voucher= $request->pharmacist_id;
+        $voucher= $request->branch_id;
+
+        $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id','=',$id)
+        ->update([
+            'customer_id' => $customer,
+            'item_id' => $item, 
+            'quantity' => $quantity, 
+            'instruction' => $instuction, 
+            'day_supply' => $daysupply, 
+            'days' => $days,
+            'status' => $status, 
+            'supply_quantity' => $supply_quantity,
+            'refillment_status' => $refill_status,
+            'refillment_quantity' => $refill_quanity,
+            'cost' => $cost,
+            'paid' => $paid, 
+            'to_balance' => $to_balance, 
+            'date' => $date, 
+            'voucher_id' => $voucher,
+            'payment_id' => $payment, 
+            'doctor_id' => $doctor, 
+            'pharmacist_id' => $pharmacist, 
+            'branch_id' => $branch
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deletePrescription(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('doctor_prescriptions')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
 }

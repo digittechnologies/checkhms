@@ -101,6 +101,20 @@ Route::post('addItem', 'AddController@addItem');
 Route::post('updateItem', 'AddController@updateItem');
 Route::post('deleteItem', 'AddController@deleteItem');
 
+//Customers / Patients
+Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
+Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::post('addCustomer', 'AddController@addCustomer');
+Route::post('updateCustomer', 'AddController@updateCustomer');
+Route::post('deleteCustomer', 'AddController@deleteCustomer');
+
+//Doctor Prescriptions
+Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
+Route::get('displayPrescription','DisplayController@displayPrescription');
+Route::post('addPrescription', 'AddController@addPrescription');
+Route::post('updatePrescription', 'AddController@updatePrescription');
+Route::post('deletePrescription', 'AddController@deletePrescription');
+
 
 
 
