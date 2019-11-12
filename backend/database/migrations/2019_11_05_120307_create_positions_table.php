@@ -21,6 +21,8 @@ class CreatePositionsTable extends Migration
             $table->string('image');
             $table->string('status');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
         });
     }
 

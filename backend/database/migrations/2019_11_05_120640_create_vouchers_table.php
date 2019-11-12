@@ -22,6 +22,8 @@ class CreateVouchersTable extends Migration
             $table->string('paid_status');
             $table->string('delivery_status');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
             $table->integer('item_detail_id')->index();
             $table->integer('customer_id')->index();
             $table->integer('staff_id')->index();

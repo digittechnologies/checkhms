@@ -19,6 +19,8 @@ class CreateDiscountsTable extends Migration
             $table->string('value');
             $table->string('status');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
         });
     }
 

@@ -21,6 +21,8 @@ class CreateManufacturerLedgersTable extends Migration
                 $table->string('invoice_number');
                 $table->string('status');
                 $table->timestamps();
+                $table->date('date');
+                $table->timestamp('time');
                 $table->integer('manufacturer_detail_id')->index();
         });
     }

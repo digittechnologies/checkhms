@@ -21,6 +21,8 @@ class CreateBloodDetailsTable extends Migration
             $table->string('sugar_level');
             $table->string('weight');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
         });
     }
 

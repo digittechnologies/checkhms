@@ -26,6 +26,8 @@ class CreateCustomersTable extends Migration
             $table->string('status');
             $table->string('about');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
             $table->integer('blood_id')->index();
             $table->integer('account_id')->index();
             $table->integer('treatment_id')->index();

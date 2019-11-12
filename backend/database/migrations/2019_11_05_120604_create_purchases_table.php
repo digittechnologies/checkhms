@@ -17,6 +17,8 @@ class CreatePurchasesTable extends Migration
             $table->increments('id');
             $table->string('quantity');
             $table->timestamps();  
+            $table->date('date');
+            $table->timestamp('time');
             $table->integer('item_detail_id')->index();
             $table->integer('staff_id')->index();
             $table->integer('branch_id')->index();

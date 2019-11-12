@@ -20,6 +20,8 @@ class CreateShelvesTable extends Migration
             $table->integer('branch_id')->index();
             $table->string('status');
             $table->timestamps();
+            $table->date('date');
+            $table->timestamp('time');
         });
     }
 

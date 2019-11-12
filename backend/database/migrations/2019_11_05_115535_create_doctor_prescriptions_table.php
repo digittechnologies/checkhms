@@ -22,6 +22,7 @@ class CreateDoctorPrescriptionsTable extends Migration
             $table->string('days');
             $table->timestamps();
             $table->date('date');
+            $table->timestamp('time');
             $table->string('status');
             $table->string('supply_quantity');
             $table->string('refillment_status');
