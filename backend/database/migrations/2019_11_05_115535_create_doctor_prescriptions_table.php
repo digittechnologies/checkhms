@@ -15,12 +15,22 @@ class CreateDoctorPrescriptionsTable extends Migration
     {
         Schema::create('doctor_prescriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('item_id')->index();
+            $table->integer('item_id')->index();
             $table->string('quantity');
             $table->string('instruction');
             $table->string('day_supply');
             $table->string('days');
             $table->timestamps();
+            $table->date('date');
+            $table->string('status');
+            $table->string('supply_quantity');
+            $table->string('refillment_status');
+            $table->string('refillment_quantity');
+            $table->string('cost');
+            $table->string('paid');
+            $table->string('to_balance');
+            $table->integer('voucher_id')->index();
+            $table->integer('payment_id')->index();
             $table->integer('customer_id')->index();
             $table->integer('doctor_id')->index();
             $table->integer('pharmacist_id')->index();
