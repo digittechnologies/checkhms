@@ -16,6 +16,7 @@ use App\Item_details;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Branches;
+use App\Customers;
 
 class AddController extends Controller
 {
@@ -536,6 +537,89 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    }
+    
+
+    // Customers / Patients
+    public function addCustomer(Request $request)
+    {
+        $customer= Customers::create($request-> all());
+       
+        if($customer){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateCustomer(Request $request)
+    {
+        $id=$request->id;
+        $fullname= $request->name;
+        $email= $request->email;
+        $mobile_number= $request->mobile_number;
+        $address= $request->address;   
+        $dob= $request->d_o_b;    
+        $about= $request->about;
+        $allergy= $request->allergy;
+        $nhis= $request->n_h_i_s;
+        $card_number= $request->card_number;
+        $status= $request->status;
+        $blood_id= $request->blood_id;
+        $treatment_id= $request->treatment_id;
+        $prescription_id= $request->prescription_id;
+
+        $update = DB::table('customers')->where('customers.id','=',$id)
+        ->update([
+            'name'=> $fullname,
+            'email' => $email,
+            'mobile_number' =>$mobile_number,
+            'address' => $address,
+            'd_o_b' => $dob,
+            'about' => $about,
+            'allergy' => $allergy,  
+            'n_h_i_s' => $nhis,
+            'card_number' => $card_number,
+            'blood_id' => $blood_id,
+            'treatment_id' => $treatment_id,
+            'prescription_id' => $prescription_id,
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteCustomer(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('customers')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
     }
 
 }

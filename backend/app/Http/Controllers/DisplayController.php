@@ -13,6 +13,7 @@ use App\Manufacturer_details;
 use App\Shelves;
 use App\Branches;
 use App\Item_details;
+use App\Customers;
 
 class DisplayController extends Controller
 {
@@ -240,6 +241,26 @@ class DisplayController extends Controller
     }
 
 
+    // Customers/ Patients
+
+    public function displayCustomers()
+    {
+        return DB::table("customers")->get();
+    }
+
+    public function edtCustomer($id)
+    {
+    
+        return response()->json(
+        
+            Customers::orderBy('id')
+            ->select('customers.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
 
 
 
