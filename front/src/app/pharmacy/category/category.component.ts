@@ -51,7 +51,7 @@ editdept(id: string) {
     data=>{      
       this.catres = data; 
       this.catid= id
-      this.catName= this.catres[0].name;
+      this.catName= this.catres[0].cat_name;
     })
 }
 

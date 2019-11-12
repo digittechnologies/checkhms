@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item_categories extends Model
+class Shelves extends Model
 {
     protected $fillable = [
-        'cat_name', 'status'
+        'name', 'point', 'branch_id', 'status'	
     ];
 }

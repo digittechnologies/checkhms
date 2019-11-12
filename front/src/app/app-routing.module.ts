@@ -27,6 +27,7 @@ import { TypeComponent } from './pharmacy/type/type.component';
 import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.component';
 import { CategoryComponent } from './pharmacy/category/category.component';
 import { AllItemsComponent } from './pharmacy/all-items/all-items.component';
+import { ShelfComponent } from './pharmacy/shelf/shelf.component';
 
 
 
@@ -53,11 +54,12 @@ const routes: Routes = [
          {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] }
 
 
-         {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
-         {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
+        //  {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
+        //  {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
      ],
         }, 
 
