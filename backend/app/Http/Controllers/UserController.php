@@ -19,10 +19,10 @@ class UserController extends Controller
     public function getArticle()
     {
         $article = DB::table('titles')
-        ->select('titles.title_id','titles.name_title','titles.location','titles.t_image','titles.about','titles.views',
+        ->select('titles.id','titles.name_title','titles.location','titles.t_image','titles.about','titles.views',
         'titles.category_id','titles.user_id','contents.header','contents.content','contents.c_image', 'contents.list',
         'categories.category_id','categories.catname', 'activities.activity_id','activities.actname')
-        ->join ('contents','titles.title_id','=','contents.title_id')
+        ->join ('contents','titles.id','=','contents.title_id')
         ->join ('categories','categories.category_id','=','titles.category_id')
         ->join ('activities','activities.activity_id','=','categories.activity_id')
         // ->join ('rate_tb','rate_tb.title_id','=','titles.title_id')

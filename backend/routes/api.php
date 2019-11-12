@@ -52,6 +52,13 @@ Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle');
 
+//Branch
+Route::get('edtBranch/{id}','DisplayController@edtBranch');
+Route::get('displayBranch','DisplayController@displayBranch');
+Route::post('addBranch', 'AddController@addBranch');
+Route::post('updateBranch', 'AddController@updateBranch');
+Route::post('deleteBranch', 'AddController@deleteBranch');
+
 //Unit
 Route::get('edtUnit/{id}','DisplayController@edtUnit');
 Route::get('displayUnit','DisplayController@displayUnit');
@@ -72,6 +79,27 @@ Route::get('displayManufacturer','DisplayController@displayManufacturer');
 Route::post('addManufacturer', 'AddController@addManufacturer');
 Route::post('updateManufacturer', 'AddController@updateManufacturer');
 Route::post('deleteManufacturer', 'AddController@deleteManufacturer');
+
+//Categories
+Route::get('edtCategories/{id}','DisplayController@edtCategories');
+Route::get('displayCategories','DisplayController@displayCategories');
+Route::post('addCategories', 'AddController@addCategories');
+Route::post('updateCategories', 'AddController@updateCategories');
+Route::post('deleteCategories', 'AddController@deleteCategories');
+
+//Shelve
+Route::get('edtShelve/{id}','DisplayController@edtShelve');
+Route::get('displayShelve','DisplayController@displayShelve');
+Route::post('addShelve', 'AddController@addShelve');
+Route::post('updateShelve', 'AddController@updateShelve');
+Route::post('deleteShelve', 'AddController@deleteShelve');
+
+//Item
+Route::get('edtItem/{id}','DisplayController@edtItem');
+Route::get('displayItem','DisplayController@displayItem');
+Route::post('addItem', 'AddController@addItem');
+Route::post('updateItem', 'AddController@updateItem');
+Route::post('deleteItem', 'AddController@deleteItem');
 
 
 

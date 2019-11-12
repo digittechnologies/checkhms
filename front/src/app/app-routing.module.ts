@@ -26,6 +26,8 @@ import { UnitComponent } from './pharmacy/unit/unit.component';
 import { TypeComponent } from './pharmacy/type/type.component';
 import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.component';
 import { CategoryComponent } from './pharmacy/category/category.component';
+import { AllItemsComponent } from './pharmacy/all-items/all-items.component';
+import { ShelfComponent } from './pharmacy/shelf/shelf.component';
 
 
 
@@ -44,18 +46,20 @@ const routes: Routes = [
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'setdepartment', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'unit', component: UnitComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] }
 
 
-         {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
-         {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
+        //  {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
+        //  {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
      ],
         }, 
 

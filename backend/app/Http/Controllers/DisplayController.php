@@ -8,8 +8,10 @@ use App\Departments;
 use App\User;
 use App\Item_units;
 use App\Item_types;
+use App\Item_categories;
 use App\Manufacturer_details;
 use App\Shelves;
+use App\Branches;
 use App\Item_details;
 
 class DisplayController extends Controller
@@ -20,13 +22,7 @@ class DisplayController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function displayDepartments()
-    {
-        return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-                    ->select('departments.*','positions.position_name')               
-                    ->get();
-    }
-
+    
     public function displayAllstaff()
     {
                   
@@ -49,6 +45,14 @@ class DisplayController extends Controller
     }
 
     //Depertment
+
+    public function displayDepartments()
+    {
+        return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
+                    ->select('departments.*','positions.position_name')               
+                    ->get();
+    }
+
     public function edtDept($id)
     {
     
@@ -132,19 +136,44 @@ class DisplayController extends Controller
     
     }
 
+    // Categories
+
+    public function displayCategories()
+    {
+        return DB::table("item_categories")->get();
+    }
+
+    public function edtCategories($id)
+    {
+    
+        return response()->json(
+        
+            Item_categories::orderBy('id')
+            ->select('item_categories.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+
     // Shelve
 
     public function displayShelve()
     {
-        return DB::table("shelves")->get();
+        return Shelves::orderBy('id')->join('branches','shelves.branch_id','=','branches.id')
+                    ->select('shelves.*','branches.br_name')               
+                    ->get();
+        // return DB::table("shelves")->get();
     }
 
     public function edtShelve($id)
     {
     
-        return response()->json(
-        
-            Item_types::orderBy('id')
+        return response()->json(        
+              
+            Shelves::orderBy('id')
             ->select('shelves.*')     
             ->where('id','=',$id)          
             ->get()
@@ -157,7 +186,21 @@ class DisplayController extends Controller
 
     public function displayItem()
     {
-        return DB::table("item_details")->get();
+        
+
+        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+    
+        ->get();
+        if($item){
+            return $item;
+        } else {
+            return ;
+        }
+
+        // return DB::table("item_details")->get();
     }
 
     public function edtItem($id)
@@ -165,8 +208,30 @@ class DisplayController extends Controller
     
         return response()->json(
         
-            Item_types::orderBy('id')
+            Item_details::orderBy('id')
             ->select('item_details.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+
+    // Branch
+
+    public function displayBranch()
+    {
+        return DB::table("branches")->get();
+    }
+
+    public function edtBranch($id)
+    {
+    
+        return response()->json(
+        
+            Branches::orderBy('id')
+            ->select('branches.*')     
             ->where('id','=',$id)          
             ->get()
            
@@ -207,15 +272,15 @@ class DisplayController extends Controller
         );
     }
 
-    public function gettitles($id)
+    public function getitems($id)
     {
         return response()->json([
           
-               'title'=> title::orderBy('id','desc')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
+               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
+                ->join('users','items.user_id','=','users.id')
+            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
             ->where('activity_id','=',$id)
-            ->where('titles.status','=','Y')
+            ->where('items.status','=','Y')
             // ->inRandomOrder()->take(4) 
                ->get(),
             'acti' =>Activities::where('id','=', $id)->get(),
@@ -223,13 +288,13 @@ class DisplayController extends Controller
         
         ]);
     }
-    public function gettitlesforadmin($id)
+    public function getitemsforadmin($id)
     {
         return response()->json([
           
-               'title'=> title::orderBy('id','desc')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
+               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
+                ->join('users','items.user_id','=','users.id')
+            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
             ->where('activity_id','=',$id)
                ->get(),
             'acti' =>Activities::where('id','=', $id)->get(),
@@ -237,15 +302,15 @@ class DisplayController extends Controller
         
         ]);
     }
-    public function getUtitles()
+    public function getUitems()
     {
         $id=auth()->user()->id;
         // return $id;
         return response()->json([
           
-               'title'=> title::orderBy('id','desc')->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
-            ->select('titles.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
+               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
+                ->join('users','items.user_id','=','users.id')
+            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
             ->where('user_id','=',$id)
             // ->where('status','=','Y')
             // ->inRandomOrder()->take(4) 
@@ -261,9 +326,9 @@ class DisplayController extends Controller
         $id=auth()->user()->id;
         // return $id;
         return response()->json([
-           'ucontents'=> content::orderBy('id','desc')  ->join('titles','contents.name_id','=','titles.id')
-               ->join('categories','titles.category_id','=','categories.id')
-                ->join('users','titles.user_id','=','users.id')
+           'ucontents'=> content::orderBy('id','desc')  ->join('items','contents.name_id','=','items.id')
+               ->join('categories','items.category_id','=','categories.id')
+                ->join('users','items.user_id','=','users.id')
             ->select('contents.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
             ->where('user_id','=',$id)
             // ->where('status','=','Y')

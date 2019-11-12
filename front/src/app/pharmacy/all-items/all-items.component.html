@@ -3,82 +3,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Our Staff</h1>
+                    <h2>Item List</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Oculux</a></li>
-                        <li class="breadcrumb-item"><a href="index.html">Hospital</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Our Staff</li>
-                        </ol>
-                    </nav>
-                </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <button class="btn btn-sm btn-primary" title="">Add</button>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table table-hover table-custom spacing8">
-                        <thead>
-                            <tr> 
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Designation</th>                                    
-                                <th>ID Number</th>
-                                <th>Joining Date</th>   
-                                <th>Status</th>                                 
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let s of staff">
-                                <td class="w60">
-                                    <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{s.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" title="">{{s.firstname}} {{s.lastname}}</a>
-                                    <div>{{s.mobile_number}}</div>
-                                </td>
-                                <td>{{s.name}}</td>                    
-                                <td style="color: #17C2D7;">{{s.id_number}}</td>
-                                <td>{{s.created_at}}</td>
-                                <td><span class="badge badge-warning" *ngIf ="s.status=== 'reg'">Registerd</span>
-                                    <span class="badge badge-success" *ngIf ="s.status=== 'approved'">Active</span>
-                                    <span class="badge badge-danger" *ngIf ="s.status=== 'disable'">In-Active</span>
-                                </td>
-                                <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="View" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button>
-                                        
-  
-                                </td>
-                            </tr>                    
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div id="main-content">
-    <div class="container-fluid">
-        <div class="block-header">
-            <div class="row clearfix">
-                <div class="col-md-6 col-sm-12">
-                    <h2>User List</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Oculux</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">User List</li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
+                        <li class="breadcrumb-item active" aria-current="page">All Items</li>
                         </ol>
                     </nav>
                 </div>            
@@ -88,167 +18,249 @@
             </div>
         </div>
         <div class="row clearfix">
+                <div class="col-md-6 col-lg-3">
+                        <div class="card">
+                            <div class="body p-4">
+                                <div class="row clearfix">
+                                    <div class="col-auto">
+                                        <div class="stamp stamp-md bg-primary">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col text-right">
+                                        <div class="small text-muted">Total Add</div>
+                                        <div class="h4 m-0">105</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="body p-4">
+                                    <div class="row clearfix">
+                                        <div class="col-auto">
+                                            <div class="stamp stamp-md bg-warning">
+                                                <i class="fa fa-send"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <div class="small text-muted">Total Transfer</div>
+                                            <div class="h4 m-0">105</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                <div class="card">
+                                    <div class="body p-4">
+                                        <div class="row clearfix">
+                                            <div class="col-auto">
+                                                <div class="stamp stamp-md bg-danger">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col text-right">
+                                                <div class="small text-muted">Total Sales</div>
+                                                <div class="h4 m-0">105</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card ">
+                            <div class="body p-4">
+                                <div class="row clearfix">
+                                    <div class="col-auto">
+                                        <div class="stamp stamp-md bg-secondary">
+                                            <i class="fa fa-minus-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col text-right">
+                                        <div class="small text-muted">Variance</div>
+                                        <div class="h4 m-0">45</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="icon-in-bg bg-success text-white rounded-circle"><i class="fa fa-book"></i></div>
+                                        <div class="ml-4">
+                                            <span>Open Balance</span>
+                                            <h4 class="mb-0 font-weight-medium">805</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="icon-in-bg bg-primary text-white rounded-circle"><i class="fa fa-archive"></i></div>
+                                        <div class="ml-4">
+                                            <span>Pysical Balance</span>
+                                            <h4 class="mb-0 font-weight-medium">651</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                <div class="col-md-4 col-sm-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-7">
+                                    <h5 class="mb-0">Close Balance</h5>
+                                    <small class="info">In Stock: 187</small>
+                                </div>
+                                <div class="col-5 text-right">
+                                    <h2 class="m-b-0">62%</h2>
+                                </div>
+                                <div class="col-12">                                    
+                                    <div class="progress progress-xxs progress-transparent custom-color-blue mb-0 mt-3">
+                                        <div class="progress-bar" data-transitiongoal="40"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                             
+            </div>
+        <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Users">Users</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add User</a></li>        
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items">Items</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item">Add Item</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock">Add Stoch</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock">Items</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance">Variance</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add Item</a></li>         -->
                     </ul>
                     <div class="tab-content mt-0">
-                        <div class="tab-pane active show" id="Users">
+                        <div class="tab-pane active show" id="items">
                             <div class="table-responsive">
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr>
-                                            <th class="w60">Name</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th>Created Date</th>
-                                            <th>Role</th>
-                                            <th class="w100">Action</th>
+                                            <th>S/N</th>
+                                            <th>Image</th>
+                                            <th class="w60">Item Name</th>
+                                            <th>Category</th>
+                                            <th>Open Balance</th>
+                                            <th>Add</th>
+                                            <th>Transfer</th>
+                                            <th>Sales</th>
+                                            <th>Total Balance</th>
+                                            <th>Close Balance</th>
+                                            <th>Variance</th>
+                                            <th>Physical Balance</th>
+                                            <!-- <th>Role</th>
+                                            <th class="w100">Action</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr *ngFor="let item of items; let r = index">
+                                            <td>{{r+1}}</td>
                                             <td class="width45">
-                                                <div class="avtar-pic w35 bg-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>MN</span></div>
+                                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                             </td>
                                             <td>
-                                                <h6 class="mb-0">Marshall Nichols</h6>
-                                                <span>marshall-n@gmail.com</span>
-                                            </td>
-                                            <td><span class="badge badge-danger">Super Admin</span></td>
-                                            <td>24 Jun, 2015</td>
-                                            <td>CEO and Founder</td>
+                                                <a href="javascript:void(0);" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
+                                                <span>{{item.name}}</span>
+                                            </td>                                            
+                                            <td><span class="badge badge-warning">{{item.cat_name}}</span></td>
+                                            <td class="text text-success">{{item.open_stock}}</td>
+                                            <td class="text text-primary">{{item.receive}}</td>
+                                            <td class="text text-warning">{{item.transfer}}</td>
+                                            <td class="text text-danger">{{item.sales}}</td>
+                                            <td class="text text-info">{{item.total_remain}}</td>
                                             <td>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.close_balance}}</span></div>
                                             </td>
                                             <td>
-                                                <h6 class="mb-0">Susie Willis</h6>
-                                                <span>sussie-w@gmail.com</span>
-                                            </td>
-                                            <td><span class="badge badge-info">Admin</span></td>
-                                            <td>28 Jun, 2015</td>
-                                            <td>Team Lead</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-default" title="Edit"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                                <div class="avtar-pic w35 bg-secodary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
                                             </td>
                                             <td>
-                                                <h6 class="mb-0">Debra Stewart</h6>
-                                                <span>debra@gmail.com</span>
+                                                <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
                                             </td>
-                                            <td><span class="badge badge-info">Admin</span></td>
-                                            <td>21 July, 2015</td>
-                                            <td>Team Lead</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-default" title="Edit"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">Erin Gonzales</h6>
-                                                <span>Erinonzales@gmail.com</span>
-                                            </td>
-                                            <td><span class="badge badge-default">Employee</span></td>
-                                            <td>21 July, 2015</td>
-                                            <td>Web Developer</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-default" title="Edit"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="avtar-pic w35 bg-blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>MN</span></div>
-                                            </td>
-                                            <td>
-                                                <h6 class="mb-0">Ava Alexander</h6>
-                                                <span>alexander@gmail.com</span>
-                                            </td>
-                                            <td><span class="badge badge-success">HR Admin</span></td>
-                                            <td>21 July, 2015</td>
-                                            <td>HR</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-default" title="Edit"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
-                                            </td>
-                                        </tr>
+                                           
+                                        </tr>                                                                     
                                     </tbody>
                                 </table>                
                             </div>
                         </div>
-                        <div class="tab-pane" id="addUser">
+                        <div class="tab-pane" id="add_item">
                             <div class="body mt-2">
                                 <div class="row clearfix">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="First Name *">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Last Name">
-                                        </div>
-                                    </div>
+                                        <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="body">
+                                                        <form>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Room No.</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Room No.">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Patient Name</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Patient Name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Room Type</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <select class="form-control input-height" name="select">
+                                                                        <option value="">Select...</option>
+                                                                        <option value="Category 1">General Ward</option>
+                                                                        <option value="Category 2">Delux</option>
+                                                                        <option value="Category 3">Super Delux</option>
+                                                                        <option value="Category 3">ICU</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Allotment Date</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Allotment Date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Discharge Date</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Discharge Date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Patient Photo</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="file" class="dropify">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label"></label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    <button type="submit" class="btn btn-default">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
         
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Email ID *">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Confirm Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Mobile No">
-                                        </div>
-                                    </div>                            
-        
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Employee ID *">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">                                   
-                                            <input type="text" class="form-control" placeholder="Username *">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <select class="form-control show-tick">
-                                                <option>Select Role Type</option>
-                                                <option>Super Admin</option>
-                                                <option>Admin</option>
-                                                <option>Employee</option>
-                                            </select>
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-12">
+                                    <!-- <div class="col-12">
                                         <h6>Module Permission</h6>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
@@ -345,6 +357,107 @@
                                                             </label>
                                                         </td>
                                                     </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="btn btn-primary">Add</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="add_stock">
+                            <div class="body mt-2">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Email ID *">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Mobile No">
+                                        </div>
+                                    </div>                            
+        
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Employee ID *">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">                                   
+                                            <input type="text" class="form-control" placeholder="Username *">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <select class="form-control show-tick">
+                                                <option>Select Role Type</option>
+                                                <option>Super Admin</option>
+                                                <option>Admin</option>
+                                                <option>Employee</option>
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-12">
+                                        <h6>Module Permission</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Read</th>
+                                                        <th>Write</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Super Admin</td>
+                                                        <td>
+                                                            <label class="fancy-checkbox">
+                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="fancy-checkbox">
+                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="fancy-checkbox">
+                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>                                                    
                                                 </tbody>
                                             </table>
                                         </div>

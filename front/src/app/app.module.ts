@@ -67,6 +67,7 @@ import { PaymentHomeComponent } from './payment/payment-home/payment-home.compon
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
 import { AddDepartmentComponent } from './admin/add-department/add-department.component';
+import { ItemComponent } from './pharmacy/item/item.component';
 
 
 @NgModule({
@@ -154,7 +155,9 @@ import { AddDepartmentComponent } from './admin/add-department/add-department.co
   
     PatientHomeComponent,
   
-    AddDepartmentComponent
+    AddDepartmentComponent,
+  
+    ItemComponent
   ],
   imports: [
     BrowserModule,
