@@ -26,7 +26,7 @@ class CreateBranchNamesTable extends Migration
             $table->string('amount');
             $table->string('balance');
             $table->timestamps();
-            $table->string('item_detail_id')->index();
+            $table->int('item_detail_id')->index();
             $table->string('staff_id')->index();
         });
     }

@@ -5,6 +5,36 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'}
 )
 export class JarwisService {
+  displayshelvegories() {
+    throw new Error("Method not implemented.");
+  }
+  edtshelvegories(id: string) {
+    throw new Error("Method not implemented.");
+  }
+  updateshelvegories(value: any) {
+    throw new Error("Method not implemented.");
+  }
+  deleteshelvegories(id: string) {
+    throw new Error("Method not implemented.");
+  }
+  addshelvegories(value: any) {
+    throw new Error("Method not implemented.");
+  }
+  displaycatacturer() {
+    throw new Error("Method not implemented.");
+  }
+  edtcatacturer(id: string) {
+    throw new Error("Method not implemented.");
+  }
+  updatecatacturer(value: any) {
+    throw new Error("Method not implemented.");
+  }
+  deletecatacturer(id: string) {
+    throw new Error("Method not implemented.");
+  }
+  addcatacturer(value: any) {
+    throw new Error("Method not implemented.");
+  }
   displayPosition() {
     throw new Error("Method not implemented.");
   }
@@ -97,7 +127,76 @@ export class JarwisService {
 
 
 
-  //Units
+  // Branch
+  displayBranch() {
+    return this.http.get(`${this.baseUrl}/displayBranch`,)
+  }
+  edtBranch(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
+  }
+  addBranch(data) {
+    return this.http.post(`${this.baseUrl}/addBranch`, data)
+  }
+  updateBranch(data) {
+    return this.http.post(`${this.baseUrl}/updateBranch`, data)
+  }
+  deleteBranch(data) {
+    return this.http.post(`${this.baseUrl}/deleteBranch`, data)
+  }
+
+  
+  // Shelve
+  displayShelve() {
+    return this.http.get(`${this.baseUrl}/displayShelve`,)
+  }
+  edtShelve(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtShelve/${id}`)
+  }
+  addShelve(data) {
+    return this.http.post(`${this.baseUrl}/addShelve`, data)
+  }
+  updateShelve(data) {
+    return this.http.post(`${this.baseUrl}/updateShelve`, data)
+  }
+  deleteShelve(data) {
+    return this.http.post(`${this.baseUrl}/deleteShelve`, data)
+  }
+
+  // Item
+  displayItem() {
+    return this.http.get(`${this.baseUrl}/displayItem`,)
+  }
+  edtItem(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
+  }
+  addItem(data) {
+    return this.http.post(`${this.baseUrl}/addItem`, data)
+  }
+  updateItem(data) {
+    return this.http.post(`${this.baseUrl}/updateItem`, data)
+  }
+  deleteItem(data) {
+    return this.http.post(`${this.baseUrl}/deleteItem`, data)
+  }
+
+   // Categories
+   displayCategories() {
+    return this.http.get(`${this.baseUrl}/displayCategories`,)
+  }
+  edtCategories(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
+  }
+  addCategories(data) {
+    return this.http.post(`${this.baseUrl}/addCategories`, data)
+  }
+  updateCategories(data) {
+    return this.http.post(`${this.baseUrl}/updateCategories`, data)
+  }
+  deleteCategories(data) {
+    return this.http.post(`${this.baseUrl}/deleteCategories`, data)
+  } 
+  
+  //Manufacturer
   displayManufacturer() {
     return this.http.get(`${this.baseUrl}/displayManufacturer`,)
   }
