@@ -14,6 +14,8 @@ use App\Shelves;
 use App\Branches;
 use App\Item_details;
 use App\Customers;
+use App\Doctor_prescriptions;
+use App\Invoices;
 
 class DisplayController extends Controller
 {
@@ -266,7 +268,7 @@ class DisplayController extends Controller
 
     public function displayPrescription()
     {
-        return DB::table("prescriptions")->get();
+        return DB::table("doctor_prescriptions")->get();
     }
 
     public function edtPrescription($id)
@@ -274,8 +276,8 @@ class DisplayController extends Controller
     
         return response()->json(
         
-            Customers::orderBy('id')
-            ->select('prescriptions.*')     
+            Doctor_prescriptions::orderBy('id')
+            ->select('doctor_prescriptions.*')     
             ->where('id','=',$id)          
             ->get()
            
@@ -283,7 +285,26 @@ class DisplayController extends Controller
     
     }
 
+    // Invoices
 
+    public function displayInvoice()
+    {
+        return DB::table("invoices")->get();
+    }
+
+    public function edtInvoice($id)
+    {
+    
+        return response()->json(
+        
+            Invoices::orderBy('id')
+            ->select('invoices.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
 
 
 

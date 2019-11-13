@@ -115,6 +115,13 @@ Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
 
+//Invoices
+Route::get('edtInvoice/{id}','DisplayController@edtInvoice');
+Route::get('displayInvoice','DisplayController@displayInvoice');
+Route::post('addInvoice', 'AddController@addInvoice');
+Route::post('updateInvoice', 'AddController@updateInvoice');
+Route::post('deleteInvoice', 'AddController@deleteInvoice');
+
 
 
 

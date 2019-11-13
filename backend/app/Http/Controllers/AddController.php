@@ -18,6 +18,7 @@ use Illuminate\Database\Schema\Blueprint;
 use App\Branches;
 use App\Customers;
 use App\Doctor_prescriptions;
+use App\Invoices;
 
 class AddController extends Controller
 {
@@ -660,9 +661,9 @@ class AddController extends Controller
         $date= $request->date;
         $voucher= $request->voucher_id;
         $payment= $request->payment_id;
-        $voucher= $request->doctor_id;
-        $voucher= $request->pharmacist_id;
-        $voucher= $request->branch_id;
+        $doctor= $request->doctor_id;
+        $pharmacist= $request->pharmacist_id;
+        $branch= $request->branch_id;
 
         $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id','=',$id)
         ->update([
@@ -704,6 +705,81 @@ class AddController extends Controller
         $id=$request[0];
 
         $deletec=DB::table('doctor_prescriptions')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    // Invoices
+    public function addInvoce(Request $request)
+    {
+        $invoice= Invoices::create($request-> all());
+       
+        if($invoice){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateInvoice(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->name;
+        $item_no= $request->no_of_item; 
+        $amount_paid= $request->amount_paid;    
+        $status= $request->status;
+        $supply_quantity= $request->supply_quantity;
+        $date= $request->date;
+        $doctor= $request->doctor_id;
+        $pharmacist= $request->pharmacist_id;
+        $branch= $request->branch_id;
+
+        $update = DB::table('invoices')->where('invoices.id','=',$id)
+        ->update([
+            'name' => $name,
+            'item_no' => $item_no, 
+            'amount_paid' => $amount_paid, 
+            'status' => $status, 
+            'supply_quantity' => $supply_quantity,
+            'date' => $date,  
+            'doctor_id' => $doctor, 
+            'pharmacist_id' => $pharmacist, 
+            'branch_id' => $branch
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteInvoice(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('invoices')->where('id', $id)->delete();
         if($deletec){
             return '{
                 "success":true,
