@@ -22,7 +22,9 @@ class CreateBranchesTable extends Migration
             $table->string('sales_rep');
             $table->string('status');
             $table->timestamps();
-            $table->string('staff_id')->index();
+            $table->string('date');
+            $table->timestamp('time');
+            $table->integer('staff_id')->index();
         });
     }
 

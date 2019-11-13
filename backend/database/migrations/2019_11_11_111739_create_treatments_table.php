@@ -18,10 +18,12 @@ class CreateTreatmentsTable extends Migration
             $table->string('treatment_type');
             $table->string('note');
             $table->timestamps();
-            $table->string('prescription_id')->index();
-            $table->string('staff_id')->index();
-            $table->string('branch_id')->index();
-            $table->string('dept_id')->index();
+            $table->string('date');
+            $table->string('time');
+            $table->integer('prescription_id')->index();
+            $table->integer('staff_id')->index();
+            $table->integer('branch_id')->index();
+            $table->integer('dept_id')->index();
         });
     }
 

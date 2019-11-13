@@ -20,8 +20,10 @@ class CreateTransfersTable extends Migration
             $table->string('total_quantity');   
             $table->string('status');
             $table->timestamps();
-            $table->string('item_detail_id')->index();
-            $table->string('staff_id')->index();
+            $table->string('date');
+            $table->string('time');
+            $table->integer('item_detail_id')->index();
+            $table->integer('staff_id')->index();
         });
     }
 

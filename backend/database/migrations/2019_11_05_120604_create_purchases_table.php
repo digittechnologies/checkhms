@@ -17,10 +17,12 @@ class CreatePurchasesTable extends Migration
             $table->increments('id');
             $table->string('quantity');
             $table->timestamps();  
-            $table->string('item_detail_id')->index();
-            $table->string('staff_id')->index();
-            $table->string('branch_id')->index();
-            $table->string('manufacturer_detail_id')->index();
+            $table->sting('date');
+            $table->string('time');
+            $table->integer('item_detail_id')->index();
+            $table->integer('staff_id')->index();
+            $table->integer('branch_id')->index();
+            $table->integer('manufacturer_detail_id')->index();
         });
     }
 

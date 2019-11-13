@@ -101,6 +101,34 @@ Route::post('addItem', 'AddController@addItem');
 Route::post('updateItem', 'AddController@updateItem');
 Route::post('deleteItem', 'AddController@deleteItem');
 
+//Customers / Patients
+Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
+Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::post('addCustomer', 'AddController@addCustomer');
+Route::post('updateCustomer', 'AddController@updateCustomer');
+Route::post('deleteCustomer', 'AddController@deleteCustomer');
+
+//Doctor Prescriptions
+Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
+Route::get('displayPrescription','DisplayController@displayPrescription');
+Route::post('addPrescription', 'AddController@addPrescription');
+Route::post('updatePrescription', 'AddController@updatePrescription');
+Route::post('deletePrescription', 'AddController@deletePrescription');
+
+//Invoices
+Route::get('edtInvoice/{id}','DisplayController@edtInvoice');
+Route::get('displayInvoice','DisplayController@displayInvoice');
+Route::post('addInvoice', 'AddController@addInvoice');
+Route::post('updateInvoice', 'AddController@updateInvoice');
+Route::post('deleteInvoice', 'AddController@deleteInvoice');
+
+//Vouchers
+Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
+Route::get('displayVoucher','DisplayController@displayVoucher');
+Route::post('addVoucher', 'AddController@addVoucher');
+Route::post('updateVoucher', 'AddController@updateInvoice');
+Route::post('deleteVoucher', 'AddController@deleteVoucher');
+
 
 
 
