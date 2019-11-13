@@ -20,13 +20,15 @@ class CreateItemDetailsTable extends Migration
             $table->string('purchasing_price');
             $table->string('status');
             $table->timestamps();
-            $table->string('item_unit_id')->index();
-            $table->string('item_category_id')->index();
-            $table->string('item_type_id')->index();
-            $table->string('manufacturer_id')->index();
-            $table->string('tax_id')->index();
-            $table->string('discount_id')->index();
-            $table->string('staff_id')->index();
+            $table->string('date');
+            $table->string('time');
+            $table->integer('item_unit_id')->index();
+            $table->integer('item_category_id')->index();
+            $table->integer('item_type_id')->index();
+            $table->integer('manufacturer_id')->index();
+            $table->integer('tax_id')->index();
+            $table->integer('discount_id')->index();
+            $table->integer('staff_id')->index();
         });
     }
 

@@ -13,6 +13,10 @@ use App\Manufacturer_details;
 use App\Shelves;
 use App\Branches;
 use App\Item_details;
+use App\Customers;
+use App\Doctor_prescriptions;
+use App\Invoices;
+use App\Vouchers;
 
 class DisplayController extends Controller
 {
@@ -282,9 +286,89 @@ class DisplayController extends Controller
     }
 
 
+    // Customers/ Patients
 
+    public function displayCustomer()
+    {
+        return DB::table("customers")->get();
+    }
 
+    public function edtCustomer($id)
+    {
+    
+        return response()->json(
+        
+            Customers::orderBy('id')
+            ->select('customers.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
 
+    // Prescriptions
+
+    public function displayPrescription()
+    {
+        return DB::table("doctor_prescriptions")->get();
+    }
+
+    public function edtPrescription($id)
+    {
+    
+        return response()->json(
+        
+            Doctor_prescriptions::orderBy('id')
+            ->select('doctor_prescriptions.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Invoices
+
+    public function displayInvoice()
+    {
+        return DB::table("invoices")->get();
+    }
+
+    public function edtInvoice($id)
+    {
+    
+        return response()->json(
+        
+            Invoices::orderBy('id')
+            ->select('invoices.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    // Vouchers
+
+    public function displayVoucher()
+    {
+        return DB::table("vouchers")->get();
+    }
+
+    public function edtVoucher($id)
+    {
+    
+        return response()->json(
+        
+            Vouchers::orderBy('id')
+            ->select('vouchers.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
 
 
 

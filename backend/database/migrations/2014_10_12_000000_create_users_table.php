@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('d_o_b')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('date');
+            $table->string('time');
             $table->string('mobile_number')->unique();
             $table->string('address');
             $table->string('city')->nullable();
@@ -36,7 +38,7 @@ class CreateUsersTable extends Migration
             $table->string('about')->nullable();
             $table->string('status')->default('reg');
             $table->timestamps();
-            $table->string('dept_id')->index();
+            $table->integer('dept_id')->index();
 
         });
     }
