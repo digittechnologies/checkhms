@@ -19,8 +19,8 @@ class CreateAccountsTable extends Migration
             $table->string('expenses');
             $table->string('total_amount');
             $table->timestamps();
-            $table->date('date');
-            $table->timestamp('time');
+            $table->string('date');
+            $table->string('time');
             $table->integer('branch_id')->index();
         });
     }

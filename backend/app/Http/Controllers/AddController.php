@@ -19,6 +19,8 @@ use App\Branches;
 use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
+use App\Voucher;
+use Carbon\Carbon;
 
 class AddController extends Controller
 {
@@ -409,6 +411,9 @@ class AddController extends Controller
     // Item Details
     public function addItem(Request $request)
     {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $request->time = $dt->format('h:i:s A');
         $item= Item_details::create($request-> all());
        
         if($item){
@@ -545,6 +550,9 @@ class AddController extends Controller
     // Customers / Patients
     public function addCustomer(Request $request)
     {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $request->time = $dt->format('h:i:s A');
         $customer= Customers::create($request-> all());
        
         if($customer){
@@ -627,6 +635,9 @@ class AddController extends Controller
     // Prescription
     public function addPrescription(Request $request)
     {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $request->time = $dt->format('h:i:s A');
         $prescription= Doctor_prescriptions::create($request-> all());
        
         if($prescription){
@@ -658,7 +669,6 @@ class AddController extends Controller
         $cost= $request->cost;
         $paid= $request->paid;
         $to_balance= $request->to_balance;
-        $date= $request->date;
         $voucher= $request->voucher_id;
         $payment= $request->payment_id;
         $doctor= $request->doctor_id;
@@ -680,7 +690,6 @@ class AddController extends Controller
             'cost' => $cost,
             'paid' => $paid, 
             'to_balance' => $to_balance, 
-            'date' => $date, 
             'voucher_id' => $voucher,
             'payment_id' => $payment, 
             'doctor_id' => $doctor, 
@@ -722,6 +731,9 @@ class AddController extends Controller
     // Invoices
     public function addInvoice(Request $request)
     {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $request->time = $dt->format('h:i:s A');
         $invoice= Invoices::create($request-> all());
        
         if($invoice){
@@ -745,7 +757,6 @@ class AddController extends Controller
         $amount_paid= $request->amount_paid;    
         $status= $request->status;
         $supply_quantity= $request->supply_quantity;
-        $date= $request->date;
         $doctor= $request->doctor_id;
         $pharmacist= $request->pharmacist_id;
         $branch= $request->branch_id;
@@ -757,7 +768,6 @@ class AddController extends Controller
             'amount_paid' => $amount_paid, 
             'status' => $status, 
             'supply_quantity' => $supply_quantity,
-            'date' => $date,  
             'doctor_id' => $doctor, 
             'pharmacist_id' => $pharmacist, 
             'branch_id' => $branch
@@ -797,6 +807,9 @@ class AddController extends Controller
     // Vouchers
     public function addVoucher(Request $request)
     {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $request->time = $dt->format('h:i:s A');
         $voucher= Vouchers::create($request-> all());
        
         if($voucher){
@@ -822,7 +835,6 @@ class AddController extends Controller
         $refill_quantity= $request->refill_quantity;
         $refill_amount= $request->refill_amount;   
         $status= $request->status;
-        $date= $request->date;
         $staff= $request->staff_id;
         $branch= $request->branch_id;
 
@@ -835,7 +847,6 @@ class AddController extends Controller
             'refill_quantity' => $refill_quantity, 
             'refill_amount' => $refill_amount, 
             'status' => $status, 
-            'date' => $date,  
             'staff_id' => $staff, 
             'branch_id' => $branch
         ]);
@@ -852,7 +863,7 @@ class AddController extends Controller
         }
     }
 
-    public function deleteInvoice(Request $request)
+    public function deleteVoucher(Request $request)
     {
         $id=$request[0];
 

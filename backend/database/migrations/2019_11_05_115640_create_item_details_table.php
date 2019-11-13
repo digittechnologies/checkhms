@@ -20,8 +20,8 @@ class CreateItemDetailsTable extends Migration
             $table->string('purchasing_price');
             $table->string('status');
             $table->timestamps();
-            $table->date('date');
-            $table->timestamp('time');
+            $table->string('date');
+            $table->string('time');
             $table->integer('item_unit_id')->index();
             $table->integer('item_category_id')->index();
             $table->integer('item_type_id')->index();

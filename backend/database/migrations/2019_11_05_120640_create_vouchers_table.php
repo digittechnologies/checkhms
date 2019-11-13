@@ -23,8 +23,8 @@ class CreateVouchersTable extends Migration
             $table->string('refill_amount');
             $table->string('status');
             $table->timestamps();
-            $table->date('date');
-            $table->timestamp('time');
+            $table->string('date');
+            $table->string('time');
             $table->integer('item_detail_id')->index();
             $table->integer('customer_id')->index();
             $table->integer('staff_id')->index();

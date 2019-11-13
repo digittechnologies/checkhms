@@ -21,8 +21,8 @@ class CreateManufacturerDetailsTable extends Migration
             $table->string('details');
             $table->string('status');
             $table->timestamps();
-            $table->date('date');
-            $table->timestamp('time');
+            $table->string('date');
+            $table->string('time');
         });
     }
 
