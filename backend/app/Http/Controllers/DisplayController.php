@@ -16,6 +16,7 @@ use App\Item_details;
 use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
+use App\Vouchers;
 
 class DisplayController extends Controller
 {
@@ -306,6 +307,26 @@ class DisplayController extends Controller
     
     }
 
+    // Vouchers
+
+    public function displayVoucher()
+    {
+        return DB::table("vouchers")->get();
+    }
+
+    public function edtVoucher($id)
+    {
+    
+        return response()->json(
+        
+            Vouchers::orderBy('id')
+            ->select('vouchers.*')     
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
 
 
 

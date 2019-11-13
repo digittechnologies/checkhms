@@ -720,7 +720,7 @@ class AddController extends Controller
     }
 
     // Invoices
-    public function addInvoce(Request $request)
+    public function addInvoice(Request $request)
     {
         $invoice= Invoices::create($request-> all());
        
@@ -753,7 +753,7 @@ class AddController extends Controller
         $update = DB::table('invoices')->where('invoices.id','=',$id)
         ->update([
             'name' => $name,
-            'item_no' => $item_no, 
+            'no_of_item' => $item_no, 
             'amount_paid' => $amount_paid, 
             'status' => $status, 
             'supply_quantity' => $supply_quantity,
@@ -780,6 +780,83 @@ class AddController extends Controller
         $id=$request[0];
 
         $deletec=DB::table('invoices')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    // Vouchers
+    public function addVoucher(Request $request)
+    {
+        $voucher= Vouchers::create($request-> all());
+       
+        if($voucher){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateVoucher(Request $request)
+    {
+        $id=$request->id;
+        $item_no= $request->no_of_item; 
+        $open_quantity= $request->open_quantity; 
+        $supply_quantity= $request->supply_quantity;
+        $amount_cost= $request->amount_cost;
+        $refill_quantity= $request->refill_quantity;
+        $refill_amount= $request->refill_amount;   
+        $status= $request->status;
+        $date= $request->date;
+        $staff= $request->staff_id;
+        $branch= $request->branch_id;
+
+        $update = DB::table('vouchers')->where('vouchers.id','=',$id)
+        ->update([
+            'no_of_item' => $item_no, 
+            'open_quantity' => $open_quantity, 
+            'supply_quantity' => $supply_quantity,
+            'amount_cost' => $amount_cost, 
+            'refill_quantity' => $refill_quantity, 
+            'refill_amount' => $refill_amount, 
+            'status' => $status, 
+            'date' => $date,  
+            'staff_id' => $staff, 
+            'branch_id' => $branch
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteInvoice(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('vouchers')->where('id', $id)->delete();
         if($deletec){
             return '{
                 "success":true,

@@ -122,6 +122,13 @@ Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
 
+//Vouchers
+Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
+Route::get('displayVoucher','DisplayController@displayVoucher');
+Route::post('addVoucher', 'AddController@addVoucher');
+Route::post('updateVoucher', 'AddController@updateInvoice');
+Route::post('deleteVoucher', 'AddController@deleteVoucher');
+
 
 
 
