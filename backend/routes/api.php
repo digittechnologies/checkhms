@@ -50,7 +50,16 @@ Route::post('uStatus','DisplayController@uStatus');
 Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
-Route::get('getalltitle','DisplayController@getalltitle');
+Route::get('getalltitle','DisplayController@getalltitle'); 
+
+
+
+//ItemDetails
+Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');
+Route::get('displayItemDetails','DisplayController@displayItemDetails');
+Route::post('addItemDetails', 'AddController@addItemDetails');
+Route::post('updateItemDetails', 'AddController@updateItemDetails');
+Route::post('deleteItemDetails', 'AddController@deleteItemDetails');
 
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');

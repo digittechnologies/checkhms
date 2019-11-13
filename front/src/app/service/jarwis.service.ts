@@ -162,6 +162,24 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/deleteShelve`, data)
   }
 
+
+  // ItemDetails
+  displayItemDetails() {
+    return this.http.get(`${this.baseUrl}/displayItemDetails`,)
+  }
+  edtItemDetails(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtItemDetails/${id}`)
+  }
+  addItemDetails(data) {
+    return this.http.post(`${this.baseUrl}/addItemDetails`, data)
+  }
+  updateItemDetails(data) {
+    return this.http.post(`${this.baseUrl}/updateItemDetails`, data)
+  }
+  deleteItemDetails(data) {
+    return this.http.post(`${this.baseUrl}/deleteItemDetails`, data)
+  }
+
   // Item
   displayItem() {
     return this.http.get(`${this.baseUrl}/displayItem`,)

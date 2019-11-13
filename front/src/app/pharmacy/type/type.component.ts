@@ -52,7 +52,7 @@ editdept(id: string) {
     data=>{      
       this.typeres = data; 
       this.typeid= id
-      this.typeName= this.typeres[0].name;
+      this.typeName= this.typeres[0].type_name;
       this.typeimage= this.typeres[0].image
          
     })

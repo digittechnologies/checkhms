@@ -173,7 +173,7 @@ class AddController extends Controller
 
         $update = DB::table('item_types')->where('item_types.id','=',$id)
         ->update([
-            'name'=> $name,
+            'type_name'=> $name,
             'image' => $filename,
         ]);
         if($update){

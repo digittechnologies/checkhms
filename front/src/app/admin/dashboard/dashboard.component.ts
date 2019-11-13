@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
+    // location.reload()
+
     this.Jarwis.profile().subscribe(
       data=>{
        

@@ -28,6 +28,7 @@ import { ManufacturerComponent } from './pharmacy/manufacturer/manufacturer.comp
 import { CategoryComponent } from './pharmacy/category/category.component';
 import { AllItemsComponent } from './pharmacy/all-items/all-items.component';
 import { ShelfComponent } from './pharmacy/shelf/shelf.component';
+import { ItemComponent } from './pharmacy/item/item.component';
 
 
 
@@ -54,7 +55,8 @@ const routes: Routes = [
          {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] }
+         {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] }
 
 
         //  {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },

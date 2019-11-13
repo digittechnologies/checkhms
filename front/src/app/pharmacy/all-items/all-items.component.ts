@@ -29,6 +29,9 @@ export class AllItemsComponent implements OnInit {
   catDetail: any;
   branch: any;
   items: any;
+  type: any;
+  unit: any;
+  manuf: any;
   
   constructor( 
     private Jarwis: JarwisService,
@@ -50,6 +53,36 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response   
+    })
+
+    this.Jarwis.displayType().subscribe(
+      data=>{
+      this.response = data;      
+      this.type = this.response 
+      console.log(this.type)    
+    })
+
+    this.Jarwis.displayCategories().subscribe(
+      data=>{
+      this.response = data;      
+      this.cat = this.response  
+      console.log(this.cat)   
+    })
+
+    this.Jarwis.displayUnit().subscribe(
+      data=>{
+      this.response = data;      
+      this.unit = this.response 
+      console.log(this.unit)    
+
+    })
+
+    this.Jarwis.displayManufacturer().subscribe(
+      data=>{
+      this.response = data;      
+      this.manuf = this.response   
+      console.log(this.manuf)    
+
     })
   
 }

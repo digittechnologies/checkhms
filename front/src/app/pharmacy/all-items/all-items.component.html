@@ -141,7 +141,7 @@
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items">Items</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item">Add Item</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock">Add Stoch</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock">Add Stock</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock">Items</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance">Variance</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add Item</a></li>         -->
@@ -175,7 +175,7 @@
                                                 <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
+                                                <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
                                                 <span>{{item.name}}</span>
                                             </td>                                            
                                             <td><span class="badge badge-warning">{{item.cat_name}}</span></td>
@@ -205,31 +205,86 @@
                                         <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="body">
-                                                        <form>
+                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm">                                                                    
                                                             <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Room No.</label>
+                                                                <label class="col-sm-2 col-form-label">Generic Name.</label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Room No.">
+                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Generic Name." ngModel name="generic_name" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Patient Name</label>
+                                                                <label class="col-sm-2 col-form-label">Purchase Price</label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Patient Name">
+                                                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Purchas Price" ngModel name="purchasing_price" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Room Type</label>
+                                                                    <label class="col-sm-2 col-form-label">Selling Price</label>
+                                                                    <div class="col-md-6 col-sm-10">
+                                                                        <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Selling Price" ngModel name="selling_price" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                        <label class="col-sm-2 col-form-label">Select Type</label>
+                                                                        <div class="col-md-6 col-sm-10">
+                                                                            <select class="form-control input-height" ngModel name="item_type_id">
+                                                                                <option value="">-- Select Type --</option>
+                                                                                <option *ngFor="let t of type" [value]="t_id">{{t.type_name}}</option>                                      
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                            <label class="col-sm-2 col-form-label">Select Category</label>
+                                                                            <div class="col-md-6 col-sm-10">
+                                                                                <select class="form-control" ngModel name="item_category_id">
+                                                                                    <option value="">-- Select Category --</option>
+                                                                                    <option  *ngFor="let c of cat" [value]="c.id">{{c.cat_name}}</option>                                      
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
+                                                                                <label class="col-sm-2 col-form-label">Select Unit</label>
+                                                                                <div class="col-md-6 col-sm-10">
+                                                                                    <select class="form-control" ngModel name="item_unit_id">
+                                                                                        <option value="">-- Select Country --</option>
+                                                                                        <option *ngFor="let u of unit" [value]="u.id">{{u.name}}</option>                                      
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Select Manufacturer</label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <select class="form-control input-height" name="select">
+                                                                    <select class="form-control input-height" ngModel name="manufacturer_id">
                                                                         <option value="">Select...</option>
-                                                                        <option value="Category 1">General Ward</option>
-                                                                        <option value="Category 2">Delux</option>
-                                                                        <option value="Category 3">Super Delux</option>
-                                                                        <option value="Category 3">ICU</option>
+                                                                        <option *ngFor="let m of manuf" [value]="m.id">{{m.name}}</option>
+                                                                        
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Tax</label>
+                                                                    <div class="col-md-6 col-sm-10">
+                                                                        <select class="form-control input-height" ngModel name="tax_id">
+                                                                            <option value="">Select...</option>
+                                                                            <option [value]="0">0</option>
+                                                                            <option [value]="10">10</option>
+                                                                            <option [value]="20">20</option>
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                        <label class="col-sm-2 col-form-label">Tax</label>
+                                                                        <div class="col-md-6 col-sm-10">
+                                                                            <select class="form-control input-height" ngModel name="tax_id">
+                                                                                <option value="">Select...</option>
+                                                                                <option [value]="0">0</option>
+                                                                                <option [value]="10">10</option>
+                                                                                <option [value]="20">20</option>
+                                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Allotment Date</label>
                                                                 <div class="col-md-6 col-sm-10">
