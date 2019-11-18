@@ -21,6 +21,7 @@ use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Voucher;
 use Carbon\Carbon;
+use App\Appointments;
 
 class AddController extends Controller
 {
@@ -181,7 +182,7 @@ class AddController extends Controller
 
         $update = DB::table('item_types')->where('item_types.id','=',$id)
         ->update([
-            'name'=> $name,
+            'type_name'=> $name,
             'image' => $filename,
         ]);
         if($update){
@@ -409,13 +410,27 @@ class AddController extends Controller
     }
 
     // Item Details
-    public function addItem(Request $request)
+    public function addItemDetails(Request $request)
     {
+        $branch = DB::table("branches")->get();   
+        $getImage = Item_types::select('image')     
+        ->where('id','=',$request->item_type_id)          
+        ->get();
         $dt = Carbon::now();
-        $request->date = $dt->toFormattedDateString();
-        $request->time = $dt->format('h:i:s A');
+        $item_date = $dt->toFormattedDateString();
+        $item_time = $dt->format('h:i:s A');
+        $request->merge(['item_date' => $item_date]);
+        $request->merge(['item_time' => $item_time]);
+        $request->merge(['item_img' => $getImage[0]->image]);
         $item= Item_details::create($request-> all());
-       
+        foreach($branch as $row){
+            $name = $row->br_name;
+            $insert = DB::table($name)->insertGetId(
+                [
+                    'item_detail_id' => $item->id,
+                ]
+                );
+        }
         if($item){
             return '{
                 "success":true,
@@ -429,7 +444,7 @@ class AddController extends Controller
         }
     }
 
-    public function updateItem(Request $request)
+    public function updateItemDetails(Request $request)
     {
         $id=$request->id;
         $generic_name= $request->generic_name;
@@ -494,24 +509,34 @@ class AddController extends Controller
 
     public function createBranch(Request $request)
     {
-        $table_name=$request->br_name;
+        $req_name=$request->br_name;
+        $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         Schema::create($table_name, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('open_stock');
-            $table->string('sales');
-            $table->string('transfer');
-            $table->string('receive');
-            $table->string('total_remain');
-            $table->string('close_balance');
-            $table->string('variance');
-            $table->string('physical_balance');
-            $table->string('amount');
-            $table->string('balance');
+            $table->string('open_stock')->default(0);
+            $table->string('sales')->default(0);
+            $table->string('transfer')->default(0);
+            $table->string('receive')->default(0);
+            $table->string('total_remain')->default(0);
+            $table->string('close_balance')->default(0);
+            $table->string('variance')->default(0);
+            $table->string('physical_balance')->default(0);
+            $table->string('amount')->default(0);
+            $table->string('balance')->default(0);
             $table->timestamps();
             $table->string('item_detail_id')->index();
-            $table->string('staff_id')->index();
+            $table->string('staff_id')->index()->default(0);
         });
 
+        $itemD = DB::table("item_details")->get();   
+        foreach($itemD as $rowID){
+            $insert = DB::table($table_name)->insertGetId(
+                [
+                    'item_detail_id' => $rowID->id,
+                ]
+                );
+        }
+        $request->merge(['name' => $req_name]);
         $branch= Branches::create($request-> all());
         if($branch){
             return '{
@@ -528,7 +553,7 @@ class AddController extends Controller
 
     public function deleteBranch(Request $request)
     {
-        $table_name=$request->br_name;
+        $table_name=$request->name;
         Schema::dropIfExists($table_name);
 
         $id=$request[0];
@@ -546,13 +571,52 @@ class AddController extends Controller
         }
     }
     
+    public function suspendBranch(Request $request)
+    {
+        $id=$request[0];
+        $suspend=DB::table('branches')->where('id', $id)
+        ->update([
+            'status' => 'suspend'
+        ]);
+        if($suspend){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
 
+
+    public function activateBranch(Request $request)
+    {
+        $id=$request[0];
+        $suspend=DB::table('branches')->where('id', $id)
+        ->update([
+            'status' => 'active'
+        ]);
+        if($suspend){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
     // Customers / Patients
     public function addCustomer(Request $request)
     {
-        $dt = Carbon::now();
-        $request->date = $dt->toFormattedDateString();
-        $request->time = $dt->format('h:i:s A');
+        // $dt = Carbon::now();
+        // $request->date = $dt->toFormattedDateString();
+        // $request->time = $dt->format('h:i:s A');
         $customer= Customers::create($request-> all());
        
         if($customer){
@@ -629,6 +693,38 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    
+    }
+
+    public function makeAppointment(Request $request)
+    {
+        $cust_id = $request['aid'];
+        $dept_id = $request->form['dept_id'];
+        $dt = Carbon::now();
+        $date = $dt->toFormattedDateString();
+        $time = $dt->format('h:i:s A');
+        $appointment= Appointments::create(['customer_id' => $cust_id, 
+                                            'department_id' => $dept_id, 
+                                            'prescription' => 'open', 
+                                            'invoice' => 'open', 
+                                            'voucher' => 'open',
+                                            'treatment' => 'open', 
+                                            'status' => 'active',
+                                            'date' => $date,
+                                            'time' => $time,
+                                        ]);    
+  
+     if($appointment){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+          return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
     
     }
 

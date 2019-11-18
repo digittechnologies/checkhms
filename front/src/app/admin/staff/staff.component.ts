@@ -41,6 +41,13 @@ export class StaffComponent implements OnInit {
   );
    }
 
+   c_uStatus(id){
+    this.Jarwis. c_uStatus(id).subscribe(
+     data => this.handleResponse(data),
+       error => this.handleError(error)
+  );
+   }
+
    delete(id){
     this.Jarwis.deleteUser(id).subscribe(
      data => this.handleResponse(data),

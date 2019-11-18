@@ -25,6 +25,8 @@ export class ShelfComponent implements OnInit {
   shelvid: string;
   shelvName: any;
   branch: any;
+  shelvPoint: any;
+  shelvStatus: any;
   
   constructor( 
     private Jarwis: JarwisService,
@@ -60,6 +62,8 @@ editdept(id: string) {
       this.shelvres = data; 
       this.shelvid= id
       this.shelvName= this.shelvres[0].name;
+      this.shelvPoint= this.shelvres[0].point;
+      this.shelvStatus= this.shelvres[0].status;
     })
 }
 

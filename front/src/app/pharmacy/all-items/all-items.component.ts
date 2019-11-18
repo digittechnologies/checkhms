@@ -29,6 +29,9 @@ export class AllItemsComponent implements OnInit {
   catDetail: any;
   branch: any;
   items: any;
+  type: any;
+  unit: any;
+  manuf: any;
   
   constructor( 
     private Jarwis: JarwisService,
@@ -51,7 +54,41 @@ export class AllItemsComponent implements OnInit {
       this.response = data;      
       this.items = this.response   
     })
+
+    this.Jarwis.displayType().subscribe(
+      data=>{
+      this.response = data;      
+      this.type = this.response 
+      console.log(this.type)    
+    })
+
+    this.Jarwis.displayCategories().subscribe(
+      data=>{
+      this.response = data;      
+      this.cat = this.response  
+      console.log(this.cat)   
+    })
+
+    this.Jarwis.displayUnit().subscribe(
+      data=>{
+      this.response = data;      
+      this.unit = this.response 
+      console.log(this.unit)    
+
+    })
+
+    this.Jarwis.displayManufacturer().subscribe(
+      data=>{
+      this.response = data;      
+      this.manuf = this.response   
+      console.log(this.manuf)    
+
+    })
   
+}
+
+get(){
+  this.ngOnInit()
 }
 
 editdept(id: string) {
@@ -69,8 +106,7 @@ onUpdate(form: NgForm) {
   
   form.value.id=this.catid
   // this.image= form.value.image
-  //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateCategories(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
@@ -90,8 +126,9 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
-    this.Jarwis.addCategories(form.value).subscribe(
+    console.log('here : ', form.value)
+
+    this.Jarwis.addItemDetails(form.value).subscribe(
      
       data => this.handleResponse(data),
       error => this.handleError(error), 

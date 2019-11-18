@@ -1,3 +1,498 @@
-<p>
-  patient-details works!
-</p>
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h1>Patient Profile</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard/ </a></li>
+                        <li class="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><a href="index.html"> Patient/ </a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Patient Profile</li>
+                        </ol>
+                    </nav>
+                </div>            
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <button class="btn btn-sm btn-primary" title="">Add</button>
+                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card social">
+                    <div class="profile-header d-flex justify-content-between justify-content-center">
+                        <div class="d-flex">
+                            <div class="mr-3">
+                                <img src="../assets/images/user.png" class="rounded" alt="">
+                            </div>
+                            <div class="details">
+                                <h5 class="mb-0">{{pat[0].card_number}}</h5>
+                                <span class="text-light">{{pat[0].name + " " + pat[0].othername}}</span>
+                                <div>{{pat[0].mobile_number}}</div>
+                            </div>                                
+                        </div>
+                        <div class="col text-right">
+                                <div class="small text-light">Wallet</div>
+                                <div class="h4 m-0">N0</div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="body">
+                        <small class="text-muted">Full Name: </small>
+                        <p>{{pat[0].name + " " + pat[0].othername}}</p>
+                        <hr>
+                        <small class="text-muted">Address: </small>
+                        <p>{{pat[0].address}}</p>
+                        <hr>
+                        <small class="text-muted">Email address: </small>
+                        <p>{{pat[0].email}}</p>                            
+                        <hr>
+                        <small class="text-muted">Mobile: </small>
+                        <p>{{pat[0].mobile_number}}</p>
+                        <hr>
+                        <small class="text-muted">Birth Date: </small>
+                        <p class="m-b-0">{{pat[0].d_o_b}}</p>
+                        <hr>
+                        <small class="text-muted">Gender: </small>
+                        <p class="m-b-0">{{pat[0].gender}}</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h2>Blood Report</h2>
+                    </div>
+                    <div class="body">
+                        <table class="table table-hover table-striped mb-0">
+                            <tbody>
+                                <tr>
+                                    <td>Blood Group</td>
+                                    <td>{{pat[0].blood_group}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Genotype</td>
+                                    <td>{{pat[0].genotype}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Weigth </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Hight</td>
+                                    <td>0.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Landfowl</td>
+                                    <td>0.1%</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>100.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-xl-8 col-lg-8 col-md-7"> -->
+                    <div class="col-lg-8 col-md-12">
+                            <div class="card">
+                                <div class="body">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Basic Information</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Treatments</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prescription"> Prescriptions</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#invoice">Invoices</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="row profile_state">
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="body">
+                                            <div class="form-group">
+                                                <label class="d-block">OPD <span class="float-right">77%</span></label>
+                                                <div class="progress progress-xxs">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="body">
+                                            <div class="form-group">
+                                                <label class="d-block">Operations <span class="float-right">50%</span></label>
+                                                <div class="progress progress-xxs">
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="body">
+                                            <div class="form-group">
+                                                <label class="d-block">Patient visit <span class="float-right">23%</span></label>
+                                                <div class="progress progress-xxs">
+                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="tab-content padding-0">
+                                <div class="tab-pane active" id="Basic">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>Basic Information</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div id="biography">
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-6">
+                                                        <strong>Full Name</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{response.firstname}} {{response.lastname}}</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-6">
+                                                        <strong>Mobile</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{response.mobile_number}}</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-6">
+                                                        <strong>Email</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{response.email}}</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-6">
+                                                        <strong>Location</strong>
+                                                        <br>
+                                                        <p class="text-muted">{{response.address}}</p>
+                                                    </div>
+                                                </div>
+                                                <p>{{response.about}}</p>
+                                                <!-- <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
+                                                <br>
+                                                <h6 class="font-bold">Education</h6>
+                                                <ul class="list-group">
+                                                    <!-- <li class="list-group-item">M.B.B.S.,Harvard University, USA.</li>
+                                                    <li class="list-group-item">M.S.,Harvard University, USA.</li>
+                                                    <li class="list-group-item">SPINAL FELLOWSHIP Dr. John Adam, Allegimeines Krakenhaus, Schwerin, Germany.</li>
+                                                    <li class="list-group-item">Fellowship in Endoscopic Spine Surgery Phoenix, USA.</li>
+                                                    <li class="list-group-item">D.N.B from AIIMS</li> -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="Account">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>Account Data</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="form-group">                                                
+                                                        <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                                    </div>
+                                                </div>
+            
+                                                <div class="col-lg-12 col-md-12">
+                                                    <h6>Change Password</h6>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Current Password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="New Password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Confirm New Password">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                            <button class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="test">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>General Information</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control">
+                                                            <option>--Select Language</option>
+                                                            <option value="en_US" lang="en">English (United States)</option>                                                           
+                                                            <option value="zh_CN" lang="zh">简体中文</option>
+                                                            <option value="zh_TW" lang="zh">繁體中文</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control">
+                                                            <option>--TimeZone--</option>
+                                                            <optgroup label="Africa">
+                                                                <option value="Africa/Abidjan">Abidjan</option>
+                                                                <option value="Africa/Accra">Accra</option>
+                                                                <option value="Africa/Addis_Ababa">Addis Ababa</option>                                                               
+                                                                <option value="Africa/Tripoli">Tripoli</option>
+                                                                <option value="Africa/Tunis">Tunis</option>
+                                                                <option value="Africa/Windhoek">Windhoek</option>
+                                                            </optgroup>
+                                                            <optgroup label="America">
+                                                                <option value="America/Adak">Adak</option>
+                                                                <option value="America/Anchorage">Anchorage</option>                                                               
+                                                                <option value="America/Whitehorse">Whitehorse</option>
+                                                                <option value="America/Winnipeg">Winnipeg</option>
+                                                                <option value="America/Yakutat">Yakutat</option>
+                                                                <option value="America/Yellowknife">Yellowknife</option>
+                                                            </optgroup>
+                                                            <optgroup label="Antarctica">
+                                                                <option value="Antarctica/Casey">Casey</option>                                                             
+                                                                <option value="Antarctica/Troll">Troll</option>
+                                                                <option value="Antarctica/Vostok">Vostok</option>
+                                                            </optgroup>
+                                                            <optgroup label="Arctic">
+                                                                <option value="Arctic/Longyearbyen">Longyearbyen</option>
+                                                            </optgroup>
+                                                            <optgroup label="Asia">
+                                                                <option value="Asia/Aden">Aden</option>
+                                                                <option value="Asia/Almaty">Almaty</option>
+                                                                <option value="Asia/Amman">Amman</option>
+                                                                /option>
+                                                                <option value="Asia/Vladivostok">Vladivostok</option>
+                                                                <option value="Asia/Yakutsk">Yakutsk</option>
+                                                                <option value="Asia/Yekaterinburg">Yekaterinburg</option>
+                                                                <option value="Asia/Yerevan">Yerevan</option>
+                                                            </optgroup>
+                                                            <optgroup label="Atlantic">
+                                                                <option value="Atlantic/Azores">Azores</option>
+                                                                <option value="Atlantic/Bermuda">Bermuda</option>
+                                                                <option value="Atlantic/Canary">Canary</option>                                                                
+                                                                <option value="Atlantic/St_Helena">St Helena</option>
+                                                            </optgroup>
+                                                            <optgroup label="Australia">
+                                                                <option value="Australia/Adelaide">Adelaide</option>
+                                                                <option value="Australia/Brisbane">Brisbane</option>
+                                                                <option value="Australia/Broken_Hill">Broken Hill</option>
+                                                                <option value="Australia/Currie">Currie</option>
+                                                               
+                                                                <option value="Australia/Sydney">Sydney</option>
+                                                            </optgroup>
+                                                            <optgroup label="Europe">
+                                                                <option value="Europe/Amsterdam">Amsterdam</option>
+                                                                <option value="Europe/Andorra">Andorra</option>
+                                                                <option value="Europe/Athens">Athens</option>
+                                                               
+                                                                <option value="Europe/Zurich">Zurich</option>
+                                                            </optgroup>
+                                                            <optgroup label="Indian">
+                                                                <option value="Indian/Antananarivo">Antananarivo</option>
+                                                                <option value="Indian/Chagos">Chagos</option>
+                                                                <option value="Indian/Christmas">Christmas</option>
+                                                                
+                                                                <option value="Indian/Reunion">Reunion</option>
+                                                            </optgroup>
+                                                            <optgroup label="Pacific">
+                                                                <option value="Pacific/Apia">Apia</option>
+                                                                <option value="Pacific/Auckland">Auckland</option>
+                                                                <option value="Pacific/Chatham">Chatham</option>
+                                                                <option value="Pacific/Chuuk">Chuuk</option>
+                                                                
+                                                                <option value="Pacific/Wake">Wake</option>
+                                                                <option value="Pacific/Wallis">Wallis</option>
+                                                            </optgroup>
+                                                            <optgroup label="UTC">
+                                                                <option value="UTC">UTC</option>
+                                                            </optgroup>
+                                                            <optgroup label="Manual Offsets">
+                                                                <option value="UTC-12">UTC-12</option>
+                                                                <option value="UTC-11.5">UTC-11:30</option>
+                                                                <option value="UTC-11">UTC-11</option>
+                                                                <option value="UTC-10.5">UTC-10:30</option>
+                                                                <option value="UTC-10">UTC-10</option>
+                                                                
+                                                                <option value="UTC+12">UTC+12</option>
+                                                                <option value="UTC+12.75">UTC+12:45</option>
+                                                                <option value="UTC+13">UTC+13</option>
+                                                                <option value="UTC+13.75">UTC+13:45</option>
+                                                                <option value="UTC+14">UTC+14</option>
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Date Format</label>
+                                                        <div class="fancy-radio">
+                                                            <label><input name="dateFormat" value="" type="radio"><span><i></i>May 18, 2018</span></label>&nbsp;&nbsp;
+                                                            <label><input name="dateFormat" value="" type="radio"><span><i></i>2018, May, 18</span></label>&nbsp;&nbsp;
+                                                            <label><input name="dateFormat" value="" type="radio" checked><span><i></i>2018-03-10</span></label>&nbsp;&nbsp;
+                                                            <label><input name="dateFormat" value="" type="radio"><span><i></i>02/09/2018</span></label>&nbsp;&nbsp;
+                                                            <label><input name="dateFormat" value="" type="radio"><span><i></i>10/05/2018</span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <h6>Email from Lucid</h6>
+                                                    <p>I'd like to receive the following emails:</p>
+                                                    <ul class="list-unstyled list-email-received">
+                                                        <li>
+                                                            <label class="fancy-checkbox">
+                                                                <input type="checkbox" checked><span>Weekly account summary</span></label>
+                                                        </li>
+                                                        <li>
+                                                            <label class="fancy-checkbox">
+                                                                <input type="checkbox"><span>Campaign reports</span></label>
+                                                        </li>
+                                                        <li>
+                                                            <label class="fancy-checkbox">
+                                                                <input type="checkbox" checked><span>Promotional news such as offers or discounts</span></label>
+                                                        </li>
+                                                        <li>
+                                                            <label class="fancy-checkbox">
+                                                                <input type="checkbox" checked><span>Tips for campaign setup, growth and client success stories</span></label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                            <button class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="prescription">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>Account Data</h2>
+                                            </div>
+                                            <div class="body">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group">                                                
+                                                            <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Phone Number">
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <h6>Change Password</h6>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="Current Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="New Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="Confirm New Password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                                <button class="btn btn-default">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="voucher">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h2>Account Data</h2>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group">                                                
+                                                                <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" placeholder="Phone Number">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <h6>Change Password</h6>
+                                                            <div class="form-group">
+                                                                <input type="password" class="form-control" placeholder="Current Password">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="password" class="form-control" placeholder="New Password">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="password" class="form-control" placeholder="Confirm New Password">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                                    <button class="btn btn-default">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="invoice">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h2>Account Data</h2>
+                                                    </div>
+                                                    <div class="body">
+                                                        <div class="row clearfix">
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="form-group">                                                
+                                                                    <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" placeholder="Phone Number">
+                                                                </div>
+                                                            </div>
+                        
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <h6>Change Password</h6>
+                                                                <div class="form-group">
+                                                                    <input type="password" class="form-control" placeholder="Current Password">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="password" class="form-control" placeholder="New Password">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="password" class="form-control" placeholder="Confirm New Password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
+                                                        <button class="btn btn-default">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            </div>
+                            
+                        </div>
+        </div>
+    </div>
+</div>

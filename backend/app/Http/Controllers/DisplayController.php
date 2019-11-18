@@ -17,6 +17,7 @@ use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
+use App\Appointments;
 
 class DisplayController extends Controller
 {
@@ -26,6 +27,20 @@ class DisplayController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    
+    //staff
+    public function staffdetails($id)
+    {
+    
+        return response()->json(
+        
+            User::orderBy('id')    
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
     
     public function displayAllstaff()
     {
@@ -43,6 +58,19 @@ class DisplayController extends Controller
     $status=DB::table('users')
     ->where('id','=', $id)
     ->update(['status' =>'approved']); 
+  
+     return $status;
+    
+    }
+
+    public function c_uStatus(Request $request)
+    {
+        $id=$request[0];
+
+   
+    $status=DB::table('users')
+    ->where('id','=', $id)
+    ->update(['status' =>'suspended']); 
   
      return $status;
     
@@ -186,13 +214,55 @@ class DisplayController extends Controller
     
     }
 
-    // Item Details
+
+    // Item
+
+    public function displayItemDetails()
+    {
+        
+
+        $item = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+         ->join ('item_types','item_details.item_type_id','=','item_types.id')
+         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+         ->join ('item_units','item_details.item_unit_id','=','item_units.id')
+         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+    
+        ->get();
+        if($item){
+            return $item;
+        } else {
+            return ;
+        }
+
+        // return DB::table("item_details")->get();
+    }
+
+    public function edtItemDetails($id)
+    {
+    
+        return response()->json(
+        
+            Item_details::orderBy('id')
+            ->join ('item_types','item_details.item_type_id','=','item_types.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('item_units','item_details.item_unit_id','=','item_units.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->select('item_details.*', 'item_units.name AS unit_name', 'item_units.box_size', 'item_units.value', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name AS manuf_name', 'manufacturer_details.address','manufacturer_details.contact_number', 'manufacturer_details.details', 'item_details.item_img')     
+            ->where('item_details.id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+
+    // All Items Informations
 
     public function displayItem()
     {
         
 
-        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
          ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
          ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
          ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
@@ -262,6 +332,28 @@ class DisplayController extends Controller
             ->get()
            
         );
+    
+    }
+    public function patientdetails($id)
+    {
+    
+        return response()->json(
+        
+            Customers::where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    //Appointment
+    public function displayAllappointment()
+    {
+                  
+            return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.card_number')               
+                    ->get();
     
     }
 

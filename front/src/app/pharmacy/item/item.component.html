@@ -1,3 +1,190 @@
-<p>
-  item works!
-</p>
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h2>Item Profile</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['items']}}]">All Items</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Item Profile</li>
+                        </ol>
+                    </nav>
+                </div>            
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Item Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card social">
+                    <div class="profile-header d-flex justify-content-between justify-content-center">
+                        <div class="d-flex">
+                            <div class="mr-3">
+                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{typeimg}}" class="rounded" alt="">
+                            </div>
+                            <div class="details">
+                                <h5 class="mb-0">Item Type:</h5>
+                                <span class="text-light">{{resitem.type_name }}</span>
+                                <!-- <p class="mb-0"><span>Posts: <strong>321</strong></span> <span>Followers: <strong>4,230</strong></span> <span>Following: <strong>560</strong></span></p> -->
+                            </div>                                
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-sm">Add to Cart</button>
+                             <!-- <button class="btn btn-success btn-sm">Message</button> -->
+                        </div> 
+                    </div>
+                </div>                    
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="header">
+                        <h2>Info</h2>
+                        <ul class="header-dropdown dropdown">                                
+                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another Action</a></li>
+                                    <li><a href="javascript:void(0);">Something else</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <a class="card" href="javascript:void(0)">
+                            <div class="body text-center">
+                                <img class="img-thumbnail rounded-circle" src="http://localhost/buth-pharm/backend/public/upload/uploads/{{itemimg}}" alt="">
+                                <h6 class="mt-3">{{resitem.generic_name}}</h6>
+                                <div class="text-center text-muted">{{resitem.manuf_name}}</div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="row clearfix">
+                                    <div class="col-6">
+                                
+                                        <i class="fa fa-money text-danger font-22"></i>
+                                        <div><span class="text-muted">{{resitem.purchasing_price}}</span></div>
+                                    </div>
+                                    <div class="col-6">
+                                      
+                                        <i class="fa fa-money font-22"></i>
+                                        <div><span class="text-muted">{{resitem.selling_price}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <small class="text-muted">Category: </small>
+                        <p>{{resitem.cat_name}}</p>                            
+                        <hr>
+                        <small class="text-muted">Unit: </small>
+                        <p class="mb-0"><span>Name: <strong>{{resitem.unit_name}}</strong></span></p>
+                        <p class="mb-0"><span>Box Size: <strong>{{resitem.box_size}}</strong></span></p>
+                        <p class="mb-0"><span>Unit Value: <strong>{{resitem.value}}</strong></span></p>
+                        <hr>
+                        <!-- <small class="text-muted">Birth Date: </small>
+                        <p class="m-b-0">October 17th, 93</p>
+                        <hr> -->
+                        <small class="text-muted">Manufacturer Details: </small>
+                        <p class="mb-0"><span>Manufacturer: <strong>{{resitem.manuf_name}}</strong></span></p>
+                        <p class="mb-0"><span>Address: <strong>{{resitem.address}}</strong></span></p>
+                        <p class="mb-0"><span>Contact Number: <strong>{{resitem.contact_number}}</strong></span></p>      
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-7">
+                <div class="card">
+                    <div class="header">
+                        <h2>Basic Information</h2>
+                        <ul class="header-dropdown dropdown">                                
+                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another Action</a></li>
+                                    <li><a href="javascript:void(0);">Something else</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">                                                
+                                    <input type="text" class="form-control" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">                                                
+                                    <input type="text" class="form-control" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option value="">-- Select Gander --</option>
+                                        <option value="AF">Male</option>
+                                        <option value="AX">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                        </div>
+                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-globe"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="http://">
+                                    </div>
+                                </div>
+                            </div>                                
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <select class="form-control" *ngFor="let t of type">
+                                        <option value="">-- Select Country --</option>
+                                        <option value="AF">{{t.type_name}}</option>
+                                      
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="State/Province">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="City">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">                                                
+                                    <textarea rows="4" type="text" class="form-control" placeholder="Address"></textarea>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                        <button type="button" class="btn btn-round btn-default">Cancel</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
