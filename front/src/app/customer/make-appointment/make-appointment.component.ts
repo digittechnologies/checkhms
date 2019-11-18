@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { JarwisService } from 'src/app/service/jarwis.service';
+import { TokenService } from 'src/app/service/token.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+import { MatSnackBar } from '@angular/material';
+import { NgForm } from '@angular/forms';
+import { error } from 'util';
 
 @Component({
   selector: 'app-make-appointment',
@@ -6,10 +13,66 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./make-appointment.component.css']
 })
 export class MakeAppointmentComponent implements OnInit {
+  response: Object;
+  appoints: any;
+  department: Object;
+  appontId: any;
+  error: any;
+  pat: any;
 
-  constructor() { }
+  constructor( 
+    private Jarwis: JarwisService,
+    private Token: TokenService,
+    private router: Router,
+    private Auth: AuthService,
+    public snackBar: MatSnackBar, 
+    public actRoute: ActivatedRoute,
+   ) { }
 
   ngOnInit() {
+
+    this.Jarwis.displayAllappointment().subscribe(
+      data=>{
+      this.response = data;      
+      this.appoints = this.response;
+      // console.log(this.appoints); 
+    })
+    
+    this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      // console.log(data);   
+      this.response = data;
+      this.department = this.response
+    })
+    this.Jarwis.displayCustomer().subscribe(
+      data=>{
+      this.response = data;      
+      this.pat = this.response   
+    })
+
+  }
+
+  onSubmitApp(form: NgForm) {
+    this.Jarwis.makeAppointment({aid:form.value.patient_id, form:form.value }).subscribe(
+      data => this.handleResponse(data),
+        error => this.handleError(error)
+   );
+   
+  }
+
+  handleResponse(data) {    // 
+    let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
+      duration: 2000
+    })   
+    this.router.navigateByUrl('/Admin/(side:appointment');
+    this.ngOnInit();  
+  }
+
+  handleError(error) {
+    this.error = error.error.errors;
+    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+      duration: 2000
+    })  
   }
 
 }

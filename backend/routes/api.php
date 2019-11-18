@@ -46,13 +46,18 @@ Route::post('updateDept', 'AddController@updateDept');
 Route::post('deleteDept', 'AddController@deleteDept');
 Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');
-Route::post('uStatus','DisplayController@uStatus');
 Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
 
 
+
+
+// Staff
+Route::get('staffdetails/{id}','DisplayController@staffdetails');
+Route::post('uStatus','DisplayController@uStatus');
+Route::post('c_uStatus','DisplayController@c_uStatus');
 
 //ItemDetails
 Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');
@@ -64,9 +69,12 @@ Route::post('deleteItemDetails', 'AddController@deleteItemDetails');
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
-Route::post('addBranch', 'AddController@addBranch');
+Route::post('addBranch', 'AddController@createBranch');
 Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
+
+Route::post('suspendBranch', 'AddController@suspendBranch');
+Route::post('activateBranch', 'AddController@activateBranch');
 
 //Unit
 Route::get('edtUnit/{id}','DisplayController@edtUnit');
@@ -116,6 +124,12 @@ Route::get('displayCustomer','DisplayController@displayCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
+Route::post('makeAppointment','AddController@makeAppointment');
+Route::get('patientdetails/{id}','DisplayController@patientdetails');
+
+// Appointments
+Route::get('displayAllappointment','DisplayController@displayAllappointment');
+Route::post('makeAppointment','AddController@makeAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');

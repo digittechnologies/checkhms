@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 
+declare let jQuery: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -29,7 +30,8 @@ export class DashboardComponent implements OnInit {
     private Auth: AuthService,
     private router: Router,
     private Jarwis: JarwisService,
-    private Token: TokenService
+    private Token: TokenService,
+    private elementRef: ElementRef
   ) { }
 
 
@@ -62,6 +64,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  // ngAfterViewInit(){
+  //   jQuery(this.elementRef.nativeElement)
+  // }
+
   logout(event: MouseEvent) {
     event.preventDefault();
     this.Token.remove();
@@ -69,5 +75,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
-
+  
 }
+

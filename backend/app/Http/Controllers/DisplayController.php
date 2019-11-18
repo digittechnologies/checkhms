@@ -17,6 +17,7 @@ use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
+use App\Appointments;
 
 class DisplayController extends Controller
 {
@@ -26,6 +27,20 @@ class DisplayController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    
+    //staff
+    public function staffdetails($id)
+    {
+    
+        return response()->json(
+        
+            User::orderBy('id')    
+            ->where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
     
     public function displayAllstaff()
     {
@@ -43,6 +58,19 @@ class DisplayController extends Controller
     $status=DB::table('users')
     ->where('id','=', $id)
     ->update(['status' =>'approved']); 
+  
+     return $status;
+    
+    }
+
+    public function c_uStatus(Request $request)
+    {
+        $id=$request[0];
+
+   
+    $status=DB::table('users')
+    ->where('id','=', $id)
+    ->update(['status' =>'suspended']); 
   
      return $status;
     
@@ -304,6 +332,28 @@ class DisplayController extends Controller
             ->get()
            
         );
+    
+    }
+    public function patientdetails($id)
+    {
+    
+        return response()->json(
+        
+            Customers::where('id','=',$id)          
+            ->get()
+           
+        );
+    
+    }
+
+    //Appointment
+    public function displayAllappointment()
+    {
+                  
+            return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.card_number')               
+                    ->get();
     
     }
 

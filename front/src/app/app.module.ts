@@ -68,6 +68,16 @@ import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component'
 import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
 import { AddDepartmentComponent } from './admin/add-department/add-department.component';
 import { ItemComponent } from './pharmacy/item/item.component';
+import { SetBranchComponent } from './branches/set-branch/set-branch.component';
+import { TestComponent } from './lab/test/test.component';
+import { SetLabComponent } from './lab/set-lab/set-lab.component';
+import { DoctorLogComponent } from './doctor/doctor-log/doctor-log.component';
+import { PharmacyLogComponent } from './pharmacy/pharmacy-log/pharmacy-log.component';
+import { PaymentLogComponent } from './payment/payment-log/payment-log.component';
+import { LabLogComponent } from './lab/lab-log/lab-log.component';
+import { LabHomeComponent } from './lab/lab-home/lab-home.component';
+import { AllStaffComponent } from './admin/all-staff/all-staff.component';
+import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-taskboard.component';
 
 
 @NgModule({
@@ -157,7 +167,27 @@ import { ItemComponent } from './pharmacy/item/item.component';
   
     AddDepartmentComponent,
   
-    ItemComponent
+    ItemComponent,
+  
+    SetBranchComponent,
+  
+    TestComponent,
+  
+    SetLabComponent,
+  
+    DoctorLogComponent,
+  
+    PharmacyLogComponent,
+  
+    PaymentLogComponent,
+  
+    LabLogComponent,
+  
+    LabHomeComponent,
+  
+    AllStaffComponent,
+  
+    PatientTaskboardComponent
   ],
   imports: [
     BrowserModule,

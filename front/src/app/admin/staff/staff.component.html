@@ -48,11 +48,12 @@
                                 <td>{{s.created_at}}</td>
                                 <td><span class="badge badge-warning" *ngIf ="s.status=== 'reg'">Registerd</span>
                                     <span class="badge badge-success" *ngIf ="s.status=== 'approved'">Active</span>
-                                    <span class="badge badge-danger" *ngIf ="s.status=== 'disable'">In-Active</span>
+                                    <span class="badge badge-danger" *ngIf ="s.status=== 'suspended'">Suspended</span>
                                 </td>
                                 <td>
-                                        <button type="button" class="btn btn-default btn-sm" title="View" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-eye"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" title="View" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-info"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'approved' " title="Edit"><i class="fa fa-minus" (click)="c_uStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'suspended' " title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
                                         <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button>
                                         
   

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JarwisService } from '../../service/jarwis.service';
 import { TokenService } from '../../service/token.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from "@angular/forms";
 declare var $: any;
 @Component({
@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
   datas: { formdata: any; };
   error: any;
   res: any;
-  constructor( private http: HttpClient,private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
+  resp: any;
+  constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
   public response:any;
   public form ={
     emails:'',
@@ -47,37 +48,50 @@ export class ProfileComponent implements OnInit {
       id:[''],
     },
   )
-    this.displayprofile()
+    // this.displayprofile()
+    this.actRoute.paramMap.subscribe((params => {
+      let id = params.get('id');
+      
+      this.Jarwis.staffdetails(id).subscribe(data=>{
+        this.resp = data;
+        this.response=this.resp[0]
+       
+        // console.log(this.lenght)
+        console.log(this.response)
+     
+      })
+    
+        }));
   }
-  displayprofile(){
- this.Jarwis.profile().subscribe(
-   data=>{
+//   displayprofile(){
+//  this.Jarwis.profile().subscribe(
+//    data=>{
     
-   this.res = data;
-   this.response = this.res.aut;
+//    this.res = data;
+//    this.response = this.res.aut;
 
 
-   this.submissionForm = this.formBuilder.group(
+//    this.submissionForm = this.formBuilder.group(
     
-    {
-      firstname: [this.response.firstname],
-      lastname: [this.response.lastname],
-      email:[this.response.email],
-  family:[this.response.family],
-  middlename:[this.response.middlename],
-  phone:[this.response.phone],
-  familybackground:[this.response.familybackground],
-  town:[this.response.town],
-  gender:[this.response.gender],
-  address:[this.response.address],
-  id:[this.response.id]
-    },
-  )
-   this.image=this.response.image
+//     {
+//       firstname: [this.response.firstname],
+//       lastname: [this.response.lastname],
+//       email:[this.response.email],
+//   family:[this.response.family],
+//   middlename:[this.response.middlename],
+//   phone:[this.response.phone],
+//   familybackground:[this.response.familybackground],
+//   town:[this.response.town],
+//   gender:[this.response.gender],
+//   address:[this.response.address],
+//   id:[this.response.id]
+//     },
+//   )
+//    this.image=this.response.image
 
- })
+//  })
  
-}
+// }
 uploadFile(event){
   let files =event.target.files[0];
   let reader = new FileReader();

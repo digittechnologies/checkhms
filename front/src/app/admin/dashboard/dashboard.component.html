@@ -226,7 +226,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="javascript:void(0);" class="search_toggle icon-menu" title="Search Result"><i class="icon-magnifier"></i></a></li>                        
                             <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i class="icon-bubbles"></i><span class="notification-dot bg-pink">2</span></a></li>
-                            <li><a href="../html/page-login.html" class="icon-menu"><i class="icon-power"></i></a></li>
+                            <li><a href="" (click)="logout($event)" class="icon-menu"><i class="icon-power"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -692,52 +692,60 @@
                         <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                             <ul>
                                 <li><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Admin Dashboard</a></li>
-                                <li><a href="#">Customer</a></li>
-                                <li><a href="#">Doctor Dashboard</a></li>
-                                <li><a href="#">Pharmacy dashboard</a></li>
-                                <li><a href="#">Payment dashboard</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['card_home']}}]">Reception</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['lab_home']}}]">Lab dashboard</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['doctor_home']}}]">Doctor Dashboard</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_home']}}]">Pharmacy dashboard</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['payment_home']}}]">Payment dashboard</a></li>
+                                
                             </ul>
                         </li>
-                        <li><a href="app-appointment.html"><i class="icon-diamond"></i><span>Prescription</span></a></li>
+                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['taskboard']}}]"><i class="icon-diamond"></i><span>Patient Taskboard</span></a></li>
                         <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li>
-                        <li><a href="our-staffs.html"><i class="icon-users"></i><span>Our Staffs</span></a></li>
-                        <li>
-                                <a href="#Patients" class="has-arrow"><i class="icon-user"></i><span>Patients</span></a>
-                                <ul>
-                                    <li><a href="#">All Patient</a></li>
-                                    <li><a href="#">Add Patient</a></li>
-                                    <li><a href="#">Patient Profile</a></li>
-                                    <li><a href="#">Patient Invoices</a></li>
-                                </ul>
-                            </li>
+                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>Our Staffs</span></a></li>
+                        
                         <li class="header">Depertments</li>
                         <li >
                             <span *ngIf="card == pos || admin == pos">
-                                <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Cards</span></a>
+                                <a class="has-arrow"><i class="icon-user-follow"></i><span>Patient</span></a>
                                 <ul>
-                                    <li><a href="#">Patient</a></li>
-                                    <li><a href="#">see Doctor</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Make Appointment</a></li>
                                 </ul>
                             </span>
                             </li>
                             
                         <li>
                             <span *ngIf="physician == pos || admin == pos">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
+                            <a href="javascript:void(0);" class="has-arrow"><i class="fa fa-user-md"></i><span>Doctors</span></a>
                             <ul>
-                                <li><a href="#">Prescription</a></li>
-                                <li><a href="#">History</a></li>
-                                <li><a href="#">Appointment</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['doctor_log']}}]">Medical Log</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment']}}]">Treatment</a></li> 
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]">History</a></li>                               
+                                
                             </ul>   
                         </span>                     
                         </li>
-                   
+                        <li >
+                            <span *ngIf="card == pos || admin == pos">
+                                <a class="has-arrow"><i class="fa fa-hospital-o"></i><span>Laboratory</span></a>
+                                <ul>
+                                    <li class="header">Test</li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['lab_log']}}]">Lab Log</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['test']}}]">Test</a></li>
+                                    <li class="header">Setting</li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['set_lab']}}]">Set Lab</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['lab_esther']}}]">History</a></li>
+                                </ul>
+                            </span>
+                            </li>
                         
                         <li>
                                 <span *ngIf="pharmacist == pos || admin == pos">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-like"></i><span>Pharmacy</span></a>
-                            <ul>                                
-                                <li><a href="#">Voucher</a></li>
+                            <ul> 
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Pharmacy Log</a></li>                          
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher']}}]">Voucher</a></li>
                                 <li><a href="#">Refills</a></li>
                                 <li><a href="room-add.html">History</a></li>
                                 <li class="header">Items</li>
@@ -747,22 +755,19 @@
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_type']}}]">Type</a></li>
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['manufacturer']}}]">Manufacturer</a></li>
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>
-                                <li class="header">Transactions</li>
-                                <li><a href="#">Add items</a></li>
-                                <li><a href="#">Transfer Items</a></li>
-                                <li><a href="#">variance</a></li>
+                                
                                 <li><a href="#">History</a></li>
                             </ul>
                             </span>
                         </li>
                         <li>
                                 <span *ngIf="cashier == pos || admin == pos">
-                            <a href="#Payments" class="has-arrow"><i class="icon-credit-card"></i><span>Payments</span></a>
+                            <a class="has-arrow"><i class="icon-credit-card"></i><span>Payments</span></a>
                             <ul>
                                 <li class="#">Payment</li>
-                                <li><a href="#">Payments</a></li>
-                                <li><a href="#">Add Payments</a></li>
-                                <li><a href="#">Invoice</a></li>
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['payment_log']}}]">Log</a></li>                    
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['payment']}}]">Invoice</a></li>
+
                                 <li class="header">Account</li>
                                 <li><a href="#">Income</a></li>
                                 <li><a href="#">Expences</a></li>
@@ -777,7 +782,7 @@
                         <li><a href="app-chat.html"><i class="icon-bubbles"></i><span>Messenger</span></a></li> -->
                        
                         <li class="header">Settings</li>
-                        <li>
+                        <!-- <li>
                                 <span *ngIf="admin == pos ">
                                 <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Doctors</span></a>
                                 <ul>
@@ -787,15 +792,14 @@
                                     <li><a href="#">Doctors Schedule</a></li>
                                 </ul>
                                 </span>
-                            </li>
+                            </li> -->
                         <li *ngIf="admin == pos"><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-envelope"></i><span>New Staffs</span></a></li>
-                        <li *ngIf="admin == pos"><a href="app-taskboard.html"><i class="icon-layers"></i><span>Our Centers</span></a></li>
+                        <li *ngIf="admin == pos"><a [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><i class="icon-layers"></i><span>Our Centers</span></a></li>
                         <li>
                                 <span *ngIf="admin == pos">
                             <a class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
                             <ul>
                                 <li><a [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]">Set Departments</a></li>                               
-                                <li><a href="#">Points</a></li>
                                 <li><a href="#">General Settings</a></li>
                                 
                             </ul> 

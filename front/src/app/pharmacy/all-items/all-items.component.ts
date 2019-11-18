@@ -87,6 +87,10 @@ export class AllItemsComponent implements OnInit {
   
 }
 
+get(){
+  this.ngOnInit()
+}
+
 editdept(id: string) {
   console.log(id)
   this.Jarwis.edtCategories(id).subscribe(
@@ -102,8 +106,7 @@ onUpdate(form: NgForm) {
   
   form.value.id=this.catid
   // this.image= form.value.image
-  //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateCategories(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
@@ -123,8 +126,9 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
-    this.Jarwis.addCategories(form.value).subscribe(
+    console.log('here : ', form.value)
+
+    this.Jarwis.addItemDetails(form.value).subscribe(
      
       data => this.handleResponse(data),
       error => this.handleError(error), 

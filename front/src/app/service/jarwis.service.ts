@@ -143,6 +143,12 @@ export class JarwisService {
   deleteBranch(data) {
     return this.http.post(`${this.baseUrl}/deleteBranch`, data)
   }
+  suspendBranch(data) {
+    return this.http.post(`${this.baseUrl}/suspendBranch`, data)
+  }
+  activateBranch(data) {
+    return this.http.post(`${this.baseUrl}/activateBranch`, data)
+  }
 
   
   // Shelve
@@ -275,8 +281,15 @@ export class JarwisService {
   uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
   }
-  deleteUser(data) {
+  c_uStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/c_uStatus`, data)
+  }
+  deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
+  }
+
+  staffdetails(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`)
   }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
@@ -284,9 +297,43 @@ export class JarwisService {
     }})
   }
   
+// Branches
+// displayCategories() {
+//   return this.http.get(`${this.baseUrl}/displayCategories`,)
+// }
+// edtCategories(id:string) {
+//   return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
+// }
+  createBranch(data) {
+  return this.http.post(`${this.baseUrl}/addBranch`, data)
+  }
+// updateCategories(data) {
+//   return this.http.post(`${this.baseUrl}/updateCategories`, data)
+// }
+// deleteCategories(data) {
+//   return this.http.post(`${this.baseUrl}/deleteCategories`, data)
+// } 
 
 
+// Customer
+displayCustomer() {
+  return this.http.get(`${this.baseUrl}/displayCustomer`,)
+}
 
+addCustomer(data) {
+  return this.http.post(`${this.baseUrl}/addCustomer`, data)
+}
+patientdetails(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
+}
+makeAppointment(data) {
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data)
+}
+
+//Appointment 
+displayAllappointment() {
+  return this.http.get(`${this.baseUrl}/displayAllappointment`,)
+}
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)

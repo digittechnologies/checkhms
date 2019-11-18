@@ -140,7 +140,7 @@
                 <div class="card">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items">Items</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item">Add Item</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock">Add Stock</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock">Items</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance">Variance</a></li>
@@ -164,6 +164,8 @@
                                             <th>Close Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
+                                            <th>Level</th>
+                                            <th>%</th>
                                             <!-- <th>Role</th>
                                             <th class="w100">Action</th> -->
                                         </tr>
@@ -188,11 +190,18 @@
                                                     <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.close_balance}}</span></div>
                                             </td>
                                             <td>
-                                                <div class="avtar-pic w35 bg-secodary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
+                                                <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
                                             </td>
                                             <td>
                                                 <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
                                             </td>
+                                            <td>
+                                                    <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
+                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge badge-success">70%</span>
+                                                </td>
                                            
                                         </tr>                                                                     
                                     </tbody>
@@ -229,7 +238,7 @@
                                                                         <div class="col-md-6 col-sm-10">
                                                                             <select class="form-control input-height" ngModel name="item_type_id">
                                                                                 <option value="">-- Select Type --</option>
-                                                                                <option *ngFor="let t of type" [value]="t_id">{{t.type_name}}</option>                                      
+                                                                                <option *ngFor="let t of type" [value]="t.id">{{t.type_name}}</option>                                      
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -274,13 +283,24 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
-                                                                        <label class="col-sm-2 col-form-label">Tax</label>
+                                                                        <label class="col-sm-2 col-form-label">Discount</label>
                                                                         <div class="col-md-6 col-sm-10">
-                                                                            <select class="form-control input-height" ngModel name="tax_id">
+                                                                            <select class="form-control input-height" ngModel name="discount_id">
                                                                                 <option value="">Select...</option>
                                                                                 <option [value]="0">0</option>
                                                                                 <option [value]="10">10</option>
                                                                                 <option [value]="20">20</option>
+                                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-2 col-form-label">Status</label>
+                                                                        <div class="col-md-6 col-sm-10">
+                                                                            <select class="form-control input-height" ngModel name="status">
+                                                                                <option value="">Select...</option>
+                                                                                <option value='active'>Active</option>
+                                                                                <option value='inactive'>Inactive</option>
                                                                                 
                                                                             </select>
                                                                         </div>
