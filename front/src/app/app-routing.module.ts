@@ -102,7 +102,7 @@ const routes: Routes = [
          // Doctor
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'doctor_home', component: DoctorHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'treatment', component: MakePrescriptionComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'treatment/:id', component: MakePrescriptionComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
           // Payment
          {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },

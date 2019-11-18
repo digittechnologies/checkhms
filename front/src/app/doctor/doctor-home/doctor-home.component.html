@@ -3,16 +3,16 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>My Page</h1>
+                    <h1>Doctor Home</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Oculux</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Page</li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
                         </ol>
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Doctor </a>
                     <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
                 </div>
             </div>
@@ -23,10 +23,10 @@
                 <div class="card">
                     <div class="body">
                         <div class="d-flex align-items-center">
-                            <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-briefcase"></i></div>
+                            <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-wheelchair"></i></div>
                             <div class="ml-4">
-                                <span>Total income</span>
-                                <h4 class="mb-0 font-weight-medium">$7,805</h4>
+                                <span>Total Patient</span>
+                                <h4 class="mb-0 font-weight-medium">{{count[0].open}}</h4>
                             </div>
                         </div>
                     </div>
@@ -36,10 +36,10 @@
                 <div class="card">
                     <div class="body">
                         <div class="d-flex align-items-center">
-                            <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
+                            <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-medkit"></i></div>
                             <div class="ml-4">
-                                <span>New expense</span>
-                                <h4 class="mb-0 font-weight-medium">$3,651</h4>
+                                <span>Total in Lab</span>
+                                <h4 class="mb-0 font-weight-medium">{{count[0].pending}}</h4>
                             </div>
                         </div>
                     </div>
@@ -49,10 +49,10 @@
                 <div class="card">
                     <div class="body">
                         <div class="d-flex align-items-center">
-                            <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-users"></i></div>
+                            <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-user-md"></i></div>
                             <div class="ml-4">
-                                <span>Daily Visits</span>
-                                <h4 class="mb-0 font-weight-medium">5,805</h4>
+                                <span>Total Success</span>
+                                <h4 class="mb-0 font-weight-medium">{{count[0].success}}</h4>
                             </div>
                         </div>
                     </div>
@@ -62,10 +62,10 @@
                 <div class="card">
                     <div class="body">
                         <div class="d-flex align-items-center">
-                            <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-life-ring"></i></div>
+                            <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-hospital-o"></i></div>
                             <div class="ml-4">
-                                <span>Bounce rate</span>
-                                <h4 class="mb-0 font-weight-medium">$13,651</h4>
+                                <span>Total Prescrition</span>
+                                <h4 class="mb-0 font-weight-medium">51</h4>
                             </div>
                         </div>
                     </div>
@@ -157,161 +157,56 @@
                     <table class="table table-hover table-custom spacing5">
                         <thead>
                             <tr> 
-                                <th style="width: 20px;">#</th>
+                                    <th  style="width: 50px;">Image</th>
+                                    <th  style="width: 50px;">Patient ID</th>
+                                    <th  style="width: 50px;">Depertment</th>
+                                    <th  style="width: 50px;">Lab</th>
+                                    <th  style="width: 50px;">Treatment</th>
+                                    <th  style="width: 50px;">Prescription</th>
+                                    <th  style="width: 50px;">Date</th>
+                                    <th  style="width: 50px;">Time</th>
+                                    <th  style="width: 50px;">Progress</th>
+                                <!-- <th style="width: 20px;">#</th>
                                 <th>Client</th>
                                 <th style="width: 50px;">Amount</th>
                                 <th style="width: 50px;">Status</th>
-                                <th style="width: 110px;">Action</th>
+                                <th style="width: 110px;">Action</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <span>01</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>SS</span></div>
-                                        <div class="ml-3">
-                                            <a href="page-invoices-detail.html" title="">South Shyanne</a>
-                                            <p class="mb-0">south.shyanne@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$1200</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>02</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Zoe Baker</a>
-                                            <p class="mb-0">zoe.baker@example.com</p>
-                                        </div>
-                                    </div>                                        
-                                </td>
-                                <td>$378</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>03</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                            <div class="avtar-pic w35 bg-indigo" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>CB</span></div>
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Colin Brown</a>
-                                            <p class="mb-0">colinbrown@example.com</p>
-                                        </div>
-                                    </div>                                        
-                                </td>
-                                <td>$653</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>04</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avtar-pic w35 bg-green" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>KG</span></div>
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Kevin Gill</a>
-                                            <p class="mb-0">kevin.gill@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$451</td>
-                                <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>05</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Brandon Smith</a>
-                                            <p class="mb-0">Maria.gill@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$1,989</td>
-                                <td><span class="badge badge-success  ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>06</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Kevin Baker</a>
-                                            <p class="mb-0">kevin.baker@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$343</td>
-                                <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>07</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Zoe Baker</a>
-                                            <p class="mb-0">zoe.baker@example.com</p>
-                                        </div>
-                                    </div>                                        
-                                </td>
-                                <td>$378</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
+                                <tr *ngFor="let a of appoints; let r = index" >
+                                        <!-- <td> {{r+1}} </td> -->
+                                        <td class="w60">
+                                            <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                        </td>
+                                        <td>
+                                            <a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', a.cust_id]}}]" title="">{{a.card_number}}</a>
+                                            <p class="mb-0">{{a.pat_name}}</p>
+                                        </td>
+                                        <td>{{a.dept_name}}</td>
+                                        <td>
+                                            <span class="badge badge-danger" *ngIf ="a.lab=== 'close'">Close</span>
+                                            <span class="badge badge-success" *ngIf ="a.lab=== 'open'">Open</span> 
+                                            <span class="badge badge-warning" *ngIf ="a.lab=== 'pending'">Pending</span> 
+                                            <span class="badge badge-primary" *ngIf ="a.lab=== 'success'">Succcess</span>                                                                          
+                                        </td>
+                                        <td>
+                                                <span class="badge badge-danger" *ngIf ="a.treatment=== 'close'">Close</span>
+                                                <span class="badge badge-success" *ngIf ="a.treatment=== 'open'">Open</span> 
+                                                <span class="badge badge-warning" *ngIf ="a.treatment=== 'pending'">Pending</span> 
+                                                <span class="badge badge-primary" *ngIf ="a.treatment=== 'success'">Succcess</span>                                                                            
+                                        </td>
+                                        <td>
+                                                <span class="badge badge-danger" *ngIf ="a.prescription=== 'close'">Close</span>
+                                                <span class="badge badge-success" *ngIf ="a.prescription=== 'open'">Open</span> 
+                                                <span class="badge badge-warning" *ngIf ="a.prescription=== 'pending'">Pending</span> 
+                                                <span class="badge badge-primary" *ngIf ="a.prescription=== 'success'">Succcess</span>                                                                              
+                                        </td>                              
+                                        <td>{{a.date}}</td> 
+                                        <td>{{a.time}}</td>                                
+                                        <td><span class="badge badge-primary">70%</span>
+                                        </td>
+                                    </tr>
                         </tbody>
                     </table>
                 </div>

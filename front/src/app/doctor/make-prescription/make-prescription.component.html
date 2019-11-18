@@ -48,7 +48,7 @@
                           </li>
                       </ul>
                   </div>
-                  <div class="body">
+                  <!-- <div class="body">
                       <small class="text-muted">Degree: </small>
                       <p>MBBS,MD</p>
                       <small class="text-muted">Designation: </small>
@@ -65,16 +65,73 @@
                       <p><i class="fa fa-facebook  m-r-5"></i> facebook.com/example</p>
                       <p><i class="fa fa-github m-r-5"></i> github.com/example</p>
                       <p class="mb-0"><i class="fa fa-instagram m-r-5"></i> instagram.com/example</p>
-                  </div>
-              </div>
+                  </div> -->
+                  
+                        <div class="body">
+                            <small class="text-muted">Full Name: </small>
+                            <p>{{pat[0].name + " " + pat[0].othername}}</p>
+                            <hr>
+                            <small class="text-muted">Address: </small>
+                            <p>{{pat[0].address}}</p>
+                            <hr>
+                            <small class="text-muted">Email address: </small>
+                            <p>{{pat[0].email}}</p>                            
+                            <hr>
+                            <small class="text-muted">Mobile: </small>
+                            <p>{{pat[0].mobile_number}}</p>
+                            <hr>
+                            <small class="text-muted">Birth Date: </small>
+                            <p class="m-b-0">{{pat[0].d_o_b}}</p>
+                            <hr>
+                            <small class="text-muted">Gender: </small>
+                            <p class="m-b-0">{{pat[0].gender}}</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Blood Report</h2>
+                        </div>
+                        <div class="body">
+                            <table class="table table-hover table-striped mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td>Blood Group</td>
+                                        <td>{{pat[0].blood_group}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Genotype</td>
+                                        <td>{{pat[0].genotype}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weigth </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hight</td>
+                                        <td>0.0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Landfowl</td>
+                                        <td>0.1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>100.0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+               
           </div>
           <div class="col-lg-8 col-md-12">
               <div class="card">
                   <div class="body">
                       <ul class="nav nav-tabs">
                           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Basic</a></li>
-                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Account</a></li>
-                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#General">General</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#lab">Lab Test</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#diag">Diagnosis</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prescription">Prescription</a></li>
                       </ul>
                   </div>
               </div>
@@ -115,53 +172,120 @@
 
               <div class="tab-content padding-0">
                   <div class="tab-pane active" id="Basic">
-                      <div class="card">
-                          <div class="header">
-                              <h2>Basic Information</h2>
-                          </div>
-                          <div class="body">
-                              <div id="biography">
-                                  <div class="row">
-                                      <div class="col-md-3 col-sm-6">
-                                          <strong>Full Name</strong>
-                                          <br>
-                                          <p class="text-muted">Dr.Colin Brown</p>
-                                      </div>
-                                      <div class="col-md-3 col-sm-6">
-                                          <strong>Mobile</strong>
-                                          <br>
-                                          <p class="text-muted">(123) 456 7890</p>
-                                      </div>
-                                      <div class="col-md-3 col-sm-6">
-                                          <strong>Email</strong>
-                                          <br>
-                                          <p class="text-muted">Colin_Brown@info.com</p>
-                                      </div>
-                                      <div class="col-md-3 col-sm-6">
-                                          <strong>Location</strong>
-                                          <br>
-                                          <p class="text-muted">USA</p>
-                                      </div>
-                                  </div>
-                                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. </p>
-                                  <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                                  <br>
-                                  <h6 class="font-bold">Education</h6>
-                                  <ul class="list-group">
-                                      <li class="list-group-item">M.B.B.S.,Harvard University, USA.</li>
-                                      <li class="list-group-item">M.S.,Harvard University, USA.</li>
-                                      <li class="list-group-item">SPINAL FELLOWSHIP Dr. John Adam, Allegimeines Krakenhaus, Schwerin, Germany.</li>
-                                      <li class="list-group-item">Fellowship in Endoscopic Spine Surgery Phoenix, USA.</li>
-                                      <li class="list-group-item">D.N.B from AIIMS</li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+                    <div class="card">
+                            <div class="header">
+                                    <h2>Basic Informations</h2>
+                                </div>
+                        <div class="body">
+                            <p>{{pat[0].about}}</p>
+                            <ul class="list-unstyled mt-5 mb-5">
+                                <li>
+                                    <div>Blood Pressure</div>
+                                    <div class="progress m-b-20">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>Heart Beat</div>
+                                    <div class="progress m-b-20">
+                                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>Haemoglobin</div>
+                                    <div class="progress m-b-20">
+                                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"> <span class="sr-only">60% Complete (warning)</span> </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>Sugar</div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"> <span class="sr-only">80% Complete (danger)</span> </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Doctor</th>
+                                            <th>Treatment</th>
+                                            <th>Charges($)</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>11/05/2019</td>
+                                            <td>Dr.Michelle</td>
+                                            <td>Check up</td>
+                                            <td>14$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>13/05/2019</td>
+                                            <td>Dr.Porter</td>
+                                            <td>X-Ray</td>
+                                            <td>16$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>13/05/2019</td>
+                                            <td>Dr.David</td>
+                                            <td>Blood Test</td>
+                                            <td>24$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>14/05/2019</td>
+                                            <td>Dr.David</td>
+                                            <td>Admit</td>
+                                            <td>14$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>15/05/2019</td>
+                                            <td>Dr.Michelle</td>
+                                            <td>Operation</td>
+                                            <td>14$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>18/05/2019</td>
+                                            <td>Dr.Michelle</td>
+                                            <td>Discharge</td>
+                                            <td>14$</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                   </div>
-                  <div class="tab-pane" id="Account">
+                  <div class="tab-pane" id="lab">
                       <div class="card">
                           <div class="header">
-                              <h2>Account Data</h2>
+                              <h2>Lab Test</h2>
                           </div>
                           <div class="body">
                               <div class="row clearfix">

@@ -60,6 +60,17 @@ export class PatientComponent implements OnInit {
    );
    
   }
+
+  onSubmit(form: NgForm) {
+   
+    this.Jarwis.addCustomer(form.value).subscribe(
+     
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+           
+    );
+    
+  }
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
