@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 
+// declare let jQuery :any;
+
+
 @Component({
   selector: 'app-make-prescription',
   templateUrl: './make-prescription.component.html',
@@ -44,6 +47,19 @@ export class MakePrescriptionComponent implements OnInit {
       this.response = data;      
       this.appoints = this.response;
     })
+
+
+    // Multiselect
+  //   jQuery('#multiselect1, #multiselect2, #single-selection, #multiselect5, #multiselect6').multiselect({
+  //     maxHeight: 300
+  // });
+  // //Multi-select
+  // jQuery('#optgroup').multiSelect({ selectableOptgroup: true });
+
+    
   }
+
+
+  
 
 }

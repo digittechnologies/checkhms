@@ -78,6 +78,7 @@ import { LabLogComponent } from './lab/lab-log/lab-log.component';
 import { LabHomeComponent } from './lab/lab-home/lab-home.component';
 import { AllStaffComponent } from './admin/all-staff/all-staff.component';
 import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-taskboard.component';
+import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
 
 
 @NgModule({
@@ -187,7 +188,9 @@ import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-
   
     AllStaffComponent,
   
-    PatientTaskboardComponent
+    PatientTaskboardComponent,
+  
+    SetLabTestComponent
   ],
   imports: [
     BrowserModule,
