@@ -720,7 +720,7 @@
                             <a href="javascript:void(0);" class="has-arrow"><i class="fa fa-user-md"></i><span>Doctors</span></a>
                             <ul>
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['doctor_log']}}]">Medical Log</a></li>
-                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment']}}]">Treatment</a></li> 
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', 0]}}]">Terapy</a></li> 
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]">History</a></li>                               
                                 
                             </ul>   
@@ -729,12 +729,12 @@
                         <li >
                             <span *ngIf="card == pos || admin == pos">
                                 <a class="has-arrow"><i class="fa fa-hospital-o"></i><span>Laboratory</span></a>
-                                <ul>
-                                    <li class="header">Test</li>
+                                <ul>                                    
                                     <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['lab_log']}}]">Lab Log</a></li>
                                     <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['test']}}]">Test</a></li>
                                     <li class="header">Setting</li>
-                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['set_lab']}}]">Set Lab</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['set_lab_test']}}]">Set Lab Test</a></li>
+                                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['set_lab_department']}}]">Set Lab Department</a></li>
                                     <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['lab_esther']}}]">History</a></li>
                                 </ul>
                             </span>

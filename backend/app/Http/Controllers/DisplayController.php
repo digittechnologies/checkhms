@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SignUpRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Positions;
@@ -352,9 +355,31 @@ class DisplayController extends Controller
                   
             return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
                     ->join('customers','appointments.customer_id','=','customers.id')
-                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.card_number')               
+                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')               
                     ->get();
     
+    }
+
+    public function displayDeptAppointment()
+    {
+       
+        $deptId= Auth()->user()->dept_id;
+            return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
+                    ->where('appointments.department_id','=',$deptId)
+                    ->get();
+    
+    }
+
+    public function countAppointment()
+    {
+        $deptId= Auth()->user()->dept_id;
+        $post = DB::table('appointments')->select(DB::raw('count(id) as "all_appoint", (select COUNT(id) from appointments where treatment = "open" and department_id ='.$deptId.') as "open", (select COUNT(id) from appointments where treatment = "success" and department_id ='.$deptId.') as "success", (select COUNT(id) from appointments where lab = "open" and department_id ='.$deptId.') as "pending" '))
+        ->where('appointments.department_id','=',$deptId)        
+        ->get();
+      return $post;
+
     }
 
     // Prescriptions

@@ -7,17 +7,18 @@ import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-set-lab',
-  templateUrl: './set-lab.component.html',
-  styleUrls: ['./set-lab.component.css']
+  selector: 'app-set-lab-test',
+  templateUrl: './set-lab-test.component.html',
+  styleUrls: ['./set-lab-test.component.css']
 })
-export class SetLabComponent implements OnInit {
+export class SetLabTestComponent implements OnInit {
+
   response: any;
+  cat: any;
   catres: any;
   catid: string;
   catName: any;
   error: any;
-  dept: any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -27,13 +28,11 @@ export class SetLabComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.Jarwis.displayDepartments().subscribe(
+    this.Jarwis.displayCategories().subscribe(
       data=>{
-      this.response = data;
-      
-      this.dept = this.response 
+      this.response = data;      
+      this.cat = this.response   
     })
-
   
 }
 
@@ -105,4 +104,3 @@ onDelete(id: string) {
 
 
 }
-

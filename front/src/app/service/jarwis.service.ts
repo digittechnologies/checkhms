@@ -335,6 +335,18 @@ displayAllappointment() {
   return this.http.get(`${this.baseUrl}/displayAllappointment`,)
 }
 
+displayDeptAppointment() {
+  return this.http.get(`${this.baseUrl}/displayDeptAppointment`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+countAppointment() {
+  return this.http.get(`${this.baseUrl}/countAppointment`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
   }

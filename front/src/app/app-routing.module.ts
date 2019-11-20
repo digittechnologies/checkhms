@@ -38,6 +38,8 @@ import { PHistoryComponent } from './payment/p-history/p-history.component';
 import { LabLogComponent } from './lab/lab-log/lab-log.component';
 import { LabHomeComponent } from './lab/lab-home/lab-home.component';
 import { TestComponent } from './lab/test/test.component';
+import { SetLabComponent } from './lab/set-lab/set-lab.component';
+import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
 
 // Patient
 import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
@@ -102,7 +104,7 @@ const routes: Routes = [
          // Doctor
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'doctor_home', component: DoctorHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'treatment', component: MakePrescriptionComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'treatment/:id', component: MakePrescriptionComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
           // Payment
          {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -113,6 +115,8 @@ const routes: Routes = [
          {path: 'lab_log', component: LabLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'lab_home', component: LabHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'test', component: TestComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
