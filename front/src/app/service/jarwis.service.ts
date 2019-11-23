@@ -347,6 +347,44 @@ countAppointment() {
   }})
 }
 
+
+//Laboratory Departments
+  addLaboratory(data) {
+    return this.http.post(`${this.baseUrl}/addLab`, data)
+  }
+  displayLabDepartments() {
+    return this.http.get(`${this.baseUrl}/displayLabDepartments`,)
+  }
+  updateLabDept(data) {
+    return this.http.post(`${this.baseUrl}/updateLabDept`, data)
+  }
+  deleteLabDepartments(data) {
+    return this.http.post(`${this.baseUrl}/deleteLabDepartments`, data)
+  } 
+  edtLabDept(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtLabDept/${id}`)
+  }
+
+
+  //Laboratory Test Types
+  addLaboratoryTest(data) {
+    return this.http.post(`${this.baseUrl}/addLabTestType`, data)
+  }
+  displayLabTestType() {
+    return this.http.get(`${this.baseUrl}/displayLabTestType`,)
+  }
+  updateLabTestType(data) {
+    return this.http.post(`${this.baseUrl}/updateLabTestType`, data)
+  }
+  deleteLabTestType(data) {
+    return this.http.post(`${this.baseUrl}/deleteLabTestType`, data)
+  } 
+  edtLabTestType(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtLabTestType/${id}`)
+  }
+
+
+
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
   }
