@@ -22,6 +22,8 @@ use App\Invoices;
 use App\Voucher;
 use Carbon\Carbon;
 use App\Appointments;
+use\App\Lab_depts;
+use App\Lab_test_types;
 
 class AddController extends Controller
 {
@@ -976,5 +978,138 @@ class AddController extends Controller
             }';
         }
     
+    }
+
+
+    //Set Lab Depertment
+
+    public function createLabDept(Request $request)
+    {
+        $dept= Lab_depts::create($request-> all());
+       
+        if($dept){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteLabDept(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('lab_depts')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    public function updateLabDept(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->lab_name;
+        $descrip= $request->description;
+        $department_id= $request->department_id;
+        $status= $request->status;
+
+        $update = DB::table('lab_depts')->where('lab_depts.id','=',$id)
+        ->update([
+            'lab_name'=> $name,
+            'description' => $descrip,
+            'department_id' => $department_id,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    //Set Lab Test Types
+
+    public function createLabTestType(Request $request)
+    {
+        $dept= Lab_test_types::create($request-> all());
+       
+        if($dept){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteLabTestType(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('lab_test_types')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    public function updateLabTestType(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->test_name;
+        $descrip= $request->test_description;
+        $lab_dept_id= $request->lab_dept_id;
+        // $status= $request->status;
+
+        $update = DB::table('lab_test_types')->where('lab_test_types.id','=',$id)
+        ->update([
+            'test_name'=> $name,
+            'test_description' => $descrip,
+            'lab_dept_id' => $lab_dept_id,
+            // 'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 }

@@ -154,7 +154,18 @@ Route::post('addVoucher', 'AddController@addVoucher');
 Route::post('updateVoucher', 'AddController@updateInvoice');
 Route::post('deleteVoucher', 'AddController@deleteVoucher');
 
-
+//Laboratory Department
+Route::post('addLab', 'AddController@createLabDept');
+Route::get('displayLabDepartments','DisplayController@displayLabDepartments');
+Route::post('deleteLabDepartments', 'AddController@deleteLabDept');
+Route::post('updateLabDept', 'AddController@updateLabDept');
+Route::get('edtLabDept/{id}','DisplayController@edtLabDept');
+//Laboratory Test Type
+Route::post('addLabTestType', 'AddController@createLabTestType');
+Route::get('displayLabTestType','DisplayController@displayLabTestType');
+Route::post('deleteLabTestType', 'AddController@deleteLabTestType');
+Route::post('updateLabTestType', 'AddController@updateLabTestType');
+Route::get('edtLabTestType/{id}','DisplayController@edtLabTestType');
 
 
 

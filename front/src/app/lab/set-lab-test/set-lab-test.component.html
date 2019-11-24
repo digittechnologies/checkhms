@@ -3,12 +3,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Item Categories Table</h1>
+                    <h1>Laboratory Test Type table</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-                        <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                        <li class="breadcrumb-item"><a href="">Laboratory</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Test Type</li>
                         </ol>
                     </nav>
                 </div>            
@@ -27,24 +27,27 @@
                             <tr> 
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Status</th>                                
+                                <th>Test Description</th>   
+                                <th>Lab Department</th>                             
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let c of cat; let r = index">
+                            <tr *ngFor="let t of labTestType; let r = index">
                                 <td>
                                     {{r+1}}
                                 </td>                              
-                                <td style="color: #17C2D7;">{{c.cat_name}}</td>     
+                               <td style="color: #17C2D7;">{{t.test_name}}</td> 
+                                <td style="color: #17C2D7;">{{t.test_description}}</td> 
+                                <td style="color: #17C2D7;">{{t.lab_name}}</td>      
                                 
-                                <td>
+                                <!-- <td>
                                     <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
                                       <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
-                                </td>                          
+                                </td>  -->                         
                                 <td>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)"><i class="fa fa-trash-o"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>                                                   
                         </tbody>
@@ -59,7 +62,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title h4" id="myLargeModalLabel">Add Category</h5>
+            <h5 class="modal-title h4" id="myLargeModalLabel">Add Laboratory Test Type</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -69,13 +72,34 @@
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Category Name" ngModel name="cat_name" required>
+                        <input type="text" class="form-control" placeholder="Test Name" ngModel name="test_name" required>
                     </div>
                 </div>             
             </div>
         </div>
-        
         <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Test Description" ngModel name="test_description" required>
+                    </div>
+                </div>             
+            </div>
+        </div>
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <select class="form-control show-tick" ngModel name="lab_dept_id">
+                            <option value="">-- Select Department --</option>
+                            <option *ngFor="let d of labDept" [value]="d.id">{{d.lab_name}}</option>                              
+                        </select>                  
+                      </div>
+                </div>             
+            </div>
+        </div>
+        
+        <!-- <div class="modal-body">             
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
@@ -87,7 +111,7 @@
                       </div>
                 </div>             
             </div>
-        </div>      
+        </div>       -->
         <div class="modal-footer">
             <button type="submit" class="btn btn-round btn-primary">Add</button>
             <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
@@ -103,25 +127,45 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Category</h5>
+                <h5 class="modal-title h4" id="myLargeModalLabel">Update Laboratory Test Type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
                 </button>
             </div>
             <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+            <div class="modal-body">     
             <div class="modal-body">             
+                    <div class="row clearfix">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [value]="testtypeName" placeholder="Name" ngModel name="test_name" required>
+                                <input type="hidden" [value]="testtypeid" ngModel name="id">
+                              </div>
+                        </div>             
+                    </div>
+                </div>        
                 <div class="modal-body">             
                     <div class="row clearfix">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" [value]="catName" placeholder="Manufacturer Name" ngModel name="name" required>
-                                <input type="hidden" [value]="manufid" ngModel name="id">
+                                <input type="text" class="form-control" [value]="testtypeDesc" placeholder="Name" ngModel name="test_description" required>
                               </div>
                         </div>             
                     </div>
                 </div>
-                
                 <div class="modal-body">             
+                    <div class="row clearfix">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                 <select class="form-control show-tick" ngModel name="lab_dept_id">
+                            <option value="">-- Select Department --</option>
+                            <option *ngFor="let d of labDept" [value]="d.id">{{d.lab_name}}</option>                              
+                        </select>                   
+                              </div>
+                        </div>             
+                    </div>
+                </div>
+                <!-- <div class="modal-body">             
                     <div class="row clearfix">
                         <div class="col-md-8">
                             <div class="form-group">
@@ -132,7 +176,7 @@
                               </div>
                         </div>             
                     </div>
-                </div>      
+                </div>       -->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-round btn-primary">Update</button>
