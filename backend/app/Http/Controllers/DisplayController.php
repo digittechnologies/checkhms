@@ -21,6 +21,8 @@ use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
 use App\Appointments;
+use\App\Lab_depts;
+use App\Lab_test_types;
 
 class DisplayController extends Controller
 {
@@ -445,8 +447,56 @@ class DisplayController extends Controller
     
     }
 
+//Lab Depertment
+
+    public function displayLabDepartments()
+    {
+        return response()->json(
+        
+            Lab_depts::orderBy('id')->join('departments','lab_depts.department_id','=','departments.id')
+            ->select('lab_depts.*','departments.name')       
+            ->get()
+           
+        );
+    }
+
+    public function edtLabDept($id)
+    {
+        return response()->json(
+        
+            Lab_depts::orderBy('id')->join('departments','lab_depts.department_id','=','departments.id')
+            ->select('lab_depts.*','departments.name') 
+            ->where('lab_depts.id','=',$id)        
+            ->get()
+           
+        );
+    }
 
 
+//Lab Test Types
+
+    public function displayLabTestType()
+    {
+        return response()->json(
+        
+            Lab_test_types::orderBy('id')->join('lab_depts','lab_test_types.lab_dept_id','=','lab_depts.id')
+            ->select('lab_test_types.*','lab_depts.lab_name')       
+            ->get()
+           
+        );
+    }
+
+    public function edtLabTestType($id)
+    {
+        return response()->json(
+        
+            Lab_test_types::orderBy('id')->join('lab_depts','lab_test_types.lab_dept_id','=','lab_depts.id')
+            ->select('lab_test_types.*','lab_depts.lab_name') 
+            ->where('lab_test_types.id','=',$id)        
+            ->get()
+           
+        );
+    }
     
 
 

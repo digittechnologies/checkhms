@@ -34,19 +34,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let c of cat; let r = index">
+                            <tr *ngFor="let l of labDept; let r = index">
                                 <td>
                                     {{r+1}}
                                 </td>                              
-                                <td style="color: #17C2D7;">{{c.cat_name}}</td>     
-                                
+                                <td style="color: #17C2D7;">{{l.lab_name}}</td>     
+                                <td style="color: #17C2D7;">{{l.description}}</td>  
+                                <td style="color: #17C2D7;">{{l.name}}</td>
                                 <td>
-                                    <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
-                                      <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
+                                    <span class="badge badge-success" *ngIf ="l.status=== 'active'">Active</span>
+                                      <span class="badge badge-danger" *ngIf ="l.status=== 'suspend'">Suspend</span>                                   
                                 </td>                          
                                 <td>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)"><i class="fa fa-trash-o"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(l.id)"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(l.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>                                                   
                         </tbody>
@@ -61,7 +62,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title h4" id="myLargeModalLabel">Add Laboratory</h5>
+            <h5 class="modal-title h4" id="myLargeModalLabel">Add Laboratory Type</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -125,7 +126,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Category</h5>
+                <h5 class="modal-title h4" id="myLargeModalLabel">Update Laboratory Type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
                 </button>
@@ -136,13 +137,33 @@
                     <div class="row clearfix">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" [value]="catName" placeholder="Manufacturer Name" ngModel name="name" required>
-                                <input type="hidden" [value]="manufid" ngModel name="id">
+                                <input type="text" class="form-control" placeholder="Laboratory Name" [value]="labName" ngModel name="lab_name" required>
+                                <input type="hidden" [value]="labid" ngModel name="id">
                               </div>
                         </div>             
                     </div>
                 </div>
-                
+                <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="textarea" class="form-control" placeholder="Laboratory Description" [value]="labDesc" ngModel name="description" required>
+                    </div>
+                </div>             
+            </div>
+        </div>
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <select class="form-control show-tick" ngModel name="department_id">
+                            <option value="">-- Select Department --</option>
+                             <option *ngFor="let d of dept" [value]="d.id">{{d.name}}</option>                           
+                        </select>                  
+                      </div>
+                </div>             
+            </div>
+        </div>
                 <div class="modal-body">             
                     <div class="row clearfix">
                         <div class="col-md-8">

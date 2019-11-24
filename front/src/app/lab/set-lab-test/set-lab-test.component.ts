@@ -14,11 +14,13 @@ import { NgForm } from '@angular/forms';
 export class SetLabTestComponent implements OnInit {
 
   response: any;
-  cat: any;
-  catres: any;
-  catid: string;
-  catName: any;
+  labDept: any;
+  testtyperes: any;
+  testtypeid: string;
+  testtypeName: any;
+  testtypeDesc: any;
   error: any;
+  labTestType: any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -28,32 +30,39 @@ export class SetLabTestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.Jarwis.displayCategories().subscribe(
+  this.Jarwis.displayLabDepartments().subscribe(
       data=>{
-      this.response = data;      
-      this.cat = this.response   
+      this.response = data;
+      this.labDept = this.response 
     })
+
+  this.Jarwis.displayLabTestType().subscribe(
+    data=>{
+    this.response = data;
+    this.labTestType = this.response 
+  })
   
 }
 
 editdept(id: string) {
   console.log(id)
-  this.Jarwis.edtCategories(id).subscribe(
+  this.Jarwis.edtLabTestType(id).subscribe(
     data=>{      
-      this.catres = data; 
-      this.catid= id
-      this.catName= this.catres[0].cat_name;
+      this.testtyperes = data; 
+      this.testtypeid= id;
+      this.testtypeName= this.testtyperes[0].test_name;
+      this.testtypeDesc= this.testtyperes[0].test_description;
     })
 }
 
 onUpdate(form: NgForm) {
 
   
-  form.value.id=this.catid
+  form.value.id=this.testtypeid
   // this.image= form.value.image
   //  console.log(form)
    console.log(form.value)
-  this.Jarwis.updateCategories(form.value).subscribe(        
+  this.Jarwis.updateLabTestType(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
     
@@ -62,7 +71,7 @@ onUpdate(form: NgForm) {
 
 onDelete(id: string) {
 
-  this.Jarwis.deleteCategories(id).subscribe(  
+  this.Jarwis.deleteLabTestType(id).subscribe(  
       
     data => this.handleResponse(data),
     error => this.handleError(error), 
@@ -73,7 +82,7 @@ onDelete(id: string) {
 
   onSubmit(form: NgForm) {
    
-    this.Jarwis.addCategories(form.value).subscribe(
+    this.Jarwis. addLaboratoryTest(form.value).subscribe(
      
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -83,10 +92,10 @@ onDelete(id: string) {
   }
 
   handleResponse(data) {    // 
-    let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    this.router.navigateByUrl('/Admin/(side:set_lab_test');
     this.ngOnInit();
     
   }
