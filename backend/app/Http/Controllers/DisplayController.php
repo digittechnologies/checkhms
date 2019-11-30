@@ -21,7 +21,7 @@ use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
 use App\Appointments;
-use\App\Lab_depts;
+use App\Lab_depts;
 use App\Lab_test_types;
 
 class DisplayController extends Controller
@@ -498,7 +498,20 @@ class DisplayController extends Controller
         );
     }
     
-
+//Branches to add items to 
+    public function stockBranches()
+    {
+        $branch = DB::table("branches")->get(); 
+        $array = array();
+        foreach($branch as $row){
+            $name = $row->br_name;
+            if($row->br_name != 'branch_main'){
+                $name = 'branch_'.strtolower(trim(str_replace(' ', '', $row->br_name)));
+            }
+            array_push($array, $name);
+         }
+         return $array;
+    }
 
 
 

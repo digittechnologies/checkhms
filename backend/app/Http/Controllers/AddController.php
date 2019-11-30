@@ -22,7 +22,7 @@ use App\Invoices;
 use App\Voucher;
 use Carbon\Carbon;
 use App\Appointments;
-use\App\Lab_depts;
+use App\Lab_depts;
 use App\Lab_test_types;
 
 class AddController extends Controller
@@ -505,6 +505,13 @@ class AddController extends Controller
             }';
         }
         
+    }
+
+    //add to stock 
+
+    public function addToStock(Request $request)
+    {
+       
     }
 
     // Branch
