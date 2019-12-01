@@ -168,6 +168,9 @@ Route::post('deleteLabTestType', 'AddController@deleteLabTestType');
 Route::post('updateLabTestType', 'AddController@updateLabTestType');
 Route::get('edtLabTestType/{id}','DisplayController@edtLabTestType');
 
+//Add to Stock
+Route::get('stockBranches','DisplayController@stockBranches');
+Route::post('addToStock', 'AddController@addToStock');
 
 
 Route::get('comments','UserController@getComments');
