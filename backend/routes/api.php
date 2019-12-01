@@ -52,6 +52,7 @@ Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
 
 
+Route::post('getUser','AddController@getUser');
 
 
 // Staff

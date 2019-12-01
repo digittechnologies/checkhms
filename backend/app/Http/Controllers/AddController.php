@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
+use Illuminate\Support\Facades\Auth;
 
 class AddController extends Controller
 {
@@ -574,6 +575,8 @@ class AddController extends Controller
                 );
         }
         $request->merge(['name' => $req_name]);
+        $staffId= Auth()->user()->id;
+        $request->merge(['staff_id' => $staffId]);
         $branch= Branches::create($request-> all());
         if($branch){
             return '{
@@ -740,8 +743,10 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
+        $staffId= Auth()->user()->id;
         $appointment= Appointments::create(['customer_id' => $cust_id, 
                                             'department_id' => $dept_id, 
+                                            'doctor_id' => $staffId,
                                             'prescription' => 'open', 
                                             'invoice' => 'open', 
                                             'voucher' => 'open',
