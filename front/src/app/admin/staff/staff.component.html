@@ -53,7 +53,7 @@
                                 <td>
                                         <button type="button" class="btn btn-default btn-sm" title="View" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-info"></i></button>
                                         <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'approved' " title="Edit"><i class="fa fa-minus" (click)="c_uStatus(s.id)"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'suspended' " title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'reg' " title="Edit"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
                                         <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button>
                                         
   

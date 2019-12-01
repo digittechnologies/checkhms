@@ -19,6 +19,9 @@ export class MakeAppointmentComponent implements OnInit {
   appontId: any;
   error: any;
   pat: any;
+  catName:any;
+  manufid:any;
+  onUpdate
 
   constructor( 
     private Jarwis: JarwisService,
@@ -60,6 +63,15 @@ export class MakeAppointmentComponent implements OnInit {
    
   }
 
+  onDelete(id: string) {
+
+    this.Jarwis.deleteAppointment(id).subscribe(  
+        
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+      
+    );
+    }
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
@@ -70,7 +82,7 @@ export class MakeAppointmentComponent implements OnInit {
 
   handleError(error) {
     this.error = error.error.errors;
-    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+    let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000
     })  
   }

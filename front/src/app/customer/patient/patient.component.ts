@@ -82,7 +82,7 @@ export class PatientComponent implements OnInit {
 
   handleError(error) {
     this.error = error.error.errors;
-    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+    let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000
 
     })

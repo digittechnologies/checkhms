@@ -698,6 +698,7 @@ class AddController extends Controller
     
     }
 
+    //Appointment
     public function makeAppointment(Request $request)
     {
         $cust_id = $request['aid'];
@@ -705,16 +706,18 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
-        $appointment= Appointments::create(['customer_id' => $cust_id, 
-                                            'department_id' => $dept_id, 
-                                            'prescription' => 'open', 
-                                            'invoice' => 'open', 
-                                            'voucher' => 'open',
-                                            'treatment' => 'open', 
-                                            'status' => 'active',
-                                            'date' => $date,
-                                            'time' => $time,
-                                        ]);    
+        $appointment= Appointments::create(
+            [
+                'customer_id' => $cust_id, 
+                'department_id' => $dept_id, 
+                'prescription' => 'open', 
+                'invoice' => 'open', 
+                'voucher' => 'open',
+                'treatment' => 'open', 
+                'status' => 'active',
+                'date' => $date,
+                'time' => $time,
+            ]);    
   
      if($appointment){
         return '{
@@ -730,6 +733,24 @@ class AddController extends Controller
     
     }
 
+    public function deleteAppointment(Request $request)
+    {
+        $id=$request[0];
+
+        $deletea=DB::table('appointments')->where('id', $id)->delete();
+        if($deletea){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
     // Prescription
     public function addPrescription(Request $request)
     {
