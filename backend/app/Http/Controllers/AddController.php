@@ -22,7 +22,7 @@ use App\Invoices;
 use App\Voucher;
 use Carbon\Carbon;
 use App\Appointments;
-use\App\Lab_depts;
+use App\Lab_depts;
 use App\Lab_test_types;
 
 class AddController extends Controller
@@ -452,6 +452,8 @@ class AddController extends Controller
         $generic_name= $request->generic_name;
         $selling_price= $request->selling_price;
         $purchasing_price= $request->purchasing_price;
+        $manufacture_date = $request->manufacture_date;
+        $expiring_date = $request->expiring_date;
         $status= $request->status;
         $item_unit_id= $request->item_unit_id;
         $item_category_id= $request->item_category_id;
@@ -466,6 +468,8 @@ class AddController extends Controller
             'generic_name'=>  $generic_name,
             'selling_price' => $selling_price,
             'purchasing_price' => $selling_price,
+            'manufacture_date' => $manufacture_date,
+            'expiring_date' => $expiring_date,
             'status' => $status,
             'item_unit_id' => $item_unit_id,
             'item_category_id' => $item_category_id,
@@ -505,6 +509,37 @@ class AddController extends Controller
             }';
         }
         
+    }
+
+    //add to stock 
+
+    public function addToStock(Request $request)
+    {
+       $branch = $request->br_name;
+       $item = $request->item;
+       $quantity = $request->quantity;
+       $bitem=DB::table('branch_main')
+        ->where('item_detail_id','=', $item)
+        ->get();
+        $receive = $bitem[0]->receive + $quantity;
+        $remain =  $bitem[0]->total_remain + $quantity;
+        $add=DB::table('branch_main')
+         ->where('item_detail_id','=', $item)
+         ->update([
+            'receive' => $receive,
+            'total_remain' => $remain
+        ]);
+        if($add){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        } 
     }
 
     // Branch
