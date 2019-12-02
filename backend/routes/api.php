@@ -51,10 +51,6 @@ Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
 
-
-Route::post('getUser','AddController@getUser');
-
-
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
 Route::post('uStatus','DisplayController@uStatus');
@@ -168,10 +164,10 @@ Route::post('deleteLabTestType', 'AddController@deleteLabTestType');
 Route::post('updateLabTestType', 'AddController@updateLabTestType');
 Route::get('edtLabTestType/{id}','DisplayController@edtLabTestType');
 
-//Add to Stock
+//Updating Stock
 Route::get('stockBranches','DisplayController@stockBranches');
 Route::post('addToStock', 'AddController@addToStock');
-
+Route::post('transferToStock', 'AddController@transferToStock');
 
 Route::get('comments','UserController@getComments');
 Route::get('rates','UserController@getRates');
