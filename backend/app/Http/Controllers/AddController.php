@@ -459,6 +459,8 @@ class AddController extends Controller
         $item_category_id= $request->item_category_id;
         $item_type_id= $request->item_type_id;
         $manufacturer_id= $request->manufacturer_id;
+        $manufacture_date=$request->manufacture_date;
+        $expiring_date= $request -> expiring_date;
         $tax_id= $request->tax_id;
         $discount_id= $request->discount_id;
         $staff_id= $request->staff_id;
@@ -475,6 +477,8 @@ class AddController extends Controller
             'item_category_id' => $item_category_id,
             'item_type_id' => $item_type_id,
             'manufacturer_id' => $manufacturer_id,
+            'manufacture_date' => $manufacture_date,
+            'expiring_date' => $expiring_date,
             'tax_id' => $tax_id,
             'discount_id' => $discount_id,
             'staff_id' => $staff_id

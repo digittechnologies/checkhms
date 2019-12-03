@@ -32,6 +32,8 @@ export class AllItemsComponent implements OnInit {
   type: any;
   unit: any;
   manuf: any;
+  bran: any;
+  cityName: any;
   
   constructor( 
     private Jarwis: JarwisService,
@@ -53,6 +55,13 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response   
+    })
+
+    this.Jarwis.displayBranch().subscribe(
+      data=>{
+      this.response = data;      
+      this.bran = this.response   
+      console.log(this.bran.name)
     })
 
     this.Jarwis.displayType().subscribe(
@@ -135,6 +144,14 @@ onDelete(id: string) {
            
     );
     
+  }
+
+  onSelect(id: string){
+    // this.cityName.setValue(id.target.value, {
+    //   onlySelf: true
+    // })
+    // alert(id)
+    console.log(id);
   }
 
   handleResponse(data) {    // 
