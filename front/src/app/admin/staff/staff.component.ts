@@ -63,7 +63,7 @@ export class StaffComponent implements OnInit {
    
    handleResponse(data) { 
      console.log(data) 
-    let snackBarRef = this.snackBar.open("Successfully move to trash", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
      duration: 2000
    })  
   //  this.disabled=true;

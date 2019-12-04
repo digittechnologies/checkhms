@@ -460,6 +460,8 @@ class AddController extends Controller
         $item_category_id= $request->item_category_id;
         $item_type_id= $request->item_type_id;
         $manufacturer_id= $request->manufacturer_id;
+        $manufacture_date=$request->manufacture_date;
+        $expiring_date= $request -> expiring_date;
         $tax_id= $request->tax_id;
         $discount_id= $request->discount_id;
         $staff_id= $request->staff_id;
@@ -476,6 +478,8 @@ class AddController extends Controller
             'item_category_id' => $item_category_id,
             'item_type_id' => $item_type_id,
             'manufacturer_id' => $manufacturer_id,
+            'manufacture_date' => $manufacture_date,
+            'expiring_date' => $expiring_date,
             'tax_id' => $tax_id,
             'discount_id' => $discount_id,
             'staff_id' => $staff_id
@@ -722,6 +726,7 @@ class AddController extends Controller
     
     }
 
+    //Appointment
     public function makeAppointment(Request $request)
     {
         $cust_id = $request['aid'];
@@ -729,18 +734,18 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
-        $staffId= Auth()->user()->id;
-        $appointment= Appointments::create(['customer_id' => $cust_id, 
-                                            'department_id' => $dept_id, 
-                                            'doctor_id' => $staffId,
-                                            'prescription' => 'open', 
-                                            'invoice' => 'open', 
-                                            'voucher' => 'open',
-                                            'treatment' => 'open', 
-                                            'status' => 'active',
-                                            'date' => $date,
-                                            'time' => $time,
-                                        ]);    
+        $appointment= Appointments::create(
+            [
+                'customer_id' => $cust_id, 
+                'department_id' => $dept_id, 
+                'prescription' => 'open', 
+                'invoice' => 'open', 
+                'voucher' => 'open',
+                'treatment' => 'open', 
+                'status' => 'active',
+                'date' => $date,
+                'time' => $time,
+            ]);    
   
      if($appointment){
         return '{
@@ -756,6 +761,24 @@ class AddController extends Controller
     
     }
 
+    public function deleteAppointment(Request $request)
+    {
+        $id=$request[0];
+
+        $deletea=DB::table('appointments')->where('id', $id)->delete();
+        if($deletea){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
     // Prescription
     public function addPrescription(Request $request)
     {

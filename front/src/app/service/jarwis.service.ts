@@ -39,7 +39,7 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  // private baseUrl = 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api';
+  // private baseUrl = 'https://back.hms.jtcheck.com/backend/public/api';
 
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
@@ -340,12 +340,14 @@ displayDeptAppointment() {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
-
 countAppointment() {
   return this.http.get(`${this.baseUrl}/countAppointment`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+deleteAppointment(data) {
+  return this.http.post(`${this.baseUrl}/deleteAppointment`, data)
+} 
 
 
 //Laboratory Departments

@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../html/index.html">Dashboard/ </a></li>
-                        <li class="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><a href="index.html"> Patient/ </a></li>
+                        <li class="#" ><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"> Patient/ </a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Patient Profile</li>
                         </ol>
                     </nav>
@@ -25,7 +25,7 @@
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="../assets/images/user.png" class="rounded" alt="">
+                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="">
                             </div>
                             <div class="details">
                                 <h5 class="mb-0">{{pat[0].card_number}}</h5>

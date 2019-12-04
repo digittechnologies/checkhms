@@ -27,6 +27,7 @@ export class CategoryComponent implements OnInit {
   catAdd: any;
   catNum: any;
   catDetail: any;
+  manufid:any;
   
   constructor( 
     private Jarwis: JarwisService,

@@ -15,6 +15,9 @@ export class SetBranchComponent implements OnInit {
   response: Object;
   bran: Object;
   error: any;
+  catName:any;
+  manufid:any;
+  onUpdate:any;
 
   constructor( 
     private Jarwis: JarwisService,

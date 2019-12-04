@@ -129,6 +129,7 @@ Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment','AddController@makeAppointment');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
+Route::post('deleteAppointment', 'AddController@deleteAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
