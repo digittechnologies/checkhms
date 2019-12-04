@@ -503,19 +503,11 @@ class AddController extends Controller
 
         $delete1=DB::table('item_details')->where('id', $id)->delete();
 
-        // ERROR 2
         $branch = DB::table("branches")->get();   
         foreach($branch as $row){
             $name = $row->br_name;
             $delete=DB::table($name)->where('id', $id)->delete();
-            // $insert = DB::table($name)->insertGetId(
-            //     [
-            //         'item_detail_id' => $item->id,
-            //     ]
-            //     );
-        }
-        // ERROR 2
-        
+        }        
         if($delete){
             return '{
                 "success":true,
