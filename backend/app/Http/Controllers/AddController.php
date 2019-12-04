@@ -534,7 +534,7 @@ class AddController extends Controller
 
     public function createBranch(Request $request)
     {
-        $req_name=$request->br_name;
+        $req_name=$request->bran_name;
         $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         Schema::create($table_name, function (Blueprint $table) {
             $table->increments('id');
@@ -564,9 +564,7 @@ class AddController extends Controller
         $request->merge(['name' => $req_name]);
         $staffId= Auth()->user()->id;
         $request->merge(['staff_id' => $staffId]);
-        //ERROR 1
         $request->merge(['br_name' => $table_name]);
-        //ERROR 1
         $branch= Branches::create($request-> all());
         if($branch){
             return '{
