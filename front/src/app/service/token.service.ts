@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class TokenService {
   private iss = {
     
-    // login: 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api/login',
-    // signup: 'https://sce-ogun.sabiogun.jtcheck.com/backend/public/api/signup'
+    // login: 'https://back.hms.jtcheck.com/backend/public/api/login',
+    // signup: 'https://back.hms.jtcheck.com/backend/public/api/signup'
 
     login: 'http://localhost/buth-pharm/backend/public/api/login',
     signup: 'http://localhost/buth-pharm/backend/public/api/signup'

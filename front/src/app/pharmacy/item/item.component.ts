@@ -33,6 +33,7 @@ export class ItemComponent implements OnInit {
   itemimg: any;
   typeimg: any;
   resitem: any;
+  type:any;
   
   constructor( 
     private Jarwis: JarwisService,

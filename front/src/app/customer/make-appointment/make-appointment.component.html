@@ -6,9 +6,9 @@
                     <h1>Appointments</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-                        <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/home']">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="index.html" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Appointment</li>
                         </ol>
                     </nav>
                 </div>            
@@ -38,6 +38,7 @@
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Progress</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +88,10 @@
                                 </td>                                
                                 <td>{{a.date}}</td> 
                                 <td>{{a.time}}</td>                                
-                                <td><span class="badge badge-primary">70%</span>
+                                <td><span class="badge badge-warning">20%</span>
+                                </td>
+                                <td>                
+                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(a.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
                         </tbody>

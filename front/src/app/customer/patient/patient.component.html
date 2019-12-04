@@ -6,8 +6,8 @@
                     <h1>Patients List</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="#">Patient</a></li> -->
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/home']">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Appointments Log</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Patient</li>
                         </ol>
                     </nav>
