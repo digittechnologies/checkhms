@@ -169,6 +169,8 @@ Route::get('edtLabTestType/{id}','DisplayController@edtLabTestType');
 Route::get('stockBranches','DisplayController@stockBranches');
 Route::post('addToStock', 'AddController@addToStock');
 Route::post('transferToStock', 'AddController@transferToStock');
+Route::get('saveAdd', 'AddController@saveAdd');
+Route::get('saveTransfer', 'AddController@saveTransfer');
 
 Route::get('comments','UserController@getComments');
 Route::get('rates','UserController@getRates');

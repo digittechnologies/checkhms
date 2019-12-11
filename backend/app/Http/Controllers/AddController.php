@@ -465,7 +465,7 @@ class AddController extends Controller
         $tax_id= $request->tax_id;
         $discount_id= $request->discount_id;
         $staff_id= $request->staff_id;
-
+    
         $update = DB::table('item_details')->where('item_details.id','=',$id)
         ->update([
             'generic_name'=>  $generic_name,
@@ -541,6 +541,8 @@ class AddController extends Controller
             $table->string('amount')->default(0);
             $table->string('balance')->default(0);
             $table->timestamps();
+            $table->string('add_status')->default(null);
+            $table->string('update_status')->default(null);
             $table->string('item_detail_id')->index();
             $table->string('staff_id')->index()->default(0);
         });
@@ -1169,7 +1171,8 @@ class AddController extends Controller
                      ->where('item_detail_id','=', $item)
                      ->update([
                         'receive' => $receive,
-                        'total_remain' => $remain
+                        'total_remain' => $remain,
+                        'add_status' => 'added'
                     ]);
                 }
             }
@@ -1220,7 +1223,8 @@ class AddController extends Controller
                      ->where('item_detail_id','=', $item)
                      ->update([
                         'receive' => $receive,
-                        'total_remain' => $remain2
+                        'total_remain' => $remain2,
+                        'transfer_status' => 'transferd'
                     ]);
                 }
             }
@@ -1236,6 +1240,38 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    }
+
+    // saved add and transfer status
+
+    public function saveAdd()
+    {
+        $branch = DB::table("branches")->get(); 
+        foreach($branch as $row){
+            $name = $row->br_name;
+            $saved1 = DB::table($name)
+            ->where('add_status', '=', 'added')
+            ->update(['add_status' => 'saved']);
+        }
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    }
+
+    public function saveTransfer()
+    {
+        $branch = DB::table("branches")->get(); 
+        foreach($branch as $row){
+            $name = $row->br_name;
+            $saved2 = DB::table($name)
+            ->where('transfer_status', 'transferd')
+            ->update(['transfer_status' => 'saved']);
+        }
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
     }
 }
 
