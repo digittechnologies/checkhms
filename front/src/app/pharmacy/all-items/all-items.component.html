@@ -406,14 +406,14 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName" ngModel name="item">                            
+                                                                <select ngModel name="itemID" class="custom-select" id="inputGroupSelect02" formControlName="cityName">                   
                                                                     <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>                           
                                                                 </select> 
                                                             </div>
                                                         </td>
                                                         <td>                                                            
                                                             <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName" ngModel name="{{br.name}}">                            
+                                                                <select ngModel name="branch" class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
                                                                         <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
                                                                     </select> 
                                                             </div>                                                            
