@@ -1158,6 +1158,8 @@ class AddController extends Controller
 
     public function addToStock(Request $request)
     {
+        return $request->all();
+
         $item = $request->item;
         foreach([$request->all()] as $property => $value){
             foreach($value as $key => $val){
