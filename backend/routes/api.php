@@ -62,6 +62,7 @@ Route::get('displayItemDetails','DisplayController@displayItemDetails');
 Route::post('addItemDetails', 'AddController@addItemDetails');
 Route::post('updateItemDetails', 'AddController@updateItemDetails');
 Route::post('deleteItemDetails', 'AddController@deleteItemDetails');
+Route::get('disItemDet','DisplayController@disItemDet');
 
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
