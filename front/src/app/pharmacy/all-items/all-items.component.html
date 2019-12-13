@@ -367,128 +367,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-        
-                                    <!-- <div class="col-12">
-                                        <h6>Module Permission</h6>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Read</th>
-                                                        <th>Write</th>
-                                                        <th>Delete</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Super Admin</td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Admin</td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Employee</td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>HR Admin</td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox" checked="">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="fancy-checkbox">
-                                                                <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                                                <span></span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <button type="button" class="btn btn-primary">Add</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
 
                         <div class="tab-pane" id="add_stock">
                             <div class="body mt-2">
-                                    <h6>Select Branch</h6>
-                                <div class="row clearfix">
-                                        
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <!-- <div class="input-group-append">
-                                                <label class="input-group-text text-primary" for="inputGroupSelect02">Branch</label>
-                                            </div> -->
-                                        <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
-                                            <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
-                                        </select>                                                
-                                    </div>                                   
-        
+                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm"> 
                                     <div class="col-12">
                                         <h6>Stock Input</h6>
                                         <div class="table-responsive">
@@ -513,22 +398,22 @@
                                                         <td>360</td>
                                                         <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
-                                                            <button type="button" class="btn btn-round btn-default">Cancel</button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
                                                         </td>
                                                     </tr> 
                                                     <br>
                                                     <tr>
                                                         <td>
                                                             <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
-                                                                    <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
+                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName" ngModel name="item">                            
+                                                                    <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>                           
                                                                 </select> 
                                                             </div>
                                                         </td>
                                                         <td>                                                            
                                                             <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
+                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName" ngModel name="{{br.name}}">                            
                                                                         <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
                                                                     </select> 
                                                             </div>                                                            
@@ -536,12 +421,12 @@
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" placeholder="First Name *">
+                                                                <input type="text" class="form-control" placeholder="Input Quantity" ngModel name="quantity">
                                                             </div>                                                        
-                                                        </td>
+                                                        </td><!-- 
                                                         <td></td>
-                                                        <td></td>
-                                                        <td><button class="btn btn-primary btn-block" type="button">Save</button></td>
+                                                        <td></td> -->
+                                                        <td><button class="btn btn-primary btn-block" type="submit">Save</button></td>
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
@@ -549,9 +434,9 @@
                                         <button type="button" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
-                        </div>
 
                         <div class="tab-pane" id="trans_stock">
                             <div class="body mt-2">       

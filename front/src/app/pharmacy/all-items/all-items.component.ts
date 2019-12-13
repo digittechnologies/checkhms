@@ -29,6 +29,7 @@ export class AllItemsComponent implements OnInit {
   catDetail: any;
   branch: any;
   items: any;
+  itemDet:any;
   type: any;
   unit: any;
   manuf: any;
@@ -93,6 +94,12 @@ export class AllItemsComponent implements OnInit {
       console.log(this.manuf)    
 
     })
+
+    this.Jarwis.disItemDet().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemDet = this.response   
+    })
   
 }
 
@@ -145,6 +152,14 @@ onDelete(id: string) {
     );
     
   }
+
+  onSubmitAdd(form: NgForm) {
+    console.log('here : ', form.value)
+
+    
+    
+  }
+
 
   onSelect(id: string){
     // this.cityName.setValue(id.target.value, {

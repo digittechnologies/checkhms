@@ -185,6 +185,9 @@ export class JarwisService {
   deleteItemDetails(data) {
     return this.http.post(`${this.baseUrl}/deleteItemDetails`, data)
   }
+  disItemDet() {
+    return this.http.get(`${this.baseUrl}/disItemDet`,)
+  }
 
   // Item
   displayItem() {
