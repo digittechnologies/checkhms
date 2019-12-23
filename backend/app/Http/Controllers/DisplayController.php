@@ -513,6 +513,16 @@ class DisplayController extends Controller
          return $array;
     }
 
+    public function disItemDet()
+    {
+    
+        return response()->json(
+        
+            Item_details::select('item_details.*')        
+            ->get()
+        );
+    }
+
 
 
     public function deleteUser(Request $request)

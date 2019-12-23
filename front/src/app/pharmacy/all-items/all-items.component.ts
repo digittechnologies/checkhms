@@ -34,7 +34,9 @@ export class AllItemsComponent implements OnInit {
   manuf: any;
   bran: any;
   cityName: any;
-  
+  itemDet:any;
+  stkBran: any;
+
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -93,6 +95,20 @@ export class AllItemsComponent implements OnInit {
       console.log(this.manuf)    
 
     })
+
+    this.Jarwis.displayStockBranches().subscribe(
+      data=>{
+      this.response = data;      
+      this.stkBran = this.response       
+
+    })
+
+    this.Jarwis.disItemDet().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemDet = this.response       
+
+    })
   
 }
 
@@ -135,7 +151,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-    console.log('here : ', form.value)
+    //console.log('here : ', form.value)
 
     this.Jarwis.addItemDetails(form.value).subscribe(
      
@@ -144,6 +160,16 @@ onDelete(id: string) {
            
     );
     
+  }
+
+  onSubmitAdd(form: NgForm) {
+
+    this.Jarwis.addToStock(form.value).subscribe(
+     
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+           
+    );
   }
 
   onSelect(id: string){
@@ -155,7 +181,7 @@ onDelete(id: string) {
   }
 
   handleResponse(data) {    // 
-    let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
     this.router.navigateByUrl('/Admin/(side:catacturer');

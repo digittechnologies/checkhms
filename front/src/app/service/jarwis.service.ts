@@ -185,6 +185,9 @@ export class JarwisService {
   deleteItemDetails(data) {
     return this.http.post(`${this.baseUrl}/deleteItemDetails`, data)
   }
+  disItemDet() {
+    return this.http.get(`${this.baseUrl}/disItemDet`,)
+  }
 
   // Item
   displayItem() {
@@ -386,6 +389,12 @@ deleteAppointment(data) {
   }
 
 
+  displayStockBranches() {
+      return this.http.get(`${this.baseUrl}/stockBranches`,)
+    }
+   addToStock(data) {
+    return this.http.post(`${this.baseUrl}/addToStock`, data)
+  }
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
