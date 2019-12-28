@@ -415,6 +415,7 @@ class AddController extends Controller
     // Item Details
     public function addItemDetails(Request $request)
     {
+        return $request->all();
         $branch = DB::table("branches")->get();   
         $getImage = Item_types::select('image')     
         ->where('id','=',$request->item_type_id)          
@@ -424,7 +425,9 @@ class AddController extends Controller
         $item_time = $dt->format('h:i:s A');
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
-        $request->merge(['item_img' => $getImage[0]->image]);
+        if(!$request->itm_img){
+            $request->merge(['item_img' => $getImage[0]->image]);
+        }
         $item= Item_details::create($request-> all());              
         foreach($branch as $row){
             $name = $row->br_name;
@@ -1158,27 +1161,21 @@ class AddController extends Controller
 
     public function addToStock(Request $request)
     {
-        return $request->all();
-
         $item = $request->item;
-        foreach([$request->all()] as $property => $value){
-            foreach($value as $key => $val){
-                if($key != 'item' && $val != '0'){
-                    $bitem=DB::table($key)
-                    ->where('item_detail_id','=', $item)
-                    ->get();
-                    $receive = $bitem[0]->receive + $val;
-                    $remain =  $bitem[0]->total_remain + $val;
-                    $add=DB::table($key)
-                     ->where('item_detail_id','=', $item)
-                     ->update([
-                        'receive' => $receive,
-                        'total_remain' => $remain,
-                        'add_status' => 'added'
-                    ]);
-                }
-            }
-        }
+        $val = $request->quantity;
+
+        $additem=DB::table('branch_main')
+            ->where('item_detail_id','=', $item)
+            ->get();
+            $receive = $additem[0]->receive + $val;
+            $remain =  $additem[0]->total_remain + $val;
+        $add=DB::table('branch_main')
+            ->where('item_detail_id','=', $item)
+            ->update([
+                'receive' => $receive,
+                'total_remain' => $remain,
+                'add_status' => 'added'
+            ]);
         if($add){
             return '{
                 "success":true,
@@ -1196,12 +1193,15 @@ class AddController extends Controller
 
     public function transferToStock(Request $request)
     {
+        return $request->all();
+        
         $item = $request->item;
         $from = $request->from;
-        foreach([$request->all()] as $property => $value){
-            foreach($value as $key => $val){
-                if($key != 'item' && $key != 'from' && $key != 'quantity' && $val != '0'){
-                    echo $key. " ".$val."\n";
+        $to = $request->to;
+        // foreach([$request->all()] as $property => $value){
+        //     foreach($value as $key => $val){
+        //         if($key != 'item' && $key != 'from' && $key != 'quantity' && $val != '0'){
+        //             echo $key. " ".$val."\n";
 
                     //from
                     $bitem=DB::table($from)
@@ -1216,21 +1216,21 @@ class AddController extends Controller
                         'total_remain' => $remain
                     ]);
                     //to
-                    $trans=DB::table($key)
+                    $trans=DB::table($to)
                      ->where('item_detail_id','=', $item)
                      ->get();
                      $receive = $trans[0]->receive + $val;
                      $remain2 =  $trans[0]->total_remain + $val;
-                     $trans2=DB::table($key)
+                     $trans2=DB::table($to)
                      ->where('item_detail_id','=', $item)
                      ->update([
                         'receive' => $receive,
                         'total_remain' => $remain2,
                         'transfer_status' => 'transferd'
                     ]);
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
         if($trans2){
             return '{
                 "success":true,

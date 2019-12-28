@@ -390,10 +390,13 @@ deleteAppointment(data) {
 
 
   displayStockBranches() {
-      return this.http.get(`${this.baseUrl}/stockBranches`,)
-    }
-   addToStock(data) {
+    return this.http.get(`${this.baseUrl}/stockBranches`,)
+  }
+  addToStock(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data)
+  }
+  transToStock(data) {
+    return this.http.post(`${this.baseUrl}/transferToStock`, data)
   }
 
   getcontent(id:string) {
