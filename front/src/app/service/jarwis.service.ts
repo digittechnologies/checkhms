@@ -388,13 +388,40 @@ deleteAppointment(data) {
     return this.http.get<any>(`${this.baseUrl}/edtLabTestType/${id}`)
   }
 
-
   displayStockBranches() {
-      return this.http.get(`${this.baseUrl}/stockBranches`,)
-    }
-   addToStock(data) {
+    return this.http.get(`${this.baseUrl}/stockBranches`,)
+  }
+
+  addToStock(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data)
   }
+
+  transToStock(data) {
+    return this.http.post(`${this.baseUrl}/transferToStock`, data)
+  }
+
+  displayAdded() {
+      return this.http.get(`${this.baseUrl}/addedItems`,)
+  }
+
+  displayTransferred() {
+      return this.http.get(`${this.baseUrl}/transItems`,)
+  }
+
+  displayInstock(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
+  }
+ 
+  saveAdd() {
+    return this.http.get(`${this.baseUrl}/saveAdd`)
+  }
+
+  saveTransfer() {
+    return this.http.get(`${this.baseUrl}/saveTransfer`)
+  }
+
+
+
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)

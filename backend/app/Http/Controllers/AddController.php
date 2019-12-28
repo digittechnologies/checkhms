@@ -415,16 +415,28 @@ class AddController extends Controller
     // Item Details
     public function addItemDetails(Request $request)
     {
+
+        // return $request->all();
+
         $branch = DB::table("branches")->get();   
-        $getImage = Item_types::select('image')     
-        ->where('id','=',$request->item_type_id)          
-        ->get();
         $dt = Carbon::now();
         $item_date = $dt->toFormattedDateString();
         $item_time = $dt->format('h:i:s A');
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
-        $request->merge(['item_img' => $getImage[0]->image]);
+        if($request->item_img == null){
+            $getImage = Item_types::select('image')     
+            ->where('id','=',$request->item_type_id)          
+            ->get();
+            $request->merge(['item_img' => $getImage[0]->image]);            
+        }
+        // if($request->item_img != null){
+        //     $file=$request->item_img;
+        //     $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+        //     return $filename;
+        //     Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
+        //     $request->merge(['item_img' => $filename]);
+        // }
         $item= Item_details::create($request-> all());              
         foreach($branch as $row){
             $name = $row->br_name;
@@ -1158,27 +1170,20 @@ class AddController extends Controller
 
     public function addToStock(Request $request)
     {
-        return $request->all();
-
         $item = $request->item;
-        foreach([$request->all()] as $property => $value){
-            foreach($value as $key => $val){
-                if($key != 'item' && $val != '0'){
-                    $bitem=DB::table($key)
+        $val = $request->quantity;
+                    $bitem=DB::table('branch_main')
                     ->where('item_detail_id','=', $item)
                     ->get();
                     $receive = $bitem[0]->receive + $val;
                     $remain =  $bitem[0]->total_remain + $val;
-                    $add=DB::table($key)
+                    $add=DB::table('branch_main')
                      ->where('item_detail_id','=', $item)
                      ->update([
                         'receive' => $receive,
                         'total_remain' => $remain,
                         'add_status' => 'added'
                     ]);
-                }
-            }
-        }
         if($add){
             return '{
                 "success":true,
@@ -1196,41 +1201,38 @@ class AddController extends Controller
 
     public function transferToStock(Request $request)
     {
+
         $item = $request->item;
         $from = $request->from;
-        foreach([$request->all()] as $property => $value){
-            foreach($value as $key => $val){
-                if($key != 'item' && $key != 'from' && $key != 'quantity' && $val != '0'){
-                    echo $key. " ".$val."\n";
+        $to = $request->to;
+        $val = $request->quantity;
 
-                    //from
-                    $bitem=DB::table($from)
-                    ->where('item_detail_id','=', $item)
-                    ->get();
-                    $transfer = $bitem[0]->transfer + $val;
-                    $remain =  $bitem[0]->total_remain - $val;
-                    $bitem2=DB::table($from)
-                     ->where('item_detail_id','=', $item)
-                     ->update([
-                        'transfer' => $transfer,
-                        'total_remain' => $remain
-                    ]);
-                    //to
-                    $trans=DB::table($key)
-                     ->where('item_detail_id','=', $item)
-                     ->get();
-                     $receive = $trans[0]->receive + $val;
-                     $remain2 =  $trans[0]->total_remain + $val;
-                     $trans2=DB::table($key)
-                     ->where('item_detail_id','=', $item)
-                     ->update([
-                        'receive' => $receive,
-                        'total_remain' => $remain2,
-                        'transfer_status' => 'transferd'
-                    ]);
-                }
-            }
-        }
+        //from
+        $bitem=DB::table($from)
+        ->where('item_detail_id','=', $item)
+        ->get();
+        $transfer = $bitem[0]->transfer + $val;
+        $remain =  $bitem[0]->total_remain - $val;
+        $bitem2=DB::table($from)
+         ->where('item_detail_id','=', $item)
+         ->update([
+            'transfer' => $transfer,
+            'total_remain' => $remain
+        ]);
+        //to
+        $trans=DB::table($to)
+         ->where('item_detail_id','=', $item)
+         ->get();
+         $receive = $trans[0]->receive + $val;
+         $remain2 =  $trans[0]->total_remain + $val;
+         $trans2=DB::table($to)
+         ->where('item_detail_id','=', $item)
+         ->update([
+            'receive' => $receive,
+            'total_remain' => $remain2,
+            'transfer_status' => 'transferd'
+        ]);
+
         if($trans2){
             return '{
                 "success":true,
@@ -1248,13 +1250,9 @@ class AddController extends Controller
 
     public function saveAdd()
     {
-        $branch = DB::table("branches")->get(); 
-        foreach($branch as $row){
-            $name = $row->br_name;
-            $saved1 = DB::table($name)
-            ->where('add_status', '=', 'added')
-            ->update(['add_status' => 'saved']);
-        }
+        $saved1 = DB::table("branch_main")
+        ->where('add_status', '=', 'added')
+        ->update(['add_status' => 'saved']);
         return '{
             "success":true,
             "message":"successful"
@@ -1263,13 +1261,9 @@ class AddController extends Controller
 
     public function saveTransfer()
     {
-        $branch = DB::table("branches")->get(); 
-        foreach($branch as $row){
-            $name = $row->br_name;
-            $saved2 = DB::table($name)
+            $saved2 = DB::table("branch_main")
             ->where('transfer_status', 'transferd')
             ->update(['transfer_status' => 'saved']);
-        }
         return '{
             "success":true,
             "message":"successful"

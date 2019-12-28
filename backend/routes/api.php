@@ -173,6 +173,11 @@ Route::post('transferToStock', 'AddController@transferToStock');
 Route::get('saveAdd', 'AddController@saveAdd');
 Route::get('saveTransfer', 'AddController@saveTransfer');
 
+Route::get('addedItems','DisplayController@addedItems');
+Route::get('transItems','DisplayController@transItems');
+Route::get('inStock/{id}','DisplayController@inStock');
+
+
 Route::get('comments','UserController@getComments');
 Route::get('rates','UserController@getRates');
 Route::get('all','UserController@getAll');

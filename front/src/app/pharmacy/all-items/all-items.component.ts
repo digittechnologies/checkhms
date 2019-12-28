@@ -36,6 +36,9 @@ export class AllItemsComponent implements OnInit {
   cityName: any;
   itemDet:any;
   stkBran: any;
+  itemAdded: any;
+  itemTransferred: any;
+  item: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -109,11 +112,28 @@ export class AllItemsComponent implements OnInit {
       this.itemDet = this.response       
 
     })
-  
+    
+    this.Jarwis.displayAdded().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemAdded = this.response       
+
+    })
+
+    this.Jarwis.displayTransferred().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemTransferred = this.response       
+
+    })
 }
 
 get(){
   this.ngOnInit()
+}
+
+onSelectitem() {
+  alert(this.item)
 }
 
 editdept(id: string) {
@@ -140,35 +160,45 @@ onUpdate(form: NgForm) {
 }
 
 onDelete(id: string) {
-
   this.Jarwis.deleteCategories(id).subscribe(  
-      
-    data => this.handleResponse(data),
-    error => this.handleError(error), 
-    
-  );
-  }
-
-
-  onSubmit(form: NgForm) {
-    //console.log('here : ', form.value)
-
-    this.Jarwis.addItemDetails(form.value).subscribe(
-     
       data => this.handleResponse(data),
       error => this.handleError(error), 
-           
     );
-    
+  }
+
+  onClickSubmit(form: NgForm) {
+    //console.log('here : ', form.value)
+    this.Jarwis.addItemDetails(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),      
+    );  
   }
 
   onSubmitAdd(form: NgForm) {
-
     this.Jarwis.addToStock(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),  
+    );
+  }
+
+  onSaveAdd() {
+    this.Jarwis.saveAdd().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),    
+    );
+  }
+
+  onSubmitTrans(form: NgForm) {
+    this.Jarwis.transToStock(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
+
+  onSaveTrans() {
+    this.Jarwis.saveTransfer().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),    
     );
   }
 
