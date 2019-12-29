@@ -41,7 +41,7 @@ export class JarwisService {
 
   // private baseUrl = 'https://back.hms.jtcheck.com/backend/public/api';
 
-  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = 'http://localhost/buth_pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
   roleuser() {
