@@ -39,6 +39,7 @@ export class AllItemsComponent implements OnInit {
   itemAdded: any;
   itemTransferred: any;
   item: any;
+  percent: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -59,7 +60,7 @@ export class AllItemsComponent implements OnInit {
     this.Jarwis.displayItem().subscribe(
       data=>{
       this.response = data;      
-      this.items = this.response   
+      this.items = this.response;
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -132,8 +133,8 @@ get(){
   this.ngOnInit()
 }
 
-onSelectitem() {
-  alert(this.item)
+onSelectitem(a) {
+  console.log('ITEM:', a)
 }
 
 editdept(id: string) {
@@ -167,7 +168,6 @@ onDelete(id: string) {
   }
 
   onClickSubmit(form: NgForm) {
-    //console.log('here : ', form.value)
     this.Jarwis.addItemDetails(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),      

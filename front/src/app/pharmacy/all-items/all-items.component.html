@@ -193,12 +193,12 @@
                                             <th>Add</th>
                                             <th>Transfer</th>
                                             <th>Sales</th>
-                                            <th>Total Balance</th>
+                                            <th>Total Quantity</th>
                                             <th>Close Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
-                                            <th>Level</th>
-                                            <th>%</th>
+                                            <th>Total Amount</th>
+                                            <th>% Remaining</th>
                                             <!-- <th>Role</th>
                                             <th class="w100">Action</th> -->
                                         </tr>
@@ -228,12 +228,14 @@
                                             <td>
                                                 <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
                                             </td>
-                                            <td>
-                                                    <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
-                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;"></div>
-                                                    </div>
+                                           <!--  <td> -->
+                                                    <!-- <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
+                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;">{{100 | currency:'NGN'}}</div>
+                                                    </div> -->
+                                                    <td><span class="badge badge-success">{{item.selling_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                 </td>
-                                                <td><span class="badge badge-success">70%</span>
+                                                <!-- </td> -->
+                                                <td><span class="badge badge-success">{{100-(item.sales/item.total_remain*100)}}%</span>
                                                 </td>
                                            
                                         </tr>                                                                     
@@ -408,7 +410,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group">
-                                                                <select class="form-control input-height" (change)="onSelectitem()" ngModel name="item">
+                                                                <select class="form-control input-height" (change)="onSelectitem($event.value)" ngModel name="item">
                                                                 <option value="">Select...</option>
                                                                 <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
@@ -466,11 +468,11 @@
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">Unit</h6></td>
-                                                        <td><h6 class="mb-0">Branch</h6></td>
+                                                        <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
-                                                        <td><h6 class="mb-0">Branch</h6></td>
-                                                        <td><span class="badge badge-warning">{{trans.transfer}}</span></td>
-                                                        <td><span class="text-success">{{trans.transfer}}</span></td>                            
+                                                        <td><h6 class="mb-0">{{trans.quantity_to}}</h6></td>
+                                                        <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
+                                                        <td><span class="text-success">{{trans.total_quantity}}</span></td>                            
                                                         <td>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
@@ -480,7 +482,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group"> 
-                                                                <select class="form-control input-height" (change)="onSelectitem()" ngModel name="item"> 
+                                                                <select class="form-control input-height" ngModel name="item"> 
                                                                     <option value="">Select Item...</option>     
                                                                     <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
@@ -506,14 +508,15 @@
                                                             <div class="form-group">
                                                                 <select class="form-control input-height" ngModel name="to">                           
                                                                         <option value="">To...</option>
-                                                                        <option  *ngFor="let br of bran" [ngValue]="br.br_name">{{br.name}}</option>                           
+                                                                        <option  *ngFor="let br of bran" [ngValue]="br.br_name">{{br.name}}</option>
+                                                                        *ngIf ="a.voucher=== 'close'"                           
                                                                     </select> 
                                                             </div>                                                            
                                                         </td>
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="First Name *">
+                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">
                                                             </div>                                                        
                                                         </td>
                                                         
