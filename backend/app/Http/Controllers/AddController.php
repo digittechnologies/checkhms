@@ -1172,19 +1172,29 @@ class AddController extends Controller
     {
         $item = $request->item;
         $val = $request->quantity;
-                    $bitem=DB::table('branch_main')
-                    ->where('item_detail_id','=', $item)
-                    ->get();
-                    $receive = $bitem[0]->receive + $val;
-                    $remain =  $bitem[0]->total_remain + $val;
-                    $add=DB::table('branch_main')
-                     ->where('item_detail_id','=', $item)
-                     ->update([
-                        'receive' => $receive,
-                        'total_remain' => $remain,
-                        'add_status' => 'added'
-                    ]);
+        $bitem=DB::table('branch_main')
+        ->where('item_detail_id','=', $item)
+        ->get();
+        $receive = $bitem[0]->receive + $val;
+        $remain =  $bitem[0]->total_remain + $val;
+        $add=DB::table('branch_main')
+         ->where('item_detail_id','=', $item)
+         ->update([
+            'receive' => $receive,
+            'total_remain' => $remain,
+            'add_status' => 'added'
+        ]);
         if($add){
+            $dt = Carbon::now();
+            $item_date = $dt->toFormattedDateString();
+            $item_time = $dt->format('h:i:s A');
+            $log = DB::table('purchases')->insert([
+                'quantity' => $val,
+                'item_detail_id' => $item,
+                'created_at' => $item_time
+            ]);
+        }
+        if($log){
             return '{
                 "success":true,
                 "message":"successful"
@@ -1217,7 +1227,8 @@ class AddController extends Controller
          ->where('item_detail_id','=', $item)
          ->update([
             'transfer' => $transfer,
-            'total_remain' => $remain
+            'total_remain' => $remain,
+            'transfer_status' => 'transferd'
         ]);
         //to
         $trans=DB::table($to)
@@ -1230,10 +1241,30 @@ class AddController extends Controller
          ->update([
             'receive' => $receive,
             'total_remain' => $remain2,
-            'transfer_status' => 'transferd'
         ]);
 
-        if($trans2){
+         if($trans2){
+            $dt = Carbon::now();
+            $item_date = $dt->toFormattedDateString();
+            $item_time = $dt->format('h:i:s A');
+            $fromBranch = DB::table("branches")
+            ->select('branches.name')
+            ->where('br_name', '=', $from)
+            ->get();
+            $toBranch = DB::table("branches")
+            ->select('branches.name')
+            ->where('br_name', '=', $to)
+            ->get();    
+            $log = DB::table('transfers')->insert([
+                'quantity_from' => $fromBranch[0]->name,
+                'quantity_to' => $toBranch[0]->name,
+                'total_quantity' => $val,
+                'item_detail_id' => $item,
+                'created_at' => $item_time
+            ]);
+        }
+
+        if($log){
             return '{
                 "success":true,
                 "message":"successful"
