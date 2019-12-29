@@ -523,6 +523,40 @@ class DisplayController extends Controller
         );
     }
 
+    public function addedItems()
+    {
+        return DB::table("branch_main")
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->where('add_status','=','added')
+        ->get();
+    }
+
+    public function transItems()
+    {
+        return DB::table("branch_main")
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->where('transfer_status','=','transferd')
+        ->get();
+    }    
+
+    public function inStock($id)
+    {
+        return DB::table("branch_main")
+        ->where('item_detail_id', '=', $id)
+        ->select('branch_main.total_remain')
+        ->get();
+    }
+
+
+
+
+
+
+
+
+
 
 
     public function deleteUser(Request $request)
