@@ -13,13 +13,13 @@
                     </nav>
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <div class="card">
                         <div class="body">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="input-group">
-                                        <!-- <input type="text" class="form-control" placeholder="Milestone"> -->
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                </div>               
+                </div>                -->
                 
             </div>
         </div>
@@ -248,6 +248,7 @@
                                                 <div class="card">
                                                     <div class="body">
                                                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(itemdetail)" #itemdetail="ngForm">                                                                    
+                                                        
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Generic Name.</label>
                                                                 <div class="col-md-6 col-sm-10">
@@ -288,7 +289,7 @@
                                                                                 <label class="col-sm-2 col-form-label">Select Unit</label>
                                                                                 <div class="col-md-6 col-sm-10">
                                                                                     <select class="form-control" ngModel name="item_unit_id">
-                                                                                        <option value="">-- Select Country --</option>
+                                                                                        <option value="">-- Select Unit --</option>
                                                                                         <option *ngFor="let u of unit" [value]="u.id">{{u.name}}</option>                                      
                                                                                     </select>
                                                                                 </div>
@@ -297,7 +298,7 @@
                                                                 <label class="col-sm-2 col-form-label">Select Manufacturer</label>
                                                                 <div class="col-md-6 col-sm-10">
                                                                     <select class="form-control input-height" ngModel name="manufacturer_id">
-                                                                        <option value="">Select...</option>
+                                                                        <option value="">-- Select Manufacturer --</option>
                                                                         <option *ngFor="let m of manuf" [value]="m.id">{{m.name}}</option>
                                                                         
                                                                     </select>
@@ -307,7 +308,7 @@
                                                                     <label class="col-sm-2 col-form-label">Tax</label>
                                                                     <div class="col-md-6 col-sm-10">
                                                                         <select class="form-control input-height" ngModel name="tax_id">
-                                                                            <option value="">Select...</option>
+                                                                            <option value="">-- Select Tax --</option>
                                                                             <option [value]="0">0</option>
                                                                             <option [value]="10">10</option>
                                                                             <option [value]="20">20</option>
@@ -319,7 +320,7 @@
                                                                         <label class="col-sm-2 col-form-label">Discount</label>
                                                                         <div class="col-md-6 col-sm-10">
                                                                             <select class="form-control input-height" ngModel name="discount_id">
-                                                                                <option value="">Select...</option>
+                                                                                <option value="">-- Select Discount --</option>
                                                                                 <option [value]="0">0</option>
                                                                                 <option [value]="10">10</option>
                                                                                 <option [value]="20">20</option>
@@ -331,7 +332,7 @@
                                                                         <label class="col-sm-2 col-form-label">Status</label>
                                                                         <div class="col-md-6 col-sm-10">
                                                                             <select class="form-control input-height" ngModel name="status">
-                                                                                <option value="">Select...</option>
+                                                                                <option value="">-- Select Status--</option>
                                                                                 <option value='active'>Active</option>
                                                                                 <option value='inactive'>Inactive</option>
                                                                                 
@@ -373,7 +374,7 @@
 
                         <div class="tab-pane" id="add_stock">
                             <div class="body mt-2">
-                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm"> 
+                                <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm">  -->
                                     <div class="col-12">
                                         <h6>Stock Input</h6>
                                         <div class="table-responsive">
@@ -414,13 +415,13 @@
                                                                 </select> 
                                                             </div>
                                                         </td>
-                                                        <td>                                                            
+                                                        <!-- <td>                                                            
                                                             <div class="form-group">
                                                                 <select ngModel name="" class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">
                                                                         <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>      
                                                                     </select> 
                                                             </div>                                                            
-                                                        </td>
+                                                        </td> -->
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
@@ -437,7 +438,7 @@
                                         <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
-                                </form>
+                                <!-- </form> -->
                                 </div>
                             </div>
 
@@ -480,19 +481,31 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group"> 
-                                                                <select class="form-control input-height" (change)="onSelectitem()" ngModel name="item"> 
+                                                                <select class="form-control input-height" ngModel name="item"> 
                                                                     <option value="">Select Item...</option>     
                                                                     <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
                                                             </div>
-                                                        </td>
+                                                        
+                                                        </td>   
+
+                                                        <td>                                                            
+                                                                <div class="form-group">
+                                                                    <select class="form-control">
+                                                                            <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                                       
+                                                                    </select> 
+                                                                </div>                                                            
+                                                            </td>
+
                                                         <td>                                                            
                                                             <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
-                                                                        <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
-                                                                    </select> 
+                                                                <select class="form-control" ngModel name="from">
+                                                                        <option value="">-- From --</option>
+                                                                        <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                                       
+                                                                </select> 
                                                             </div>                                                            
                                                         </td>
+                                                        <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                            
                                                             <div class="form-group">
                                                                 <select class="form-control input-height" ngModel name="from">                           
@@ -501,7 +514,6 @@
                                                                     </select> 
                                                             </div>                                                            
                                                         </td>
-                                                        <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                            
                                                             <div class="form-group">
                                                                 <select class="form-control input-height" ngModel name="to">                           
@@ -513,7 +525,7 @@
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="First Name *">
+                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Input Quantity">
                                                             </div>                                                        
                                                         </td>
                                                         
@@ -525,9 +537,9 @@
                                         <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
-                                </form>
+                                    </form>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                             <div class="tab-pane" id="variance">

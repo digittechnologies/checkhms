@@ -41,7 +41,7 @@ export class JarwisService {
 
   // private baseUrl = 'https://back.hms.jtcheck.com/backend/public/api';
 
-  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = 'http://localhost/buth_pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
   roleuser() {
@@ -391,9 +391,12 @@ deleteAppointment(data) {
   displayStockBranches() {
     return this.http.get(`${this.baseUrl}/stockBranches`,)
   }
-
+  
   addToStock(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data)
+  }
+  transToStock(data) {
+    return this.http.post(`${this.baseUrl}/transferToStock`, data)
   }
 
   transToStock(data) {

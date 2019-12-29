@@ -62,12 +62,12 @@ export class AllItemsComponent implements OnInit {
       this.items = this.response   
     })
 
-    this.Jarwis.displayBranch().subscribe(
-      data=>{
-      this.response = data;      
-      this.bran = this.response   
-      console.log(this.bran.name)
-    })
+    // this.Jarwis.displayBranch().subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.bran = this.response   
+    //   console.log(this.bran.name)
+    // })
 
     this.Jarwis.displayType().subscribe(
       data=>{
@@ -199,6 +199,15 @@ onDelete(id: string) {
     this.Jarwis.saveTransfer().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
+    );
+  }
+
+  onSubmitTrans(form: NgForm) {
+    this.Jarwis.transToStock(form.value).subscribe(
+     
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+           
     );
   }
 

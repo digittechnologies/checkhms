@@ -424,6 +424,7 @@ class AddController extends Controller
         $item_time = $dt->format('h:i:s A');
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
+
         if($request->item_img == null){
             $getImage = Item_types::select('image')     
             ->where('id','=',$request->item_type_id)          
@@ -437,6 +438,7 @@ class AddController extends Controller
         //     Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
         //     $request->merge(['item_img' => $filename]);
         // }
+
         $item= Item_details::create($request-> all());              
         foreach($branch as $row){
             $name = $row->br_name;
@@ -1172,18 +1174,18 @@ class AddController extends Controller
     {
         $item = $request->item;
         $val = $request->quantity;
-                    $bitem=DB::table('branch_main')
-                    ->where('item_detail_id','=', $item)
-                    ->get();
-                    $receive = $bitem[0]->receive + $val;
-                    $remain =  $bitem[0]->total_remain + $val;
-                    $add=DB::table('branch_main')
-                     ->where('item_detail_id','=', $item)
-                     ->update([
-                        'receive' => $receive,
-                        'total_remain' => $remain,
-                        'add_status' => 'added'
-                    ]);
+        $additem=DB::table('branch_main')
+            ->where('item_detail_id','=', $item)
+            ->get();
+            $receive = $additem[0]->receive + $val;
+            $remain =  $additem[0]->total_remain + $val;
+        $add=DB::table('branch_main')
+            ->where('item_detail_id','=', $item)
+            ->update([
+                'receive' => $receive,
+                'total_remain' => $remain,
+                'add_status' => 'added'
+            ]);
         if($add){
             return '{
                 "success":true,
