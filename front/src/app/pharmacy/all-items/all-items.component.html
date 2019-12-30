@@ -169,19 +169,30 @@
             <div class="col-lg-12">
                 <div class="card">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items">All Items</a></li>
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items" (click)="get()">All Items</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock">Add Stock</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock">Transfer Stock</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance">Variance</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#stock_request">Stock Request</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#history">History</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#report">Report</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance" (click)="get()">Variance</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#stock_request" (click)="get()">Stock Request</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#history" (click)="get()">History</a></li>
+                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#report" (click)="get()">Report</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add Item</a></li>         -->
                     </ul>
                     <div class="tab-content mt-0">
                         <div class="tab-pane active show" id="items">
                             <div class="table-responsive">
+
+                                
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                        <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
+                                        <li class="breadcrumb-item active" aria-current="page">All Items</li>
+                                        </ol>
+                                    </nav>
+                               
+
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr>
@@ -193,12 +204,12 @@
                                             <th>Add</th>
                                             <th>Transfer</th>
                                             <th>Sales</th>
-                                            <th>Total Balance</th>
+                                            <th>Total Quantity</th>
                                             <th>Close Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
-                                            <th>Level</th>
-                                            <th>%</th>
+                                            <th>Total Amount</th>
+                                            <th>% Remaining</th>
                                             <!-- <th>Role</th>
                                             <th class="w100">Action</th> -->
                                         </tr>
@@ -228,12 +239,14 @@
                                             <td>
                                                 <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
                                             </td>
-                                            <td>
-                                                    <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
-                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;"></div>
-                                                    </div>
+                                           <!--  <td> -->
+                                                    <!-- <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
+                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;">{{100 | currency:'NGN'}}</div>
+                                                    </div> -->
+                                                    <td><span class="badge badge-success">{{item.selling_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                 </td>
-                                                <td><span class="badge badge-success">70%</span>
+                                                <!-- </td> -->
+                                                <td><span class="badge badge-success">{{100-(item.sales/item.total_remain*100)}}%</span>
                                                 </td>
                                            
                                         </tr>                                                                     
@@ -247,7 +260,8 @@
                                         <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="body">
-                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitItem(fm)" #fm="ngForm">                                                                    
+                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(itemdetail)" #itemdetail="ngForm">                                                                    
+                                                        
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Generic Name.</label>
                                                                 <div class="col-md-6 col-sm-10">
@@ -351,15 +365,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Patient Photo</label>
+                                                                <label class="col-sm-2 col-form-label">Item Image (if available)</label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <input type="file" class="dropify" ngModel name="item_img">
+                                                                    <input type="file" ngModel name="item_img" class="dropify">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label"></label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    <button type="submit" name="form1" class="btn btn-primary">Submit</button>
                                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                                 </div>
                                                             </div>
@@ -373,13 +387,14 @@
 
                         <div class="tab-pane" id="add_stock">
                             <div class="body mt-2">
-                                <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm">  -->
+                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm"> 
                                     <div class="col-12">
                                         <h6>Stock Input</h6>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
+                                                        <th>S/N</th>
                                                         <th>Item</th>
                                                         <th>Unit</th>
                                                         <th>Instock</th>                                                       
@@ -390,11 +405,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td><img src="../assets/images/xs/avatar1.jpg" alt="Avatar" class="w30 rounded-circle mr-2"> <span>Isidore Dilao</span></td>
+                                                    <tr *ngFor="let added of itemAdded; let r = index">
+                                                        <td>{{r+1}}</td>
+                                                        <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">Unit</h6></td>
-                                                        <td><span class="badge badge-warning">290</span></td>
-                                                        <td><span class="text-success">90</span></td>
+                                                        <td><span class="badge badge-warning">{{added.total_remain}}</span></td>
+                                                        <td><span class="text-success">{{added.receive}}</span></td>
                                                         <td>360</td>
                                                         <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
@@ -406,15 +422,15 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group">
-                                                                <select class="form-control" ngModel name="item">
-                                                                    <option value="">-- Select Item --</option>
-                                                                    <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>                                       
-                                                                </select>
+                                                                <select class="form-control input-height" (change)="onSelectitem($event.value)" ngModel name="item">
+                                                                <option value="">Select...</option>
+                                                                <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
+                                                                </select> 
                                                             </div>
                                                         </td>
                                                         <!-- <td>                                                            
                                                             <div class="form-group">
-                                                                <select ngModel name="branch" class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">
+                                                                <select ngModel name="" class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">
                                                                         <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>      
                                                                     </select> 
                                                             </div>                                                            
@@ -432,22 +448,23 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="button" class="btn btn-primary">Add</button>
+                                        <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
-                                <!-- </form> -->
+                                </form>
                                 </div>
                             </div>
 
-                        <!-- <div class="tab-pane" id="trans_stock">
-                            <div class="body mt-2">       
-                                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitTrans(fm)" #fm="ngForm"> 
+                        <div class="tab-pane" id="trans_stock">
+                            <div class="body mt-2"> 
+                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitTrans(trans)" #trans="ngForm">      
                                     <div class="col-12">
                                         <h6>Stock Input</h6>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
+                                                        <th>S/N</th>
                                                         <th>Item</th>
                                                         <th>Unit</th>
                                                         <th>From Branch</th>                                                       
@@ -459,26 +476,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td><img src="../assets/images/xs/avatar1.jpg" alt="Avatar" class="w30 rounded-circle mr-2"> <span>Isidore Dilao</span></td>
+                                                    <tr *ngFor="let trans of itemTransferred; let r = index">
+                                                        <td>{{r+1}}</td>
+                                                        <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">Unit</h6></td>
-                                                        <td><h6 class="mb-0">Branch</h6></td>
-                                                        <td><span class="badge badge-warning">290</span></td>
-                                                        <td><h6 class="mb-0">Branch</h6></td>
-                                                        <td><span class="badge badge-warning">290</span></td>
-                                                        <td><span class="text-success">90</span></td>                                                                                                             
+                                                        <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
+                                                        <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
+                                                        <td><h6 class="mb-0">{{trans.quantity_to}}</h6></td>
+                                                        <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
+                                                        <td><span class="text-success">{{trans.total_quantity}}</span></td>                            
                                                         <td>
-                                                            <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
-                                                            <button type="button" class="btn btn-round btn-default">Cancel</button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
                                                         </td>
                                                     </tr> 
                                                     <br>
                                                     <tr>
                                                         <td>
-                                                            <div class="form-group">
-                                                                <select class="form-control" ngModel name="item">
-                                                                        <option value="">-- Select Item --</option>
-                                                                        <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>                                       
+                                                            <div class="form-group"> 
+                                                                <select class="form-control input-height" ngModel name="item"> 
+                                                                    <option value="">Select Item...</option>     
+                                                                    <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
                                                             </div>
                                                         
@@ -496,30 +514,24 @@
                                                             <div class="form-group">
                                                                 <select class="form-control" ngModel name="from">
                                                                         <option value="">-- From --</option>
-                                                                        <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                                       
+                                                                        <option  *ngFor="let br of bran" [ngValue]="br.br_name">{{br.name}}</option>                                       
                                                                 </select> 
                                                             </div>                                                            
                                                         </td>
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                            
                                                             <div class="form-group">
-                                                                    <select class="form-control" ngModel name="to">
-                                                                            <option value="">-- To --</option>
-                                                                            <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                                       
-                                                                    </select>  
-                                                            </div>                                                            
-                                                        </td>
-                                                        <td>                                                            
-                                                            <div class="form-group">
-                                                                <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
-                                                                        <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
+                                                                <select class="form-control input-height" ngModel name="to">                           
+                                                                        <option value="">To...</option>
+                                                                        <option  *ngFor="let br of bran" [ngValue]="br.br_name">{{br.name}}</option>                          
                                                                     </select> 
                                                             </div>                                                            
                                                         </td>
                                                         <td><span class="badge badge-warning">290</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Input Quantity">
+                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">
+
                                                             </div>                                                        
                                                         </td>
                                                         
@@ -528,12 +540,12 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="button" class="btn btn-primary">Add</button>
+                                        <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
                                     </form>
                                 </div>
-                            </div> -->
+                            </div> 
 
 
                             <div class="tab-pane" id="variance">

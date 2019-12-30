@@ -36,6 +36,10 @@ export class AllItemsComponent implements OnInit {
   cityName: any;
   itemDet:any;
   stkBran: any;
+  itemAdded: any;
+  itemTransferred: any;
+  item: any;
+  percent: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -56,15 +60,15 @@ export class AllItemsComponent implements OnInit {
     this.Jarwis.displayItem().subscribe(
       data=>{
       this.response = data;      
-      this.items = this.response   
+      this.items = this.response;
     })
 
-    // this.Jarwis.displayBranch().subscribe(
-    //   data=>{
-    //   this.response = data;      
-    //   this.bran = this.response   
-    //   console.log(this.bran.name)
-    // })
+    this.Jarwis.displayBranch().subscribe(
+      data=>{
+      this.response = data;      
+      this.bran = this.response   
+      console.log(this.bran.name)
+    })
 
     this.Jarwis.displayType().subscribe(
       data=>{
@@ -109,11 +113,28 @@ export class AllItemsComponent implements OnInit {
       this.itemDet = this.response       
 
     })
-  
+    
+    this.Jarwis.displayAdded().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemAdded = this.response       
+
+    })
+
+    this.Jarwis.displayTransferred().subscribe(
+      data=>{
+      this.response = data;      
+      this.itemTransferred = this.response       
+
+    })
 }
 
 get(){
   this.ngOnInit()
+}
+
+onSelectitem(a) {
+  console.log('ITEM:', a)
 }
 
 editdept(id: string) {
@@ -140,45 +161,48 @@ onUpdate(form: NgForm) {
 }
 
 onDelete(id: string) {
-
   this.Jarwis.deleteCategories(id).subscribe(  
-      
-    data => this.handleResponse(data),
-    error => this.handleError(error), 
-    
-  );
-  }
-
-
-  onSubmitItem(form: NgForm) {
-    //console.log('here : ', form.value)
-
-    this.Jarwis.addItemDetails(form.value).subscribe(
-     
       data => this.handleResponse(data),
       error => this.handleError(error), 
-           
     );
-    
+  }
+
+  onClickSubmit(form: NgForm) {
+    this.Jarwis.addItemDetails(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),      
+    );  
   }
 
   onSubmitAdd(form: NgForm) {
     this.Jarwis.addToStock(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),  
+    );
+  }
+
+  onSaveAdd() {
+    this.Jarwis.saveAdd().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),    
     );
   }
 
   onSubmitTrans(form: NgForm) {
     this.Jarwis.transToStock(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),  
     );
   }
+
+  onSaveTrans() {
+    this.Jarwis.saveTransfer().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),    
+    );
+  }
+
+
 
   onSelect(id: string){
     // this.cityName.setValue(id.target.value, {

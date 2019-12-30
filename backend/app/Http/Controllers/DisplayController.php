@@ -267,7 +267,7 @@ class DisplayController extends Controller
     {
         
 
-        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price')
          ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
          ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
          ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
@@ -522,6 +522,41 @@ class DisplayController extends Controller
             ->get()
         );
     }
+
+    public function addedItems()
+    {
+        return DB::table("branch_main")
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->where('add_status','=','added')
+        ->get();
+    }
+
+    public function transItems()
+    {
+        return DB::table("branch_main")
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.quantity_to', 'total_quantity')
+        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->join ('transfers','branch_main.item_detail_id','=','transfers.item_detail_id')
+        ->where('transfer_status','=','transferd')
+        ->get();
+    }    
+
+    public function inStock($id)
+    {
+        return DB::table("branch_main")
+        ->where('item_detail_id', '=', $id)
+        ->select('branch_main.total_remain')
+        ->get();
+    }
+
+
+
+
+
+
+
+
 
 
 
