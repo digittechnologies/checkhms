@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
 
    
 
-    c3.generate({
+c3.generate({
       bindto: '#admitted-patient', // id of chart wrapper
       data: {
           columns: [

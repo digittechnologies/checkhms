@@ -391,7 +391,7 @@ deleteAppointment(data) {
   displayStockBranches() {
     return this.http.get(`${this.baseUrl}/stockBranches`,)
   }
-
+  
   addToStock(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data)
   }
