@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2019 at 09:07 AM
+-- Generation Time: Dec 30, 2019 at 12:49 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -128,9 +128,10 @@ CREATE TABLE `branches` (
 
 INSERT INTO `branches` (`id`, `name`, `br_name`, `address`, `contact_number`, `sales_rep`, `total_quantity`, `total_cost`, `status`, `created_at`, `updated_at`, `staff_id`) VALUES
 (1, 'Main', 'branch_main', 'Ogbomoso', '060070070700', 'kefi', 0, 0, 'active', '2019-11-10 23:00:00', '2019-11-10 23:00:00', '7'),
-(4, 'Buth', 'Buth', 'Lala\'s Compound, Randa Area', '07007060050', 'Rep 1', 0, 0, 'active', '2019-11-17 11:51:44', '2019-11-17 11:51:44', NULL),
-(5, 'Buth 2', 'Buth 2', 'Ogbomoso', '77', 'Rep 2', 0, 0, 'active', '2019-11-17 12:14:35', '2019-11-17 12:14:35', NULL),
-(6, 'Buth 3', 'Buth 3', 'Ogbomoso', '1010', 'Rep 3', 0, 0, 'suspend', '2019-11-17 12:26:16', '2019-11-17 12:26:16', NULL);
+(4, 'Buth', 'branch_buth', 'Lala\'s Compound, Randa Area', '07007060050', 'Rep 1', 0, 0, 'active', '2019-11-17 11:51:44', '2019-11-17 11:51:44', NULL),
+(5, 'Buth 2', 'branch_buth2', 'Ogbomoso', '77', 'Rep 2', 0, 0, 'active', '2019-11-17 12:14:35', '2019-11-17 12:14:35', NULL),
+(6, 'Buth 3', 'branch_buth3', 'Ogbomoso', '1010', 'Rep 3', 0, 0, 'suspend', '2019-11-17 12:26:16', '2019-11-17 12:26:16', NULL),
+(7, 'Buth 4', 'branch_buth4', 'Fourth Address Buth Street', '090112233448676', 'Rep Four', 0, 0, 'active', '2019-12-05 15:05:48', '2019-12-05 15:05:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,6 +153,8 @@ CREATE TABLE `branch_buth` (
   `balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `add_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transfer_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -160,22 +163,26 @@ CREATE TABLE `branch_buth` (
 -- Dumping data for table `branch_buth`
 --
 
-INSERT INTO `branch_buth` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
-(1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '2', '0'),
-(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '3', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '4', '0'),
-(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '5', '0'),
-(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '6', '0'),
-(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '7', '0'),
-(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '8', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '9', '0'),
-(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '24', '0'),
-(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '25', '0'),
-(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '26', '0'),
-(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '27', '0'),
-(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '28', '0'),
-(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '29', '0'),
-(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '30', '0');
+INSERT INTO `branch_buth` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
+(1, '0', '0', '1', '25', '24', '0', '0', '0', '0', '0', NULL, NULL, NULL, 'saved', '2', '0'),
+(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '3', '0'),
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '4', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '5', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '6', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '7', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '8', '0'),
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '9', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '24', '0'),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '25', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '26', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '27', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '28', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '29', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '30', '0'),
+(16, '0', '0', '0', '51', '51', '0', '0', '0', '0', '0', NULL, NULL, NULL, 'transferd', '31', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '32', '0'),
+(18, '0', '0', '0', '5', '5', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '33', '0'),
+(19, '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '34', '0');
 
 -- --------------------------------------------------------
 
@@ -197,6 +204,8 @@ CREATE TABLE `branch_buth2` (
   `balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `add_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transfer_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -205,22 +214,26 @@ CREATE TABLE `branch_buth2` (
 -- Dumping data for table `branch_buth2`
 --
 
-INSERT INTO `branch_buth2` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
-(1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '2', '0'),
-(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '3', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '4', '0'),
-(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '5', '0'),
-(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '6', '0'),
-(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '7', '0'),
-(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '8', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '9', '0'),
-(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '24', '0'),
-(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '25', '0'),
-(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '26', '0'),
-(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '27', '0'),
-(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '28', '0'),
-(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '29', '0'),
-(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '30', '0');
+INSERT INTO `branch_buth2` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
+(1, '0', '0', '0', '25', '25', '0', '0', '0', '0', '0', NULL, NULL, NULL, 'saved', '2', '0'),
+(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '3', '0'),
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '4', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '5', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '6', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '7', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '8', '0'),
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '9', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '24', '0'),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '25', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '26', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '27', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '28', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '29', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '30', '0'),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '31', '0'),
+(17, '0', '0', '0', '4', '4', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '32', '0'),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '33', '0'),
+(19, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '34', '0');
 
 -- --------------------------------------------------------
 
@@ -242,6 +255,8 @@ CREATE TABLE `branch_buth3` (
   `balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `add_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transfer_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -250,22 +265,77 @@ CREATE TABLE `branch_buth3` (
 -- Dumping data for table `branch_buth3`
 --
 
-INSERT INTO `branch_buth3` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
-(1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '2', '0'),
-(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '3', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '4', '0'),
-(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '5', '0'),
-(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '6', '0'),
-(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '7', '0'),
-(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '8', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '9', '0'),
-(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '24', '0'),
-(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '25', '0'),
-(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '26', '0'),
-(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '27', '0'),
-(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '28', '0'),
-(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '29', '0'),
-(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, '30', '0');
+INSERT INTO `branch_buth3` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
+(1, '0', '0', '0', '20', '20', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '2', '0'),
+(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '3', '0'),
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '4', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '5', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '6', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '7', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '8', '0'),
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '9', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '24', '0'),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '25', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '26', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '27', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '28', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '29', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '30', '0'),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '31', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '32', '0'),
+(18, '0', '0', '0', '5', '5', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '33', '0'),
+(19, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '34', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch_buth4`
+--
+
+CREATE TABLE `branch_buth4` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `open_stock` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `sales` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `transfer` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `receive` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `total_remain` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `close_balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `variance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `physical_balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `amount` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `add_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transfer_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `branch_buth4`
+--
+
+INSERT INTO `branch_buth4` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
+(1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '2', '0'),
+(2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '3', '0'),
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '4', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '5', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '6', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '7', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '8', '0'),
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '9', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '24', '0'),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '25', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '26', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '27', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '28', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '29', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '30', '0'),
+(16, '0', '0', '0', '15', '15', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '31', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '32', '0'),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '33', '0'),
+(19, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '34', '0');
 
 -- --------------------------------------------------------
 
@@ -287,6 +357,8 @@ CREATE TABLE `branch_main` (
   `balance` int(190) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transfer_status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_detail_id` int(190) NOT NULL,
   `staff_id` int(190) DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -295,11 +367,15 @@ CREATE TABLE `branch_main` (
 -- Dumping data for table `branch_main`
 --
 
-INSERT INTO `branch_main` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
-(1, 10, 5, 0, 5, 10, 5, 1, 4, 500, 500, '2019-11-11 23:00:00', '2019-11-18 23:00:00', 2, 7),
-(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 28, 0),
-(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-11-14 08:22:54', '2019-11-14 08:22:54', 29, 0),
-(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-11-14 08:26:35', '2019-11-14 08:26:35', 30, 0);
+INSERT INTO `branch_main` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
+(1, 0, 1, 9, 69, 60, 0, 0, 0, 500, 500, '2019-11-11 23:00:00', '2019-11-18 23:00:00', 'added', 'transferd', 2, 7),
+(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, 28, 0),
+(3, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, '2019-11-14 08:22:54', '2019-11-14 08:22:54', 'added', NULL, 29, 0),
+(4, 0, 0, 0, 21, 21, 0, 0, 0, 0, 0, '2019-11-14 08:26:35', '2019-11-14 08:26:35', 'added', NULL, 30, 0),
+(5, 0, 0, 66, 101, 35, 0, 0, 0, 0, 0, '2019-12-27 09:55:58', '2019-12-27 09:55:58', 'added', 'transferd', 31, 0),
+(6, 0, 0, 4, 64, 60, 0, 0, 0, 0, 0, '2019-12-27 09:59:05', '2019-12-27 09:59:05', 'added', 'transferd', 32, 0),
+(7, 0, 0, 10, 50, 40, 0, 0, 0, 0, 0, '2019-12-27 10:34:06', '2019-12-27 10:34:06', 'added', 'transferd', 33, 0),
+(8, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, '2019-12-30 10:38:26', '2019-12-30 10:38:26', 'added', 'transferd', 34, 0);
 
 -- --------------------------------------------------------
 
@@ -568,7 +644,7 @@ CREATE TABLE `item_details` (
 --
 
 INSERT INTO `item_details` (`id`, `generic_name`, `selling_price`, `purchasing_price`, `manufacture_date`, `expiring_date`, `status`, `created_at`, `updated_at`, `item_date`, `item_time`, `item_img`, `item_unit_id`, `item_category_id`, `item_type_id`, `manufacturer_id`, `tax_id`, `discount_id`, `staff_id`) VALUES
-(2, 'Priten', 500, 200, NULL, NULL, 'active', '2019-11-11 23:00:00', '2019-11-11 23:00:00', '', '', '', 1, 1, 1, 1, '1', 1, 7),
+(2, 'Priten', 500, 200, NULL, NULL, 'active', '2019-11-11 23:00:00', '2019-11-11 23:00:00', '', '', 'drug.jpg', 1, 1, 1, 1, '1', 1, 7),
 (3, 'Penicillin', 150, 100, NULL, NULL, 'undefined', '2019-11-13 22:03:12', '2019-11-13 22:03:12', 'Nov 13, 2019', '11:03:12 PM', '', 2, 4, 3, 2, '10', 10, NULL),
 (4, 'Penicillin', 150, 100, NULL, NULL, 'undefined', '2019-11-13 22:04:56', '2019-11-13 22:04:56', 'Nov 13, 2019', '11:04:56 PM', '', 2, 4, 3, 2, '10', 10, NULL),
 (5, 'Penicillin', 150, 100, NULL, NULL, 'undefined', '2019-11-13 22:06:51', '2019-11-13 22:06:51', 'Nov 13, 2019', '11:06:51 PM', '', 2, 4, 3, 2, '10', 10, NULL),
@@ -582,7 +658,11 @@ INSERT INTO `item_details` (`id`, `generic_name`, `selling_price`, `purchasing_p
 (27, 'G', 555, 100, NULL, NULL, 'active', '2019-11-14 08:19:02', '2019-11-14 08:19:02', 'Nov 14, 2019', '09:19:02 AM', 'drug.jpg', 1, 1, 1, 1, '0', 0, NULL),
 (28, 'G', 555, 100, NULL, NULL, 'active', '2019-11-14 08:19:42', '2019-11-14 08:19:42', 'Nov 14, 2019', '09:19:42 AM', 'drug.jpg', 1, 1, 1, 1, '0', 0, NULL),
 (29, 'Penicillin', 150, 100, NULL, NULL, 'active', '2019-11-14 08:22:54', '2019-11-14 08:22:54', 'Nov 14, 2019', '09:22:54 AM', '1573468124.png', 4, 4, 3, 1, '0', 0, NULL),
-(30, 'Penicillin', 150, 100, NULL, NULL, 'active', '2019-11-14 08:26:35', '2019-11-14 08:26:35', 'Nov 14, 2019', '09:26:35 AM', '1573598723.jpeg', 2, 1, 4, 3, '0', 0, NULL);
+(30, 'Penicillin', 150, 100, NULL, NULL, 'active', '2019-11-14 08:26:35', '2019-11-14 08:26:35', 'Nov 14, 2019', '09:26:35 AM', '1573598723.jpeg', 2, 1, 4, 3, '0', 0, NULL),
+(31, 'Amp', 20, 10, NULL, NULL, 'active', '2019-12-27 09:55:58', '2019-12-27 09:55:58', 'Dec 27, 2019', '10:55:58 AM', '1573468124.png', 1, 1, 3, 1, '0', 0, NULL),
+(32, 'Ampicilin Oiltment', 350, 200, NULL, NULL, 'active', '2019-12-27 09:59:05', '2019-12-27 09:59:05', 'Dec 27, 2019', '10:59:05 AM', '1573598723.jpeg', 4, 5, 4, 2, '20', 20, NULL),
+(33, 'Vitamin C', 350, 200, NULL, NULL, 'active', '2019-12-27 10:34:05', '2019-12-27 10:34:05', 'Dec 27, 2019', '11:34:05 AM', 'drug.jpg', 2, 5, 1, 1, '20', 10, NULL),
+(34, 'Ferotogen', 2500, 1500, NULL, NULL, 'active', '2019-12-30 10:38:26', '2019-12-30 10:38:26', 'Dec 30, 2019', '11:38:26 AM', '1573598723.jpeg', 1, 4, 4, 1, '10', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -894,13 +974,22 @@ INSERT INTO `positions` (`id`, `position_name`, `description`, `kei`, `image`, `
 CREATE TABLE `purchases` (
   `id` int(10) UNSIGNED NOT NULL,
   `quantity` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `branch_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `manufacturer_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL
+  `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `branch_id` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `manufacturer_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `quantity`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`, `branch_id`, `manufacturer_detail_id`) VALUES
+(1, '7', '03:45:22 PM', NULL, '32', NULL, NULL, NULL),
+(2, '7', '03:46:44 PM', NULL, '30', NULL, NULL, NULL),
+(3, '1', '12:03:31 PM', NULL, '34', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1000,12 +1089,24 @@ CREATE TABLE `transfers` (
   `quantity_from` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity_to` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_quantity` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `status` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL
+  `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transfers`
+--
+
+INSERT INTO `transfers` (`id`, `quantity_from`, `quantity_to`, `total_quantity`, `status`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
+(1, 'Main', 'Buth 2', '4', NULL, '03:53:19 PM', NULL, '32', NULL),
+(2, 'Main', 'Buth', '5', NULL, '03:56:49 PM', NULL, '33', NULL),
+(3, 'Main', 'Buth 3', '5', NULL, '03:57:30 PM', NULL, '33', NULL),
+(4, 'Main', 'Buth 4', '5', NULL, '04:35:41 PM', NULL, '31', NULL),
+(5, 'Main', 'Buth 4', '5', NULL, '04:39:37 PM', NULL, '31', NULL),
+(6, 'Main', 'Buth', '1', NULL, '12:23:24 PM', NULL, '34', NULL);
 
 -- --------------------------------------------------------
 
@@ -1156,6 +1257,14 @@ ALTER TABLE `branch_buth3`
   ADD PRIMARY KEY (`id`),
   ADD KEY `branch_buth3_item_detail_id_index` (`item_detail_id`),
   ADD KEY `branch_buth3_staff_id_index` (`staff_id`);
+
+--
+-- Indexes for table `branch_buth4`
+--
+ALTER TABLE `branch_buth4`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `branch_buth4_item_detail_id_index` (`item_detail_id`),
+  ADD KEY `branch_buth4_staff_id_index` (`staff_id`);
 
 --
 -- Indexes for table `branch_main`
@@ -1456,31 +1565,37 @@ ALTER TABLE `blood_details`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `branch_buth`
 --
 ALTER TABLE `branch_buth`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `branch_buth2`
 --
 ALTER TABLE `branch_buth2`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `branch_buth3`
 --
 ALTER TABLE `branch_buth3`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `branch_buth4`
+--
+ALTER TABLE `branch_buth4`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `branch_main`
 --
 ALTER TABLE `branch_main`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `branch_names`
@@ -1552,7 +1667,7 @@ ALTER TABLE `item_categories`
 -- AUTO_INCREMENT for table `item_details`
 --
 ALTER TABLE `item_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `item_types`
@@ -1630,7 +1745,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rate_tbs`
@@ -1666,7 +1781,7 @@ ALTER TABLE `titles`
 -- AUTO_INCREMENT for table `transfers`
 --
 ALTER TABLE `transfers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `treatments`

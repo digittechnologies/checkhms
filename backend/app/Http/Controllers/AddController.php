@@ -425,7 +425,7 @@ class AddController extends Controller
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
 
-        if($request->item_img == null){
+        if($request->item_img == null || $request->item_img != null){
             $getImage = Item_types::select('image')     
             ->where('id','=',$request->item_type_id)          
             ->get();
