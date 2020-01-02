@@ -39,7 +39,7 @@ export class AllItemsComponent implements OnInit {
   itemAdded: any;
   itemTransferred: any;
   item: any;
-  percent: any;
+  eventData: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -53,7 +53,7 @@ export class AllItemsComponent implements OnInit {
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;
-      
+  
       this.branch = this.response
       })
 
@@ -67,36 +67,34 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.bran = this.response   
-      console.log(this.bran.name)
+
     })
 
     this.Jarwis.displayType().subscribe(
       data=>{
       this.response = data;      
       this.type = this.response 
-      console.log(this.type)    
+    
     })
 
     this.Jarwis.displayCategories().subscribe(
       data=>{
       this.response = data;      
       this.cat = this.response  
-      console.log(this.cat)   
+    
     })
 
     this.Jarwis.displayUnit().subscribe(
       data=>{
       this.response = data;      
-      this.unit = this.response 
-      console.log(this.unit)    
+      this.unit = this.response     
 
     })
 
     this.Jarwis.displayManufacturer().subscribe(
       data=>{
       this.response = data;      
-      this.manuf = this.response   
-      console.log(this.manuf)    
+      this.manuf = this.response       
 
     })
 
@@ -133,8 +131,13 @@ get(){
   this.ngOnInit()
 }
 
-onSelectitem(a) {
-  console.log('ITEM:', a)
+onSelectitem(event: any) {
+  this.eventData = event.target.value;  
+  this.Jarwis.displayInstock(this.eventData).subscribe(
+    data=>{      
+
+    })
+
 }
 
 editdept(id: string) {

@@ -526,8 +526,9 @@ class DisplayController extends Controller
     public function addedItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->where('add_status','=','added')
         ->get();
     }
@@ -544,8 +545,10 @@ class DisplayController extends Controller
 
     public function inStock($id)
     {
+        return $id;
+        $sub = substr($id, 3);
         return DB::table("branch_main")
-        ->where('item_detail_id', '=', $id)
+        ->where('item_detail_id', '=', $sub)
         ->select('branch_main.total_remain')
         ->get();
     }
