@@ -23,6 +23,7 @@ use App\Vouchers;
 use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
+use Carbon\Carbon;
 
 class DisplayController extends Controller
 {
@@ -263,21 +264,43 @@ class DisplayController extends Controller
 
     // All Items Informations
 
-    public function displayItem()
+    public function displayItem($id)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+
+        if($id != 'branch_main'){
+            $branch = DB::table("branches")
+            ->where('name', $id)
+            ->get();   
+            $id = $branch[0]->br_name;
+        }
+
+        return response()->json([
+
+           'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price')
+           ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
+           ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+           ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+        //    ->where ('c_date', '=', $cDate)
+           ->get(),
+           'addedItem'=>DB::table($id)->select($id.'.*')->sum($id.'.receive'),
+           'transferredItem'=>DB::table($id)->select($id.'.*')->sum($id.'.transfer'),
+           'soldItem'=>DB::table($id)->select($id.'.*')->sum($id.'.sales'),
+           'varianced'=>DB::table($id)->select($id.'.*')->sum($id.'.variance'),
+           'openBal'=>DB::table($id)->select($id.'.*')->sum($id.'.open_stock'),
+           'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
+           'total'=>DB::table($id)->select($id.'.*')->sum($id.'.total_remain'),
+
+        ]);
         
 
-        $item = DB::table('branch_main')->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price')
-         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
-         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-    
-        ->get();
-        if($item){
-            return $item;
-        } else {
-            return ;
-        }
+        // if($item){
+            
+        // } else {
+        //     return ;
+        // }
 
         // return DB::table("item_details")->get();
     }
@@ -301,7 +324,8 @@ class DisplayController extends Controller
 
     public function displayBranch()
     {
-        return DB::table("branches")->get();
+        // return DB::table("branches")->get();
+        return Branches::all();
     }
 
     public function edtBranch($id)

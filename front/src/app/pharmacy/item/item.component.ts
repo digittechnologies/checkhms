@@ -69,7 +69,7 @@ export class ItemComponent implements OnInit {
       
           }));
 
-    this.Jarwis.displayItem().subscribe(
+    this.Jarwis.displayItem('branch_main').subscribe(
       data=>{
       this.response = data;      
       this.items = this.response   
