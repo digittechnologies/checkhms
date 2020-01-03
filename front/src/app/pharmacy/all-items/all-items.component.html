@@ -7,43 +7,13 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
+                        <li class="breadcrumb-item" *ngFor="let br of bran" value="{{br.br_name}}" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">All Items</li>
                         </ol>
                     </nav>
                 </div>
 
-                <!-- <div class="col-12">
-                    <div class="card">
-                        <div class="body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="input-group">
-                                       
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="input-group">
-                                        <select class="custom-select" id="inputGroupSelect02" (change)="onSelect($event)" formControlName="cityName">                            
-                                            <option  *ngFor="let br of bran" [ngValue]="br.id">{{br.name}}</option>                           
-                                        </select>
-                                        <div class="input-group-append">
-                                            <label class="input-group-text text-primary" for="inputGroupSelect02">Branch</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control" data-date-format="dd/mm/yyyy" placeholder="Date">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Search</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>                -->
+               
                 
             </div>
         </div>
@@ -59,7 +29,7 @@
                                     </div>
                                     <div class="col text-right">
                                         <div class="small text-muted">Total Add</div>
-                                        <div class="h4 m-0">105</div>
+                                        <div class="h4 m-0">{{items.addedItem}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +46,7 @@
                                         </div>
                                         <div class="col text-right">
                                             <div class="small text-muted">Total Transfer</div>
-                                            <div class="h4 m-0">105</div>
+                                            <div class="h4 m-0">{{items.transferredItem}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +63,7 @@
                                             </div>
                                             <div class="col text-right">
                                                 <div class="small text-muted">Total Sales</div>
-                                                <div class="h4 m-0">105</div>
+                                                <div class="h4 m-0">{{items.soldItem}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +80,7 @@
                                     </div>
                                     <div class="col text-right">
                                         <div class="small text-muted">Variance</div>
-                                        <div class="h4 m-0">45</div>
+                                        <div class="h4 m-0">{{items.varianced}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +93,7 @@
                                         <div class="icon-in-bg bg-success text-white rounded-circle"><i class="fa fa-book"></i></div>
                                         <div class="ml-4">
                                             <span>Open Balance</span>
-                                            <h4 class="mb-0 font-weight-medium">805</h4>
+                                            <h4 class="mb-0 font-weight-medium">{{items.openBal}}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +106,7 @@
                                         <div class="icon-in-bg bg-primary text-white rounded-circle"><i class="fa fa-archive"></i></div>
                                         <div class="ml-4">
                                             <span>Pysical Balance</span>
-                                            <h4 class="mb-0 font-weight-medium">651</h4>
+                                            <h4 class="mb-0 font-weight-medium">{{items.physBal}}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -149,10 +119,11 @@
                             <div class="row clearfix">
                                 <div class="col-7">
                                     <h5 class="mb-0">Close Balance</h5>
-                                    <small class="info">In Stock: 187</small>
+                                    <small class="info">In Stock: {{items.total}}</small>
                                 </div>
                                 <div class="col-5 text-right">
-                                    <h2 class="m-b-0">62%</h2>
+                                    <h2 class="m-b-0"  *ngIf ="items.total == '0'">0%</h2>
+                                    <h2 class="m-b-0"  *ngIf ="items.total != '0'">{{math.round(100-(items.openBal/items.total*100))}}%</h2>
                                 </div>
                                 <div class="col-12">                                    
                                     <div class="progress progress-xxs progress-transparent custom-color-blue mb-0 mt-3">
@@ -183,16 +154,6 @@
                         <div class="tab-pane active show" id="items">
                             <div class="table-responsive">
 
-                                
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                        <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
-                                        <li class="breadcrumb-item active" aria-current="page">All Items</li>
-                                        </ol>
-                                    </nav>
-                               
-
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr>
@@ -204,7 +165,7 @@
                                             <th>Add</th>
                                             <th>Transfer</th>
                                             <th>Sales</th>
-                                            <th>Total Quantity</th>
+                                            <th>Total Balance</th>
                                             <th>Close Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
@@ -215,7 +176,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of items; let r = index">
+                                        <tr *ngFor="let item of items.item; let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
                                                 <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
@@ -229,15 +190,15 @@
                                             <td class="text text-primary">{{item.receive}}</td>
                                             <td class="text text-warning">{{item.transfer}}</td>
                                             <td class="text text-danger">{{item.sales}}</td>
-                                            <td class="text text-info">{{item.total_remain}}</td>
+                                            <td class="text text-info">{{item.balance}}</td>
                                             <td>
-                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.close_balance}}</span></div>
+                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.open_stock+item.receive-item.balance}}</span></div>
                                             </td>
                                             <td>
                                                 <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
                                             </td>
                                             <td>
-                                                <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
+                                                <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
                                             </td>
                                            <!--  <td> -->
                                                     <!-- <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">
@@ -246,7 +207,10 @@
                                                     <td><span class="badge badge-success">{{item.selling_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                 </td>
                                                 <!-- </td> -->
-                                                <td><span class="badge badge-success">{{100-(item.sales/item.total_remain*100)}}%</span>
+                                               
+                                                <td>
+                                                    <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
+                                                    <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
                                                 </td>
                                            
                                         </tr>                                                                     
@@ -352,7 +316,7 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                            <div class="form-group row">
+                                                            <!-- <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Manufactured Date</label>
                                                                 <div class="col-md-6 col-sm-10">
                                                                     <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Manufactured Date" ngModel name="manufacture_date">
@@ -363,7 +327,7 @@
                                                                 <div class="col-md-6 col-sm-10">
                                                                     <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Expiring Date" ngModel name="expiring_date">
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Item Image (if available)</label>
                                                                 <div class="col-md-6 col-sm-10">
@@ -424,9 +388,9 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group">
-                                                                <select class="form-control" name="item" (change)="onSelectitem($event)" ngModel name="item">
+                                                                <select class="form-control" (change)="onSelectItem($event)" ngModel name="item">
                                                                 <option value="">Select...</option>
-                                                                <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">    {{itdet.generic_name}}</option>
+                                                                <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
                                                             </div>
                                                         </td>
@@ -437,7 +401,7 @@
                                                                     </select> 
                                                             </div>                                                            
                                                         </td> -->
-                                                        <td><span class="badge badge-warning">290</span></td>
+                                                        <td><span class="badge badge-warning">{{total[0].total_remain}}</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" placeholder="Input Quantity" ngModel name="quantity">
@@ -514,9 +478,9 @@
 
                                                         <td>                                                            
                                                             <div class="form-group">
-                                                                <select class="form-control" ngModel name="from">
+                                                                <select class="form-control"  (change)="onSelectFrom($event)" ngModel name="from">
                                                                         <option value="">-- From --</option>
-                                                                        <option  *ngFor="let br of bran" [ngValue]="br.br_name">{{br.name}}</option>                                       
+                                                                        <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
                                                                 </select> 
                                                             </div>                                                            
                                                         </td>

@@ -190,8 +190,8 @@ export class JarwisService {
   }
 
   // Item
-  displayItem() {
-    return this.http.get(`${this.baseUrl}/displayItem`,)
+  displayItem(id: string) {
+    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,)
   }
   edtItem(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)

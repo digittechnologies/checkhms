@@ -39,7 +39,11 @@ export class AllItemsComponent implements OnInit {
   itemAdded: any;
   itemTransferred: any;
   item: any;
-  eventData: any;
+  percent: any;
+  math = Math;
+  total: any;
+  from: any;
+  int = parseInt;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -52,12 +56,11 @@ export class AllItemsComponent implements OnInit {
   ngOnInit() {
     this.Jarwis.displayBranch().subscribe(
       data=>{
-      this.response = data;
-  
+      this.response = data;      
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem().subscribe(
+    this.Jarwis.displayItem('branch_main').subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;
@@ -67,34 +70,30 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.bran = this.response   
-
     })
 
     this.Jarwis.displayType().subscribe(
       data=>{
       this.response = data;      
       this.type = this.response 
-    
     })
 
     this.Jarwis.displayCategories().subscribe(
       data=>{
       this.response = data;      
       this.cat = this.response  
-    
     })
 
     this.Jarwis.displayUnit().subscribe(
       data=>{
       this.response = data;      
-      this.unit = this.response     
-
+      this.unit = this.response 
     })
 
     this.Jarwis.displayManufacturer().subscribe(
       data=>{
       this.response = data;      
-      this.manuf = this.response       
+      this.manuf = this.response   
 
     })
 
@@ -131,13 +130,26 @@ get(){
   this.ngOnInit()
 }
 
-onSelectitem(event: any) {
-  this.eventData = event.target.value;  
-  this.Jarwis.displayInstock(this.eventData).subscribe(
-    data=>{      
+onSelectItem(id) {
+  this.Jarwis.displayInstock(id.target.value).subscribe(  
+    data=>{
+      this.response = data;
+      this.total =this.response;
+    }
+  );
+}
 
-    })
+allItem(aa) {
+  console.log(aa.target.innerHTML)
+  this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+  })
+}
 
+onSelectFrom(from){
+  this.from = from;
 }
 
 editdept(id: string) {
