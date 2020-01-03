@@ -221,42 +221,30 @@ onDelete(id: string) {
   editAdd(id: string) {
     console.log(id)
     this.Jarwis.editAdd(id).subscribe(
-      data=>{      
-        this.catres = data; 
-        this.catid= id
-        this.catName= this.catres[0].name;
-      }
+      data => this.handleResponse(data),
+      error => this.handleError(error),
     )
     
   }
   deleteAdd(id: string) {
     console.log(id)
     this.Jarwis.deleteAdd(id).subscribe(
-      data=>{      
-        this.catres = data; 
-        this.catid= id
-        this.catName= this.catres[0].name;
-      }
+      data => this.handleResponse(data),
+      error => this.handleError(error),
     )
   }
   editTrans(id: string) {
     console.log(id)
     this.Jarwis.editTrans(id).subscribe(
-      data=>{      
-        this.catres = data; 
-        this.catid= id
-        this.catName= this.catres[0].name;
-      }
+      data => this.handleResponse(data),
+      error => this.handleError(error),
     )
   }
   deleteTrans(id: string) {
     console.log(id)
     this.Jarwis.deleteTrans(id).subscribe(
-      data=>{      
-        this.catres = data; 
-        this.catid= id
-        this.catName= this.catres[0].name;
-      }
+      data => this.handleResponse(data),
+      error => this.handleError(error),
     )
   }
 
