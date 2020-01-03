@@ -111,7 +111,7 @@ Route::post('deleteShelve', 'AddController@deleteShelve');
 
 //Item
 Route::get('edtItem/{id}','DisplayController@edtItem');
-Route::get('displayItem','DisplayController@displayItem');
+Route::get('displayItem/{id}','DisplayController@displayItem');
 Route::post('addItem', 'AddController@addItem');
 Route::post('updateItem', 'AddController@updateItem');
 Route::post('deleteItem', 'AddController@deleteItem');

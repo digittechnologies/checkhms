@@ -416,7 +416,9 @@ class AddController extends Controller
     public function addItemDetails(Request $request)
     {
 
-        // return $request->all();
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
 
         $branch = DB::table("branches")->get();   
         $dt = Carbon::now();
@@ -429,21 +431,24 @@ class AddController extends Controller
             $getImage = Item_types::select('image')     
             ->where('id','=',$request->item_type_id)          
             ->get();
-            $request->merge(['item_img' => $getImage[0]->image]);            
+            $request->merge(['item_img' => $getImage[0]->image]);   
+            
+            // if($request->item_img != null){
+            //     $file=$request->item_img;
+            //     $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            //     return $filename;
+            //     Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
+            //     $request->merge(['item_img' => $filename]);
+            // }
         }
-        // if($request->item_img != null){
-        //     $file=$request->item_img;
-        //     $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
-        //     return $filename;
-        //     Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
-        //     $request->merge(['item_img' => $filename]);
-        // }
 
         $item= Item_details::create($request-> all());              
         foreach($branch as $row){
             $name = $row->br_name;
             $insert = DB::table($name)->insertGetId(
                 [
+                    'c_date' => $cDate,
+                    'c_time' => $cTime,
                     'item_detail_id' => $item->id,
                 ]
                 );
@@ -554,9 +559,11 @@ class AddController extends Controller
             $table->string('physical_balance')->default(0);
             $table->string('amount')->default(0);
             $table->string('balance')->default(0);
+            $table->string('c_date')->nullable();
+            $table->string('c_time')->nullable();
             $table->timestamps();
-            $table->string('add_status')->default(null);
-            $table->string('update_status')->default(null);
+            $table->string('add_status')->nullable();
+            $table->string('update_status')->nullable();
             $table->string('item_detail_id')->index();
             $table->string('staff_id')->index()->default(0);
         });
@@ -570,8 +577,8 @@ class AddController extends Controller
                 );
         }
         $request->merge(['name' => $req_name]);
-        $staffId= Auth()->user()->id;
-        $request->merge(['staff_id' => $staffId]);
+        // $staffId= Auth()->user()->id;
+        // $request->merge(['staff_id' => $staffId]);
         $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
         if($branch){
@@ -1226,12 +1233,12 @@ class AddController extends Controller
         ->where('item_detail_id','=', $item)
         ->get();
         $transfer = $bitem[0]->transfer + $val;
-        $remain =  $bitem[0]->total_remain - $val;
+        $remain =  $bitem[0]->balance + $val;
         $bitem2=DB::table($from)
          ->where('item_detail_id','=', $item)
          ->update([
             'transfer' => $transfer,
-            'total_remain' => $remain,
+            'balance' => $remain,
             'transfer_status' => 'transferd'
         ]);
         //to
@@ -1244,7 +1251,7 @@ class AddController extends Controller
          ->where('item_detail_id','=', $item)
          ->update([
             'receive' => $receive,
-            'total_remain' => $remain2,
+            // 'total_remain' => $remain2,
         ]);
 
          if($trans2){
@@ -1285,6 +1292,41 @@ class AddController extends Controller
 
     public function saveAdd()
     {
+
+        // $itemD = DB::table("item_details")->get();   
+        // $branch = DB::table("branches")->get();   
+
+        // $dt = Carbon::now();
+        // $cDate = $dt->toFormattedDateString();
+        // $cTime = $dt->format('h:i:s A');
+
+        // foreach($itemD as $itemID){
+        //     foreach($branch as $brancID){
+        //         $branch_name = $brancID->br_name;
+        //         $getFromBranch = DB::table($branch_name)
+        //         ->where ('c_date', '=', $cDate)
+        //         ->get();
+        //         echo $branch_name." ".$getFromBranch;
+        //         foreach($getFromBranch as $g){
+        //             $insert = DB::table($branch_name)->insertGetId(
+        //             [
+        //                 'open_stock'=> $g->close_balance,
+        //                 'variance'=> $g->variance,
+        //                 'physical_balance'=> $g->physical_balance,
+        //                 'sales'=> '0',
+        //                 'transfer'=> '0',
+        //                 'receive'=> '0',
+        //                 'close_balance'=> $g->transfer + $g->sales - $g->balance,
+        //                 'physical_balance'=> $g->transfer + $g->sales - $g->balance - $g->variance,
+        //                 'c_date'=> $cDate,
+        //                 'c_time'=> $cTime, 
+        //                 'item_detail_id' => $g->id,
+        //             ]);
+        //         }
+        //     }
+        // }
+        // return $insert;
+
         $saved1 = DB::table("branch_main")
         ->where('add_status', '=', 'added')
         ->update(['add_status' => 'saved']);

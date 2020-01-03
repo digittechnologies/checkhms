@@ -40,6 +40,10 @@ export class AllItemsComponent implements OnInit {
   itemTransferred: any;
   item: any;
   percent: any;
+  math = Math;
+  total: any;
+  from: any;
+  int = parseInt;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -52,12 +56,11 @@ export class AllItemsComponent implements OnInit {
   ngOnInit() {
     this.Jarwis.displayBranch().subscribe(
       data=>{
-      this.response = data;
-      
+      this.response = data;      
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem().subscribe(
+    this.Jarwis.displayItem('branch_main').subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;
@@ -67,28 +70,24 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.bran = this.response   
-      console.log(this.bran.name)
     })
 
     this.Jarwis.displayType().subscribe(
       data=>{
       this.response = data;      
       this.type = this.response 
-      console.log(this.type)    
     })
 
     this.Jarwis.displayCategories().subscribe(
       data=>{
       this.response = data;      
       this.cat = this.response  
-      console.log(this.cat)   
     })
 
     this.Jarwis.displayUnit().subscribe(
       data=>{
       this.response = data;      
       this.unit = this.response 
-      console.log(this.unit)    
 
     })
 
@@ -96,7 +95,6 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.manuf = this.response   
-      console.log(this.manuf)    
 
     })
 
@@ -133,8 +131,26 @@ get(){
   this.ngOnInit()
 }
 
-onSelectitem(a) {
-  console.log('ITEM:', a)
+onSelectItem(id) {
+  this.Jarwis.displayInstock(id.target.value).subscribe(  
+    data=>{
+      this.response = data;
+      this.total =this.response;
+    }
+  );
+}
+
+allItem(aa) {
+  console.log(aa.target.innerHTML)
+  this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+  })
+}
+
+onSelectFrom(from){
+  this.from = from;
 }
 
 editdept(id: string) {
@@ -201,7 +217,6 @@ onDelete(id: string) {
       error => this.handleError(error),    
     );
   }
-
 
 
   onSelect(id: string){
