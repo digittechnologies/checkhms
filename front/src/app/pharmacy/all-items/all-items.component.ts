@@ -88,7 +88,6 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.unit = this.response 
-
     })
 
     this.Jarwis.displayManufacturer().subscribe(
@@ -218,6 +217,36 @@ onDelete(id: string) {
     );
   }
 
+
+  editAdd(id: string) {
+    console.log(id)
+    this.Jarwis.editAdd(id).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),
+    )
+    
+  }
+  deleteAdd(id: string) {
+    console.log(id)
+    this.Jarwis.deleteAdd(id).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),
+    )
+  }
+  editTrans(id: string) {
+    console.log(id)
+    this.Jarwis.editTrans(id).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),
+    )
+  }
+  deleteTrans(id: string) {
+    console.log(id)
+    this.Jarwis.deleteTrans(id).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),
+    )
+  }
 
   onSelect(id: string){
     // this.cityName.setValue(id.target.value, {

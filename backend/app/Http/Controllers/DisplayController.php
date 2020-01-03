@@ -550,8 +550,10 @@ class DisplayController extends Controller
     public function addedItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+        ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
         ->where('add_status','=','added')
         ->get();
     }
@@ -559,7 +561,7 @@ class DisplayController extends Controller
     public function transItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.quantity_to', 'total_quantity')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.quantity_to', 'total_quantity', 'transfers.id AS tID')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
         ->join ('transfers','branch_main.item_detail_id','=','transfers.item_detail_id')
         ->where('transfer_status','=','transferd')
@@ -568,8 +570,10 @@ class DisplayController extends Controller
 
     public function inStock($id)
     {
+        return $id;
+        $sub = substr($id, 3);
         return DB::table("branch_main")
-        ->where('item_detail_id', '=', $id)
+        ->where('item_detail_id', '=', $sub)
         ->select('branch_main.total_remain')
         ->get();
     }

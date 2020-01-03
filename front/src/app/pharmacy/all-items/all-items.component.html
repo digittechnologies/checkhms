@@ -360,6 +360,7 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Item</th>
+                                                        <th>Manufacturer</th>
                                                         <th>Unit</th>
                                                         <th>Instock</th>                                                       
                                                         <th>Qty</th>
@@ -372,14 +373,15 @@
                                                     <tr *ngFor="let added of itemAdded; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
+                                                        <td><span>{{added.manuf_name}}</span></td>
                                                         <td><h6 class="mb-0">Unit</h6></td>
                                                         <td><span class="badge badge-warning">{{added.total_remain}}</span></td>
                                                         <td><span class="text-success">{{added.receive}}</span></td>
                                                         <td>360</td>
                                                         <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
-                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editAdd(added.aID)"><i class="fa fa-pencil"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteAdd(added.aID)"><i class="fa fa-trash-o"></i></button>
                                                         </td>
                                                     </tr> 
                                                     <br>
@@ -450,8 +452,8 @@
                                                         <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>                            
                                                         <td>
-                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(t.id)"><i class="fa fa-pencil"></i></button>
-                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(t.id)"><i class="fa fa-trash-o"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
                                                         </td>
                                                     </tr> 
                                                     <br>
