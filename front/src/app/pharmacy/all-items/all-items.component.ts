@@ -44,6 +44,8 @@ export class AllItemsComponent implements OnInit {
   total: any;
   from: any;
   int = parseInt;
+  addres: any;
+  transres: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -221,8 +223,7 @@ onDelete(id: string) {
   editAdd(id: string) {
     console.log(id)
     this.Jarwis.editAdd(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
+      
     )
     
   }
@@ -236,8 +237,7 @@ onDelete(id: string) {
   editTrans(id: string) {
     console.log(id)
     this.Jarwis.editTrans(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
+      
     )
   }
   deleteTrans(id: string) {
