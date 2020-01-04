@@ -420,6 +420,21 @@ deleteAppointment(data) {
     return this.http.get(`${this.baseUrl}/saveTransfer`)
   }
 
+  editAdd(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editAdd/${id}`)
+  }
+
+  deleteAdd(data) {
+    return this.http.post(`${this.baseUrl}/deleteAdd`, data)
+  }
+
+  editTrans(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editTrans/${id}`)
+  }
+
+  deleteTrans(data) {
+    return this.http.post(`${this.baseUrl}/deleteTrans`, data)
+  }
 
 
 
