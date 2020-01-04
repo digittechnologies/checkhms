@@ -1338,13 +1338,40 @@ class AddController extends Controller
 
     public function saveTransfer()
     {
-            $saved2 = DB::table("branch_main")
-            ->where('transfer_status', 'transferd')
-            ->update(['transfer_status' => 'saved']);
+        $saved2 = DB::table("branch_main")
+        ->where('transfer_status', 'transferd')
+        ->update(['transfer_status' => 'saved']);
         return '{
             "success":true,
             "message":"successful"
         }' ;
+    }
+
+    public function editAdd($id)
+    {
+        return DB::table('purchases')
+               ->select('purchases.quantity')
+               // ->join ('item_details','purchases.item_detail_id','=','item_details.id')
+               ->where('id', '=', $id)
+               ->get();
+    }
+
+    public function deleteAdd(Request $request)
+    {
+        $id = $request[0];
+        
+    }
+    public function editTrans($id)
+    {
+       return DB::table('transfers')
+              ->where('id', $id)
+              ->get();
+    }
+
+    public function deleteTrans(Request $request)
+    {
+        $id = $request[0];
+        
     }
 }
 
