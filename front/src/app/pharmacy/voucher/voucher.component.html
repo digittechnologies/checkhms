@@ -107,11 +107,11 @@
     </div>
 
     <div class="row clearfix">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>Info</h2>
-                            <ul class="header-dropdown dropdown">                                
+        <div class="col-12">
+            <div class="card">
+                    <div class="header">
+                            <h2>Drug Prescription</h2>
+                            <!-- <ul class="header-dropdown dropdown">                                
                                 <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -121,93 +121,70 @@
                                         <li><a href="javascript:void(0);">Something else</a></li>
                                     </ul>
                                 </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-6">
-                                    <a class="card" href="javascript:void(0)">
-                                        <div class="body text-center">
-                                            <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar1.jpg" alt="">
-                                            <h6 class="mt-3">Michelle Green</h6>
-                                            <div class="text-center text-muted">Intranet Developer</div>
-                                            <div class="text-center text-muted"><span class="badge badge-warning" > 16 pc</span></div>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <div class="row clearfix">
-                                                <div class="col-12">
-                                                    <button type="button" class="btn btn-round btn-success">Check Out</button>
+                            </ul> -->
+                        </div>              
+                        
+                        <div class="row clearfix">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="body">
+                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                                <label>Item</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
+                                                        <option value="">Select Item</option>
+                                                        <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
+                                                    </select>
                                                 </div>
-                                              
+                                            </div> 
+                                            <div><span class="badge badge-warning">{{total[0].total_remain}} 9</span></div>                                            
+                                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                                <label>Daily Supply</label>
+                                                <div class="form-group">
+                                                    <select class="custom-select" ngModel name="day_supply">
+                                                        <option selected="">Select Daily Supply</option>
+                                                        <option value="1">Once Daily</option>
+                                                        <option value="2">Twice Daily</option>
+                                                        <option value="3">Thrice Daily</option>
+                                                        <option value="4">Four in a Day</option>
+                                                        <option value="4">Once in a Week</option>
+                                                    </select>
+                                                </div>
+                                            </div> 
+                                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                                <label>Day(s)</label>
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control" ngModel name="days" placeholder="Input Number of Day(s)">
+                                                </div>
+                                            </div> 
+
+                                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                                    <label>Instruction</label>
+                                                    <div class="input-group">
+                                                        <textarea type="text" class="form-control" ngModel name="instruction" placeholder="Give an Intruction here"></textarea>
+                                                    </div>
+                                                </div>  
+                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                <button class="btn btn-primary btn-block" type="submit">Add</button>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <a class="card" href="javascript:void(0)">
-                                        <div class="body text-center" sty>
-                                            <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar2.jpg" alt="">
-                                            <h6 class="mt-3">Louis Henry</h6>
-                                            <div class="text-center text-muted">Angular Developer</div>
-                                            <div class="text-center text-muted"><span class="badge badge-warning" > 10 pc</span></div>
-                                          </div>
-                                          <div class="card-footer text-center">
-                                              <div class="row clearfix">
-                                                  <div class="col-12">
-                                                      <button type="button" disabled=disabled class="btn btn-round btn-success">Check Out</button>
-                                                  </div>
-                                                
-                                              </div>
-                                          </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <a class="card" href="javascript:void(0)">
-                                        <div class="body text-center">
-                                            <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar3.jpg" alt="">
-                                            <h6 class="mt-3">Nathan Hunter</h6>
-                                            <div class="text-center text-muted">Projects Manager</div>
-                                            <div class="text-center text-muted"><span class="badge badge-warning" > 23 pc</span></div>
-                                          </div>
-                                          <div class="card-footer text-center">
-                                              <div class="row clearfix">
-                                                  <div class="col-12">
-                                                      <button type="button" class="btn btn-round btn-success">Check Out</button>
-                                                  </div>
-                                                
-                                              </div>
-                                          </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <a class="card" href="javascript:void(0)">
-                                        <div class="body text-center">
-                                            <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar4.jpg" alt="">
-                                            <h6 class="mt-3">David Green</h6>
-                                            <div class="text-center text-muted">Intranet Developer</div>
-                                            <div class="text-center text-muted"><span class="badge badge-warning" > 16 pc</span></div>
-                                          </div>
-                                          <div class="card-footer text-center">
-                                              <div class="row clearfix">
-                                                  <div class="col-12">
-                                                      <button type="button" class="btn btn-round btn-success">Check Out</button>
-                                                  </div>
-                                                
-                                              </div>
-                                          </div>
-                                    </a>
+                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        
+            </div>
+        </div>
     </div>
 
 
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12">
           <div class="card">
-              <div class="header">
+              <!-- <div class="header">
                   <h2>Basic Information</h2>
                   <ul class="header-dropdown dropdown">                                
                       <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
@@ -220,7 +197,7 @@
                           </ul>
                       </li>
                   </ul>
-              </div>
+              </div> -->
               <div class="body">
                   <div class="row clearfix">
                       <div class="col-lg-12 col-md-12">
@@ -228,6 +205,7 @@
                           <table id="mainTable" class="table table-hover">
                               <thead>
                                   <tr>
+                                      <th>S/N</th>
                                       <th>Image</th>
                                       <th>Name</th>
                                       <th>In stock</th>
@@ -237,7 +215,21 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr>
+                                  <tr *ngFor="let p of pres; let r = index">
+                                      <td>{{r+1}}</td>
+                                      <td class="w60">
+                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                      </td>
+                                      <td>
+                                          <a href="javascript:void(0);" title="">1006473</a>
+                                          <p class="mb-0">sigu Soloman</p>
+                                      </td>
+                                      <td>789</td>
+                                      <td><input disabled value="{{p.quantity}}" style="width: 70%;"></td>
+                                      <td><input value="N{{p.quantity*p.selling_price}}" style="width: 70%;"></td>
+                                      <td><input value="0" style="width: 70%;"></td>
+                                  </tr>
+                                  <!-- <tr>
                                       <td class="w60">
                                           <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                       </td>
@@ -288,20 +280,7 @@
                                       <td><input value="16" style="width: 70%;"></td>
                                       <td><input value="N2400" style="width: 70%;"></td>
                                       <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                      </td>
-                                      <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
-                                      </td>
-                                      <td>789</td>
-                                      <td><input value="16" style="width: 70%;"></td>
-                                      <td><input value="N2400" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
+                                  </tr> -->
                               </tbody>
                               <tfoot>
                                   <tr>
