@@ -138,6 +138,8 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
+Route::get('displayPharmPrescription','DisplayController@displayPharmPrescription');
+
 
 //Invoices
 Route::get('edtInvoice/{id}','DisplayController@edtInvoice');
@@ -178,8 +180,12 @@ Route::get('transItems','DisplayController@transItems');
 Route::get('inStock/{id}','DisplayController@inStock');
 Route::get('editAdd/{id}', 'AddController@editAdd');
 Route::post('deleteAdd', 'AddController@deleteAdd');
+Route::post('updateAddItem', 'AddController@updateAddItem');
+
 Route::get('editTrans/{id}', 'AddController@editTrans');
 Route::post('deleteTrans', 'AddController@deleteTrans');
+
+Route::post('pharmPriscription', 'AddController@pharmPriscription');
 
 
 Route::get('comments','UserController@getComments');
