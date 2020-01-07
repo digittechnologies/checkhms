@@ -1356,6 +1356,7 @@ class AddController extends Controller
                ->get();
     }
 
+
     public function deleteAdd(Request $request)
     {
         $id = $request[0];
