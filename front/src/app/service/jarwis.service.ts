@@ -394,7 +394,7 @@ deleteAppointment(data) {
   
   addToStock(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data)
-  }
+  } 
 
   transToStock(data) {
     return this.http.post(`${this.baseUrl}/transferToStock`, data)
@@ -427,7 +427,9 @@ deleteAppointment(data) {
   deleteAdd(data) {
     return this.http.post(`${this.baseUrl}/deleteAdd`, data)
   }
-
+  updateAddItem(data) {
+    return this.http.post(`${this.baseUrl}/updateAddItem`, data)
+  }
   editTrans(id:string) {
     return this.http.get<any>(`${this.baseUrl}/editTrans/${id}`)
   }
@@ -435,6 +437,15 @@ deleteAppointment(data) {
   deleteTrans(data) {
     return this.http.post(`${this.baseUrl}/deleteTrans`, data)
   }
+
+  pharmPriscription(data) {
+    return this.http.post(`${this.baseUrl}/pharmPriscription`, data)
+  } 
+
+  displayPharmPre() {
+    return this.http.get(`${this.baseUrl}/displayPharmPrescription`,)
+  }
+
 
 
 

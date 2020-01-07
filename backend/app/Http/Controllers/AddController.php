@@ -1350,22 +1350,53 @@ class AddController extends Controller
     public function editAdd($id)
     {
         return DB::table('purchases')
-               ->select('purchases.quantity')
-               // ->join ('item_details','purchases.item_detail_id','=','item_details.id')
-               ->where('id', '=', $id)
-               ->get();
+                ->select('purchases.quantity', 'item_details.generic_name')
+                ->join ('item_details','purchases.item_detail_id','=','item_details.id')
+                ->where('purchases.id', '=', $id)
+                ->get();
     }
 
 
     public function deleteAdd(Request $request)
     {
         $id = $request[0];
-        
     }
+
+    public function updateAddItem(Request $request)
+    {
+        return $request->all();
+        $pid=$request->id;
+        $item= $request->addName;
+        $quantity= $request->addQuantity;
+
+        $select = DB::table('purchases')->where('id', $pid)->get();
+        return 100 - $select->quantity; 
+        $update = DB::table('branch_main')->where('lab_test_types.id','=',$id)
+        ->update([
+            'test_name'=> $name,
+            'test_description' => $descrip,
+            'lab_dept_id' => $lab_dept_id,
+            // 'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     public function editTrans($id)
     {
        return DB::table('transfers')
-              ->where('id', $id)
+              ->select('transfers.*', 'item_details.generic_name')
+              ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+              ->where('transfers.id', $id)
               ->get();
     }
 
@@ -1374,6 +1405,39 @@ class AddController extends Controller
         $id = $request[0];
         
     }
-}
 
+
+    // Pharmacy Prescription 
+
+    public function pharmPriscription(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        
+        $pharmacistId= Auth()->user()->id;
+        // $branchId= Auth()->user()->branch_id;
+
+        $request->merge(["p_date" => $cDate]);
+        $request->merge(["p_time" => $cTime]);
+        $request->merge(["quantity" => $request->day_supply * $request->days]);
+        // return $request->all();
+        //use session to collect branch_id, and pharmacist_id in where Auth() dosen't work
+        //appointment_id & customer_id yet to be implemented
+        $pharmP= Doctor_prescriptions::create($request-> all());
+       
+        if($pharmP){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+}
 

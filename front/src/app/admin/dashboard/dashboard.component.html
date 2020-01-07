@@ -96,9 +96,9 @@
     
         <nav class="navbar top-navbar">
             <div class="container-fluid">
-    
+     
                 <div class="navbar-left">
-                    <div class="navbar-btn">
+                   <!-- <div class="navbar-btn">
                         <a href="index.html"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"></a>
                         <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                     </div>
@@ -218,8 +218,8 @@
                         <li class="p_social"><a href="../html/page-social.html" class="social icon-menu" title="News">Social</a></li>
                         <li class="p_news"><a href="../html/page-news.html" class="news icon-menu" title="News">News</a></li>
                         <li class="p_blog"><a href="../html/page-blog.html" class="blog icon-menu" title="Blog">Blog</a></li>
-                    </ul>
-                </div>
+                    </ul>   -->
+                </div> 
                 
                 <div class="navbar-right">
                     <div id="navbar-menu">
@@ -666,7 +666,7 @@
 
         <div id="left-sidebar" class="sidebar">
             <div class="navbar-brand">
-                <a href="index.html"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"><span>Check HMS</span></a>
+                <a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><img src="../assets/images/icon.svg" alt="Check Logo" class="img-fluid logo"><span>Check HMS</span></a>
                 <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu icon-close"></i></button>
             </div>
             <div class="scroll">

@@ -415,6 +415,15 @@ class DisplayController extends Controller
         return DB::table("doctor_prescriptions")->get();
     }
 
+    public function displayPharmPrescription()
+    {
+        return DB::table("doctor_prescriptions")
+                ->select('doctor_prescriptions.*', 'item_details.selling_price')
+                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                ->where('doctor_prescriptions.status', '=', 'open')
+                ->get();
+    }
+
     public function edtPrescription($id)
     {
     
@@ -570,13 +579,14 @@ class DisplayController extends Controller
 
     public function inStock($id)
     {
-        return $id;
         $sub = substr($id, 3);
         return DB::table("branch_main")
         ->where('item_detail_id', '=', $sub)
         ->select('branch_main.total_remain')
         ->get();
     }
+
+
 
 
 

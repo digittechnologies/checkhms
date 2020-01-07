@@ -46,6 +46,14 @@ export class AllItemsComponent implements OnInit {
   int = parseInt;
   addres: any;
   transres: any;
+  addId: any;
+  addName: any;
+  addQuantity: any;
+  transFrom: any;
+  transId: string;
+  transName: any;
+  transTo: any;
+  transQuantity: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -223,9 +231,12 @@ onDelete(id: string) {
   editAdd(id: string) {
     console.log(id)
     this.Jarwis.editAdd(id).subscribe(
-      
-    )
-    
+      data=>{   
+        this.addres = this.data;
+        this.addId= id;
+        this.addName= this.addres[0].generic_name;
+        this.addQuantity= this.addres[0].quantity;
+      })
   }
   deleteAdd(id: string) {
     console.log(id)
@@ -234,11 +245,24 @@ onDelete(id: string) {
       error => this.handleError(error),
     )
   }
+  onUpdateAdd(form: NgForm) {
+    form.value.id=this.addId
+    this.Jarwis.updateAddItem(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );  
+  }
   editTrans(id: string) {
     console.log(id)
     this.Jarwis.editTrans(id).subscribe(
-      
-    )
+      data=>{   
+        this.transres = this.data;
+        this.transId= id;
+        this.transName= this.addres[0].generic_name;
+        this.transFrom= this.addres[0].quantity_from;
+        this.transTo= this.addres[0].quantity_to;
+        this.transQuantity= this.addres[0].total_quantity;
+      })
   }
   deleteTrans(id: string) {
     console.log(id)
