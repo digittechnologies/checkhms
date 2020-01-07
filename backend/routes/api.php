@@ -138,7 +138,7 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
-Route::get('displayPharmPrescription','DisplayController@displayPharmPrescription');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices

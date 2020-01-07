@@ -23,18 +23,18 @@
                   <div class="profile-header d-flex justify-content-between justify-content-center">
                       <div class="d-flex">
                           <div class="mr-3">
-                              <img src="../assets/images/user.png" class="rounded" alt="">
+                              <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
-                          <div class="details">
-                              <h5 class="mb-0">Louis Pierce</h5>
-                              <span class="text-light">Ui UX Designer</span>
-                              <p class="mb-0"><span>Posts: <strong>321</strong></span> <span>Followers: <strong>4,230</strong></span> <span>Following: <strong>560</strong></span></p>
-                          </div>                                
+                         <div class="details">
+                                <h5 class="mb-0">{{pat[0].card_number}}</h5>
+                                <span class="text-light">{{pat[0].name + " " + pat[0].othername}}</span>
+                                <div>{{pat[0].mobile_number}}</div>
+                          </div>                                 
                       </div>
-                      <div class="col text-right">
+                       <div class="col text-right">
                           <div class="small text-light">Wallet</div>
-                          <div class="h4 m-0">$15,600</div>
-                      </div>
+                          <div class="h4 m-0">N0</div>
+                        </div>
                   </div>
               </div>                    
           </div>
@@ -139,7 +139,7 @@
                                                     </select>
                                                 </div>
                                             </div> 
-                                            <div><span class="badge badge-warning">{{total[0].total_remain}} 9</span></div>                                            
+                                            <div><span class="badge badge-warning">{{total[0].total_remain}}</span></div>                                            
                                             <div class="col-lg-3 col-md-3 col-sm-6">
                                                 <label>Daily Supply</label>
                                                 <div class="form-group">
@@ -218,13 +218,13 @@
                                   <tr *ngFor="let p of pres; let r = index">
                                       <td>{{r+1}}</td>
                                       <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                          <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                       </td>
                                       <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
+                                          <!-- <a href="javascript:void(0);" title="">1006473</a> -->
+                                          <p class="mb-0">{{p.generic_name}}</p>
                                       </td>
-                                      <td>789</td>
+                                      <td><span class="badge badge-warning">{{p.total_remain}}</span></td>
                                       <td><input disabled value="{{p.quantity}}" style="width: 70%;"></td>
                                       <td><input value="N{{p.quantity*p.selling_price}}" style="width: 70%;"></td>
                                       <td><input value="0" style="width: 70%;"></td>

@@ -1288,45 +1288,10 @@ class AddController extends Controller
         }
     }
 
-    // saved add and transfer status
+    // Inventory
 
     public function saveAdd()
     {
-
-        // $itemD = DB::table("item_details")->get();   
-        // $branch = DB::table("branches")->get();   
-
-        // $dt = Carbon::now();
-        // $cDate = $dt->toFormattedDateString();
-        // $cTime = $dt->format('h:i:s A');
-
-        // foreach($itemD as $itemID){
-        //     foreach($branch as $brancID){
-        //         $branch_name = $brancID->br_name;
-        //         $getFromBranch = DB::table($branch_name)
-        //         ->where ('c_date', '=', $cDate)
-        //         ->get();
-        //         echo $branch_name." ".$getFromBranch;
-        //         foreach($getFromBranch as $g){
-        //             $insert = DB::table($branch_name)->insertGetId(
-        //             [
-        //                 'open_stock'=> $g->close_balance,
-        //                 'variance'=> $g->variance,
-        //                 'physical_balance'=> $g->physical_balance,
-        //                 'sales'=> '0',
-        //                 'transfer'=> '0',
-        //                 'receive'=> '0',
-        //                 'close_balance'=> $g->transfer + $g->sales - $g->balance,
-        //                 'physical_balance'=> $g->transfer + $g->sales - $g->balance - $g->variance,
-        //                 'c_date'=> $cDate,
-        //                 'c_time'=> $cTime, 
-        //                 'item_detail_id' => $g->id,
-        //             ]);
-        //         }
-        //     }
-        // }
-        // return $insert;
-
         $saved1 = DB::table("branch_main")
         ->where('add_status', '=', 'added')
         ->update(['add_status' => 'saved']);
@@ -1360,31 +1325,73 @@ class AddController extends Controller
     public function deleteAdd(Request $request)
     {
         $id = $request[0];
-    }
+        $select = DB::table('purchases')->where('id', $id)->first();
+        $fitem=DB::table('branch_main')
+            ->where('item_detail_id','=', $select->item_detail_id)
+            ->get();
+        $receive = $fitem[0]->receive - $select->quantity;
+        $remain =  $fitem[0]->total_remain - $select->quantity;
 
-    public function updateAddItem(Request $request)
-    {
-        return $request->all();
-        $pid=$request->id;
-        $item= $request->addName;
-        $quantity= $request->addQuantity;
-
-        $select = DB::table('purchases')->where('id', $pid)->get();
-        return 100 - $select->quantity; 
-        $update = DB::table('branch_main')->where('lab_test_types.id','=',$id)
-        ->update([
-            'test_name'=> $name,
-            'test_description' => $descrip,
-            'lab_dept_id' => $lab_dept_id,
-            // 'status' => $status
+        $del=DB::table('branch_main')
+         ->where('item_detail_id','=', $select->item_detail_id)
+         ->update([
+            'receive' => $receive,
+            'total_remain' => $remain,
         ]);
-        if($update){
+         if($del){
             return '{
                 "success":true,
                 "message":"successful"
             }' ;
         } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateAddItem(Request $request)
+    {
+        $pid=$request->id;
+        $item= $request->addName;
+        $aQty= $request->addQuantity;
+
+        $select = DB::table('purchases')->where('id', $pid)->first();
+         
+        $fitem=DB::table('branch_main')
+            ->where('item_detail_id','=', $item)
+            ->get();
+        $receive = $fitem[0]->receive - $select->quantity + $aQty;
+        $remain =  $fitem[0]->total_remain - $select->quantity + $aQty;
+
+        $add=DB::table('branch_main')
+         ->where('item_detail_id','=', $item)
+         ->update([
+            'receive' => $receive,
+            'total_remain' => $remain,
+            'add_status' => 'added'
+        ]);
+
+        if($add){
+            $dt = Carbon::now();
+            $item_date = $dt->toFormattedDateString();
+            $item_time = $dt->format('h:i:s A');
+            $log = DB::table('purchases')
+            ->where('id', $pid)
+            ->update([
+                'quantity' => $aQty,
+                'item_detail_id' => $item,
+                'created_at' => $item_time
+            ]);
+        }
+        if($log){
             return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
                 "success":false,
                 "message":"Failed"
             }';
@@ -1415,7 +1422,7 @@ class AddController extends Controller
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
         
-        $pharmacistId= Auth()->user()->id;
+        // $pharmacistId= Auth()->user()->id;
         // $branchId= Auth()->user()->branch_id;
 
         $request->merge(["p_date" => $cDate]);
@@ -1423,7 +1430,7 @@ class AddController extends Controller
         $request->merge(["quantity" => $request->day_supply * $request->days]);
         // return $request->all();
         //use session to collect branch_id, and pharmacist_id in where Auth() dosen't work
-        //appointment_id & customer_id yet to be implemented
+        //appointment_id yet to be implemented
         $pharmP= Doctor_prescriptions::create($request-> all());
        
         if($pharmP){

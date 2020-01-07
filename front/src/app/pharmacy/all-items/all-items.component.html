@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Item List</h2>
+                    <h2>Item List of {{items.bran.name}}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
@@ -416,7 +416,7 @@
                                                                         <div class="col-md-8">
                                                                             <div class="form-group">
                                                                                 <input type="text" class="form-control" placeholder="" [value]="addQuantity" ngModel name="addQuantity" required>
-                                                                                <input type="hidden" [value]="addId" ngModel name="addId">
+                                                                                <!-- <input type="hidden" [value]="addId" ngModel name="addId"> -->
                                                                             </div>
                                                                         </div>             
                                                                     </div>
@@ -574,9 +574,9 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-group"> 
-                                                                <select class="form-control input-height" ngModel name="item"> 
+                                                                <select class="form-control input-height" (change)="onSelectItem($event)" ngModel name="item"> 
                                                                     <option value="">Select Item...</option>     
-                                                                    <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
+                                                                    <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
                                                                 </select> 
                                                             </div>
                                                         
@@ -598,7 +598,7 @@
                                                                 </select> 
                                                             </div>                                                            
                                                         </td>
-                                                        <td><span class="badge badge-warning">290</span></td>
+                                                        <td><span class="badge badge-warning">{{trans.total_remain}}</span></td>
                                                         <td>                                                            
                                                             <div class="form-group">
                                                                 <select class="form-control input-height" ngModel name="to">                           

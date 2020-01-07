@@ -27,6 +27,45 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // NEW
+
+        // $itemD = DB::table("item_details")->get();   
+        // $branch = DB::table("branches")->get();   
+
+        // $dt = Carbon::now();
+        // $cDate = $dt->toFormattedDateString();
+        // $cTime = $dt->format('h:i:s A');
+
+        // foreach($itemD as $itemID){
+        //     foreach($branch as $brancID){
+        //         $branch_name = $brancID->br_name;
+        //         $getFromBranch = DB::table($branch_name)
+        //         ->where ('c_date', '=', $cDate)
+        //         ->get();
+        //         echo $branch_name." ".$getFromBranch;
+        //         foreach($getFromBranch as $g){
+        //             $insert = DB::table($branch_name)->insertGetId(
+        //             [
+        //                 'open_stock'=> $g->close_balance,
+        //                 'variance'=> $g->variance,
+        //                 'physical_balance'=> $g->physical_balance,
+        //                 'sales'=> '0',
+        //                 'transfer'=> '0',
+        //                 'receive'=> '0',
+        //                 'close_balance'=> $g->transfer + $g->sales - $g->balance,
+        //                 'physical_balance'=> $g->transfer + $g->sales - $g->balance - $g->variance,
+        //                 'c_date'=> $cDate,
+        //                 'c_time'=> $cTime, 
+        //                 'item_detail_id' => $g->id,
+        //             ]);
+        //         }
+        //     }
+        // }
+        // return $insert;
+
+        // OLD
+
+
         // $schedule->command('inspire')
         //          ->hourly();
 

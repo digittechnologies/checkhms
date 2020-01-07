@@ -442,8 +442,8 @@ deleteAppointment(data) {
     return this.http.post(`${this.baseUrl}/pharmPriscription`, data)
   } 
 
-  displayPharmPre() {
-    return this.http.get(`${this.baseUrl}/displayPharmPrescription`,)
+  displayPharmPre(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`)
   }
 
 

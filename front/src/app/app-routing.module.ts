@@ -96,7 +96,7 @@ const routes: Routes = [
          {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'pharmacy_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'voucher', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
