@@ -292,6 +292,7 @@ class DisplayController extends Controller
            'openBal'=>DB::table($id)->select($id.'.*')->sum($id.'.open_stock'),
            'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
            'total'=>DB::table($id)->select($id.'.*')->sum($id.'.total_remain'),
+           'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
 
         ]);
         
@@ -415,12 +416,14 @@ class DisplayController extends Controller
         return DB::table("doctor_prescriptions")->get();
     }
 
-    public function displayPharmPrescription()
+    public function displayPharmPrescription($id)
     {
         return DB::table("doctor_prescriptions")
-                ->select('doctor_prescriptions.*', 'item_details.selling_price')
+                ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'branch_main.total_remain')
                 ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                ->join ('branch_main','branch_main.item_detail_id','=','doctor_prescriptions.item_id')
                 ->where('doctor_prescriptions.status', '=', 'open')
+                ->where('customer_id', '=', $id)
                 ->get();
     }
 
@@ -579,11 +582,16 @@ class DisplayController extends Controller
 
     public function inStock($id)
     {
-        $sub = substr($id, 3);
-        return DB::table("branch_main")
-        ->where('item_detail_id', '=', $sub)
-        ->select('branch_main.total_remain')
-        ->get();
+           return DB::table("branch_main")
+            ->where('item_detail_id', '=', $id)
+            ->select('branch_main.total_remain')
+            ->get();
+
+           // $sub = substr($id, 3);
+           //  return DB::table("branch_main")
+           //  ->where('item_detail_id', '=', $sub)
+           //  ->select('branch_main.total_remain')
+           //  ->get();
     }
 
 
