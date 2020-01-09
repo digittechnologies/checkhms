@@ -131,6 +131,9 @@ export class JarwisService {
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }
+  displaysetBranch() {
+    return this.http.get(`${this.baseUrl}/displaysetBranch`,)
+  }
   edtBranch(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
   }
@@ -287,6 +290,9 @@ export class JarwisService {
   c_uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/c_uStatus`, data)
   }
+  reStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/reStatus`, data)
+  }
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
@@ -298,6 +304,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
+  }
+
+  assign(data) {
+    return this.http.post<any>(`${this.baseUrl}/assign`, data)
   }
   
 // Branches

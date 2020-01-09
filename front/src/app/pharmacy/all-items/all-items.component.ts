@@ -54,6 +54,10 @@ export class AllItemsComponent implements OnInit {
   transName: any;
   transTo: any;
   transQuantity: any;
+  purchasing_p: any;
+  markup_p: any;
+  selling_price = 0;
+
 
   constructor( 
     private Jarwis: JarwisService,
@@ -139,6 +143,14 @@ export class AllItemsComponent implements OnInit {
 get(){
   this.ngOnInit()
 }
+ 
+  sellPrice(e){
+    this.purchasing_p = e.target.value;
+  }
+  sellPrice2(e){
+    this.markup_p = e.target.value;
+    this.selling_price = this.purchasing_p * this.markup_p;
+  }
 
 onSelectItem(id) {
   this.Jarwis.displayInstock(id.target.value).subscribe(  
@@ -297,8 +309,5 @@ onDelete(id: string) {
     })
     
   }
-
-  councle(){}
-
 
 }

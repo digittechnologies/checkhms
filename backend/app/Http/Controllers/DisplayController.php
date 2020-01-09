@@ -50,7 +50,7 @@ class DisplayController extends Controller
     
     public function displayAllstaff()
     {
-                  
+
             return User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
                     ->select('users.*','departments.name')               
                     ->get();
@@ -77,6 +77,19 @@ class DisplayController extends Controller
     $status=DB::table('users')
     ->where('id','=', $id)
     ->update(['status' =>'suspended']); 
+  
+     return $status;
+    
+    }
+
+    public function reStatus(Request $request)
+    {
+        $id=$request[0];
+
+   
+    $status=DB::table('users')
+    ->where('id','=', $id)
+    ->update(['status' =>'approved']); 
   
      return $status;
     
@@ -279,7 +292,7 @@ class DisplayController extends Controller
 
         return response()->json([
 
-           'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price')
+           'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
@@ -323,11 +336,18 @@ class DisplayController extends Controller
 
     // Branch
 
-    public function displayBranch()
+    public function displaysetBranch()
     {
         // return DB::table("branches")->get();
         return Branches::all();
     }
+
+    public function displayBranch()
+    {
+        // return DB::table("branches")->get();
+        return Branches::where('status', '=', 'active')->get();
+    }
+
 
     public function edtBranch($id)
     {
@@ -554,15 +574,16 @@ class DisplayController extends Controller
     
         return response()->json(
         
-            Item_details::select('item_details.*')        
-            ->get()
+            Item_details::orderBy('id')->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id') 
+                                    ->select('item_details.*', 'manufacturer_details.name AS manuf_name')        
+                                    ->get()
         );
     }
 
     public function addedItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
