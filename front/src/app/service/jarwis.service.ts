@@ -282,7 +282,9 @@ export class JarwisService {
 
   // Staffs
   displayAllstaff() {
-    return this.http.get(`${this.baseUrl}/displayAllstaff`,)
+    return this.http.get(`${this.baseUrl}/displayAllstaff`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
@@ -318,7 +320,9 @@ export class JarwisService {
 //   return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
 // }
   createBranch(data) {
-  return this.http.post(`${this.baseUrl}/addBranch`, data)
+  return this.http.post(`${this.baseUrl}/addBranch`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
   }
 // updateCategories(data) {
 //   return this.http.post(`${this.baseUrl}/updateCategories`, data)
@@ -403,7 +407,9 @@ deleteAppointment(data) {
   }
   
   addToStock(data) {
-    return this.http.post(`${this.baseUrl}/addToStock`, data)
+    return this.http.post(`${this.baseUrl}/addToStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   } 
 
   transToStock(data) {
@@ -449,7 +455,9 @@ deleteAppointment(data) {
   }
 
   pharmPriscription(data) {
-    return this.http.post(`${this.baseUrl}/pharmPriscription`, data)
+    return this.http.post(`${this.baseUrl}/pharmPriscription`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   } 
 
   displayPharmPre(id: any) {

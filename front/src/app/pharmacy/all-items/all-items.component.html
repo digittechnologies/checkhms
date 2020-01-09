@@ -288,7 +288,7 @@
                                                             <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">Selling Price</label>
                                                                     <div class="col-md-6 col-sm-10">
-                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price" required>
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price" disabled="true">
                                                                     </div>
                                                                 </div>
                                                             <div class="form-group row">
@@ -384,7 +384,7 @@
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>                                                
                                                         <td><span class="text-success">{{added.quantity}}</span></td>
-                                                        <td><span class="badge badge-warning">{{added.total_remain}}</span></td>
+                                                        <td><span class="badge badge-warning">{{added.newstock}}</span></td>
                                                         <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAdd" (click)="editAdd(added.aID)"><i class="fa fa-pencil"></i></button>
@@ -404,15 +404,12 @@
                                                                 <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateAdd(add)" #add="ngForm"> 
+                                                            <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateAdd(add)" #add="ngForm">
                                                             <div class="modal-body">             
                                                                 <div class="row clearfix">
                                                                     <div class="col-md-8">
                                                                         <div class="form-group">   
-                                                                            <select class="form-control" ngModel name="addName">
-                                                                                <option value="">Select...</option>
-                                                                                <option  *ngFor="let itdet of itemDet" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
-                                                                            </select>               
+                                                                            <input type="text" class="form-control" placeholder="" [(ngModel)]="addName" ngModel name="addName" disabled="true">           
                                                                         </div>
                                                                     </div>             
                                                                 </div>
@@ -422,8 +419,7 @@
                                                                     <div class="row clearfix">
                                                                         <div class="col-md-8">
                                                                             <div class="form-group">
-                                                                                <input type="text" class="form-control" placeholder="" [value]="addQuantity" ngModel name="addQuantity" required>
-                                                                                <!-- <input type="hidden" [value]="addId" ngModel name="addId"> -->
+                                                                                <input type="text" class="form-control" placeholder="" [(ngModel)]="addQuantity" ngModel name="addQuantity">
                                                                             </div>
                                                                         </div>             
                                                                     </div>
