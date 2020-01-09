@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Positions;
@@ -24,7 +26,7 @@ use Carbon\Carbon;
 use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
-use Illuminate\Support\Facades\Auth;
+
 
 class AddController extends Controller
 {
@@ -178,16 +180,24 @@ class AddController extends Controller
     {
         $id=$request->data['id'];
         $name= $request->data['name'];    
-         $file=$request->image2;
+        $file=$request->image;
+        if(empty($file)){
+            $update = DB::table('item_types')->where('item_types.id','=',$id)
+            ->update([
+                'type_name'=> $name,
+            ]);
+        }
+        elseif(!empty($file)){
+            
             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
             Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));           
-
-
-        $update = DB::table('item_types')->where('item_types.id','=',$id)
-        ->update([
-            'type_name'=> $name,
-            'image' => $filename,
-        ]);
+            
+            $update = DB::table('item_types')->where('item_types.id','=',$id)
+            ->update([
+                'type_name'=> $name,
+                'image' => $filename,
+            ]);
+        }
         if($update){
             return '{
                 "success":true,
@@ -415,7 +425,6 @@ class AddController extends Controller
     // Item Details
     public function addItemDetails(Request $request)
     {
-
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -1179,32 +1188,28 @@ class AddController extends Controller
 
     public function addToStock(Request $request)
     {
+        // $userId= Auth()->user()->id;
         $item = $request->item;
         $val = $request->quantity;
 
         $bitem=DB::table('branch_main')
         ->where('item_detail_id','=', $item)
         ->get();
-        $receive = $bitem[0]->receive + $val;
-        $remain =  $bitem[0]->total_remain + $val;
-        $add=DB::table('branch_main')
-         ->where('item_detail_id','=', $item)
-         ->update([
-            'receive' => $receive,
-            'total_remain' => $remain,
-            'add_status' => 'added'
-        ]);
+        $remain = $bitem[0]->total_remain;
+        $newstock =  $bitem[0]->total_remain + $val;
 
-        if($add){
-            $dt = Carbon::now();
-            $item_date = $dt->toFormattedDateString();
-            $item_time = $dt->format('h:i:s A');
-            $log = DB::table('purchases')->insert([
-                'quantity' => $val,
-                'item_detail_id' => $item,
-                'created_at' => $item_time
-            ]);
-        }
+        $dt = Carbon::now();
+        $item_date = $dt->toFormattedDateString();
+        $item_time = $dt->format('h:i:s A');
+        $log = DB::table('purchases')->insert([
+            'quantity' => $val,
+            'item_detail_id' => $item,
+            'created_at' => $item_time,
+            'instock'=>$remain,
+            'newstock'=>$newstock,
+            // 'staff_id'=>$userId
+
+        ]);
         if($log){
             return '{
                 "success":true,
@@ -1216,6 +1221,45 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+
+
+        // $item = $request->item;
+        // $val = $request->quantity;
+
+        // $bitem=DB::table('branch_main')
+        // ->where('item_detail_id','=', $item)
+        // ->get();
+        // $receive = $bitem[0]->receive + $val;
+        // $remain =  $bitem[0]->total_remain + $val;
+        // $add=DB::table('branch_main')
+        //  ->where('item_detail_id','=', $item)
+        //  ->update([
+        //     'receive' => $receive,
+        //     'total_remain' => $remain,
+        //     'add_status' => 'added'
+        // ]);
+
+        // if($add){
+        //     $dt = Carbon::now();
+        //     $item_date = $dt->toFormattedDateString();
+        //     $item_time = $dt->format('h:i:s A');
+        //     $log = DB::table('purchases')->insert([
+        //         'quantity' => $val,
+        //         'item_detail_id' => $item,
+        //         'created_at' => $item_time
+        //     ]);
+        // }
+        // if($log){
+        //     return '{
+        //         "success":true,
+        //         "message":"successful"
+        //     }' ;
+        // } else {
+        //       return '{
+        //         "success":false,
+        //         "message":"Failed"
+        //     }';
+        // }
     }
 
     //tranfer to stock 

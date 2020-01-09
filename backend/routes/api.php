@@ -19,7 +19,6 @@ Route::group([
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ChangePasswordController@process');
     
-});
 Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
 Route::get('getUcontent','DisplayController@getUContent');
@@ -55,6 +54,8 @@ Route::get('getalltitle','DisplayController@getalltitle');
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('c_uStatus','DisplayController@c_uStatus');
+Route::post('reStatus','DisplayController@reStatus');
+Route::post('assign','AddController@assign');
 
 //ItemDetails
 Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');
@@ -67,6 +68,7 @@ Route::get('disItemDet','DisplayController@disItemDet');
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
+Route::get('displaysetBranch','DisplayController@displaysetBranch');
 Route::post('addBranch', 'AddController@createBranch');
 Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
@@ -187,16 +189,8 @@ Route::post('deleteTrans', 'AddController@deleteTrans');
 
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 
+});
 
-Route::get('comments','UserController@getComments');
-Route::get('rates','UserController@getRates');
-Route::get('all','UserController@getAll');
-Route::get('articles','UserController@getArticle');
-Route::get('titlerates','UserController@getRatesforTitle');
-Route::get('titlecomment','UserController@getcommentforTitle');
-Route::post('addview','UserController@addview');
-Route::post('updatePost','UserController@updatepost');
-Route::get('getAllPost','UserController@getAllPost');
 
 //  Route::get('test',function(){rolecate
 //      return response()->json([

@@ -28,7 +28,7 @@ export class SetBranchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displaysetBranch().subscribe(
       data=>{
       this.response = data;      
       this.bran = this.response   

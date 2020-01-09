@@ -4,6 +4,8 @@ import { JarwisService } from '../../service/jarwis.service';
 import { TokenService } from '../../service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from "@angular/forms";
+import { MatSnackBar } from '@angular/material';
+
 declare var $: any;
 @Component({
   selector: 'app-profile',
@@ -22,7 +24,9 @@ export class ProfileComponent implements OnInit {
   error: any;
   res: any;
   resp: any;
-  constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
+  bran: any;
+  constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router,     public snackBar: MatSnackBar, 
+    ) { }
   public response:any;
   public form ={
     emails:'',
@@ -32,6 +36,12 @@ export class ProfileComponent implements OnInit {
  
  ngOnInit() {
       
+  this.Jarwis.displayBranch().subscribe(
+    data=>{
+    this.response = data;      
+    this.bran = this.response   
+  })
+
    this.submissionForm = this.formBuilder.group(
      
      {
@@ -113,6 +123,14 @@ onSubmit1() {
  );
  
 }
+
+onAssign(form: NgForm) {
+  this.Jarwis.assign(form.value).subscribe(
+    data => this.handleResponse2(data),
+    error => this.handleError2(error),      
+  ); 
+}
+
 handleError(error) {
   this.disabled=false; 
   this.error = error.error.errors;
@@ -128,5 +146,24 @@ handleResponse(data) {
   this.ngOnInit()
 }
 
+
+
+handleResponse2(data) {   
+  let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
+    duration: 2000
+  })   
+  this.router.navigateByUrl('/Admin/(side:catacturer');
+  this.ngOnInit();
+  
+}
+
+handleError2(error) {
+  this.error = error.error.errors;
+  let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+    duration: 2000
+
+  })
+  
+}
 
 }
