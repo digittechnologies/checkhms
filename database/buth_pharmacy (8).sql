@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2020 at 09:59 AM
+-- Generation Time: Jan 09, 2020 at 12:04 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   KEY `customer_id` (`customer_id`),
   KEY `depertments_id` (`department_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
@@ -93,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 INSERT INTO `appointments` (`id`, `customer_id`, `department_id`, `doctor_id`, `treatment`, `lab`, `prescription`, `invoice`, `voucher`, `status`, `updated_at`, `created_at`, `date`, `time`) VALUES
 (12, 1, 2, 0, 'open', 'close', 'open', 'open', 'open', 'active', '2019-11-18 06:50:51', '2019-11-18 06:50:51', 'Nov 18, 2019', '07:50:51 AM'),
 (16, 2, 1, 0, 'open', 'close', 'open', 'open', 'open', 'active', '2019-11-18 09:47:07', '2019-11-18 09:47:07', 'Nov 18, 2019', '10:47:06 AM'),
-(21, 3, 2, 0, 'open', 'close', 'open', 'open', 'open', 'active', '2019-11-18 10:18:53', '2019-11-18 10:18:53', 'Nov 18, 2019', '11:18:53 AM'),
-(23, 4, 1, NULL, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-05 03:02:08', '2020-01-05 03:02:08', 'Jan 5, 2020', '04:02:08 AM');
+(24, 3, 1, NULL, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-08 11:38:15', '2020-01-08 11:38:15', 'Jan 8, 2020', '12:38:15 PM'),
+(25, 4, 2, NULL, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-08 15:54:47', '2020-01-08 15:54:47', 'Jan 8, 2020', '04:54:47 PM');
 
 -- --------------------------------------------------------
 
@@ -148,9 +148,9 @@ INSERT INTO `branches` (`id`, `name`, `br_name`, `address`, `contact_number`, `s
 (1, 'Main', 'branch_main', 'Ogbomoso', '060070070700', 'kefi', 0, 0, 'active', '2019-11-10 23:00:00', '2019-11-10 23:00:00', '7'),
 (4, 'Buth', 'branch_buth', 'Lala\'s Compound, Randa Area', '07007060050', 'Rep 1', 0, 0, 'active', '2019-11-17 11:51:44', '2019-11-17 11:51:44', NULL),
 (5, 'Buth 2', 'branch_buth2', 'Ogbomoso', '77', 'Rep 2', 0, 0, 'active', '2019-11-17 12:14:35', '2019-11-17 12:14:35', NULL),
-(6, 'Buth 3', 'branch_buth3', 'Ogbomoso', '1010', 'Rep 3', 0, 0, 'suspend', '2019-11-17 12:26:16', '2019-11-17 12:26:16', NULL),
+(6, 'Buth 3', 'branch_buth3', 'Ogbomoso', '1010', 'Rep 3', 0, 0, 'active', '2019-11-17 12:26:16', '2019-11-17 12:26:16', NULL),
 (7, 'Buth 4', 'branch_buth4', 'Fourth Address Buth Street', '090112233448676', 'Rep Four', 0, 0, 'active', '2019-12-05 15:05:48', '2019-12-05 15:05:48', NULL),
-(8, 'Buth 5', 'branch_buth5', 'Lala\'s Compound, Randa', '76419617167', 'Rep 5', 0, 0, 'active', '2020-01-03 01:34:47', '2020-01-03 01:34:47', NULL);
+(8, 'Buth 5', 'branch_buth5', 'Lala\'s Compound, Randa', '76419617167', 'Rep 5', 0, 0, 'suspend', '2020-01-03 01:34:47', '2020-01-03 01:34:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth` (
   PRIMARY KEY (`id`),
   KEY `branch_buth_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth`
@@ -191,7 +191,11 @@ CREATE TABLE IF NOT EXISTS `branch_buth` (
 INSERT INTO `branch_buth` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
 (1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:47:50 AM', NULL, NULL, NULL, NULL, '1', '0'),
 (2, '0', '0', '0', '50', '50', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:48:34 AM', NULL, NULL, NULL, NULL, '2', '0'),
-(3, '0', '0', '0', '20', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0');
+(3, '0', '0', '0', '20', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 7, 2020', '05:07:26 PM', NULL, NULL, NULL, NULL, '4', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0');
 
 -- --------------------------------------------------------
 
@@ -223,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth2` (
   PRIMARY KEY (`id`),
   KEY `branch_buth2_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth2_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth2`
@@ -232,7 +236,11 @@ CREATE TABLE IF NOT EXISTS `branch_buth2` (
 INSERT INTO `branch_buth2` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
 (1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:47:50 AM', NULL, NULL, NULL, NULL, '1', '0'),
 (2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:48:34 AM', NULL, NULL, NULL, NULL, '2', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0');
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 7, 2020', '05:07:26 PM', NULL, NULL, NULL, NULL, '4', '0'),
+(5, '0', '0', '0', '10', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0');
 
 -- --------------------------------------------------------
 
@@ -264,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth3` (
   PRIMARY KEY (`id`),
   KEY `branch_buth3_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth3_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth3`
@@ -273,7 +281,11 @@ CREATE TABLE IF NOT EXISTS `branch_buth3` (
 INSERT INTO `branch_buth3` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
 (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 3, 2020', '07:47:50 AM', NULL, NULL, NULL, NULL, '1', '0'),
 (2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 3, 2020', '07:48:34 AM', NULL, NULL, NULL, NULL, '2', '0'),
-(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0');
+(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0'),
+(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 7, 2020', '05:07:26 PM', NULL, NULL, NULL, NULL, '4', '0'),
+(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
+(6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
+(7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0');
 
 -- --------------------------------------------------------
 
@@ -305,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth4` (
   PRIMARY KEY (`id`),
   KEY `branch_buth4_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth4_staff_id_index` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth4`
@@ -314,7 +326,11 @@ CREATE TABLE IF NOT EXISTS `branch_buth4` (
 INSERT INTO `branch_buth4` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
 (1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:47:50 AM', NULL, NULL, NULL, NULL, '1', '0'),
 (2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:48:34 AM', NULL, NULL, NULL, NULL, '2', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0');
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 7, 2020', '05:07:26 PM', NULL, NULL, NULL, NULL, '4', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0');
 
 -- --------------------------------------------------------
 
@@ -346,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth5` (
   PRIMARY KEY (`id`),
   KEY `branch_buth5_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth5_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth5`
@@ -355,7 +371,11 @@ CREATE TABLE IF NOT EXISTS `branch_buth5` (
 INSERT INTO `branch_buth5` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `update_status`, `item_detail_id`, `staff_id`) VALUES
 (1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:47:50 AM', NULL, NULL, NULL, NULL, '1', '0'),
 (2, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '07:48:34 AM', NULL, NULL, NULL, NULL, '2', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0');
+(3, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 3, 2020', '01:23:34 PM', NULL, NULL, NULL, NULL, '3', '0'),
+(4, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 7, 2020', '05:07:26 PM', NULL, NULL, NULL, NULL, '4', '0'),
+(5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
+(6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
+(7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0');
 
 -- --------------------------------------------------------
 
@@ -387,16 +407,20 @@ CREATE TABLE IF NOT EXISTS `branch_main` (
   PRIMARY KEY (`id`),
   KEY `branch_names_item_detail_id_index` (`item_detail_id`),
   KEY `branch_names_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_main`
 --
 
 INSERT INTO `branch_main` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
-(1, 0, 0, 0, 500, 500, 0, 0, 0, 0, 0, 'Jan 3, 2020', '07:47:50 AM', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'added', NULL, 1, 0),
-(2, 0, 0, 50, 1000, 950, 0, 0, 0, 0, 50, 'Jan 3, 2020', '07:48:34 AM', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'added', 'transferd', 2, 0),
-(3, 0, 0, 20, 50, 50, 0, 0, 0, 0, 20, 'Jan 3, 2020', '01:23:34 PM', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'added', 'transferd', 3, 0);
+(1, 0, 0, 0, 500, 500, 0, 0, 0, 0, 0, 'Jan 3, 2020', '07:47:50 AM', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'saved', NULL, 1, 0),
+(2, 0, 0, 50, 1000, 950, 0, 0, 0, 0, 50, 'Jan 3, 2020', '07:48:34 AM', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'saved', 'transferd', 2, 0),
+(3, 0, 0, 20, 50, 50, 0, 0, 0, 0, 20, 'Jan 3, 2020', '01:23:34 PM', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'saved', 'transferd', 3, 0),
+(4, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 'Jan 7, 2020', '05:07:26 PM', '2020-01-07 16:07:26', '2020-01-07 16:07:26', 'saved', NULL, 4, 0),
+(5, 0, 0, 10, 104, 104, 0, 0, 0, 0, 10, 'Jan 8, 2020', '12:16:42 PM', '2020-01-08 11:16:42', '2020-01-08 11:16:42', 'added', 'transferd', 5, 0),
+(6, 0, 0, 0, 3050, 3050, 0, 0, 0, 0, 0, 'Jan 8, 2020', '04:32:59 PM', '2020-01-08 15:32:59', '2020-01-08 15:32:59', 'added', NULL, 6, 0),
+(7, 0, 0, 0, 50, 50, 0, 0, 0, 0, 0, 'Jan 9, 2020', '12:08:46 AM', '2020-01-08 23:08:46', '2020-01-08 23:08:46', 'added', NULL, 7, 0);
 
 -- --------------------------------------------------------
 
@@ -600,14 +624,16 @@ CREATE TABLE IF NOT EXISTS `doctor_prescriptions` (
   KEY `doctor_prescriptions_branch_id_index` (`branch_id`),
   KEY `item_id` (`item_id`),
   KEY `customer_id` (`appointment_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `doctor_prescriptions`
 --
 
 INSERT INTO `doctor_prescriptions` (`id`, `item_id`, `quantity`, `instruction`, `day_supply`, `days`, `created_at`, `updated_at`, `p_date`, `p_time`, `doctor_id`, `pharmacist_id`, `branch_id`, `appointment_id`, `customer_id`, `status`) VALUES
-(1, 1, '60', 'Instruction Number 1', '2', '30', '2020-01-05 19:29:17', '2020-01-05 19:29:17', 'Jan 5, 2020', '08:29:17 PM', NULL, NULL, NULL, NULL, NULL, 'open');
+(1, 1, '60', 'Instruction Number 1', '2', '30', '2020-01-05 19:29:17', '2020-01-05 19:29:17', 'Jan 5, 2020', '08:29:17 PM', NULL, NULL, NULL, NULL, NULL, 'open'),
+(2, 5, '21', 'ftytytyty', '3', '7', '2020-01-08 11:41:28', '2020-01-08 11:41:28', 'Jan 8, 2020', '12:41:28 PM', NULL, NULL, NULL, NULL, 4, 'open'),
+(3, 1, '30', 'ftytytyty', '3', '10', '2020-01-08 11:42:56', '2020-01-08 11:42:56', 'Jan 8, 2020', '12:42:56 PM', NULL, NULL, NULL, NULL, 4, 'open');
 
 -- --------------------------------------------------------
 
@@ -668,7 +694,7 @@ CREATE TABLE IF NOT EXISTS `item_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `item_categories`
@@ -676,8 +702,11 @@ CREATE TABLE IF NOT EXISTS `item_categories` (
 
 INSERT INTO `item_categories` (`id`, `cat_name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'maleria', 'active', '2019-11-10 23:00:00', '2019-11-10 23:00:00'),
-(5, 'pain', 'active', '2019-11-17 12:36:50', '2019-11-17 12:36:50'),
-(4, 'pain', 'suspend', '2019-11-12 15:08:48', '2019-11-12 15:08:48');
+(5, 'Anti Protozoal', 'active', '2019-11-17 12:36:50', '2019-11-17 12:36:50'),
+(4, 'pain', 'suspend', '2019-11-12 15:08:48', '2019-11-12 15:08:48'),
+(6, 'Anti Diabetes', 'active', '2020-01-07 16:01:33', '2020-01-07 16:01:33'),
+(7, 'Anti Fungal', 'active', '2020-01-07 16:02:12', '2020-01-07 16:02:12'),
+(8, 'Anti Biotics', 'active', '2020-01-07 16:04:57', '2020-01-07 16:04:57');
 
 -- --------------------------------------------------------
 
@@ -691,6 +720,7 @@ CREATE TABLE IF NOT EXISTS `item_details` (
   `generic_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `selling_price` int(190) NOT NULL DEFAULT '0',
   `purchasing_price` int(190) NOT NULL DEFAULT '0',
+  `markup_price` double NOT NULL DEFAULT '0',
   `manufacture_date` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `expiring_date` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -715,16 +745,20 @@ CREATE TABLE IF NOT EXISTS `item_details` (
   KEY `item_details_tax_id_index` (`tax_id`),
   KEY `item_details_discount_id_index` (`discount_id`),
   KEY `item_details_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `item_details`
 --
 
-INSERT INTO `item_details` (`id`, `generic_name`, `selling_price`, `purchasing_price`, `manufacture_date`, `expiring_date`, `status`, `created_at`, `updated_at`, `item_date`, `item_time`, `item_img`, `item_unit_id`, `item_category_id`, `item_type_id`, `manufacturer_id`, `tax_id`, `discount_id`, `staff_id`) VALUES
-(1, 'Paracetamol', 555, 460, NULL, NULL, 'active', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'Jan 3, 2020', '07:47:50 AM', 'drug.jpg', 2, 5, 1, 1, '0', 0, NULL),
-(2, 'Penicillin', 250, 100, NULL, NULL, 'active', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'Jan 3, 2020', '07:48:34 AM', 'drug.jpg', 1, 5, 1, 2, '0', 0, NULL),
-(3, 'Item 1', 150, 10, NULL, NULL, 'active', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'Jan 3, 2020', '01:23:34 PM', 'drug.jpg', 2, 5, 1, 1, '10', 0, NULL);
+INSERT INTO `item_details` (`id`, `generic_name`, `selling_price`, `purchasing_price`, `markup_price`, `manufacture_date`, `expiring_date`, `status`, `created_at`, `updated_at`, `item_date`, `item_time`, `item_img`, `item_unit_id`, `item_category_id`, `item_type_id`, `manufacturer_id`, `tax_id`, `discount_id`, `staff_id`) VALUES
+(1, 'Paracetamol', 555, 460, 0, NULL, NULL, 'active', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'Jan 3, 2020', '07:47:50 AM', 'drug.jpg', 2, 5, 1, 1, '0', 0, NULL),
+(2, 'Penicillin', 250, 100, 0, NULL, NULL, 'active', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'Jan 3, 2020', '07:48:34 AM', 'drug.jpg', 1, 5, 1, 2, '0', 0, NULL),
+(3, 'Item 1', 150, 10, 0, NULL, NULL, 'active', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'Jan 3, 2020', '01:23:34 PM', 'drug.jpg', 2, 5, 1, 1, '10', 0, NULL),
+(4, 'CIROFLOXACIN 500mg', 200, 20, 1.5, NULL, NULL, 'active', '2020-01-07 16:07:26', '2020-01-07 16:07:26', 'Jan 7, 2020', '05:07:26 PM', 'drug.jpg', 1, 8, 1, 2, '10', 0, NULL),
+(5, 'Bonadol Paracetamol', 200, 100, 0, NULL, NULL, 'active', '2020-01-08 11:16:42', '2020-01-08 11:16:42', 'Jan 8, 2020', '12:16:42 PM', 'drug.jpg', 1, 5, 1, 1, '10', 0, NULL),
+(6, 'Atorvastatin 20mg', 200, 100, 0, NULL, NULL, 'active', '2020-01-08 15:32:59', '2020-01-08 15:32:59', 'Jan 8, 2020', '04:32:59 PM', 'drug.jpg', 1, 6, 6, 6, '0', 0, NULL),
+(7, 'Albendazole 200mg', 15, 10, 1.5, NULL, NULL, 'active', '2020-01-08 23:08:46', '2020-01-08 23:08:46', 'Jan 9, 2020', '12:08:46 AM', 'drug.jpg', 1, 5, 6, 1, '0', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -740,16 +774,19 @@ CREATE TABLE IF NOT EXISTS `item_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `item_types`
 --
 
 INSERT INTO `item_types` (`id`, `type_name`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'pills', 'drug.jpg', '2019-10-17 16:43:21', '2019-11-06 14:16:00'),
-(3, 'Newsjhjhjh', '1573468124.png', '2019-11-11 09:28:10', '2019-11-11 09:28:10'),
-(4, 'Ingections2', '1573598723.jpeg', '2019-11-12 21:44:19', '2019-11-12 21:44:19');
+(1, 'Syrups', 'drug.jpg', '2019-10-17 16:43:21', '2019-11-06 14:16:00'),
+(3, 'Drops', '1573468124.png', '2019-11-11 09:28:10', '2019-11-11 09:28:10'),
+(4, 'Ingections', '1573598723.jpeg', '2019-11-12 21:44:19', '2019-11-12 21:44:19'),
+(6, 'Tablets', 'drug.jpg', '2020-01-08 15:28:01', '2020-01-08 15:28:01'),
+(7, 'Inhaler', 'drug.jpg', '2020-01-08 20:37:51', '2020-01-08 20:37:51'),
+(8, 'Cream-Tube', 'drug.jpg', '2020-01-08 20:41:42', '2020-01-08 20:41:42');
 
 -- --------------------------------------------------------
 
@@ -874,16 +911,17 @@ CREATE TABLE IF NOT EXISTS `manufacturer_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `manufacturer_details_contact_number_unique` (`contact_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `manufacturer_details`
 --
 
 INSERT INTO `manufacturer_details` (`id`, `name`, `address`, `contact_number`, `details`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'maxadofine', 'lagos', '070007070700', 'pils', 'active', '2019-10-17 16:43:21', '2019-10-17 16:43:21'),
-(2, 'mazolinej', 'ikejah', '07007060058', 'medig', 'active', '2019-11-11 10:41:32', '2019-11-11 10:41:32'),
-(3, 'Ayo Lala ty', 'Lala\'s Compound, Randa Area hsdi', '76419617167', 'medical ff', 'suspend', '2019-11-11 10:43:46', '2019-11-11 10:43:46');
+(1, 'RALBEN', 'lagos', '07000707079', 'pills', 'active', '2019-10-17 16:43:21', '2019-10-17 16:43:21'),
+(2, 'Zibatab', 'ikeja', '0700706005', 'medi', 'active', '2019-11-11 10:41:32', '2019-11-11 10:41:32'),
+(6, 'ATV-20', 'Dony - Triumph', '764196171', 'medi', 'active', '2020-01-08 15:27:26', '2020-01-08 15:27:26'),
+(5, 'Tawa', 'Alaja Tawa', '07064196171', 'medi', 'active', '2020-01-08 11:29:52', '2020-01-08 11:29:52');
 
 -- --------------------------------------------------------
 
@@ -1073,7 +1111,10 @@ INSERT INTO `positions` (`id`, `position_name`, `description`, `kei`, `image`, `
 DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE IF NOT EXISTS `purchases` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `instock` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `newstock` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'saved',
   `created_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1085,16 +1126,24 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   KEY `purchases_staff_id_index` (`staff_id`),
   KEY `purchases_branch_id_index` (`branch_id`),
   KEY `purchases_manufacturer_detail_id_index` (`manufacturer_detail_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`id`, `quantity`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`, `branch_id`, `manufacturer_detail_id`) VALUES
-(11, '50', '01:24:18 PM', NULL, '3', NULL, NULL, NULL),
-(9, '500', '07:50:06 AM', NULL, '1', NULL, NULL, NULL),
-(10, '1000', '07:50:17 AM', NULL, '2', NULL, NULL, NULL);
+INSERT INTO `purchases` (`id`, `instock`, `quantity`, `newstock`, `status`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`, `branch_id`, `manufacturer_detail_id`) VALUES
+(17, NULL, '50', NULL, 'saved', '09:00:05 AM', NULL, '6', NULL, NULL, NULL),
+(16, NULL, '4', NULL, 'saved', '08:55:33 AM', NULL, '5', NULL, NULL, NULL),
+(15, NULL, '50', NULL, 'saved', '08:15:20 AM', NULL, '7', NULL, NULL, NULL),
+(14, NULL, '3000', NULL, 'saved', '04:40:52 PM', NULL, '6', NULL, NULL, NULL),
+(13, NULL, '100', NULL, 'saved', '12:19:46 PM', NULL, '5', NULL, NULL, NULL),
+(12, NULL, '50', NULL, 'saved', '05:10:53 PM', NULL, '4', NULL, NULL, NULL),
+(11, NULL, '50', NULL, 'saved', '01:24:18 PM', NULL, '3', NULL, NULL, NULL),
+(9, NULL, '500', NULL, 'saved', '07:50:06 AM', NULL, '1', NULL, NULL, NULL),
+(10, NULL, '1000', NULL, 'saved', '07:50:17 AM', NULL, '2', NULL, NULL, NULL),
+(19, '500', '5', '505', 'saved', '09:54:20 AM', NULL, '1', NULL, NULL, NULL),
+(20, '500', '5', '505', 'saved', '10:27:11 AM', NULL, '1', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1253,9 @@ DROP TABLE IF EXISTS `transfers`;
 CREATE TABLE IF NOT EXISTS `transfers` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `quantity_from` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remain_from` int(255) NOT NULL DEFAULT '0',
   `quantity_to` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remain_to` int(255) DEFAULT '0',
   `total_quantity` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1214,15 +1265,16 @@ CREATE TABLE IF NOT EXISTS `transfers` (
   PRIMARY KEY (`id`),
   KEY `transfers_item_detail_id_index` (`item_detail_id`),
   KEY `transfers_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `transfers`
 --
 
-INSERT INTO `transfers` (`id`, `quantity_from`, `quantity_to`, `total_quantity`, `status`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
-(12, 'Main', 'Buth', '20', NULL, '01:26:52 PM', NULL, '3', NULL),
-(11, 'Main', 'Buth', '50', NULL, '07:51:01 AM', NULL, '2', NULL);
+INSERT INTO `transfers` (`id`, `quantity_from`, `remain_from`, `quantity_to`, `remain_to`, `total_quantity`, `status`, `created_at`, `updated_at`, `item_detail_id`, `staff_id`) VALUES
+(13, 'Main', 0, 'Buth 2', NULL, '10', NULL, '08:06:06 AM', NULL, '5', NULL),
+(12, 'Main', 0, 'Buth', NULL, '20', NULL, '01:26:52 PM', NULL, '3', NULL),
+(11, 'Main', 0, 'Buth', NULL, '50', NULL, '07:51:01 AM', NULL, '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -1273,11 +1325,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `twitter_handle` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `instagram_handle` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `degree` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `about` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about` longtext COLLATE utf8mb4_unicode_ci,
   `status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'reg',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `dept_id` int(190) DEFAULT NULL,
+  `branch_id` int(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_mobile_number_unique` (`mobile_number`),
@@ -1288,13 +1341,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `d_o_b`, `email`, `email_verified_at`, `mobile_number`, `address`, `city`, `state`, `password`, `remember_token`, `id_number`, `image`, `facebook_handle`, `twitter_handle`, `instagram_handle`, `degree`, `about`, `status`, `created_at`, `updated_at`, `dept_id`) VALUES
-(6, 'admin', 'admin', 'male', NULL, 'admin@gmail.com', NULL, '0807796884747', NULL, NULL, NULL, '$2y$10$IkuoyQzu4NApJ7ct3Vm/7.wUVnsP7YclTd6xT1/YTtFmcZ21Dkp2u', NULL, 'yey333', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:34:46', '2019-11-10 20:34:46', 10),
-(2, 'Glory', 'Olusola', 'male', NULL, 'glory@gmail.com', NULL, '080070060060', NULL, NULL, NULL, '$2y$10$Fzoku2ldHZoEIFTpYbGMK.zUXVYlMdnJ2zLve9IAqIDza.o8aI5gi', NULL, 'ww777', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:36:07', '2019-11-06 23:36:07', 3),
-(3, 'Ayo', 'Lala', 'male', NULL, 'ayoadelala@yahoo.com', NULL, '764196171', NULL, NULL, NULL, '$2y$10$iSRacz.5FF9N0dXy3B56Ju5Hf1kBwH0txtPA4Q1DC.3b2rOI/v5dm', NULL, 'ywy77', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:38:56', '2019-11-06 23:38:56', 1),
-(7, 'adeola', 'adeola', 'male', NULL, 'adeola@yahoo.com', NULL, '9494304394', NULL, NULL, NULL, '$2y$10$sWBfCK0OEYFbH6JPboefE.g3PkQijegyBvszaNRN0e5jOGQwKYX0.', NULL, 'adeola', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:39:46', '2019-11-10 20:39:46', 1),
-(8, 'ppp', 'ppp', 'male', NULL, 'ppp@gmail.com', NULL, '08007070700', NULL, NULL, NULL, '$2y$10$JQZfumDyHh10SVlsHHqf6OCaSStGZ9ZXMLTEW4rKqyp.ZptztxVoO', NULL, 'jeu74', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-12 15:18:38', '2019-11-12 15:18:38', 1),
-(9, 'Ade', 'Duro', 'male', NULL, 'ade@gmail.com', NULL, '08077997978', NULL, NULL, NULL, '$2y$10$E6v2TpeGOzoFUMvIluL.YuKf9YZZNsmO/WD19F7aAW2uwwGQZP8Ca', NULL, 'qw1234', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-14 14:20:21', '2019-11-14 14:20:21', 2);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `d_o_b`, `email`, `email_verified_at`, `mobile_number`, `address`, `city`, `state`, `password`, `remember_token`, `id_number`, `image`, `facebook_handle`, `twitter_handle`, `instagram_handle`, `degree`, `about`, `status`, `created_at`, `updated_at`, `dept_id`, `branch_id`) VALUES
+(6, 'admin', 'admin', 'male', NULL, 'admin@gmail.com', NULL, '0807796884747', NULL, NULL, NULL, '$2y$10$IkuoyQzu4NApJ7ct3Vm/7.wUVnsP7YclTd6xT1/YTtFmcZ21Dkp2u', NULL, 'yey333', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:34:46', '2019-11-10 20:34:46', 10, 0),
+(2, 'Glory', 'Olusola', 'male', NULL, 'glory@gmail.com', NULL, '080070060060', NULL, NULL, NULL, '$2y$10$Fzoku2ldHZoEIFTpYbGMK.zUXVYlMdnJ2zLve9IAqIDza.o8aI5gi', NULL, 'ww777', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:36:07', '2019-11-06 23:36:07', 3, 0),
+(3, 'Ayo', 'Lala', 'male', NULL, 'ayoadelala@yahoo.com', NULL, '764196171', NULL, NULL, NULL, '$2y$10$iSRacz.5FF9N0dXy3B56Ju5Hf1kBwH0txtPA4Q1DC.3b2rOI/v5dm', NULL, 'ywy77', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:38:56', '2019-11-06 23:38:56', 1, 0),
+(7, 'adeola', 'adeola', 'male', NULL, 'adeola@yahoo.com', NULL, '9494304394', NULL, NULL, NULL, '$2y$10$sWBfCK0OEYFbH6JPboefE.g3PkQijegyBvszaNRN0e5jOGQwKYX0.', NULL, 'adeola', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:39:46', '2019-11-10 20:39:46', 1, 0),
+(8, 'ppp', 'ppp', 'male', NULL, 'ppp@gmail.com', NULL, '08007070700', NULL, NULL, NULL, '$2y$10$JQZfumDyHh10SVlsHHqf6OCaSStGZ9ZXMLTEW4rKqyp.ZptztxVoO', NULL, 'jeu74', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-12 15:18:38', '2019-11-12 15:18:38', 1, 0),
+(9, 'Ade', 'Duro', 'male', NULL, 'ade@gmail.com', NULL, '08077997978', NULL, NULL, NULL, '$2y$10$E6v2TpeGOzoFUMvIluL.YuKf9YZZNsmO/WD19F7aAW2uwwGQZP8Ca', NULL, 'qw1234', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-14 14:20:21', '2019-11-14 14:20:21', 2, 0);
 
 -- --------------------------------------------------------
 
