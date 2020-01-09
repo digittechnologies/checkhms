@@ -37,11 +37,11 @@ class DisplayController extends Controller
     //staff
     public function staffdetails($id)
     {
-    
         return response()->json(
         
-            User::orderBy('id')    
-            ->where('id','=',$id)          
+            User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
+            ->select('users.*', 'departments.position_id')
+            ->where('users.id','=',$id)          
             ->get()
            
         );
@@ -50,9 +50,10 @@ class DisplayController extends Controller
     
     public function displayAllstaff()
     {
-
+        $id= Auth()->user()->id;
             return User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                    ->select('users.*','departments.name')               
+                    ->select('users.*','departments.name')  
+                    ->where('users.id', '!=', $id)             
                     ->get();
     
     }
@@ -583,11 +584,11 @@ class DisplayController extends Controller
     public function addedItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
-        ->where('add_status','=','added')
+        ->where('purchases.status','=','saved')
         ->get();
     }
 

@@ -57,6 +57,7 @@ export class AllItemsComponent implements OnInit {
   purchasing_p: any;
   markup_p: any;
   selling_price = 0;
+  addId2: any;
 
 
   constructor( 
@@ -241,17 +242,17 @@ onDelete(id: string) {
 
 
   editAdd(id: string) {
-    console.log(id)
     this.Jarwis.editAdd(id).subscribe(
       data=>{   
-        this.addres = this.data;
+        this.addres = data;
         this.addId= id;
         this.addName= this.addres[0].generic_name;
         this.addQuantity= this.addres[0].quantity;
+        this.addId2 = this.addres[0].id;
       })
+  
   }
   deleteAdd(id: string) {
-    console.log(id)
     this.Jarwis.deleteAdd(id).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),
@@ -268,7 +269,7 @@ onDelete(id: string) {
     console.log(id)
     this.Jarwis.editTrans(id).subscribe(
       data=>{   
-        this.transres = this.data;
+        this.transres = data;
         this.transId= id;
         this.transName= this.addres[0].generic_name;
         this.transFrom= this.addres[0].quantity_from;
