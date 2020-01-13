@@ -176,13 +176,18 @@ Route::post('addToStock', 'AddController@addToStock');
 Route::post('transferToStock', 'AddController@transferToStock');
 Route::get('saveAdd', 'AddController@saveAdd');
 Route::get('saveTransfer', 'AddController@saveTransfer');
+Route::get('saveVariance', 'AddController@saveVariance');
+Route::post('varianceStock', 'AddController@varianceStock');
 
+Route::get('varianceItems','DisplayController@varianceItems');
 Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');
 Route::get('inStock/{id}','DisplayController@inStock');
+Route::post('inStockT','DisplayController@inStockT');
 Route::get('editAdd/{id}', 'AddController@editAdd');
 Route::post('deleteAdd', 'AddController@deleteAdd');
 Route::post('updateAddItem', 'AddController@updateAddItem');
+Route::post('updatetransferItem', 'AddController@updatetransferItem');
 
 Route::get('editTrans/{id}', 'AddController@editTrans');
 Route::post('deleteTrans', 'AddController@deleteTrans');

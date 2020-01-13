@@ -1210,7 +1210,8 @@ class AddController extends Controller
             $log = DB::table('purchases')->insert([
                 'quantity' => $val,
                 'item_detail_id' => $item,
-                'created_at' => $item_time,
+                'p_date' => $item_date,
+                'p_time' => $item_time,
                 'instock'=>$remain,
                 'newstock'=>$newstock,
                 'staff_id'=>$userId,
@@ -1228,103 +1229,113 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
-        
-        // $item = $request->item;
-        // $val = $request->quantity;
 
-       
-
-        // if($add){
-        //     $dt = Carbon::now();
-        //     $item_date = $dt->toFormattedDateString();
-        //     $item_time = $dt->format('h:i:s A');
-        //     $log = DB::table('purchases')->insert([
-        //         'quantity' => $val,
-        //         'item_detail_id' => $item,
-        //         'created_at' => $item_time
-        //     ]);
-        // }
-        // if($log){
-        //     return '{
-        //         "success":true,
-        //         "message":"successful"
-        //     }' ;
-        // } else {
-        //       return '{
-        //         "success":false,
-        //         "message":"Failed"
-        //     }';
-        // }
     }
 
     //tranfer to stock 
 
     public function transferToStock(Request $request)
     {
+        $userId= Auth()->user()->id;
 
-        $item = $request->item;
+        $item = $request->item2;
         $from = $request->from;
         $to = $request->to;
         $val = $request->quantity;
 
-        //from
-        $bitem=DB::table($from)
-        ->where('item_detail_id','=', $item)
-        ->get();
-        $transfer = $bitem[0]->transfer + $val;
-        $remain =  $bitem[0]->balance + $val;
-        $bitem2=DB::table($from)
-         ->where('item_detail_id','=', $item)
-         ->update([
-            'transfer' => $transfer,
-            'balance' => $remain,
-            'transfer_status' => 'transferd'
-        ]);
-        //to
-        $trans=DB::table($to)
-         ->where('item_detail_id','=', $item)
-         ->get();
-         $receive = $trans[0]->receive + $val;
-         $remain2 =  $trans[0]->total_remain + $val;
-         $trans2=DB::table($to)
-         ->where('item_detail_id','=', $item)
-         ->update([
-            'receive' => $receive,
-            // 'total_remain' => $remain2,
-        ]);
-
-         if($trans2){
-            $dt = Carbon::now();
-            $item_date = $dt->toFormattedDateString();
-            $item_time = $dt->format('h:i:s A');
-            $fromBranch = DB::table("branches")
-            ->select('branches.name')
-            ->where('br_name', '=', $from)
+        $check = DB::table('transfers')->where('item_detail_id', '=', $item)->where('status', '=', 'open')->get();
+        
+        if (empty($check[0])) {
+            
+            $bitem=DB::table($from)
+            ->where('item_detail_id','=', $item)
             ->get();
-            $toBranch = DB::table("branches")
-            ->select('branches.name')
-            ->where('br_name', '=', $to)
-            ->get();    
-            $log = DB::table('transfers')->insert([
-                'quantity_from' => $fromBranch[0]->name,
-                'quantity_to' => $toBranch[0]->name,
-                'total_quantity' => $val,
-                'item_detail_id' => $item,
-                'created_at' => $item_time
-            ]);
-        }
 
-        if($log){
+            $total_from = $bitem[0]->total_remain;            
+
+           // to
+            $trans=DB::table($to)
+             ->where('item_detail_id','=', $item)
+             ->get();
+             $total_to = $trans[0]->total_remain; 
+            $newStk= $total_to + $val;
+
+             // transfer
+        
+                $dt = Carbon::now();
+                $item_date = $dt->toFormattedDateString();
+                $item_time = $dt->format('h:i:s A');
+                $trans2=DB::table('transfers')->insert([
+                    'quantity_from'=>$from,
+                    'quantity_to'=>$to,
+                    'remain_from'=>$total_from,
+                    'remain_to'=>$total_to,
+                    'total_quantity' => $val,
+                    'item_detail_id' => $item,
+                    't_date' => $item_date,
+                    't_time' => $item_time,
+                    'newstock'=>$newStk,
+                    'staff_id'=>$userId
+    
+            ]);
+        } 
+        else {
             return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-              return '{
                 "success":false,
                 "message":"Failed"
             }';
         }
+
+    
+    }
+
+    // Variance
+
+    public function varianceStock(Request $request)
+    {
+        $userId= Auth()->user()->id;
+
+        $item = $request->item3;
+        $from = $request->from;
+        $val = $request->quantity;
+        $purpose = $request->purpose;
+        $detail = $request->detail;
+
+        $check = DB::table('variances')->where('item_detail_id', '=', $item)->where('status', '=', 'open')->get();
+        
+        if (empty($check[0])) {
+            
+            $bitem=DB::table($from)
+            ->where('item_detail_id','=', $item)
+            ->get();
+
+            $total_from = $bitem[0]->total_remain;            
+        
+                $dt = Carbon::now();
+                $item_date = $dt->toFormattedDateString();
+                $item_time = $dt->format('h:i:s A');
+                $trans2=DB::table('variances')->insert([
+                    'branch_id'=>$from,                    
+                    'instock'=>$total_from,
+                    'quantity' => $val,
+                    'newstock'=>$total_from - $val,
+                    'item_detail_id' => $item,
+                    'purpose'=>$purpose,
+                    'detail'=>$detail,
+                    'v_date' => $item_date,
+                    'v_time' => $item_time,
+                    'user_id'=>$userId
+    
+            ]);
+        } 
+        else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+
+    
     }
 
     // Inventory
@@ -1338,18 +1349,22 @@ class AddController extends Controller
             $item = $row->item_detail_id;
             $val = $row->quantity;
 
-            $bitem=DB::table('branch_main')
+            $bitem2=DB::table('branch_main')
             ->where('item_detail_id','=', $item)
             ->get();
-            $receive = $bitem[0]->receive + $val;
-            $remain =  $bitem[0]->total_remain + $val;
+            $receive = $bitem2[0]->receive + $val;
+            $balance2 = $bitem2[0]->balance;
+            $remain2 =  $bitem2[0]->open_stock + $receive - $balance2;
+            $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table('branch_main')
              ->where('item_detail_id','=', $item)
              ->update([
                 'receive' => $receive,
-                'total_remain' => $remain,
+                'total_remain' => $remain2,
+                'physical_balance' => $physical2,
                 'add_status' => 'added'
             ]);
+            
              if($add){
                 $saved1 = DB::table("purchases")
                         ->where('status', '=', 'saved')
@@ -1364,9 +1379,89 @@ class AddController extends Controller
 
     public function saveTransfer()
     {
-        $saved2 = DB::table("branch_main")
-        ->where('transfer_status', 'transferd')
-        ->update(['transfer_status' => 'saved']);
+        $all_item= DB::table('transfers')->select('transfers.item_detail_id', 'transfers.total_quantity', 'transfers.quantity_from', 'transfers.quantity_to')->where('status', '=', 'open')->get();        
+              
+        foreach($all_item as $row){
+            
+            $item = $row->item_detail_id;
+            $val = $row->total_quantity;
+            $from = $row->quantity_from;
+            $to = $row->quantity_to;
+
+            $bitem=DB::table($from)
+            ->where('item_detail_id','=', $item)
+            ->get();
+            $transfer = $bitem[0]->transfer + $val;
+            $balance = $bitem[0]->sales + $transfer;
+            $remain =  $bitem[0]->open_stock + $bitem[0]->receive - $balance;
+            $physical = $remain - $bitem[0]->variance;
+            $transf=DB::table($from)
+             ->where('item_detail_id','=', $item)
+             ->update([
+                'transfer' => $transfer,
+                'balance' => $balance,
+                'total_remain' => $remain,
+                'physical_balance' => $physical,
+                'add_status' => 'transfer'
+            ]);
+
+            $bitem2=DB::table($to)
+            ->where('item_detail_id','=', $item)
+            ->get();
+            $receive = $bitem2[0]->receive + $val;
+            $balance2 = $bitem2[0]->balance;
+            $remain2 =  $bitem2[0]->open_stock + $receive - $balance2;
+            $physical2 = $remain2 - $bitem2[0]->variance;
+            $add=DB::table($to)
+             ->where('item_detail_id','=', $item)
+             ->update([
+                'receive' => $receive,
+                'total_remain' => $remain2,
+                'physical_balance' => $physical2,
+                'add_status' => 'added'
+            ]);
+             if($add){
+                $saved1 = DB::table("transfers")
+                        ->where('status', '=', 'open')
+                        ->update(['status' => 'close']);
+             }    
+        }
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    }
+
+    public function saveVariance()
+    {
+        $all_item= DB::table('variances')->select('variances.item_detail_id', 'variances.quantity', 'variances.branch_id')->where('status', '=', 'open')->get();        
+              
+        foreach($all_item as $row){
+            
+            $item = $row->item_detail_id;
+            $val = $row->quantity;
+            $banch = $row->branch_id;
+
+            $bitem2=DB::table($banch)
+            ->where('item_detail_id','=', $item)
+            ->get();
+            $variance = $bitem2[0]->variance + $val;
+            $remain2 =  $bitem2[0]->total_remain;
+            $physical2 = $remain2 - $variance;
+            $add=DB::table($banch)
+             ->where('item_detail_id','=', $item)
+             ->update([
+                'variance' => $variance,
+                'physical_balance' => $physical2,
+                'add_status' => 'variance'
+            ]);
+            
+             if($add){
+                $saved1 = DB::table("variances")
+                        ->where('status', '=', 'open')
+                        ->update(['status' => 'close']);
+             }    
+        }
         return '{
             "success":true,
             "message":"successful"
@@ -1388,19 +1483,6 @@ class AddController extends Controller
         $id = $request[0];
         $del = DB::table('purchases')->where('id', $id)->delete();
 
-        // $select = DB::table('purchases')->where('id', $id)->first();
-        // $fitem=DB::table('branch_main')
-        //     ->where('item_detail_id','=', $select->item_detail_id)
-        //     ->get();
-        // $receive = $fitem[0]->receive - $select->quantity;
-        // $remain =  $fitem[0]->total_remain - $select->quantity;
-
-        // $del=DB::table('branch_main')
-        //  ->where('item_detail_id','=', $select->item_detail_id)
-        //  ->update([
-        //     'receive' => $receive,
-        //     'total_remain' => $remain,
-        // ]);
          if($del){
             return '{
                 "success":true,
@@ -1420,8 +1502,10 @@ class AddController extends Controller
         // $item= $request->addName;
         $aQty= $request->addQuantity;
 
-        $select = DB::table('purchases')->where('id', $pid)->first();
-        $nstock = $select->newstock + $aQty;
+        $itemId = DB::table('purchases')->select('purchases.item_detail_id')->where('id', $pid)->get();
+        $item= $itemId[0]->item_detail_id;
+        $select=DB::table('branch_main')->select('branch_main.total_remain')->where('item_detail_id','=', $item)->get();
+        $nstock = $select[0]->total_remain + $aQty;
 
         $add=DB::table('purchases')
          ->where('id','=', $pid)    
@@ -1430,32 +1514,38 @@ class AddController extends Controller
             'newstock' => $nstock,
         ]);
 
-        // $fitem=DB::table('branch_main')
-        //     ->where('item_detail_id','=', $item)
-        //     ->get();
-        // $receive = $fitem[0]->receive - $select->quantity + $aQty;
-        // $remain =  $fitem[0]->total_remain - $select->quantity + $aQty;
+        if($add){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
 
-        // $add=DB::table('branch_main')
-        //  ->where('item_detail_id','=', $item)
-        //  ->update([
-        //     'receive' => $receive,
-        //     'total_remain' => $remain,
-        //     'add_status' => 'added'
-        // ]);
+    public function updatetransferItem(Request $request)
+    {
+        $pid=$request->id;
+        $aQty= $request->transQuantity;
+        $brFrom= $request->transFrom;
+        $brTo= $request->transToo;
 
-        // if($add){
-        //     $dt = Carbon::now();
-        //     $item_date = $dt->toFormattedDateString();
-        //     $item_time = $dt->format('h:i:s A');
-        //     $log = DB::table('purchases')
-        //     ->where('id', $pid)
-        //     ->update([
-        //         'quantity' => $aQty,
-        //         'item_detail_id' => $item,
-        //         'created_at' => $item_time
-        //     ]);
-        // }
+        $itemId = DB::table('transfers')->select('transfers.item_detail_id')->where('id', $pid)->get();
+        $item= $itemId[0]->item_detail_id;
+        $select=DB::table($brTo)->select($brTo.'.total_remain')->where('item_detail_id','=', $item)->get();
+        $nstock = $select[0]->total_remain + $aQty;
+
+        $add=DB::table('transfers')
+         ->where('id','=', $pid)    
+         ->update([
+            'total_quantity' => $aQty,
+            'newstock' => $nstock,
+        ]);
+
         if($add){
             return '{
                 "success":true,
@@ -1481,6 +1571,19 @@ class AddController extends Controller
     public function deleteTrans(Request $request)
     {
         $id = $request[0];
+        $del = DB::table('transfers')->where('id', $id)->delete();
+
+         if($del){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
         
     }
 
