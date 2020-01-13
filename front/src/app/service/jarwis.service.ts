@@ -410,15 +410,27 @@ deleteAppointment(data) {
     return this.http.post(`${this.baseUrl}/addToStock`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  } 
+  }
 
   transToStock(data) {
-    return this.http.post(`${this.baseUrl}/transferToStock`, data)
+    return this.http.post(`${this.baseUrl}/transferToStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  varianceStock(data) {
+    return this.http.post(`${this.baseUrl}/varianceStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayAdded() {
       return this.http.get(`${this.baseUrl}/addedItems`,)
   }
+
+  varianceItems() {
+    return this.http.get(`${this.baseUrl}/varianceItems`,)
+}
 
   displayTransferred() {
       return this.http.get(`${this.baseUrl}/transItems`,)
@@ -427,6 +439,9 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
+  displayInstockT(data) {
+    return this.http.post<any>(`${this.baseUrl}/inStockT`, data)
+  }
  
   saveAdd() {
     return this.http.get(`${this.baseUrl}/saveAdd`)
@@ -434,6 +449,10 @@ deleteAppointment(data) {
 
   saveTransfer() {
     return this.http.get(`${this.baseUrl}/saveTransfer`)
+  }
+
+  saveVariance() {
+    return this.http.get(`${this.baseUrl}/saveVariance`)
   }
 
   editAdd(id:string) {
@@ -445,6 +464,9 @@ deleteAppointment(data) {
   }
   updateAddItem(data) {
     return this.http.post(`${this.baseUrl}/updateAddItem`, data)
+  }
+  updatetransferItem(data) {
+    return this.http.post(`${this.baseUrl}/updatetransferItem`, data)
   }
   editTrans(id:string) {
     return this.http.get<any>(`${this.baseUrl}/editTrans/${id}`)

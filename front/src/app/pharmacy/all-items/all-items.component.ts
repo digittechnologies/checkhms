@@ -58,6 +58,11 @@ export class AllItemsComponent implements OnInit {
   markup_p: any;
   selling_price = 0;
   addId2: any;
+  id2: any;
+  totalFrom: any;
+  totalTo: any;
+  to: any;
+  varianceAdded: any;
 
 
   constructor( 
@@ -133,6 +138,13 @@ export class AllItemsComponent implements OnInit {
 
     })
 
+    this.Jarwis.varianceItems().subscribe(
+      data=>{
+      this.response = data;      
+      this.varianceAdded = this.response       
+
+    })
+
     this.Jarwis.displayTransferred().subscribe(
       data=>{
       this.response = data;      
@@ -161,6 +173,9 @@ onSelectItem(id) {
     }
   );
 }
+onSelectItem2(id) {
+  this.id2 = id.target.value;
+}
 
 allItem(aa) {
   console.log(aa.target.innerHTML)
@@ -172,7 +187,25 @@ allItem(aa) {
 }
 
 onSelectFrom(from){
-  this.from = from;
+  this.from = from.target.value;
+  this.Jarwis.displayInstockT([this.id2, this.from]).subscribe(  
+    data=>{
+      this.response = data;
+      this.totalFrom =this.response;
+    }
+  );
+  // alert(this.totalFrom)
+  // alert(this.totalFrom[0].total_remain)
+}
+
+onSelectTo(to){
+  this.to = to.target.value;
+  this.Jarwis.displayInstockT([this.id2, this.to]).subscribe(  
+    data=>{
+      this.response = data;
+      this.totalTo =this.response;
+    }
+  );
 }
 
 editdept(id: string) {
@@ -183,19 +216,6 @@ editdept(id: string) {
       this.catid= id
       this.catName= this.catres[0].name;
     })
-}
-
-onUpdate(form: NgForm) {
-
-  
-  form.value.id=this.catid
-  // this.image= form.value.image
-  //  console.log(form.value)
-  this.Jarwis.updateCategories(form.value).subscribe(        
-    data => this.handleResponse(data),
-    error => this.handleError(error), 
-    
-  );  
 }
 
 onDelete(id: string) {
@@ -233,8 +253,22 @@ onDelete(id: string) {
     );
   }
 
+  onSubmitVariance(form: NgForm) {
+    this.Jarwis.varianceStock(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
+
   onSaveTrans() {
     this.Jarwis.saveTransfer().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),    
+    );
+  }
+
+  onSaveVariance() {
+    this.Jarwis.saveVariance().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
     );
@@ -271,10 +305,10 @@ onDelete(id: string) {
       data=>{   
         this.transres = data;
         this.transId= id;
-        this.transName= this.addres[0].generic_name;
-        this.transFrom= this.addres[0].quantity_from;
-        this.transTo= this.addres[0].quantity_to;
-        this.transQuantity= this.addres[0].total_quantity;
+        this.transName= this.transres[0].generic_name;
+        this.transFrom= this.transres[0].quantity_from;
+        this.transTo= this.transres[0].quantity_to;
+        this.transQuantity= this.transres[0].total_quantity;
       })
   }
   deleteTrans(id: string) {
@@ -283,6 +317,15 @@ onDelete(id: string) {
       data => this.handleResponse(data),
       error => this.handleError(error),
     )
+  }
+
+  onUpdate(form: NgForm) {
+
+    form.value.id=this.transId
+    this.Jarwis.updatetransferItem(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );   
   }
 
   onSelect(id: string){
