@@ -141,6 +141,7 @@ Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
 Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('pharmPriscription', 'AddController@pharmPriscription');
 
 
 //Invoices
@@ -187,7 +188,9 @@ Route::post('updateAddItem', 'AddController@updateAddItem');
 Route::get('editTrans/{id}', 'AddController@editTrans');
 Route::post('deleteTrans', 'AddController@deleteTrans');
 
-Route::post('pharmPriscription', 'AddController@pharmPriscription');
+//Stock Report
+Route::get('stockReport/{branch}','DisplayController@stockReport');
+Route::post('searchReport','DisplayController@searchReport');
 
 });
 

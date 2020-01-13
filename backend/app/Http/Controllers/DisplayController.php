@@ -297,7 +297,7 @@ class DisplayController extends Controller
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        //    ->where ('c_date', '=', $cDate)
+           // ->where ('c_date', '=', $cDate)
            ->get(),
            'addedItem'=>DB::table($id)->select($id.'.*')->sum($id.'.receive'),
            'transferredItem'=>DB::table($id)->select($id.'.*')->sum($id.'.transfer'),
@@ -309,15 +309,6 @@ class DisplayController extends Controller
            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
 
         ]);
-        
-
-        // if($item){
-            
-        // } else {
-        //     return ;
-        // }
-
-        // return DB::table("item_details")->get();
     }
 
     public function edtItem($id)
@@ -616,7 +607,62 @@ class DisplayController extends Controller
            //  ->get();
     }
 
+    public function stockReport($branch)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
 
+        if($branch != 'branch_main'){
+            $branch = DB::table("branches")
+            ->where('name', $id)
+            ->get();   
+            $branch = $branch[0]->br_name;
+        }
+
+        return DB::table($branch)
+        ->select($branch.'.*', 'transfers.*')
+        ->join ('transfers',$branch.'.item_detail_id','=','transfers.item_detail_id')
+           // ->where ('c_date', '=', $cDate)
+        ->get();
+    }
+
+    public function searchReport(Request $request)
+    {
+        $branch = $request->br_name;
+        $sDate = $request->sDate;
+        $eDate = $request->eDate;
+
+        $startDate = new Carbon('2020-01-01');
+        $endDate = new Carbon('2020-01-08');
+        $dateRange = array();
+        while ($startDate->lte($endDate)) {
+            $dateRange[] = $startDate->toFormattedDateString();
+            $startDate->addDay();
+        }
+
+        if($branch != 'branch_main'){
+            $branch = DB::table("branches")
+            ->where('name', $id)
+            ->get();   
+            $branch = $branch[0]->br_name;
+        }
+
+        return DB::table($branch)
+        ->select($branch.'.*', 'transfers.*')
+        ->join ('transfers',$branch.'.item_detail_id','=','transfers.item_detail_id')
+        ->whereIn($branch.'.c_date', $dateRange)
+        ->get();
+    }
+    // public function generalSearch($term)
+    // {
+    //     return DB::table($branch)
+    //     ->select($branch.'.*', 'transfers.*')
+    //     ->join ('transfers',$branch.'.item_detail_id','=','transfers.item_detail_id')
+    //        ->where ('column', 'like', $term%)
+    //     ->get();
+    // }
+
+    
 
 
 

@@ -26,83 +26,46 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {
-        // NEW
-
-        // $itemD = DB::table("item_details")->get();   
-        // $branch = DB::table("branches")->get();   
-
-        // $dt = Carbon::now();
-        // $cDate = $dt->toFormattedDateString();
-        // $cTime = $dt->format('h:i:s A');
-
-        // foreach($itemD as $itemID){
-        //     foreach($branch as $brancID){
-        //         $branch_name = $brancID->br_name;
-        //         $getFromBranch = DB::table($branch_name)
-        //         ->where ('c_date', '=', $cDate)
-        //         ->get();
-        //         echo $branch_name." ".$getFromBranch;
-        //         foreach($getFromBranch as $g){
-        //             $insert = DB::table($branch_name)->insertGetId(
-        //             [
-        //                 'open_stock'=> $g->close_balance,
-        //                 'variance'=> $g->variance,
-        //                 'physical_balance'=> $g->physical_balance,
-        //                 'sales'=> '0',
-        //                 'transfer'=> '0',
-        //                 'receive'=> '0',
-        //                 'close_balance'=> $g->transfer + $g->sales - $g->balance,
-        //                 'physical_balance'=> $g->transfer + $g->sales - $g->balance - $g->variance,
-        //                 'c_date'=> $cDate,
-        //                 'c_time'=> $cTime, 
-        //                 'item_detail_id' => $g->id,
-        //             ]);
-        //         }
-        //     }
-        // }
-        // return $insert;
-
-        // OLD
-
-
+    {   
         // $schedule->command('inspire')
         //          ->hourly();
 
-        // $schedule->call(function () {
+        // $schedule->command('composer database-export')->daily();
 
-        //     $itemD = DB::table("item_details")->get();   
-        //     $branch = DB::table("branches")->get();   
+        $schedule->call(function () {
+            $branch = DB::table("branches")->get();   
+            $dt = Carbon::yesterday();
+            $yesterDate = $dt->toFormattedDateString();
+            $dt2 = Carbon::now();
+            $todayDate = $dt2->toFormattedDateString();
+            $cTime = $dt->format('h:i:s A');
+            foreach($branch as $brancID){
+                $branch_name = $brancID->br_name;
+                $getFromBranch = DB::table($branch_name)
+                    ->where ('c_date', '=', $yesterDate)
+                    ->get();
+                foreach($getFromBranch as $itemID){
+                    // echo $branch_name." ".$itemID->total_remain."<br/>";
+                    $insert = DB::table($branch_name)->insertGetId(
+                        [
+                            'open_stock'=> $itemID->close_balance,
+                            'variance'=> $itemID->variance,
+                            'sales'=> '0',
+                            'transfer'=> '0',
+                            'receive'=> '0',
+                            'close_balance'=> $itemID->balance,
+                            'physical_balance'=> $itemID->physical_balance,
+                            'total_remain' => '0',
+                            'c_date'=> $todayDate,
+                            'c_time'=> $cTime, 
+                            'item_detail_id' => $itemID->item_detail_id,
+                            'staff_id' => $itemID->staff_id,
+                        ]); 
+                }
+            }
 
-        //     $dt = Carbon::now();
-        //     $cDate = $dt->toFormattedDateString();
-        //     $cTime = $dt->format('h:i:s A');
-
-        //     foreach($itemD as $itemID){
-        //         foreach($branch as $brancID){
-        //             $branch_name = $brancID->br_name;
-        //             $getFromBranch = DB::tab;e($branch_name)
-        //             ->where ('c_date', '=', $cDate)
-        //             ->get();
-        //             $insert = DB::table($branch_name)->insertGetId(
-        //                 [
-        //                     'open_stock'=> $getFromBranch->close_balance,
-        //                     'variance'=> $getFromBranch->variance,
-        //                     'physical_balance'=> $getFromBranch->physical_balance,
-        //                     'sales'=> '0',
-        //                     'transfer'=> '0',
-        //                     'receive'=> '0',
-        //                     'close_balance'=> $getFromBranch->transfer + $getFromBranch->sales - $getFromBranch->balance,
-        //                     'balance'=> $getFromBranch->transfer + $getFromBranch->sales - $getFromBranch->balance - $getFromBranch->variance,
-        //                     'c_date'=> $cDate,
-        //                     'c_time'=> $cTime, 
-        //                     'item_detail_id' => $getFromBranch->id,
-        //                 ]);
-        //         }
-        //     }
-
-        //     // DB::table('recent_users')->delete();
-        // })->daily();
+            // DB::table('recent_users')->delete();
+        })->daily();
     }
 
     /**
