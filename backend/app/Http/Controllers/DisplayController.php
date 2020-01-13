@@ -575,7 +575,7 @@ class DisplayController extends Controller
     public function addedItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
@@ -583,13 +583,24 @@ class DisplayController extends Controller
         ->get();
     }
 
+    public function varianceItems()
+    {
+        return DB::table("branch_main")
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
+        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+        ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
+        ->where('variances.status','=','open')
+        ->get();
+    }
+
     public function transItems()
     {
         return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.quantity_to', 'total_quantity', 'transfers.id AS tID')
+        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.remain_from', 'transfers.remain_to', 'transfers.newstock', 'transfers.quantity_to', 'total_quantity', 'transfers.id AS tID')
         ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
         ->join ('transfers','branch_main.item_detail_id','=','transfers.item_detail_id')
-        ->where('transfer_status','=','transferd')
+        ->where('transfers.status','=','open')
         ->get();
     }    
 
@@ -672,6 +683,15 @@ class DisplayController extends Controller
 
 
 
+    public function inStockT(Request $request)
+    {
+        $item = $request[0];
+        $branch= $request[1];
+        return DB::table($branch)
+        ->where('item_detail_id', '=', $item)
+        ->select($branch.'.total_remain')
+        ->get();
+    }
 
 
     public function deleteUser(Request $request)
