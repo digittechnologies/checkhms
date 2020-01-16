@@ -618,6 +618,16 @@ class DisplayController extends Controller
            //  ->get();
     }
 
+    public function inStockT(Request $request)
+    {
+        $item = $request[0];
+        $branch= $request[1];
+        return DB::table($branch)
+        ->where('item_detail_id', '=', $item)
+        ->select($branch.'.total_remain')
+        ->get();
+    }
+
     public function stockReport($branch)
     {
         $dt = Carbon::now();
@@ -664,6 +674,29 @@ class DisplayController extends Controller
         ->whereIn($branch.'.c_date', $dateRange)
         ->get();
     }
+
+    public function stockHistory(Request $request)
+    {
+        $action = $request->action;
+        $branch = $request->branch;
+        $sDate = $request->sDate;
+        $eDate = $request->eDate;
+        $dt = Carbon::now();
+        $defaultDate = $dt->toFormattedDateString();
+
+        if($action == 'sales'){
+
+        }
+        if($action == 'adds'){
+            
+        }
+        if($action == 'transfers'){
+            
+        }
+        if($action == 'variances'){
+            
+        }
+    }
     // public function generalSearch($term)
     // {
     //     return DB::table($branch)
@@ -673,25 +706,11 @@ class DisplayController extends Controller
     //     ->get();
     // }
 
-    
 
 
 
 
 
-
-
-
-
-    public function inStockT(Request $request)
-    {
-        $item = $request[0];
-        $branch= $request[1];
-        return DB::table($branch)
-        ->where('item_detail_id', '=', $item)
-        ->select($branch.'.total_remain')
-        ->get();
-    }
 
 
     public function deleteUser(Request $request)
