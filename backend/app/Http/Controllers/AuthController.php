@@ -42,8 +42,7 @@ class AuthController extends Controller
                     ->select('users.*','departments.name')    
                     ->where('email','=',$email)   
                     ->where('password','=',$psw)         
-                    ->get();
-                    
+                    ->get();   
         return response()->json(
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
@@ -52,6 +51,7 @@ class AuthController extends Controller
                 // ->where('password','=',$psw)         
                 ->get(),
                 'token' =>  $this->respondWithToken($token)
+
             ]);
     }
 
@@ -62,7 +62,7 @@ class AuthController extends Controller
     }
 
    
-    public function me()
+    public function me(Request $request)
     {
         $a = auth()->user();
         $e = auth()->user()->email;
