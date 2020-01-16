@@ -435,6 +435,8 @@ class AddController extends Controller
         $item_time = $dt->format('h:i:s A');
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
+        $staffId= Auth()->user()->id;
+        $request->merge(['staff_id' => $staffId]);
 
         if($request->item_img == null || $request->item_img != null){
             $getImage = Item_types::select('image')     
@@ -492,7 +494,6 @@ class AddController extends Controller
         $expiring_date= $request -> expiring_date;
         $tax_id= $request->tax_id;
         $discount_id= $request->discount_id;
-        $staff_id= $request->staff_id;
     
         $update = DB::table('item_details')->where('item_details.id','=',$id)
         ->update([
@@ -510,7 +511,6 @@ class AddController extends Controller
             'expiring_date' => $expiring_date,
             'tax_id' => $tax_id,
             'discount_id' => $discount_id,
-            'staff_id' => $staff_id
         ]);
         if($update){
             return '{
