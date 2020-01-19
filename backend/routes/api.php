@@ -56,6 +56,8 @@ Route::post('uStatus','DisplayController@uStatus');
 Route::post('c_uStatus','DisplayController@c_uStatus');
 Route::post('reStatus','DisplayController@reStatus');
 Route::post('assign','AddController@assign');
+Route::post('edtAssign','AddController@edtAssign');
+
 
 //ItemDetails
 Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');

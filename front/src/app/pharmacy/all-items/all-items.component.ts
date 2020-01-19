@@ -80,7 +80,7 @@ export class AllItemsComponent implements OnInit {
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem('branch_main').subscribe(
+    this.Jarwis.displayItem('1').subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;

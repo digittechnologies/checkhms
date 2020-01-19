@@ -193,7 +193,7 @@ export class JarwisService {
   }
 
   // Item
-  displayItem(id: string) {
+  displayItem(id: any) {
     return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,)
   }
   edtItem(id:string) {
@@ -300,7 +300,9 @@ export class JarwisService {
   }
 
   staffdetails(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`)
+    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
@@ -310,6 +312,10 @@ export class JarwisService {
 
   assign(data) {
     return this.http.post<any>(`${this.baseUrl}/assign`, data)
+  }
+
+  edtAssign(data) {
+    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
   }
   
 // Branches

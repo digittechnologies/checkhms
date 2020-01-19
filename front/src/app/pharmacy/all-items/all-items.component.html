@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
-                        <li class="breadcrumb-item" *ngFor="let br of bran" value="{{br.br_name}}" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
+                        <li class="breadcrumb-item" *ngFor="let br of bran" value="{{br.id}}" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">All Items</li>
                         </ol>
                     </nav>
