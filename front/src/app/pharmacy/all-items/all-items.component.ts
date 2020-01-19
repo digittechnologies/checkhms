@@ -80,7 +80,7 @@ export class AllItemsComponent implements OnInit {
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem('1').subscribe(
+    this.Jarwis.displayItem('branch_main').subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;
@@ -178,7 +178,6 @@ onSelectItem2(id) {
 }
 
 allItem(aa) {
-  console.log(aa.target.innerHTML)
   this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
     data=>{
     this.response = data;      
