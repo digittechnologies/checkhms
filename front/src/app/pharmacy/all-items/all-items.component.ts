@@ -178,7 +178,6 @@ onSelectItem2(id) {
 }
 
 allItem(aa) {
-  console.log(aa.target.innerHTML)
   this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
     data=>{
     this.response = data;      
