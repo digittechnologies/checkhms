@@ -376,7 +376,6 @@
                                                         <th>Instock</th>                                                       
                                                         <th>Qty</th>
                                                         <th>New Stock</th>
-                                                        <th>Rang</th>
                                                         <td>Add Row</td>
                                                     </tr>
                                                 </thead>
@@ -388,7 +387,6 @@
                                                         <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
                                                         <td><span class="text-success">{{added.quantity}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.newstock}}</span></td>
-                                                        <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAdd" (click)="editAdd(added.aID)"><i class="fa fa-pencil"></i></button>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteAdd(added.aID)"><i class="fa fa-trash-o"></i></button>

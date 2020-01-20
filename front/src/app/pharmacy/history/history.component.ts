@@ -15,6 +15,9 @@ export class HistoryComponent implements OnInit {
   response: any;
   branch: any;
   error: any;
+  action: any;
+  payloads: any;
+  getAction: any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -33,12 +36,20 @@ export class HistoryComponent implements OnInit {
 
   onClickSubmit(form: NgForm) {
     this.Jarwis.stockHistory(form.value).subscribe(
-      data => this.handleResponse(data),
+      data => {
+        this.response = data;
+        this.payloads = this.response;
+        this.action = this.getAction;
+      },
       error => this.handleError(error),      
     );  
   }
 
-  handleResponse(data) {    // 
+  onSelectAction(id) {
+    this.getAction = id.target.value;
+  }
+
+  handleResponse(data) {     
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   

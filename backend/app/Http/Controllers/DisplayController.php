@@ -709,11 +709,11 @@ class DisplayController extends Controller
         }
         if($action == 'adds'){
             return DB::table('purchases')
-            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
-            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+            ->select('purchases.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name')
+            ->join ('item_details','purchases.item_detail_id','=','item_details.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
             ->where('purchases.status','=','added')
+            ->whereIn('purchases.p_date', $dateRange)
             ->get();
         }
         if($action == 'transfers'){
@@ -727,12 +727,15 @@ class DisplayController extends Controller
         }
         if($action == 'variances'){
             return DB::table('variances')
-            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
-            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
-            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
-            ->where('variances.status','=','open')
+            ->select('variances.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+            ->join ('item_details','variances.item_detail_id','=','item_details.id')
+            ->where('variances.status','=','close')
+            ->where('variances.branch_id','=',$branch)
+            ->whereIn('variances.v_date', $dateRange)
             ->get();
+        }
+        else{
+            return response()->json(['error' => 'Invalid request, Try Again'], 401);
         }
     }
     // public function generalSearch($term)
