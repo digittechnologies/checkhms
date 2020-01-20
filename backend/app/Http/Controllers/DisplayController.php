@@ -280,18 +280,14 @@ class DisplayController extends Controller
 
     public function displayItem($id)
     {
+        $verifyId = Auth()->user()->branch_id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
-        
-        $branch = DB::table("branches")
-        ->where('name', $id)
-        ->get();   
-        $id = $branch[0]->br_name;
     
         if($id != 'branch_main'){
             $branch = DB::table("branches")
-            ->where('br_name', $id)
+            ->where('name', $id)
             ->get();   
             $id = $branch[0]->br_name;
         }

@@ -194,7 +194,9 @@ export class JarwisService {
 
   // Item
   displayItem(id: any) {
-    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,)
+    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   edtItem(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
