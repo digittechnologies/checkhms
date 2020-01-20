@@ -278,18 +278,32 @@ class DisplayController extends Controller
 
     // All Items Informations
 
-    public function displayItem($id)
+    public function displayItem($incomingId)
     {
-        $verifyId = Auth()->user()->branch_id;
+        $verifyId = Auth()->user()->id;
+        $verifyDept = Auth()->user()->dept_id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
-    
-        if($id != 'branch_main'){
+        
+        //Admin level access
+        if($incomingId == 'branch_main' && $verifyDept == '10'){
+            $id = $incomingId;
+        }
+        else if($incomingId != 'branch_main' && $verifyDept == '10'){
             $branch = DB::table("branches")
             ->where('name', $id)
             ->get();   
             $id = $branch[0]->br_name;
+        }
+
+        //Specific branch access
+        else if($incomingId == 'branch_main' || $incomingId != 'branch_main' && $verifyDept != '10'){
+            $fetchLoggedInUser = DB::table('users')->join('branches', 'users.branch_id', '=', 'branches.id')
+            ->select('branches.br_name')
+            ->where('users.id', '=', $verifyId)
+            ->get();
+            $id = $fetchLoggedInUser[0]->br_name; 
         }
 
         return response()->json([
