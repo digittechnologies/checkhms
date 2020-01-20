@@ -60,6 +60,7 @@ import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
 import { VoucherComponent } from './pharmacy/voucher/voucher.component';
 import {SetBranchComponent } from './branches/set-branch/set-branch.component';
 import { HistoryComponent } from './pharmacy/history/history.component';
+import {TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
 
 
 
@@ -99,6 +100,7 @@ const routes: Routes = [
          {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
