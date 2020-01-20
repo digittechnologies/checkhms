@@ -716,12 +716,23 @@ class DisplayController extends Controller
             ->whereIn('purchases.p_date', $dateRange)
             ->get();
         }
-        if($action == 'transfers'){
+        if($action == 'transfersFrom'){
             return DB::table('transfers')
-            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'users.firstname', 'users.lastname')
             ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+            ->join('users', 'transfers.staff_id', '=', 'users.id')
             ->where('transfers.status','=','close')
             ->where('transfers.quantity_from','=',$branch)
+            ->whereIn('transfers.t_date', $dateRange)
+            ->get();
+        }
+        if($action == 'transfersTo'){
+            return DB::table('transfers')
+            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'users.firstname', 'users.lastname')
+            ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+            ->join('users', 'transfers.staff_id', '=', 'users.id')
+            ->where('transfers.status','=','close')
+            ->where('transfers.quantity_to','=',$branch)
             ->whereIn('transfers.t_date', $dateRange)
             ->get();
         }

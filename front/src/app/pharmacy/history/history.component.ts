@@ -47,6 +47,7 @@ export class HistoryComponent implements OnInit {
 
   onSelectAction(id) {
     this.getAction = id.target.value;
+    this.ngOnInit()
   }
 
   handleResponse(data) {     

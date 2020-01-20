@@ -41,7 +41,8 @@
                                         <option>Select Action...</option>
                                         <option value="vouchers">Voucher</option>
                                         <option value="adds">Add</option>
-                                        <option value="transfers">Transfer</option>
+                                        <option value="transfersFrom">Transfer From </option>
+                                        <option value="transfersTo">Transfer To </option>
                                         <option value="variances">Variance</option>
                                         <option value="refills">Refill</option>
                                         <option value="requests">Stock Request</option>
@@ -57,7 +58,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-6">
+                            <div class="col-lg-2 col-md-2 col-sm-6 m-t-30">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </div>
@@ -85,20 +86,20 @@
                 </ul>
             </div>
             
-            <!-- Transfers -->
-            <div class="body"  *ngIf = "action == 'transfers'">
+            <!-- Transfers From -->
+            <div class="body"  *ngIf = "action == 'transfersFrom'">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>S/N</th>
                                 <th>Item</th>                                                       
-                                <th>From Branch</th>                                                       
+                                <th>Branch</th>                                                       
                                 <th>Instock</th>
-                                <th>Qty Transfer</th> 
-                                <th>To Branch</th>
-                                <th>Instock</th>
-                                <th>New Stock</th>                                                                                                              
+                                <th>Qty Transfer</th>                         
+                                <th>New Stock</th>  
+                                <th>Transfer To</th>   
+                                <th>User</th>                                                                                                         
                                 <th>Date</th>
                                 <th>Time</th>
                             </tr>
@@ -107,12 +108,48 @@
                             <tr *ngFor="let trans of payloads; let r = index">
                                 <td>{{r+1}}</td>
                                 <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
-                                <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
+                                <td><span class="badge badge-warning">{{trans.quantity_from}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                 <td><span class="text-success">{{trans.total_quantity}}</span></td>     
-                                <td><h6 class="mb-0">{{trans.quantity_to}}</h6></td>
+                                <td><h6 class="mb-0">{{trans.remain_from}} + {{trans.total_quantity}} </h6></td>
+                                <td><span class="badge badge-warning">{{trans.quantity_to}}</span></td>
+                                <td><span class="badge badge-warning">{{trans.firstname}} {{trans.lastname}}</span></td>
+                                <td><span class="badge badge-warning">{{trans.t_date}}</span></td>
+                                <td><span class="badge badge-warning">{{trans.t_time}}</span></td>
+                            </tr>                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Transfers To -->
+            <div class="body"  *ngIf = "action == 'transfersTo'">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Item</th>                                                       
+                                <th>Branch</th>                                                       
+                                <th>Instock</th>
+                                <th>Qty Transfer</th>                         
+                                <th>New Stock</th>  
+                                <th>Transfer From</th>   
+                                <th>User</th>                                                                                                         
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let trans of payloads; let r = index">
+                                <td>{{r+1}}</td>
+                                <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                <td><span class="badge badge-warning">{{trans.quantity_to}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.remain_to}}</span></td>
-                                <td><span class="badge badge-warning">{{trans.newstock}}</span></td>
+                                <td><span class="text-success">{{trans.total_quantity}}</span></td>     
+                                <td><h6 class="mb-0">{{trans.newstock}}</h6></td>
+                                <td><span class="badge badge-warning">{{trans.quantity_from}}</span></td>
+                                <td><span class="badge badge-warning">{{trans.firstname}} {{trans.lastname}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.t_date}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.t_time}}</span></td>
                             </tr>                          
