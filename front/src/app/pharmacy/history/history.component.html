@@ -15,58 +15,56 @@
           </div>
       </div>
 
-      <div class="row clearfix">
-        <div class="col-12">
-            <div class="card">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-4">
-                            <label>Date: From</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control" placeholder="Search...">
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card">
+                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(filter)" #filter="ngForm">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-4">
+                                <label>Date: From</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control"  ngModel name="sDate">
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="col-lg-3 col-md-3 col-sm-6">
-                            <label>Date: To</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control" placeholder="Search...">
+                            
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>Date: To</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" ngModel name="eDate">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-6">
-                            <label>Branch</label>
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="">Relevance</option>
-                                    <option value="1">Highest rate first</option>
-                                    <option value="2">Lowest rate first</option>
-                                    <option value="3">Highest degree first</option>
-                                    <option value="4">Lowest degree first</option>
-                                </select>
+                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                <label>Branch</label>
+                                <div class="form-group">
+                                    <select class="form-control" ngModel name="branch">                           
+                                        <option value="">To...</option>
+                                        <option  *ngFor="let br of branch" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-6">
-                            <label>Action</label>
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="">Select Action</option>
-                                    <option value="1">Sales</option>
-                                    <option value="2">Add</option>
-                                    <option value="3">Transfer</option>
-                                    <option value="4">Variance</option>
-                                    <option value="4">Refill</option>
-                                    <option value="4">Stock Request</option>
-                                </select>
+                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                <label>Action</label>
+                                <div class="form-group">
+                                    <select class="custom-select"  ngModel name="action">
+                                        <option selected="">Select Action</option>
+                                        <option value="vouchers">Voucher</option>
+                                        <option value="adds">Add</option>
+                                        <option value="transfers">Transfer</option>
+                                        <option value="variances">Variance</option>
+                                        <option value="refills">Refill</option>
+                                        <option value="requests">Stock Request</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-6">
-                            <label>&nbsp;</label>
-                            <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Search</a>
+                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
-        </div>
     </div>
 
       <div class="col-lg-12">

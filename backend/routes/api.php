@@ -198,6 +198,7 @@ Route::post('deleteTrans', 'AddController@deleteTrans');
 //Stock Report
 Route::get('stockReport/{branch}','DisplayController@stockReport');
 Route::post('searchReport','DisplayController@searchReport');
+Route::post('stockHistory','DisplayController@stockHistory');
 
 });
 

@@ -483,6 +483,9 @@ deleteAppointment(data) {
   deleteTrans(data) {
     return this.http.post(`${this.baseUrl}/deleteTrans`, data)
   }
+  stockHistory(data) {
+    return this.http.post(`${this.baseUrl}/stockHistory`, data)
+  }
 
   pharmPriscription(data) {
     return this.http.post(`${this.baseUrl}/pharmPriscription`, data,{headers:{

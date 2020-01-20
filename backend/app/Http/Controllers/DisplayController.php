@@ -677,25 +677,48 @@ class DisplayController extends Controller
     }
 
     public function stockHistory(Request $request)
-    {
-        $action = $request->action;
-        $branch = $request->branch;
+    {  
         $sDate = $request->sDate;
         $eDate = $request->eDate;
-        $dt = Carbon::now();
-        $defaultDate = $dt->toFormattedDateString();
+        $action = $request->action;
+        $branch = $request->branch;
+        $startDate = new Carbon($sDate);
+        $endDate = new Carbon($eDate);
+        $dateRange = array();
+        while ($startDate->lte($endDate)) {
+            $dateRange[] = $startDate->toFormattedDateString();
+            $startDate->addDay();
+        }
 
-        if($action == 'sales'){
+        if($action == 'vouchers'){
 
         }
         if($action == 'adds'){
-            
+            return DB::table('purchases')
+            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
+            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
+            ->where('purchases.status','=','added')
+            ->get();
         }
         if($action == 'transfers'){
-            
+            return DB::table('transfers')
+            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+            ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+            ->where('transfers.status','=','close')
+            ->where('transfers.quantity_from','=',$branch)
+            ->whereIn('transfers.t_date', $dateRange)
+            ->get();
         }
         if($action == 'variances'){
-            
+            return DB::table('variances')
+            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
+            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
+            ->where('variances.status','=','open')
+            ->get();
         }
     }
     // public function generalSearch($term)
