@@ -278,7 +278,7 @@ class DisplayController extends Controller
 
     // All Items Informations
 
-    public function displayItem($incomingId)
+    public function displayItem($id)
     {
         $verifyId = Auth()->user()->id;
         $verifyDept = Auth()->user()->dept_id;
@@ -287,10 +287,10 @@ class DisplayController extends Controller
         $cTime = $dt->format('h:i:s A');
         
         //Admin level access
-        if($incomingId == 'branch_main' && $verifyDept == '10'){
-            $id = $incomingId;
-        }
-        else if($incomingId != 'branch_main' && $verifyDept == '10'){
+        // if($incomingId == 'branch_main' && $verifyDept == '10'){
+        //     $id = $incomingId;
+        // }
+        if($id != 'branch_main'){
             $branch = DB::table("branches")
             ->where('name', $id)
             ->get();   
@@ -298,13 +298,13 @@ class DisplayController extends Controller
         }
 
         //Specific branch access
-        else if($incomingId == 'branch_main' || $incomingId != 'branch_main' && $verifyDept != '10'){
-            $fetchLoggedInUser = DB::table('users')->join('branches', 'users.branch_id', '=', 'branches.id')
-            ->select('branches.br_name')
-            ->where('users.id', '=', $verifyId)
-            ->get();
-            $id = $fetchLoggedInUser[0]->br_name; 
-        }
+        // else if($incomingId == 'branch_main' || $incomingId != 'branch_main' && $verifyDept != '10'){
+        //     $fetchLoggedInUser = DB::table('users')->join('branches', 'users.branch_id', '=', 'branches.id')
+        //     ->select('branches.br_name')
+        //     ->where('users.id', '=', $verifyId)
+        //     ->get();
+        //     $id = $fetchLoggedInUser[0]->br_name; 
+        // }
 
         return response()->json([
 
@@ -312,7 +312,7 @@ class DisplayController extends Controller
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-           // ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->get(),
            'addedItem'=>DB::table($id)->select($id.'.*')->sum($id.'.receive'),
            'transferredItem'=>DB::table($id)->select($id.'.*')->sum($id.'.transfer'),
@@ -643,12 +643,18 @@ class DisplayController extends Controller
         ->get();
     }
 
+    // Report
+
     public function stockReport(Request $request)
     {
-        return $request->all();
+            
+        // $dt = Carbon::now();
+        // $cDate = $dt->toFormattedDateString();
+        // $cTime = $dt->format('h:i:s A');
+
         $sDate = $request->sDate;
         $eDate = $request->eDate;
-        $id = $request->branch;
+        $id = 'branch_main';
         $startDate = new Carbon($sDate);
         $endDate = new Carbon($eDate);
         $dateRange = array();
@@ -663,6 +669,7 @@ class DisplayController extends Controller
             ->join ('item_details', $id.'.item_detail_id', '=', 'item_details.id')
             ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            // ->where ('c_date', '=', $cDate)
             ->whereIn($id.'.c_date', $dateRange)
             ->get(),
             'addedItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.receive'),

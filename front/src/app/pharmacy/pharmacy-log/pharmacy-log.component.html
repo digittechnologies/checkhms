@@ -3,18 +3,17 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Dashboard</h1>
+                    <h1>Phamarcy Log</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Oculux</a></li>
-                        <li class="breadcrumb-item"><a href="index.html">Job</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Resumes</li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>                        
+                        <li class="breadcrumb-item active" aria-current="page">Phamarcy Log</li>
                         </ol>
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a>
+                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
             </div>
         </div>
@@ -24,39 +23,14 @@
                     <div class="body">
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
-                                <label>Search</label>
+                                <label>Search User</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search...">
                                 </div>
-                            </div>
-                            
-                            <!-- <div class="col-lg-2 col-md-4 col-sm-6">
-                                <label>Academic Degree</label>
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="">All degrees</option>
-                                        <option value="1">Associate degree</option>
-                                        <option value="2">Bachelor's degree</option>
-                                        <option value="3">Master's degree</option>
-                                        <option value="4">Doctoral degree</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <label>Order</label>
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="">Relevance</option>
-                                        <option value="1">Highest rate first</option>
-                                        <option value="2">Lowest rate first</option>
-                                        <option value="3">Highest degree first</option>
-                                        <option value="4">Lowest degree first</option>
-                                    </select>
-                                </div>
-                            </div> -->
+                            </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Filter</a>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Log</a>
                             </div>
                         </div>
                     </div>
@@ -73,11 +47,11 @@
                         <h6 class="mt-3 mb-0">{{l.card_number}}</h6>
                         <span>{{l.pat_name+ ' ' +l.othername}}</span>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Voucher</a></li>
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Invoice</a></li>
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.cust_id]}}]">Prescription</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Detials</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Invoice</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.cust_id]}}]">Voucher</a></li>
                         </ul>
-                        <hr><hr>
+                        <hr>
                         <div class="d-flex justify-content-between">
                             <div class="text text-warning">{{l.prescription}}</div>
                             <div class="text text-warning">{{l.invoice}}</div>
@@ -88,3 +62,163 @@
         </div>
     </div>
 </div>
+
+<!-- Default Size -->
+<div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Add Patient</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder=" Patient Firstname" ngModel name="name" required>
+                      </div>
+                  </div>             
+              </div>
+          </div>
+          <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Patient Other Name" ngModel name="othername" required>
+                    </div>
+                </div>             
+            </div>
+        </div>
+        <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Male" type="radio" checked><span><i></i>Male</span></label>
+                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Female" type="radio"><span><i></i>Female</span></label>
+                          </div>
+                    </div>             
+                </div>
+            </div>
+        <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Patient Email Address if available" ngModel name="email">
+                        </div>
+                    </div>             
+                </div>
+            </div>
+        <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Patient Contact Number" ngModel name="mobile_number" required>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Patient Address" ngModel name="address" required>
+                </div>
+            </div>             
+        </div>
+    </div>
+    <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Patient City" ngModel name="city" required>
+                    </div>
+                </div>             
+            </div>
+        </div>
+        <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Patient State" ngModel name="state" required>
+                        </div>
+                    </div>             
+                </div>
+            </div>
+            <div class="modal-body">             
+                    <div class="row clearfix">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Patient Country" ngModel name="country" required>
+                            </div>
+                        </div>              
+                    </div>
+                </div>
+                <div class="modal-body">             
+                        <div class="row clearfix">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                        <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Patient Date of Birth" ngModel name="d_o_b" required>
+                                    </div>
+                            </div>              
+                        </div>
+                    </div>
+                <div class="modal-body">             
+                        <div class="row clearfix">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Patient Card Number" ngModel name="card_number" required>
+                                </div>
+                            </div>             
+                        </div>
+                    </div>
+                    <div class="modal-body">             
+                            <div class="row clearfix">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Patient NHIS" ngModel name="n_h_i_s" required>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+                        <div class="modal-body">             
+                                <div class="row clearfix">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Patient Allergy" ngModel name="allergy" required>
+                                        </div>
+                                    </div>             
+                                </div>
+                            </div>
+                            <div class="modal-body">             
+                                    <div class="row clearfix">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="About Patient" ngModel name="about" required>
+                                            </div>
+                                        </div>             
+                                    </div>
+                                </div>
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <select class="form-control show-tick" ngModel name="status">
+                              <option value="">-- Select Status --</option>
+                              <option value="active">Active</option>
+                              <option value="suspend">Suspend</option>                                
+                          </select>                  
+                        </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Add</button>
+              <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
