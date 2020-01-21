@@ -63,6 +63,8 @@ export class AllItemsComponent implements OnInit {
   totalTo: any;
   to: any;
   varianceAdded: any;
+  uBranch: any;
+  uPos: any;
 
 
   constructor( 
@@ -150,6 +152,14 @@ export class AllItemsComponent implements OnInit {
       this.response = data;      
       this.itemTransferred = this.response       
 
+    })
+
+    this.Jarwis.profile().subscribe(
+      data=>{
+       
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uPos= this.response.det[0].position_id
     })
 }
 

@@ -278,18 +278,32 @@ class DisplayController extends Controller
 
     // All Items Informations
 
-    public function displayItem($id)
+    public function displayItem($incomingId)
     {
-        $verifyId = Auth()->user()->branch_id;
+        $verifyId = Auth()->user()->id;
+        $verifyDept = Auth()->user()->dept_id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
-    
-        if($id != 'branch_main'){
+        
+        //Admin level access
+        if($incomingId == 'branch_main' && $verifyDept == '10'){
+            $id = $incomingId;
+        }
+        else if($incomingId != 'branch_main' && $verifyDept == '10'){
             $branch = DB::table("branches")
             ->where('name', $id)
             ->get();   
             $id = $branch[0]->br_name;
+        }
+
+        //Specific branch access
+        else if($incomingId == 'branch_main' || $incomingId != 'branch_main' && $verifyDept != '10'){
+            $fetchLoggedInUser = DB::table('users')->join('branches', 'users.branch_id', '=', 'branches.id')
+            ->select('branches.br_name')
+            ->where('users.id', '=', $verifyId)
+            ->get();
+            $id = $fetchLoggedInUser[0]->br_name; 
         }
 
         return response()->json([
@@ -629,23 +643,38 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function stockReport($branch)
+    public function stockReport(Request $request)
     {
-        $dt = Carbon::now();
-        $cDate = $dt->toFormattedDateString();
-
-        if($branch != 'branch_main'){
-            $branch = DB::table("branches")
-            ->where('name', $id)
-            ->get();   
-            $branch = $branch[0]->br_name;
+        return $request->all();
+        $sDate = $request->sDate;
+        $eDate = $request->eDate;
+        $id = $request->branch;
+        $startDate = new Carbon($sDate);
+        $endDate = new Carbon($eDate);
+        $dateRange = array();
+        while ($startDate->lte($endDate)) {
+            $dateRange[] = $startDate->toFormattedDateString();
+            $startDate->addDay();
         }
 
-        return DB::table($branch)
-        ->select($branch.'.*', 'transfers.*')
-        ->join ('transfers',$branch.'.item_detail_id','=','transfers.item_detail_id')
-           // ->where ('c_date', '=', $cDate)
-        ->get();
+        return response()->json([
+
+            'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
+            ->join ('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->whereIn($id.'.c_date', $dateRange)
+            ->get(),
+            'addedItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.receive'),
+            'transferredItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.transfer'),
+            'soldItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales'),
+            'varianced'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.variance'),
+            'openBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.open_stock'),
+            'physBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.physical_balance'),
+            'total'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain'),
+            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
+ 
+         ]);
     }
 
     public function searchReport(Request $request)
@@ -695,30 +724,44 @@ class DisplayController extends Controller
         }
         if($action == 'adds'){
             return DB::table('purchases')
-            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
-            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+            ->select('purchases.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name')
+            ->join ('item_details','purchases.item_detail_id','=','item_details.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
             ->where('purchases.status','=','added')
+            ->whereIn('purchases.p_date', $dateRange)
             ->get();
         }
-        if($action == 'transfers'){
+        if($action == 'transfersFrom'){
             return DB::table('transfers')
-            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'users.firstname', 'users.lastname')
             ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+            ->join('users', 'transfers.staff_id', '=', 'users.id')
             ->where('transfers.status','=','close')
             ->where('transfers.quantity_from','=',$branch)
             ->whereIn('transfers.t_date', $dateRange)
             ->get();
         }
+        if($action == 'transfersTo'){
+            return DB::table('transfers')
+            ->select('transfers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'users.firstname', 'users.lastname')
+            ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+            ->join('users', 'transfers.staff_id', '=', 'users.id')
+            ->where('transfers.status','=','close')
+            ->where('transfers.quantity_to','=',$branch)
+            ->whereIn('transfers.t_date', $dateRange)
+            ->get();
+        }
         if($action == 'variances'){
             return DB::table('variances')
-            ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
-            ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
-            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
-            ->where('variances.status','=','open')
+            ->select('variances.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img')
+            ->join ('item_details','variances.item_detail_id','=','item_details.id')
+            ->where('variances.status','=','close')
+            ->where('variances.branch_id','=',$branch)
+            ->whereIn('variances.v_date', $dateRange)
             ->get();
+        }
+        else{
+            return response()->json(['error' => 'Invalid request, Try Again'], 401);
         }
     }
     // public function generalSearch($term)

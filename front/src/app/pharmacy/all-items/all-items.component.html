@@ -6,15 +6,17 @@
                     <h2>Item List of {{items.bran.name}}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
-                        <li class="breadcrumb-item" *ngFor="let br of bran" value="{{br.id}}" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">All Items</li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
+                        <span *ngIf ="uPos =='4'" > 
+                            <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
+                        </span>
+                        <span *ngIf ="uBranch != '1' || uBranch == '1' && uPos != '4'" > 
+                            / <li *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch" href="#" [routerLink]="">{{br.name}}</a></li>
+                        </span>
+                        <li class="breadcrumb-item active" aria-current="page">&nbsp;/ All Items</li>
                         </ol>
                     </nav>
-                </div>
-
-               
-                
+                </div> 
             </div>
         </div>
         <div class="row clearfix">
@@ -374,7 +376,6 @@
                                                         <th>Instock</th>                                                       
                                                         <th>Qty</th>
                                                         <th>New Stock</th>
-                                                        <th>Rang</th>
                                                         <td>Add Row</td>
                                                     </tr>
                                                 </thead>
@@ -386,7 +387,6 @@
                                                         <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
                                                         <td><span class="text-success">{{added.quantity}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.newstock}}</span></td>
-                                                        <td><span class="badge badge-primary">100%</span></td>
                                                         <td>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAdd" (click)="editAdd(added.aID)"><i class="fa fa-pencil"></i></button>
                                                             <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteAdd(added.aID)"><i class="fa fa-trash-o"></i></button>
