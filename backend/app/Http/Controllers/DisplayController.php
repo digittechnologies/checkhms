@@ -724,9 +724,10 @@ class DisplayController extends Controller
         }
         if($action == 'adds'){
             return DB::table('purchases')
-            ->select('purchases.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name')
+            ->select('purchases.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname')
             ->join ('item_details','purchases.item_detail_id','=','item_details.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join('users', 'purchases.staff_id', '=', 'users.id')
             ->where('purchases.status','=','added')
             ->whereIn('purchases.p_date', $dateRange)
             ->get();
