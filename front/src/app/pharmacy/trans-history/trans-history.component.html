@@ -38,26 +38,11 @@
                                 <label>Branch</label>
                                 <div class="form-group">
                                     <select class="form-control" ngModel name="branch">                           
-                                        <option value="">To...</option>
-                                        <option value="">All</option>
-                                        <option  *ngFor="let br of branch" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
+                                        <option value="">Select Branch...</option>
+                                        <option  *ngFor="let br of branch" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.id}}</option>                          
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-2 col-md-2 col-sm-6">
-                                <label>Action</label>
-                                <div class="form-group">
-                                    <select class="custom-select"  ngModel name="action">
-                                        <option selected="">Select Action</option>
-                                        <option value="vouchers">Voucher</option>
-                                        <option value="adds">Add</option>
-                                        <option value="transfers">Transfer</option>
-                                        <option value="variances">Variance</option>
-                                        <option value="refills">Refill</option>
-                                        <option value="requests">Stock Request</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="col-lg-2 col-md-2 col-sm-6 m-t-30">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
@@ -106,92 +91,30 @@
                                 <th>Close Cost</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012/03/29</td>
-                                <td>$433,060</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>8888</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Name</th>
-                                <th>Position</th>
+                            <tr *ngFor="let item of payloads.item; let r = index">
+                                <td>{{r+1}}</td>
+                                <td class="width45">
+                                    <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
+                                    <span>{{item.name}}</span>
+                                </td>  
+                                <td class="text text-success">{{item.open_stock}}</td>
+                                <td class="text text-primary">{{item.receive}}</td>
+                                <td class="text text-warning">{{item.transfer}}</td>
+                                <td class="text text-danger">{{item.sales}}</td>
+                                <td class="text text-info">{{item.balance}}</td>
+                                <td>
+                                        <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.open_stock+item.receive-item.balance}}</span></div>
+                                </td>
+                                <td>
+                                    <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
+                                </td>
+                                <td>
+                                    <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
+                                </td>
                             </tr>                            
                         </tbody>
                     </table>

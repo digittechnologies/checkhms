@@ -643,23 +643,38 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function stockReport($branch)
+    public function stockReport(Request $request)
     {
-        $dt = Carbon::now();
-        $cDate = $dt->toFormattedDateString();
-
-        if($branch != 'branch_main'){
-            $branch = DB::table("branches")
-            ->where('name', $id)
-            ->get();   
-            $branch = $branch[0]->br_name;
+        return $request->all();
+        $sDate = $request->sDate;
+        $eDate = $request->eDate;
+        $id = $request->branch;
+        $startDate = new Carbon($sDate);
+        $endDate = new Carbon($eDate);
+        $dateRange = array();
+        while ($startDate->lte($endDate)) {
+            $dateRange[] = $startDate->toFormattedDateString();
+            $startDate->addDay();
         }
 
-        return DB::table($branch)
-        ->select($branch.'.*', 'transfers.*')
-        ->join ('transfers',$branch.'.item_detail_id','=','transfers.item_detail_id')
-           // ->where ('c_date', '=', $cDate)
-        ->get();
+        return response()->json([
+
+            'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
+            ->join ('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->whereIn($id.'.c_date', $dateRange)
+            ->get(),
+            'addedItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.receive'),
+            'transferredItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.transfer'),
+            'soldItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales'),
+            'varianced'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.variance'),
+            'openBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.open_stock'),
+            'physBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.physical_balance'),
+            'total'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain'),
+            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
+ 
+         ]);
     }
 
     public function searchReport(Request $request)
