@@ -500,7 +500,9 @@ deleteAppointment(data) {
     return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`)
   }
 
-
+  displayRole() {
+    return this.http.get(`${this.baseUrl}/displayRole`,)
+  }
 
 
   getcontent(id:string) {

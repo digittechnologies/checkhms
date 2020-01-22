@@ -200,6 +200,9 @@ Route::post('stockReport','DisplayController@stockReport');
 Route::post('searchReport','DisplayController@searchReport');
 Route::post('stockHistory','DisplayController@stockHistory');
 
+
+Route::get('displayRole','DisplayController@displayRole');
+
 });
 
 
