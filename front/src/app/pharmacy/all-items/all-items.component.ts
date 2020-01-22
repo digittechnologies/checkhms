@@ -228,11 +228,14 @@ editdept(id: string) {
 }
 
 onDelete(id: string) {
-  this.Jarwis.deleteCategories(id).subscribe(  
-      data => this.handleResponse(data),
-      error => this.handleError(error), 
-    );
+  if(confirm('This can\'t be revert after deleted')){
+
+    this.Jarwis.deleteCategories(id).subscribe(  
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
   }
+}
 
   onClickSubmit(form: NgForm) {
     this.Jarwis.addItemDetails(form.value).subscribe(
@@ -296,10 +299,13 @@ onDelete(id: string) {
   
   }
   deleteAdd(id: string) {
-    this.Jarwis.deleteAdd(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
-    )
+    if(confirm('This can\'t be revert after deleted')){
+
+      this.Jarwis.deleteAdd(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
   }
   onUpdateAdd(form: NgForm) {
     form.value.id=this.addId
@@ -321,11 +327,14 @@ onDelete(id: string) {
       })
   }
   deleteTrans(id: string) {
-    console.log(id)
-    this.Jarwis.deleteTrans(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
-    )
+    if(confirm('This can\'t be revert after deleted')){
+
+      console.log(id)
+      this.Jarwis.deleteTrans(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
   }
 
   onUpdate(form: NgForm) {
