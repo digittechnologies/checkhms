@@ -28,10 +28,9 @@ class SignUpRequest extends FormRequest
             'lastname' => 'required', 
             'gender' => 'required', 
             'email' => 'required|email|unique:users', 
-            'mobile_number' => 'required',
-            'password' => 'required|confirmed',
+            // 'mobile_number' => 'required',
+            // 'password' => 'required|confirmed',
             'id_number' => 'required',
-            'dept_id' => 'required'
         ];
     }
 }

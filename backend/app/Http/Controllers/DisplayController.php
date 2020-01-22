@@ -24,6 +24,7 @@ use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
 use Carbon\Carbon;
+use App\Role;
 
 class DisplayController extends Controller
 {
@@ -780,7 +781,15 @@ class DisplayController extends Controller
     //     ->get();
     // }
 
+    public function displayRole()
+    {
+        return Role::where('status', '=', 'active')->get();
+    }
 
+    public function displayPosition()
+    {
+        return Positions::where('status', '=', 'active')->get();
+    }
 
 
 
