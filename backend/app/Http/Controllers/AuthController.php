@@ -57,10 +57,10 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {   
-        return $request->all();
+        // return $request->all();
 
-        // $user= User::create($request-> all());
-        // return $this->login($request);
+        $user= User::create($request-> all());
+        return $this->login($request);
     }
 
    

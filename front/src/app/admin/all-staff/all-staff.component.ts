@@ -52,7 +52,7 @@ export class AllStaffComponent implements OnInit {
   }
   onChange1(b){
     this.givenDept = b.target.value;
-    this.ngOnInit()
+    this.ngOnInit() 
   }
   
   onSubmit(form: NgForm) {
