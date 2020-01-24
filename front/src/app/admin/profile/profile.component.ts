@@ -32,6 +32,12 @@ export class ProfileComponent implements OnInit {
   admin: any;
   card: any;
   uid: string;
+  profile: any;
+  department: any;
+  role: any;
+  branch: any;
+  givenDept: any;
+  givenRole: any;
   constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router,     public snackBar: MatSnackBar, 
     ) { }
   public response:any;
@@ -49,28 +55,34 @@ export class ProfileComponent implements OnInit {
     this.Jarwis.staffdetails(id).subscribe(data=>{
       this.resp = data;
       this.response=this.resp[0]
-      console.log(this.response)
     })
   }));
 
-  
-  this.Jarwis.displayBranch().subscribe(
+  this.Jarwis.profile().subscribe(
     data=>{
-    this.response = data;      
-    this.bran = this.response   
+    this.response = data;
+    this.profile = this.response.det[0];
   })
 
-  this.Jarwis.displayAllposition().subscribe(
-    data=>{
-     
-    this.response = data
-    this.allPos= this.response
-    this.pharmacist=this.allPos[0].id
-    this.cashier=this.allPos[1].id
-    this.physician=this.allPos[2].id
-    this.admin=this.allPos[3].id
-    this.card=this.allPos[4].id
-  })
+  this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      this.response = data;
+      this.department = this.response
+    })
+
+    this.Jarwis.displayRole().subscribe(
+      data=>{
+      this.response = data;
+      this.role = this.response
+    })
+
+    this.Jarwis.displayBranch().subscribe(
+      data=>{
+      this.response = data;      
+      this.branch = this.response
+      })
+
+
 
    this.submissionForm = this.formBuilder.group(
      
@@ -141,24 +153,39 @@ onSubmit1() {
  
 }
 
-onAssign(form: NgForm) {
-  form.value.uid = this.uid
-  this.Jarwis.assign(form.value).subscribe(
-    data => this.handleResponse2(data),
-    error => this.handleError2(error),      
-  ); 
-}
-
-onEditAssign(form: NgForm) {
-  form.value.uid = this.uid
-  this.Jarwis.edtAssign(form.value).subscribe(
-    data => this.handleResponse2(data),
-    error => this.handleError2(error),      
-  ); 
-}
-
 get(){
-  this.ngOnInit()
+  this.Jarwis.displayDepartments().subscribe(
+    data=>{
+    this.response = data;
+    this.department = this.response
+  })
+
+  this.Jarwis.displayRole().subscribe(
+    data=>{
+    this.response = data;
+    this.role = this.response
+  })
+
+  this.Jarwis.displayBranch().subscribe(
+    data=>{
+    this.response = data;      
+    this.branch = this.response
+    })
+}
+onChange1(b){
+  this.givenDept = b.target.value;
+}
+
+onSelectRole(r){
+  this.givenRole = r.target.value;
+}
+
+onSubmit(form: NgForm) {
+  alert(form.value)
+  // this.Jarwis.editPriviledges(form.value).subscribe(
+  //   data => this.handleResponse(data),
+  //   error => this.handleError(error),  
+  // );
 }
 handleError(error) {
   this.disabled=false; 

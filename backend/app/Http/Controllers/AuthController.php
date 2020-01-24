@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Image;
 use App\Role;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password', 'status']);
         $email=$request->email;
         $psw=$request->password;
-
+        
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password did not Exist'], 401);
         }
@@ -57,13 +58,31 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {   
-        // return $request->all();
+        $word = "aztm".date('sdmy');
+        $cot= str_shuffle(substr($word, 0, 8));
+        $request->merge(['password' => $cot]);
 
-        $user= User::create($request-> all());
-        return $this->login($request);
+        $GLOBALS['email']=$request->email;
+        $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
+        $sendMail = Mail::send('password', $data, function($message) {
+        $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
+        $message->from('ayoade0369@gmail.com','noreply');
+        });
+        $user= User::create($request->all());
+        if($user){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        // return $this->login($request);
     }
-
-   
+    
     public function me(Request $request)
     {
         $a = auth()->user();
@@ -74,7 +93,8 @@ class AuthController extends Controller
             [
                 'aut'=> auth()->user(),
                 'det'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->select('users.*','departments.name', 'departments.position_id')    
+                ->join('branches','users.branch_id','=','branches.id')
+                ->select('users.*','departments.name', 'departments.position_id', 'branches.br_name')    
                 ->where('email','=',$e)   
                 // ->where('password','=',$psw)         
                 ->get()

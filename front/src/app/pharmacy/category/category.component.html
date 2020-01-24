@@ -27,7 +27,6 @@
                             <tr> 
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Status</th>                                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -38,10 +37,10 @@
                                 </td>                              
                                 <td style="color: #17C2D7;">{{c.cat_name}}</td>     
                                 
-                                <td>
+                                <!-- <td>
                                     <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
                                       <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
-                                </td>                          
+                                </td>                           -->
                                 <td>
                                     <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button>
                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)"><i class="fa fa-trash-o"></i></button>

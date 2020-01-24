@@ -65,6 +65,8 @@ export class AllItemsComponent implements OnInit {
   varianceAdded: any;
   uBranch: any;
   uPos: any;
+  uDept: any;
+  uBranchName: any;
 
 
   constructor( 
@@ -76,13 +78,23 @@ export class AllItemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uBranchName= this.response.det[0].br_name
+      this.uPos= this.response.det[0].role_id
+      this.uDept= this.response.det[0].dept_id
+    })
+
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem('branch_main').subscribe(
+    this.Jarwis.displayItem(this.uBranch).subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;
@@ -153,14 +165,6 @@ export class AllItemsComponent implements OnInit {
       this.itemTransferred = this.response       
 
     })
-
-    this.Jarwis.profile().subscribe(
-      data=>{
-       
-      this.response = data;
-      this.uBranch= this.response.det[0].branch_id
-      this.uPos= this.response.det[0].position_id
-    })
 }
 
 get(){
@@ -228,11 +232,14 @@ editdept(id: string) {
 }
 
 onDelete(id: string) {
-  this.Jarwis.deleteCategories(id).subscribe(  
-      data => this.handleResponse(data),
-      error => this.handleError(error), 
-    );
+  if(confirm('This can\'t be revert after deleted')){
+
+    this.Jarwis.deleteCategories(id).subscribe(  
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
   }
+}
 
   onClickSubmit(form: NgForm) {
     form.value.selling_price = this.selling_price
@@ -297,10 +304,13 @@ onDelete(id: string) {
   
   }
   deleteAdd(id: string) {
-    this.Jarwis.deleteAdd(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
-    )
+    if(confirm('This can\'t be revert after deleted')){
+
+      this.Jarwis.deleteAdd(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
   }
   onUpdateAdd(form: NgForm) {
     form.value.id=this.addId
@@ -322,11 +332,14 @@ onDelete(id: string) {
       })
   }
   deleteTrans(id: string) {
-    console.log(id)
-    this.Jarwis.deleteTrans(id).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),
-    )
+    if(confirm('This can\'t be revert after deleted')){
+
+      console.log(id)
+      this.Jarwis.deleteTrans(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
   }
 
   onUpdate(form: NgForm) {
