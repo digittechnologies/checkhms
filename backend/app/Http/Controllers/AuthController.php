@@ -69,6 +69,7 @@ class AuthController extends Controller
         $a = auth()->user();
         $e = auth()->user()->email;
         $p = auth()->user()->password;
+        $GLOBALS['loginBranch']=auth()->user()->branch_id;
         return response()->json(
             [
                 'aut'=> auth()->user(),

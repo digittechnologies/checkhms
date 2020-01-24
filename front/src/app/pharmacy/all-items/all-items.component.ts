@@ -235,6 +235,7 @@ onDelete(id: string) {
   }
 
   onClickSubmit(form: NgForm) {
+    form.value.selling_price = this.selling_price
     this.Jarwis.addItemDetails(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),      

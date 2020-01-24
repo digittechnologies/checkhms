@@ -6,8 +6,8 @@
                   <h2>Voucher</h2>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item"><a href="#">Phamarcy Log</a></li>
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Phamarcy Log</a></li>
                       <li class="breadcrumb-item active" aria-current="page">Voucher</li>
                       </ol>
                   </nav>
@@ -32,8 +32,8 @@
                           </div>                                 
                       </div>
                        <div class="col text-right">
-                          <div class="small text-light">Wallet</div>
-                          <div class="h4 m-0">N0</div>
+                          <div class="small text-light">Prescription Number</div>
+                          <div class="h4 m-0">RX#:</div>
                         </div>
                   </div>
               </div>                    
@@ -148,7 +148,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
                                                 <option value="">Select Item</option>
-                                                <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
+                                                <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}">{{itdet.generic_name}}</option>
                                             </select>
                                         </div>
                                     </div>                                             
