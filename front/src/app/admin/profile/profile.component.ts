@@ -36,8 +36,8 @@ export class ProfileComponent implements OnInit {
   department: any;
   role: any;
   branch: any;
-  givenDept: any;
-  givenRole: any;
+  givenDept = 0;
+  givenRole = 0;
   constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router,     public snackBar: MatSnackBar, 
     ) { }
   public response:any;
@@ -64,16 +64,16 @@ export class ProfileComponent implements OnInit {
     this.profile = this.response.det[0];
   })
 
-  this.Jarwis.displayDepartments().subscribe(
-      data=>{
-      this.response = data;
-      this.department = this.response
-    })
-
     this.Jarwis.displayRole().subscribe(
       data=>{
       this.response = data;
       this.role = this.response
+    })
+
+    this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      this.response = data;
+      this.department = this.response
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -102,35 +102,6 @@ export class ProfileComponent implements OnInit {
   )
     // this.displayprofile()
   }
-//   displayprofile(){
-//  this.Jarwis.profile().subscribe(
-//    data=>{
-    
-//    this.res = data;
-//    this.response = this.res.aut;
-
-
-//    this.submissionForm = this.formBuilder.group(
-    
-//     {
-//       firstname: [this.response.firstname],
-//       lastname: [this.response.lastname],
-//       email:[this.response.email],
-//   family:[this.response.family],
-//   middlename:[this.response.middlename],
-//   phone:[this.response.phone],
-//   familybackground:[this.response.familybackground],
-//   town:[this.response.town],
-//   gender:[this.response.gender],
-//   address:[this.response.address],
-//   id:[this.response.id]
-//     },
-//   )
-//    this.image=this.response.image
-
-//  })
- 
-// }
 uploadFile(event){
   let files =event.target.files[0];
   let reader = new FileReader();
@@ -154,16 +125,16 @@ onSubmit1() {
 }
 
 get(){
-  this.Jarwis.displayDepartments().subscribe(
-    data=>{
-    this.response = data;
-    this.department = this.response
-  })
-
   this.Jarwis.displayRole().subscribe(
     data=>{
     this.response = data;
     this.role = this.response
+  })
+
+  this.Jarwis.displayDepartments().subscribe(
+    data=>{
+    this.response = data;
+    this.department = this.response
   })
 
   this.Jarwis.displayBranch().subscribe(
@@ -178,14 +149,17 @@ onChange1(b){
 
 onSelectRole(r){
   this.givenRole = r.target.value;
+  this.get()
 }
 
 onSubmit(form: NgForm) {
-  alert(form.value)
-  // this.Jarwis.editPriviledges(form.value).subscribe(
-  //   data => this.handleResponse(data),
-  //   error => this.handleError(error),  
-  // );
+  if(confirm('This will altered this user priviledges, click ok to processed')){
+    form.value.id = this.uid
+    this.Jarwis.editPriviledges(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
 }
 handleError(error) {
   this.disabled=false; 
@@ -194,7 +168,10 @@ handleError(error) {
   this.disabled=false;
   this.sav= 'Update';
 }
-handleResponse(data) {  
+handleResponse(data) { 
+  let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
+    duration: 2000
+  })
   this.router.navigateByUrl('/User/(side:Profile)');
   this.disabled=false;
   this.sav= 'Updated';

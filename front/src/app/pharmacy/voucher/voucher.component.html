@@ -48,11 +48,10 @@
                     </div>
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-lg-2 col-md-12">                                            
+                            <div class="col-lg-3 col-md-12">                                            
                                 <div class="form-group">   
                                         <label>Item</label>                                             
-                                    <input type="text" class="form-control" value="{{total[0].generic_name}}" disabled>
-                                    <span class="text-center">{{total[0].name}}</span>
+                                    <input type="text" class="form-control" value="{{total[0].generic_name}} {{total[0].name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
@@ -74,17 +73,17 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
-                                    <div class="form-group">
-                                            <label>Selling Price</label>
-                                        <input type="text" class="form-control" value="{{total[0].selling_price}}" disabled>
-                                    </div>
-                                </div>
-                            <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
                                     <label>Shelf</label>
-                                    <input type="text" class="form-control" placeholder="Shelf" disabled>
+                                    <input type="text" class="form-control" value="{{total[0].shelve_name}} {{total[0].shelve_point}}" disabled>
                                 </div>
-                            </div>                                
+                            </div> 
+                            <div class="col-lg-1 col-md-12">
+                                    <div class="form-group">
+                                            <label>Selling P</label>
+                                        <input type="text" class="form-control" value="{{total[0].selling_price}}" disabled>
+                                    </div>
+                                </div>                               
                             <div class="col-lg-12 col-md-12">
                                 <hr>
 

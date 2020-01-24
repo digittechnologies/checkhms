@@ -44,7 +44,7 @@ class DisplayController extends Controller
         return response()->json(
         
             User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
-            ->select('users.*', 'departments.position_id', 'departments.name')
+            ->select('users.*', 'departments.position_id', 'departments.name AS nameD')
             ->where('users.id','=',$id)          
             ->get() 
         ); 
@@ -56,7 +56,8 @@ class DisplayController extends Controller
         return response()->json([
 
             'all'=>$all = User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->select('users.*','departments.name AS dept_name')  
+                ->join('roles','users.role_id','=','roles.id')
+                ->select('users.*','departments.name AS dept_name', 'roles.name AS role_name')  
                 ->where('users.id', '!=', $id)             
                 ->get(),
             'byB'=>User::join('branches', 'users.branch_id', '=', 'branches.id')
@@ -561,12 +562,13 @@ class DisplayController extends Controller
             ->where('id', $id)
             ->get(); 
         $branch = $branch1[0]->br_name;
-        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain')
+        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain', 'shelves.name AS shelve_name', 'shelves.point AS shelve_point')
         ->join ('item_types','item_details.item_type_id','=','item_types.id')
         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
         ->join ('item_units','item_details.item_unit_id','=','item_units.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
+        ->join ('shelves','shelves.id','=','item_details.shelve_id')
         ->where('item_details.id', '=', $item)
         // ->where ('c_date', '=', $cDate)
         ->get();
