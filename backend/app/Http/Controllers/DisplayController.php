@@ -548,40 +548,38 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function voucherAllStock($id)
+    public function voucherAllStock($item)
     {
-        return DB::table("branch_main")
-        ->where('item_detail_id', '=', $id)
-        ->select('branch_main.total_remain')
-        ->get();
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
 
-        // $item = $request[0];
-        // // $id= Auth()->user()->branch_id;
-        // return  $item
-        // $branch1 = DB::table("branches")
-        //     ->select('branches.br_name')
-        //     ->where('id', $id)
-        //     ->get(); 
-        //     $branch = $branch1[0]->br_name;
-            
-        // $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain')
-        // ->join ('item_types','item_details.item_type_id','=','item_types.id')
-        // ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-        // ->join ('item_units','item_details.item_unit_id','=','item_units.id')
-        // ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        // ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
-        // ->where('item_details.id', '=', $item)
-        // ->get();
-        // return $itemr;
+        $id= Auth()->user()->branch_id;
+        // return  $item;
+        $branch1 = DB::table("branches")
+            ->select('branches.br_name')
+            ->where('id', $id)
+            ->get(); 
+        $branch = $branch1[0]->br_name;
+        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain')
+        ->join ('item_types','item_details.item_type_id','=','item_types.id')
+        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+        ->join ('item_units','item_details.item_unit_id','=','item_units.id')
+        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+        ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
+        ->where('item_details.id', '=', $item)
+        // ->where ('c_date', '=', $cDate)
+        ->get();
+        return $itemr;
     }
 
     // Report
 
     public function stockReport(Request $request)
     {
-        // $dt = Carbon::now();
-        // $cDate = $dt->toFormattedDateString();
-        // $cTime = $dt->format('h:i:s A');
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
 
         $sDate = $request->sDate;
         $eDate = $request->eDate;

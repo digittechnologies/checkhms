@@ -449,8 +449,10 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
-  voucherAllStock(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  voucherAllStock(id:string, data) {
+    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayInstockT(data) {

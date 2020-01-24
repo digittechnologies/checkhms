@@ -39,72 +39,6 @@
               </div>                    
           </div>
       </div>
-      <!-- <div class="row clearfix">
-        <div class="col-md-6 col-lg-3">
-          <div class="card">
-            <div class="body">
-                <div class="media mb-0">
-                    <img class="rounded mr-3" src="../assets/images/xs/avatar4.jpg" alt="">
-                    <div class="media-body">
-                        <h5 class="m-0">Deborah Cox</h5>
-                        <p class="text-muted mb-0">Webdeveloper</p>                                    
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="card ">
-                <div class="body p-4">
-                    <div class="row clearfix">
-                        <div class="col-auto">
-                            <div class="stamp stamp-md bg-success">
-                                <i class="fa fa-institution"></i>
-                            </div>
-                        </div>
-                        <div class="col text-right">
-                            <div class="small text-muted">Revenue</div>
-                            <div class="h4 m-0">$1,345</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="card">
-                <div class="body p-4">
-                    <div class="row clearfix">
-                        <div class="col-auto">
-                            <div class="stamp stamp-md bg-danger">
-                                <i class="fa fa-bug"></i>
-                            </div>
-                        </div>
-                        <div class="col text-right">
-                            <div class="small text-muted">Bugs</div>
-                            <div class="h4 m-0">24</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="card ">
-                <div class="body p-4">
-                    <div class="row clearfix">
-                        <div class="col-auto">
-                            <div class="stamp stamp-md bg-info">
-                                <i class="fa fa-twitter"></i>
-                            </div>
-                        </div>
-                        <div class="col text-right">
-                            <div class="small text-muted">Followers</div>
-                            <div class="h4 m-0">10K</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <div class="row clearfix">
         <div class="col-12">
@@ -114,29 +48,41 @@
                     </div>
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-lg-3 col-md-12">                                            
-                                <div class="form-group">                                                
-                                    <input type="text" class="form-control" value="louispierce" disabled placeholder="Item">
+                            <div class="col-lg-2 col-md-12">                                            
+                                <div class="form-group">   
+                                        <label>Item</label>                                             
+                                    <input type="text" class="form-control" value="{{total[0].generic_name}}" disabled>
+                                    <span class="text-center">{{total[0].name}}</span>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" value="louis.info@yourdomain.com" placeholder="Category">
+                                        <label>Category</label>
+                                    <input type="text" class="form-control" value="{{total[0].cat_name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" value="louis.info@yourdomain.com" placeholder="Type">
+                                        <label>Type</label>
+                                    <input type="text" class="form-control" value="{{total[0].type_name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                    <input type="text" disabled style="color:black;" class="form-control" value="{{total[0].total_remain}}">
+                                        <label>Total Remain</label>
+                                    <input type="text" disabled class="form-control" value="{{total[0].total_remain}}">
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-12">
+                            <div class="col-lg-2 col-md-12">
+                                    <div class="form-group">
+                                            <label>Selling Price</label>
+                                        <input type="text" class="form-control" value="{{total[0].selling_price}}" disabled>
+                                    </div>
+                                </div>
+                            <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Shelf">
+                                    <label>Shelf</label>
+                                    <input type="text" class="form-control" placeholder="Shelf" disabled>
                                 </div>
                             </div>                                
                             <div class="col-lg-12 col-md-12">
