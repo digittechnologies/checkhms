@@ -33,6 +33,7 @@ import { AllStaffComponent } from './admin/all-staff/all-staff.component';
 import { PaymentLogComponent } from './payment/payment-log/payment-log.component';
 import { PaymentHomeComponent } from './payment/payment-home/payment-home.component';
 import { PHistoryComponent } from './payment/p-history/p-history.component';
+import { InvoiceComponent } from './payment/invoice/invoice.component';
 
 // Lab
 import { LabLogComponent } from './lab/lab-log/lab-log.component';
@@ -114,6 +115,8 @@ const routes: Routes = [
          {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'payment_home', component: PaymentHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'payment', component: PHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'invoice/:id', component: InvoiceComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
 
          // Lab
          {path: 'lab_log', component: LabLogComponent, outlet: 'side',canActivate: [AfterLoginService] },

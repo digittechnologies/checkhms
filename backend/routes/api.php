@@ -187,6 +187,7 @@ Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');
 Route::get('inStock/{id}','DisplayController@inStock');
 Route::post('inStockT','DisplayController@inStockT');
+Route::post('voucherAllStock/{id}','DisplayController@voucherAllStock');
 Route::get('editAdd/{id}', 'AddController@editAdd');
 Route::post('deleteAdd', 'AddController@deleteAdd');
 Route::post('updateAddItem', 'AddController@updateAddItem');

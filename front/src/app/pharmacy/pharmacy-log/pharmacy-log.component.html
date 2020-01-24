@@ -45,13 +45,13 @@
                             <img class="rounded-circle" src="http://localhost/buth-pharm/backend/public/upload/uploads/{{l.patient_image}}" alt="">
                         </div>
                         <h6 class="mt-3 mb-0">{{l.card_number}}</h6>
-                        <span>{{l.pat_name+ ' ' +l.othername}}</span>
+                        <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.pat_name+ ' ' +l.othername}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Detials</a></li>
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Invoice</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Refill</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.cust_id]}}]">Invoice</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.cust_id]}}]">Voucher</a></li>
                         </ul>
-                        <hr>
+                        <hr><hr>
                         <div class="d-flex justify-content-between">
                             <div class="text text-warning">{{l.prescription}}</div>
                             <div class="text text-warning">{{l.invoice}}</div>

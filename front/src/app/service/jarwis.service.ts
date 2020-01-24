@@ -180,7 +180,9 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtItemDetails/${id}`)
   }
   addItemDetails(data) {
-    return this.http.post(`${this.baseUrl}/addItemDetails`, data)
+    return this.http.post(`${this.baseUrl}/addItemDetails`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   updateItemDetails(data) {
     return this.http.post(`${this.baseUrl}/updateItemDetails`, data)
@@ -447,10 +449,14 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
+  voucherAllStock(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  }
+
   displayInstockT(data) {
     return this.http.post<any>(`${this.baseUrl}/inStockT`, data)
   }
- 
+
   saveAdd() {
     return this.http.get(`${this.baseUrl}/saveAdd`)
   }
