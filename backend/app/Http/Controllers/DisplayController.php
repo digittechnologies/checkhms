@@ -43,58 +43,51 @@ class DisplayController extends Controller
             User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
             ->select('users.*', 'departments.position_id')
             ->where('users.id','=',$id)          
-            ->get()
-           
-        );
-    
+            ->get() 
+        ); 
     }
     
     public function displayAllstaff()
     {
         $id= Auth()->user()->id;
-            return User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                    ->select('users.*','departments.name')  
-                    ->where('users.id', '!=', $id)             
-                    ->get();
-    
+        return response()->json([
+
+            'all'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+                ->select('users.*','departments.name AS dept_name')  
+                ->where('users.id', '!=', $id)             
+                ->get(),
+            'byD'=>$byDept = User::join('departments','users.dept_id','=','departments.id')
+                    ->select('users.dept_id')  
+                    // ->where('users.dept_id', '=', 'departments.id')             
+                    ->get(),
+            'countAll'=>$byDept->count(),
+        ]);
     }
     public function uStatus(Request $request)
     {
-        $id=$request[0];
-
-   
-    $status=DB::table('users')
-    ->where('id','=', $id)
-    ->update(['status' =>'approved']); 
-  
-     return $status;
-    
+        $id=$request[0];   
+        $status=DB::table('users')
+        ->where('id','=', $id)
+        ->update(['status' =>'approved']); 
+        return $status;
     }
 
     public function c_uStatus(Request $request)
     {
         $id=$request[0];
-
-   
-    $status=DB::table('users')
-    ->where('id','=', $id)
-    ->update(['status' =>'suspended']); 
-  
-     return $status;
-    
+        $status=DB::table('users')
+        ->where('id','=', $id)
+        ->update(['status' =>'suspended']); 
+        return $status;
     }
 
     public function reStatus(Request $request)
     {
         $id=$request[0];
-
-   
-    $status=DB::table('users')
-    ->where('id','=', $id)
-    ->update(['status' =>'approved']); 
-  
-     return $status;
-    
+        $status=DB::table('users')
+        ->where('id','=', $id)
+        ->update(['status' =>'approved']); 
+        return $status;
     }
 
     //Depertment
@@ -102,22 +95,18 @@ class DisplayController extends Controller
     public function displayDepartments()
     {
         return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-                    ->select('departments.*','positions.position_name')               
-                    ->get();
+                ->select('departments.*','positions.position_name')               
+                ->get();
     }
 
     public function edtDept($id)
     {
-    
         return response()->json(
-        
             Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
             ->select('departments.*','positions.position_name')     
             ->where('departments.id','=',$id)          
-            ->get()
-           
+            ->get()      
         );
-    
     }
 
     //Position
@@ -135,16 +124,12 @@ class DisplayController extends Controller
 
     public function edtUnit($id)
     {
-    
         return response()->json(
-        
             Item_units::orderBy('id')
             ->select('item_units.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get() 
         );
-    
     }
 
     // type
@@ -156,16 +141,12 @@ class DisplayController extends Controller
 
     public function edtType($id)
     {
-    
         return response()->json(
-        
             Item_types::orderBy('id')
             ->select('item_types.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
     // Manufacturer
@@ -177,16 +158,12 @@ class DisplayController extends Controller
 
     public function edtManufacturer($id)
     {
-    
         return response()->json(
-        
             Manufacturer_details::orderBy('id')
             ->select('manufacturer_details.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
     // Categories
@@ -198,18 +175,14 @@ class DisplayController extends Controller
 
     public function edtCategories($id)
     {
-    
         return response()->json(
         
             Item_categories::orderBy('id')
             ->select('item_categories.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
-
 
     // Shelve
 
@@ -218,49 +191,37 @@ class DisplayController extends Controller
         return Shelves::orderBy('id')->join('branches','shelves.branch_id','=','branches.id')
                     ->select('shelves.*','branches.br_name')               
                     ->get();
-        // return DB::table("shelves")->get();
     }
 
     public function edtShelve($id)
     {
-    
-        return response()->json(        
-              
+        return response()->json(              
             Shelves::orderBy('id')
             ->select('shelves.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
-
 
     // Item
 
     public function displayItemDetails()
     {
-        
-
         $item = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
          ->join ('item_types','item_details.item_type_id','=','item_types.id')
          ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
          ->join ('item_units','item_details.item_unit_id','=','item_units.id')
          ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-    
-        ->get();
+         ->get();
         if($item){
             return $item;
         } else {
             return ;
         }
-
-        // return DB::table("item_details")->get();
     }
 
     public function edtItemDetails($id)
     {
-    
         return response()->json(
         
             Item_details::orderBy('id')
@@ -271,41 +232,26 @@ class DisplayController extends Controller
             ->select('item_details.*', 'item_units.name AS unit_name', 'item_units.box_size', 'item_units.value', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name AS manuf_name', 'manufacturer_details.address','manufacturer_details.contact_number', 'manufacturer_details.details', 'item_details.item_img')     
             ->where('item_details.id','=',$id)          
             ->get()
-           
         );
-    
     }
-
 
     // All Items Informations
 
     public function displayItem($id)
     {
-        $verifyId = Auth()->user()->id;
-        $verifyDept = Auth()->user()->dept_id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
         
-        //Admin level access
-        // if($incomingId == 'branch_main' && $verifyDept == '10'){
-        //     $id = $incomingId;
-        // }
-        if($id != 'branch_main'){
-            $branch = DB::table("branches")
-            ->where('name', $id)
-            ->get();   
-            $id = $branch[0]->br_name;
+        if($id == 'undefined'){
+            $id = Auth()->user()->branch_id;
         }
 
-        //Specific branch access
-        // else if($incomingId == 'branch_main' || $incomingId != 'branch_main' && $verifyDept != '10'){
-        //     $fetchLoggedInUser = DB::table('users')->join('branches', 'users.branch_id', '=', 'branches.id')
-        //     ->select('branches.br_name')
-        //     ->where('users.id', '=', $verifyId)
-        //     ->get();
-        //     $id = $fetchLoggedInUser[0]->br_name; 
-        // }
+        $branch = Branches::select('branches.br_name')
+        ->where('id', '=', $id)
+        ->orWhere('name', '=', $id)
+        ->first();  
+        $id = $branch->br_name;
 
         return response()->json([
 
@@ -329,48 +275,36 @@ class DisplayController extends Controller
 
     public function edtItem($id)
     {
-    
         return response()->json(
         
             Item_details::orderBy('id')
             ->select('item_details.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
-
 
     // Branch
 
     public function displaysetBranch()
     {
-        // return DB::table("branches")->get();
         return Branches::all();
     }
 
     public function displayBranch()
     {
-        // return DB::table("branches")->get();
         return Branches::where('status', '=', 'active')->get();
     }
 
-
     public function edtBranch($id)
     {
-    
         return response()->json(
-        
             Branches::orderBy('id')
             ->select('branches.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
-
 
     // Customers/ Patients
 
@@ -381,50 +315,39 @@ class DisplayController extends Controller
 
     public function edtCustomer($id)
     {
-    
         return response()->json(
-        
             Customers::orderBy('id')
             ->select('customers.*')     
             ->where('id','=',$id)          
             ->get()
            
         );
-    
     }
     public function patientdetails($id)
     {
-    
         return response()->json(
-        
             Customers::where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
     //Appointment
     public function displayAllappointment()
-    {
-                  
-            return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                    ->join('customers','appointments.customer_id','=','customers.id')
-                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')               
-                    ->get();
-    
+    {          
+        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')               
+                ->get();
     }
 
     public function displayDeptAppointment()
     {
-       
         $deptId= Auth()->user()->dept_id;
-            return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                    ->join('customers','appointments.customer_id','=','customers.id')
-                    ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
-                    ->where('appointments.department_id','=',$deptId)
-                    ->get();
-    
+        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
+                ->where('appointments.department_id','=',$deptId)
+                ->get();
     }
 
     public function countAppointment()
@@ -434,7 +357,6 @@ class DisplayController extends Controller
         ->where('appointments.department_id','=',$deptId)        
         ->get();
       return $post;
-
     }
 
     // Prescriptions
@@ -457,16 +379,12 @@ class DisplayController extends Controller
 
     public function edtPrescription($id)
     {
-    
         return response()->json(
-        
             Doctor_prescriptions::orderBy('id')
             ->select('doctor_prescriptions.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
     // Invoices
@@ -478,16 +396,13 @@ class DisplayController extends Controller
 
     public function edtInvoice($id)
     {
-    
         return response()->json(
         
             Invoices::orderBy('id')
             ->select('invoices.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
     // Vouchers
@@ -498,17 +413,14 @@ class DisplayController extends Controller
     }
 
     public function edtVoucher($id)
-    {
-    
+    {    
         return response()->json(
         
             Vouchers::orderBy('id')
             ->select('vouchers.*')     
             ->where('id','=',$id)          
-            ->get()
-           
+            ->get()   
         );
-    
     }
 
 //Lab Depertment
@@ -519,8 +431,7 @@ class DisplayController extends Controller
         
             Lab_depts::orderBy('id')->join('departments','lab_depts.department_id','=','departments.id')
             ->select('lab_depts.*','departments.name')       
-            ->get()
-           
+            ->get()   
         );
     }
 
@@ -532,7 +443,6 @@ class DisplayController extends Controller
             ->select('lab_depts.*','departments.name') 
             ->where('lab_depts.id','=',$id)        
             ->get()
-           
         );
     }
 
@@ -542,23 +452,19 @@ class DisplayController extends Controller
     public function displayLabTestType()
     {
         return response()->json(
-        
             Lab_test_types::orderBy('id')->join('lab_depts','lab_test_types.lab_dept_id','=','lab_depts.id')
             ->select('lab_test_types.*','lab_depts.lab_name')       
-            ->get()
-           
+            ->get()   
         );
     }
 
     public function edtLabTestType($id)
     {
         return response()->json(
-        
             Lab_test_types::orderBy('id')->join('lab_depts','lab_test_types.lab_dept_id','=','lab_depts.id')
             ->select('lab_test_types.*','lab_depts.lab_name') 
             ->where('lab_test_types.id','=',$id)        
-            ->get()
-           
+            ->get()   
         );
     }
     
@@ -579,9 +485,7 @@ class DisplayController extends Controller
 
     public function disItemDet()
     {
-    
         return response()->json(
-        
             Item_details::orderBy('id')->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id') 
                                     ->select('item_details.*', 'manufacturer_details.name AS manuf_name')        
                                     ->get()
@@ -626,12 +530,6 @@ class DisplayController extends Controller
             ->where('item_detail_id', '=', $id)
             ->select('branch_main.total_remain')
             ->get();
-
-           // $sub = substr($id, 3);
-           //  return DB::table("branch_main")
-           //  ->where('item_detail_id', '=', $sub)
-           //  ->select('branch_main.total_remain')
-           //  ->get();
     }
 
     public function inStockT(Request $request)
@@ -648,7 +546,6 @@ class DisplayController extends Controller
 
     public function stockReport(Request $request)
     {
-            
         // $dt = Carbon::now();
         // $cDate = $dt->toFormattedDateString();
         // $cTime = $dt->format('h:i:s A');
@@ -787,102 +684,17 @@ class DisplayController extends Controller
         return Role::where('status', '=', 'active')->get();
     }
 
-    public function displayPosition()
-    {
-        return Positions::where('status', '=', 'active')->get();
-    }
 
 
 
 
 
-
-    public function deleteUser(Request $request)
-    {
-        $id=$request[0];
-
-    $deletec=DB::table('users')->where('id', $id)->delete();
-     return $id;
-    
-    }
 
     
-    public function search($searchTerm)
-    {
-       
-       
-        return response()->json(
-            title::whereLike(['location', 'name_title'], $searchTerm)->get()
-            
-        
-        );
-    }
-
-    public function getitems($id)
-    {
-        return response()->json([
-          
-               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
-                ->join('users','items.user_id','=','users.id')
-            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
-            ->where('activity_id','=',$id)
-            ->where('items.status','=','Y')
-            // ->inRandomOrder()->take(4) 
-               ->get(),
-            'acti' =>Activities::where('id','=', $id)->get(),
-            'cat' =>Category::where('activity_id','=', $id)->get()
-        
-        ]);
-    }
-    public function getitemsforadmin($id)
-    {
-        return response()->json([
-          
-               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
-                ->join('users','items.user_id','=','users.id')
-            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
-            ->where('activity_id','=',$id)
-               ->get(),
-            'acti' =>Activities::where('id','=', $id)->get(),
-            'cat' =>Category::where('activity_id','=', $id)->get()
-        
-        ]);
-    }
-    public function getUitems()
-    {
-        $id=auth()->user()->id;
-        // return $id;
-        return response()->json([
-          
-               'title'=> title::orderBy('id','desc')->join('categories','items.category_id','=','categories.id')
-                ->join('users','items.user_id','=','users.id')
-            ->select('items.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
-            ->where('user_id','=',$id)
-            // ->where('status','=','Y')
-            // ->inRandomOrder()->take(4) 
-               ->get(),
-            // 'acti' =>Activities::where('id','=', $id)->get(),
-            // 'cat' =>Category::where('activity_id','=', $id)->get()
-        
-        ]);
-    }
-    
-    public function getUContent()
-    {
-        $id=auth()->user()->id;
-        // return $id;
-        return response()->json([
-           'ucontents'=> content::orderBy('id','desc')  ->join('items','contents.name_id','=','items.id')
-               ->join('categories','items.category_id','=','categories.id')
-                ->join('users','items.user_id','=','users.id')
-            ->select('contents.*','categories.catname','categories.destription','categories.activity_id','users.firstname','users.lastname','users.middlename')
-            ->where('user_id','=',$id)
-            // ->where('status','=','Y')
-            // ->inRandomOrder()->take(4) 
-               ->get(),
-            // 'acti' =>Activities::where('id','=', $id)->get(),
-            // 'cat' =>Category::where('activity_id','=', $id)->get()
-        
-        ]);
-    }
+    // public function search($searchTerm)
+    // {
+    //     return response()->json(
+    //         title::whereLike(['location', 'name_title'], $searchTerm)->get()   
+    //     );
+    // }
 }

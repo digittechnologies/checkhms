@@ -65,6 +65,8 @@ export class AllItemsComponent implements OnInit {
   varianceAdded: any;
   uBranch: any;
   uPos: any;
+  uDept: any;
+  uBranchName: any;
 
 
   constructor( 
@@ -76,13 +78,23 @@ export class AllItemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uBranchName= this.response.det[0].br_name
+      this.uPos= this.response.det[0].role_id
+      this.uDept= this.response.det[0].dept_id
+    })
+
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
       this.branch = this.response
       })
 
-    this.Jarwis.displayItem('branch_main').subscribe(
+    this.Jarwis.displayItem(this.uBranch).subscribe(
       data=>{
       this.response = data;      
       this.items = this.response;
@@ -152,14 +164,6 @@ export class AllItemsComponent implements OnInit {
       this.response = data;      
       this.itemTransferred = this.response       
 
-    })
-
-    this.Jarwis.profile().subscribe(
-      data=>{
-       
-      this.response = data;
-      this.uBranch= this.response.det[0].branch_id
-      this.uPos= this.response.det[0].position_id
     })
 }
 
