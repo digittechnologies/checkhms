@@ -30,12 +30,12 @@ export class AllStaffComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
     this.Jarwis.displayAllstaff().subscribe(
       data=>{
       this.response = data;
       this.staff = this.response
     })
+    
     this.Jarwis.profile().subscribe(
       data=>{
       this.response = data;

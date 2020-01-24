@@ -28,6 +28,9 @@ use App\Role;
 
 class DisplayController extends Controller
 {
+
+    // $users = DB::connection('mysql2')->select(...);
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +44,7 @@ class DisplayController extends Controller
         return response()->json(
         
             User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
-            ->select('users.*', 'departments.position_id')
+            ->select('users.*', 'departments.position_id', 'departments.name')
             ->where('users.id','=',$id)          
             ->get() 
         ); 
@@ -52,15 +55,18 @@ class DisplayController extends Controller
         $id= Auth()->user()->id;
         return response()->json([
 
-            'all'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+            'all'=>$all = User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
                 ->select('users.*','departments.name AS dept_name')  
                 ->where('users.id', '!=', $id)             
                 ->get(),
-            'byD'=>$byDept = User::join('departments','users.dept_id','=','departments.id')
-                    ->select('users.dept_id')  
-                    // ->where('users.dept_id', '=', 'departments.id')             
-                    ->get(),
-            'countAll'=>$byDept->count(),
+            'byB'=>User::join('branches', 'users.branch_id', '=', 'branches.id')
+                ->select('users.id', 'branches.name AS branch_name')  
+                // ->where('users.dept_id', '=', 'departments.id')             
+                ->get(),
+            'byD'=>User::join('departments','users.dept_id','=','departments.id')
+                ->select('users.id','departments.name AS dept_name', 'departments.id AS d_id')  
+                ->get(),
+            'countAll'=> User::count(),
         ]);
     }
     public function uStatus(Request $request)
