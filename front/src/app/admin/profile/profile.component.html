@@ -29,13 +29,19 @@
                             <span>{{response.city}} {{response.state}}</span>
                         </div>
                         <div class="m-t-15">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#EditAdd" (click)="assignBranch()">Assign Branch</button>
+                            <span  *ngIf="response.position_id == 1 && response.branch_id == 0">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#AssignBranch">Assign Branch</button>
+                            </span>
+                            <span *ngIf="response.branch_id > 0">
+                                Assigned to: {{response.branch_id}} Branch
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#EditAssignBranch">Change Assigned Branch</button>
+                            </span>
                             <!-- <button class="btn btn-outline-secondary">Message</button> -->
                         </div>                            
                     </div>
                 </div>
 
-                <div class="modal fade" id="EditAdd" tabindex="1" role="dialog">
+                <div class="modal fade" id="AssignBranch" tabindex="1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -49,9 +55,9 @@
                                     <div class="row clearfix">
                                         <div class="col-md-8">
                                                 <div class="form-group">
-                                                        <select class="form-control" ngModel name="branch">
+                                                        <select class="form-control" (click)="get()" ngModel name="branch">
                                                                 <option value="">-- Select Branch --</option>
-                                                                <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
+                                                                <option  *ngFor="let br of bran" value="{{br.id}}" [ngValue]="br.id">{{br.name}}</option>                              
                                                         </select> 
                                                     </div> 
                                         </div>             
@@ -66,6 +72,38 @@
                         </div>
                         </div>
 
+
+                        <div class="modal fade" id="EditAssignBranch" tabindex="1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title h4" id="myLargeModalLabel">Edit Assigned Branch</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEditAssign(edtassign)" #edtassign="ngForm"> 
+                                        <div class="modal-body">             
+                                            <div class="row clearfix">
+                                                <div class="col-md-8">
+                                                        <div class="form-group">
+                                                                <select class="form-control" (click)="get()" ngModel name="branch">
+                                                                        <option value="">-- Select Branch --</option>
+                                                                        <option  *ngFor="let br of bran" value="{{br.id}}" [ngValue]="br.id">{{br.name}}</option>                              
+                                                                </select> 
+                                                            </div> 
+                                                </div>             
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-round btn-primary">Assign</button>
+                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+        
 
                 <div class="card">
                     <div class="header">

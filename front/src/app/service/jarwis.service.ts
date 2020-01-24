@@ -180,7 +180,9 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtItemDetails/${id}`)
   }
   addItemDetails(data) {
-    return this.http.post(`${this.baseUrl}/addItemDetails`, data)
+    return this.http.post(`${this.baseUrl}/addItemDetails`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   updateItemDetails(data) {
     return this.http.post(`${this.baseUrl}/updateItemDetails`, data)
@@ -193,8 +195,10 @@ export class JarwisService {
   }
 
   // Item
-  displayItem(id: string) {
-    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,)
+  displayItem(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   edtItem(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
@@ -300,7 +304,9 @@ export class JarwisService {
   }
 
   staffdetails(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`)
+    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
@@ -310,6 +316,10 @@ export class JarwisService {
 
   assign(data) {
     return this.http.post<any>(`${this.baseUrl}/assign`, data)
+  }
+
+  edtAssign(data) {
+    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
   }
   
 // Branches
@@ -439,10 +449,14 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
+  voucherAllStock(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  }
+
   displayInstockT(data) {
     return this.http.post<any>(`${this.baseUrl}/inStockT`, data)
   }
- 
+
   saveAdd() {
     return this.http.get(`${this.baseUrl}/saveAdd`)
   }
@@ -475,6 +489,12 @@ deleteAppointment(data) {
   deleteTrans(data) {
     return this.http.post(`${this.baseUrl}/deleteTrans`, data)
   }
+  stockHistory(data) {
+    return this.http.post(`${this.baseUrl}/stockHistory`, data)
+  }
+  stockReport(data) {
+    return this.http.post(`${this.baseUrl}/stockReport`, data)
+  }
 
   pharmPriscription(data) {
     return this.http.post(`${this.baseUrl}/pharmPriscription`, data,{headers:{
@@ -486,7 +506,9 @@ deleteAppointment(data) {
     return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`)
   }
 
-
+  displayRole() {
+    return this.http.get(`${this.baseUrl}/displayRole`,)
+  }
 
 
   getcontent(id:string) {

@@ -25,6 +25,13 @@ export class ProfileComponent implements OnInit {
   res: any;
   resp: any;
   bran: any;
+  allPos: any;
+  pharmacist: any;
+  cashier: any;
+  physician: any;
+  admin: any;
+  card: any;
+  uid: string;
   constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router,     public snackBar: MatSnackBar, 
     ) { }
   public response:any;
@@ -36,10 +43,33 @@ export class ProfileComponent implements OnInit {
  
  ngOnInit() {
       
+  this.actRoute.paramMap.subscribe((params => {
+    let id = params.get('id');
+    this.uid = id;
+    this.Jarwis.staffdetails(id).subscribe(data=>{
+      this.resp = data;
+      this.response=this.resp[0]
+      console.log(this.response)
+    })
+  }));
+
+  
   this.Jarwis.displayBranch().subscribe(
     data=>{
     this.response = data;      
     this.bran = this.response   
+  })
+
+  this.Jarwis.displayAllposition().subscribe(
+    data=>{
+     
+    this.response = data
+    this.allPos= this.response
+    this.pharmacist=this.allPos[0].id
+    this.cashier=this.allPos[1].id
+    this.physician=this.allPos[2].id
+    this.admin=this.allPos[3].id
+    this.card=this.allPos[4].id
   })
 
    this.submissionForm = this.formBuilder.group(
@@ -59,19 +89,6 @@ export class ProfileComponent implements OnInit {
     },
   )
     // this.displayprofile()
-    this.actRoute.paramMap.subscribe((params => {
-      let id = params.get('id');
-      
-      this.Jarwis.staffdetails(id).subscribe(data=>{
-        this.resp = data;
-        this.response=this.resp[0]
-       
-        // console.log(this.lenght)
-        console.log(this.response)
-     
-      })
-    
-        }));
   }
 //   displayprofile(){
 //  this.Jarwis.profile().subscribe(
@@ -125,12 +142,24 @@ onSubmit1() {
 }
 
 onAssign(form: NgForm) {
+  form.value.uid = this.uid
   this.Jarwis.assign(form.value).subscribe(
     data => this.handleResponse2(data),
     error => this.handleError2(error),      
   ); 
 }
 
+onEditAssign(form: NgForm) {
+  form.value.uid = this.uid
+  this.Jarwis.edtAssign(form.value).subscribe(
+    data => this.handleResponse2(data),
+    error => this.handleError2(error),      
+  ); 
+}
+
+get(){
+  this.ngOnInit()
+}
 handleError(error) {
   this.disabled=false; 
   this.error = error.error.errors;

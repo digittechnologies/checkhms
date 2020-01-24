@@ -63,6 +63,8 @@ export class AllItemsComponent implements OnInit {
   totalTo: any;
   to: any;
   varianceAdded: any;
+  uBranch: any;
+  uPos: any;
 
 
   constructor( 
@@ -151,6 +153,14 @@ export class AllItemsComponent implements OnInit {
       this.itemTransferred = this.response       
 
     })
+
+    this.Jarwis.profile().subscribe(
+      data=>{
+       
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uPos= this.response.det[0].position_id
+    })
 }
 
 get(){
@@ -178,7 +188,6 @@ onSelectItem2(id) {
 }
 
 allItem(aa) {
-  console.log(aa.target.innerHTML)
   this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
     data=>{
     this.response = data;      
@@ -226,6 +235,7 @@ onDelete(id: string) {
   }
 
   onClickSubmit(form: NgForm) {
+    form.value.selling_price = this.selling_price
     this.Jarwis.addItemDetails(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),      

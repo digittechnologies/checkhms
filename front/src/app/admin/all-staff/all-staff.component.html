@@ -13,8 +13,8 @@
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Add New</a>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddStaff">Add New</a>
+                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
             </div>
         </div>
@@ -190,3 +190,163 @@
 
     </div>
 </div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="AddStaff" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Add New Staff</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">                
+                        <div class="form-group">
+                            <input type="text" class="form-control round" placeholder="Input staff ID number here" ngModel name="id_number" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="text" class="form-control round" placeholder="Input staff Firstname here" ngModel name="firstname" required>
+                            <div class="text-danger" [hidden]="!error.firstname">
+                                {{error.firstname}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="text" class="form-control round" placeholder="Input staff Othername here" ngModel name="lastname" required>
+                            <div class="text-danger" [hidden]="!error.lastname">
+                                {{error.lastname}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">                            
+                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="male" type="radio" checked><span><i></i>Male</span></label>
+                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="female" type="radio"><span><i></i>Female</span></label>
+                            <div class="text-danger" [hidden]="!error.gender">
+                                {{error.gender}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="email" class="form-control round" placeholder="Input staff email address here" ngModel name="email" required>
+                            <div class="text-danger" [hidden]="!error.email">
+                                {{error.email}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Staff Department</label>
+                                </div> 
+                                <select class="custom-select" (click)="onChange1($event)" ngModel name="dept_id">   
+                                    <option value="">Select Department...</option>                                     
+                                    <option *ngFor="let d of department" value="{{d.id}}" [value]="d.id">{{d.name}}</option>                                       
+                                </select>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="text-danger" [hidden]="!error.dept_id">
+                    {{error.dept_id}}
+                </div> -->
+              </div>
+              <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Staff Role</label>
+                                </div> 
+                                <select class="custom-select" ngModel name="role_id"> 
+                                    <option value="">Select Role...</option>                                       
+                                    <option *ngFor="let r of role"  value="{{r.id}}" [value]="r.id">{{r.name}}</option>                                       
+                                </select>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="text-danger" [hidden]="!error.id">
+                    {{error.id}}
+                </div> -->
+              </div>
+              <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Staff Position</label>
+                                </div> 
+                                <select class="custom-select" ngModel name="position_id">                                        
+                                    <option value="">Select Position...</option>
+                                    <option *ngFor="let p of position"  value="{{p.id}}" [value]="p.id">{{p.position_name}}</option>                                       
+                                </select>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="text-danger" [hidden]="!error.id">
+                    {{error.id}}
+                </div> -->
+              </div>
+              <div class="modal-body" *ngIf= "givenDept == '1'">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Staff Pharmacist Branch</label>
+                                </div> 
+                                <select class="custom-select" ngModel name="dept_id"> 
+                                    <option>Select Branch...</option>                                       
+                                    <option *ngFor="let b of branch"  value="{{b.id}}" [value]="d.id">{{b.name}}</option>                                    
+                                </select>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="text-danger" [hidden]="!error.id">
+                    {{error.id}}
+                </div> -->
+              </div>
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-round btn-primary">Add</button>
+                <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+            </div>                                
+        </form>
+      </div>
+    </div>
+    </div>

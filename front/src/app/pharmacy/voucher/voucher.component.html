@@ -3,18 +3,18 @@
       <div class="block-header">
           <div class="row clearfix">
               <div class="col-md-6 col-sm-12">
-                  <h2>User Profile</h2>
+                  <h2>Voucher</h2>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Oculux</a></li>
-                      <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Phamarcy Log</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Voucher</li>
                       </ol>
                   </nav>
               </div>            
-              <div class="col-md-6 col-sm-12 text-right hidden-xs">
+              <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                   <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
-              </div>
+              </div> -->
           </div>
       </div>
       <div class="row clearfix">
@@ -32,14 +32,14 @@
                           </div>                                 
                       </div>
                        <div class="col text-right">
-                          <div class="small text-light">Wallet</div>
-                          <div class="h4 m-0">N0</div>
+                          <div class="small text-light">Prescription Number</div>
+                          <div class="h4 m-0">RX#:</div>
                         </div>
                   </div>
               </div>                    
           </div>
       </div>
-      <div class="row clearfix">
+      <!-- <div class="row clearfix">
         <div class="col-md-6 col-lg-3">
           <div class="card">
             <div class="body">
@@ -104,79 +104,123 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row clearfix">
         <div class="col-12">
-            <div class="card">
+                <div class="card">
                     <div class="header">
-                            <h2>Drug Prescription</h2>
-                            <!-- <ul class="header-dropdown dropdown">                                
-                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another Action</a></li>
-                                        <li><a href="javascript:void(0);">Something else</a></li>
-                                    </ul>
-                                </li>
-                            </ul> -->
-                        </div>              
-                        
+                        <h2>Prescription</h2>
+                    </div>
+                    <div class="body">
                         <div class="row clearfix">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="body">
-                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(fm)" #fm="ngForm">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                                <label>Item</label>
-                                                <div class="form-group">
-                                                    <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
-                                                        <option value="">Select Item</option>
-                                                        <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name}}</option>
-                                                    </select>
-                                                </div>
-                                            </div> 
-                                            <div><span class="badge badge-warning">{{total[0].total_remain}}</span></div>                                            
-                                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                                <label>Daily Supply</label>
-                                                <div class="form-group">
-                                                    <select class="custom-select" ngModel name="day_supply">
-                                                        <option selected="">Select Daily Supply</option>
-                                                        <option value="1">Once Daily</option>
-                                                        <option value="2">Twice Daily</option>
-                                                        <option value="3">Thrice Daily</option>
-                                                        <option value="4">Four in a Day</option>
-                                                        <option value="4">Once in a Week</option>
-                                                    </select>
-                                                </div>
-                                            </div> 
-                                            <div class="col-lg-2 col-md-2 col-sm-6">
-                                                <label>Day(s)</label>
-                                                <div class="form-group">
-                                                    <input type="number" class="form-control" ngModel name="days" placeholder="Input Number of Day(s)">
-                                                </div>
-                                            </div> 
-
-                                            <div class="col-lg-2 col-md-2 col-sm-6">
-                                                    <label>Instruction</label>
-                                                    <div class="input-group">
-                                                        <textarea type="text" class="form-control" ngModel name="instruction" placeholder="Give an Intruction here"></textarea>
-                                                    </div>
-                                                </div>  
-                                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                                <button class="btn btn-primary btn-block" type="submit">Add</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    </div>
+                            <div class="col-lg-3 col-md-12">                                            
+                                <div class="form-group">                                                
+                                    <input type="text" class="form-control" value="louispierce" disabled placeholder="Item">
                                 </div>
                             </div>
+                            <div class="col-lg-2 col-md-12">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" value="louis.info@yourdomain.com" placeholder="Category">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-12">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" value="louis.info@yourdomain.com" placeholder="Type">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-12">
+                                <div class="form-group">
+                                    <input type="text" disabled style="color:black;" class="form-control" value="{{total[0].total_remain}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Shelf">
+                                </div>
+                            </div>                                
+                            <div class="col-lg-12 col-md-12">
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <label>Item</label>
+                                        <div class="form-group">
+                                            <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
+                                                <option value="">Select Item</option>
+                                                <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}">{{itdet.generic_name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>                                             
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                        <label>Duration</label>
+                                        <div class="form-group">
+                                            <select class="custom-select" ngModel name="day_supply">
+                                                <option selected="">Select Daily Supply</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="4">5</option>
+                                            </select>
+                                        </div>
+                                    </div>                                            
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                        <label>Daily Supply</label>
+                                        <div class="form-group">
+                                            <select class="custom-select" ngModel name="day_supply">
+                                                <option selected="">Select Daily Supply</option>
+                                                <option value="1">Once Daily</option>
+                                                <option value="2">Twice Daily</option>
+                                                <option value="3">Thrice Daily</option>
+                                                <option value="4">Four in a Day</option>
+                                                <option value="4">Once in a Week</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                        <label>Day(s)</label>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" ngModel name="days" placeholder="Input Number of Day(s)">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                        <label>Refill</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" value="0" ngModel name="days" placeholder="0">
+                                        </div>
+                                    </div> 
+                                </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>Quantity</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Quantity">
+                                    </div>  
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>Day(s)</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Quantity">
+                                    </div>  
+                                </div>
+                            </div>
+                                <label>Instruction</label>
+                                <div class="form-group">
+                                    <textarea rows="4" class="form-control" placeholder="Intruction"></textarea>
+                                </div>
+                                <label>Physician</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Physician">
+                                </div>                                        
+                            </div>
                         </div>
+                        <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                        <button type="button" class="btn btn-round btn-default">Cancel</button>
+                    </div>
+                </div>
                         
-            </div>
+         
         </div>
     </div>
 
@@ -207,141 +251,63 @@
                                   <tr>
                                       <th>S/N</th>
                                       <th>Image</th>
-                                      <th>Name</th>
-                                      <th>In stock</th>
-                                      <th>Quantity</th>
-                                      <th>Amount</th>
+                                      <th>Item</th>
+                                      <th>Category</th>
+                                      <th>In stock</th>                                                                            
                                       <th>Refill</th>
+                                      <th>Quantity</th>
+                                      <th>New Quantity</th>
+                                      <th>Cost</th>
+                                      <th>Amount</th>
+                                      <th>Action</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let p of pres; let r = index">
-                                      <td>{{r+1}}</td>
+                                  <tr>
+                                      <td>1</td>
                                       <td class="w60">
                                           <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                       </td>
                                       <td>
-                                          <!-- <a href="javascript:void(0);" title="">1006473</a> -->
-                                          <p class="mb-0">{{p.generic_name}}</p>
+                                          <a href="javascript:void(0);" title="">Peniciline</a>
+                                          <p class="mb-0">manufactural name</p>
                                       </td>
-                                      <td><span class="badge badge-warning">{{p.total_remain}}</span></td>
-                                      <td><input disabled value="{{p.quantity}}" style="width: 70%;"></td>
-                                      <td><input value="N{{p.quantity*p.selling_price}}" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
-                                  <!-- <tr>
-                                      <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                      </td>
+                                      <td><span class="badge badge-warning">Anti maleria</span></td>
+                                      <td>3928</td>                                                                          
+                                      <td>5</td>
+                                      <td>390</td>
+                                      <td>39</td> 
+                                      <td>N 700</td>
+                                      <td>N7,000</td>
                                       <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
-                                      </td>
-                                      <td>789</td>
-                                      <td><input value="16" style="width: 70%;"></td>
-                                      <td><input value="N2400" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                      </td>
-                                      <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
-                                      </td>
-                                      <td>789</td>
-                                      <td><input value="16" style="width: 70%;"></td>
-                                      <td><input value="N2400" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                      </td>
-                                      <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
-                                      </td>
-                                      <td>789</td>
-                                      <td><input value="16" style="width: 70%;"></td>
-                                      <td><input value="N2400" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr>
-                                  <tr>
-                                      <td class="w60">
-                                          <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                      </td>
-                                      <td>
-                                          <a href="javascript:void(0);" title="">1006473</a>
-                                          <p class="mb-0">sigu Soloman</p>
-                                      </td>
-                                      <td>789</td>
-                                      <td><input value="16" style="width: 70%;"></td>
-                                      <td><input value="N2400" style="width: 70%;"></td>
-                                      <td><input value="0" style="width: 70%;"></td>
-                                  </tr> -->
+                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                  </tr>                                
                               </tbody>
                               <tfoot>
                                   <tr>
                                       <th><strong>TOTAL</strong></th>
                                       <th></th>
                                       <th></th>
-                                      <th>1420</th>
+                                      <th></th>                                      
+                                      <th></th>
                                       <th>5</th>
-                                      <th>5</th>
+                                      <th>390</th> 
+                                      <td>39</td>                                 
+                                      <th>N 700:00</th>
+                                      <th>N7,000:00</th>
                                   </tr>
                               </tfoot>
                           </table>
                          
                           </div>
                       </div>                      
-                  <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
-                  <button type="button" class="btn btn-round btn-default">Cancel</button>
-              
-          </div>
-          <div class="card">
-              <div class="header">
-                  <h2>Label</h2>
-              </div>
-              <div class="body">
-                  <div class="row clearfix">
-                      <div class="col-lg-4 col-md-12">                                            
-                          <div class="form-group">                                                
-                              <input type="text" class="form-control" value="louispierce" disabled placeholder="Username">
-                          </div>
-                      </div>
-                      <div class="col-lg-4 col-md-12">
-                          <div class="form-group">
-                              <input type="email" class="form-control" value="louis.info@yourdomain.com" placeholder="Email">
-                          </div>
-                      </div>
-                      <div class="col-lg-4 col-md-12">
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Phone Number">
-                          </div>
-                      </div>                                
-                      <div class="col-lg-12 col-md-12">
-                          <hr>
-                          <h6>Change Password</h6>
-                          <div class="form-group">
-                              <input type="password" class="form-control" placeholder="Current Password">
-                          </div>
-                          <div class="form-group">
-                              <input type="password" class="form-control" placeholder="New Password">
-                          </div>
-                          <div class="form-group">
-                              <input type="password" class="form-control" placeholder="Confirm New Password">
-                          </div>
-                      </div>
-                  </div>
-                  <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
-                  <button type="button" class="btn btn-round btn-default">Cancel</button>
-              </div>
-          </div>
+                  <button type="button" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                  <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                  <button type="button" class="btn btn-round btn-default">Cancel</button>              
+          </div>          
       </div>
-  </div>
-
-    
+  </div>    
   </div>
 </div>

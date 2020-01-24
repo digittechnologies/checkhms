@@ -48,14 +48,13 @@ class Kernel extends ConsoleKernel
                     // echo $branch_name." ".$itemID->total_remain."<br/>";
                     $insert = DB::table($branch_name)->insertGetId(
                         [
-                            'open_stock'=> $itemID->close_balance,
+                            'open_stock'=> $itemID->total_remain,
                             'variance'=> $itemID->variance,
                             'sales'=> '0',
                             'transfer'=> '0',
                             'receive'=> '0',
-                            'close_balance'=> $itemID->balance,
+                            'total_remain'=> $itemID->total_remain,
                             'physical_balance'=> $itemID->physical_balance,
-                            'total_remain' => '0',
                             'c_date'=> $todayDate,
                             'c_time'=> $cTime, 
                             'item_detail_id' => $itemID->item_detail_id,
@@ -63,6 +62,7 @@ class Kernel extends ConsoleKernel
                         ]); 
                 }
             }
+
 
             // DB::table('recent_users')->delete();
         })->daily();
