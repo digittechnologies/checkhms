@@ -42,8 +42,7 @@ class AuthController extends Controller
                     ->select('users.*','departments.name')    
                     ->where('email','=',$email)   
                     ->where('password','=',$psw)         
-                    ->get();
-                    
+                    ->get();   
         return response()->json(
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
@@ -52,21 +51,25 @@ class AuthController extends Controller
                 // ->where('password','=',$psw)         
                 ->get(),
                 'token' =>  $this->respondWithToken($token)
+
             ]);
     }
 
     public function signup(SignUpRequest $request)
-    {
+    {   
+        // return $request->all();
+
         $user= User::create($request-> all());
         return $this->login($request);
     }
 
    
-    public function me()
+    public function me(Request $request)
     {
         $a = auth()->user();
         $e = auth()->user()->email;
         $p = auth()->user()->password;
+        $GLOBALS['loginBranch']=auth()->user()->branch_id;
         return response()->json(
             [
                 'aut'=> auth()->user(),

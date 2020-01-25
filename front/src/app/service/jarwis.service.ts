@@ -131,6 +131,9 @@ export class JarwisService {
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }
+  displaysetBranch() {
+    return this.http.get(`${this.baseUrl}/displaysetBranch`,)
+  }
   edtBranch(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
   }
@@ -177,7 +180,9 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtItemDetails/${id}`)
   }
   addItemDetails(data) {
-    return this.http.post(`${this.baseUrl}/addItemDetails`, data)
+    return this.http.post(`${this.baseUrl}/addItemDetails`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   updateItemDetails(data) {
     return this.http.post(`${this.baseUrl}/updateItemDetails`, data)
@@ -190,8 +195,10 @@ export class JarwisService {
   }
 
   // Item
-  displayItem() {
-    return this.http.get(`${this.baseUrl}/displayItem`,)
+  displayItem(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayItem/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   edtItem(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
@@ -279,7 +286,9 @@ export class JarwisService {
 
   // Staffs
   displayAllstaff() {
-    return this.http.get(`${this.baseUrl}/displayAllstaff`,)
+    return this.http.get(`${this.baseUrl}/displayAllstaff`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
@@ -287,17 +296,30 @@ export class JarwisService {
   c_uStatus(data) {
     return this.http.post<any>(`${this.baseUrl}/c_uStatus`, data)
   }
+  reStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/reStatus`, data)
+  }
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
 
   staffdetails(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`)
+    return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
+  }
+
+  assign(data) {
+    return this.http.post<any>(`${this.baseUrl}/assign`, data)
+  }
+
+  edtAssign(data) {
+    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
   }
   
 // Branches
@@ -308,7 +330,9 @@ export class JarwisService {
 //   return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
 // }
   createBranch(data) {
-  return this.http.post(`${this.baseUrl}/addBranch`, data)
+  return this.http.post(`${this.baseUrl}/addBranch`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
   }
 // updateCategories(data) {
 //   return this.http.post(`${this.baseUrl}/updateCategories`, data)
@@ -388,16 +412,104 @@ deleteAppointment(data) {
     return this.http.get<any>(`${this.baseUrl}/edtLabTestType/${id}`)
   }
 
-
   displayStockBranches() {
     return this.http.get(`${this.baseUrl}/stockBranches`,)
   }
+  
   addToStock(data) {
-    return this.http.post(`${this.baseUrl}/addToStock`, data)
+    return this.http.post(`${this.baseUrl}/addToStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
+
   transToStock(data) {
-    return this.http.post(`${this.baseUrl}/transferToStock`, data)
+    return this.http.post(`${this.baseUrl}/transferToStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
+
+  varianceStock(data) {
+    return this.http.post(`${this.baseUrl}/varianceStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  displayAdded() {
+      return this.http.get(`${this.baseUrl}/addedItems`,)
+  }
+
+  varianceItems() {
+    return this.http.get(`${this.baseUrl}/varianceItems`,)
+}
+
+  displayTransferred() {
+      return this.http.get(`${this.baseUrl}/transItems`,)
+  }
+
+  displayInstock(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
+  }
+  voucherAllStock(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  }
+
+  displayInstockT(data) {
+    return this.http.post<any>(`${this.baseUrl}/inStockT`, data)
+  }
+
+  saveAdd() {
+    return this.http.get(`${this.baseUrl}/saveAdd`)
+  }
+
+  saveTransfer() {
+    return this.http.get(`${this.baseUrl}/saveTransfer`)
+  }
+
+  saveVariance() {
+    return this.http.get(`${this.baseUrl}/saveVariance`)
+  }
+
+  editAdd(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editAdd/${id}`)
+  }
+
+  deleteAdd(data) {
+    return this.http.post(`${this.baseUrl}/deleteAdd`, data)
+  }
+  updateAddItem(data) {
+    return this.http.post(`${this.baseUrl}/updateAddItem`, data)
+  }
+  updatetransferItem(data) {
+    return this.http.post(`${this.baseUrl}/updatetransferItem`, data)
+  }
+  editTrans(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editTrans/${id}`)
+  }
+
+  deleteTrans(data) {
+    return this.http.post(`${this.baseUrl}/deleteTrans`, data)
+  }
+  stockHistory(data) {
+    return this.http.post(`${this.baseUrl}/stockHistory`, data)
+  }
+  stockReport(data) {
+    return this.http.post(`${this.baseUrl}/stockReport`, data)
+  }
+
+  pharmPriscription(data) {
+    return this.http.post(`${this.baseUrl}/pharmPriscription`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  } 
+
+  displayPharmPre(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`)
+  }
+
+  displayRole() {
+    return this.http.get(`${this.baseUrl}/displayRole`,)
+  }
+
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)

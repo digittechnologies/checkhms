@@ -19,7 +19,6 @@ Route::group([
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ChangePasswordController@process');
     
-});
 Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
 Route::get('getUcontent','DisplayController@getUContent');
@@ -55,6 +54,10 @@ Route::get('getalltitle','DisplayController@getalltitle');
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('c_uStatus','DisplayController@c_uStatus');
+Route::post('reStatus','DisplayController@reStatus');
+Route::post('assign','AddController@assign');
+Route::post('edtAssign','AddController@edtAssign');
+
 
 //ItemDetails
 Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');
@@ -67,6 +70,7 @@ Route::get('disItemDet','DisplayController@disItemDet');
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
+Route::get('displaysetBranch','DisplayController@displaysetBranch');
 Route::post('addBranch', 'AddController@createBranch');
 Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
@@ -111,7 +115,7 @@ Route::post('deleteShelve', 'AddController@deleteShelve');
 
 //Item
 Route::get('edtItem/{id}','DisplayController@edtItem');
-Route::get('displayItem','DisplayController@displayItem');
+Route::get('displayItem/{id}','DisplayController@displayItem');
 Route::post('addItem', 'AddController@addItem');
 Route::post('updateItem', 'AddController@updateItem');
 Route::post('deleteItem', 'AddController@deleteItem');
@@ -138,6 +142,9 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('pharmPriscription', 'AddController@pharmPriscription');
+
 
 //Invoices
 Route::get('edtInvoice/{id}','DisplayController@edtInvoice');
@@ -172,16 +179,33 @@ Route::post('addToStock', 'AddController@addToStock');
 Route::post('transferToStock', 'AddController@transferToStock');
 Route::get('saveAdd', 'AddController@saveAdd');
 Route::get('saveTransfer', 'AddController@saveTransfer');
+Route::get('saveVariance', 'AddController@saveVariance');
+Route::post('varianceStock', 'AddController@varianceStock');
 
-Route::get('comments','UserController@getComments');
-Route::get('rates','UserController@getRates');
-Route::get('all','UserController@getAll');
-Route::get('articles','UserController@getArticle');
-Route::get('titlerates','UserController@getRatesforTitle');
-Route::get('titlecomment','UserController@getcommentforTitle');
-Route::post('addview','UserController@addview');
-Route::post('updatePost','UserController@updatepost');
-Route::get('getAllPost','UserController@getAllPost');
+Route::get('varianceItems','DisplayController@varianceItems');
+Route::get('addedItems','DisplayController@addedItems');
+Route::get('transItems','DisplayController@transItems');
+Route::get('inStock/{id}','DisplayController@inStock');
+Route::post('inStockT','DisplayController@inStockT');
+Route::post('voucherAllStock/{id}','DisplayController@voucherAllStock');
+Route::get('editAdd/{id}', 'AddController@editAdd');
+Route::post('deleteAdd', 'AddController@deleteAdd');
+Route::post('updateAddItem', 'AddController@updateAddItem');
+Route::post('updatetransferItem', 'AddController@updatetransferItem');
+
+Route::get('editTrans/{id}', 'AddController@editTrans');
+Route::post('deleteTrans', 'AddController@deleteTrans');
+
+//Stock Report
+Route::post('stockReport','DisplayController@stockReport');
+Route::post('searchReport','DisplayController@searchReport');
+Route::post('stockHistory','DisplayController@stockHistory');
+
+
+Route::get('displayRole','DisplayController@displayRole');
+
+});
+
 
 //  Route::get('test',function(){rolecate
 //      return response()->json([

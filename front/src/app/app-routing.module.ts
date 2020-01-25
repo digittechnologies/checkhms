@@ -33,6 +33,7 @@ import { AllStaffComponent } from './admin/all-staff/all-staff.component';
 import { PaymentLogComponent } from './payment/payment-log/payment-log.component';
 import { PaymentHomeComponent } from './payment/payment-home/payment-home.component';
 import { PHistoryComponent } from './payment/p-history/p-history.component';
+import { InvoiceComponent } from './payment/invoice/invoice.component';
 
 // Lab
 import { LabLogComponent } from './lab/lab-log/lab-log.component';
@@ -59,6 +60,8 @@ import { ItemComponent } from './pharmacy/item/item.component';
 import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
 import { VoucherComponent } from './pharmacy/voucher/voucher.component';
 import {SetBranchComponent } from './branches/set-branch/set-branch.component';
+import { HistoryComponent } from './pharmacy/history/history.component';
+import {TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
 
 
 
@@ -96,7 +99,9 @@ const routes: Routes = [
          {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'pharmacy_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'voucher', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -110,6 +115,8 @@ const routes: Routes = [
          {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'payment_home', component: PaymentHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'payment', component: PHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'invoice/:id', component: InvoiceComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
 
          // Lab
          {path: 'lab_log', component: LabLogComponent, outlet: 'side',canActivate: [AfterLoginService] },

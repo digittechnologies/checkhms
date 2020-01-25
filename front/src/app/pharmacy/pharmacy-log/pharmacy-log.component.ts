@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pharmacy-log',
@@ -14,6 +15,11 @@ export class PharmacyLogComponent implements OnInit {
 
   response: any;
   log: any;
+  bran: any;
+  error: any;
+  pat: any;
+  department: any;
+  appontId: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -29,9 +35,63 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
       this.response = data;      
       this.log = this.response;
-      console.log(this.log)
     })
 
   }
+
+  appointment(id){
+
+    this.appontId = id;
+ 
+   // console.log(id);
+     
+   }
+ 
+   onSubmitApp(form: NgForm) {
+ 
+     this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+       data => this.handleResponse(data),
+         error => this.handleError(error)
+    );
+    
+   }
+
+  onSubmit(form: NgForm) {
+   
+    this.Jarwis.addCustomer(form.value).subscribe(
+     
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+           
+    ); this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      console.log(data);   
+      this.response = data;
+      this.department = this.response
+     
+   
+    })
+
+
+    
+  }
+  handleResponse(data) {    // 
+    let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
+      duration: 2000
+    })   
+    this.router.navigateByUrl('/Admin/(side:set_branch');
+    this.ngOnInit();
+    
+  }
+
+  handleError(error) {
+    this.error = error.error.errors;
+    let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
+      duration: 2000
+
+    })
+    
+  }
+
 
 }

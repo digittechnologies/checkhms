@@ -6,16 +6,16 @@
                     <h1>Staff Profile</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Oculux</a></li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
                         <li class="breadcrumb-item"><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]">Staffs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Doctors Profile</li>
+                        <li class="breadcrumb-item active" aria-current="page">Staff Profile</li>
                         </ol>
                     </nav>
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Add New</a>
                     <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -25,15 +25,86 @@
                     <div class="body text-center">
                         <img style="width: 130px;" src="http://localhost/buth-pharm/backend/public/upload/uploads/{{response.image}}" class="rounded-circle" alt="">
                         <div class="mt-3">
-                            <h5 class="mb-0"><strong>{{response.firstname}}</strong>{{response.lastname}}</h5>
-                            <span>{{response.city}}, {{response.state}}</span>
+                            <h5 class="mb-0"><strong>{{response.firstname}} </strong>{{response.lastname}}</h5>
+                            <span>{{response.city}} {{response.state}}</span>
                         </div>
                         <div class="m-t-15">
-                            <button class="btn btn-primary">Follow</button>
-                            <button class="btn btn-outline-secondary">Message</button>
+                            <span  *ngIf="response.position_id == 1 && response.branch_id == 0">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#AssignBranch">Assign Branch</button>
+                            </span>
+                            <span *ngIf="response.branch_id > 0">
+                                Assigned to: {{response.branch_id}} Branch
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#EditAssignBranch">Change Assigned Branch</button>
+                            </span>
+                            <!-- <button class="btn btn-outline-secondary">Message</button> -->
                         </div>                            
                     </div>
                 </div>
+
+                <div class="modal fade" id="AssignBranch" tabindex="1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h4" id="myLargeModalLabel">Assign Branch</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onAssign(assign)" #assign="ngForm"> 
+                                <div class="modal-body">             
+                                    <div class="row clearfix">
+                                        <div class="col-md-8">
+                                                <div class="form-group">
+                                                        <select class="form-control" (click)="get()" ngModel name="branch">
+                                                                <option value="">-- Select Branch --</option>
+                                                                <option  *ngFor="let br of bran" value="{{br.id}}" [ngValue]="br.id">{{br.name}}</option>                              
+                                                        </select> 
+                                                    </div> 
+                                        </div>             
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-round btn-primary">Assign</button>
+                                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+
+
+                        <div class="modal fade" id="EditAssignBranch" tabindex="1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title h4" id="myLargeModalLabel">Edit Assigned Branch</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEditAssign(edtassign)" #edtassign="ngForm"> 
+                                        <div class="modal-body">             
+                                            <div class="row clearfix">
+                                                <div class="col-md-8">
+                                                        <div class="form-group">
+                                                                <select class="form-control" (click)="get()" ngModel name="branch">
+                                                                        <option value="">-- Select Branch --</option>
+                                                                        <option  *ngFor="let br of bran" value="{{br.id}}" [ngValue]="br.id">{{br.name}}</option>                              
+                                                                </select> 
+                                                            </div> 
+                                                </div>             
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-round btn-primary">Assign</button>
+                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+        
+
                 <div class="card">
                     <div class="header">
                         <h2>About Me</h2>

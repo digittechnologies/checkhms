@@ -1,4 +1,4 @@
-<div id="main-content">
+    <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">
@@ -134,6 +134,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control show-tick" ngModel name="status">
+                                    <option>Select Status</option>
                                     <option value="active">Active</option>
                                     <option value="suspend">Suspend</option>                                
                                 </select>                  
@@ -151,8 +152,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control show-tick" ngModel name="branch_id">
-                                    <option value="">- Select Team -</option>
-                                    <option *ngFor="let b of branch" [value]="b.id">{{b.br_name}}</option>                                
+                                    <option value="">- Select Branch -</option>
+                                    <option *ngFor="let b of branch" [value]="b.id">{{b.name}}</option>                                
                                 </select>
                             </div>
                         </div>                               
