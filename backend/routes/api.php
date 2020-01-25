@@ -93,6 +93,16 @@ Route::post('addType', 'AddController@addType');
 Route::post('updateType', 'AddController@updateType');
 Route::post('deleteType', 'AddController@deleteType');
 
+//settings
+Route::get('displayDuration','DisplayController@displayDuration');
+Route::post('addItemType', 'AddController@addItemType');
+Route::post('updateDuration', 'AddController@updateDuration');
+Route::get('edtduration/{id}','DisplayController@edtduration');
+Route::post('deleteDuration', 'AddController@deleteDuration');
+Route::get('displayInstruction','DisplayController@displayInstruction');
+Route::post('addInstruction', 'AddController@addInstruction');
+Route::post('deleteInstruction', 'AddController@deleteInstruction');
+
 //Manufacturer
 Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');
 Route::get('displayManufacturer','DisplayController@displayManufacturer');

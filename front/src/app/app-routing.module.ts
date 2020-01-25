@@ -62,6 +62,8 @@ import { VoucherComponent } from './pharmacy/voucher/voucher.component';
 import {SetBranchComponent } from './branches/set-branch/set-branch.component';
 import { HistoryComponent } from './pharmacy/history/history.component';
 import {TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
+import { DurationComponent } from './pharmacy/duration/duration.component';
+import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
 
 
 
@@ -102,6 +104,8 @@ const routes: Routes = [
          {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },

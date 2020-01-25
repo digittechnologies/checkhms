@@ -25,11 +25,10 @@ use App\Lab_depts;
 use App\Lab_test_types;
 use Carbon\Carbon;
 use App\Role;
+use App\Duration;
 
 class DisplayController extends Controller
 {
-
-    // $users = DB::connection('mysql2')->select(...);
 
     /**
      * Display a listing of the resource.
@@ -161,6 +160,22 @@ class DisplayController extends Controller
     public function displayManufacturer()
     {
         return DB::table("manufacturer_details")->get();
+    }  
+
+    // Setting
+    public function displayDuration()
+    {
+        return DB::table("durations")->join('item_types','durations.type_id','=','item_types.id')
+                                    ->join('users','durations.user_id','=','users.id')
+                                    ->select('durations.*','item_types.type_name','firstname','lastname')               
+                                    ->get();
+    }
+    public function displayInstruction()
+    {
+        return DB::table("daily_supply")->join('item_types','daily_supply.type_id','=','item_types.id')
+                                    ->join('users','daily_supply.user_id','=','users.id')
+                                    ->select('daily_supply.*','item_types.type_name','firstname','lastname')               
+                                    ->get();
     }
 
     public function edtManufacturer($id)
@@ -168,6 +183,16 @@ class DisplayController extends Controller
         return response()->json(
             Manufacturer_details::orderBy('id')
             ->select('manufacturer_details.*')     
+            ->where('id','=',$id)          
+            ->get()   
+        );
+    }
+
+    public function edtduration($id)
+    {
+        return response()->json(
+            DB::table('durations')->orderBy('id')
+            ->select('durations.*')     
             ->where('id','=',$id)          
             ->get()   
         );
