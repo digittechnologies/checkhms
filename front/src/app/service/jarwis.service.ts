@@ -117,6 +117,16 @@ export class JarwisService {
   addType(data) {
     return this.http.post(`${this.baseUrl}/addType`, data)
   }
+  addItemType(data) {
+    return this.http.post(`${this.baseUrl}/addItemType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  addInstruction(data) {
+    return this.http.post(`${this.baseUrl}/addInstruction`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   updateType(data) {
     return this.http.post(`${this.baseUrl}/updateType`, data)
   }
@@ -246,6 +256,29 @@ export class JarwisService {
   deleteManufacturer(data) {
     return this.http.post(`${this.baseUrl}/deleteManufacturer`, data)
   } 
+
+  // settings
+  displayDuration() {
+    return this.http.get(`${this.baseUrl}/displayDuration`,)
+  }
+  updateDuration(data) {
+    return this.http.post(`${this.baseUrl}/updateDuration`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  edtduration(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
+  }
+  deleteDuration(data) {
+    return this.http.post(`${this.baseUrl}/deleteDuration`, data)
+  }
+  deleteInstruction(data) {
+    return this.http.post(`${this.baseUrl}/deleteInstruction`, data)
+  } 
+  displayInstruction() {
+    return this.http.get(`${this.baseUrl}/displayInstruction`,)
+  }
+
   //Units
   displayUnit() {
     return this.http.get(`${this.baseUrl}/displayUnit`,)

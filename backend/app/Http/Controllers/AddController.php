@@ -26,6 +26,8 @@ use Carbon\Carbon;
 use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
+use App\Duration;
+use App\Daily_supply;
 
 
 class AddController extends Controller
@@ -176,6 +178,47 @@ class AddController extends Controller
         }
     }
 
+    // Setting
+    public function addItemType(Request $request)
+    {
+        $staffId= Auth()->user()->id;
+        $request->merge(['user_id' => $staffId]);
+
+        $type= Duration::create($request-> all());
+       
+        if($type){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function addInstruction(Request $request)
+    {
+        $staffId= Auth()->user()->id;
+        $request->merge(['user_id' => $staffId]);
+
+        $type= Daily_supply::create($request-> all());
+       
+        if($type){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     public function updateType(Request $request)
     {
         $id=$request->data['id'];
@@ -275,6 +318,74 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    }
+
+    public function updateDuration(Request $request)
+    {
+        $id=$request->id;
+        $duration= $request->duration_name;
+        $type= $request->type_id;
+        $value= $request->value;
+        $userId= Auth()->user()->id;;
+        $status= $request->status; 
+        $update = DB::table('durations')->where('durations.id','=',$id)
+        ->update([
+            'duration_name'=> $duration,
+            'type_id' => $type,
+            'value' => $value,
+            'user_id' => $userId,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteDuration(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('durations')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+
+    public function deleteInstruction(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('daily_supply')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
     }
 
     public function deleteManufacturer(Request $request)
