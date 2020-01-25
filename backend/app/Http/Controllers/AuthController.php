@@ -20,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signup','updateprofile']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup','updateprofile', 'editPriviledges']]);
     }
 
     /**
@@ -145,6 +145,24 @@ class AuthController extends Controller
 
     public function setPasswordAttribute($value){
         $this->attributes['password']=bcsqrt($value);
+    }
+
+    public function editPriviledges(Request $request)
+    {
+        $input = collect(request()->all())->filter()->all();
+        $id=$request->id;
+        $update = User::where('id', $id)->update($input);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 
     public function updateprofile(Request $request)

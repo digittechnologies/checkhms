@@ -1734,49 +1734,5 @@ class AddController extends Controller
         }
     }
 
-
-    public function assign(Request $request)
-    {
-        $id=$request->uid;
-        $branch= $request->branch;
-
-        $update = DB::table('users')->where('id','=',$id)
-        ->update([
-            'branch_id' => $branch
-        ]);
-        if($update){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
-    }
-
-    public function edtAssign(Request $request)
-    {
-        $id=$request->uid;
-        $branch= $request->branch;
-
-        $update = DB::table('users')->where('id','=',$id)
-        ->update([
-            'branch_id' => $branch
-        ]);
-        if($update){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
-    }
 }
 

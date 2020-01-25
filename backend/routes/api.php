@@ -38,6 +38,7 @@ Route::get('displaybusiness','DisplayController@displaybusiness');
 Route::get('displaypeople','DisplayController@displaypeople');
 Route::get('displaynews','DisplayController@displaynews');
 
+Route::post('editPriviledges', 'AuthController@editPriviledges');
 
 
 Route::post('addDept', 'AddController@addDept');

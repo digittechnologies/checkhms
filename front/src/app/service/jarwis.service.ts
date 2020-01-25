@@ -92,20 +92,6 @@ export class JarwisService {
     }})
 
   } 
-  displayartifact() {
-    return this.http.get(`${this.baseUrl}/displayartifact`,)
-  }
-  displaybusiness() {
-    return this.http.get(`${this.baseUrl}/displaybusiness`,)
-  }
-  displaypeople() {
-    return this.http.get(`${this.baseUrl}/displaypeople`,)
-  }
-  displaynews() {
-    return this.http.get(`${this.baseUrl}/displaynews`,)
-  }
-
-
 
   // Type
   displayType() {
@@ -347,12 +333,8 @@ export class JarwisService {
     }})
   }
 
-  assign(data) {
-    return this.http.post<any>(`${this.baseUrl}/assign`, data)
-  }
-
-  edtAssign(data) {
-    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
+  editPriviledges(data) {
+    return this.http.post<any>(`${this.baseUrl}/editPriviledges`, data)
   }
   
 // Branches

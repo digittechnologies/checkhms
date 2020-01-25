@@ -67,6 +67,7 @@ export class AllItemsComponent implements OnInit {
   uPos: any;
   uDept: any;
   uBranchName: any;
+  shelve: any;
 
 
   constructor( 
@@ -128,6 +129,13 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.manuf = this.response   
+
+    })
+
+    this.Jarwis.displayShelve().subscribe(
+      data=>{
+      this.response = data;      
+      this.shelve = this.response   
 
     })
 
