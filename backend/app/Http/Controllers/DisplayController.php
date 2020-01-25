@@ -585,7 +585,7 @@ class DisplayController extends Controller
 
         $sDate = $request->sDate;
         $eDate = $request->eDate;
-        $id = 'branch_main';
+        $id = $request->branch;
         $startDate = new Carbon($sDate);
         $endDate = new Carbon($eDate);
         $dateRange = array();

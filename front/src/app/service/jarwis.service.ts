@@ -101,9 +101,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtType/${id}`)
   }
   addType(data) {
-    return this.http.post(`${this.baseUrl}/addType`, data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addType`, data)
   }
   updateType(data) {
     return this.http.post(`${this.baseUrl}/updateType`, data)
@@ -126,9 +124,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
   }
   addBranch(data) {
-    return this.http.post(`${this.baseUrl}/addBranch`, data, {headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addBranch`, data)
   }
   updateBranch(data) {
     return this.http.post(`${this.baseUrl}/updateBranch`, data)
@@ -194,9 +190,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
   }
   addItem(data) {
-    return this.http.post(`${this.baseUrl}/addItem`, data, {headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addItem`, data)
   }
   updateItem(data) {
     return this.http.post(`${this.baseUrl}/updateItem`, data)
@@ -213,9 +207,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
   }
   addCategories(data) {
-    return this.http.post(`${this.baseUrl}/addCategories`, data, {headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addCategories`, data)
   }
   updateCategories(data) {
     return this.http.post(`${this.baseUrl}/updateCategories`, data)
@@ -232,9 +224,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtManufacturer/${id}`)
   }
   addManufacturer(data) {
-    return this.http.post(`${this.baseUrl}/addManufacturer`, data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addManufacturer`, data)
   }
   updateManufacturer(data) {
     return this.http.post(`${this.baseUrl}/updateManufacturer`, data)
@@ -250,9 +240,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtUnit/${id}`)
   }
   addUnit(data) {
-    return this.http.post(`${this.baseUrl}/addUnit`, data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addUnit`, data)
   }
   updateUnit(data) {
     return this.http.post(`${this.baseUrl}/updateUnit`, data)
@@ -267,9 +255,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtDept/${id}`)
   }
   addDept(data) {
-    return this.http.post(`${this.baseUrl}/addDept`, data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
+    return this.http.post(`${this.baseUrl}/addDept`, data)
   }
   updateDept(data) {
     return this.http.post(`${this.baseUrl}/updateDept`, data)
@@ -344,17 +330,13 @@ displayCustomer() {
 }
 
 addCustomer(data) {
-  return this.http.post(`${this.baseUrl}/addCustomer`, data,{headers:{
-    Authorization:`Bearer ${localStorage.token}`
-  }})
+  return this.http.post(`${this.baseUrl}/addCustomer`, data)
 }
 patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
 makeAppointment(data) {
-  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
-    Authorization:`Bearer ${localStorage.token}`
-  }})
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data)
 }
 
 //Appointment 
