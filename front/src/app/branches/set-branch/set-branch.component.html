@@ -51,7 +51,7 @@
                               </td>                          
                               <td>
                                   <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button> -->
-                                  <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-trash-o"></i></button>
+                                  <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                               </td>
                           </tr>                                                   

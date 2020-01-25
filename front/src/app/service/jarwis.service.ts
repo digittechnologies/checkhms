@@ -92,20 +92,6 @@ export class JarwisService {
     }})
 
   } 
-  displayartifact() {
-    return this.http.get(`${this.baseUrl}/displayartifact`,)
-  }
-  displaybusiness() {
-    return this.http.get(`${this.baseUrl}/displaybusiness`,)
-  }
-  displaypeople() {
-    return this.http.get(`${this.baseUrl}/displaypeople`,)
-  }
-  displaynews() {
-    return this.http.get(`${this.baseUrl}/displaynews`,)
-  }
-
-
 
   // Type
   displayType() {
@@ -314,12 +300,8 @@ export class JarwisService {
     }})
   }
 
-  assign(data) {
-    return this.http.post<any>(`${this.baseUrl}/assign`, data)
-  }
-
-  edtAssign(data) {
-    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
+  editPriviledges(data) {
+    return this.http.post<any>(`${this.baseUrl}/editPriviledges`, data)
   }
   
 // Branches
@@ -449,8 +431,10 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
-  voucherAllStock(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  voucherAllStock(id:string, data) {
+    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayInstockT(data) {

@@ -71,13 +71,15 @@ onUpdate(form: NgForm) {
 }
 
 onDelete(id: string) {
+  if(confirm('This can\'t be revert after deleted')){
 
-  this.Jarwis.deleteCategories(id).subscribe(  
+    this.Jarwis.deleteCategories(id).subscribe(  
+        
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
       
-    data => this.handleResponse(data),
-    error => this.handleError(error), 
-    
-  );
+    );
+  }
   }
 
 
@@ -93,7 +95,7 @@ onDelete(id: string) {
   }
 
   handleResponse(data) {    // 
-    let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000
     })   
     this.router.navigateByUrl('/Admin/(side:catacturer');

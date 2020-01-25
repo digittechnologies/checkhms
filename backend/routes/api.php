@@ -38,6 +38,7 @@ Route::get('displaybusiness','DisplayController@displaybusiness');
 Route::get('displaypeople','DisplayController@displaypeople');
 Route::get('displaynews','DisplayController@displaynews');
 
+Route::post('editPriviledges', 'AuthController@editPriviledges');
 
 
 Route::post('addDept', 'AddController@addDept');
@@ -181,7 +182,7 @@ Route::get('saveAdd', 'AddController@saveAdd');
 Route::get('saveTransfer', 'AddController@saveTransfer');
 Route::get('saveVariance', 'AddController@saveVariance');
 Route::post('varianceStock', 'AddController@varianceStock');
-
+          
 Route::get('varianceItems','DisplayController@varianceItems');
 Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');

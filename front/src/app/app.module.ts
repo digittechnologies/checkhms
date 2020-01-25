@@ -79,6 +79,8 @@ import { LabHomeComponent } from './lab/lab-home/lab-home.component';
 import { AllStaffComponent } from './admin/all-staff/all-staff.component';
 import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-taskboard.component';
 import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
+import { DurationComponent } from './pharmacy/duration/duration.component';
+import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
 
 
 @NgModule({
@@ -190,7 +192,11 @@ import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
   
     PatientTaskboardComponent,
   
-    SetLabTestComponent
+    SetLabTestComponent,
+  
+    DurationComponent,
+  
+    DailySupplyComponent
   ],
   imports: [
     BrowserModule,

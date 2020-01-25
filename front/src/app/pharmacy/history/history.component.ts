@@ -17,7 +17,7 @@ export class HistoryComponent implements OnInit {
   error: any;
   action: any;
   payloads: any;
-  getAction: any;
+  getAction = '';
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -27,11 +27,13 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
       this.branch = this.response
       })  
+      
   }
 
   onClickSubmit(form: NgForm) {

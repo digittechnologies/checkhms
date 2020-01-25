@@ -19,6 +19,10 @@ export class AllStaffComponent implements OnInit {
   branch: any;
   givenDept: any;
   error: any;
+  profile: any;
+  givenRole: any;
+  staff: any;
+  thisStaff: any;
 
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
@@ -26,6 +30,18 @@ export class AllStaffComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.Jarwis.displayAllstaff().subscribe(
+      data=>{
+      this.response = data;
+      this.staff = this.response
+    })
+    
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.profile = this.response.det[0];
+    })
+
     this.Jarwis.displayDepartments().subscribe(
       data=>{
       this.response = data;
@@ -36,12 +52,6 @@ export class AllStaffComponent implements OnInit {
       data=>{
       this.response = data;
       this.role = this.response
-    })
-
-    this.Jarwis.displayAllposition().subscribe(
-      data=>{
-        this.response = data;
-        this.position = this.response;
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -55,6 +65,11 @@ export class AllStaffComponent implements OnInit {
     this.ngOnInit() 
   }
   
+  onSelectRole(r){
+    this.givenRole = r.target.value;
+    this.ngOnInit()
+  }
+
   onSubmit(form: NgForm) {
     this.Jarwis.signup(form.value).subscribe(
       data => this.handleResponse(data),
@@ -62,9 +77,35 @@ export class AllStaffComponent implements OnInit {
     );
   }
 
-  
+  uStatus(id){
+    this.Jarwis.uStatus(id).subscribe(
+     data => this.handleResponse(data),
+       error => this.handleError(error)
+  );
+   }
+
+   c_uStatus(id){
+     if(confirm('This will block the user from logging in')){
+      this.Jarwis. c_uStatus(id).subscribe(
+        data => this.handleResponse(data),
+          error => this.handleError(error)
+     );
+     }
+   }
+
+   reStatus(id){
+    if(confirm('This will re-activate the user')){
+      this.Jarwis. reStatus(id).subscribe(
+      data => this.handleResponse(data),
+        error => this.handleError(error)
+    );
+    }
+   }
+   getId(id){
+     this.thisStaff = id;
+   }
   handleResponse(data) { 
-    let snackBarRef = this.snackBar.open("User added and details sent to user email", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
