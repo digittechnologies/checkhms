@@ -162,6 +162,18 @@ class DisplayController extends Controller
         return DB::table("manufacturer_details")->get();
     }  
 
+    // Refill
+    public function displayRefill()
+    {
+        return DB::table("vouchers")->join ('item_details','vouchers.item_detail_id','=','item_details.id')
+                                    ->join ('branches','vouchers.branch_id','=','branches.id')
+                                    ->join ('customers','vouchers.customer_id','=','customers.id')
+                                    ->join ('users','vouchers.staff_id','=','users.id')
+                                    ->select('vouchers.*','item_details.generic_name','users.firstname','users.lastname', 'branches.name', 'customers.name as customer_name')               
+                                    ->get();
+    }
+
+
     // Setting
     public function displayDuration()
     {
@@ -193,6 +205,16 @@ class DisplayController extends Controller
         return response()->json(
             DB::table('durations')->orderBy('id')
             ->select('durations.*')     
+            ->where('id','=',$id)          
+            ->get()   
+        );
+    }
+
+    public function edtInstruction($id)
+    {
+        return response()->json(
+            DB::table('daily_supply')->orderBy('id')
+            ->select('daily_supply.*')     
             ->where('id','=',$id)          
             ->get()   
         );

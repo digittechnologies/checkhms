@@ -31,6 +31,8 @@ export class DailySupplyComponent implements OnInit {
   durationName: any;
   upvalue: any;
   upItem_id: any;
+  durares: any;
+  duraid: string;
 
   constructor(
     private Jarwis: JarwisService,
@@ -57,25 +59,20 @@ export class DailySupplyComponent implements OnInit {
   
   editdept(id: string) {
     console.log(id)
-    this.Jarwis.edtduration(id).subscribe(
+    this.Jarwis.edtInstruction(id).subscribe(
       data=>{      
-        this.manufres = data; 
-        this.manufid= id
-        this.durationName= this.manufres[0].duration_name;
-        this.upvalue= this.manufres[0].value;
-        this.upItem_id= this.manufres[0].type_id
-        // this.manufDetail= this.manufres[0].details
+        this.durares = data; 
+        this.duraid= id 
+        this.durationName= this.durares[0].name;
+        this.upvalue= this.durares[0].value;      
       })
   }
 
 onUpdate(form: NgForm) {
-
   
-  form.value.id=this.manufid
-  // this.image= form.value.image
-  //  console.log(form)
+  form.value.id=this.duraid; 
    console.log(form.value)
-  this.Jarwis.updateDuration(form.value).subscribe(        
+  this.Jarwis.updateInsruction(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
     

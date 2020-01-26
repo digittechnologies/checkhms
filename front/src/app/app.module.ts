@@ -81,6 +81,7 @@ import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-
 import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
 import { DurationComponent } from './pharmacy/duration/duration.component';
 import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
+import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
 
 
 @NgModule({
@@ -196,7 +197,9 @@ import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.compo
   
     DurationComponent,
   
-    DailySupplyComponent
+    DailySupplyComponent,
+  
+    RefillDetailsComponent
   ],
   imports: [
     BrowserModule,

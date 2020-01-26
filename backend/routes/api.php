@@ -102,6 +102,9 @@ Route::post('deleteDuration', 'AddController@deleteDuration');
 Route::get('displayInstruction','DisplayController@displayInstruction');
 Route::post('addInstruction', 'AddController@addInstruction');
 Route::post('deleteInstruction', 'AddController@deleteInstruction');
+Route::get('edtInstruction/{id}','DisplayController@edtInstruction');
+Route::post('updateInsruction', 'AddController@updateInsruction');
+Route::get('displayRefill','DisplayController@displayRefill');
 
 //Manufacturer
 Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');

@@ -247,6 +247,15 @@ export class JarwisService {
   displayDuration() {
     return this.http.get(`${this.baseUrl}/displayDuration`,)
   }
+
+  displayRefill() {
+    return this.http.get(`${this.baseUrl}/displayRefill`,)
+  }
+  updateInsruction(data) {
+    return this.http.post(`${this.baseUrl}/updateInsruction`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   updateDuration(data) {
     return this.http.post(`${this.baseUrl}/updateDuration`, data, {headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -254,6 +263,9 @@ export class JarwisService {
   }
   edtduration(id:any) {
     return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
+  }
+  edtInstruction(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtInstruction/${id}`)
   }
   deleteDuration(data) {
     return this.http.post(`${this.baseUrl}/deleteDuration`, data)

@@ -349,6 +349,35 @@ class AddController extends Controller
         }
     }
 
+    public function updateInsruction(Request $request)
+    {
+        $id=$request->id;
+        $duration= $request->name;
+        $type= $request->type_id;
+        $value= $request->value;
+        $userId= Auth()->user()->id;;
+        $status= $request->status; 
+        $update = DB::table('daily_supply')->where('daily_supply.id','=',$id)
+        ->update([
+            'name'=> $duration,
+            'type_id' => $type,
+            'value' => $value,
+            'user_id' => $userId,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     public function deleteDuration(Request $request)
     {
         $id=$request[0];
@@ -1734,5 +1763,49 @@ class AddController extends Controller
         }
     }
 
+
+    public function assign(Request $request)
+    {
+        $id=$request->uid;
+        $branch= $request->branch;
+
+        $update = DB::table('users')->where('id','=',$id)
+        ->update([
+            'branch_id' => $branch
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function edtAssign(Request $request)
+    {
+        $id=$request->uid;
+        $branch= $request->branch;
+
+        $update = DB::table('users')->where('id','=',$id)
+        ->update([
+            'branch_id' => $branch
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
 }
 

@@ -160,7 +160,7 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <input type="text" class="form-control" [value]="durationName" placeholder="Duration" ngModel name="duration_name" required>
+                            <input type="text" class="form-control" [value]="durationName" placeholder="Duration" ngModel name="name" required>
                         </div>
                     </div>             
                 </div>
@@ -169,8 +169,8 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Value" ngModel name="value" required>
-                            <!-- <input type="hidden" ngModel name="id" required> -->
+                            <input type="text" class="form-control" [value]="upvalue" placeholder="Value" ngModel name="value" required>
+                            <input type="hidden" ngModel name="id" required>
                         </div>
                     </div>             
                 </div>
