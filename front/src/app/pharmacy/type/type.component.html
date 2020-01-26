@@ -32,7 +32,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let d of type; let r = index">
+                          <tr *ngFor="let d of type| paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                               <td>
                                   {{r+1}}
                               </td>
@@ -48,6 +48,8 @@
                           </tr>                                                   
                       </tbody>
                   </table>
+                  <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+
               </div>
           </div>
       </div>
