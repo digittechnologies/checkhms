@@ -7,11 +7,12 @@ import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-shelf',
-  templateUrl: './shelf.component.html',
-  styleUrls: ['./shelf.component.css']
+  selector: 'app-duration',
+  templateUrl: './duration.component.html',
+  styleUrls: ['./duration.component.css']
 })
-export class ShelfComponent implements OnInit {
+export class DurationComponent implements OnInit {
+
   response: any;
   staff: any;
   staffRes: Object;
@@ -19,16 +20,22 @@ export class ShelfComponent implements OnInit {
   posRes: any;
   pos: any;
   data: string;
-  image: any; 
-  shelv: any;
-  shelvres: any;
-  shelvid: string;
-  shelvName: any;
-  branch: any;
-  shelvPoint: any;
-  shelvStatus: any;
-  
-  constructor( 
+  typeimage: any;
+  image: any;
+  manuf: any;
+  durares: any;
+  duraid: string;
+  manufName: any;
+  typeid: any;
+  manufAdd: any;
+  manufNum: any;
+  manufDetail: any;
+  types: any;
+  durationName: any;
+  upvalue: any;
+  upItem_id: any;
+
+  constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
@@ -37,44 +44,42 @@ export class ShelfComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.Jarwis.displayBranch().subscribe(
-      data=>{
-      this.response = data;
-      
-      this.branch = this.response
-     
-   
-    })
-
-    this.Jarwis.displayShelve().subscribe(
+    this.Jarwis.displayDuration().subscribe(
       data=>{
       this.response = data;      
-      this.shelv = this.response   
+      this.manuf = this.response   
     })
-  
-}
 
-editdept(id: string) {
-  console.log(id)
-  this.Jarwis.edtShelve(id).subscribe(
-    data=>{      
-      this.shelvres = data; 
-      this.shelvid= id
-      this.shelvName= this.shelvres[0].name;
-      this.shelvPoint= this.shelvres[0].point;
-      this.shelvStatus= this.shelvres[0].status;
+    this.Jarwis.displayType().subscribe(
+      data=>{
+      this.response = data;      
+      this.types = this.response 
     })
-}
+  }
+
+  
+  editdept(id: string) {
+    console.log(id)
+    this.Jarwis.edtduration(id).subscribe(
+      data=>{      
+        this.durares = data; 
+        this.duraid= id
+        console.log(this.durares)
+        // this.durationName= this.durares[0].duration_name;
+        // this.upvalue= this.durares[0].value;
+        // this.upItem_id= this.durares[0].type_id
+        // this.manufDetail= this.manufres[0].details
+      })
+  }
 
 onUpdate(form: NgForm) {
 
   
-  form.value.id=this.shelvid
+  form.value.id=this.duraid
   // this.image= form.value.image
   //  console.log(form)
    console.log(form.value)
-  this.Jarwis.updateShelve(form.value).subscribe(        
+  this.Jarwis.updateDuration(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
     
@@ -84,19 +89,19 @@ onUpdate(form: NgForm) {
 onDelete(id: string) {
   if(confirm('This can\'t be revert after deleted')){
 
-    this.Jarwis.deleteShelve(id).subscribe(  
+    this.Jarwis.deleteDuration(id).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
     );
   }
-  }
+}
 
 
   onSubmit(form: NgForm) {
    
-    this.Jarwis.addShelve(form.value).subscribe(
+    this.Jarwis.addItemType(form.value).subscribe(
      
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -109,7 +114,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:shelvacturer');
+    this.router.navigateByUrl('/Admin/(side:manufacturer');
     this.ngOnInit();
     
   }
@@ -125,6 +130,5 @@ onDelete(id: string) {
 
   councle(){}
 
-
+  
 }
-

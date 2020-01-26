@@ -12,9 +12,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./trans-history.component.css']
 })
 export class TransHistoryComponent implements OnInit {
-  response: Object;
-  branch: any;
-  payloads: Object;
+  response: any;
+  bran: any;
+  payloads: any;
   action: any;
   getAction: any;
   error: any;
@@ -28,12 +28,15 @@ export class TransHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
-      this.branch = this.response
-      })  
+      this.bran = this.response   
+    }) 
+  }
+
+  get(){
+    this.ngOnInit();
   }
 
   onClickSubmit(form: NgForm) {
@@ -41,27 +44,6 @@ export class TransHistoryComponent implements OnInit {
       data => {
         this.response = data;
         this.payloads = this.response;
-      },
-      error => this.handleError(error),      
-    );  
-  }
-
-  handleResponse(data) {     
-    let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
-      duration: 2000
-    })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
-    this.ngOnInit();
-    
-  }
-
-  handleError(error) {
-    this.error = error.error.errors;
-    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
-      duration: 2000
-
-    })
-    
-  }
-  
+      });  
+  }  
 }

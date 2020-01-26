@@ -92,20 +92,6 @@ export class JarwisService {
     }})
 
   } 
-  displayartifact() {
-    return this.http.get(`${this.baseUrl}/displayartifact`,)
-  }
-  displaybusiness() {
-    return this.http.get(`${this.baseUrl}/displaybusiness`,)
-  }
-  displaypeople() {
-    return this.http.get(`${this.baseUrl}/displaypeople`,)
-  }
-  displaynews() {
-    return this.http.get(`${this.baseUrl}/displaynews`,)
-  }
-
-
 
   // Type
   displayType() {
@@ -116,6 +102,16 @@ export class JarwisService {
   }
   addType(data) {
     return this.http.post(`${this.baseUrl}/addType`, data)
+  }
+  addItemType(data) {
+    return this.http.post(`${this.baseUrl}/addItemType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  addInstruction(data) {
+    return this.http.post(`${this.baseUrl}/addInstruction`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   updateType(data) {
     return this.http.post(`${this.baseUrl}/updateType`, data)
@@ -246,6 +242,29 @@ export class JarwisService {
   deleteManufacturer(data) {
     return this.http.post(`${this.baseUrl}/deleteManufacturer`, data)
   } 
+
+  // settings
+  displayDuration() {
+    return this.http.get(`${this.baseUrl}/displayDuration`,)
+  }
+  updateDuration(data) {
+    return this.http.post(`${this.baseUrl}/updateDuration`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  edtduration(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
+  }
+  deleteDuration(data) {
+    return this.http.post(`${this.baseUrl}/deleteDuration`, data)
+  }
+  deleteInstruction(data) {
+    return this.http.post(`${this.baseUrl}/deleteInstruction`, data)
+  } 
+  displayInstruction() {
+    return this.http.get(`${this.baseUrl}/displayInstruction`,)
+  }
+
   //Units
   displayUnit() {
     return this.http.get(`${this.baseUrl}/displayUnit`,)
@@ -314,12 +333,8 @@ export class JarwisService {
     }})
   }
 
-  assign(data) {
-    return this.http.post<any>(`${this.baseUrl}/assign`, data)
-  }
-
-  edtAssign(data) {
-    return this.http.post<any>(`${this.baseUrl}/edtAssign`, data)
+  editPriviledges(data) {
+    return this.http.post<any>(`${this.baseUrl}/editPriviledges`, data)
   }
   
 // Branches
@@ -449,8 +464,10 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
-  voucherAllStock(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/voucherAllStock/${id}`)
+  voucherAllStock(id:string, data) {
+    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayInstockT(data) {

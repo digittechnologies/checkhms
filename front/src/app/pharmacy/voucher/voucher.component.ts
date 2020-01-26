@@ -58,7 +58,7 @@ export class VoucherComponent implements OnInit {
     this.ngOnInit()
   }
   onSelectItem(id) {
-    this.Jarwis.voucherAllStock(id.target.value).subscribe(  
+    this.Jarwis.voucherAllStock(id.target.value,'').subscribe(  
       data=>{
         this.response = data;
         this.total =this.response;

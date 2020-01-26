@@ -64,14 +64,13 @@ export class MakeAppointmentComponent implements OnInit {
   }
 
   onDelete(id: string) {
-
-    this.Jarwis.deleteAppointment(id).subscribe(  
-        
-      data => this.handleResponse(data),
-      error => this.handleError(error), 
-      
-    );
+    if(confirm("Click ok to terminate appointment or cancel to go back")){
+      this.Jarwis.deleteAppointment(id).subscribe(  
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
     }
+  }
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000

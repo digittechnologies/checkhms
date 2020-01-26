@@ -38,6 +38,7 @@ Route::get('displaybusiness','DisplayController@displaybusiness');
 Route::get('displaypeople','DisplayController@displaypeople');
 Route::get('displaynews','DisplayController@displaynews');
 
+Route::post('editPriviledges', 'AuthController@editPriviledges');
 
 
 Route::post('addDept', 'AddController@addDept');
@@ -91,6 +92,16 @@ Route::get('displayType','DisplayController@displayType');
 Route::post('addType', 'AddController@addType');
 Route::post('updateType', 'AddController@updateType');
 Route::post('deleteType', 'AddController@deleteType');
+
+//settings
+Route::get('displayDuration','DisplayController@displayDuration');
+Route::post('addItemType', 'AddController@addItemType');
+Route::post('updateDuration', 'AddController@updateDuration');
+Route::get('edtduration/{id}','DisplayController@edtduration');
+Route::post('deleteDuration', 'AddController@deleteDuration');
+Route::get('displayInstruction','DisplayController@displayInstruction');
+Route::post('addInstruction', 'AddController@addInstruction');
+Route::post('deleteInstruction', 'AddController@deleteInstruction');
 
 //Manufacturer
 Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');
@@ -181,7 +192,7 @@ Route::get('saveAdd', 'AddController@saveAdd');
 Route::get('saveTransfer', 'AddController@saveTransfer');
 Route::get('saveVariance', 'AddController@saveVariance');
 Route::post('varianceStock', 'AddController@varianceStock');
-
+          
 Route::get('varianceItems','DisplayController@varianceItems');
 Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');
