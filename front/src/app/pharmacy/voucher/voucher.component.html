@@ -43,6 +43,7 @@
     <div class="row clearfix">
         <div class="col-12">
                 <div class="card">
+                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(data)" #data="ngForm"> 
                     <div class="header">
                         <h2>Prescription</h2>
                     </div>
@@ -62,7 +63,7 @@
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                        <label>Type</label>
+                                        <label>Type</label> 
                                     <input type="text" class="form-control" value="{{total[0].type_name}}" disabled>
                                 </div>
                             </div>
@@ -98,74 +99,81 @@
                                         </div>
                                     </div>                                             
                                     <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>Duration</label>
+                                        <label>{{total[0].type_name}} Prescription Inst</label>
                                         <div class="form-group">
-                                            <select class="custom-select" ngModel name="day_supply">
-                                                <option selected="">Select Daily Supply</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="4">5</option>
+                                            <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
+                                                <option value="">Select Instruction</option>
+                                                <option  *ngFor="let dura of duration" value="{{dura.value}}">{{dura.duration_name}}</option>
                                             </select>
                                         </div>
                                     </div>                                            
                                     <div class="col-lg-2 col-md-2 col-sm-6">
                                         <label>Daily Supply</label>
                                         <div class="form-group">
-                                            <select class="custom-select" ngModel name="day_supply">
-                                                <option selected="">Select Daily Supply</option>
-                                                <option value="1">Once Daily</option>
-                                                <option value="2">Twice Daily</option>
-                                                <option value="3">Thrice Daily</option>
-                                                <option value="4">Four in a Day</option>
-                                                <option value="4">Once in a Week</option>
+                                            <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
+                                                <option value="">Select Daily Supply</option>
+                                                <option  *ngFor="let inst of instruct" value="{{inst.value}}">{{inst.name}}</option>
                                             </select>
                                         </div>
                                     </div> 
                                     <div class="col-lg-2 col-md-2 col-sm-6">
                                         <label>Day(s)</label>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" ngModel name="days" placeholder="Input Number of Day(s)">
+                                            <input type="number" class="form-control" (keyup)="putQty($event)" placeholder="Input Number of Day(s)">
                                         </div>
                                     </div> 
                                     <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>Refill</label>
+                                        <label>Dispensable Period</label>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" value="0" ngModel name="days" placeholder="0">
+                                            <input type="number" class="form-control" (keyup)="onRefill($event)" placeholder="0" ngModel name="dispense">
                                         </div>
                                     </div> 
                                 </div>
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>Quantity</label>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>Total Amount</label>
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Quantity">
+                                        <input type="number" value="{{math.round(tQuantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Total Amount" ngModel name="original_qty">
                                     </div>  
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>Day(s)</label>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <label>Present Dispensable Amount</label>
+                                        <div class="form-group">
+                                            <input type="number" value="{{math.round(quantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Disp Amount" ngModel name="quantity">
+                                        </div>  
+                                    </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>Use for Day(s)</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Quantity">
+                                        <input type="number" class="form-control" value="{{math.round(useFor)}}" ngModel name="days" placeholder="Days">
                                     </div>  
                                 </div>
                             </div>
-                                <label>Instruction</label>
-                                <div class="form-group">
-                                    <textarea rows="4" class="form-control" placeholder="Intruction"></textarea>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span *ngIf = "getInst == '6'">
+                                        <h5>Total Cost: <small class="badge badge-success">{{math.round(quantity)*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small></h5>
+                                    </span>
+                                        <span *ngIf = "getInst != '6'">
+                                        <h5>Total Cost: <small class="badge badge-success">{{quant*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small></h5>  
+                                    </span>  
                                 </div>
-                                <label>Physician</label>
+                            </div>
+                                <label>Pre Caution</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Physician">
+                                    <textarea rows="4" class="form-control" ngModel name="caution" placeholder="Input pre-cautions here (if any)..."></textarea>
+                                </div>
+                                <label>Physician Name</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ngModel name="doctor_id" placeholder="Inputt physician name here...">
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
                         <button type="button" class="btn btn-round btn-default">Cancel</button>
                     </div>
+                    </form>
                 </div>
-                        
-         
         </div>
     </div>
 

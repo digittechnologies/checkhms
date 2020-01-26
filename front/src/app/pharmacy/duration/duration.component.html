@@ -3,12 +3,12 @@
       <div class="block-header">
           <div class="row clearfix">
               <div class="col-md-6 col-sm-12">
-                  <h1>Duration Settings</h1>
+                  <h1>Prescription Instruction Settings</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
                       <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-                      <li class="breadcrumb-item active" aria-current="page">Duration Settings</li>
+                      <li class="breadcrumb-item active" aria-current="page">Prescription Instruction Settings</li>
                       </ol>
                   </nav>
               </div>            
@@ -26,7 +26,7 @@
                       <thead>
                           <tr> 
                               <th>#</th>
-                              <th>Duration</th>
+                              <th>Instruction</th>
                               <th>Value</th>
                               <th>Item Type</th>
                               <th>Status</th>
@@ -68,7 +68,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title h4" id="myLargeModalLabel">Add Duration</h5>
+          <h5 class="modal-title h4" id="myLargeModalLabel">Add Prescribe Instruction</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
           </button>
@@ -78,7 +78,7 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Duration" ngModel name="duration_name" required>
+                      <input type="text" class="form-control" placeholder="Instruction In Words" ngModel name="duration_name" required>
                   </div>
               </div>             
           </div>
@@ -87,7 +87,7 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Value" ngModel name="value" required>
+                      <input type="number" class="form-control" placeholder="Instruction in Value" ngModel name="value" required>
                   </div>
               </div>             
           </div>
@@ -150,7 +150,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Brand</h5>
+              <h5 class="modal-title h4" id="myLargeModalLabel">Update Prescribe Instruction</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
               </button>
@@ -160,7 +160,7 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                          <input type="text" class="form-control" [value]="durationName" placeholder="Duration" ngModel name="duration_name" required>
+                          <input type="text" class="form-control" [value]="durationName" placeholder="Instruction in Words" ngModel name="duration_name" required>
                       </div>
                   </div>             
               </div>
@@ -169,7 +169,7 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Value" ngModel name="value" required>
+                          <input type="number" class="form-control"  [value]="upvalue" placeholder="Instruction in Value" ngModel name="value" required>
                           <input type="hidden" ngModel name="id" required>
                       </div>
                   </div>             

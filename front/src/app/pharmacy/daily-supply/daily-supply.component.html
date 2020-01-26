@@ -3,12 +3,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Instructions Settings</h1>
+                    <h1>Daily Supply Instructions Settings</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
                         <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-                        <li class="breadcrumb-item active" aria-current="page">Instruction Settings</li>
+                        <li class="breadcrumb-item active" aria-current="page">Daily Supply Settings</li>
                         </ol>
                     </nav>
                 </div>            
@@ -26,7 +26,7 @@
                         <thead>
                             <tr> 
                                 <th>#</th>
-                                <th>Instruction</th>
+                                <th>Title</th>
                                 <th>Value</th>
                                 <th>Item Type</th>
                                 <th>Status</th>
@@ -68,7 +68,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title h4" id="myLargeModalLabel">Add Instruction</h5>
+            <h5 class="modal-title h4" id="myLargeModalLabel">Add Daily Supply Instruction</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -78,7 +78,7 @@
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Instruction Here" ngModel name="name" required>
+                        <input type="text" class="form-control" placeholder="Instruction Title Here" ngModel name="name" required>
                     </div>
                 </div>             
             </div>
@@ -87,7 +87,7 @@
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Value" ngModel name="value" required>
+                        <input type="number" class="form-control" placeholder="Value" ngModel name="value" required>
                     </div>
                 </div>             
             </div>
@@ -150,7 +150,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Brand</h5>
+                <h5 class="modal-title h4" id="myLargeModalLabel">Update Daily Supply Instruction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
                 </button>
@@ -160,7 +160,7 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <input type="text" class="form-control" [value]="durationName" placeholder="Duration" ngModel name="duration_name" required>
+                            <input type="text" class="form-control" [value]="dayName" placeholder="Instruction Title Here" ngModel name="name" required>
                         </div>
                     </div>             
                 </div>
@@ -169,7 +169,7 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Value" ngModel name="value" required>
+                            <input type="number" class="form-control"  [value]="dayValue" placeholder="Value" ngModel name="value" required>
                             <!-- <input type="hidden" ngModel name="id" required> -->
                         </div>
                     </div>             
