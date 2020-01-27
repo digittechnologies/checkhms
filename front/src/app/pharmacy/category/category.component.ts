@@ -28,7 +28,9 @@ export class CategoryComponent implements OnInit {
   catNum: any;
   catDetail: any;
   manufid:any;
-  
+  catt:any;
+  filterString = "";
+  cats;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -43,7 +45,26 @@ export class CategoryComponent implements OnInit {
       this.response = data;      
       this.cat = this.response   
     })
+    this.onFilterChange();
   
+}
+onFilterChange() {
+  this.Jarwis.displayCategories().subscribe(
+    data=>{
+    // this.response = data;      
+    this.catt = data
+    this.cats = this.cat.filter((cate) => this.isMatch(cate));
+  })
+
+}
+  
+
+isMatch(item) {
+  if (item instanceof Object) {
+    return Object.keys(item).some((k) => this.isMatch(item[k]));
+  } else {
+    return item.toString().indexOf(this.filterString) > -1
+  }
 }
 
 editdept(id: string) {
