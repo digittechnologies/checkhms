@@ -49,11 +49,11 @@ export class RefillDetailsComponent implements OnInit {
       this.itemDet = this.response       
     })
 
-    this.Jarwis.displayPharmPre(this.patID).subscribe(
-      data=>{
-      this.response = data;      
-      this.pres = this.response       
-    })
+    // this.Jarwis.displayPharmPre(this.patID).subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.pres = this.response       
+    // })
   }
 
 }

@@ -28,8 +28,8 @@ export class DailySupplyComponent implements OnInit {
   manufName: any;
   typeid: any;
   types: any;
-  durationName: any;
-  upvalue: any;
+  dayName: any;
+  dayValue: any;
   upItem_id: any;
   durares: any;
   duraid: string;
@@ -59,12 +59,14 @@ export class DailySupplyComponent implements OnInit {
   
   editdept(id: string) {
     console.log(id)
-    this.Jarwis.edtInstruction(id).subscribe(
+    this.Jarwis.edtinstruction(id).subscribe(
       data=>{      
-        this.durares = data; 
-        this.duraid= id 
-        this.durationName= this.durares[0].name;
-        this.upvalue= this.durares[0].value;      
+        this.manufres = data; 
+        this.manufid= id
+        this.dayName= this.manufres[0].name;
+        this.dayValue= this.manufres[0].value;
+        this.upItem_id= this.manufres[0].type_id
+        // this.manufDetail= this.manufres[0].details
       })
   }
 
@@ -72,7 +74,7 @@ onUpdate(form: NgForm) {
   
   form.value.id=this.duraid; 
    console.log(form.value)
-  this.Jarwis.updateInsruction(form.value).subscribe(        
+  this.Jarwis.updateInstruction(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 
     

@@ -220,7 +220,6 @@
                                                     <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
                                                     <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
                                                 </td>
-                                           
                                         </tr>                                                                     
                                     </tbody>
                                 </table>                
@@ -604,7 +603,7 @@
                                                         <td><span class="badge badge-warning">{{totalTo[0].total_remain}}</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">
+                                                                <input type="text" class="form-control" (keyup)="restrict($event)" ngModel name="quantity" placeholder="Quantity *">
 
                                                             </div>                                                        
                                                         </td>

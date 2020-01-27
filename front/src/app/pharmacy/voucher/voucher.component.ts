@@ -16,9 +16,29 @@ export class VoucherComponent implements OnInit {
   total: any;
   error: any;
   itemDet: any;
-  pres: any;
+  prescriptions: any;
   pat: any;
   patID: any;
+  duration: any;
+  instruct: any;
+  getInst: any;
+  quantity: any;
+  amt: any;
+  sup: any;
+  days: any;
+  count: any;
+  defaultCount = 1;
+  math = Math;
+  useFor: any;
+  quant: any;
+  tQuantity: any;
+  patientResponse: any;
+  PharmPreresponse: any;
+  ItemDetresponse: any;
+  Instructionresponse: any;
+  AllStockresponse: any;
+  DurationForVresponse: Object;
+
 
   constructor(
     private Jarwis: JarwisService,
@@ -29,45 +49,108 @@ export class VoucherComponent implements OnInit {
     public actRoute: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { 
 
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.patID = id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
-	      this.response = data;      
-	      this.pat = this.response;
+	      this.patientResponse = data;      
+	      this.pat = this.patientResponse;
 	    })
-	}))
+  }))
+  
+  this.Jarwis.displayPharmPre(this.patID).subscribe(
+    data=>{
+    this.PharmPreresponse = data;      
+    this.prescriptions = this.PharmPreresponse;  
+  })
 
     this.Jarwis.disItemDet().subscribe(
       data=>{
-      this.response = data;      
-      this.itemDet = this.response       
+      this.ItemDetresponse = data;      
+      this.itemDet = this.ItemDetresponse;      
     })
 
-    this.Jarwis.displayPharmPre(this.patID).subscribe(
+    this.Jarwis.displayInstruction().subscribe(
       data=>{
-      this.response = data;      
-      this.pres = this.response       
+      this.Instructionresponse = data;      
+      this.instruct = this.Instructionresponse;      
     })
+
+    // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.prescriptions = this.response   
+    // })
+    
   }
 
-  get(){
-    this.ngOnInit()
-  }
-  onSelectItem(id) {
-    this.Jarwis.voucherAllStock(id.target.value,'').subscribe(  
+  // get(){
+  //   this.ngOnInit()
+  // }
+  onSelectItem(Itemid) {
+    this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
       data=>{
-        this.response = data;
-        this.total =this.response;
+        this.AllStockresponse = data;
+        this.total =this.AllStockresponse;
+        this.getInst = this.total[0].type_id;
+        
+        this.Jarwis.displayDurationForV(this.getInst).subscribe(
+          data=>{
+          this.DurationForVresponse = data;      
+          this.duration = this.DurationForVresponse       
+        })
       }
     );
   }
 
+  onSelectAmount(a){
+    this.amt = a.target.value
+  }
+  onSelectDailySup(s){
+    this.sup = s.target.value
+  }
+
+  putQty(d){
+    if(this.getInst == '6'){
+      this.days = d.target.value
+      this.tQuantity = this.amt * this.sup * this.days
+      this.quantity =  this.amt * this.sup * this.days
+      if(this.quantity > this.total[0].total_remain){
+        alert('Quantity greater than quantity in stock')
+        d.target.value = ''
+        this.quantity = ''
+        this.tQuantity = ''
+        this.days = ''
+      }
+      this.useFor = this.days
+    }
+  }
+
+  onRefill(r){
+    if(this.getInst == '6'){
+      if(r.target.value > 0){
+        this.count = parseInt(r.target.value) 
+        this.quantity = this.amt * this.sup * this.days / this.count
+        this.useFor = parseInt(this.days) / parseInt(this.count)
+      }else{
+        this.quantity = this.amt * this.sup * this.days / this.defaultCount
+        this.useFor = this.days
+      }
+    }
+  }
+
+  apartTablet(n){
+    this.quant = n.target.value
+  }
+
   onSubmitAdd(form: NgForm) {
     form.value.customer_id=this.patID
+    form.value.quantity = this.quantity
+    form.value.original_qty = this.tQuantity
+    form.value.days = this.useFor
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  

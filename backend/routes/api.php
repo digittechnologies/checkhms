@@ -95,11 +95,15 @@ Route::post('deleteType', 'AddController@deleteType');
 
 //settings
 Route::get('displayDuration','DisplayController@displayDuration');
+Route::get('displayDurationForV/{id}','DisplayController@displayDurationForV');
 Route::post('addItemType', 'AddController@addItemType');
 Route::post('updateDuration', 'AddController@updateDuration');
 Route::get('edtduration/{id}','DisplayController@edtduration');
 Route::post('deleteDuration', 'AddController@deleteDuration');
+
 Route::get('displayInstruction','DisplayController@displayInstruction');
+Route::post('updateInstruction', 'AddController@updateInstruction');
+Route::get('edtinstruction/{id}','DisplayController@edtinstruction');
 Route::post('addInstruction', 'AddController@addInstruction');
 Route::post('deleteInstruction', 'AddController@deleteInstruction');
 Route::get('edtInstruction/{id}','DisplayController@edtInstruction');
@@ -156,8 +160,9 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
-Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+// Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices

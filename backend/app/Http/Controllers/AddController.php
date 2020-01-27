@@ -349,17 +349,17 @@ class AddController extends Controller
         }
     }
 
-    public function updateInsruction(Request $request)
+    public function updateInstruction(Request $request)
     {
         $id=$request->id;
-        $duration= $request->name;
+        $name= $request->name;
         $type= $request->type_id;
         $value= $request->value;
         $userId= Auth()->user()->id;;
         $status= $request->status; 
         $update = DB::table('daily_supply')->where('daily_supply.id','=',$id)
         ->update([
-            'name'=> $duration,
+            'name'=> $name,
             'type_id' => $type,
             'value' => $value,
             'user_id' => $userId,
@@ -1741,12 +1741,28 @@ class AddController extends Controller
 
         $request->merge(["p_date" => $cDate]);
         $request->merge(["p_time" => $cTime]);
-        $request->merge(["quantity" => $request->day_supply * $request->days]);
+        
+        //refill
+        if($request->dispense == '1'){
+            $request->merge(["refill" => '0']);
+        } else if($request->dispense > '1') {
+            $request->merge(["refill" => $request->dispense - 1]);
+        }
+        
+        //remain
+        if($request->original_qty == $request->quantity){
+            $request->merge(["remain" => '0']);
+        } else if($request->original_qty > $request->quantity) {
+            $request->merge(["remain" => $request->original_qty - $request->quantity]);
+        }
 
+        $request->merge(["refill_range" => $request->quantity]);
+        $request->merge(["refill_status" => 'refillable']);
         
         $request->merge(["pharmacist_id" => $pharmacistId]);
         $request->merge(["branch_id" => $branchId]);
 
+        // return $request->all();
         //appointment_id yet to be implemented
         $pharmP= Doctor_prescriptions::create($request-> all());
        

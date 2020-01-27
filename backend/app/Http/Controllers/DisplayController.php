@@ -178,26 +178,16 @@ class DisplayController extends Controller
     public function displayDuration()
     {
         return DB::table("durations")->join('item_types','durations.type_id','=','item_types.id')
-                                    ->join('users','durations.user_id','=','users.id')
-                                    ->select('durations.*','item_types.type_name','firstname','lastname')               
-                                    ->get();
-    }
-    public function displayInstruction()
-    {
-        return DB::table("daily_supply")->join('item_types','daily_supply.type_id','=','item_types.id')
-                                    ->join('users','daily_supply.user_id','=','users.id')
-                                    ->select('daily_supply.*','item_types.type_name','firstname','lastname')               
-                                    ->get();
+                ->join('users','durations.user_id','=','users.id')
+                ->select('durations.*','item_types.type_name','firstname','lastname')               
+                ->get();
     }
 
-    public function edtManufacturer($id)
+    public function displayDurationForV($id)
     {
-        return response()->json(
-            Manufacturer_details::orderBy('id')
-            ->select('manufacturer_details.*')     
-            ->where('id','=',$id)          
-            ->get()   
-        );
+        return DB::table("durations")->select('durations.*')  
+                ->where('type_id', '=', $id)             
+                ->get();
     }
 
     public function edtduration($id)
@@ -210,7 +200,14 @@ class DisplayController extends Controller
         );
     }
 
-    public function edtInstruction($id)
+    public function displayInstruction()
+    {
+        return DB::table("daily_supply")->join('item_types','daily_supply.type_id','=','item_types.id')
+                ->join('users','daily_supply.user_id','=','users.id')
+                ->select('daily_supply.*','item_types.type_name','firstname','lastname')               
+                ->get();
+    }
+    public function edtinstruction($id)
     {
         return response()->json(
             DB::table('daily_supply')->orderBy('id')
@@ -219,6 +216,17 @@ class DisplayController extends Controller
             ->get()   
         );
     }
+
+    public function edtManufacturer($id)
+    {
+        return response()->json(
+            Manufacturer_details::orderBy('id')
+            ->select('manufacturer_details.*')     
+            ->where('id','=',$id)          
+            ->get()   
+        );
+    }
+
 
     // Categories
 
@@ -420,15 +428,40 @@ class DisplayController extends Controller
         return DB::table("doctor_prescriptions")->get();
     }
 
+    // public function displayPharmPrescription($cid)
+    // {
+    //     $id= Auth()->user()->branch_id;
+    //     $branch = Branches::select('branches.br_name')
+    //     ->where('id', '=', $id)
+    //     ->orWhere('name', '=', $id)
+    //     ->first();  
+    //     $branch = $branch->br_name;
+
+    //     return DB::table("doctor_prescriptions")
+    //             ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', $branch.'.total_remain', 'manufacturer_details.name')
+    //             ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+    //             ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+    //             ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+    //             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+    //             ->where('doctor_prescriptions.status', '=', 'open')
+    //             ->where('customer_id', '=', $cid)
+    //             ->get();
+    // }
+
     public function displayPharmPrescription($id)
     {
-        return DB::table("doctor_prescriptions")
-                ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'branch_main.total_remain')
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('branch_main','branch_main.item_detail_id','=','doctor_prescriptions.item_id')
-                ->where('doctor_prescriptions.status', '=', 'open')
-                ->where('customer_id', '=', $id)
-                ->get();
+        $bId= Auth()->user()->branch_id;
+
+        return Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    // ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.customer_id', '=', $id)
+                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get();
     }
 
     public function edtPrescription($id)
@@ -548,32 +581,32 @@ class DisplayController extends Controller
 
     public function addedItems()
     {
-        return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
-        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        return DB::table("purchases")
+        ->select('item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'purchases.id AS aID', 'purchases.quantity', 'purchases.newstock', 'purchases.instock')
+        ->join ('item_details','purchases.item_detail_id','=','item_details.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
+        // ->join ('purchases','branch_main.item_detail_id','=','purchases.item_detail_id')
         ->where('purchases.status','=','saved')
         ->get();
     }
 
     public function varianceItems()
     {
-        return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
-        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
+        return DB::table("variances")
+        ->select('item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'variances.id AS vID', 'variances.quantity', 'variances.newstock', 'variances.instock', 'variances.purpose', 'variances.detail')
+        ->join ('item_details','variances.item_detail_id','=','item_details.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
+        // ->join ('variances','branch_main.item_detail_id','=','variances.item_detail_id')
         ->where('variances.status','=','open')
         ->get();
     }
 
     public function transItems()
     {
-        return DB::table("branch_main")
-        ->select('branch_main.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.remain_from', 'transfers.remain_to', 'transfers.newstock', 'transfers.quantity_to', 'total_quantity', 'transfers.id AS tID')
-        ->join ('item_details','branch_main.item_detail_id','=','item_details.id')
-        ->join ('transfers','branch_main.item_detail_id','=','transfers.item_detail_id')
+        return DB::table("transfers")
+        ->select('item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'transfers.quantity_from', 'transfers.remain_from', 'transfers.remain_to', 'transfers.newstock', 'transfers.quantity_to', 'total_quantity', 'transfers.id AS tID')
+        ->join ('item_details','transfers.item_detail_id','=','item_details.id')
+        // ->join ('transfers','branch_main.item_detail_id','=','transfers.item_detail_id')
         ->where('transfers.status','=','open')
         ->get();
     }    
@@ -609,7 +642,7 @@ class DisplayController extends Controller
             ->where('id', $id)
             ->get(); 
         $branch = $branch1[0]->br_name;
-        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain', 'shelves.name AS shelve_name', 'shelves.point AS shelve_point')
+        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.id AS type_id', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain', 'shelves.name AS shelve_name', 'shelves.point AS shelve_point')
         ->join ('item_types','item_details.item_type_id','=','item_types.id')
         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
         ->join ('item_units','item_details.item_unit_id','=','item_units.id')

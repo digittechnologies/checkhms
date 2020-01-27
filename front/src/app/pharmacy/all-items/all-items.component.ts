@@ -219,6 +219,13 @@ onSelectFrom(from){
   // alert(this.totalFrom[0].total_remain)
 }
 
+restrict(r) {
+  if(r.target.value > this.totalFrom[0].total_remain){
+    alert('Quantity greater than quantity in stock')
+    r.target.value = ''
+  }
+}
+
 onSelectTo(to){
   this.to = to.target.value;
   this.Jarwis.displayInstockT([this.id2, this.to]).subscribe(  
@@ -371,7 +378,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
     
   }
