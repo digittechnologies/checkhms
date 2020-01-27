@@ -34,5 +34,7 @@ class Doctor_prescriptions extends Model
         'remain',
         'refill_range',
         'caution',
+        'amount',
+        'amount_paid',
     ];
 }

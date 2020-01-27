@@ -81,7 +81,9 @@ import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-
 import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
 import { DurationComponent } from './pharmacy/duration/duration.component';
 import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
-
+import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
+import { NgxPrintModule} from 'ngx-print';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -196,7 +198,9 @@ import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.compo
   
     DurationComponent,
   
-    DailySupplyComponent
+    DailySupplyComponent,
+  
+    RefillDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -211,6 +215,9 @@ import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.compo
     MatTabsModule,
     MatListModule,
     MatSnackBarModule,
+    NgxPrintModule,
+    NgxPaginationModule,
+    MatAutocompleteModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),

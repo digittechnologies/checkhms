@@ -32,6 +32,12 @@ export class VoucherComponent implements OnInit {
   useFor: any;
   quant: any;
   tQuantity: any;
+  patientResponse: any;
+  PharmPreresponse: any;
+  ItemDetresponse: any;
+  Instructionresponse: any;
+  AllStockresponse: any;
+  DurationForVresponse: Object;
 
   constructor(
     private Jarwis: JarwisService,
@@ -42,50 +48,58 @@ export class VoucherComponent implements OnInit {
     public actRoute: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { 
 
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.patID = id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
-	      this.response = data;      
-	      this.pat = this.response;
+	      this.patientResponse = data;      
+	      this.pat = this.patientResponse;
 	    })
-	}))
+  }))
+  
+  this.Jarwis.displayPharmPre(this.patID).subscribe(
+    data=>{
+    this.PharmPreresponse = data;      
+    this.prescriptions = this.PharmPreresponse;  
+  })
 
     this.Jarwis.disItemDet().subscribe(
       data=>{
-      this.response = data;      
-      this.itemDet = this.response       
+      this.ItemDetresponse = data;      
+      this.itemDet = this.ItemDetresponse;      
     })
 
     this.Jarwis.displayInstruction().subscribe(
       data=>{
-      this.response = data;      
-      this.instruct = this.response       
+      this.Instructionresponse = data;      
+      this.instruct = this.Instructionresponse;      
     })
 
-    this.Jarwis.displayPharmPre(this.patID, '').subscribe(
-      data=>{
-      this.response = data;      
-      this.prescriptions = this.response   
-    })
+    // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.prescriptions = this.response   
+    // })
+    
   }
 
-  get(){
-    this.ngOnInit()
-  }
-  onSelectItem(id) {
-    this.Jarwis.voucherAllStock(id.target.value,'').subscribe(  
+  // get(){
+  //   this.ngOnInit()
+  // }
+  onSelectItem(Itemid) {
+    this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
       data=>{
-        this.response = data;
-        this.total =this.response;
+        this.AllStockresponse = data;
+        this.total =this.AllStockresponse;
         this.getInst = this.total[0].type_id;
+        
         this.Jarwis.displayDurationForV(this.getInst).subscribe(
           data=>{
-          this.response = data;      
-          this.duration = this.response       
+          this.DurationForVresponse = data;      
+          this.duration = this.DurationForVresponse       
         })
       }
     );
@@ -153,6 +167,8 @@ export class VoucherComponent implements OnInit {
     form.value.quantity = this.quantity
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
+    form.value.amount = this.total[0].selling_price
+    form.value.amount_paid = this.total[0].selling_price * this.quantity
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  

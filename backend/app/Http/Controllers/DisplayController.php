@@ -162,6 +162,18 @@ class DisplayController extends Controller
         return DB::table("manufacturer_details")->get();
     }  
 
+    // Refill
+    public function displayRefill()
+    {
+        return DB::table("vouchers")->join ('item_details','vouchers.item_detail_id','=','item_details.id')
+                                    ->join ('branches','vouchers.branch_id','=','branches.id')
+                                    ->join ('customers','vouchers.customer_id','=','customers.id')
+                                    ->join ('users','vouchers.staff_id','=','users.id')
+                                    ->select('vouchers.*','item_details.generic_name','users.firstname','users.lastname', 'branches.name', 'customers.name as customer_name')               
+                                    ->get();
+    }
+
+
     // Setting
     public function displayDuration()
     {
@@ -418,24 +430,40 @@ class DisplayController extends Controller
         return DB::table("doctor_prescriptions")->get();
     }
 
-    public function displayPharmPrescription($cid)
-    {
-        $id= Auth()->user()->branch_id;
-        $branch = Branches::select('branches.br_name')
-        ->where('id', '=', $id)
-        ->orWhere('name', '=', $id)
-        ->first();  
-        $branch = $branch->br_name;
+    // public function displayPharmPrescription($cid)
+    // {
+    //     $id= Auth()->user()->branch_id;
+    //     $branch = Branches::select('branches.br_name')
+    //     ->where('id', '=', $id)
+    //     ->orWhere('name', '=', $id)
+    //     ->first();  
+    //     $branch = $branch->br_name;
 
-        return DB::table("doctor_prescriptions")
-                ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', $branch.'.total_remain', 'manufacturer_details.name')
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->where('doctor_prescriptions.status', '=', 'open')
-                ->where('customer_id', '=', $cid)
-                ->get();
+    //     return DB::table("doctor_prescriptions")
+    //             ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', $branch.'.total_remain', 'manufacturer_details.name')
+    //             ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+    //             ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+    //             ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+    //             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+    //             ->where('doctor_prescriptions.status', '=', 'open')
+    //             ->where('customer_id', '=', $cid)
+    //             ->get();
+    // }
+
+    public function displayPharmPrescription($id)
+    {
+        $bId= Auth()->user()->branch_id;
+
+        return Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    // ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.customer_id', '=', $id)
+                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get();
     }
 
     public function edtPrescription($id)

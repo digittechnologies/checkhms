@@ -247,6 +247,15 @@ export class JarwisService {
   displayDuration() {
     return this.http.get(`${this.baseUrl}/displayDuration`,)
   }
+
+  displayRefill() {
+    return this.http.get(`${this.baseUrl}/displayRefill`,)
+  }
+  updateInsruction(data) {
+    return this.http.post(`${this.baseUrl}/updateInsruction`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
   }
@@ -257,6 +266,9 @@ export class JarwisService {
   }
   edtduration(id:any) {
     return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
+  }
+  edtInstruction(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtInstruction/${id}`)
   }
   deleteDuration(data) {
     return this.http.post(`${this.baseUrl}/deleteDuration`, data)
@@ -534,8 +546,14 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmPre(id: any, data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`, data,{headers:{
+  // displayPharmPre(id: any, data) {
+  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`, data,{headers:{
+  //     Authorization:`Bearer ${localStorage.token}`
+  //   }})
+  // } 
+
+  displayPharmPre(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

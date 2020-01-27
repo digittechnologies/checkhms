@@ -64,6 +64,8 @@ import { HistoryComponent } from './pharmacy/history/history.component';
 import {TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
 import { DurationComponent } from './pharmacy/duration/duration.component';
 import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
+import { RefillComponent } from './pharmacy/refill/refill.component';
+import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
 
 
 
@@ -106,6 +108,10 @@ const routes: Routes = [
          {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
