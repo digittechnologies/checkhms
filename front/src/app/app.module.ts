@@ -82,7 +82,8 @@ import { SetLabTestComponent } from './lab/set-lab-test/set-lab-test.component';
 import { DurationComponent } from './pharmacy/duration/duration.component';
 import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
 import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
-
+import { NgxPrintModule} from 'ngx-print';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -214,6 +215,9 @@ import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details
     MatTabsModule,
     MatListModule,
     MatSnackBarModule,
+    NgxPrintModule,
+    NgxPaginationModule,
+    MatAutocompleteModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),

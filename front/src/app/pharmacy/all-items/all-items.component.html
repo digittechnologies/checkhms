@@ -181,7 +181,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of items.item; let r = index">
+                                        <tr *ngFor="let item of items.item | paginate: {itemsPerPage:10, currentPage: p} let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
                                                 <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
@@ -222,7 +222,9 @@
                                                 </td>
                                         </tr>                                                                     
                                     </tbody>
-                                </table>                
+                                </table>   
+                                <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+  
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
@@ -389,7 +391,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let added of itemAdded; let r = index">
+                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
@@ -473,6 +475,8 @@
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
+                                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+
                                         </div>
                                         <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -502,7 +506,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let trans of itemTransferred; let r = index">
+                                                    <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
@@ -612,6 +616,8 @@
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
+                                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+
                                         </div>
                                         <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
