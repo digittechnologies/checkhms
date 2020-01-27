@@ -382,7 +382,9 @@ patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
 makeAppointment(data) {
-  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data)
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
 }
 
 //Appointment 
@@ -537,6 +539,9 @@ deleteAppointment(data) {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+  saveTovoucher() {
+    return this.http.get(`${this.baseUrl}/saveTovouche`)
+  }r
 
   displayRole() {
     return this.http.get(`${this.baseUrl}/displayRole`,)

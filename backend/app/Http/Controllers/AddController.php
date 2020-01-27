@@ -898,6 +898,9 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
+
+        $bid= Auth()->user()->branch_id;
+
         $appointment= Appointments::create(
             [
                 'customer_id' => $cust_id, 
@@ -909,6 +912,7 @@ class AddController extends Controller
                 'status' => 'active',
                 'date' => $date,
                 'time' => $time,
+                'branch_id' => $bid
             ]);    
   
      if($appointment){
@@ -1749,6 +1753,11 @@ class AddController extends Controller
             $request->merge(["refill" => $request->dispense - 1]);
         }
         
+        //dispense
+
+        if($request->dispense == '0'){
+            $request->merge(["dispense" => '1']);
+        }
         //remain
         if($request->original_qty == $request->quantity){
             $request->merge(["remain" => '0']);
@@ -1758,6 +1767,7 @@ class AddController extends Controller
 
         $request->merge(["refill_range" => $request->quantity]);
         $request->merge(["refill_status" => 'refillable']);
+        $request->merge(["status" => 'save']);
         
         $request->merge(["pharmacist_id" => $pharmacistId]);
         $request->merge(["branch_id" => $branchId]);
@@ -1777,6 +1787,10 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    }
+
+    public function saveTovoucher(){
+
     }
 
 }

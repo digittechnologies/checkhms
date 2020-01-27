@@ -33,7 +33,6 @@ export class VoucherComponent implements OnInit {
   quant: any;
   tQuantity: any;
 
-
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -100,6 +99,7 @@ export class VoucherComponent implements OnInit {
   }
 
   putQty(d){
+    this.quant = ''
     if(this.getInst == '6'){
       this.days = d.target.value
       this.tQuantity = this.amt * this.sup * this.days
@@ -113,6 +113,9 @@ export class VoucherComponent implements OnInit {
       }
       this.useFor = this.days
     }
+    if(this.getInst != '6'){
+      this.useFor = d.target.value
+    }
   }
 
   onRefill(r){
@@ -121,14 +124,27 @@ export class VoucherComponent implements OnInit {
         this.count = parseInt(r.target.value) 
         this.quantity = this.amt * this.sup * this.days / this.count
         this.useFor = parseInt(this.days) / parseInt(this.count)
+        this.quant = this.quantity
       }else{
         this.quantity = this.amt * this.sup * this.days / this.defaultCount
         this.useFor = this.days
+        this.quant = this.quantity
       }
     }
   }
 
   apartTablet(n){
+    if(parseInt(n.target.value) > parseInt(this.total[0].total_remain)){
+      alert('Quantity greater than quantity in stock')
+      n.target.value = ''
+    }
+    if(parseInt(n.target.value) < parseInt(this.total[0].total_remain)){
+      alert('Quantity minimum is 1')
+      n.target.value = ''
+    }
+    if(this.getInst != '6'){
+      this.tQuantity = n.target.value
+    }
     this.quant = n.target.value
   }
 
@@ -138,6 +154,13 @@ export class VoucherComponent implements OnInit {
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
     this.Jarwis.pharmPriscription(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
+
+  saveTovoucher(){
+    this.Jarwis.saveTovoucher().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

@@ -131,32 +131,30 @@
                                 </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <label>Total Amount</label>
-                                    <div class="form-group">
-                                        <input type="number" value="{{math.round(tQuantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Total Amount" ngModel name="original_qty">
-                                    </div>  
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
                                         <label>Present Dispensable Amount</label>
                                         <div class="form-group">
-                                            <input type="number" value="{{math.round(quantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Disp Amount" ngModel name="quantity">
+                                            <input type="number" min="1" value="{{math.round(quantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Disp Amount" ngModel name="quantity">
                                         </div>  
                                     </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <label>Total Amount</label>
+                                            <div class="form-group">
+                                                <input type="number" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
+                                            </div>  
+                                        </div>
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <label>Use for Day(s)</label>
                                     <div class="form-group">
-                                        <input type="number" class="form-control" value="{{math.round(useFor)}}" ngModel name="days" placeholder="Days">
+                                        <input type="number" class="form-control" value="{{math.round(useFor)}}" ngModel name="days" disabled placeholder="Days">
                                     </div>  
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <span *ngIf = "getInst == '6'">
-                                        <h5>Total Cost: <small class="badge badge-success">{{math.round(quantity)*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small></h5>
-                                    </span>
-                                        <span *ngIf = "getInst != '6'">
-                                        <h5>Total Cost: <small class="badge badge-success">{{quant*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small></h5>  
-                                    </span>  
+                                    <h5>Total Cost: 
+                                        <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                        <small class="badge badge-success">{{math.round(quant)*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                    </h5>
                                 </div>
                             </div>
                                 <label>Pre Caution</label>
@@ -169,7 +167,7 @@
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <button type="button" class="btn btn-round btn-default">Cancel</button>
                     </div>
                     </form>
