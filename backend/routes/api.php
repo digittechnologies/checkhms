@@ -10,6 +10,9 @@ Route::group([
     'middleware' => 'api',
 ], function () {
 
+    //Settings
+    Route::get('setupStatus', 'SetupController@setupStatus');
+
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::post('adminLogin','AuthController@adminLogin');
@@ -50,6 +53,9 @@ Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
+
+//Dashboard
+Route::get('displayModule','DisplayController@displayModule');
 
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
@@ -106,6 +112,9 @@ Route::post('updateInstruction', 'AddController@updateInstruction');
 Route::get('edtinstruction/{id}','DisplayController@edtinstruction');
 Route::post('addInstruction', 'AddController@addInstruction');
 Route::post('deleteInstruction', 'AddController@deleteInstruction');
+Route::get('edtInstruction/{id}','DisplayController@edtInstruction');
+Route::post('updateInsruction', 'AddController@updateInsruction');
+Route::get('displayRefill','DisplayController@displayRefill');
 
 //Manufacturer
 Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');
@@ -157,8 +166,10 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
-Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+// Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
+Route::get('saveTovoucher', 'AddController@saveTovoucher');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices

@@ -13,7 +13,7 @@ class Doctor_prescriptions extends Model
         'instruction',
         'day_supply',
         'days',
-        // 'status',
+        'status',
         // 'supply_quantity', 
         'refill_status',
         // 'refill_quantity',
@@ -34,5 +34,7 @@ class Doctor_prescriptions extends Model
         'remain',
         'refill_range',
         'caution',
+        'amount',
+        'amount_paid',
     ];
 }

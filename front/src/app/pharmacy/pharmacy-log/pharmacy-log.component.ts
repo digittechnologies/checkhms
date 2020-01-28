@@ -14,6 +14,11 @@ import {startWith, map} from 'rxjs/operators';
   styleUrls: ['./pharmacy-log.component.css']
 })
 export class PharmacyLogComponent implements OnInit {
+  public form = {
+    customer: null,
+    
+  };
+
   control = new FormControl();
   filteredStreets: Observable<string[]>;
   response: any;
@@ -25,6 +30,7 @@ export class PharmacyLogComponent implements OnInit {
   appontId: any;
   slog: any;
   newArr = [];
+  search: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -128,6 +134,17 @@ export class PharmacyLogComponent implements OnInit {
     })
     
   }
+
+  onClickSubmit() {
+
+    console.log(this.form);
+    
+    // this.Jarwis.stockReport(form.value).subscribe(
+    //   data => {
+    //     this.response = data;
+    //     this.search = this.response;
+    //   });  
+  }  
 
 
 }

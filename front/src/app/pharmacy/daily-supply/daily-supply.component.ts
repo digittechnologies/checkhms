@@ -31,6 +31,8 @@ export class DailySupplyComponent implements OnInit {
   dayName: any;
   dayValue: any;
   upItem_id: any;
+  durares: any;
+  duraid: string;
 
   constructor(
     private Jarwis: JarwisService,
@@ -69,11 +71,8 @@ export class DailySupplyComponent implements OnInit {
   }
 
 onUpdate(form: NgForm) {
-
   
-  form.value.id=this.manufid
-  // this.image= form.value.image
-  //  console.log(form)
+  form.value.id=this.duraid; 
    console.log(form.value)
   this.Jarwis.updateInstruction(form.value).subscribe(        
     data => this.handleResponse(data),

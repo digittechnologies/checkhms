@@ -3,6 +3,7 @@ import { JarwisService } from './service/jarwis.service';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from './service/token.service';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +11,8 @@ import { TokenService } from './service/token.service';
 })
 export class AppComponent {
   title = 'SC-Platform';
+  response: any;
+  status: any;
   // login = true;
   // home = false;
  
@@ -18,46 +21,24 @@ export class AppComponent {
   // image: any;
 
   constructor(
-    // private Auth: AuthService,
-    // private router: Router,
-    // private Jarwis: JarwisService,
-    // private Token: TokenService
+    private Jarwis: JarwisService,
+    private Token: TokenService,
+    private router: Router,
+    private Auth: AuthService,
+    public snackBar: MatSnackBar, 
   ) { }
   // public response:any;
   // public res:any;
   // ftitle: any;
   ngOnInit() {
-    // this.Auth.authStatus.subscribe(value => this.loggedIn = value);
-    // this.Jarwis.getact().subscribe(
-    //   data=>{
-      
-    //   this.res = data;  
-      
-    //   }
-    // )
 
-    // this.Jarwis.profile().subscribe(
-    //   data=>{
-      
-    //   this.response = data;
-    //   this.image='https://sabiogun.jtcheck.com/sce-ogun/backend/public/upload/uploads/'+this.response.image
-     
-    // })
-
-  }
+    this.Jarwis.setupStatus().subscribe(
+      data=>{
+      this.response = data;      
+      this.status = this.response[0];
+    })
   
-
-  // logout(event: MouseEvent) {
-  //   event.preventDefault();
-  //   this.Token.remove();
-  //   this.Auth.changeAuthStatus(false);
-  //   this.newMethod();
-    
-  // }
-
-  // private newMethod() {
-  //   this.ngOnInit();
-  // }
-
+  }
+ 
 
 }

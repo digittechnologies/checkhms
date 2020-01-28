@@ -44,6 +44,11 @@ export class JarwisService {
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
+
+  setupStatus() {
+    return this.http.get(`${this.baseUrl}/setupStatus`)
+  }
+
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)
   }
@@ -247,6 +252,15 @@ export class JarwisService {
   displayDuration() {
     return this.http.get(`${this.baseUrl}/displayDuration`,)
   }
+
+  displayRefill() {
+    return this.http.get(`${this.baseUrl}/displayRefill`,)
+  }
+  updateInsruction(data) {
+    return this.http.post(`${this.baseUrl}/updateInsruction`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
   }
@@ -257,6 +271,9 @@ export class JarwisService {
   }
   edtduration(id:any) {
     return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
+  }
+  edtInstruction(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtInstruction/${id}`)
   }
   deleteDuration(data) {
     return this.http.post(`${this.baseUrl}/deleteDuration`, data)
@@ -312,6 +329,11 @@ export class JarwisService {
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
+
+  displayModule() {
+    return this.http.get(`${this.baseUrl}/displayModule`,)
+  }
+
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
@@ -382,7 +404,9 @@ patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
 makeAppointment(data) {
-  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data)
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
 }
 
 //Appointment 
@@ -532,11 +556,20 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmPre(id: any, data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`, data,{headers:{
+  // displayPharmPre(id: any, data) {
+  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`, data,{headers:{
+  //     Authorization:`Bearer ${localStorage.token}`
+  //   }})
+  // } 
+
+  displayPharmPre(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+  saveTovoucher() {
+    return this.http.get(`${this.baseUrl}/saveTovouche`)
+  }r
 
   displayRole() {
     return this.http.get(`${this.baseUrl}/displayRole`,)

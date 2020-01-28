@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-public role;
+ 
   public form = {
     email: null,
     password: null,
@@ -27,6 +27,13 @@ public role;
   res: Object;
   selectedValue: string;
   selectedCar: string;
+  response: any;
+  roleResponse: Object;
+  super: any;
+  global: any;
+  user: any;
+  center: any;
+  role:any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -36,7 +43,22 @@ public role;
   ) { }
 
   ngOnInit() {
+
+    this.Jarwis.profile().subscribe(
+      data=>{       
+      this.response = data;     
+      this.role= this.response.det[0].role_id
+    })
   
+    this.Jarwis.displayRole().subscribe(
+      data=>{       
+      this.roleResponse = data
+      this.role= this.roleResponse
+      this.super=this.role[0].id
+      this.global=this.role[1].id
+      this.center=this.role[2].id
+      this.user=this.role[3].id
+    })
     
   }
 
@@ -63,7 +85,21 @@ public role;
    
     this.Auth.changeAuthStatus(true);  
     this.ngOnInit() 
-   this.router.navigateByUrl('/Admin/(side:home)');
+    console.log(this.role);
+    if (this.role == this.super) {
+      this.router.navigateByUrl('/Admin/(side:home)');      
+    }
+    if (this.role == this.global) {
+       this.router.navigateByUrl('/Admin/(side:home)'); 
+    } 
+    if (this.role == this.center) {
+      this.ngOnInit() 
+      this.router.navigateByUrl('/Admin/(side:phamarcy-admin-dashboard)'); 
+   } 
+   if (this.role == this.user) {
+    this.router.navigateByUrl('/Admin/(side:phamarcy-user-dashboard)'); 
+ } 
+   
    this.disabled= false;
    this.sav= 'Submited'
 

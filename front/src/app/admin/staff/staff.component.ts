@@ -73,10 +73,9 @@ export class StaffComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
      duration: 2000
    })  
-  //  this.disabled=true;
-   // this.router.navigateByUrl('/population/'+this.paramsid+'');
+  
    this.ngOnInit()
-   //  this.router.navigateByUrl('/User/(side:Details)');
+  
    }
 
 

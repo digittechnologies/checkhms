@@ -6,7 +6,8 @@
                     <h1>Phamarcy Log</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>                        
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]">Refill</a></li>                        
                         <li class="breadcrumb-item active" aria-current="page">Phamarcy Log</li>
                         </ol>
                     </nav>
@@ -21,13 +22,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit()" #filter="ngForm" >
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..."  [formControl]="control" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete">
-                                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+                                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="form.customer" name="customer" [matAutocomplete]="auto">
+                                    <!-- name="customer2" -->
+                                    <mat-autocomplete #auto="matAutocomplete" ngModel>
+                                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
                                         </mat-option>
                                     </mat-autocomplete>
@@ -36,9 +39,10 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Log</a>
+                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log</button>
                             </div>
                         </div>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -50,10 +54,10 @@
                         <div class="circle">
                             <img class="rounded-circle" src="http://localhost/buth-pharm/backend/public/upload/uploads/{{l.patient_image}}" alt="">
                         </div>
-                        <h6 class="mt-3 mb-0">{{l.card_number}}</h6>
-                        <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.pat_name+ ' ' +l.othername}}</span></a>
+                        <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
+                        <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Refill</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.cust_id]}}]">Refill</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.cust_id]}}]">Invoice</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.cust_id]}}]">Voucher</a></li>
                         </ul>
