@@ -15,7 +15,7 @@ class Doctor_prescriptions extends Model
         'days',
         // 'status',
         // 'supply_quantity', 
-        // 'refill_status',
+        'refill_status',
         // 'refill_quantity',
         // 'cost', 
         // 'paid', 
@@ -27,6 +27,12 @@ class Doctor_prescriptions extends Model
         'appointment_id',
         'doctor_id',
         'pharmacist_id', 
-        'branch_id'
+        'branch_id',
+        'dispense',
+        'original_qty',
+        'refill',
+        'remain',
+        'refill_range',
+        'caution',
     ];
 }

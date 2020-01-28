@@ -225,8 +225,8 @@
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
                             <li><a href="javascript:void(0);" class="search_toggle icon-menu" title="Search Result"><i class="icon-magnifier"></i></a></li>                        
-                            <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i class="icon-bubbles"></i><span class="notification-dot bg-pink">2</span></a></li>
-                            <li><a href="" (click)="logout($event)" class="icon-menu"><i class="icon-power"></i></a></li>
+                            <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i class="icon-bubbles"></i><span class="notification-dot bg-pink">0</span></a></li>
+                            <li><a href="" (click)="logout($event)" class="icon-menu" title="Log Out"><i class="icon-power"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
             <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
         </nav>
         
-        <div class="search_div">
+        <!-- <div class="search_div">
             <div class="card">
                 <div class="body">
                     <form id="navbar-search" class="navbar-form search-form">
@@ -436,9 +436,9 @@
                 </div>
             </div>
             <div id="particles-js"></div>
-        </div>
+        </div> -->
     
-        <div id="rightbar" class="rightbar">
+        <!-- <div id="rightbar" class="rightbar">
             <div class="body">
                 <ul class="nav nav-tabs2">
                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Chat-one">Chat</a></li>
@@ -660,7 +660,7 @@
                 </div>
             </div>
         </div>
-    
+     -->
 
 
 
@@ -679,7 +679,7 @@
                         <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{fname}} {{lname}}</strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                             <li><a href="#"><i class="icon-user"></i>My Profile</a></li>
-                            <li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>
+                            <li><a href="javascript:void(0);"><i class="icon-envelope-open"></i>Messages</a></li>
                             <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
                             <li class="divider"></li>
                             <li><a (click)="logout($event)"><i class="icon-power"></i>Logout</a></li>
@@ -756,6 +756,9 @@
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_type']}}]">Type</a></li>
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['manufacturer']}}]">Brand</a></li>
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>
+
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]">Prescription Instruction Settings</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]">Daily Supply Settings </a></li>
                                 
                                 <!-- <li><a href="#">History</a></li> -->
                             </ul>
