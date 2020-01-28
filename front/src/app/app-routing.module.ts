@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContentComponent } from './content/content.component';
+// import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
-import { AccountComponent } from './user/account/account.component';
+// import { AccountComponent } from './user/account/account.component';
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
-import { DetailsComponent } from './user/details/details.component';
+// import { DetailsComponent } from './user/details/details.component';
 import { ProfileComponent } from './admin/profile/profile.component';
-import { PostComponent } from './user/post/post.component';
-import { MypostComponent } from './user/mypost/mypost.component';
-import { AddcategoryComponent } from './addcategory/addcategory.component';
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
-import { UpdateComponent } from './user/update/update.component';
+// import { PostComponent } from './user/post/post.component';
+// import { MypostComponent } from './user/mypost/mypost.component';
+// import { AddcategoryComponent } from './addcategory/addcategory.component';
+// import { AboutComponent } from './about/about.component';
+// import { ContactComponent } from './contact/contact.component';
+// import { UpdateComponent } from './user/update/update.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
@@ -67,6 +67,12 @@ import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.compo
 import { RefillComponent } from './pharmacy/refill/refill.component';
 import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
 
+// Dashboards
+import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
+import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+
+
 
 
 
@@ -110,8 +116,10 @@ const routes: Routes = [
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-
-
+         // Dashboard
+         {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -134,20 +142,10 @@ const routes: Routes = [
          {path: 'test', component: TestComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [AfterLoginService] },
-
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-
-        //  {path: 'Post', component: PostComponent, outlet: 'side',canActivate: [AfterLoginService] },
-        //  {path: 'Mypost', component: MypostComponent, outlet: 'side' ,canActivate: [AfterLoginService]},
-        //  {path: 'Update/:id', component: UpdateComponent, outlet: 'side' ,canActivate: [AfterLoginService]}
      ],
         }, 
-
-  {path: 'Content/:id', component: ContentComponent },
-  {path: 'addcat', component:  AddcategoryComponent },
-  {path: 'About', component:  AboutComponent },
-  {path: 'Contact', component:  ContactComponent },
 
 ];
 

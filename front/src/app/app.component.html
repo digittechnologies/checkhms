@@ -1,60 +1,16 @@
-<!-- <div class="navigation">
-      <div class="secondary-navigation" style="background-color: #118149;">
-          <div class="container">
-              <div class="contact">                  
-                  <figure style="color: cornsilk;"><strong>Location:</strong>Ogun, Nigeria</figure>
-              </div>
-              <div class="user-area">
-                  <div class="actions">
-                     
-                      <a style="color: cornsilk;" [routerLink]="['/Signin']" class="promoted" *ngIf="!loggedIn"><strong>Register</strong></a>
-                      <a style="color: cornsilk;" [routerLink]="['/Login']" *ngIf="!loggedIn">Sign In</a>
-                      <a style="color: cornsilk;" href=""  [routerLink]="['/User', {outlets: {side: ['Profile']}}]"  *ngIf="loggedIn">
-                        Account </a>
-                        <a style="color: cornsilk;" href="" (click)="logout($event)"  routerLink="Register" *ngIf="loggedIn">
-                             Logout
-                              </a>
-                              <a style="color: cornsilk;" href="" *ngIf="loggedIn"><img [src]='image'  style="width: 30px;border-radius: 50%;height: 30px;"></a>
-                  </div>                
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <header class="navbar" id="top" role="banner">
-              <div class="navbar-header">
-                  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <div class="navbar-brand nav" id="brand">
-                        <a href="" ><img src="assets/img/logo.png" ></a>
-                     
-                  </div>
-              </div>
-              <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-                  <ul class="nav navbar-nav">
-                      <li ><a href="/">Homepage</a>
-                          
-                      </li>
-                      <li class="has-child"><a href="#">Category</a>
-                          <ul class="child-navigation">
-                                <li *ngFor="let r of res"><a routerLink="" (click)="navigate(r.id)">{{r.actname}}</a></li>                             
-                          </ul>
-                      </li>                      
-                      <li><a [routerLink]="['/About']">About</a></li>
-                      <li><a [routerLink]="['/Contact']">Contact</a></li>
-                      <li><a [routerLink]="['/User', {outlets: {side: ['Post']}}]" *ngIf="loggedIn" >Contribute</a></li>                  
-                      <li><a [routerLink]="['/Login']" *ngIf="!loggedIn" >Contribute</a></li>  
-                  </ul>
-              </nav>
-              
-          </header>
-      </div>
-  </div> -->
+ <div *ngIf = "status.status == 'key'">
+     <app-key></app-key>
+ </div>
 
-    <div >
-        <router-outlet></router-outlet>
-    </div>
+ <div *ngIf = "status.status == 'locked'">
+    <app-lock></app-lock>
+</div>
+
+<div *ngIf = "status.status == 'registerd'">
+    <app-register></app-register>
+</div>
+ 
+ <div *ngIf = "status.status == 'activated'">
+    <router-outlet></router-outlet>
+</div>
         

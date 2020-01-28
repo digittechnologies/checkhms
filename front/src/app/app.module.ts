@@ -84,6 +84,12 @@ import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.compo
 import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
 import { NgxPrintModule} from 'ngx-print';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { KeyComponent } from './setup/key/key.component';
+import { LockComponent } from './setup/lock/lock.component';
+import { RegisterComponent } from './setup/register/register.component';
+import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
+import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -200,7 +206,19 @@ import {NgxPaginationModule} from 'ngx-pagination';
   
     DailySupplyComponent,
   
-    RefillDetailsComponent
+    RefillDetailsComponent,
+  
+    KeyComponent,
+  
+    LockComponent,
+  
+    RegisterComponent,
+  
+    PhamAdminComponent,
+  
+    PhamUserComponent,
+  
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,

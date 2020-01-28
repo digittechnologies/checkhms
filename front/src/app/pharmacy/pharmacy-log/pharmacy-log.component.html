@@ -22,13 +22,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(filter)" #filter="ngForm">
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..."  [formControl]="control" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete">
-                                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+                                    <input type="text" class="form-control" placeholder="Search..." ngModel name="customer"  [formControl]="control" [matAutocomplete]="auto">
+                                    <mat-autocomplete #auto="matAutocomplete" ngModel name="customer2">
+                                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
                                         </mat-option>
                                     </mat-autocomplete>
@@ -37,9 +38,10 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Log</a>
+                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log</button>
                             </div>
                         </div>
+                    </form>
                     </div>
                 </div>
             </div>

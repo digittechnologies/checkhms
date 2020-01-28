@@ -25,6 +25,7 @@ export class PharmacyLogComponent implements OnInit {
   appontId: any;
   slog: any;
   newArr = [];
+  search: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -128,6 +129,17 @@ export class PharmacyLogComponent implements OnInit {
     })
     
   }
+
+  onClickSubmit(form: NgForm) {
+
+    console.log(form.value);
+    
+    // this.Jarwis.stockReport(form.value).subscribe(
+    //   data => {
+    //     this.response = data;
+    //     this.search = this.response;
+    //   });  
+  }  
 
 
 }

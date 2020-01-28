@@ -121,6 +121,11 @@ class DisplayController extends Controller
         return DB::table("positions")->get();
     }
 
+    public function displayModule()
+    {
+        return DB::table("module")->get();
+    }
+
     // Unit
 
     public function displayUnit()

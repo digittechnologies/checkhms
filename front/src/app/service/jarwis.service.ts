@@ -44,6 +44,11 @@ export class JarwisService {
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
+
+  setupStatus() {
+    return this.http.get(`${this.baseUrl}/setupStatus`)
+  }
+
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)
   }
@@ -324,6 +329,11 @@ export class JarwisService {
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
+
+  displayModule() {
+    return this.http.get(`${this.baseUrl}/displayModule`,)
+  }
+
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }

@@ -10,6 +10,9 @@ Route::group([
     'middleware' => 'api',
 ], function () {
 
+    //Settings
+    Route::get('setupStatus', 'SetupController@setupStatus');
+
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::post('adminLogin','AuthController@adminLogin');
@@ -50,6 +53,9 @@ Route::post('deleteUser','DisplayController@deleteUser');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
+
+//Dashboard
+Route::get('displayModule','DisplayController@displayModule');
 
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
