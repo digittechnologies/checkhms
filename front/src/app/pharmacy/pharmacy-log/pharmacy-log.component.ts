@@ -14,6 +14,11 @@ import {startWith, map} from 'rxjs/operators';
   styleUrls: ['./pharmacy-log.component.css']
 })
 export class PharmacyLogComponent implements OnInit {
+  public form = {
+    customer: null,
+    
+  };
+
   control = new FormControl();
   filteredStreets: Observable<string[]>;
   response: any;
@@ -130,9 +135,9 @@ export class PharmacyLogComponent implements OnInit {
     
   }
 
-  onClickSubmit(form: NgForm) {
+  onClickSubmit() {
 
-    console.log(form.value);
+    console.log(this.form);
     
     // this.Jarwis.stockReport(form.value).subscribe(
     //   data => {

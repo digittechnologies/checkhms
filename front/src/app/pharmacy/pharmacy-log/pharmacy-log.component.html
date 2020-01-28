@@ -22,13 +22,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
-                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(filter)" #filter="ngForm">
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit()" #filter="ngForm" >
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." ngModel name="customer"  [formControl]="control" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete" ngModel name="customer2">
+                                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="form.customer" name="customer" [matAutocomplete]="auto">
+                                    <!-- name="customer2" -->
+                                    <mat-autocomplete #auto="matAutocomplete" ngModel>
                                         <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
                                         </mat-option>

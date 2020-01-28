@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
    
     this.Auth.changeAuthStatus(true);  
     this.ngOnInit() 
+    console.log(this.role);
     if (this.role == this.super) {
       this.router.navigateByUrl('/Admin/(side:home)');      
     }

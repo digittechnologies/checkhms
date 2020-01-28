@@ -52,7 +52,7 @@ onFilterChange() {
   this.Jarwis.displayCategories().subscribe(
     data=>{
     // this.response = data;      
-    this.catt = data
+    this.cat = data
     this.cats = this.cat.filter((cate) => this.isMatch(cate));
   })
 
