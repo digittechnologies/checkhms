@@ -45,6 +45,7 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
       this.response = data;      
       this.log = this.response;
+      console.log(this.log)
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -54,7 +55,7 @@ export class PharmacyLogComponent implements OnInit {
       let y:any = data;
       for(let x=0; x<y.length; x++){
         let z = data[x].card_number;
-        let w = data[x].name;
+        let w = data[x].mobile_number;
         if(!this.newArr.includes(z) || !this.newArr.includes(w)){
           this.newArr.push(z);
           this.newArr.push(w);
@@ -105,7 +106,8 @@ export class PharmacyLogComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error), 
            
-    ); this.Jarwis.displayDepartments().subscribe(
+    );
+     this.Jarwis.displayDepartments().subscribe(
       data=>{
       console.log(data);   
       this.response = data;
@@ -138,7 +140,11 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
 
     console.log(this.form);
-    
+    this.Jarwis.makeAppointment(this.form).subscribe(
+      data => this.handleResponse(data),
+        error => this.handleError(error)
+   );
+   
     // this.Jarwis.stockReport(form.value).subscribe(
     //   data => {
     //     this.response = data;

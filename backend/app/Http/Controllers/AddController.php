@@ -893,14 +893,16 @@ class AddController extends Controller
     //Appointment
     public function makeAppointment(Request $request)
     {
-        $cust_id = $request['aid'];
-        $dept_id = $request->form['dept_id'];
+        $id = $request->customer;
+        $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
+        $cust_id=$cus->id;
+        $dept_id= Auth()->user()->dept_id;
+        // $dept_id = $request->form['dept_id'];
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
 
         $bid= Auth()->user()->branch_id;
-
         $appointment= Appointments::create(
             [
                 'customer_id' => $cust_id, 
