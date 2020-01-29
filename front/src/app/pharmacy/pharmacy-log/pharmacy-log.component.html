@@ -27,7 +27,7 @@
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." ngModel name="customer"  [formControl]="control" [matAutocomplete]="auto">
+                                    <input type="text" class="form-control" placeholder="Search..." ngModel name="customer" (blur)="getInput($event)"  [formControl]="control" [matAutocomplete]="auto">
                                     <mat-autocomplete #auto="matAutocomplete" ngModel name="customer2">
                                         <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
@@ -38,7 +38,7 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log</button>
+                                <button type="button" (click)="logg()" class="btn btn-sm btn-primary btn-block" title="">Log</button>
                             </div>
                         </div>
                     </form>
@@ -62,8 +62,8 @@
                         </ul>
                         <hr><hr>
                         <div class="d-flex justify-content-between">
-                            <div class="text text-warning">{{l.prescription}}</div>
                             <div class="text text-warning">{{l.invoice}}</div>
+                            <div class="text text-warning">{{l.prescription}}</div>
                         </div>
                     </div>                        
                 </div>

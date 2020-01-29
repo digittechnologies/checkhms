@@ -36,6 +36,17 @@ class ChangePasswordController extends Controller
                 "message":"Failed"
             }';
     	 }
-    }
+	}
+	
+	public function changePassword(Request $request)
+	 {
+		 return $request->all();
+		$id= Auth()->user()->id;
+		$get = DB::table('users')->select('users.password')
+		->where('id', $id)-first();
+		return $get;
+		// bcrypt($data['password']),
+		
+	}
 
 }

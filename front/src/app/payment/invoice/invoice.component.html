@@ -31,16 +31,16 @@
                           <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span>Check HMS</span>
                           </div>
                           <div class="text-center">
-                            <p><strong>Order ID: </strong> C09</p> 
+                            <p><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
                           </div>
                           <hr>  
                         </div>
                           <div class="col-md-6 col-sm-6">                           
-                            <p class="m-b-0"><strong>Order Date: </strong> AUG 15, 2018</p>
-                              <p class="m-b-0"><strong>Name: </strong>Oladipupa Olajide</p>
-                              <p class="m-b-0"><strong>Card Number: </strong> C098588</p> 
-                              <p class="m-b-0"><strong>Address: </strong>Olahisi, Oyo, Oyo, State</p>
-                              <p class="m-b-0"><strong>Phone: </strong>0906-848-3939</p>                                   
+                            <p class="m-b-0"><strong>Order Date: </strong> {{inv.pres[0].p_date}}</p>
+                              <p class="m-b-0"><strong>Name: </strong>{{inv.patient.name}} {{inv.patient.othername}}</p>
+                              <p class="m-b-0"><strong>Card Number: </strong> {{inv.patient.card_number}}</p> 
+                              <p class="m-b-0"><strong>Address: </strong>{{inv.patient.address}}, {{inv.patient.city}}, {{inv.patient.state}}, {{inv.patient.country}}</p>
+                              <p class="m-b-0"><strong>Phone: </strong>{{inv.patient.mobile_number}}</p>                                   
                           </div>
                           <div class="col-md-6 col-sm-6 text-right">
                               
@@ -60,41 +60,21 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                          <tr>
-                                              <td>1</td>
-                                              <td>
-                                                  <span>iPhoneX 128GB</span>
-                                                  <p class="hidden-sm-down mb-0 text-muted"> Lorem Ipsum has been the industry's standard.</p>
-                                              </td>                                                    
-                                              <td>01</td>
-                                              <td class="hidden-sm-down">$380</td>
-                                              <td class="text-right">$380</td>
-                                          </tr>
-                                          <tr>
-                                              <td>02</td>
-                                              <td>
-                                                  <span>Nokia 6.1 64GB</span>
-                                                  <p class="hidden-sm-down mb-0 text-muted">simply dummy text of the printing and typesetting industry. </p>
-                                              </td>
-                                              <td>5</td>
-                                              <td class="hidden-sm-down">$50</td>
-                                              <td class="text-right">$250</td>
-                                          </tr>
-                                          <tr>
-                                              <td>03</td>
-                                              <td>
-                                                  <span>OnePlus6 64GB Red</span>
-                                                  <p class="hidden-sm-down mb-0 text-muted">simply dummy text of the printing and typesetting industry. </p>
-                                              </td>
-                                              <td>1</td>
-                                              <td class="hidden-sm-down">$120</td>
-                                              <td class="text-right">$120</td>
-                                          </tr>                                                
+                                            <tr *ngFor="let i of inv.pres; let n =index">
+                                                <td>{{n+1}}</td>
+                                                <td>
+                                                    <span>{{i.generic_name}}</span>
+                                                    <p class="hidden-sm-down mb-0 text-muted"> {{i.name}}</p>
+                                                </td>                                                    
+                                                <td>{{i.quantity}}</td>
+                                                <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                                                <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
+                                            </tr>
                                       </tbody>
                                       <tfoot>
                                           <td colspan="4"></td>
                                           <td class="text-right">
-                                              <span>Total: <strong class="text-success">$750.00</strong></span>
+                                              <span>Total: <strong class="text-success">{{inv.totalAmount.amount  | currency:'NGN':'symbol-narrow'}}</strong></span>
                                           </td>
                                       </tfoot>
                                   </table>
@@ -105,12 +85,18 @@
                           <div class="col-md-6">
                               <span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span>
                           </div>
-                          <div class="col-md-6 text-right">
-                              <button class="btn btn-info ml-2"><i class="icon-printer"></i>Print</button>
-                              <button class="btn btn-success ml-2"><i class="icon-printer"></i>Payment</button>
-                              <button class="btn btn-danger ml-2"><i class="icon-printer"></i>Terminate Transaction</button>
-                          </div>
                       </div> 
+                      <div class="row clearfix mt-2">
+                          <div class="col-md-6 text-left">
+                                <strong>Invoice Status: </strong><span class="badge badge-success">{{inv.pres[0].status}}</span>
+                          </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-info ml-2"><i class="icon-printer"></i>Print</button>
+                            <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
+                            <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
+                            <button class="btn btn-danger ml-2"><i class="icon-printer"></i>Terminate Transaction</button>
+                        </div>
+                      </div>
                   </div>
               </div>                                       
           </div>
@@ -131,7 +117,8 @@
                 </nav>
             </div>            
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title=""><i class="icon-printer"></i>Print All</a>
+                <button class="btn btn-sm btn-primary btn-round" title="" *ngIf = "inv.pres[0].status == 'invoice'" disabled><i class="icon-printer"></i>Print All</button>
+                <button class="btn btn-sm btn-primary btn-round" title="" *ngIf = "inv.pres[0].status == 'paid'"><i class="icon-printer"></i>Print All</button>
             </div>
         </div>
     </div>
@@ -149,172 +136,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let i of inv.pres; let n =index">
                             <td>
-                                <span>01</span>
+                                <span>{{n+1}}</span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>SS</span></div>
-                                    <div class="ml-3">
-                                        <a href="page-invoices-detail.html" title="">South Shyanne</a>
-                                        <p class="mb-0">south.shyanne@example.com</p>
+                                        <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                        <div class="ml-3">
+                                        <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
+                                        <p class="mb-0">{{i.name}}</p>
                                     </div>
                                 </div>                                        
                             </td>
-                            <td>$1200</td>
-                            <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
+                            <td>{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                            <td><span class="badge badge-success ml-0 mr-0">{{i.status}}</span></td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
+                                <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
                                 <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>02</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Zoe Baker</a>
-                                        <p class="mb-0">zoe.baker@example.com</p>
-                                    </div>
-                                </div>                                        
-                            </td>
-                            <td>$378</td>
-                            <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>03</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                        <div class="avtar-pic w35 bg-indigo" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>CB</span></div>
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Colin Brown</a>
-                                        <p class="mb-0">colinbrown@example.com</p>
-                                    </div>
-                                </div>                                        
-                            </td>
-                            <td>$653</td>
-                            <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>04</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="avtar-pic w35 bg-green" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>KG</span></div>
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Kevin Gill</a>
-                                        <p class="mb-0">kevin.gill@example.com</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>$451</td>
-                            <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>05</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Brandon Smith</a>
-                                        <p class="mb-0">Maria.gill@example.com</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>$1,989</td>
-                            <td><span class="badge badge-success  ml-0 mr-0">Done</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>06</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Kevin Baker</a>
-                                        <p class="mb-0">kevin.baker@example.com</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>$343</td>
-                            <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>13</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Colin Brown</a>
-                                        <p class="mb-0">colin-brown@example.com</p>
-                                    </div>
-                                </div>                                        
-                            </td>
-                            <td>$653</td>
-                            <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>14</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                    <div class="ml-3">
-                                        <a href="javascript:void(0);" title="">Kevin Gill</a>
-                                        <p class="mb-0">kevin-gill@example.com</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>$451</td>
-                            <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
+                                <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
                             </td>
                         </tr>
                     </tbody>
