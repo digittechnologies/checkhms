@@ -275,8 +275,8 @@
                                     <ul>
                                         <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]">Admin Dashboard</a></li> 
                                         <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]">User Dashboard</a></li>
-                                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['taskboard']}}]"><i class="icon-diamond"></i><span>Patient Taskboard</span></a></li>
-                                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li>                    
+                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Make Appointment</a></li>  
                                         
                                     </ul>
                                 </li>                         
@@ -296,30 +296,27 @@
                                     </span>
                                 </li>
                                
-                                <li class="header">Settings</li>
-                                
-                                <li><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-envelope"></i><span>All Staffs</span></a></li>
-                                <li><a [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><i class="icon-layers"></i><span>Our Centers</span></a></li>
-                                <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li>
-                                <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>Staffs By Dept</span></a></li>
-                                
+                                <li class="header">Settings</li>                                
+                                <!-- <li><a [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-envelope"></i><span>All Staffs</span></a></li> -->
+                                <!-- <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li> -->
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]"><i class="fa fa-sitemap"></i><span>Set Departments</span></a></li> 
+                                <li><a [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><i class="icon-layers"></i><span>Our Centers</span></a></li>                                
+                                <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>Set Staff</span></a></li> 
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]"><i class="fa fa-sort-numeric-asc"></i><span>Prescription Settings</span></a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]"><i class="fa fa-sort-alpha-desc"></i><span>Instruction Settings</span></a></li>                                
                                 <li>
-                                        <span>
-                                    <a class="has-arrow"><i class="icon-user"></i><span>Other Settings</span></a>
-                                    <ul>
-                                        <li><a [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]">Set Departments</a></li> 
+                                <span>
+                                    <a class="has-arrow"><i class="fa fa-list"></i><span>Other Settings</span></a>
+                                    <ul>                                       
                                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_category']}}]">Class</a></li>
                                         <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['unit']}}]">Unit</a></li>
                                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_type']}}]">Type</a></li>
                                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['manufacturer']}}]">Brand</a></li>
-                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>        
-                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]">Prescription Instruction Settings</a></li>
-                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]">Daily Supply Settings </a></li>                              
-                                        <li><a href="#">General Settings</a></li>
-                                        
+                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>                                       
                                     </ul> 
-                                    </span>                       
+                                </span>                                                      
                                 </li>
+                                <li><a href="#"><i class="icon-settings"></i><span>General Settings</span></a></li> 
                             </ul>
                         </nav>
     
