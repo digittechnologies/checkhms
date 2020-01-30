@@ -589,8 +589,8 @@ deleteAppointment(data) {
     }})
   }
 
-  closeAppointment(data) {
-    return this.http.post(`${this.baseUrl}/closeAppointment`, data,{headers:{
+  closeAppointment(id: any,vid: any, data) {
+    return this.http.post(`${this.baseUrl}/closeAppointment/${id}/${vid}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

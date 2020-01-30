@@ -464,7 +464,6 @@ class DisplayController extends Controller
     public function displayPharmPrescription($id)
     {
         $bId= Auth()->user()->branch_id;
-
         return response()->json([
             "pres" => Doctor_prescriptions::orderBy('id') 
                     ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
@@ -472,32 +471,32 @@ class DisplayController extends Controller
                     // ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
                     ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                     ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
-                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.status', '!=', 'close')
                     ->where('doctor_prescriptions.customer_id', '=', $id)
                     ->where('doctor_prescriptions.branch_id', '=', $bId)
                     ->get(),
             "tquant" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.customer_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.quantity'),
             "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.customer_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.refill'),
             "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.customer_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.remain'),
             "eachcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                         ->where('doctor_prescriptions.status', '=', 'save')
+                         ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.customer_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.amount'),
             "tcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.customer_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.amount_paid'),
