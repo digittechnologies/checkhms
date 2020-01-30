@@ -217,8 +217,8 @@
                         </thead>
                             <tr  *ngFor="let added of payloads; let r = index">
                                 <td>{{r+1}}</td>
-                                <!-- <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td> -->
-                                <td><span>{{added.generic_name}}</span></td>
+                                <!-- <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> -->
+                                <td> <span>{{added.generic_name}}</span></td>
                                 <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
                                 <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
                                 <td><span class="text-success">{{added.quantity}}</span></td>

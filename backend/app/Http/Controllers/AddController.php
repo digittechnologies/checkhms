@@ -897,13 +897,14 @@ class AddController extends Controller
         $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
         $cust_id=$cus->id;
         $dept_id= Auth()->user()->dept_id;
+        $bid= Auth()->user()->branch_id;
         // $dept_id = $request->form['dept_id'];
+       
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
-
-        $bid= Auth()->user()->branch_id;
-        $appointment= Appointments::create(
+        
+         $appointment= Appointments::create(
             [
                 'customer_id' => $cust_id, 
                 'department_id' => $dept_id, 
