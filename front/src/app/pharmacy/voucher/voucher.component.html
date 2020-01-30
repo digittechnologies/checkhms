@@ -30,7 +30,7 @@
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
-                          <div class="h4 m-0">RX#:</div>
+                          <div class="h4 m-0">RX#: {{prescriptions.pres[0].voucher_id}}</div>
                         </div>
                   </div>
               </div>                    
@@ -248,9 +248,11 @@
                     </tfoot>
                 </table>
                 <div>
-                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
-                    <button type="button" class="btn btn-round btn-default">Cancel</button>
+                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'invoice' || prescriptions.pres[0].status == 'paid'" disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "prescriptions.pres[0].status == 'save'" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'invoice' || prescriptions.pres[0].status == 'paid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',patID]}}]">Invoice</a></button> &nbsp;&nbsp;
+                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'save'" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                    <!-- <button type="button" class="btn btn-round btn-default">Cancel</button> -->
                 </div><br>              
                 </div>
                 </div>
