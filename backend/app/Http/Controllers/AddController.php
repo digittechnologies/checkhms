@@ -893,14 +893,16 @@ class AddController extends Controller
     //Appointment
     public function makeAppointment(Request $request)
     {
-        $cust_id = $request['aid'];
-        $dept_id = $request->form['dept_id'];
+        $id = $request->customer;
+        $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
+        $cust_id=$cus->id;
+        $dept_id= Auth()->user()->dept_id;
+        // $dept_id = $request->form['dept_id'];
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
 
         $bid= Auth()->user()->branch_id;
-
         $appointment= Appointments::create(
             [
                 'customer_id' => $cust_id, 
@@ -1830,7 +1832,7 @@ class AddController extends Controller
                 'balance' => 0,
                 'total_refill' => $refill,
                 'refill_remain' => $remain,
-                'paid_status' => 'paid',
+                'paid_status' => 'un-paid',
                 'delivery_status' => 'delivered',
                 'refill_status' => $refill_status,
                 'customer_id' => $cid,
@@ -1909,6 +1911,7 @@ class AddController extends Controller
         //UPDATE VOUCHER AND ADD THE INVOICE ID OF THE OBJECT TO THE RETURNED INVOICE ID ABOVE
         $updateVoucher = DB::table('vouchers')->where('id', $vid)
                             ->update([
+                                'paid_status' => 'paid',
                                 'invoice_id' => $insertInvoice,
                             ]);
         
@@ -1918,12 +1921,10 @@ class AddController extends Controller
         //UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
                                 ->update([
-                                    'invoice' => 'Paid',
+                                    'invoice' => 'paid',
                                 ]);
         
         //GET THE PAID PRESCRIPTIONS 
-        // if($updateAppointment){
-        //     return 'ljkl';
             $all_item =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
                                 ->where('doctor_prescriptions.voucher_id', '=', $vid)
                                 ->where('doctor_prescriptions.branch_id', '=', $branchId)
@@ -1939,18 +1940,32 @@ class AddController extends Controller
                 ->where('item_detail_id','=', $item)
                 ->first();
                 $sales = $bitem->sales + $val;
-                $remain =  $bitem->total_remain - $val;
+                $balance = $bitem->sales + $sales;
+                $remain =  $bitem->open_stock + $bitem->receive - $balance;
+                $physical = $remain - $bitem->variance;
                 $add=DB::table($branchName)
                 ->where('item_detail_id','=', $item)
                 ->update([
                     'sales' => $sales,
                     'total_remain' => $remain,
+                    'balance' => $balance,
+                    'physical' => $physical,
                 ]);   
             }
         return '{
             "success":true,
             "message":"successful"
         }' ;
+    }
+
+    public function closeAppointment()
+    {
+
+    }
+
+    public function terminateAppointment()
+    {
+
     }
 }
 

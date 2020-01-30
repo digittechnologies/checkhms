@@ -583,6 +583,18 @@ deleteAppointment(data) {
     }})
   }
 
+  terminateAppointment(id: any, data) {
+    return this.http.post(`${this.baseUrl}/terminateAppointment/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  closeAppointment(data) {
+    return this.http.post(`${this.baseUrl}/closeAppointment`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   displayRole() {
     return this.http.get(`${this.baseUrl}/displayRole`,)
   }

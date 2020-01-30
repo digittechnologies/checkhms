@@ -342,13 +342,23 @@ class DisplayController extends Controller
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         //    ->where ('c_date', '=', $cDate)
            ->get(),
-           'addedItem'=>DB::table($id)->select($id.'.*')->sum($id.'.receive'),
-           'transferredItem'=>DB::table($id)->select($id.'.*')->sum($id.'.transfer'),
-           'soldItem'=>DB::table($id)->select($id.'.*')->sum($id.'.sales'),
+           'addedItem'=>DB::table($id)->select($id.'.*')
+        //    ->where ('c_date', '=', $cDate)
+           ->sum($id.'.receive'),
+           'transferredItem'=>DB::table($id)->select($id.'.*')
+        //    ->where ('c_date', '=', $cDate)
+           ->sum($id.'.transfer'),
+           'soldItem'=>DB::table($id)->select($id.'.*')
+        //    ->where ('c_date', '=', $cDate)
+           ->sum($id.'.sales'),
            'varianced'=>DB::table($id)->select($id.'.*')->sum($id.'.variance'),
-           'openBal'=>DB::table($id)->select($id.'.*')->sum($id.'.open_stock'),
+           'openBal'=>DB::table($id)->select($id.'.*')
+        //    ->where ('c_date', '=', $cDate)
+           ->sum($id.'.open_stock'),
            'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
-           'total'=>DB::table($id)->select($id.'.*')->sum($id.'.total_remain'),
+           'total'=>DB::table($id)->select($id.'.*')
+        //    ->where ('c_date', '=', $cDate)
+           ->sum($id.'.total_remain'),
            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
 
         ]);
@@ -514,7 +524,6 @@ class DisplayController extends Controller
     public function displayPharmInvoice($id)
     {
         $bId= Auth()->user()->branch_id;
-
         return response()->json([
             "pres" => $p =  Doctor_prescriptions::orderBy('id') 
                 ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')

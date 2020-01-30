@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Hash;
 
 class ChangePasswordController extends Controller
 {
@@ -40,13 +41,26 @@ class ChangePasswordController extends Controller
 	
 	public function changePassword(Request $request)
 	 {
-		 return $request->all();
-		$id= Auth()->user()->id;
-		$get = DB::table('users')->select('users.password')
-		->where('id', $id)-first();
-		return $get;
-		// bcrypt($data['password']),
-		
+		$check = Hash::check($request->current_password, Auth()->user()->password);
+		if($check){
+			$update = DB::table('users')->where('email', '=', Auth()->user()->email)
+				->update([
+					'password'=> bcrypt($request->new_password)
+				]);
+				if($update){
+					return'{
+						"success":true,
+						"message":"successful"
+					}';
+				} else {
+					return '{
+						"success":false,
+						"message":"Failed"
+					}';
+				}
+		}else{
+			return response()->json($check);
+		}
 	}
 
 }
