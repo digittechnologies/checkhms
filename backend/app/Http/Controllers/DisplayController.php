@@ -373,7 +373,23 @@ class DisplayController extends Controller
         );
     }
 
-    // Customers/ Patients
+    //Dashboard
+
+    public function countCustomer()
+    {
+        $post = DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
+        ->get();
+      return $post;
+    }
+
+    public function countAppointmentDash()
+    {
+        $post = DB::table('appointments')->select(DB::raw('count(id) as "appointment", (select COUNT(id) from appointments where treatment = "open") as "doctor", (select COUNT(id) from appointments where lab = "open") as "lab",  (select COUNT(id) from appointments where prescription = "open") as "open" '))    
+        ->get();
+      return $post;
+    }
+
+    // Customers/ Patients   
 
     public function displayCustomer()
     {

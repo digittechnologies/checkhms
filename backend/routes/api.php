@@ -147,6 +147,7 @@ Route::post('deleteItem', 'AddController@deleteItem');
 //Customers / Patients
 Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
 Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
