@@ -37,7 +37,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <label>Branch</label>
                                 <div class="form-group">
-                                    <select class="form-control" (change)="onSelectTo($event)" ngModel name="to">                           
+                                    <select class="form-control" ngModel name="to">                           
                                         <option value="">To...</option>
                                         <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
                                     </select>

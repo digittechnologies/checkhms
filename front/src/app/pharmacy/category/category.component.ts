@@ -31,6 +31,7 @@ export class CategoryComponent implements OnInit {
   catt:any;
   filterString = "";
   cats;
+  p:any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,

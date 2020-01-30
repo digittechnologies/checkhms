@@ -356,7 +356,11 @@ export class JarwisService {
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
-
+  changePassword(data) { 
+    return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   staffdetails(id:string) {
     return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -560,20 +564,40 @@ deleteAppointment(data) {
     }})
   } 
 
-  // displayPharmPre(id: any, data) {
-  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`, data,{headers:{
-  //     Authorization:`Bearer ${localStorage.token}`
-  //   }})
-  // } 
+  displayPharmInvoice(id: any,data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  } 
 
-  displayPharmPre(id: any) {
-    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
+  displayPharmPre(id: any, data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
-  saveTovoucher() {
-    return this.http.get(`${this.baseUrl}/saveTovouche`)
-  }r
+  saveTovoucher(id: any, data) {
+    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  saveToInvoice(id: any, data) {
+    return this.http.post(`${this.baseUrl}/saveToInvoice/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  terminateAppointment(id: any, data) {
+    return this.http.post(`${this.baseUrl}/terminateAppointment/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  closeAppointment(data) {
+    return this.http.post(`${this.baseUrl}/closeAppointment`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 
   displayRole() {
     return this.http.get(`${this.baseUrl}/displayRole`,)

@@ -86,6 +86,48 @@
                 </ul>
             </div>
             
+            
+            <!-- Sales -->
+            <div class="body"  *ngIf = "action == 'vouchers'">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Item</th>
+                                <th>From</th>
+                                <th>Instock</th>
+                                <th>New Stock</th>
+                                <th>Quantity</th>
+                                <th>To</th>
+                                <th>Instock</th>
+                                <th>New Stock</th>                                
+                                <th>Staff</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                <td>33</td>
+                                <td>2008/11/28</td>
+                                <td>$162,700</td>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
             <!-- Transfers From -->
             <div class="body"  *ngIf = "action == 'transfersFrom'">
                 <div class="table-responsive" id="print-history">
@@ -301,47 +343,6 @@
                                 <th>Salary</th>
                                 <th>Office</th>
                                 <th>Age</th>
-                            </tr>                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Sales -->
-            <div class="body"  *ngIf = "action == 'vouchers'">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>S/N</th>
-                                <th>Item</th>
-                                <th>From</th>
-                                <th>Instock</th>
-                                <th>New Stock</th>
-                                <th>Quantity</th>
-                                <th>To</th>
-                                <th>Instock</th>
-                                <th>New Stock</th>                                
-                                <th>Staff</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
                             </tr>                            
                         </tbody>
                     </table>

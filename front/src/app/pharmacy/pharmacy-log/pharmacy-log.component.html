@@ -39,7 +39,7 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log</button>
+                                <button type="button" (click)="logg()" class="btn btn-sm btn-primary btn-block" title="">Log</button>
                             </div>
                         </div>
                     </form>
@@ -63,8 +63,8 @@
                         </ul>
                         <hr><hr>
                         <div class="d-flex justify-content-between">
-                            <div class="text text-warning">{{l.prescription}}</div>
                             <div class="text text-warning">{{l.invoice}}</div>
+                            <div class="text text-warning">{{l.prescription}}</div>
                         </div>
                     </div>                        
                 </div>

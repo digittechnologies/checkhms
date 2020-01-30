@@ -28,6 +28,7 @@ export class TypeComponent implements OnInit {
   unitid: any;
   typeimage: any;
   image: any;
+  p:any;
 
   constructor( 
     private Jarwis: JarwisService,

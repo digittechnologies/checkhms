@@ -31,6 +31,7 @@ export class PharmacyLogComponent implements OnInit {
   slog: any;
   newArr = [];
   search: any;
+  logUser: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -150,6 +151,13 @@ export class PharmacyLogComponent implements OnInit {
     //     this.search = this.response;
     //   });  
   }  
+  getInput(i){
+    this.logUser = i.target.value
+  }
+
+  logg(){
+    alert(this.logUser)
+  }
 
 
 }

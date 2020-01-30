@@ -99,7 +99,7 @@
                             <td>10/11/2019</td>           
                             <td>
                                 <a class="btn btn-default btn-sm" style="color: blue;" title="voucher-details" [routerLink]="['/Admin', {outlets: {side: ['refill-details']}}]"><i class="fa fa-pencil"></i> Voucher</a>
-                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i> Councel</button>
+                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i> Councel</button>
                             </td>
                         </tr>                                                   
                     </tbody>
@@ -169,8 +169,8 @@
                                       <td>N 700</td>
                                       <td>N7,000</td>
                                       <td>
-                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans"><i class="fa fa-pencil"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i></button>
                                     </td>
                                   </tr>                                
                               </tbody>

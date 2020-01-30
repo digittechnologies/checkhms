@@ -672,7 +672,7 @@
                                                         <tr>
                                                                 <td>
                                                                     <div class="form-group"> 
-                                                                        <select class="form-control input-height" (change)="onSelectItem3($event)" ngModel name="item3"> 
+                                                                        <select class="form-control input-height" (change)="onSelectItem2($event)" ngModel name="item3"> 
                                                                             <option value="">Select Item...</option>     
                                                                             <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name+ ' '+ itdet.manuf_name}}</option>
                                                                         </select> 
@@ -681,7 +681,7 @@
                                                                 </td>                                                  
                                                                 <td>                                                            
                                                                     <div class="form-group">
-                                                                        <select class="form-control"  (change)="onSelectFrom($event)" ngModel name="from">
+                                                                        <select class="form-control" ngModel name="from">
                                                                                 <option value="">-- From --</option>
                                                                                 <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
                                                                         </select> 

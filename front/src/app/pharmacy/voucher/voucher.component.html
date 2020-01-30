@@ -202,14 +202,14 @@
                             <th>Quantity</th>                                                                            
                             <th>Refill</th>  
                             <th>Remain</th>                           
-                            <th>New Quantity</th>
+                            <!-- <th>New Quantity</th> -->
                             <th>Cost</th>
                             <th>Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let r of prescriptions; let i =index" >
+                        <tr *ngFor="let r of prescriptions.pres; let i =index">
                            <td>{{i+1}}</td>                                                                                     
                            <td class="w60">
                             <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
@@ -223,9 +223,9 @@
                         <td>{{r.quantity}}</td>                                                                          
                         <td>{{r.refill}}</td>
                         <td>{{r.remain}}</td>
-                        <td>39</td> 
-                        <td>N 700</td>
-                        <td>N7,000</td>
+                        <!-- <td>39</td>  -->
+                        <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
+                        <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                         <td>
                           <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
                           <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
@@ -239,16 +239,16 @@
                             <th></th>
                             <th></th>                                      
                             <th></th>
-                            <th>5</th>
-                            <th>390</th> 
-                            <td>39</td>                                 
-                            <th>N 700:00</th>
-                            <th>N7,000:00</th>
+                            <th>{{prescriptions.tquant}}</th>
+                            <th>{{prescriptions.refill}}</th> 
+                            <td>{{prescriptions.remain}}</td>                                 
+                            <th>{{prescriptions.eachcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{prescriptions.tcost | currency:'NGN':'symbol-narrow'}}</th>
                         </tr>
                     </tfoot>
                 </table>
                 <div>
-                    <button type="button" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                     <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <button type="button" class="btn btn-round btn-default">Cancel</button>
                 </div><br>              

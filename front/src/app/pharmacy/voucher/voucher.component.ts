@@ -60,10 +60,10 @@ export class VoucherComponent implements OnInit {
 	    })
   }))
   
-  this.Jarwis.displayPharmPre(this.patID).subscribe(
+  this.Jarwis.displayPharmPre(this.patID, '').subscribe(
     data=>{
     this.PharmPreresponse = data;      
-    this.prescriptions = this.PharmPreresponse;  
+    this.prescriptions = this.PharmPreresponse; 
   })
 
     this.Jarwis.disItemDet().subscribe(
@@ -77,18 +77,11 @@ export class VoucherComponent implements OnInit {
       this.Instructionresponse = data;      
       this.instruct = this.Instructionresponse;      
     })
-
-    // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
-    //   data=>{
-    //   this.response = data;      
-    //   this.prescriptions = this.response   
-    // })
-    
   }
 
-  // get(){
-  //   this.ngOnInit()
-  // }
+  get(){
+    this.ngOnInit()
+  }
   onSelectItem(Itemid) {
     this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
       data=>{
@@ -152,7 +145,7 @@ export class VoucherComponent implements OnInit {
       alert('Quantity greater than quantity in stock')
       n.target.value = ''
     }
-    if(parseInt(n.target.value) < parseInt(this.total[0].total_remain)){
+    if(parseInt(n.target.value) <= 0){
       alert('Quantity minimum is 1')
       n.target.value = ''
     }
@@ -164,11 +157,12 @@ export class VoucherComponent implements OnInit {
 
   onSubmitAdd(form: NgForm) {
     form.value.customer_id=this.patID
-    form.value.quantity = this.quantity
+    form.value.quantity = this.quant
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
     form.value.amount = this.total[0].selling_price
-    form.value.amount_paid = this.total[0].selling_price * this.quantity
+    form.value.amount_paid = parseInt(this.total[0].selling_price) * parseInt(this.quant)
+    form.value.instock = this.total[0].total_remain
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -176,7 +170,7 @@ export class VoucherComponent implements OnInit {
   }
 
   saveTovoucher(){
-    this.Jarwis.saveTovoucher().subscribe(
+    this.Jarwis.saveTovoucher(this.patID, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

@@ -21,7 +21,8 @@ Route::group([
     Route::get('me', 'AuthController@me');
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ChangePasswordController@process');
-    
+    Route::post('changePassword', 'ChangePasswordController@changePassword');
+
 Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
 Route::get('getUcontent','DisplayController@getUContent');
@@ -59,6 +60,7 @@ Route::get('displayModule','DisplayController@displayModule');
 
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
+Route::get('mydetails','DisplayController@mydetails');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('c_uStatus','DisplayController@c_uStatus');
 Route::post('reStatus','DisplayController@reStatus');
@@ -160,6 +162,8 @@ Route::post('makeAppointment','AddController@makeAppointment');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
+Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
+Route::post('closeAppointment', 'AddController@closeAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
@@ -167,10 +171,10 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
-// Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
-Route::get('saveTovoucher', 'AddController@saveTovoucher');
-Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
+Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices
@@ -179,6 +183,8 @@ Route::get('displayInvoice','DisplayController@displayInvoice');
 Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
+Route::post('saveToInvoice/{id}', 'AddController@saveToInvoice');
+
 
 //Vouchers
 Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
