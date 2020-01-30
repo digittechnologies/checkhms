@@ -22,14 +22,12 @@ import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
 import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule,} from '@angular/material';
-import { AddcategoryComponent } from './addcategory/addcategory.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'​;
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { PopulationComponent } from './admin/population/population.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UpdateComponent } from './user/update/update.component';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
@@ -108,11 +106,9 @@ import { environment } from '../environments/environment';
     DetailsComponent,
     PostComponent,
     MypostComponent,
-    AddcategoryComponent,
     AboutComponent,
     ContactComponent,
     DashboardComponent,
-    PopulationComponent,
     SettingsComponent,
     UpdateComponent,
     PossitionComponent,
