@@ -36,5 +36,6 @@ class Doctor_prescriptions extends Model
         'caution',
         'amount',
         'amount_paid',
+        'instock',
     ];
 }
