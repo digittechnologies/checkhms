@@ -90,6 +90,8 @@ import { RegisterComponent } from './setup/register/register.component';
 import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
 import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
+import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
 
 @NgModule({
   declarations: [
@@ -218,7 +220,11 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
   
     PhamUserComponent,
   
-    AdminProfileComponent
+    AdminProfileComponent,
+  
+    ForgotPasswordEmailComponent,
+  
+    ForgotPasswordResetComponent
   ],
   imports: [
     BrowserModule,

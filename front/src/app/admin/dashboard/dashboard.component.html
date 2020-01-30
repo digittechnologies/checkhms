@@ -274,7 +274,9 @@
                                 <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                                     <ul>
                                         <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]">Admin Dashboard</a></li> 
-                                        <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]">User Dashboard</a></li>                    
+                                        <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]">User Dashboard</a></li>
+                                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['taskboard']}}]"><i class="icon-diamond"></i><span>Patient Taskboard</span></a></li>
+                                        <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><i class="icon-grid"></i><span>Departments</span></a></li>                    
                                         
                                     </ul>
                                 </li>                         
@@ -332,7 +334,9 @@
                                 <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                                     <ul>
                                         <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]">Admin Dashboard</a></li> 
-                                        <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]">User Dashboard</a></li>                    
+                                        <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]">User Dashboard</a></li>   
+                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Make Appointment</a></li>              
                                         
                                     </ul>
                                 </li>                         
@@ -385,9 +389,10 @@
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu">
                                 <li class="header">Admin</li>
-                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
-                                    
-                                </li>                         
+                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li> 
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Make Appointment</a></li>
+                                                        
                                 <li class="header">Depertments</li>                              
                                 <li>
                                     <span>
@@ -436,9 +441,10 @@
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu">
                                 <li class="header">Admin</li>
-                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a>
-                                    
-                                </li>                         
+                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li>
+                                <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]">Make Appointment</a></li>
+                                                         
                                 <li class="header">Depertments</li>                              
                                 <li>
                                     <span>

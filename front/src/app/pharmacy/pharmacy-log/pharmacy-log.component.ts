@@ -46,7 +46,6 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
       this.response = data;      
       this.log = this.response;
-      console.log(this.log)
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -140,7 +139,6 @@ export class PharmacyLogComponent implements OnInit {
 
   onClickSubmit() {
 
-    console.log(this.form);
     this.Jarwis.makeAppointment(this.form).subscribe(
       data => this.handleResponse(data),
         error => this.handleError(error)
@@ -154,10 +152,6 @@ export class PharmacyLogComponent implements OnInit {
   }  
   getInput(i){
     this.logUser = i.target.value
-  }
-
-  logg(){
-    alert(this.logUser)
   }
 
 

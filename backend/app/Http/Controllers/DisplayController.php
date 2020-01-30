@@ -397,7 +397,23 @@ class DisplayController extends Controller
         );
     }
 
-    // Customers/ Patients
+    //Dashboard
+
+    public function countCustomer()
+    {
+        $post = DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
+        ->get();
+      return $post;
+    }
+
+    public function countAppointmentDash()
+    {
+        $post = DB::table('appointments')->select(DB::raw('count(id) as "appointment", (select COUNT(id) from appointments where treatment = "open") as "doctor", (select COUNT(id) from appointments where lab = "open") as "lab",  (select COUNT(id) from appointments where prescription = "open") as "open" '))    
+        ->get();
+      return $post;
+    }
+
+    // Customers/ Patients   
 
     public function displayCustomer()
     {
@@ -796,7 +812,14 @@ class DisplayController extends Controller
         }
 
         if($action == 'vouchers'){
-
+            return DB::table('vouchers')
+            ->select('vouchers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname')
+            ->join ('item_details','vouchers.item_detail_id','=','item_details.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join('users', 'vouchers.staff_id', '=', 'users.id')
+            ->where('vouchers.status','=','added')
+            ->whereIn('vouchers.v_date', $dateRange)
+            ->get();
         }
         if($action == 'adds'){
             return DB::table('purchases')

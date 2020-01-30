@@ -171,32 +171,39 @@ class AuthController extends Controller
        $user= auth()->user();
 	   $currentfile= $user->image;
 	   $datas=$request->formdata;
-      
+    //   return $datas;
         if ($request->image != $currentfile){
             $file=$request->image;
             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
-           // $filename= time().'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
-           //$user=auth()->user();
-            // $datas->merge(['image'=>$filename]);
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
             $user->image = $filename;
-            //$user->save(); 'familybackground'
         }
-        // $user = new user;
+      
         $user->firstname = $datas['firstname'];
         $user->lastname = $datas['lastname'];
-        $user->middlename = $datas['middlename'];
+        $user->instagram_handle = $datas['instagram_handle'];
      	$user->email =  $datas['email'];
-     	$user->town =  $datas['town'];
+     	$user->city =  $datas['city'];
 	    $user->address =  $datas['address'];
-	    $user->phone =  $datas['phone'];
+	    $user->mobile_number =  $datas['mobile_number'];
 	    $user->gender =  $datas['gender'];
-	    $user->family =  $datas['family'];
-	    $user->familybackground =  $datas['familybackground'];
+	    $user->facebook_handle =  $datas['facebook_handle'];
+        $user->twitter_handle =  $datas['twitter_handle'];
+        $user->state =  $datas['state'];
     	$user->save();
         // $user->update($request->all());
-        
-        return $user;
+        if($user){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        // return $user;
        //return response()->json(['success' => 'You have successfully uploaded an image'], 200);
         }
 } 

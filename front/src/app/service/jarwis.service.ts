@@ -401,6 +401,10 @@ displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
 }
 
+countCustomer() {
+  return this.http.get(`${this.baseUrl}/countCustomer`,)
+}
+
 addCustomer(data) {
   return this.http.post(`${this.baseUrl}/addCustomer`, data)
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, NgForm } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from "@angular/forms";
 import { TokenService } from '../service/token.service';
 import { JarwisService } from '../service/jarwis.service';
 import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-admin-profile',
@@ -17,7 +18,8 @@ export class AdminProfileComponent implements OnInit {
   error: any;
   np1: any;
   np2: any;
-
+  image: any;
+  public submissionForm: FormGroup;
   constructor(
     public actRoute: ActivatedRoute, 
     private formBuilder: FormBuilder,
@@ -28,13 +30,77 @@ export class AdminProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() { 
+    this.submissionForm = this.formBuilder.group(
+     
+      {
+        firstname: [''],
+       lastname: [''],
+       instagram_handle:[''],
+       email:[''],
+       facebook_handle:[''],
+       mobile_number:[''],
+       state:[''],
+       city:[''],
+       gender:[''],
+       address:[''],
+      id:[''],
+      twitter_handle:[''],
+     },
+   )
     this.Jarwis.profile().subscribe(
       data=>{
       this.response = data;
       this.me = this.response.det[0]
+
+      this.submissionForm = this.formBuilder.group(
+    
+        {
+          firstname: [this.me.firstname],
+          lastname: [this.me.lastname],
+          email:[this.me.email],
+          instagram_handle:[this.me.instagram_handle],
+          facebook_handle:[this.me.facebook_handle],
+          twitter_handle:[this.me.twitter_handle],
+          mobile_number:[this.me.mobile_number],
+          state:[this.me.state],
+          city:[this.me.city],
+          gender:[this.me.gender],
+          address:[this.me.address],
+          id:[this.me.id]
+        },
+      )
+      this.image=this.me.image
     })
   }
-
+  uploadFile(event){
+    let files =event.target.files[0];
+    let reader = new FileReader();
+    let vm = this;
+    reader.onloadend =()=> {
+      
+      this.image = reader.result;
+   
+    }
+    reader.readAsDataURL(files);
+  }
+  
+  onSubmitprofile() {
+   console.log(this.image)
+    this.Jarwis.updateprofile({formdata:this.submissionForm.value,image:this.image}).subscribe(
+      data => this.handleResponsep(data),
+     error => this.handleErrorp(error)
+   );
+   
+  }
+  handleErrorp(error) {
+   
+    this.error = error.error.errors;
+    console.log(this.error);
+    
+  }
+  handleResponsep(data) {  
+    this.ngOnInit()
+  }
   get1(a){
     this.np1 = a.target.value
   }
