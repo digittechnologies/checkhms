@@ -139,7 +139,6 @@ export class PharmacyLogComponent implements OnInit {
 
   onClickSubmit() {
 
-    console.log(this.form);
     this.Jarwis.makeAppointment(this.form).subscribe(
       data => this.handleResponse(data),
         error => this.handleError(error)
@@ -153,10 +152,6 @@ export class PharmacyLogComponent implements OnInit {
   }  
   getInput(i){
     this.logUser = i.target.value
-  }
-
-  logg(){
-    alert(this.logUser)
   }
 
 
