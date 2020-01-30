@@ -163,7 +163,7 @@ Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
 Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
-Route::post('closeAppointment/{id}', 'AddController@closeAppointment');
+Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');

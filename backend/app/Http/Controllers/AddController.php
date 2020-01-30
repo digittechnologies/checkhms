@@ -1959,7 +1959,7 @@ class AddController extends Controller
         }' ;
     }
 
-    public function closeAppointment($pid)
+    public function closeAppointment($pid,$vid)
     {
         $branchId= auth()->user()->branch_id;
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
@@ -1970,20 +1970,23 @@ class AddController extends Controller
                                         'prescription' => 'close',
                                         'invoice' => 'close',
                                         'voucher' => 'close',
-                                    ]);   
-        //GET PRESCRIPTIONS DATA
-        $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
-                        ->where('doctor_prescriptions.voucher_id', '=', $vid)
-                        ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                        ->get();
+                                    ]); 
+        if($updateAppointment){
 
-        //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
-        foreach($get as $row){
-            $getId = $row->id;
-            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-            ->update([
-                'status' => 'close',
-            ]);
+            //GET PRESCRIPTIONS DATA
+            $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
+                            ->where('doctor_prescriptions.voucher_id', '=', $vid)
+                            ->where('doctor_prescriptions.branch_id', '=', $branchId)
+                            ->get();
+
+            //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
+            foreach($get as $row){
+                $getId = $row->id;
+                $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                ->update([
+                    'status' => 'close',
+                ]);
+            }
         }
         return '{
             "success":true,
