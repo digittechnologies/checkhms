@@ -619,38 +619,53 @@ class AddController extends Controller
 
     public function updateItemDetails(Request $request)
     {
-        $id=$request->id;
-        $generic_name= $request->generic_name;
-        $selling_price= $request->selling_price;
-        $purchasing_price= $request->purchasing_price;
-        $manufacture_date = $request->manufacture_date;
-        $expiring_date = $request->expiring_date;
-        $status= $request->status;
-        $item_unit_id= $request->item_unit_id;
-        $item_category_id= $request->item_category_id;
-        $item_type_id= $request->item_type_id;
-        $manufacturer_id= $request->manufacturer_id;
-        $manufacture_date=$request->manufacture_date;
-        $expiring_date= $request -> expiring_date;
-        $tax_id= $request->tax_id;
-        $discount_id= $request->discount_id;
-    
-        $update = DB::table('item_details')->where('item_details.id','=',$id)
-        ->update([
+        
+        $datas=$request->formdata;
+        $id=$datas['id'];
+        $generic_name=$datas['generic_name'];
+        $selling_price=$datas['selling_price'];
+        $purchasing_price= $datas['purchasing_price'];
+        $manufacture_date = $datas['manufacture_date'];
+        $expiring_date = $datas['expiring_date'];
+        $markup_price=$datas['markup_price'];
+        $currentfile=$datas['item_img'];
+        // $status= $request->status;
+        // $item_unit_id= $request->item_unit_id;
+        // $item_category_id= $request->item_category_id;
+        // $item_type_id= $request->item_type_id;
+        // $manufacturer_id= $request->manufacturer_id;
+        // $manufacture_date=$request->manufacture_date;
+        // $expiring_date= $request ->expiring_date;
+        // $tax_id= $request->tax_id;
+        // $discount_id= $request->discount_id;
+        // return $request->image;
+        
+        if ($request->image != $currentfile){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            // $update->item_img = $filename;
+            // $update->update();
+            DB::table('item_details')->where('item_details.id','=',$id)->update(['item_img' => $filename,]);
+        }
+      
+        $update = DB::table('item_details')->where('item_details.id','=',$id)->update([
             'generic_name'=>  $generic_name,
             'selling_price' => $selling_price,
-            'purchasing_price' => $selling_price,
+            'purchasing_price' => $purchasing_price,
             'manufacture_date' => $manufacture_date,
             'expiring_date' => $expiring_date,
-            'status' => $status,
-            'item_unit_id' => $item_unit_id,
-            'item_category_id' => $item_category_id,
-            'item_type_id' => $item_type_id,
-            'manufacturer_id' => $manufacturer_id,
-            'manufacture_date' => $manufacture_date,
-            'expiring_date' => $expiring_date,
-            'tax_id' => $tax_id,
-            'discount_id' => $discount_id,
+            'markup_price' => $markup_price,
+            
+            // 'status' => $status,
+            // 'item_unit_id' => $item_unit_id,
+            // 'item_category_id' => $item_category_id,
+            // 'item_type_id' => $item_type_id,
+            // 'manufacturer_id' => $manufacturer_id,
+            // 'manufacture_date' => $manufacture_date,
+            // 'expiring_date' => $expiring_date,
+            // // 'tax_id' => $tax_id,
+            // 'discount_id' => $discount_id,
         ]);
         if($update){
             return '{

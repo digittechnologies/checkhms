@@ -5,7 +5,6 @@ import { TokenService } from '../service/token.service';
 import { JarwisService } from '../service/jarwis.service';
 import { MatSnackBar } from '@angular/material';
 
-
 @Component({
   selector: 'app-admin-profile',
   templateUrl: './admin-profile.component.html',
@@ -85,7 +84,6 @@ export class AdminProfileComponent implements OnInit {
   }
   
   onSubmitprofile() {
-   console.log(this.image)
     this.Jarwis.updateprofile({formdata:this.submissionForm.value,image:this.image}).subscribe(
       data => this.handleResponsep(data),
      error => this.handleErrorp(error)
