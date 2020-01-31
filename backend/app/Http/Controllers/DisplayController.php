@@ -811,14 +811,16 @@ class DisplayController extends Controller
             $startDate->addDay();
         }
 
-        if($action == 'vouchers'){
-            return DB::table('vouchers')
-            ->select('vouchers.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname')
-            ->join ('item_details','vouchers.item_detail_id','=','item_details.id')
+        if($action == 'prescriptions'){
+            return DB::table('doctor_prescriptions')
+            ->select('doctor_prescriptions.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname', 'customers.name AS cname', 'customers.othername AS coname', 'branches.name AS branch_name')
+            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->join('users', 'vouchers.staff_id', '=', 'users.id')
-            ->where('vouchers.paid_status','=','paid')
-            ->whereIn('vouchers.v_date', $dateRange)
+            ->join('users', 'doctor_prescriptions.pharmacist_id', '=', 'users.id')
+            ->join('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')
+            ->where('doctor_prescriptions.status','=','close')
+            ->whereIn('doctor_prescriptions.p_date', $dateRange)
             ->get();
         }
         if($action == 'adds'){
