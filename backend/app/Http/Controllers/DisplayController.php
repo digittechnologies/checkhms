@@ -401,7 +401,7 @@ class DisplayController extends Controller
 
     public function countCustomer()
     {
-        $post = DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
+        return DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
         ->get();
       return $post;
     }
@@ -457,6 +457,8 @@ class DisplayController extends Controller
                 ->where('appointments.department_id','=',$deptId)
                 ->where('appointments.prescription','!=','close')
                 ->where('appointments.branch_id','=',$branchId)
+                ->where('appointments.status','!=','terminated')
+                ->where('appointments.status','!=','close')
                 ->get();
     }
 

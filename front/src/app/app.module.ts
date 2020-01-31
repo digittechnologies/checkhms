@@ -90,6 +90,8 @@ import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -244,6 +246,7 @@ import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgo
 
     MatAutocompleteModule​,
     MatFormFieldModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   
   ],
   providers: [JarwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService],

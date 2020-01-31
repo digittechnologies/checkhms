@@ -158,7 +158,7 @@ Route::get('patientdetails/{id}','DisplayController@patientdetails');
 
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
-Route::post('makeAppointment','AddController@makeAppointment');
+Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
