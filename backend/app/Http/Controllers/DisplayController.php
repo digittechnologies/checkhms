@@ -432,8 +432,10 @@ class DisplayController extends Controller
     }
     public function patientdetails($id)
     {
+        $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->get();
+        $cId= $customeId[0]->customer_id;
         return response()->json(
-            Customers::where('id','=',$id)          
+            Customers::where('id','=',$cId)          
             ->get()   
         );
     }

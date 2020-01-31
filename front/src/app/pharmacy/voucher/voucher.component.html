@@ -202,7 +202,7 @@
                             <th>Quantity</th>                                                                            
                             <th>Refill</th>  
                             <th>Remain</th>                           
-                            <!-- <th>New Quantity</th> -->
+                         
                             <th>Cost</th>
                             <th>Amount</th>
                             <th>Action</th>
@@ -223,7 +223,7 @@
                         <td>{{r.quantity}}</td>                                                                          
                         <td>{{r.refill}}</td>
                         <td>{{r.remain}}</td>
-                        <!-- <td>39</td>  -->
+                     
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                         <td>
@@ -252,7 +252,7 @@
                     <button type="button" (click)="saveTovoucher()" *ngIf = "prescriptions.pres[0].status == 'save'" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                     <button type="button" *ngIf = "prescriptions.pres[0].status == 'invoice' || prescriptions.pres[0].status == 'paid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',patID]}}]">Invoice</a></button> &nbsp;&nbsp;
                     <button type="button" *ngIf = "prescriptions.pres[0].status == 'save'" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
-                    <!-- <button type="button" class="btn btn-round btn-default">Cancel</button> -->
+                    
                 </div><br>              
                 </div>
                 </div>

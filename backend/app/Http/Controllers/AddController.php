@@ -1805,7 +1805,7 @@ class AddController extends Controller
             $request->merge(["dispense" => '1']);
         }
         //remain
-        if($request->original_qty == $request->quantity){
+        if($request->original_qty == $request->quantity || $request->quantity > $request->original_qty){
             $request->merge(["remain" => '0']);
         } else if($request->original_qty > $request->quantity) {
             $request->merge(["remain" => $request->original_qty - $request->quantity]);

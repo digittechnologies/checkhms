@@ -59,12 +59,15 @@
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.cust_id]}}]">Refill</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.cust_id]}}]">Invoice</a></li>
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.cust_id]}}]">Voucher</a></li>
+                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></li>
                         </ul>
                         <hr><hr>
                         <div class="d-flex justify-content-between">
-                            <div class="text text-warning">{{l.invoice}}</div>
-                            <div class="text text-warning">{{l.prescription}}</div>
+                            <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
+                            <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
+                            <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
+                            <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
+                            <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
                         </div>
                     </div>                        
                 </div>

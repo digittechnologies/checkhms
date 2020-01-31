@@ -38,6 +38,7 @@ export class VoucherComponent implements OnInit {
   Instructionresponse: any;
   AllStockresponse: any;
   DurationForVresponse: Object;
+  appId: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -52,15 +53,22 @@ export class VoucherComponent implements OnInit {
 
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
-	    this.patID = id;
+	    this.appId= id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
 	      this.patientResponse = data;      
-	      this.pat = this.patientResponse;
+        this.pat = this.patientResponse;
+        this.patID = this.pat[0].id;
 	    })
   }))
   
-  this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+  // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+  //   data=>{
+  //   this.PharmPreresponse = data;      
+  //   this.prescriptions = this.PharmPreresponse; 
+  // })
+
+  this.Jarwis.displayPharmPre2(this.patID).subscribe(
     data=>{
     this.PharmPreresponse = data;      
     this.prescriptions = this.PharmPreresponse; 
@@ -156,6 +164,7 @@ export class VoucherComponent implements OnInit {
   }
 
   onSubmitAdd(form: NgForm) {
+    form.value.appointment_id=this.appId
     form.value.customer_id=this.patID
     form.value.quantity = this.quant
     form.value.original_qty = this.tQuantity
@@ -163,6 +172,7 @@ export class VoucherComponent implements OnInit {
     form.value.amount = this.total[0].selling_price
     form.value.amount_paid = parseInt(this.total[0].selling_price) * parseInt(this.quant)
     form.value.instock = this.total[0].total_remain
+    console.log(form.value)
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  

@@ -581,6 +581,13 @@ deleteAppointment(data) {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  displayPharmPre2(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   saveTovoucher(id: any, data) {
     return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`

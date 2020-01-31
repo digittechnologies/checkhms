@@ -174,7 +174,8 @@ Route::post('deletePrescription', 'AddController@deletePrescription');
 Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
-Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+// Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices
