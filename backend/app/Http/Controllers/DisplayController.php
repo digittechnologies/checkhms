@@ -817,7 +817,7 @@ class DisplayController extends Controller
             ->join ('item_details','vouchers.item_detail_id','=','item_details.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
             ->join('users', 'vouchers.staff_id', '=', 'users.id')
-            ->where('vouchers.status','=','added')
+            ->where('vouchers.paid_status','=','paid')
             ->whereIn('vouchers.v_date', $dateRange)
             ->get();
         }

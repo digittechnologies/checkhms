@@ -356,11 +356,21 @@ export class JarwisService {
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
+
   changePassword(data) { 
     return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  sendPasswordResetLink(data) {
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data)
+  }
+
+  resetPassword(data) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data)
+  }
+
   staffdetails(id:string) {
     return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`

@@ -85,7 +85,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
   {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
-  {path: 'reset_password', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
+  {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
   {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService],
  
 
