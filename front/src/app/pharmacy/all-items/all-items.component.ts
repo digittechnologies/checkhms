@@ -68,6 +68,7 @@ export class AllItemsComponent implements OnInit {
   uDept: any;
   uBranchName: any;
   shelve: any;
+  p:any;
 
 
   constructor( 
@@ -217,6 +218,13 @@ onSelectFrom(from){
   );
   // alert(this.totalFrom)
   // alert(this.totalFrom[0].total_remain)
+}
+
+restrict(r) {
+  if(r.target.value > this.totalFrom[0].total_remain){
+    alert('Quantity greater than quantity in stock')
+    r.target.value = ''
+  }
 }
 
 onSelectTo(to){
@@ -371,7 +379,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
     
   }

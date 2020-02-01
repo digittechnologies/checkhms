@@ -27,6 +27,7 @@ export class ShelfComponent implements OnInit {
   branch: any;
   shelvPoint: any;
   shelvStatus: any;
+  p:any;
   
   constructor( 
     private Jarwis: JarwisService,

@@ -21,125 +21,134 @@
                 </div> 
             </div>
         </div>
+
+
         <div class="row clearfix">
-                <div class="col-md-6 col-lg-3">
-                        <div class="card">
-                            <div class="body p-4">
-                                <div class="row clearfix">
-                                    <div class="col-auto">
-                                        <div class="stamp stamp-md bg-primary">
-                                            <i class="fa fa-plus"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col text-right">
-                                        <div class="small text-muted">Total Add</div>
-                                        <div class="h4 m-0">{{items.addedItem}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                            <div class="card">
-                                <div class="body p-4">
-                                    <div class="row clearfix">
-                                        <div class="col-auto">
-                                            <div class="stamp stamp-md bg-warning">
-                                                <i class="fa fa-send"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col text-right">
-                                            <div class="small text-muted">Total Transfer</div>
-                                            <div class="h4 m-0">{{items.transferredItem}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <div class="body p-4">
-                                        <div class="row clearfix">
-                                            <div class="col-auto">
-                                                <div class="stamp stamp-md bg-danger">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col text-right">
-                                                <div class="small text-muted">Total Sales</div>
-                                                <div class="h4 m-0">{{items.soldItem}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card ">
-                            <div class="body p-4">
-                                <div class="row clearfix">
-                                    <div class="col-auto">
-                                        <div class="stamp stamp-md bg-secondary">
-                                            <i class="fa fa-minus-circle"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col text-right">
-                                        <div class="small text-muted">Variance</div>
-                                        <div class="h4 m-0">{{items.varianced}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="body">
-                                    <div class="d-flex align-items-center">
-                                        <div class="icon-in-bg bg-success text-white rounded-circle"><i class="fa fa-book"></i></div>
-                                        <div class="ml-4">
-                                            <span>Open Balance</span>
-                                            <h4 class="mb-0 font-weight-medium">{{items.openBal}}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="body">
-                                    <div class="d-flex align-items-center">
-                                        <div class="icon-in-bg bg-primary text-white rounded-circle"><i class="fa fa-archive"></i></div>
-                                        <div class="ml-4">
-                                            <span>Pysical Balance</span>
-                                            <h4 class="mb-0 font-weight-medium">{{items.physBal}}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                <div class="col-md-4 col-sm-12">
-                    <div class="card">
-                        <div class="body">
-                            <div class="row clearfix">
-                                <div class="col-7">
-                                    <h5 class="mb-0">Close Balance</h5>
-                                    <small class="info">In Stock: {{items.total}}</small>
-                                </div>
-                                <div class="col-5 text-right">
-                                    <h2 class="m-b-0"  *ngIf ="items.total == '0'">0%</h2>
-                                    <h2 class="m-b-0"  *ngIf ="items.total != '0'">{{math.round(100-(items.openBal/items.total*100))}}%</h2>
-                                </div>
-                                <div class="col-12">                                    
-                                    <div class="progress progress-xxs progress-transparent custom-color-blue mb-0 mt-3">
-                                        <div class="progress-bar" data-transitiongoal="40"></div>
-                                    </div>
-                                </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-shopping-cart"></i></div>
+                            <div class="ml-4">
+                                <span>Total Sales</span>
+                                <h4 class="mb-0 font-weight-medium">N{{items.soldItem}}</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-                             
             </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
+                            <div class="ml-4">
+                                <span>Total Added</span>
+                                <h4 class="mb-0 font-weight-medium">{{items.addedItem}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-users"></i></div>
+                            <div class="ml-4">
+                                <span>Total Transfer</span>
+                                <h4 class="mb-0 font-weight-medium">{{items.transferredItem}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-life-ring"></i></div>
+                            <div class="ml-4">
+                                <span>Total Variance</span>
+                                <h4 class="mb-0 font-weight-medium">{{items.varianced}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body top_counter">
+                        <div class="icon bg-warning text-white"><i class="fa fa-building"></i> </div>
+                        <div class="content">
+                            <span>Open Balance</span>
+                            <h5 class="number mb-0">{{items.openBal}}</h5>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body top_counter">
+                        <div class="icon bg-success text-white"><i class="fa fa-area-chart"></i> </div>
+                        <div class="content">
+                            <span>Total Balance</span>
+                            <h5 class="number mb-0">62%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body top_counter">
+                        <div class="icon bg-info text-white"><i class="fa fa-shopping-cart"></i> </div>
+                        <div class="content">
+                            <span>Close Balance</span>
+                            <h5 class="number mb-0">{{items.total}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body top_counter">
+                        <div class="icon bg-danger text-white"><i class="fa fa-tag"></i> </div>
+                        <div class="content">
+                            <span>Physical Balance</span>
+                            <h5 class="number mb-0">{{items.physBal}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-6"></div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-success">
+                    <div class="body text-white">
+                        <div class="card-value float-right">58%</div>
+                        <h3 class="mb-1">6251</h3>
+                        <div>New Orders</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-success">
+                    <div class="body text-white">
+                        <div class="card-value float-right">58%</div>
+                        <h3 class="mb-1">6251</h3>
+                        <div>New Orders</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6"></div>
+        </div>
+
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card">
@@ -149,10 +158,6 @@
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance" (click)="get()">Variance</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#stock_request" (click)="get()">Stock Request</a></li> -->
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#history" (click)="get()">History</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#report" (click)="get()">Report</a></li> -->
-                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add Item</a></li>         -->
                     </ul>
                     <div class="tab-content mt-0">
                         <div class="tab-pane active show" id="items">
@@ -181,7 +186,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of items.item; let r = index">
+                                        <tr *ngFor="let item of items.item | paginate: {itemsPerPage:10, currentPage: p} let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
                                                 <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
@@ -220,10 +225,11 @@
                                                     <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
                                                     <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
                                                 </td>
-                                           
                                         </tr>                                                                     
                                     </tbody>
-                                </table>                
+                                </table>   
+                                <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+  
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
@@ -390,7 +396,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let added of itemAdded; let r = index">
+                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
@@ -474,6 +480,8 @@
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
+                                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+
                                         </div>
                                         <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -503,7 +511,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let trans of itemTransferred; let r = index">
+                                                    <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
@@ -604,7 +612,7 @@
                                                         <td><span class="badge badge-warning">{{totalTo[0].total_remain}}</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">
+                                                                <input type="text" class="form-control" (keyup)="restrict($event)" ngModel name="quantity" placeholder="Quantity *">
 
                                                             </div>                                                        
                                                         </td>
@@ -613,6 +621,8 @@
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
+                                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+
                                         </div>
                                         <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -662,7 +672,7 @@
                                                         <tr>
                                                                 <td>
                                                                     <div class="form-group"> 
-                                                                        <select class="form-control input-height" (change)="onSelectItem3($event)" ngModel name="item3"> 
+                                                                        <select class="form-control input-height" (change)="onSelectItem2($event)" ngModel name="item3"> 
                                                                             <option value="">Select Item...</option>     
                                                                             <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name+ ' '+ itdet.manuf_name}}</option>
                                                                         </select> 
@@ -671,7 +681,7 @@
                                                                 </td>                                                  
                                                                 <td>                                                            
                                                                     <div class="form-group">
-                                                                        <select class="form-control"  (change)="onSelectFrom($event)" ngModel name="from">
+                                                                        <select class="form-control" ngModel name="from">
                                                                                 <option value="">-- From --</option>
                                                                                 <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
                                                                         </select> 
@@ -786,236 +796,6 @@
                                     </div>
                                 </div>
                                 
-
-                                <div class="tab-pane" id="history">
-                                    <div class="body mt-2">       
-                                        <div class="col-sm-12">
-                                            <div class="card">
-                                                <div class="body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-hover js-basic-example dataTable table-custom table-striped">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th>Bill No</th>
-                                                                    <th>Bill date</th>
-                                                                    <th>Patient</th>
-                                                                    <th>Doctor</th>
-                                                                    <th>Charges</th>
-                                                                    <th>Tax</th>                                            
-                                                                    <th>Discount</th>
-                                                                    <th>Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>21</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>17</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>16</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>15</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>14</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Lori Perkins</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>12</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>22</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>11</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Jessica Patterson</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>105</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Lori Perkins</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>56</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>34</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Jessica Patterson</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>21</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>17</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>16</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>15</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>14</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Lori Perkins</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>12</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>22</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>11</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Christina Bing</td>
-                                                                    <td>Jessica Patterson</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>105</td>
-                                                                    <td>02/21/2017</td>
-                                                                    <td>Lori Perkins</td>
-                                                                    <td>Juan Freeman</td>
-                                                                    <td>102</td>
-                                                                    <td>10</td>
-                                                                    <td>10%</td>
-                                                                    <td>210</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-
                         </div>
                     </div>            
                 </div>

@@ -1,0 +1,202 @@
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h2>Refill</h2>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Phamarcy Log</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Refill Details</li>
+                      </ol>
+                  </nav>
+              </div>            
+          </div>
+      </div>
+      <div class="row clearfix">
+          <div class="col-md-12">
+              <div class="card social">
+                  <div class="profile-header d-flex justify-content-between justify-content-center">
+                      <div class="d-flex">
+                          <div class="mr-3">
+                              <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                          </div>
+                         <div class="details">
+                                <h5 class="mb-0">{{pat[0].card_number}}</h5>
+                                <span class="text-light">{{pat[0].name + " " + pat[0].othername}}</span>
+                                <div>{{pat[0].mobile_number}}</div>
+                          </div>                                 
+                      </div>
+                       <div class="col text-right">
+                          <div class="small text-light">Prescription Number</div>
+                          <div class="h4 m-0">RX#:</div>
+                        </div>
+                  </div>
+              </div>                    
+          </div>
+      </div>
+
+<div class="row clearfix">
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="card">
+        <div class="header">
+            <h2>Refill Details</h2>
+            <ul class="header-dropdown dropdown">                                
+                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another Action</a></li>
+                        <li><a href="javascript:void(0);">Something else</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+      <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Item</th>
+                            <th>Type</th>
+                            <th>Prescribed Quantity</th>
+                            <th>Total Refill</th>
+                            <th>Refilled</th>
+                            <th>Refilling Qty</th>
+                            <th>Refilled Quantity</th>
+                            <th>Prescribed Date</th>
+                            <th>Finished Date</th>                            
+                            <th>Phamarcist</th>
+                            <th>Branch</th>
+                            <th>Date/Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>                                                         
+                            <td>
+                              <a href="javascript:void(0);" title=""><h6 class="mb-0">aaaaaa</h6></a>
+                              <span>dddd</span>
+                          </td>
+                            <td>Item Type</td>
+                            <td>100</td> 
+                            <td>5</td> 
+                            <td>1</td> 
+                            <td>25</td> 
+                            <td>25</td> 
+                            <td>10/10/2019</td> 
+                            <td>10/12/2019</td>    
+                            <td>Dr Fasipe</td>
+                            <td>Buth 2</td>                           
+                            <td>10/11/2019</td>           
+                            <td>
+                                <a class="btn btn-default btn-sm" style="color: blue;" title="voucher-details" [routerLink]="['/Admin', {outlets: {side: ['refill-details']}}]"><i class="fa fa-pencil"></i> Voucher</a>
+                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i> Councel</button>
+                            </td>
+                        </tr>                                                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  
+
+
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="card">
+              <div class="header">
+                  <h2>Voucher</h2>
+                  <ul class="header-dropdown dropdown">                                
+                      <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                      <li class="dropdown">
+                          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                          <ul class="dropdown-menu">
+                              <li><a href="javascript:void(0);">Action</a></li>
+                              <li><a href="javascript:void(0);">Another Action</a></li>
+                              <li><a href="javascript:void(0);">Something else</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+              <div class="body">
+                  <div class="row clearfix">
+                      <div class="col-lg-12 col-md-12">
+
+                          <table id="mainTable" class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>S/N</th>
+                                      <th>Image</th>
+                                      <th>Item</th>
+                                      <th>Category</th>
+                                      <th>In stock</th>                                                                            
+                                      <th>Refill</th>
+                                      <th>Quantity</th>
+                                      <th>New Quantity</th>
+                                      <th>Cost</th>
+                                      <th>Amount</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>1</td>
+                                      <td class="w60">
+                                          <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                      </td>
+                                      <td>
+                                          <a href="javascript:void(0);" title="">Peniciline</a>
+                                          <p class="mb-0">manufactural name</p>
+                                      </td>
+                                      <td><span class="badge badge-warning">Anti maleria</span></td>
+                                      <td>3928</td>                                                                          
+                                      <td>5</td>
+                                      <td>390</td>
+                                      <td>39</td> 
+                                      <td>N 700</td>
+                                      <td>N7,000</td>
+                                      <td>
+                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans"><i class="fa fa-pencil"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                  </tr>                                
+                              </tbody>
+                              <tfoot>
+                                  <tr>
+                                      <th><strong>TOTAL</strong></th>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>                                      
+                                      <th></th>
+                                      <th>5</th>
+                                      <th>390</th> 
+                                      <td>39</td>                                 
+                                      <th>N 700:00</th>
+                                      <th>N7,000:00</th>
+                                  </tr>
+                              </tfoot>
+                          </table>
+                         
+                          </div>
+                      </div>                      
+                  <button type="button" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                  <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                  <button type="button" class="btn btn-round btn-default">Cancel</button>              
+          </div>          
+      </div>
+  </div>    
+  </div>
+</div>

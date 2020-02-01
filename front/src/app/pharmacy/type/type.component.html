@@ -28,11 +28,11 @@
                               <th>#</th>
                               <th>Image</th>
                               <th>Item Type</th>
-                              <th>Action</th>
+                              <!-- <th>Action</th> -->
                           </tr>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let d of type; let r = index">
+                          <tr *ngFor="let d of type| paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                               <td>
                                   {{r+1}}
                               </td>
@@ -41,13 +41,15 @@
                               </td>
                               <td style="color: #17C2D7;">{{d.type_name}}</td>
                            
-                              <td>
+                              <!-- <td>
                                   <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
-                              </td>
+                              </td> -->
                           </tr>                                                   
                       </tbody>
                   </table>
+                  <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+
               </div>
           </div>
       </div>

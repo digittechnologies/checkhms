@@ -29,6 +29,8 @@ export class ManufacturerComponent implements OnInit {
   manufAdd: any;
   manufNum: any;
   manufDetail: any;
+  p:any;
+
 
   constructor( 
     private Jarwis: JarwisService,

@@ -5,14 +5,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
-
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {startWith, map} from 'rxjs/operators';
 @Component({
   selector: 'app-pharmacy-log',
   templateUrl: './pharmacy-log.component.html',
   styleUrls: ['./pharmacy-log.component.css']
 })
 export class PharmacyLogComponent implements OnInit {
+  public form = {
+    customer: null,
+    
+  };
 
+  control = new FormControl();
+  filteredStreets: Observable<string[]>;
   response: any;
   log: any;
   bran: any;
@@ -20,7 +28,10 @@ export class PharmacyLogComponent implements OnInit {
   pat: any;
   department: any;
   appontId: any;
-
+  slog: any;
+  newArr = [];
+  search: any;
+  logUser: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -36,9 +47,41 @@ export class PharmacyLogComponent implements OnInit {
       this.response = data;      
       this.log = this.response;
     })
-
+    // Start Autocomplete
+    this.Jarwis.displayCustomer().subscribe(
+      data=>{
+      this.response = data;      
+      this.slog = this.response;
+      let y:any = data;
+      for(let x=0; x<y.length; x++){
+        let z = data[x].card_number;
+        let w = data[x].mobile_number;
+        if(!this.newArr.includes(z) || !this.newArr.includes(w)){
+          this.newArr.push(z);
+          this.newArr.push(w);
+        };
+      }
+    })
+    this.filteredStreets = this.control.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+      
+    );
+    
+  }
+  streets: string[] = this.newArr ;
+  private _filter(value: string): string[] {
+    console.log(this.newArr)
+    
+    console.log(Array.isArray(this.streets));
+    const filterValue = this._normalizeValue(value);
+    return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));
   }
 
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+// End Autocomplete
   appointment(id){
 
     this.appontId = id;
@@ -63,7 +106,8 @@ export class PharmacyLogComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error), 
            
-    ); this.Jarwis.displayDepartments().subscribe(
+    );
+     this.Jarwis.displayDepartments().subscribe(
       data=>{
       console.log(data);   
       this.response = data;
@@ -91,6 +135,23 @@ export class PharmacyLogComponent implements OnInit {
 
     })
     
+  }
+
+  onClickSubmit() {
+
+    this.Jarwis.makeAppointment(this.form).subscribe(
+      data => this.handleResponse(data),
+        error => this.handleError(error)
+   );
+   
+    // this.Jarwis.stockReport(form.value).subscribe(
+    //   data => {
+    //     this.response = data;
+    //     this.search = this.response;
+    //   });  
+  }  
+  getInput(i){
+    this.logUser = i.target.value
   }
 
 

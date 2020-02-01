@@ -16,9 +16,18 @@ export class HomeComponent implements OnInit {
   response: any;
   pos: any;
   allPos: any;
+    pat: any;
+    patResponse: any;
 
   constructor(private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
   ngOnInit() {
+
+    
+    this.Jarwis.countCustomer().subscribe(
+        data=>{
+        this.patResponse = data;      
+        this.pat = this.patResponse[0]   
+      })
 
     this.Jarwis.profile().subscribe(
       data=>{
@@ -37,7 +46,6 @@ export class HomeComponent implements OnInit {
       console.log(this.allPos)
     
     })
-
    
 
 c3.generate({

@@ -64,11 +64,9 @@ export class DurationComponent implements OnInit {
       data=>{      
         this.durares = data; 
         this.duraid= id
-        console.log(this.durares)
-        // this.durationName= this.durares[0].duration_name;
-        // this.upvalue= this.durares[0].value;
-        // this.upItem_id= this.durares[0].type_id
-        // this.manufDetail= this.manufres[0].details
+        this.durationName= this.durares[0].duration_name;
+        this.upvalue= this.durares[0].value;
+        this.upItem_id= this.durares[0].type_id
       })
   }
 

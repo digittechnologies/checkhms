@@ -38,7 +38,14 @@ export class ProfileComponent implements OnInit {
   branch: any;
   givenDept = 0;
   givenRole = 0;
-  constructor( private http: HttpClient, public actRoute: ActivatedRoute, private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router,     public snackBar: MatSnackBar, 
+  constructor( 
+     private http: HttpClient,
+     public actRoute: ActivatedRoute, 
+     private formBuilder: FormBuilder,
+     private Token: TokenService, 
+     private Jarwis: JarwisService,
+     private router: Router,    
+     public snackBar: MatSnackBar, 
     ) { }
   public response:any;
   public form ={

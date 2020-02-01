@@ -25,6 +25,19 @@ export class DashboardComponent implements OnInit {
   name: any;
   fname: any;
   lname: any;
+  moduleResponse: Object;
+  module: Object;
+  laboratory: any;
+  hms: any;
+  pharmacy: any;
+  radiology: any;
+  doctor: any;
+  roleResponse: Object;
+  role: Object;
+  super: any;
+  global: any;
+  center: any;
+  user: any;
 
   constructor(
     private Auth: AuthService,
@@ -47,7 +60,7 @@ export class DashboardComponent implements OnInit {
       this.image= this.response.det[0].image
       this.fname= this.response.det[0].firstname
       this.lname= this.response.det[0].lastname 
-    
+      this.role= this.response.det[0].role_id
     })
 
     this.Jarwis.displayAllposition().subscribe(
@@ -61,6 +74,29 @@ export class DashboardComponent implements OnInit {
       this.admin=this.allPos[3].id
       this.card=this.allPos[4].id
     })
+
+    this.Jarwis.displayModule().subscribe(
+      data=>{       
+      this.moduleResponse = data
+      this.module= this.moduleResponse
+      this.hms=this.module[0]
+      this.pharmacy=this.module[1]
+      this.laboratory=this.module[2]
+      this.radiology=this.module[3]
+      this.doctor=this.module[4]
+
+    })
+
+    this.Jarwis.displayRole().subscribe(
+      data=>{       
+      this.roleResponse = data
+      this.role= this.roleResponse
+      this.super=this.role[0].id
+      this.global=this.role[1].id
+      this.center=this.role[2].id
+      this.user=this.role[3].id
+    })
+
 
   }
 

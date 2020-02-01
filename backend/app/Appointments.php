@@ -8,6 +8,6 @@ class Appointments extends Model
 {
     protected $fillable = [
         
-    	'customer_id', 'department_id', 'treatment', 'lab',	'prescription',	'invoice', 'voucher',	'status', 'date', 'time'
+    	'customer_id', 'department_id', 'branch_id', 'treatment', 'lab','prescription',	'invoice', 'voucher',	'status', 'date', 'time'
     ];
 }

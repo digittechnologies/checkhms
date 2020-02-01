@@ -6,7 +6,7 @@
                     <h1>Item Classes Table</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                         <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
                         <li class="breadcrumb-item active" aria-current="page">Classes</li>
                         </ol>
@@ -21,6 +21,7 @@
   
         <div class="row clearfix">
             <div class="col-sm-12">
+                <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
                 <div class="table-responsive">
                     <table class="table table-hover table-custom spacing8">
                         <thead>
@@ -31,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let c of cat; let r = index">
+                            <tr *ngFor="let c of cats  | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                 <td>
                                     {{r+1}}
                                 </td>                              
@@ -48,6 +49,7 @@
                             </tr>                                                   
                         </tbody>
                     </table>
+                    <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
                 </div>
             </div>
         </div>

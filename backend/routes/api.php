@@ -10,6 +10,9 @@ Route::group([
     'middleware' => 'api',
 ], function () {
 
+    //Settings
+    Route::get('setupStatus', 'SetupController@setupStatus');
+
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::post('adminLogin','AuthController@adminLogin');
@@ -18,7 +21,8 @@ Route::group([
     Route::get('me', 'AuthController@me');
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ChangePasswordController@process');
-    
+    Route::post('changePassword', 'ChangePasswordController@changePassword');
+
 Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
 Route::get('getUcontent','DisplayController@getUContent');
@@ -51,8 +55,12 @@ Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
 
+//Dashboard
+Route::get('displayModule','DisplayController@displayModule');
+
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
+Route::get('mydetails','DisplayController@mydetails');
 Route::post('uStatus','DisplayController@uStatus');
 Route::post('c_uStatus','DisplayController@c_uStatus');
 Route::post('reStatus','DisplayController@reStatus');
@@ -95,13 +103,20 @@ Route::post('deleteType', 'AddController@deleteType');
 
 //settings
 Route::get('displayDuration','DisplayController@displayDuration');
+Route::get('displayDurationForV/{id}','DisplayController@displayDurationForV');
 Route::post('addItemType', 'AddController@addItemType');
 Route::post('updateDuration', 'AddController@updateDuration');
 Route::get('edtduration/{id}','DisplayController@edtduration');
 Route::post('deleteDuration', 'AddController@deleteDuration');
+
 Route::get('displayInstruction','DisplayController@displayInstruction');
+Route::post('updateInstruction', 'AddController@updateInstruction');
+Route::get('edtinstruction/{id}','DisplayController@edtinstruction');
 Route::post('addInstruction', 'AddController@addInstruction');
 Route::post('deleteInstruction', 'AddController@deleteInstruction');
+Route::get('edtInstruction/{id}','DisplayController@edtInstruction');
+Route::post('updateInsruction', 'AddController@updateInsruction');
+Route::get('displayRefill','DisplayController@displayRefill');
 
 //Manufacturer
 Route::get('edtManufacturer/{id}','DisplayController@edtManufacturer');
@@ -134,6 +149,7 @@ Route::post('deleteItem', 'AddController@deleteItem');
 //Customers / Patients
 Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
 Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
@@ -146,6 +162,8 @@ Route::post('makeAppointment','AddController@makeAppointment');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
+Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
+Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
@@ -153,8 +171,10 @@ Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription', 'AddController@deletePrescription');
-Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
+Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
+Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices
@@ -163,6 +183,8 @@ Route::get('displayInvoice','DisplayController@displayInvoice');
 Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
+Route::post('saveToInvoice/{id}', 'AddController@saveToInvoice');
+
 
 //Vouchers
 Route::get('edtVoucher/{id}','DisplayController@edtVoucher');

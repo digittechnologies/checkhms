@@ -44,6 +44,11 @@ export class JarwisService {
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
+
+  setupStatus() {
+    return this.http.get(`${this.baseUrl}/setupStatus`)
+  }
+
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)
   }
@@ -247,6 +252,18 @@ export class JarwisService {
   displayDuration() {
     return this.http.get(`${this.baseUrl}/displayDuration`,)
   }
+
+  displayRefill() {
+    return this.http.get(`${this.baseUrl}/displayRefill`,)
+  }
+  updateInsruction(data) {
+    return this.http.post(`${this.baseUrl}/updateInsruction`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  displayDurationForV(id: any) {
+    return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
+  }
   updateDuration(data) {
     return this.http.post(`${this.baseUrl}/updateDuration`, data, {headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -255,14 +272,27 @@ export class JarwisService {
   edtduration(id:any) {
     return this.http.get<any>(`${this.baseUrl}/edtduration/${id}`)
   }
+  edtInstruction(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtInstruction/${id}`)
+  }
   deleteDuration(data) {
     return this.http.post(`${this.baseUrl}/deleteDuration`, data)
+  }
+
+
+  updateInstruction(data) {
+    return this.http.post(`${this.baseUrl}/updateInstruction`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   deleteInstruction(data) {
     return this.http.post(`${this.baseUrl}/deleteInstruction`, data)
   } 
   displayInstruction() {
     return this.http.get(`${this.baseUrl}/displayInstruction`,)
+  }
+  edtinstruction(id:any) {
+    return this.http.get<any>(`${this.baseUrl}/edtinstruction/${id}`)
   }
 
   //Units
@@ -299,6 +329,11 @@ export class JarwisService {
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
+
+  displayModule() {
+    return this.http.get(`${this.baseUrl}/displayModule`,)
+  }
+
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
@@ -320,6 +355,20 @@ export class JarwisService {
   }
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
+  }
+
+  changePassword(data) { 
+    return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  sendPasswordResetLink(data) {
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data)
+  }
+
+  resetPassword(data) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data)
   }
 
   staffdetails(id:string) {
@@ -362,6 +411,10 @@ displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
 }
 
+countCustomer() {
+  return this.http.get(`${this.baseUrl}/countCustomer`,)
+}
+
 addCustomer(data) {
   return this.http.post(`${this.baseUrl}/addCustomer`, data)
 }
@@ -369,7 +422,9 @@ patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
 makeAppointment(data) {
-  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data)
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
 }
 
 //Appointment 
@@ -519,8 +574,39 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmPre(id: any) {
-    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`)
+  displayPharmInvoice(id: any,data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  } 
+
+  displayPharmPre(id: any, data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  saveTovoucher(id: any, data) {
+    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  saveToInvoice(id: any, data) {
+    return this.http.post(`${this.baseUrl}/saveToInvoice/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  terminateAppointment(id: any, data) {
+    return this.http.post(`${this.baseUrl}/terminateAppointment/${id}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  closeAppointment(id: any,vid: any, data) {
+    return this.http.post(`${this.baseUrl}/closeAppointment/${id}/${vid}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayRole() {

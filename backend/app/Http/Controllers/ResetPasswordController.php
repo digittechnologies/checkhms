@@ -14,6 +14,8 @@ class ResetPasswordController extends Controller
 {
     public function sendEmail(Request $request)
     {
+		$getUrl = DB::table('general_settings')->select('general_settings.app_url')->get();
+		$url = $getUrl[0]->app_url;
         if($this->valiadateEmail($request->email) == 'valid'){
         	$token = DB::table('password_resets')->where('email', $request->email)->first();
 
@@ -29,21 +31,17 @@ class ResetPasswordController extends Controller
 	        		'created_at' => Carbon::now()
 	        	]);
 	        }
-	        
-        	$sendMail = Mail::to($request->email)->send(new ResetPasswordMail($token));
-        	if($sendMail){
+        	$sendMail = Mail::to($request->email)->send(new ResetPasswordMail($token,$url));
+        	// if($sendMail){
 	        		return '{
 	                "success":true,
 	                "message":"successful"
 	            }' ;
-        	}
+        	// }
         }
 
         else{
-        	return '{
-                "success":false,
-                "message":"Failed"
-            }';
+        	return response()->json(false);
         }
 
     }
