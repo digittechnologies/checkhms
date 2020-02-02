@@ -39,7 +39,7 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  // private baseUrl = 'https://back.hms.jtcheck.com/backend/public/api';
+  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
@@ -356,11 +356,21 @@ export class JarwisService {
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
+
   changePassword(data) { 
     return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  sendPasswordResetLink(data) {
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data)
+  }
+
+  resetPassword(data) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data)
+  }
+
   staffdetails(id:string) {
     return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -433,6 +443,13 @@ displayDeptAppointment() {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+displayDeptAppoint(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/displayDeptAppoint/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 countAppointment() {
   return this.http.get(`${this.baseUrl}/countAppointment`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -576,11 +593,11 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmPre(id: any, data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
+  // displayPharmPre(id: any, data) {
+  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
+  //     Authorization:`Bearer ${localStorage.token}`
+  //   }})
+  // }
 
   displayPharmPre2(id:string) {
     return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{

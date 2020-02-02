@@ -22,7 +22,7 @@ class Doctor_prescriptions extends Model
         // 'to_balance',
         'p_date',
         'p_time',
-        // 'voucher_id',
+        'voucher_id',
         // 'payment_id',
         'appointment_id',
         'doctor_id',

@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <select class="custom-select" (change)="onSelectAction($event)" ngModel name="action">
                                         <option>Select Action...</option>
-                                        <option value="vouchers">Voucher</option>
+                                        <option value="prescriptions">Prescriptions</option>
                                         <option value="adds">Add</option>
                                         <option value="transfersFrom">Transfer From </option>
                                         <option value="transfersTo">Transfer To </option>
@@ -87,41 +87,45 @@
             </div>
             
             
-            <!-- Sales -->
-            <div class="body"  *ngIf = "action == 'vouchers'">
+            <!-- Prescriptions -->
+            <div class="body"  *ngIf = "action == 'prescriptions'">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>S/N</th>
                                 <th>Item</th>
-                                <th>From</th>
-                                <th>Instock</th>
-                                <th>New Stock</th>
+                                <th>Original Qty</th>
                                 <th>Quantity</th>
-                                <th>To</th>
+                                <th>Refill</th>
+                                <th>Refill Range</th>
+                                <th>Remain</th>
                                 <th>Instock</th>
-                                <th>New Stock</th>                                
-                                <th>Staff</th>
-                                <th>Status</th>
+                                <th>Total Amount</th>                                
+                                <th>Patient Name</th>
+                                <th>Pharmacist Name</th>
+                                <th>Branch</th>
+                                <th>Physician Name</th>
                                 <th>Date</th>
                                 <th>Time</th>
                             </tr>
                         </thead>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                            <tr *ngFor="let pres of payloads; let r = index">
+                                <td>{{r+1}}</td>
+                                <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
+                                <td>{{pres.original_qty}}</td>
+                                <td>{{pres.quantity}}</td>
+                                <td>{{pres.refill}}</td>
+                                <td>{{pres.refill_range}}</td>
+                                <th>{{pres.remain}}</th>
+                                <th>{{pres.instock}}</th>
+                                <th>{{pres.amount_paid}}</th>
+                                <th>{{pres.cname}} {{pres.coname}}</th>
+                                <th>{{pres.firstname}} {{pres.lastname}}</th>
+                                <th>{{pres.branch_name}}</th>
+                                <th>{{pres.doctor_id}}</th>
+                                <th>{{pres.p_date}}</th>
+                                <th>{{pres.p_time}}</th>
                             </tr>                            
                         </tbody>
                     </table>

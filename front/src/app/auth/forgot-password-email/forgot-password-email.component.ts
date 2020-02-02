@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password-email',
@@ -12,9 +13,6 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./forgot-password-email.component.css']
 })
 export class ForgotPasswordEmailComponent implements OnInit {
-  
-  disabled= false;
-  sav= 'Login'
   public error = null;
   message: string;
   res: Object;
@@ -40,60 +38,31 @@ export class ForgotPasswordEmailComponent implements OnInit {
   }
 
   
-  onSubmit() {
-    this.disabled= true;
-   this.sav= 'Processing'
-  this.Jarwis.login(this.form).subscribe(
+onSubmit(form: NgForm) {
+  this.Jarwis.sendPasswordResetLink(form.value).subscribe(
     data => this.handleResponse(data),
     error => this.handleError(error)
-    
     );
-    
-
-  
 }
-  form(form: any) {
-    throw new Error("Method not implemented.");
-  }
 handleResponse(data) {
-  let pos = data.details[0].position_id;
-  let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
-    duration: 2000
-  })   
- 
-  this.Token.handle(data.token.original.access_token);
- 
-  this.Auth.changeAuthStatus(true);  
-  this.ngOnInit() 
-  if (this.role == this.super) {
-    this.router.navigateByUrl('/Admin/(side:home)');      
-  }
-  if (this.role == this.global) {
-     this.router.navigateByUrl('/Admin/(side:home)'); 
-  } 
-  if (this.role == this.center) {
-    this.ngOnInit() 
-    this.router.navigateByUrl('/Admin/(side:phamarcy-admin-dashboard)'); 
- } 
- if (this.role == this.user) {
-  this.router.navigateByUrl('/Admin/(side:phamarcy-user-dashboard)'); 
-} 
- 
- this.disabled= false;
- this.sav= 'Submited'
-
+  if(data == false){
+    let snackBarRef = this.snackBar.open("Invalid email address", 'Dismiss', {
+      duration: 2000
+    })
+  }else{
+    let snackBarRef = this.snackBar.open("Check your email to reset your password", 'Dismiss', {
+      duration: 2000
+    }) 
+  }  
 }
 
 handleError(error) {
-
   this.error = error.error.error;
-  let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
-    duration: 2000
-
-  })
-  this.disabled= false;
-  this.sav= 'Login'
-
+  if(error){
+    let snackBarRef = this.snackBar.open("Invalid email address", 'Dismiss', {
+      duration: 2000
+    })
+  }
 }
 
 }

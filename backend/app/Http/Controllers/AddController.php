@@ -21,7 +21,7 @@ use App\Branches;
 use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
-use App\Voucher;
+use App\Vouchers;
 use Carbon\Carbon;
 use App\Appointments;
 use App\Lab_depts;
@@ -903,33 +903,53 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
+
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
+       
+
+        if ( empty ( $checkAppointment[0] )) {
+
+            $appointment= Vouchers::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'staff_id' => $dept_id,           
+                    'branch_id' => $bid
+                ]);    
+            
+          
+            $appointment= Appointments::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'department_id' => $dept_id, 
+                    'voucher_id'=> $appointment->id,
+                    'prescription' => 'open', 
+                    'invoice' => 'open', 
+                    'voucher' => 'open',
+                    'treatment' => 'open', 
+                    'status' => 'active',
+                    'date' => $date,
+                    'time' => $time,
+                    'branch_id' => $bid
+                ]);    
+      
+         if($appointment){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
         
-         $appointment= Appointments::create(
-            [
-                'customer_id' => $cust_id, 
-                'department_id' => $dept_id, 
-                'prescription' => 'open', 
-                'invoice' => 'open', 
-                'voucher' => 'open',
-                'treatment' => 'open', 
-                'status' => 'active',
-                'date' => $date,
-                'time' => $time,
-                'branch_id' => $bid
-            ]);    
-  
-     if($appointment){
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
-    } else {
-          return '{
-            "success":false,
-            "message":"Failed"
-        }';
-    }
-    
+        }else {
+
+            return 'Alredy Loged';
+
+        }
+        
     }
 
     public function makeAppointment2(Request $request)
@@ -1789,7 +1809,8 @@ class AddController extends Controller
 
         $request->merge(["p_date" => $cDate]);
         $request->merge(["p_time" => $cTime]);
-        
+
+           
         //refill
         if($request->dispense == '1' || $request->dispense == '0'){
             $request->merge(["refill" => '0']);
@@ -1816,6 +1837,7 @@ class AddController extends Controller
         
         $request->merge(["pharmacist_id" => $pharmacistId]);
         $request->merge(["branch_id" => $branchId]);
+        // $request->merge(["voucher_id" => $request->voucher_id]);
 
         // return $request->all();
         //appointment_id yet to be implemented
@@ -1853,9 +1875,10 @@ class AddController extends Controller
                         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                         ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                         ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.customer_id', '=', $cid)
+                        ->where('doctor_prescriptions.voucher_id', '=', $cid)
                         ->where('doctor_prescriptions.branch_id', '=', $branchId)
                         ->get();
+       
         foreach($get as $row){
             $quantity += $row->quantity;
             $amount += $row->amount_paid;
@@ -1867,7 +1890,16 @@ class AddController extends Controller
         } else if($refill > 0){
             $refill_status = 'refillable';
         }
-        $insert = DB::table('vouchers')->insertGetId([
+
+        //customer_id
+        $checkCustomer_id= Appointments::where('appointments.voucher_id', $cid)->get();
+
+        $cust_id= $checkCustomer_id[0]->customer_id;
+
+        // return  $cust_id;
+
+        //  return $get;
+        $insert = DB::table('vouchers')->where('vouchers.id',$cid)->update([
                 'quantity' => $quantity,
                 'amount' => $amount,
                 'paid' => $amount,
@@ -1877,7 +1909,7 @@ class AddController extends Controller
                 'paid_status' => 'un-paid',
                 'delivery_status' => 'delivered',
                 'refill_status' => $refill_status,
-                'customer_id' => $cid,
+                'customer_id' =>  $cust_id,
                 'staff_id' => $pharmacistId,
                 'branch_id' => $branchId,
                 'v_date' => $cDate,
@@ -1887,22 +1919,34 @@ class AddController extends Controller
             $getId = $row2->id;
             $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
             ->update([
-                'status' => 'invoice',
-                'voucher_id' => $insert,
+                'status' => 'close',
+                // 'voucher_id' => $insert,
             ]);
         }
         $updateAppointment = DB::table('appointments')->where('appointments.prescription', '=', 'open')
-                                    ->where('appointments.invoice', '=', 'open')
-                                    ->where('appointments.customer_id', '=', $cid)
+                                    ->where('appointments.prescription', '=', 'open')
+                                    ->where('appointments.voucher_id', '=', $cid)
                                     ->where('appointments.branch_id', '=', $branchId)
                                     ->update([
-                                        'prescription' => 'Checked',
-                                        'voucher' => 'Vouched'
+                                        'prescription' => 'checkout',
+                                        'voucher' => 'checkout',
+                                        'invoice' => 'unpaid',
+                                        'treatment' => 'success',
                                     ]);
-        return '{
-            "success":true,
-            "message":"successful"
+
+        if ($updateAppointment) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+         return '{
+            "success":false,
+            "message":"failed"
         }' ;
+        }
+        
+       
     }
 
     public function saveToInvoice($vid)

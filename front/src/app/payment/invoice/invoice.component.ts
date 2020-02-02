@@ -20,6 +20,11 @@ export class InvoiceComponent implements OnInit {
   prescriptions: any;
   error: any;
   result: any;
+  appointID: string;
+  appointResponse: any;
+  voucherId: any;
+  appointments: any;
+  0:any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -33,7 +38,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
-	    this.patID = id;
+	    this.appointID = id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
 	      this.patientResponse = data;      
@@ -41,7 +46,14 @@ export class InvoiceComponent implements OnInit {
 	    })
   }))
 
-  this.Jarwis.displayPharmInvoice(this.patID,'').subscribe(
+  this.Jarwis.displayDeptAppoint(this.appointID).subscribe(
+    data=>{
+    this.appointResponse = data;      
+    this.voucherId = this.appointResponse[0].voucher_id;
+    this.appointments = this.appointResponse;
+  })
+
+  this.Jarwis.displayPharmInvoice(this.appointID,'').subscribe(
     data=>{
     this.PharmPreresponse = data;      
     this.inv = this.PharmPreresponse; 

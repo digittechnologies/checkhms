@@ -1,10 +1,9 @@
 @component('mail::message')
-# Introduction
+Check HMS Account password reset link <br>
 
-The body of your message.
+Here you lost your password, sorry for that, click the bottom button to reset your password.
 
-@component('mail::button', ['url' => 'http://goggle.com?q='.$token])
-<!-- @component('mail::button', ['url' => 'http://localhost:4200/response-password-reset?token='.$token]) -->
+@component('mail::button', ['url' => 'http://'.$url.'./reset_password/'.$token])
 Button Text
 @endcomponent
 
