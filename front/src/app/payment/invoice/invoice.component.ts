@@ -60,7 +60,7 @@ export class InvoiceComponent implements OnInit {
     })
   }
   saveToInvoice(){
-    this.Jarwis.saveToInvoice(this.inv.pres[0].voucher_id, '').subscribe(
+    this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

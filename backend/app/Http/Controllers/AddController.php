@@ -1980,7 +1980,7 @@ class AddController extends Controller
         ]);
 
         //GET PRESCRIPTIONS DATA
-        $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'invoice')
+        $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
         ->where('doctor_prescriptions.voucher_id', '=', $vid)
         ->where('doctor_prescriptions.branch_id', '=', $branchId)
         ->get();
@@ -2008,6 +2008,10 @@ class AddController extends Controller
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
                                 ->update([
                                     'invoice' => 'paid',
+                                    'voucher' => 'success',
+                                    'prescription' => 'success',
+                                    'treatment' => 'success',
+                                    // 'status' => 'close',
                                 ]);
         
         //GET THE PAID PRESCRIPTIONS 
@@ -2026,7 +2030,7 @@ class AddController extends Controller
                 ->where('item_detail_id','=', $item)
                 ->first();
                 $sales = $bitem->sales + $val;
-                $balance = $bitem->sales + $bitem->sales + $sales;
+                $balance = $bitem->transfer + $sales;
                 $remain =  $bitem->open_stock + $bitem->receive - $balance;
                 $physical = $remain - $bitem->variance;
                 $add=DB::table($branchName)
@@ -2049,30 +2053,11 @@ class AddController extends Controller
         $branchId= auth()->user()->branch_id;
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
                                     ->where('appointments.branch_id', $branchId)
-                                    ->where('appointments.prescription', '=', 'Checked')
+                                    ->where('appointments.prescription', '=', 'success')
                                     ->where('appointments.invoice', '=', 'paid')
                                     ->update([
-                                        'prescription' => 'close',
-                                        'invoice' => 'close',
-                                        'voucher' => 'close',
+                                        'status' => 'close',                                       
                                     ]); 
-        if($updateAppointment){
-
-            //GET PRESCRIPTIONS DATA
-            $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
-                            ->where('doctor_prescriptions.voucher_id', '=', $vid)
-                            ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                            ->get();
-
-            //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
-            foreach($get as $row){
-                $getId = $row->id;
-                $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-                ->update([
-                    'status' => 'close',
-                ]);
-            }
-        }
         return '{
             "success":true,
             "message":"successful"

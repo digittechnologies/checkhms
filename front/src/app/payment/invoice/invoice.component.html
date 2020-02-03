@@ -8,7 +8,7 @@
                   <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
                   <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Phamarcy Log</a></li>
-                  <li class="breadcrumb-item"><a href="#">Voucher</a></li>
+                  <!-- <li class="breadcrumb-item"><a href="#">Voucher</a></li> -->
                   <li class="breadcrumb-item active" aria-current="page">Invoices</li>
                   </ol>
               </nav>
@@ -100,8 +100,8 @@
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "appointments[0].invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
                           <!-- Terminate -->
-                          <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
-                          <button class="btn btn-danger ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button>
+                          <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
+                          <button class="btn btn-danger ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button> -->
                         </div>
                     </div>
               </div>                                       
@@ -160,7 +160,8 @@
                                     <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
                                     <td>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
-                                        <button type="button" class="btn btn-sm btn-default" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "appointments[0].invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "appointments[0].invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
                                     </td>
                             <!-- </ng-container> -->

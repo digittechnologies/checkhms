@@ -89,7 +89,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <label>Item</label>
                                         <div class="form-group">
-                                            <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
+                                            <select class="form-control" (change)="onSelectItem($event)" ngModel name="item_id">
                                                 <option value="">Select Item</option>
                                                 <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}">{{itdet.generic_name}}</option>
                                             </select>
@@ -134,7 +134,7 @@
                                         </div>  
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <label>Total Amount</label>
+                                            <label>Total Quantity</label>
                                             <div class="form-group">
                                                 <input type="number" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
                                             </div>  
@@ -251,9 +251,9 @@
                 </table>
                 <div>
                     <button type="button" *ngIf = "appointments[0].voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" (click)="saveTovoucher()" *ngIf = "appointments[0].voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" *ngIf = "appointments[0].invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',patID]}}]">Invoice</a></button> &nbsp;&nbsp;
-                    <button type="button" *ngIf ="appointments[0].invoice == 'paid'" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "appointments[0].voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
+                    <button type="button" *ngIf = "appointments[0].invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
+                    <button type="button" *ngIf ="appointments[0].invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                 </div><br>              
                 </div>
