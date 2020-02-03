@@ -18,7 +18,7 @@ export class PharmacyLogComponent implements OnInit {
     customer: null,
     
   };
-
+ public dat;
   control = new FormControl();
   filteredStreets: Observable<string[]>;
   response: any;
@@ -45,13 +45,15 @@ export class PharmacyLogComponent implements OnInit {
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
       this.response = data;      
-      this.log = this.response;
+      this.log = this.response; 
+     
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
       data=>{
       this.response = data;      
       this.slog = this.response;
+      
       let y:any = data;
       for(let x=0; x<y.length; x++){
         let z = data[x].card_number;
@@ -67,8 +69,11 @@ export class PharmacyLogComponent implements OnInit {
       map(value => this._filter(value))
       
     );
-    
+    // this.get()
   }
+  // get(){
+  //   console.log(this.dat)
+  // }
   streets: string[] = this.newArr ;
   private _filter(value: string): string[] {
     console.log(this.newArr)
