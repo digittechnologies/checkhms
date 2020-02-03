@@ -6,15 +6,15 @@
                   <h1>Dashboard</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Oculux</a></li>
+                      <li class="breadcrumb-item"><a href="#">Lock Dashboard</a></li>
                       <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                       </ol>
                   </nav>
               </div>            
-              <div class="col-md-6 col-sm-12 text-right hidden-xs">
+              <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                   <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
                   <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-              </div>
+              </div> -->
           </div>
       </div>
       <div class="row clearfix">
@@ -22,7 +22,7 @@
               <div class="card">
                   <div class="body ribbon">
                       <div class="ribbon-box green">5</div>
-                      <a href="users.html" class="my_sort_cut text-muted">
+                      <a href="#" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]" class="my_sort_cut text-muted">
                           <i class="icon-users"></i>
                           <span>Users</span>
                       </a>
@@ -32,9 +32,9 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body">
-                      <a href="holidays.html" class="my_sort_cut text-muted">
+                      <a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="my_sort_cut text-muted">
                           <i class="icon-like"></i>
-                          <span>Holidays</span>
+                          <span>Pharmacy Log</span>
                       </a>
                   </div>
               </div>
@@ -43,9 +43,9 @@
               <div class="card">
                   <div class="body ribbon">
                       <div class="ribbon-box orange">8</div>
-                      <a href="events.html" class="my_sort_cut text-muted">
+                      <a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]" class="my_sort_cut text-muted">
                           <i class="icon-calendar"></i>
-                          <span>Events</span>
+                          <span>Refill</span>
                       </a>
                   </div>
               </div>
@@ -53,9 +53,9 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body">
-                      <a href="payroll.html" class="my_sort_cut text-muted">
+                      <a href="payroll.html" [routerLink]="['/Admin', {outlets: {side: ['items']}}]" class="my_sort_cut text-muted">
                           <i class="icon-credit-card"></i>
-                          <span>Payroll</span>
+                          <span>Inventory</span>
                       </a>
                   </div>
               </div>
@@ -63,7 +63,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body">
-                      <a href="accounts.html" class="my_sort_cut text-muted">
+                      <a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]" class="my_sort_cut text-muted">
                           <i class="icon-calculator"></i>
                           <span>Accounts</span>
                       </a>
@@ -73,7 +73,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body">
-                      <a href="report.html" class="my_sort_cut text-muted">
+                      <a href="#" [routerLink]="['/Admin', {outlets: {side: ['report']}}]" class="my_sort_cut text-muted">
                           <i class="icon-pie-chart"></i>
                           <span>Report</span>
                       </a>
@@ -85,46 +85,30 @@
           <div class="col-lg-3 col-md-6">
               <div class="card">
                   <div class="header">
-                      <h2>Employee Structure</h2>
+                      <h2>Patient Structure</h2>
                   </div>
                   <div class="body text-center">
                       <div id="chart-bar-stacked" style="height: 130px"></div>
                       <hr>
                       <div class="row clearfix">
                           <div class="col-6">
-                              <h6 class="mb-0">50</h6>
+                              <h6 class="mb-0">{{pat.male}}</h6>
                               <small class="text-muted">Male</small>
                           </div>
                           <div class="col-6">
-                              <h6 class="mb-0">17</h6>
+                              <h6 class="mb-0">{{pat.female}}</h6>
                               <small class="text-muted">Female</small>
                           </div>
                       </div>
                   </div>
               </div>
               <div class="card">
-                  <div class="body">
-                      <div id="slider2" class="carousel vert slide" data-ride="carousel" data-interval="1700">
-                          <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                  <div class="card-value float-right text-muted"><i class="wi wi-fog"></i></div>
-                                  <h3 class="mb-1">12°C</h3>
-                                  <div>London</div>
-                              </div>
-                              <div class="carousel-item">
-                                  <div class="card-value float-right text-muted"><i class="wi wi-day-cloudy"></i></div>
-                                  <h3 class="mb-1">18°C</h3>
-                                  <div>New York</div>
-                              </div>
-                              <div class="carousel-item">
-                                  <div class="card-value float-right text-muted"><i class="wi wi-sunrise"></i></div>
-                                  <h3 class="mb-1">37°C</h3>
-                                  <div>New Delhi</div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                <div class="body">
+                    <div class="card-value float-right text-muted"><i class="icon-user"></i></div>
+                    <h3 class="mb-1">{{pat.patient}}</h3>
+                    <div>New Employee</div>
+                </div>
+            </div>
           </div>
           <div class="col-lg-3 col-md-6">
               <div class="card">

@@ -149,6 +149,7 @@ Route::post('deleteItem', 'AddController@deleteItem');
 //Customers / Patients
 Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
 Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
@@ -162,7 +163,7 @@ Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
 Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
-Route::post('closeAppointment', 'AddController@closeAppointment');
+Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');

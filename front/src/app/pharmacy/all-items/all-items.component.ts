@@ -68,6 +68,7 @@ export class AllItemsComponent implements OnInit {
   uDept: any;
   uBranchName: any;
   shelve: any;
+  p:any;
 
 
   constructor( 

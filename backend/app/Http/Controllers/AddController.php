@@ -1765,7 +1765,7 @@ class AddController extends Controller
         $request->merge(["p_time" => $cTime]);
         
         //refill
-        if($request->dispense == '1'){
+        if($request->dispense == '1' || $request->dispense == '0'){
             $request->merge(["refill" => '0']);
             $request->merge(["refill_status" => 'non-refillable']);
         } else if($request->dispense > '1') {
@@ -1956,7 +1956,7 @@ class AddController extends Controller
                 ->where('item_detail_id','=', $item)
                 ->first();
                 $sales = $bitem->sales + $val;
-                $balance = $bitem->sales + $sales;
+                $balance = $bitem->sales + $bitem->sales + $sales;
                 $remain =  $bitem->open_stock + $bitem->receive - $balance;
                 $physical = $remain - $bitem->variance;
                 $add=DB::table($branchName)
@@ -1965,7 +1965,7 @@ class AddController extends Controller
                     'sales' => $sales,
                     'total_remain' => $remain,
                     'balance' => $balance,
-                    'physical' => $physical,
+                    'physical_balance' => $physical,
                 ]);   
             }
         return '{
@@ -1974,14 +1974,75 @@ class AddController extends Controller
         }' ;
     }
 
-    public function closeAppointment()
+    public function closeAppointment($pid,$vid)
     {
+        $branchId= auth()->user()->branch_id;
+        $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
+                                    ->where('appointments.branch_id', $branchId)
+                                    ->where('appointments.prescription', '=', 'Checked')
+                                    ->where('appointments.invoice', '=', 'paid')
+                                    ->update([
+                                        'prescription' => 'close',
+                                        'invoice' => 'close',
+                                        'voucher' => 'close',
+                                    ]); 
+        if($updateAppointment){
 
+            //GET PRESCRIPTIONS DATA
+            $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
+                            ->where('doctor_prescriptions.voucher_id', '=', $vid)
+                            ->where('doctor_prescriptions.branch_id', '=', $branchId)
+                            ->get();
+
+            //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
+            foreach($get as $row){
+                $getId = $row->id;
+                $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                ->update([
+                    'status' => 'close',
+                ]);
+            }
+        }
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
     }
 
-    public function terminateAppointment()
+    public function terminateAppointment($vid)
     {
+        return $vid; 
+        $branchId= auth()->user()->branch_id;
+        $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
+                                    ->where('appointments.branch_id', $branchId)
+                                    ->where('appointments.prescription', '=', 'Checked')
+                                    ->where('appointments.invoice', '=', 'paid')
+                                    ->update([
+                                        'prescription' => 'close',
+                                        'invoice' => 'close',
+                                        'voucher' => 'close',
+                            ]);
+        
+        $updateVoucher = DB::table('vouchers')->where('id', $vid)
+                            ->update([
+                                'paid_status' => 'terminate',
+                                'delivery_status' => 'terminate',
+                            ]);
 
+        //GET PRESCRIPTIONS DATA
+        $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
+                    ->where('doctor_prescriptions.voucher_id', '=', $vid)
+                    ->where('doctor_prescriptions.branch_id', '=', $branchId)
+                    ->get();
+
+        //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
+        foreach($get as $row){
+            $getId = $row->id;
+            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+            ->update([
+                'status' => 'close',
+            ]);
+        }
     }
 }
 
