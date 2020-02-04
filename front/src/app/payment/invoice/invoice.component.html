@@ -22,16 +22,16 @@
           <div class="col-lg-12">
               <div class="card">
                   <div class="header">
-                      <h2>Check Invoice <small> </small></h2>
+                      <h2 >Check Invoice <small> </small></h2>
                   </div>
                   <div class="body" id="print-history">
                       <div class="row clearfix" *ngIf = "inv.pres[0].status == 'invoice'"> 
                         <div class="col-md-12 col-sm-12">
                           <div class="text-center">
-                          <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span>Check HMS</span>
+                          <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span id="cin">Check HMS</span>
                           </div>
                           <div class="text-center">
-                            <p><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
+                            <p id="oid"><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
                           </div>
                           <hr>  
                         </div>
@@ -94,7 +94,7 @@
                               <strong>Invoice Status: </strong><span class="badge badge-success">{{inv.pres[0].status}}</span>
                         </div>
                       <div class="col-md-6 text-right">
-                          <button class="btn btn-info ml-2" printSectionId="print-history" ngxPrint><i class="icon-printer"></i>Print</button>
+                          <button class="btn btn-info ml-2" (click)="printComponent()"><i class="icon-printer"></i>Print</button>
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
