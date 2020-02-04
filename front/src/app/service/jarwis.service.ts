@@ -356,11 +356,21 @@ export class JarwisService {
   deleteUser(data) { 
     return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
+
   changePassword(data) { 
     return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  sendPasswordResetLink(data) {
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data)
+  }
+
+  resetPassword(data) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data)
+  }
+
   staffdetails(id:string) {
     return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -399,6 +409,10 @@ export class JarwisService {
 // Customer
 displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
+}
+
+countCustomer() {
+  return this.http.get(`${this.baseUrl}/countCustomer`,)
 }
 
 addCustomer(data) {
@@ -589,8 +603,8 @@ deleteAppointment(data) {
     }})
   }
 
-  closeAppointment(data) {
-    return this.http.post(`${this.baseUrl}/closeAppointment`, data,{headers:{
+  closeAppointment(id: any,vid: any, data) {
+    return this.http.post(`${this.baseUrl}/closeAppointment/${id}/${vid}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

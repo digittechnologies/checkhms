@@ -22,14 +22,12 @@ import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
 import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule,} from '@angular/material';
-import { AddcategoryComponent } from './addcategory/addcategory.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'​;
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { PopulationComponent } from './admin/population/population.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UpdateComponent } from './user/update/update.component';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
@@ -90,6 +88,10 @@ import { RegisterComponent } from './setup/register/register.component';
 import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
 import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
+import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -104,11 +106,9 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     DetailsComponent,
     PostComponent,
     MypostComponent,
-    AddcategoryComponent,
     AboutComponent,
     ContactComponent,
     DashboardComponent,
-    PopulationComponent,
     SettingsComponent,
     UpdateComponent,
     PossitionComponent,
@@ -218,7 +218,11 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
   
     PhamUserComponent,
   
-    AdminProfileComponent
+    AdminProfileComponent,
+  
+    ForgotPasswordEmailComponent,
+  
+    ForgotPasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -242,6 +246,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
     MatAutocompleteModule​,
     MatFormFieldModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   
   ],
   providers: [JarwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService],

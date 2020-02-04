@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { ContentComponent } from './content/content.component';
+
+//Auth
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
+import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
+import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
+
 // import { AccountComponent } from './user/account/account.component';
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
@@ -80,7 +84,10 @@ const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
   {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
-  {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService], 
+  {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
+  {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
+  {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService],
+ 
 
   children: [
     

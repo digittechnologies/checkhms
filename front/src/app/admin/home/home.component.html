@@ -35,10 +35,10 @@
                 <div class="card">
                     <div class="body">
                         <h6 class="mb-4"><i class="fa fa-users"></i> Total Patients</h6>
-                        <div class="card-value text-info float-left mr-3 pr-2 border-right">150</div>
-                        <div class="font-12">Brain Tumor <span class="float-right">35</span></div>
-                        <div class="font-12">Viral Infection <span class="float-right">105</span></div>
-                        <div class="font-12">Cancer <span class="float-right">10</span></div>
+                        <div class="card-value text-info float-left mr-3 pr-2 border-right">{{pat.patient}}</div>
+                        <div class="font-12">New Patient <span class="float-right">{{pat.male}}</span></div>
+                        <div class="font-12">Male <span class="float-right">{{pat.male}}</span></div>
+                        <div class="font-12">Female <span class="float-right">{{pat.female}}</span></div>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="flex-fill bd-highlight">
                                 <label class="mb-0 text-muted">Female</label>
-                                <h5>4,000</h5>
+                                <h5>9,000</h5>
                             </div>
                         </div>
                         <div id="chart-donut" style="height: 300px"></div>

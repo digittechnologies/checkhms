@@ -11,13 +11,16 @@ class ChangePasswordController extends Controller
 {
     public function process(Request $request)
     {
-    	$token = DB::table('password_resets')
-    	->where(['email' => $request->email, 'token' => $request->token])->first();
+		$email = $request->email;
+		$token = $request->token;
+		$password = $request->password;
+		$token = DB::table('password_resets')->where('email', '=', $email)
+		->where( 'token', '=', $token)
+		->get();
     	if(!empty($token)){
-    		$pawd = '';
-    		$update = DB::table('users')->where('email', '=', $request->email)
+    		$update = DB::table('users')->where('email', '=', $email)
     		->update([
-	            'password'=> bcrypt($request->password)
+	            'password'=> bcrypt($password)
         	]);
     	 	if($update){
 	            return '{
@@ -25,17 +28,11 @@ class ChangePasswordController extends Controller
 	                "message":"successful"
 	            }' ;
 	        } else {
-	            return '{
-	                "success":false,
-	                "message":"Failed"
-	            }';
+	            return false;
 	        }
 	    }
     	 if(empty($token)){
-    	 	return '{
-                "success":false,
-                "message":"Failed"
-            }';
+    	 	return false;
     	 }
 	}
 	
