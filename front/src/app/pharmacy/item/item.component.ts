@@ -4,7 +4,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
-import { NgForm } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-item',
@@ -34,8 +34,10 @@ export class ItemComponent implements OnInit {
   typeimg: any;
   resitem: any;
   type:any;
-  
-  constructor( 
+  // image: any;
+  public submissionForm: FormGroup;
+  constructor(
+    private formBuilder: FormBuilder, 
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
@@ -44,6 +46,28 @@ export class ItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.submissionForm = this.formBuilder.group(
+     
+      {
+        generic_name: [''],
+       selling_price: [''],
+       purchasing_price:[''],
+       markup_price:[''],
+       manufacture_date:[''],
+       expiring_date:[''],
+       item_img:[''],
+      //  unit_name:[''],
+      //  box_size:[''],
+      //  value:[''],
+      //  type_name:[''],
+      id:[''],
+      // cat_name:[''],
+      // manuf_name:[''],
+      // address:[''],
+      // contact_number:[''],
+      // details:[''],
+     },
+   )
     this.Jarwis.displayItemDetails().subscribe(
       data=>{
       this.response = data;
@@ -63,7 +87,28 @@ export class ItemComponent implements OnInit {
           // this.id4=this.resnh.id
           // this.lenght= this.title.length
           // console.log(this.lenght)
-          console.log(this.response)
+          // console.log(this.resitem)
+          this.submissionForm = this.formBuilder.group(
+     
+            {
+              generic_name: [this.resitem.generic_name],
+             selling_price: [this.resitem.selling_price],
+             purchasing_price:[this.resitem.purchasing_price],
+             markup_price:[this.resitem.markup_price],
+             manufacture_date:[this.resitem.manufacture_date],
+             expiring_date:[this.resitem.expiring_date],
+            item_img:[this.resitem.item_img],
+            //  box_size:[this.resitem.box_size],
+            //  value:[this.resitem.value],
+            //  type_name:[this.resitem.type_name],
+            id:[this.resitem.id],
+            // cat_name:[this.resitem.cat_name],
+            // manuf_name:[this.resitem.manuf_name],
+            // address:[this.resitem.address],
+            // contact_number:[this.resitem.contact_number],
+            // details:[this.resitem.details],
+           },
+         )
        
         })
       
@@ -76,7 +121,25 @@ export class ItemComponent implements OnInit {
     })
   
 }
+uploadFile(event){
+  let files =event.target.files[0];
+  let reader = new FileReader();
+  let vm = this;
+  reader.onloadend =()=> {
+    
+    this.itemimg = reader.result;
+ 
+  }
+  reader.readAsDataURL(files);
+}
 
+onSubmitItem(){
+  this.Jarwis.updateItemDetails({formdata:this.submissionForm.value,image:this.itemimg}).subscribe(
+    data => this.handleResponse(data),
+   error => this.handleError(error)
+ );
+ 
+}
 editdept(id: string) {
   console.log(id)
   this.Jarwis.edtCategories(id).subscribe(
