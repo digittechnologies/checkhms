@@ -222,9 +222,9 @@ c3.generate({
                 },
                 names: {
                     // name of each serie
-                    'data1': 'Male',
-                    'data2': 'Female',
-                    'data3': 'VIP',
+                    'data1': 'Main',
+                    'data2': 'Buth 1',
+                    'data3': 'Buth 2',
                 }
             },
             axis: {
@@ -258,9 +258,9 @@ c3.generate({
                 },
                 names: {
                     // name of each serie
-                    'data1': 'Income',            
-                    'data2': 'Growth',
-                    'data3': 'Expense',
+                    'data1': 'Main ',            
+                    'data2': 'Buth 2',
+                    'data3': 'Buth 3',
                 }
             },
             axis: {
@@ -281,6 +281,9 @@ c3.generate({
                 top: 0
             },
         });
+
+
+        
         
             // Top Countries 
             $('.chart').sparkline('html', {
