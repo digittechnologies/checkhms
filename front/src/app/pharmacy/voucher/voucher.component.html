@@ -20,7 +20,7 @@
                   <div class="profile-header d-flex justify-content-between justify-content-center">
                       <div class="d-flex">
                           <div class="mr-3">
-                              <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                              <img src="http://hms.jtcheck.com/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
                          <div class="details">
                                 <h5 class="mb-0">{{pat[0].card_number}}</h5>
@@ -30,7 +30,7 @@
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
-                          <div class="h4 m-0">RX#: {{prescriptions.pres[0].voucher_id}}</div>
+                          <div class="h4 m-0">RX#: {{voucherId}}</div>
                         </div>
                   </div>
               </div>                    
@@ -89,7 +89,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <label>Item</label>
                                         <div class="form-group">
-                                            <select class="form-control" (click)="get()" (change)="onSelectItem($event)" ngModel name="item_id">
+                                            <select class="form-control" (change)="onSelectItem($event)" ngModel name="item_id">
                                                 <option value="">Select Item</option>
                                                 <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}">{{itdet.generic_name}}</option>
                                             </select>
@@ -134,7 +134,7 @@
                                         </div>  
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <label>Total Amount</label>
+                                            <label>Total Quantity</label>
                                             <div class="form-group">
                                                 <input type="number" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
                                             </div>  
@@ -164,8 +164,9 @@
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
-                        <button type="button" class="btn btn-round btn-default">Cancel</button>
+                        <button type="submit" *ngIf = "appointments[0].prescription == 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <button type="button" disabled *ngIf = "appointments[0].prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                     </div>
                     </form>
                 </div>
@@ -202,17 +203,17 @@
                             <th>Quantity</th>                                                                            
                             <th>Refill</th>  
                             <th>Remain</th>                           
-                            <!-- <th>New Quantity</th> -->
+                         
                             <th>Cost</th>
                             <th>Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let r of prescriptions.pres; let i =index">
+                        <tr *ngFor="let r of prescriptionsList; let i =index">
                            <td>{{i+1}}</td>                                                                                     
                            <td class="w60">
-                            <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                            <img src="http://hms.jtcheck.com/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                         </td>
                         <td>
                             <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
@@ -223,7 +224,7 @@
                         <td>{{r.quantity}}</td>                                                                          
                         <td>{{r.refill}}</td>
                         <td>{{r.remain}}</td>
-                        <!-- <td>39</td>  -->
+                     
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                         <td>
@@ -241,18 +242,19 @@
                             <th></th>
                             <th>{{prescriptions.tquant}}</th>
                             <th>{{prescriptions.refill}}</th> 
-                            <td>{{prescriptions.remain}}</td>                                 
-                            <th>{{prescriptions.eachcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{prescriptions.remain}}</th>    
+                            <th></th>                             
+                            <!-- <th>{{prescriptions.eachcost | currency:'NGN':'symbol-narrow'}}</th></th>> -->
                             <th>{{prescriptions.tcost | currency:'NGN':'symbol-narrow'}}</th>
                         </tr>
                     </tfoot>
                 </table>
                 <div>
-                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'invoice' || prescriptions.pres[0].status == 'paid'" disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" (click)="saveTovoucher()" *ngIf = "prescriptions.pres[0].status == 'save'" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'invoice' || prescriptions.pres[0].status == 'paid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',patID]}}]">Invoice</a></button> &nbsp;&nbsp;
-                    <button type="button" *ngIf = "prescriptions.pres[0].status == 'save'" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
-                    <!-- <button type="button" class="btn btn-round btn-default">Cancel</button> -->
+                    <button type="button" *ngIf = "appointments[0].voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "appointments[0].voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
+                    <button type="button" *ngIf = "appointments[0].invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
+                    <button type="button" *ngIf ="appointments[0].invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                    <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                 </div><br>              
                 </div>
                 </div>
