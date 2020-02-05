@@ -166,7 +166,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button printSectionId="print-history" ngxPrint>Print</button>
+                <button (click)="printComponent()">Print</button>
             </div>
 
             <!-- Transfers To -->
@@ -203,7 +203,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button printSectionId="print-history" ngxPrint>Print</button>
+                <button (click)="printComponent()">Print</button>
             </div>
 
              <!-- refill -->
@@ -246,6 +246,8 @@
 
             <!-- Add -->
             <div class="body"  *ngIf = "action == 'adds'">
+                <div id="print-history">
+                   
                 <div class="table-responsive" id="print-history">
                     <table class="table table-striped table-hover">
                         <thead>
@@ -276,7 +278,9 @@
                         </tbody>
                     </table>
                 </div>
-                <button printSectionId="print-history" ngxPrint>Print</button>
+                </div>
+                <!-- [useExistingCss]="true"  styleSheetFile="assets/vendor/bootstrap/css/bootstrap.min.css" printSectionId="print-history" ngxPrint -->
+                <button   (click)="printComponent()">Print</button>
             </div>
 
             <!-- Variance -->
@@ -312,7 +316,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button printSectionId="print-history" ngxPrint>Print</button>
+                <button    (click)="printComponent()">Print</button>
             </div>
 
             <!-- Stock Request -->
