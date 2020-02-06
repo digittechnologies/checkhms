@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
-   
+    console.log('payload',data);
+
     this.Token.handle(data.token.original.access_token);
    
     this.Auth.changeAuthStatus(true);  
