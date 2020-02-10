@@ -95,6 +95,7 @@
                         </div>
                       <div class="col-md-6 text-right">
 
+
                           <button class="btn btn-info ml-2" (click)="printComponent()"><i class="icon-printer"></i>Print</button>
 
                           <!-- Print -->
@@ -104,6 +105,7 @@
                           <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
 
+                          
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "appointments[0].invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
 
@@ -157,7 +159,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                                <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
                                                 <div class="ml-3">
                                                 <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
                                                 <p class="mb-0">{{i.name}}</p>
