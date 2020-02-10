@@ -23,7 +23,7 @@
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{typeimg}}" class="rounded" alt="">
+                                <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{typeimg}}" class="rounded" alt="">
                             </div>
                             <div class="details">
                                 <h5 class="mb-0">Item Type:</h5>
@@ -58,7 +58,7 @@
                     <div class="body">
                         <a class="card" href="javascript:void(0)">
                             <div class="body text-center">
-                                <img class="img-thumbnail rounded-circle" src="http://localhost/buth-pharm/backend/public/upload/uploads/{{itemimg}}" alt="">
+                                <img class="img-thumbnail rounded-circle" src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{itemimg}}" alt="">
                                 <h6 class="mt-3">{{resitem.generic_name}}</h6>
                                 <div class="text-center text-muted">{{resitem.manuf_name}}</div>
                             </div>
@@ -113,47 +113,45 @@
                         </ul>
                     </div>
                     <div class="body">
+                        <form [formGroup]="submissionForm" >
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-12">
+                                <label>Generic name</label>
                                 <div class="form-group">                                                
-                                    <input type="text" class="form-control" placeholder="First Name">
+                                    <input type="text" class="form-control" formControlName="generic_name">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
+                                <label>Selling price</label>
                                 <div class="form-group">                                                
-                                    <input type="text" class="form-control" placeholder="Last Name">
+                                    <input type="text" class="form-control"  formControlName="selling_price">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
+                                <label>Purchasing price</label>
                                 <div class="form-group">
-                                    <select class="form-control">
-                                        <option value="">-- Select Gander --</option>
-                                        <option value="AF">Male</option>
-                                        <option value="AX">Female</option>
-                                    </select>
+                                    <input type="text" class="form-control"  formControlName="purchasing_price">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
+                                <label>Manufacture date</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="icon-calendar"></i></span>
-                                        </div>
-                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate">
+                
+                                        <input type="date" class="form-control" formControlName="manufacture_date" placeholder="Manufacture date">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
+                                <label>Expiring date</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="icon-globe"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="http://">
+                                    
+                                        <input type="date" class="form-control" formControlName="expiring_date" placeholder="Expiring date">
                                     </div>
                                 </div>
                             </div>                                
-                            <div class="col-lg-4 col-md-12">
+                            <!-- <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
                                     <select class="form-control" *ngFor="let t of type">
                                         <option value="">-- Select Country --</option>
@@ -161,13 +159,20 @@
                                       
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-4 col-md-12">
+                                <label>Markup price</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="State/Province">
+                                    <input type="text" class="form-control" formControlName="markup_price" placeholder="Markup price">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                              <label>Change file</label><br>
+                              <input type="file" name="file"  (change)="uploadFile($event)">
+                              </div>
+                              </div>
+                            <!-- <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="City">
                                 </div>
@@ -176,11 +181,12 @@
                                 <div class="form-group">                                                
                                     <textarea rows="4" type="text" class="form-control" placeholder="Address"></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                             
                         </div>
-                        <button type="button" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                        <button type="button" (click)="onSubmitItem()" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
                         <button type="button" class="btn btn-round btn-default">Cancel</button>
+                    </form>
                     </div>
                 </div>
                 

@@ -21,6 +21,12 @@ export class InvoiceComponent implements OnInit {
   error: any;
   result: any;
 
+  appointID: string;
+  appointResponse: any;
+  voucherId: any;
+  appointments: any;
+  0:any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -33,7 +39,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
-	    this.patID = id;
+	    this.appointID = id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
 	      this.patientResponse = data;      
@@ -41,14 +47,21 @@ export class InvoiceComponent implements OnInit {
 	    })
   }))
 
-  this.Jarwis.displayPharmInvoice(this.patID,'').subscribe(
+  this.Jarwis.displayDeptAppoint(this.appointID).subscribe(
+    data=>{
+    this.appointResponse = data;      
+    this.voucherId = this.appointResponse[0].voucher_id;
+    this.appointments = this.appointResponse;
+  })
+
+  this.Jarwis.displayPharmInvoice(this.appointID,'').subscribe(
     data=>{
     this.PharmPreresponse = data;      
     this.inv = this.PharmPreresponse; 
     })
   }
   saveToInvoice(){
-    this.Jarwis.saveToInvoice(this.inv.pres[0].voucher_id, '').subscribe(
+    this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
@@ -86,8 +99,26 @@ export class InvoiceComponent implements OnInit {
     })
     
   }
+  printComponent() {
+    var divToPrint=document.getElementById("print-history");
+    
+    var style = "<style>";
+    style = style + "table {width: 100%;font: 17px Calibri;}";
+    style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+    style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "#cin: align:center;color:red}";
+    style = style + "#oid: align: center;}";
+    style = style + "</style>";
 
+var win = window.open('', '', 'height=700,width=700');
+win.document.write(style);          //  add the style.
+win.document.write(divToPrint.outerHTML);
+win.document.close();
+win.print();
+   
+}
 openPrintDialogue(label){
+  let arr = [];
     let obj = this.inv.pres;
     for(const key of obj){
       if(key.id == label){
@@ -95,7 +126,7 @@ openPrintDialogue(label){
         break;
       }
     }
-    console.log(this.result)
+    arr.push(this.result)
         $('<iframe>', {
           name: 'myiframe',
           class: 'printFrame'
@@ -119,26 +150,26 @@ openPrintDialogue(label){
                     </tr>
                     <tr >
                         <td colspan="4">
-                            <p class="m-b-0"><strong>RX:</strong> ${this.result.voucher_id}</p>                               
-                            <p class="m-b-0"><strong>Doctor: </strong> ${this.result.doctor_id}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong>  ${this.result.p_date}</p>  
+                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>                               
+                            <p class="m-b-0"><strong>Doctor: </strong> ${arr[0].doctor_id}</p>
+                            <p class="m-b-0"><strong>Order Date: </strong>  ${arr[0].p_date}</p>  
                         </td>
                         <td  colspan="2" style="padding-top:20px;">
-                            <p class="m-b-0"><strong>Patient Name: </strong>${this.result.fname+ ' ' +this.result.othername}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong> ${this.result.p_date}</p>
-                            <p class="m-b-0"><strong>Refill: ${this.result.refill}</strong></p>
+                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>
+                            <p class="m-b-0"><strong>Order Date: </strong> ${arr[0].p_date}</p>
+                            <p class="m-b-0"><strong>Refill: ${arr[0].refill}</strong></p>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4" >                    
-                            <p class="h5">Medicine <small>${this.result.generic_name}</small> <small class="float-right text-muted">QTY:${this.result.quantity}</small></p>
+                            <p class="h5">Medicine <small>${arr[0].generic_name}</small> <small class="float-right text-muted">QTY:${arr[0].quantity}</small></p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p>
                         </td>
                     </tr>        
                     <tr >
                         <td colspan="4" >
                             <p class="m-b-0"><strong><u>Caution</u></strong></p> 
-                            <p>${this.result.caution}</p>
+                            <p>${arr[0].caution}</p>
                         </td>
                         <td  colspan="2">
                             |||||||||||||||| BARCODE|||||||||||||||||         
@@ -149,9 +180,8 @@ openPrintDialogue(label){
         `);
         window.frames['myiframe'].focus();
         window.frames['myiframe'].print();
-      // }
-  
-    // setTimeout(() => { $(".printFrame").remove(); }, 1000);
+        arr=[];
+        setTimeout(() => { $(".printFrame").remove(); }, 10);
   };
   
 }

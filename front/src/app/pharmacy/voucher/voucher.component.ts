@@ -38,6 +38,11 @@ export class VoucherComponent implements OnInit {
   Instructionresponse: any;
   AllStockresponse: any;
   DurationForVresponse: Object;
+  appId: any;
+  prescriptionsList: any;
+  voucherId: any;
+  appointResponse: any;
+  appointments: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -52,18 +57,34 @@ export class VoucherComponent implements OnInit {
 
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
-	    this.patID = id;
+	    this.appId= id;
 	    this.Jarwis.patientdetails(id).subscribe(
 	      data=>{
 	      this.patientResponse = data;      
-	      this.pat = this.patientResponse;
+        this.pat = this.patientResponse;
+        this.patID = this.pat[0].id;
+        console.log(this.pat);
 	    })
   }))
   
-  this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+  // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
+  //   data=>{
+  //   this.PharmPreresponse = data;      
+  //   this.prescriptions = this.PharmPreresponse; 
+  // })
+
+  this.Jarwis.displayDeptAppoint(this.appId).subscribe(
+    data=>{
+    this.appointResponse = data;      
+    this.voucherId = this.appointResponse[0].voucher_id;
+    this.appointments = this.appointResponse;
+  })
+
+  this.Jarwis.displayPharmPre2(this.appId).subscribe(
     data=>{
     this.PharmPreresponse = data;      
-    this.prescriptions = this.PharmPreresponse; 
+    this.prescriptions = this.PharmPreresponse;
+    this.prescriptionsList= this.PharmPreresponse.pres; 
   })
 
     this.Jarwis.disItemDet().subscribe(
@@ -79,16 +100,16 @@ export class VoucherComponent implements OnInit {
     })
   }
 
-  get(){
-    this.ngOnInit()
-  }
+  // get(){
+    
+  // }
   onSelectItem(Itemid) {
     this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
       data=>{
         this.AllStockresponse = data;
         this.total =this.AllStockresponse;
         this.getInst = this.total[0].type_id;
-        
+        this.ngOnInit()
         this.Jarwis.displayDurationForV(this.getInst).subscribe(
           data=>{
           this.DurationForVresponse = data;      
@@ -156,13 +177,16 @@ export class VoucherComponent implements OnInit {
   }
 
   onSubmitAdd(form: NgForm) {
+    form.value.appointment_id=this.appId
     form.value.customer_id=this.patID
     form.value.quantity = this.quant
+    form.value.voucher_id = this.voucherId
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
     form.value.amount = this.total[0].selling_price
     form.value.amount_paid = parseInt(this.total[0].selling_price) * parseInt(this.quant)
     form.value.instock = this.total[0].total_remain
+    // console.log(form.value)
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -170,7 +194,7 @@ export class VoucherComponent implements OnInit {
   }
 
   saveTovoucher(){
-    this.Jarwis.saveTovoucher(this.patID, '').subscribe(
+    this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

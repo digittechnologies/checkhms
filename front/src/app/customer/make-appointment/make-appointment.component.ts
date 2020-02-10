@@ -21,6 +21,7 @@ export class MakeAppointmentComponent implements OnInit {
   pat: any;
   catName:any;
   manufid:any;
+  p:any;
   onUpdate
 
   constructor( 

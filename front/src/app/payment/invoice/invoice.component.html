@@ -8,7 +8,7 @@
                   <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
                   <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]">Phamarcy Log</a></li>
-                  <li class="breadcrumb-item"><a href="#">Voucher</a></li>
+                  <!-- <li class="breadcrumb-item"><a href="#">Voucher</a></li> -->
                   <li class="breadcrumb-item active" aria-current="page">Invoices</li>
                   </ol>
               </nav>
@@ -22,16 +22,16 @@
           <div class="col-lg-12">
               <div class="card">
                   <div class="header">
-                      <h2>Check Invoice <small> </small></h2>
+                      <h2 >Check Invoice <small> </small></h2>
                   </div>
                   <div class="body" id="print-history">
                       <div class="row clearfix"> 
                         <div class="col-md-12 col-sm-12">
                           <div class="text-center">
-                          <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span>Check HMS</span>
+                          <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span id="cin">Check HMS</span>
                           </div>
                           <div class="text-center">
-                            <p><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
+                            <p id="oid"><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
                           </div>
                           <hr>  
                         </div>
@@ -91,17 +91,22 @@
                   </div>
                   <div class="row clearfix mt-2">
                         <div class="col-md-6 text-left">
-                              <strong>Invoice Status: </strong><span class="badge badge-success">{{inv.pres[0].status}}</span>
+                              <strong>Invoice Status: </strong><span *ngIf = "appointments[0].invoice == 'unpaid'" class="badge badge-danger">{{appointments[0].invoice}}</span> <span *ngIf = "appointments[0].invoice == 'paid'" class="badge badge-success">{{appointments[0].invoice}}</span>
                         </div>
                       <div class="col-md-6 text-right">
+
                           <!-- Print -->
                           <button class="btn btn-info ml-2" printSectionId="print-history" ngxPrint><i class="icon-printer"></i>Print</button>
                           <!-- Payment -->
+
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "appointments[0].invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
+
                           <!-- Terminate -->
-                          <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
-                          <button class="btn btn-danger ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button>
+                          <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
+                          <button class="btn btn-danger ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button> -->
                         </div>
                     </div>
               </div>                                       
@@ -115,7 +120,7 @@
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12">
-                <h2>Label Table</h2>
+                <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "appointments[0].invoice == 'unpaid'" class="badge badge-danger">{{appointments[0].invoice}}</span> <span *ngIf = "appointments[0].invoice == 'paid'" class="badge badge-success">{{appointments[0].invoice}}</span>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">                    
                     <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be print immediatle Payment have been made</li>
@@ -137,7 +142,7 @@
                             <th style="width: 20px;">#</th>
                             <th>Client</th>
                             <th style="width: 50px;">Amount</th>
-                            <th style="width: 50px;">Status</th>
+                            <!-- <th style="width: 50px;">Status</th> -->
                             <th style="width: 110px;">Action</th>
                         </tr>
                     </thead>
@@ -149,7 +154,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                                <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
                                                 <div class="ml-3">
                                                 <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
                                                 <p class="mb-0">{{i.name}}</p>
@@ -157,10 +162,11 @@
                                         </div>                                        
                                     </td>
                                     <td>{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
-                                    <td><span class="badge badge-success ml-0 mr-0">{{i.status}}</span></td>
+                                    <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
                                     <td>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
-                                        <button type="button" class="btn btn-sm btn-default" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "appointments[0].invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "appointments[0].invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
                                     </td>
                             <!-- </ng-container> -->
