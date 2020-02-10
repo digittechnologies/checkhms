@@ -85,19 +85,19 @@ export class LoginComponent implements OnInit {
    
     this.Auth.changeAuthStatus(true);  
     this.ngOnInit() 
-    if (this.role == this.super) {
+  
       this.router.navigateByUrl('/Admin/(side:home)');      
-    }
-    if (this.role == this.global) {
-       this.router.navigateByUrl('/Admin/(side:home)'); 
-    } 
-    if (this.role == this.center) {
-      this.ngOnInit() 
-      this.router.navigateByUrl('/Admin/(side:phamarcy-admin-dashboard)'); 
-   } 
-   if (this.role == this.user) {
-    this.router.navigateByUrl('/Admin/(side:phamarcy-user-dashboard)'); 
- } 
+  
+//     if (this.role == this.global) {
+//        this.router.navigateByUrl('/Admin/(side:home)'); 
+//     } 
+//     if (this.role == this.center) {
+//       this.ngOnInit() 
+//       this.router.navigateByUrl('/Admin/(side:phamarcy-admin-dashboard)'); 
+//    } 
+//    if (this.role == this.user) {
+//     this.router.navigateByUrl('/Admin/(side:phamarcy-user-dashboard)'); 
+//  } 
    
    this.disabled= false;
    this.sav= 'Submited'

@@ -31,7 +31,7 @@
                             <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-shopping-cart"></i></div>
                             <div class="ml-4">
                                 <span>Total Sales</span>
-                                <h4 class="mb-0 font-weight-medium">N{{items.soldItem}}</h4>
+                                <h4 class="mb-0 font-weight-medium">{{items.soldItem}}</h4>
                             </div>
                         </div>
                     </div>
@@ -95,17 +95,6 @@
                     <div class="body top_counter">
                         <div class="icon bg-success text-white"><i class="fa fa-area-chart"></i> </div>
                         <div class="content">
-                            <span>Total Balance</span>
-                            <h5 class="number mb-0">62%</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="body top_counter">
-                        <div class="icon bg-info text-white"><i class="fa fa-shopping-cart"></i> </div>
-                        <div class="content">
                             <span>Close Balance</span>
                             <h5 class="number mb-0">{{items.total}}</h5>
                         </div>
@@ -115,10 +104,21 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card">
                     <div class="body top_counter">
-                        <div class="icon bg-danger text-white"><i class="fa fa-tag"></i> </div>
-                        <div class="content">
+                        <div class="icon bg-info text-white"><i class="fa fa-shopping-cart"></i> </div>
+                        <div class="content">                            
                             <span>Physical Balance</span>
                             <h5 class="number mb-0">{{items.physBal}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="body top_counter">
+                        <div class="icon bg-danger text-white"><i class="fa fa-tag"></i> </div>
+                        <div class="content">                            
+                            <span>Daily Revenue</span>
+                            <h4 class="mb-0 font-weight-medium text-danger">{{items.soldItem | currency:'NGN':'symbol-narrow'}}</h4>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
         </div>
 
 
-        <div class="row clearfix">
+        <!-- <div class="row clearfix">
             <div class="col-lg-2 col-md-6"></div>
             <div class="col-lg-4 col-md-6">
                 <div class="card bg-success">
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-6"></div>
-        </div>
+        </div> -->
 
         <div class="row clearfix">
             <div class="col-lg-12">
@@ -513,7 +513,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                                        <td><img src="https://hms.jtcheck.com/back/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>     

@@ -23,7 +23,8 @@
                 <ul class="list-group mt-0 mb-4">
                     <span *ngIf = "2002 >= profile.role_id">
                         <li class="list-group-item d-flex justify-content-between align-items-center">All Staffs<span class="badge bage-success">{{staff.countAll}}</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let d of department">{{d.name}} Department<span class="badge badge-primary">2</span></li>
+                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let d of department">{{d.name}}<span class="badge badge-primary">2</span></li> -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let d of department">{{d.name}}</li>
                     </span>
                     <span *ngIf = "profile.role_id > '2003'">
                         <ng-container  *ngFor="let d of department">

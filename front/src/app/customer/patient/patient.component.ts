@@ -54,7 +54,7 @@ export class PatientComponent implements OnInit {
 
   onSubmitApp(form: NgForm) {
 
-    this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+    this.Jarwis.makeAppointment2({aid:this.appontId, form:form.value }).subscribe(
       data => this.handleResponse(data),
         error => this.handleError(error)
    );

@@ -39,7 +39,7 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  // private baseUrl = 'https://back.hms.jtcheck.com/backend/public/api';
+  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
   private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
@@ -427,6 +427,12 @@ makeAppointment(data) {
   }})
 }
 
+makeAppointment2(data) {
+  return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 //Appointment 
 displayAllappointment() {
   return this.http.get(`${this.baseUrl}/displayAllappointment`,)
@@ -437,6 +443,13 @@ displayDeptAppointment() {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+displayDeptAppoint(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/displayDeptAppoint/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 countAppointment() {
   return this.http.get(`${this.baseUrl}/countAppointment`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -580,11 +593,18 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmPre(id: any, data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
+  // displayPharmPre(id: any, data) {
+  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
+  //     Authorization:`Bearer ${localStorage.token}`
+  //   }})
+  // }
+
+  displayPharmPre2(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
   saveTovoucher(id: any, data) {
     return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`

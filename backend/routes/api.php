@@ -10,18 +10,18 @@ Route::group([
     'middleware' => 'api',
 ], function () {
 
-    //Settings
-    Route::get('setupStatus', 'SetupController@setupStatus');
+//Settings
+Route::get('setupStatus', 'SetupController@setupStatus');
 
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-    Route::post('adminLogin','AuthController@adminLogin');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::get('me', 'AuthController@me');
-    Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
-    Route::post('resetPassword', 'ChangePasswordController@process');
-    Route::post('changePassword', 'ChangePasswordController@changePassword');
+Route::post('login', 'AuthController@login');
+Route::post('signup', 'AuthController@signup');
+Route::post('adminLogin','AuthController@adminLogin');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+Route::get('me', 'AuthController@me');
+Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
+Route::post('resetPassword', 'ChangePasswordController@process');
+Route::post('changePassword', 'ChangePasswordController@changePassword');
 
 Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
@@ -158,8 +158,9 @@ Route::get('patientdetails/{id}','DisplayController@patientdetails');
 
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
-Route::post('makeAppointment','AddController@makeAppointment');
+Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
+Route::get('displayDeptAppoint/{id}','DisplayController@displayDeptAppoint');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
 Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
@@ -174,7 +175,8 @@ Route::post('deletePrescription', 'AddController@deletePrescription');
 Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
-Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+// Route::post('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
 
 
 //Invoices

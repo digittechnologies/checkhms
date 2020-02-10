@@ -46,7 +46,6 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
       this.response = data;      
       this.log = this.response; 
-     
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(

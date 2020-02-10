@@ -12,10 +12,10 @@
                         </ol>
                     </nav>
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#MakeAppointment">Make Appointment</button>
-                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
-                </div>
+                   
+                </div> -->
             </div>
         </div>
   
@@ -42,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let a of appoints; let r = index">
+                            <tr *ngFor="let a of appoints | paginate: {itemsPerPage:10, currentPage: p}; let r = index; let r = index">
                                 <!-- <td> {{r+1}} </td> -->
                                 <td class="w60">
                                     <img src="http://localhost/buth-pharm/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
@@ -53,38 +53,45 @@
                                 </td>
                                 <td>{{a.dept_name}}</td>
                                 <td>
-                                    <span class="badge badge-danger" *ngIf ="a.lab=== 'close'">Close</span>
-                                    <span class="badge badge-success" *ngIf ="a.lab=== 'open'">Open</span> 
-                                    <span class="badge badge-warning" *ngIf ="a.lab=== 'pending'">Pending</span> 
-                                    <span class="badge badge-primary" *ngIf ="a.lab=== 'success'">Succcess</span>                                                                          
+                                    
+                                    <span class="badge badge-danger" *ngIf ="a.lab=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.lab=== 'success'">Success</span> 
+                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'invoice'">Invoice</span> 
+                                        <span class="badge badge-primary" *ngIf ="a.lab=== 'open'">Open</span>  
+                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'close'">close</span>                                                                               
                                 </td>
                                 <td>
-                                        <span class="badge badge-danger" *ngIf ="a.treatment=== 'close'">Close</span>
-                                        <span class="badge badge-success" *ngIf ="a.treatment=== 'open'">Open</span> 
-                                        <span class="badge badge-warning" *ngIf ="a.treatment=== 'pending'">Pending</span> 
-                                        <span class="badge badge-primary" *ngIf ="a.treatment=== 'success'">Succcess</span>                                                                            
+                                        <span class="badge badge-danger" *ngIf ="a.treatment=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.treatment=== 'success'">Success</span> 
+                                        <!-- <span class="badge badge-warning" *ngIf ="a.treatment=== 'invoice'">Invoice</span>  -->
+                                        <span class="badge badge-primary" *ngIf ="a.treatment=== 'open'">Open</span> 
+                                        <span class="badge badge-warning" *ngIf ="a.treatment=== 'close'">close</span>                                                                           
+                                </td>
+                                <td>                                      
+                                        <span class="badge badge-danger" *ngIf ="a.prescription=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.prescription=== 'success'">Success</span> 
+                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'checkout'">Checkout</span> 
+                                        <span class="badge badge-primary" *ngIf ="a.prescription=== 'open'">Open</span>     
+                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'close'">close</span>                                                                         
+                                </td>
+                                <td>                                        
+                                        <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
+                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
+                                        <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
+                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               
                                 </td>
                                 <td>
-                                        <span class="badge badge-danger" *ngIf ="a.prescription=== 'close'">Close</span>
-                                        <span class="badge badge-success" *ngIf ="a.prescription=== 'open'">Open</span> 
-                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'pending'">Pending</span> 
-                                        <span class="badge badge-primary" *ngIf ="a.prescription=== 'success'">Succcess</span>                                                                              
-                                </td>
-                                <td>
-                                        <span class="badge badge-danger" *ngIf ="a.voucher=== 'close'">Close</span>
-                                        <span class="badge badge-success" *ngIf ="a.voucher=== 'open'">Open</span> 
-                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'pending'">Pending</span> 
-                                        <span class="badge badge-primary" *ngIf ="a.voucher=== 'success'">Succcess</span>                                                                               
-                                </td>
-                                <td>
-                                        <span class="badge badge-danger" *ngIf ="a.invoice=== 'close'">Close</span>
-                                        <span class="badge badge-success" *ngIf ="a.invoice=== 'open'">Open</span> 
-                                        <span class="badge badge-warning" *ngIf ="a.invoice=== 'pending'">Pending</span> 
-                                        <span class="badge badge-primary" *ngIf ="a.invoice=== 'success'">Succcess</span>                                                                            
+                                        <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">paid</span> 
+                                        <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
+                                        <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
+                                        <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
                                 </td>
                                 <td>
                                         <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
-                                        <span class="badge badge-danger" *ngIf ="a.status=== 'suspend'">Suspend</span>                                                                               
+                                        <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
+                                        <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
                                 </td>                                
                                 <td>{{a.date}}</td> 
                                 <td>{{a.time}}</td>                                
@@ -96,6 +103,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
                 </div>
             </div>
         </div>
