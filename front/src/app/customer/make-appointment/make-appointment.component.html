@@ -45,7 +45,7 @@
                             <tr *ngFor="let a of appoints | paginate: {itemsPerPage:10, currentPage: p}; let r = index; let r = index">
                                 <!-- <td> {{r+1}} </td> -->
                                 <td class="w60">
-                                    <img src="http://hms.jtcheck.com/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                    <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{a.card_number}}</a>

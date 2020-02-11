@@ -54,7 +54,7 @@ class DailyDBUpdate extends Command
         foreach($branch as $brancID){
             $branch_name = $brancID->br_name;
             $getFromBranch = DB::table($branch_name)
-                // ->where ('c_date', '=', $yesterDate)
+                ->where ('c_date', '=', $yesterDate)
                 ->get();
             foreach($getFromBranch as $itemID){
                 $insert = DB::table($branch_name)->insertGetId(

@@ -69,7 +69,7 @@
                                     <tr  *ngFor="let p of pat; let r = index">
                                         <td> {{r+1}}</td>
                                         <td class="w60">
-                                                <img src="http://hms.jtcheck.com/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                             </td>
                                         <td>
                                             <a href="javascript:void(0);" title="" [routerLink]="['/Admin', {outlets: {side: ['patient_profile',p.id]}}]">{{p.name}}</a>

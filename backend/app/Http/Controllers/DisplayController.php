@@ -325,17 +325,18 @@ class DisplayController extends Controller
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
-        
+        $bid = Auth()->user()->branch_id;
+
         if($id == 'undefined'){
             $id = Auth()->user()->branch_id;
         }
 
-        $branch = Branches::select('branches.br_name')
+        $branch = Branches::select('branches.br_name', 'branches.id')
         ->where('id', '=', $id)
         ->orWhere('name', '=', $id)
         ->first();  
         $id = $branch->br_name;
-
+        $bid = $branch->id;
         return response()->json([
 
            'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
@@ -366,7 +367,8 @@ class DisplayController extends Controller
            ->first(), 
            'itemAmount'=>DB::table('invoices')->select('paid')
            ->where ('i_date', '=', $cDate)
-           ->sum('paid'),
+           ->where('branch_id', '=', $bid)
+            ->sum('paid'),
 
         ]);
     }
