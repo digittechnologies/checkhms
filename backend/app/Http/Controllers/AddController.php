@@ -1975,7 +1975,7 @@ class AddController extends Controller
         $pharmacistId= auth()->user()->id;
         $branchId= auth()->user()->branch_id;
 
-        //GET BRANCH NAME TO BE USE IN UPDATING IT TABLE
+        //GET BRANCH NAME TO BE USE IN UPDATING IT TABLExamp
         $getBranchName = DB::table('branches')->select('branches.br_name')->where('id', $branchId)->first();
         $branchName = $getBranchName->br_name;
 

@@ -357,7 +357,8 @@ class DisplayController extends Controller
            'openBal'=>DB::table($id)->select($id.'.*')
            ->where ('c_date', '=', $cDate)
            ->sum($id.'.open_stock'),
-           'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
+           'physBal'=>DB::table($id)->select($id.'.*')
+           ->sum($id.'.physical_balance'),
            'total'=>DB::table($id)->select($id.'.*')
            ->where ('c_date', '=', $cDate)
            ->sum($id.'.total_remain'),
@@ -365,7 +366,7 @@ class DisplayController extends Controller
            ->first(), 
            'itemAmount'=>DB::table('invoices')->select('paid')
            ->where ('i_date', '=', $cDate)
-            ->sum('paid'),
+           ->sum('paid'),
 
         ]);
     }
