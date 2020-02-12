@@ -1873,7 +1873,44 @@ class AddController extends Controller
 
     public function saveRefill(Request $request)
     {
-        return $request->all();
+        $id = $request->id;
+        $getPres = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $id)->first();
+        $quantity = $getPres->refill_range * $request->refill;
+        $refill = $getPres->refill - $request->refill;
+        $remain = $getPres->remain - $quantity;
+        $amount_paid = $getPres->amount * $quantity;
+
+        $quantity += $getPres->quantity;
+        $remain += $getPres->remain;
+        $amount_paid += $getPres->amount_paid;
+
+        if($refill == 0){
+            $refill_status = 'non-refillable';
+        } else if($refill > 0){
+            $refill_status = 'refillable';
+        }
+
+        $updatePrescription = DB::table('doctor_prescriptions')
+        ->where('doctor_prescriptions.id', '=', $id)
+        ->update([
+            'quantity' => $quantity,
+            'remain' => $remain,
+            'refill' => $refill,
+            'amount_paid' => $amount_paid,
+            'refill_status' => $refill_status
+        ]);
+        
+        if($pharmP){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
     public function saveTovoucher($cid)
     {

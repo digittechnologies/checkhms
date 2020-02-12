@@ -606,7 +606,7 @@ deleteAppointment(data) {
   }
   
   saveRefill(data) {
-    return this.http.post(`${this.baseUrl}/saveRefill/`, data,{headers:{
+    return this.http.post(`${this.baseUrl}/saveRefill`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

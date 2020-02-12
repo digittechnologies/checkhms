@@ -23,7 +23,7 @@ export class RefillDetailsComponent implements OnInit {
   patID: any;
   int = parseInt;
   voucherId: any;
-  refillAmt: any;
+  refillAmt = 1;
 
   constructor( 
     private http: HttpClient,
@@ -55,7 +55,9 @@ export class RefillDetailsComponent implements OnInit {
   }
 
   getRefill(r){
-
+    if(r.target.value > 1){
+      this.refillAmt = r.target.value;
+    }
   }
 
   onRefill(id) {
@@ -65,13 +67,19 @@ export class RefillDetailsComponent implements OnInit {
     //     this.total =this.response;
     //   }
     // );
-    // form.value.voucherId=this.voucherId
-    alert(this.refillAmt)
-    return
-    this.Jarwis.saveRefill('').subscribe(
+    // alert(this.refillAmt)
+    // alert(id)
+    // return
+    // let form: NgForm
+    // form.value.id = id
+    // form.value.refill = this.refillAmt
+    // console.log(form.value)
+    // return
+    this.Jarwis.saveRefill({refill:this.refillAmt, id: id, voucher: this.voucherId}).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
+    this.refillAmt = 1;
   }
 
   handleResponse(data) {    // 
