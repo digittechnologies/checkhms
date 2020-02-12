@@ -21,6 +21,9 @@ export class RefillDetailsComponent implements OnInit {
   pres: any;
   pat: any;
   patID: any;
+  int = parseInt;
+  voucherId: any;
+  refillAmt: any;
 
   constructor( 
     private http: HttpClient,
@@ -36,10 +39,11 @@ export class RefillDetailsComponent implements OnInit {
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.patID = id;
-	    this.Jarwis.patientdetails(id).subscribe(
+	    this.Jarwis.displayRefillPrescriptions(id, '').subscribe(
 	      data=>{
 	      this.response = data;      
-	      this.pat = this.response;
+        this.pat = this.response;
+        this.voucherId = this.pat[0].voucher_id
 	    })
 	}))
 
@@ -48,12 +52,42 @@ export class RefillDetailsComponent implements OnInit {
       this.response = data;      
       this.itemDet = this.response       
     })
-
-    // this.Jarwis.displayPharmPre(this.patID).subscribe(
-    //   data=>{
-    //   this.response = data;      
-    //   this.pres = this.response       
-    // })
   }
 
+  getRefill(r){
+
+  }
+
+  onRefill(id) {
+    // this.Jarwis.refillInStock(id.target.value, '').subscribe(  
+    //   data=>{
+    //     this.response = data;
+    //     this.total =this.response;
+    //   }
+    // );
+    // form.value.voucherId=this.voucherId
+    alert(this.refillAmt)
+    return
+    this.Jarwis.saveRefill('').subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
+
+  handleResponse(data) {    // 
+    let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
+      duration: 2000
+    })   
+    this.ngOnInit();
+    
+  }
+
+  handleError(error) {
+    this.error = error.error.errors;
+    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+      duration: 2000
+
+    })
+    
+  }
 }

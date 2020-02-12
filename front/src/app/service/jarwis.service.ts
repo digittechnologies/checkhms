@@ -593,11 +593,23 @@ deleteAppointment(data) {
     }})
   } 
 
-  // displayPharmPre(id: any, data) {
-  //   return this.http.post<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,data,{headers:{
-  //     Authorization:`Bearer ${localStorage.token}`
-  //   }})
-  // }
+  displayRefillPrescriptions(id: any, data) {
+    return this.http.post<any>(`${this.baseUrl}/displayRefillPrescriptions/${id}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  refillInStock(id:any, data) {
+    return this.http.post<any>(`${this.baseUrl}/refillInStock/${id}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  
+  saveRefill(data) {
+    return this.http.post(`${this.baseUrl}/saveRefill/`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 
   displayPharmPre2(id:string) {
     return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{

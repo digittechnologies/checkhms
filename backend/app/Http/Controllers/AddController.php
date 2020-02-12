@@ -1871,6 +1871,10 @@ class AddController extends Controller
         }
     }
 
+    public function saveRefill(Request $request)
+    {
+        return $request->all();
+    }
     public function saveTovoucher($cid)
     {
         $dt = Carbon::now();
@@ -1898,7 +1902,7 @@ class AddController extends Controller
             $quantity += $row->quantity;
             $amount += $row->amount_paid;
             $refill += $row->refill;
-            $remain += $row->remain;
+            $remain += $row->refill;
         };
         if($refill == 0){
             $refill_status = 'non-refillable';

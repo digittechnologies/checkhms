@@ -30,7 +30,7 @@
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
-                          <div class="h4 m-0">RX#:</div>
+                          <div class="h4 m-0">RX#: {{pat[0].voucher_id}}</div>
                         </div>
                   </div>
               </div>                    
@@ -67,39 +67,40 @@
                             <th>Prescribed Quantity</th>
                             <th>Total Refill</th>
                             <th>Refilled</th>
-                            <th>Refilling Qty</th>
+                            <th>Refilling Range</th>
                             <th>Refilled Quantity</th>
                             <th>Prescribed Date</th>
-                            <th>Finished Date</th>                            
-                            <th>Phamarcist</th>
-                            <th>Branch</th>
-                            <th>Date/Time</th>
+                            <th>Prescribed Time</th>
+                            <!-- <th>Finished Date</th>                             -->
+                            <th>Doctor</th>
+                            <!-- <th>Branch</th> -->
+                            <th>Present Refill Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let r of pat let i = index">
+                            <td>{{i+1}}</td>                                                         
                             <td>
-                                1
-                            </td>                                                         
+                                <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
+                                <p class="mb-0">{{r.name}}</p>
+                             </td>
+                            <td>{{r.type_name}}</td>
+                            <td>{{r.original_qty}}</td> 
+                            <td>{{r.dispense}}</td> 
+                            <td>{{r.refill}}</td> 
+                            <td><span class="badge badge-success">{{r.refill_range}}</span></td> 
+                            <td>{{r.original_qty - r.remain}}</td> 
+                            <td>{{r.p_date}}</td> 
+                            <td>{{r.p_time}}</td>
+                            <!-- <td>10/12/2019</td>     -->
+                            <td>{{r.doctor_id}}</td>
+                            <!-- <td>Buth 2</td>             -->
                             <td>
-                              <a href="javascript:void(0);" title=""><h6 class="mb-0">aaaaaa</h6></a>
-                              <span>dddd</span>
-                          </td>
-                            <td>Item Type</td>
-                            <td>100</td> 
-                            <td>5</td> 
-                            <td>1</td> 
-                            <td>25</td> 
-                            <td>25</td> 
-                            <td>10/10/2019</td> 
-                            <td>10/12/2019</td>    
-                            <td>Dr Fasipe</td>
-                            <td>Buth 2</td>                           
-                            <td>10/11/2019</td>           
+                                <input type="number" min="1" max="{{r.dispense - r.refill}}" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount">
+                            </td>
                             <td>
-                                <a class="btn btn-default btn-sm" style="color: blue;" title="voucher-details" [routerLink]="['/Admin', {outlets: {side: ['refill-details']}}]"><i class="fa fa-pencil"></i> Voucher</a>
-                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i> Councel</button>
+                                <button type="button" class="btn btn-default btn-sm" title="Refill" (click)="onRefill(r.id)"><i class="fa fa-refresh"></i></button>
                             </td>
                         </tr>                                                   
                     </tbody>
