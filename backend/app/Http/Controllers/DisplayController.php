@@ -186,12 +186,14 @@ class DisplayController extends Controller
     // Refill
     public function displayRefill()
     {
-        return DB::table("vouchers")->join ('item_details','vouchers.item_detail_id','=','item_details.id')
-                                    ->join ('branches','vouchers.branch_id','=','branches.id')
-                                    ->join ('customers','vouchers.customer_id','=','customers.id')
-                                    ->join ('users','vouchers.staff_id','=','users.id')
-                                    ->select('vouchers.*','item_details.generic_name','users.firstname','users.lastname', 'branches.name', 'customers.name as customer_name')               
-                                    ->get();
+        return DB::table("vouchers")
+                // ->join ('item_details','vouchers.item_detail_id','=','item_details.id')
+                ->join ('branches','vouchers.branch_id','=','branches.id')
+                ->join ('customers','vouchers.customer_id','=','customers.id')
+                ->join ('users','vouchers.staff_id','=','users.id')
+                ->select('vouchers.*','users.firstname','users.lastname', 'branches.name', 'customers.name as customer_name','customers.othername as customer_othername')
+                ->where('refill_status', '=', 'refillable')           
+                ->get();
     }
 
 
@@ -358,7 +360,8 @@ class DisplayController extends Controller
            'openBal'=>DB::table($id)->select($id.'.*')
         //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.open_stock'),
-           'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
+           'physBal'=>DB::table($id)->select($id.'.*')
+           ->sum($id.'.physical_balance'),
            'total'=>DB::table($id)->select($id.'.*')
         //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.total_remain'),
@@ -498,7 +501,37 @@ class DisplayController extends Controller
     {
         return DB::table("doctor_prescriptions")->get();
     }
+     public function displayRefillPrescriptions($vid)
+     {
+         $bid =  Auth()->user()->branch_id;
+         $branch1 = DB::table("branches")
+         ->select('branches.br_name')
+         ->where('id', $bid)
+         ->get(); 
+         $branch = $branch1[0]->br_name; 
+         return DB::table('doctor_prescriptions')
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_types','item_details.item_type_id','=','item_types.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                    ->select('doctor_prescriptions.*', 'item_details.generic_name', 'item_types.type_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number'  ) 
+                    ->where(['doctor_prescriptions.voucher_id' => $vid, 'doctor_prescriptions.refill_status' => 'refillable'])
+                    ->get();
+     }
 
+     public function refillInStock($id)
+     {
+        $bid =  Auth()->user()->branch_id;
+        $branch = DB::table("branches")
+         ->select('branches.br_name')
+         ->where('id', $bid)
+         ->first(); 
+        return DB::table($branch)
+            ->where('item_detail_id', '=', $id)
+            ->select('branch_main.total_remain')
+            ->first();
+     }
 
     public function displayPharmPrescription($id)
     {

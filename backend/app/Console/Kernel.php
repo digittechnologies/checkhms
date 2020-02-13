@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('sync:day')
                  ->Daily();
 
-        // $schedule->command('composer database-export')->daily();
+        // $schedule->command('composer database-export')->daily();     
 
         // DB::table('recent_users')->delete();
         // })->daily();
