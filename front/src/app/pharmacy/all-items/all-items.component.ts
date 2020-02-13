@@ -72,6 +72,7 @@ export class AllItemsComponent implements OnInit {
   total_remain: any;
   total_remain2: any;
   total_remain_To: any;
+  img: any;
 
 
   constructor( 
@@ -264,13 +265,23 @@ onDelete(id: string) {
 }
 
   onClickSubmit(form: NgForm) {
+    form.value.image = this.image
     form.value.selling_price = this.selling_price
     this.Jarwis.addItemDetails(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),      
     );  
   }
-
+  uploadFile(event){
+    let files = event.target.files[0];
+    let reader = new FileReader();
+    let vm = this;
+    reader.onloadend =()=> {
+      this.image = reader.result;
+      this.img = this.image
+    }
+    reader.readAsDataURL(files);
+  }
   onSubmitAdd(form: NgForm) {
     this.Jarwis.addToStock(form.value).subscribe(
       data => this.handleResponse(data),

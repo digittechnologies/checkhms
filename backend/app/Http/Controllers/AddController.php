@@ -575,22 +575,22 @@ class AddController extends Controller
         $item_time = $dt->format('h:i:s A');
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
+        $request->merge(['item_shelf_id' => $request->shelve_id]);
         $staffId= Auth()->user()->id;
         $request->merge(['staff_id' => $staffId]);
 
-        if($request->item_img == null || $request->item_img != null){
+        if($request->image == null){
             $getImage = Item_types::select('image')     
             ->where('id','=',$request->item_type_id)          
             ->get();
             $request->merge(['item_img' => $getImage[0]->image]);   
-            
-            // if($request->item_img != null){
-            //     $file=$request->item_img;
-            //     $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
-            //     return $filename;
-            //     Image::make($file)->resize(300, 300)->save(public_path('/upload/uploads/'.$filename));
-            //     $request->merge(['item_img' => $filename]);
-            // }
+        }
+
+        if ($request->image != null){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            $request->merge(['item_img' => $filename]);
         }
 
         $item= Item_details::create($request-> all());              
@@ -1565,6 +1565,8 @@ class AddController extends Controller
 
     public function saveAdd()
     {
+        $dt = Carbon::now();
+        $today = $dt->toFormattedDateString();
         $all_item= DB::table('purchases')->select('purchases.item_detail_id', 'purchases.quantity')->where('status', '=', 'saved')->get();        
               
         foreach($all_item as $row){
@@ -1581,6 +1583,7 @@ class AddController extends Controller
             $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table('branch_main')
              ->where('item_detail_id','=', $item)
+             ->where ('c_date', '=', $today)
              ->update([
                 'receive' => $receive,
                 'total_remain' => $remain2,
@@ -1899,7 +1902,7 @@ class AddController extends Controller
             'amount_paid' => $amount_paid,
             'refill_status' => $refill_status
         ]);
-        
+
         if($pharmP){
             return '{
                 "success":true,
