@@ -6,12 +6,17 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
+declare let jQuery: any;
+declare let $ : any;
+declare let particlesJS : any;
+
 @Component({
   selector: 'app-voucher',
   templateUrl: './voucher.component.html',
   styleUrls: ['./voucher.component.css']
 })
 export class VoucherComponent implements OnInit {
+  generic_name: any;
   response: any;
   total: any;
   error: any;
@@ -37,12 +42,26 @@ export class VoucherComponent implements OnInit {
   ItemDetresponse: any;
   Instructionresponse: any;
   AllStockresponse: any;
-  DurationForVresponse: Object;
+  DurationForVresponse: any;
   appId: any;
   prescriptionsList: any;
   voucherId: any;
   appointResponse: any;
   appointments: any;
+  total_name: any;
+  cat_name: any;
+  type_name: any;
+  total_remain: any;
+  shelve_name: any;
+  shelve_point: any;
+  selling_price: any;
+  tquant: any;
+  refill: any;
+  remain: any;
+  tcost: any;
+  prescription: any;
+  voucher: any;
+  invoice: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -77,13 +96,20 @@ export class VoucherComponent implements OnInit {
     data=>{
     this.appointResponse = data;      
     this.voucherId = this.appointResponse[0].voucher_id;
-    this.appointments = this.appointResponse;
+    this.appointments = this.appointResponse[0];
+    this.prescription= this.appointments.prescription;
+    this.voucher= this.appointments.voucher;
+    this.invoice= this.appointments.invoice;
   })
 
   this.Jarwis.displayPharmPre2(this.appId).subscribe(
     data=>{
     this.PharmPreresponse = data;      
     this.prescriptions = this.PharmPreresponse;
+    this.tquant= this.prescriptions.tquant;
+    this.refill = this.prescriptions.refill;
+    this.remain = this.prescriptions.remain;
+    this.tcost = this.prescriptions.tcost;
     this.prescriptionsList= this.PharmPreresponse.pres; 
   })
 
@@ -107,8 +133,16 @@ export class VoucherComponent implements OnInit {
     this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
       data=>{
         this.AllStockresponse = data;
-        this.total =this.AllStockresponse;
-        this.getInst = this.total[0].type_id;
+        this.total =this.AllStockresponse[0];
+        this.generic_name= this.total.generic_name
+        this.total_name= this.total.name;
+        this.cat_name= this.total.cat_name;
+        this.type_name= this.total.type_name;
+        this.total_remain= this.total.total_remain;
+        this.shelve_name= this.total.shelve_name;
+        this.shelve_point= this.total.shelve_point;
+        this.getInst = this.total.type_id;
+        this.selling_price= this.total.selling_price;
         this.ngOnInit()
         this.Jarwis.displayDurationForV(this.getInst).subscribe(
           data=>{
@@ -132,7 +166,7 @@ export class VoucherComponent implements OnInit {
       this.days = d.target.value
       this.tQuantity = this.amt * this.sup * this.days
       this.quantity =  this.amt * this.sup * this.days
-      if(this.quantity > this.total[0].total_remain){
+      if(this.quantity > this.total.total_remain){
         alert('Quantity greater than quantity in stock')
         d.target.value = ''
         this.quantity = ''
@@ -162,7 +196,7 @@ export class VoucherComponent implements OnInit {
   }
 
   apartTablet(n){
-    if(parseInt(n.target.value) > parseInt(this.total[0].total_remain)){
+    if(parseInt(n.target.value) > parseInt(this.total.total_remain)){
       alert('Quantity greater than quantity in stock')
       n.target.value = ''
     }
@@ -183,9 +217,9 @@ export class VoucherComponent implements OnInit {
     form.value.voucher_id = this.voucherId
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
-    form.value.amount = this.total[0].selling_price
-    form.value.amount_paid = parseInt(this.total[0].selling_price) * parseInt(this.quant)
-    form.value.instock = this.total[0].total_remain
+    form.value.amount = this.total.selling_price
+    form.value.amount_paid = parseInt(this.total.selling_price) * parseInt(this.quant)
+    form.value.instock = this.total.total_remain
     // console.log(form.value)
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
@@ -204,7 +238,7 @@ export class VoucherComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:voucher');
     this.ngOnInit();
     
   }

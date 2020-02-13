@@ -225,12 +225,10 @@
                                                     <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
                                                     <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
                                                 </td>
-                                        </tr>
-                                        <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
-                                                                     
+                                        </tr>                                                            
                                     </tbody>
                                 </table>   
-  
+                                <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
@@ -286,7 +284,7 @@
                                                                     <div class="form-group row">
                                                                             <label class="col-sm-2 col-form-label">Select Shelve</label>
                                                                             <div class="col-md-6 col-sm-10">
-                                                                                <select class="form-control" ngModel name="shelve_id">
+                                                                                <select class="form-control" ngModel name="item_shelf_id">
                                                                                     <option value="">-- Select Shelve --</option>
                                                                                     <option *ngFor="let s of shelve" [value]="s.id">{{s.name}} Point {{s.point}}</option>                                      
                                                                                 </select>
@@ -469,7 +467,7 @@
                                                                     </select> 
                                                             </div>                                                            
                                                         </td> -->
-                                                        <td><span class="badge badge-warning">{{total[0].total_remain}}</span></td>
+                                                        <td><span class="badge badge-warning">{{total_remain}}</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" placeholder="Input Quantity" ngModel name="quantity">
@@ -601,7 +599,7 @@
                                                                 </select> 
                                                             </div>                                                            
                                                         </td>
-                                                        <td><span class="badge badge-warning">{{totalFrom[0].total_remain}}</span></td>
+                                                        <td><span class="badge badge-warning">{{total_remain2}}</span></td>
                                                         <td>                                                            
                                                             <div class="form-group">
                                                                 <select class="form-control" (change)="onSelectTo($event)" ngModel name="to">                           
@@ -610,7 +608,7 @@
                                                                     </select> 
                                                             </div>                                                            
                                                         </td>
-                                                        <td><span class="badge badge-warning">{{totalTo[0].total_remain}}</span></td>
+                                                        <td><span class="badge badge-warning">{{total_remain_To}}</span></td>
                                                         <td>                                                           
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" (keyup)="restrict($event)" ngModel name="quantity" placeholder="Quantity *">
@@ -688,13 +686,13 @@
                                                                         </select> 
                                                                     </div>                                                            
                                                                 </td>
-                                                                <td><span class="badge badge-warning">{{totalFrom[0].total_remain}}</span></td>                                                    
+                                                                <td><span class="badge badge-warning">{{total_remain2}}</span></td>                                                    
                                                                 <td>                                                           
                                                                     <div class="form-group">
                                                                         <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">        
                                                                     </div>                                                        
                                                                 </td>
-                                                                <td><span class="badge badge-warning">{{totalTo[0].total_remain}}</span></td>
+                                                                <td><span class="badge badge-warning">{{total_remain_To}}</span></td>
                                                                 <td>                                                            
                                                                     <div class="form-group">
                                                                         <select class="form-control" ngModel name="purpose">
