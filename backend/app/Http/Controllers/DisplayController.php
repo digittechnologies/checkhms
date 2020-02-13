@@ -343,29 +343,29 @@ class DisplayController extends Controller
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->get(),
            'addedItem'=>DB::table($id)->select($id.'.*')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.receive'),
            'transferredItem'=>DB::table($id)->select($id.'.*')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.transfer'),
            'soldItem'=>DB::table($id)->select($id.'.*')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.sales'),
            'varianced'=>DB::table($id)->select($id.'.*')->sum($id.'.variance'),
            'openBal'=>DB::table($id)->select($id.'.*')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.open_stock'),
            'physBal'=>DB::table($id)->select($id.'.*')->sum($id.'.physical_balance'),
            'total'=>DB::table($id)->select($id.'.*')
-           ->where ('c_date', '=', $cDate)
+        //    ->where ('c_date', '=', $cDate)
            ->sum($id.'.total_remain'),
            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)
            ->first(), 
            'itemAmount'=>DB::table('invoices')->select('paid')
-           ->where ('i_date', '=', $cDate)
+        //    ->where ('i_date', '=', $cDate)
            ->where('branch_id', '=', $bid)
             ->sum('paid'),
 
@@ -753,13 +753,15 @@ class DisplayController extends Controller
 
     public function stockReport(Request $request)
     {
+
+        
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
 
         $sDate = $request->sDate;
         $eDate = $request->eDate;
-        $id = $request->branch;
+        $id = $request->to;
         $startDate = new Carbon($sDate);
         $endDate = new Carbon($eDate);
         $dateRange = array();
