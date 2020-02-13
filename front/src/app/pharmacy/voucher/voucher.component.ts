@@ -59,6 +59,9 @@ export class VoucherComponent implements OnInit {
   refill: any;
   remain: any;
   tcost: any;
+  prescription: any;
+  voucher: any;
+  invoice: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -94,6 +97,9 @@ export class VoucherComponent implements OnInit {
     this.appointResponse = data;      
     this.voucherId = this.appointResponse[0].voucher_id;
     this.appointments = this.appointResponse[0];
+    this.prescription= this.appointments.prescription;
+    this.voucher= this.appointments.voucher;
+    this.invoice= this.appointments.invoice;
   })
 
   this.Jarwis.displayPharmPre2(this.appId).subscribe(
@@ -232,7 +238,7 @@ export class VoucherComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:voucher');
     this.ngOnInit();
     
   }

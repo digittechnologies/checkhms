@@ -86,7 +86,7 @@ export class InvoiceComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
     
   }
