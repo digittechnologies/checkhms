@@ -1,5 +1,19 @@
 {
   "index": "/index.html",
+  "assetsGroups":[
+    {
+      "name": "api-freshness",
+      "urls": [
+        "/api/setupStatus"
+      ],
+      "cacheConfig" : {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "3d",
+        "timeout": "5s"
+      }
+    }
+  ],
   "assetGroups": [
     {
       "name": "app",
