@@ -186,7 +186,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of items.item; let r = index">
+                                        <tr *ngFor="let item of items.item | paginate: {itemsPerPage:10, currentPage: p} let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
                                                 <img src="http://hms.jtcheck.com/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
@@ -205,7 +205,7 @@
                                                     <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.open_stock+item.receive-item.balance}}</span></div>
                                             </td>
                                             <td>
-                                                <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
+                                                <div class="avtar-pic w35 bg-secondary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
                                             </td>
                                             <td>
                                                 <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
