@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         // 59 11 * * * cd /home/<username>/public_html/backend && php artisan schedule:run >> /dev/null 2>&1
 
         $schedule->command('sync:day')
-                 ->Daily();
+                 ->daily();
 
         // $schedule->command('composer database-export')->daily();     
 

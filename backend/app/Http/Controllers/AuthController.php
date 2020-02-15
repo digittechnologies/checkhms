@@ -47,7 +47,8 @@ class AuthController extends Controller
         return response()->json(
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->select('users.*','departments.name', 'departments.position_id')    
+                ->join('roles','users.role_id','=','roles.id')
+                ->select('users.*','departments.name as dept_name', 'departments.position_id', 'roles.name')    
                 ->where('email','=',$email)   
                 // ->where('password','=',$psw)         
                 ->get(),

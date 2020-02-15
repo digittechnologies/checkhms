@@ -92,7 +92,8 @@ const routes: Routes = [
   children: [
     
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
-         {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
          {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -124,8 +125,8 @@ const routes: Routes = [
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          // Dashboard
-         {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
