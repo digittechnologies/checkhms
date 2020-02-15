@@ -83,7 +83,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
-  {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
+  // {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
   {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService],

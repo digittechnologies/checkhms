@@ -18,6 +18,7 @@ export class TransHistoryComponent implements OnInit {
   action: any;
   getAction: any;
   error: any;
+  payItem: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -46,6 +47,7 @@ export class TransHistoryComponent implements OnInit {
       data => {
         this.response = data;
         this.payloads = this.response;
+        this.payItem= this.payloads.item;
       });  
   }  
   printComponent() {

@@ -49,37 +49,37 @@
                             <div class="col-lg-3 col-md-12">                                            
                                 <div class="form-group">   
                                         <label>Item</label>                                             
-                                    <input type="text" class="form-control" value="{{total[0].generic_name}} {{total[0].name}}" disabled>
+                                    <input type="text" class="form-control" value="{{generic_name}} {{total_name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
                                         <label>Category</label>
-                                    <input type="text" class="form-control" value="{{total[0].cat_name}}" disabled>
+                                    <input type="text" class="form-control" value="{{cat_name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
                                         <label>Type</label> 
-                                    <input type="text" class="form-control" value="{{total[0].type_name}}" disabled>
+                                    <input type="text" class="form-control" value="{{type_name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
                                         <label>Total Remain</label>
-                                    <input type="text" disabled class="form-control" value="{{total[0].total_remain}}">
+                                    <input type="text" disabled class="form-control" value="{{total_remain}}">
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
                                     <label>Shelf</label>
-                                    <input type="text" class="form-control" value="{{total[0].shelve_name}} {{total[0].shelve_point}}" disabled>
+                                    <input type="text" class="form-control" value="{{shelve_name}} {{shelve_point}}" disabled>
                                 </div>
                             </div> 
                             <div class="col-lg-1 col-md-12">
                                     <div class="form-group">
                                             <label>Selling P</label>
-                                        <input type="text" class="form-control" value="{{total[0].selling_price | currency:'NGN':'symbol-narrow'}}" disabled>
+                                        <input type="text" class="form-control" value="{{selling_price | currency:'NGN':'symbol-narrow'}}" disabled>
                                     </div>
                                 </div>                               
                             <div class="col-lg-12 col-md-12">
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>                                             
                                     <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>{{total[0].type_name}} Prescription Inst</label>
+                                        <label>{{type_name}} Prescription Inst</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
@@ -149,8 +149,8 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <h5>Total Cost: 
-                                        <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small>
-                                        <small class="badge badge-success">{{math.round(quant)*total[0].selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                        <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0*selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                        <small class="badge badge-success">{{math.round(quant)*selling_price | currency:'NGN':'symbol-narrow'}}</small>
                                     </h5>
                                 </div>
                             </div>
@@ -164,8 +164,8 @@
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="submit" *ngIf = "appointments[0].prescription == 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
-                        <button type="button" disabled *ngIf = "appointments[0].prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <button type="button" disabled *ngIf = "prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                     </div>
                     </form>
@@ -240,20 +240,20 @@
                             <th></th>
                             <th></th>                                      
                             <th></th>
-                            <th>{{prescriptions.tquant}}</th>
-                            <th>{{prescriptions.refill}}</th> 
-                            <th>{{prescriptions.remain}}</th>    
+                            <th>{{tquant}}</th>
+                            <th>{{refill}}</th> 
+                            <th>{{remain}}</th>    
                             <th></th>                             
                             <!-- <th>{{prescriptions.eachcost | currency:'NGN':'symbol-narrow'}}</th></th>> -->
-                            <th>{{prescriptions.tcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
                         </tr>
                     </tfoot>
                 </table>
                 <div>
-                    <button type="button" *ngIf = "appointments[0].voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" (click)="saveTovoucher()" *ngIf = "appointments[0].voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
-                    <button type="button" *ngIf = "appointments[0].invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
-                    <button type="button" *ngIf ="appointments[0].invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                    <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
+                    <button type="button" *ngIf = "invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
+                    <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                 </div><br>              
                 </div>

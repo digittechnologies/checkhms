@@ -69,6 +69,9 @@ export class AllItemsComponent implements OnInit {
   uBranchName: any;
   shelve: any;
   p:any;
+  total_remain: any;
+  total_remain2: any;
+  total_remain_To: any;
 
 
   constructor( 
@@ -192,7 +195,8 @@ onSelectItem(id) {
   this.Jarwis.displayInstock(id.target.value).subscribe(  
     data=>{
       this.response = data;
-      this.total =this.response;
+      this.total =this.response[0];
+      this.total_remain= this.total.total_remain;
     }
   );
 }
@@ -213,7 +217,8 @@ onSelectFrom(from){
   this.Jarwis.displayInstockT([this.id2, this.from]).subscribe(  
     data=>{
       this.response = data;
-      this.totalFrom =this.response;
+      this.totalFrom =this.response[0];
+      this.total_remain2= this.totalFrom.total_remain;
     }
   );
   // alert(this.totalFrom)
@@ -221,7 +226,7 @@ onSelectFrom(from){
 }
 
 restrict(r) {
-  if(r.target.value > this.totalFrom[0].total_remain){
+  if(r.target.value > this.totalFrom.total_remain){
     alert('Quantity greater than quantity in stock')
     r.target.value = ''
   }
@@ -232,7 +237,8 @@ onSelectTo(to){
   this.Jarwis.displayInstockT([this.id2, this.to]).subscribe(  
     data=>{
       this.response = data;
-      this.totalTo =this.response;
+      this.totalTo =this.response[0];
+      this.total_remain_To= this.totalTo.total_remain;
     }
   );
 }

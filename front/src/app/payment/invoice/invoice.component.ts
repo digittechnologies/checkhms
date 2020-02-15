@@ -20,13 +20,24 @@ export class InvoiceComponent implements OnInit {
   prescriptions: any;
   error: any;
   result: any;
-
+  invoice:any;
   appointID: string;
   appointResponse: any;
   voucherId: any;
   appointments: any;
+  voucher_id:any;
   0:any;
-
+status:any;
+  state: any;
+  city: any;
+  address: any;
+  card_number: any;
+  othername: any;
+  p_date: any;
+  country: any;
+  mobile: any;
+  pres: any;
+  name:any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -52,12 +63,25 @@ export class InvoiceComponent implements OnInit {
     this.appointResponse = data;      
     this.voucherId = this.appointResponse[0].voucher_id;
     this.appointments = this.appointResponse;
+    this.invoice=this.appointments[0].invoice;
   })
 
   this.Jarwis.displayPharmInvoice(this.appointID,'').subscribe(
     data=>{
     this.PharmPreresponse = data;      
     this.inv = this.PharmPreresponse; 
+    this.pres=this.inv.pres;
+    this.status=this.inv.pres[0].status
+    this.voucher_id=this.inv.pres[0].voucher_id
+    this.p_date=this.inv.pres[0].p_date
+    this.othername=this.inv.patient.othername
+    this.name=this.inv.patient.name
+    this.card_number=this.inv.patient.card_number
+    this.address=this.inv.patient.address
+    this.city=this.inv.patient.city
+    this.state=this.inv.patient.state
+    this.country=this.inv.patient.country
+    this.mobile=this.inv.patient.mobile_number
     })
   }
   saveToInvoice(){
@@ -86,7 +110,7 @@ export class InvoiceComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
     
   }

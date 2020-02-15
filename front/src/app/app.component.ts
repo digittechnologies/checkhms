@@ -19,7 +19,7 @@ export class AppComponent {
   // public loggedIn: boolean;
   // footer: any;
   // image: any;
-
+statu:any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -36,6 +36,7 @@ export class AppComponent {
       data=>{
       this.response = data;      
       this.status = this.response[0];
+      this.statu=this.status.status;
     })
   
   }
