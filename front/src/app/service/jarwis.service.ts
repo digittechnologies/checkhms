@@ -418,8 +418,14 @@ countCustomer() {
 addCustomer(data) {
   return this.http.post(`${this.baseUrl}/addCustomer`, data)
 }
+updateCustomer(data) {
+  return this.http.post(`${this.baseUrl}/addCustomer`, data)
+}
 patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
+}
+patientbyappointment(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{

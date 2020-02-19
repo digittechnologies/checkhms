@@ -28,8 +28,8 @@
                                 <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{patient_image}}" class="rounded" alt="">
                             </div>
                             <div class="details">
-                                <h5 class="mb-0">card_number}}</h5>
-                                <span class="text-light">{{name + " " + othername}}</span>
+                                <h5 class="mb-0">{{card_number}}</h5>
+                                <span class="text-light">{{name }} {{othername}}</span>
                                 <div>{{mobile_no}}</div>
                             </div>                                
                         </div>
@@ -44,7 +44,7 @@
                 <div class="card">
                     <div class="body">
                         <small class="text-muted">Full Name: </small>
-                        <p>{{name + " " + othername}}</p>
+                        <p>{{name}} {{othername}}</p>
                         <hr>
                         <small class="text-muted">Address: </small>
                         <p>{{address}}</p>
@@ -104,7 +104,7 @@
                                 <div class="body">
                                     <ul class="nav nav-tabs">
                                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Basic Information</a></li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Treatments</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Appointment</a></li>
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li>
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prescription"> Prescriptions</a></li>
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
@@ -154,81 +154,186 @@
                                             <h2>Basic Information</h2>
                                         </div>
                                         <div class="body">
-                                            <div id="biography">
-                                                <div class="row">
-                                                    <div class="col-md-3 col-sm-6">
-                                                        <strong>Full Name</strong>
-                                                        <br>
-                                                        <p class="text-muted">{{response.firstname}} {{response.lastname}}</p>
+                                            <form [formGroup]="submissionForm" >
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-6 col-md-12">
+                                                        <div class="form-group">   
+                                                            <input type="text" class="form-control" formControlName="fname">                                             
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-3 col-sm-6">
-                                                        <strong>Mobile</strong>
-                                                        <br>
-                                                        <p class="text-muted">{{response.mobile_number}}</p>
+                                                    <div class="col-lg-6 col-md-12">
+                                                        <div class="form-group">  
+                                                            <input type="text" class="form-control" formControlName="oname">
+
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-3 col-sm-6">
-                                                        <strong>Email</strong>
-                                                        <br>
-                                                        <p class="text-muted">{{response.email}}</p>
+                                                    
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                          <input type="text" class="form-control" formControlName="email">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-3 col-sm-6">
-                                                        <strong>Location</strong>
-                                                        <br>
-                                                        <p class="text-muted">{{response.address}}</p>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                              <input type="text" class="form-control" formControlName="mobile_number" placeholder="mobile number">
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class="icon-globe"></i></span>
+                                                                </div>
+                                                                <input type="text" class="form-control" formControlName="genotype" placeholder="genotype">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>                                
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                          <input type="text" class="form-control" formControlName="card_number" placeholder="card_number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                      <div class="form-group">
+                                                        <input type="text" class="form-control" formControlName="d_o_b" placeholder="d_o_b">
+                                                      </div>
+                                                  </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" formControlName="state" placeholder="State">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                      <div class="form-group">
+                                                    <label>Change file</label><br>
+                                                    <input type="file" name="file"  (change)="uploadFile($event)">
+                                                    </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" formControlName="city" placeholder="City">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" formControlName="blood_group" placeholder="blood_group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" formControlName="country" placeholder="Country">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group">                                                
+                                                            <textarea rows="4" type="text" class="form-control" formControlName="address" placeholder="Address"></textarea>
+                                                        </div>
+                                                    </div>
+                                                
                                                 </div>
-                                                <p>{{response.about}}</p>
-                                                <!-- <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
-                                                <br>
-                                                <h6 class="font-bold">Education</h6>
-                                                <ul class="list-group">
-                                                    <!-- <li class="list-group-item">M.B.B.S.,Harvard University, USA.</li>
-                                                    <li class="list-group-item">M.S.,Harvard University, USA.</li>
-                                                    <li class="list-group-item">SPINAL FELLOWSHIP Dr. John Adam, Allegimeines Krakenhaus, Schwerin, Germany.</li>
-                                                    <li class="list-group-item">Fellowship in Endoscopic Spine Surgery Phoenix, USA.</li>
-                                                    <li class="list-group-item">D.N.B from AIIMS</li> -->
-                                                </ul>
-                                            </div>
+                                                <button type="button" (click)="onSubmitprofile()" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-round btn-default">Cancel</button>
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="Account">
                                     <div class="card">
                                         <div class="header">
-                                            <h2>Account Data</h2>
+                                            <h2>Appointment Data</h2>
                                         </div>
-                                        <div class="body">
+                                        <div class="body ">
                                             <div class="row clearfix">
-                                                <div class="col-lg-12 col-md-12">
-                                                    <div class="form-group">                                                
-                                                        <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Phone Number">
-                                                    </div>
-                                                </div>
-            
-                                                <div class="col-lg-12 col-md-12">
-                                                    <h6>Change Password</h6>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Current Password">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="New Password">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Confirm New Password">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                                            <button class="btn btn-default">Cancel</button>
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table header-border table-hover table-custom spacing5">
+                                                            <thead>
+                                                                <tr>
+                                                                    <!-- <th>S/N</th> -->
+                                                                    <!-- <th>Image</th> -->
+                                                                    <!-- <th>Patient ID</th> -->
+                                                                    <th>Depertment</th>
+                                                                    <th>Lab</th>
+                                                                    <th>Treatment</th>
+                                                                    <th>Prescription</th>
+                                                                    <th>Invoice</th>
+                                                                    <th>Voucher</th>
+                                                                   
+                                                                    <th>Status</th>
+                                                                    <th>Date</th>
+                                                                    <th>Time</th>
+                                                                    <!-- <th>Progress</th> -->
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let a of appointment; let n =index">
+                                                        <td>{{a.dept_name}}</td>
+                                                        <td>
+                                    
+                                                            <span class="badge badge-danger" *ngIf ="a.lab=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.lab=== 'success'">Success</span> 
+                                                                <span class="badge badge-warning" *ngIf ="a.lab=== 'invoice'">Invoice</span> 
+                                                                <span class="badge badge-primary" *ngIf ="a.lab=== 'open'">Open</span>  
+                                                                <span class="badge badge-warning" *ngIf ="a.lab=== 'close'">close</span>                                                                               
+                                                        </td>
+                                                        <td>
+                                                                <span class="badge badge-danger" *ngIf ="a.treatment=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.treatment=== 'success'">Success</span> 
+                                                                <!-- <span class="badge badge-warning" *ngIf ="a.treatment=== 'invoice'">Invoice</span>  -->
+                                                                <span class="badge badge-primary" *ngIf ="a.treatment=== 'open'">Open</span> 
+                                                                <span class="badge badge-warning" *ngIf ="a.treatment=== 'close'">close</span>                                                                           
+                                                        </td>
+                                                        <td>                                      
+                                                                <span class="badge badge-danger" *ngIf ="a.prescription=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.prescription=== 'success'">Success</span> 
+                                                                <span class="badge badge-warning" *ngIf ="a.prescription=== 'checkout'">Checkout</span> 
+                                                                <span class="badge badge-primary" *ngIf ="a.prescription=== 'open'">Open</span>     
+                                                                <span class="badge badge-warning" *ngIf ="a.prescription=== 'close'">close</span>                                                                         
+                                                        </td>
+                                                        <td>                                        
+                                                                <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
+                                                                <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
+                                                                <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
+                                                                <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               
+                                                        </td>
+                                                        <td>
+                                                                <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">paid</span> 
+                                                                <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
+                                                                <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
+                                                                <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
+                                                        </td>
+                                                        <td>
+                                                                <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
+                                                                <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
+                                                        </td>                            
+                                                        <!-- <td>{{i.lab}}</td>
+                                                        <td>{{i.treatment}}</td>                                  
+                                                        <td>{{i.prescription}}</td>
+                                                        <td>{{i.invoice}}</td>
+                                                        <td>{{i.voucher}}</td>
+                                                        <td>{{i.status}}</td> -->
+                                                        <td>{{a.date}}</td>
+                                                        <td>{{a.time}}</td>
+                                                        
+                                                        <td>{{a.voucher_id}}</td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                                           </div>
+                                           </div>
+                                           </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane" id="test">
                                     <div class="card">
                                         <div class="header">

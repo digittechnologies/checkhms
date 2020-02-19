@@ -843,48 +843,91 @@ class AddController extends Controller
 
     public function updateCustomer(Request $request)
     {
-        $id=$request->id;
-        $fullname= $request->name;
-        $email= $request->email;
-        $mobile_number= $request->mobile_number;
-        $address= $request->address;   
-        $dob= $request->d_o_b;    
-        $about= $request->about;
-        $allergy= $request->allergy;
-        $nhis= $request->n_h_i_s;
-        $card_number= $request->card_number;
-        $status= $request->status;
-        $blood_id= $request->blood_id;
-        $treatment_id= $request->treatment_id;
-        $prescription_id= $request->prescription_id;
-
-        $update = DB::table('customers')->where('customers.id','=',$id)
-        ->update([
-            'name'=> $fullname,
-            'email' => $email,
-            'mobile_number' =>$mobile_number,
-            'address' => $address,
-            'd_o_b' => $dob,
-            'about' => $about,
-            'allergy' => $allergy,  
-            'n_h_i_s' => $nhis,
-            'card_number' => $card_number,
-            'blood_id' => $blood_id,
-            'treatment_id' => $treatment_id,
-            'prescription_id' => $prescription_id,
-        ]);
-        if($update){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
+        $id=$request->formdata['id'];
+        $user=Customers::find($id);
+      
+        $currentfile= $user->patient_image;
+        $datas=$request->formdata;
+    //    return $currentfile;
+         if ($request->image != $currentfile){
+             $file=$request->image;
+             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+             Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+             $user->patient_image = $filename;
+         }
+        
+         $user->name = $datas['fname'];
+         $user->othername = $datas['oname'];
+         $user->card_number = $datas['card_number'];
+          $user->email =  $datas['email'];
+          $user->city =  $datas['city'];
+         $user->address =  $datas['address'];
+         $user->mobile_number =  $datas['mobile_number'];
+         $user->gender =  $datas['gender'];
+         $user->genotype =  $datas['genotype'];
+         $user->blood_group =  $datas['blood_group'];
+         $user->state =  $datas['state'];
+         $user->d_o_b =  $datas['d_o_b'];
+         $user->country=$datas['country'];
+         $user->save();
+         // $user->update($request->all());
+         if($user){
+             return '{
+                 "success":true,
+                 "message":"successful"
+             }' ;
+         } else {
+             return '{
+                 "success":false,
+                 "message":"Failed"
+             }';
+         }
     }
+
+    // public function updateCustomer(Request $request)
+    // {
+    //     $id=$request->id;
+    //     $fullname= $request->name;
+    //     $email= $request->email;
+    //     $mobile_number= $request->mobile_number;
+    //     $address= $request->address;   
+    //     $dob= $request->d_o_b;    
+    //     $about= $request->about;
+    //     $allergy= $request->allergy;
+    //     $nhis= $request->n_h_i_s;
+    //     $card_number= $request->card_number;
+    //     $status= $request->status;
+    //     $blood_id= $request->blood_id;
+    //     $treatment_id= $request->treatment_id;
+    //     $prescription_id= $request->prescription_id;
+
+    //     $update = DB::table('customers')->where('customers.id','=',$id)
+    //     ->update([
+    //         'name'=> $fullname,
+    //         'email' => $email,
+    //         'mobile_number' =>$mobile_number,
+    //         'address' => $address,
+    //         'd_o_b' => $dob,
+    //         'about' => $about,
+    //         'allergy' => $allergy,  
+    //         'n_h_i_s' => $nhis,
+    //         'card_number' => $card_number,
+    //         'blood_id' => $blood_id,
+    //         'treatment_id' => $treatment_id,
+    //         'prescription_id' => $prescription_id,
+    //     ]);
+    //     if($update){
+    //         return '{
+    //             "success":true,
+    //             "message":"successful"
+    //         }' ;
+    //     } else {
+    //         return '{
+    //             "success":false,
+    //             "message":"Failed"
+    //         }';
+    //     }
+    // }
 
     public function deleteCustomer(Request $request)
     {
