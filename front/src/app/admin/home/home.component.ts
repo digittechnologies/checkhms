@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
     fname: any;
     lname: any;
     patient: any;
-    female: any;
     male: any;
+    female: any;
 
   constructor(private formBuilder: FormBuilder,private Token: TokenService, private Jarwis: JarwisService,private router: Router) { }
   ngOnInit() {
@@ -50,8 +50,8 @@ export class HomeComponent implements OnInit {
       this.Jarwis.countCustomer().subscribe(
         data=>{
         this.response = data;      
-        this.pat = this.response[0] 
-        this.patient=this.pat.patient  
+        this.pat = this.response[0]   
+        this.patient=this.pat.patient
         this.male=this.pat.male
         this.female=this.pat.female
         this.onLoad(this.pat)
@@ -72,6 +72,9 @@ export class HomeComponent implements OnInit {
         data=>{
         this.patResponse = data;      
         this.pat = this.patResponse[0]   
+        this.patient=this.pat.patient
+        this.male=this.pat.male
+        this.female=this.pat.female
       })
 
     this.Jarwis.profile().subscribe(

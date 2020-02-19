@@ -3,7 +3,7 @@
       <div class="block-header">
           <div class="row clearfix">
               <div class="col-md-6 col-sm-12">
-                  <h1>Dashboard</h1>
+                <h1>Pharmacy Dashboard (Admin)</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Lock Dashboard</a></li>
@@ -81,6 +81,32 @@
               </div>
           </div>
       </div>
+
+      <div class="row clearfix">
+
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Stock Report</h2>
+                </div>
+                <div class="body">
+                    <div id="chart-Events-Interest" style="height: 300px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="card user_statistics">
+                <div class="header">
+                    <h2>Earning Report</h2>
+                </div>
+                <div class="body">                            
+                    <div id="chart-bar" style="height: 302px"></div>
+                </div>
+            </div>
+        </div>  
+
+    </div>
+    
       <div class="row clearfix">
           <div class="col-lg-3 col-md-6">
               <div class="card">
@@ -106,7 +132,7 @@
                 <div class="body">
                     <div class="card-value float-right text-muted"><i class="icon-user"></i></div>
                     <h3 class="mb-1">{{pat.patient}}</h3>
-                    <div>New Employee</div>
+                    <div>New Patients</div>
                 </div>
             </div>
           </div>
@@ -121,11 +147,11 @@
                       <div class="row clearfix">
                           <div class="col-6">
                               <h6 class="mb-0">195</h6>
-                              <small class="text-muted">Last Month</small>
+                              <small class="text-muted">Active</small>
                           </div>
                           <div class="col-6">
                               <h6 class="mb-0">163</h6>
-                              <small class="text-muted">This Month</small>
+                              <small class="text-muted">Suspended</small>
                           </div>
                       </div>
                   </div>                        
@@ -134,46 +160,45 @@
                   <div class="body">
                       <div class="card-value float-right text-muted"><i class="icon-user"></i></div>
                       <h3 class="mb-1">13</h3>
-                      <div>New Employee</div>
+                      <div>New Users</div>
                   </div>
               </div>
       
           </div>
-          <div class="col-lg-6 col-md-6">
-              <div class="card">
-                  <div class="header">
-                      <h2>Salary Statistics</h2>
-                      <ul class="header-dropdown dropdown">
-                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                          <li class="dropdown">
-                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                              <ul class="dropdown-menu">
-                                  <li><a href="javascript:void(0);">Action</a></li>
-                                  <li><a href="javascript:void(0);">Another Action</a></li>
-                                  <li><a href="javascript:void(0);">Something else</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-                  <div class="body">
-                      <small class="text-muted">Salary Statistics Performance on this year</small>
-                      <div id="flotChart" class="flot-chart"></div>
-                  </div>
-              </div>
-          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Appointments Analysis</h2>
+                    <ul class="header-dropdown dropdown">                                
+                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another Action</a></li>
+                                <li><a href="javascript:void(0);">Something else</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div id="stackedbar-chart" class="ct-chart"></div>
+                </div>
+            </div>
+        </div>
       </div>
       <div class="row clearfix">
           <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="card">
                   <div class="header">
-                      <h2>Employee Performance</h2>
+                      <h2>Sock Items</h2>
                       <ul class="header-dropdown dropdown">
                           <li class="dropdown">
                               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                               <ul class="dropdown-menu">
-                                  <li><a href="javascript:void(0);">Action</a></li>
-                                  <li><a href="javascript:void(0);">Another Action</a></li>
-                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                  <li><a href="javascript:void(0);">Print</a></li>
+                                  <li><a href="javascript:void(0);">Copy</a></li>
+                                  <li><a href="javascript:void(0);">Export</a></li>
                               </ul>
                           </li>
                       </ul>
@@ -183,11 +208,11 @@
                           <thead>
                               <tr>
                                   <th>#</th>
-                                  <th>Name</th>
-                                  <th>Employee ID</th>
-                                  <th>Phone</th>
-                                  <th>Join Date</th>
-                                  <th>Role</th>
+                                  <th>Generic Name</th>
+                                  <th>Band Name</th>
+                                  <th>Main Branch</th>
+                                  <th>Branch 1</th>
+                                  <th>Branch 2</th>
                                   <th></th>
                               </tr>
                           </thead>

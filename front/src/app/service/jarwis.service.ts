@@ -680,4 +680,8 @@ comment(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+general_setting() {
+  return this.http.get(`${this.baseUrl}/general_setting`,)
+}
 }

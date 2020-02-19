@@ -29,12 +29,10 @@ export class TransHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('here');
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
-      this.bran = this.response;  
-      console.log(this.bran)
+      this.bran = this.response   
     }) 
   }
 

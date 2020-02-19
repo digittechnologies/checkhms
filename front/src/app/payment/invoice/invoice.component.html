@@ -40,7 +40,7 @@
                               <p class="m-b-0"><strong>Name: </strong>{{name}} {{othername}}</p>
                               <p class="m-b-0"><strong>Card Number: </strong> {{card_number}}</p> 
                               <p class="m-b-0"><strong>Address: </strong>{{address}}, {{city}}, {{state}}, {{country}}</p>
-                              <p class="m-b-0"><strong>Phone: </strong>{{mobile}}</p>                                   
+                              <p class="m-b-0"><strong>Phone: </strong>{{mobile_no}}</p>                                   
                           </div>
                           <div class="col-md-6 col-sm-6 text-right">
                               
@@ -76,7 +76,7 @@
                                       <tfoot>
                                           <td colspan="4"></td>
                                           <td class="text-right">
-                                              <span>Total: <strong class="text-success">{{inv.totalAmount.amount  | currency:'NGN':'symbol-narrow'}}</strong></span>
+                                              <span>Total: <strong class="text-success">{{amount  | currency:'NGN':'symbol-narrow'}}</strong></span>
                                           </td>
                                       </tfoot>
                                   </table>
@@ -95,22 +95,18 @@
                         </div>
                       <div class="col-md-6 text-right">
 
-
-                          <button class="btn btn-info ml-2" (click)="printComponent()"><i class="icon-printer"></i>Print</button>
-
                           <!-- Print -->
-                          <!-- <button class="btn btn-info ml-2" printSectionId="print-history" ngxPrint><i class="icon-printer"></i>Print</button> -->
+                          <button class="btn btn-info ml-2" (click)="printComponent()"><i class="icon-printer"></i>Print</button>
                           <!-- Payment -->
 
-                          <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "status == 'invoice'"><i class="icon-printer"></i>Payment</button>
-                          <button class="btn btn-success ml-2" *ngIf = "status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
-
+                          <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
                           <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
 
                           <!-- Terminate -->
-                          <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
-                          <button class="btn btn-danger ml-2" *ngIf = "invoice == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button> -->
+                          <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
+                          <button class="btn btn-danger ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="fa fa-times-circle"></i>Terminate Transaction</button> -->
                         </div>
                     </div>
               </div>                                       
@@ -166,7 +162,7 @@
                                         </div>                                        
                                     </td>
                                     <td>{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
-                                    <!-- <td><span class="badge badge-success ml-0 mr-0">{{invoice}}</span></td> -->
+                                    <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
                                     <td>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
                                         <button type="button" class="btn btn-sm btn-danger" *ngIf = "invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>

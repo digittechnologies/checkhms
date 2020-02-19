@@ -13,13 +13,14 @@ export class AppComponent {
   title = 'SC-Platform';
   response: any;
   status: any;
+  statu: any;
   // login = true;
   // home = false;
  
   // public loggedIn: boolean;
   // footer: any;
   // image: any;
-statu:any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -36,7 +37,7 @@ statu:any;
       data=>{
       this.response = data;      
       this.status = this.response[0];
-      this.statu=this.status.status;
+      this.statu=this.status.status
     })
   
   }

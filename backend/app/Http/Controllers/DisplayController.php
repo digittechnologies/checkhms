@@ -37,7 +37,13 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+ public function general_setting()
+    {
+        return response()->json(
+            DB::table('general_settings')->first()
+        ); 
+    }
+    
     
     //staff
     public function staffdetails($id)
@@ -444,6 +450,7 @@ class DisplayController extends Controller
     public function patientdetails($id)
     {
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->get();
+       return $customeId;
         $cId= $customeId[0]->customer_id;
         return response()->json(
             Customers::where('id','=',$cId)          

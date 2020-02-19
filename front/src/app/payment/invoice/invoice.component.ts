@@ -20,24 +20,30 @@ export class InvoiceComponent implements OnInit {
   prescriptions: any;
   error: any;
   result: any;
-  invoice:any;
+
   appointID: string;
   appointResponse: any;
   voucherId: any;
   appointments: any;
-  voucher_id:any;
   0:any;
-status:any;
-  state: any;
-  city: any;
-  address: any;
-  card_number: any;
-  othername: any;
+  logo:any;
+setting:any;
+  voucher_Id: any;
   p_date: any;
+  name: any;
+  othername: any;
+  card_number: any;
+  address: any;
+  city: any;
+  mobile_no: any;
+  state: any;
   country: any;
-  mobile: any;
+  amount: any;
+  invoice: any;
+  status: any;
   pres: any;
-  name:any;
+  ins: any;
+  durat: Object;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -48,6 +54,12 @@ status:any;
   ) { }
 
   ngOnInit() {
+    this.Jarwis.general_setting().subscribe(
+      data=>{
+      this.setting = data;  
+      this.logo= this.setting.logo;   
+       console.log(this.logo)
+      })
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.appointID = id;
@@ -63,27 +75,29 @@ status:any;
     this.appointResponse = data;      
     this.voucherId = this.appointResponse[0].voucher_id;
     this.appointments = this.appointResponse;
-    this.invoice=this.appointments[0].invoice;
+    this.invoice=this.appointments[0].invoice
   })
 
   this.Jarwis.displayPharmInvoice(this.appointID,'').subscribe(
     data=>{
-    this.PharmPreresponse = data;      
+    this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
-    this.pres=this.inv.pres;
-    this.status=this.inv.pres[0].status
-    this.voucher_id=this.inv.pres[0].voucher_id
+    this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date
-    this.othername=this.inv.patient.othername
     this.name=this.inv.patient.name
+    this.othername=this.inv.patient.othername
     this.card_number=this.inv.patient.card_number
     this.address=this.inv.patient.address
     this.city=this.inv.patient.city
+    this.mobile_no=this.inv.patient.mobile_number
     this.state=this.inv.patient.state
     this.country=this.inv.patient.country
-    this.mobile=this.inv.patient.mobile_number
+    this.amount=this.inv.totalAmount.amount
+    this.status=this.inv.pres[0].status
+    this.pres=this.inv.pres  
     })
   }
+  
   saveToInvoice(){
     this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
@@ -130,8 +144,8 @@ status:any;
     style = style + "table {width: 100%;font: 17px Calibri;}";
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
-    style = style + "#cin: {align:center;color:red}";
-    style = style + "#oid: {align: center;}";
+    // style = style + "#cin: align:center;color:red}";
+    // style = style + "#oid: align: center;}";
     style = style + "</style>";
 
 var win = window.open('', '', 'height=700,width=700');
@@ -141,7 +155,9 @@ win.document.close();
 win.print();
    
 }
+
 openPrintDialogue(label){
+  
   let arr = [];
     let obj = this.inv.pres;
     for(const key of obj){
@@ -150,6 +166,7 @@ openPrintDialogue(label){
         break;
       }
     }
+   
     arr.push(this.result)
         $('<iframe>', {
           name: 'myiframe',
@@ -161,11 +178,11 @@ openPrintDialogue(label){
                 <table>
                 <thead>
                     <th colspan="3">
-                        <img width="6%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
+                        <img width="6%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
                     </th>
                     <th colspan="3">
-                        <p class="m-b-0"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</strong></p>
-                        <h5 class="m-b-0">0906-848-3939</h5> 
+                        <p class="m-b-0"><strong>${this.setting.address}</strong></p>
+                        <h5 class="m-b-0">${this.setting.contact_number}</h5> 
                     </th>
                 </thead>
                 <tbody>
@@ -187,7 +204,8 @@ openPrintDialogue(label){
                     <tr>
                         <td colspan="4" >                    
                             <p class="h5">Medicine <small>${arr[0].generic_name}</small> <small class="float-right text-muted">QTY:${arr[0].quantity}</small></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p>
+                           <p>instruction: ${arr[0].instruction}</p>
+                          <p>Duration: ${arr[0].day_supply}</p>
                         </td>
                     </tr>        
                     <tr >

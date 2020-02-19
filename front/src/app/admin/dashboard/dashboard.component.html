@@ -695,7 +695,7 @@
 
 
 
-        <div *ngIf = "status == 'active'">
+        <div *ngIf = "pstatus == 'active'">
 
             <div *ngIf = "role == super">
             <nav id="left-sidebar-nav" class="sidebar-nav">
@@ -832,7 +832,7 @@
                     <nav id="left-sidebar-nav" class="sidebar-nav">
                         <ul id="main-menu" class="metismenu">
                             <li class="header">Admin</li>
-                            <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
+                            <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
                             <!-- <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Admin Dashboard</span> </a></li> 
                             <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>User Dashboard</span></a></li> -->
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
@@ -895,7 +895,7 @@
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu">
                                 <li class="header">Admin</li>
-                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
+                                <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
                                 <!-- <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Admin Dashboard</span> </a></li> 
                                 <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>User Dashboard</span></a></li> -->
                                 <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>

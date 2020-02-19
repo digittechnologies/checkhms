@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 
 declare let c3 : any;
 declare let $ : any;
+declare let Chartist: any;
 
 @Component({
   selector: 'app-pham-admin',
@@ -79,9 +80,92 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
+  
+
+
   onLoad(a){
     $(function() {
         "use strict";
+
+        var chart = c3.generate({
+            bindto: '#chart-Events-Interest', // id of chart wrapper
+            data: {
+                columns: [
+                    // each columns data
+                    ['data1', a.male],
+                    ['data2', a.female],
+                    ['data3', 5],
+                ],
+                type: 'pie', // default type of chart
+                colors: {
+                    'data1': '#e96a8d',
+                    'data2': '#f3aca2',
+                    'data3': '#f9cdac',
+                },
+                names: {
+                    // name of each serie
+                    'data1': 'Main',
+                    'data2': 'Buth 1',
+                    'data3': 'Buth 2',
+                }
+            },
+            axis: {
+            },
+            legend: {
+                show: true, //hide legend
+            },
+            padding: {
+                bottom: 20,
+                top: 0
+            },
+        });
+
+
+
+
+        var chart = c3.generate({
+            bindto: '#chart-bar', // id of chart wrapper
+            data: {
+                columns: [
+                    // each columns data
+                    ['data1', 11, 8, 15, 18, 19, 17],
+                    ['data2', 8, 7, 11, 11, 4, 8],
+                    ['data3', 8, 9, 8, 10, 12, 14],
+                ],
+                type: 'bar', // default type of chart
+                colors: {
+                    'data1': '#007FFF', // blue            
+                    'data2': '#2d96ff', // blue
+                    'data3': '#2dd8ff', // blue
+                },
+                names: {
+                    // name of each serie
+                    'data1': 'Main ',            
+                    'data2': 'Buth 2',
+                    'data3': 'Buth 3',
+                }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    // name of each category
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+                },
+            },
+            bar: {
+                width: 16
+            },
+            legend: {
+                show: true, //hide legend
+            },
+            padding: {
+                bottom: 20,
+                top: 0
+            },
+        });
+
+
+        
         
             // Top Countries 
             $('.chart').sparkline('html', {
@@ -143,13 +227,14 @@ export class PhamAdminComponent implements OnInit {
                         ['data1', 11, 8, 15, 18, 19, 17],
                         ['data2', 7, 7, 5, 7, 9, 12]
                     ],
-                    type: 'area-spline', // default type of chart
+                    type: 'pie', // default type of chart
                     groups: [
                         [ 'data1', 'data2']
                     ],
                     colors: {
-                        'data1': '#d54d88',
-                        'data2': '#ef9198',
+                        'data1': '#007FFF', // blue            
+                        'data2': '#2d96ff', // blue
+                        'data3': '#2dd8ff', // blue
                     },
                     names: {
                         // name of each serie
@@ -208,6 +293,48 @@ export class PhamAdminComponent implements OnInit {
                 xaxis: {
                     show: true,
                     ticks: [[25,'JAN 21'],[50,'JAN 22'],[75,'JAN 23'],[100,'JAN 24']],
+                }
+            });
+        });
+
+
+
+        // Appointment Cart
+
+        $(function(){
+            "use strict";
+            var dataStackedBar = {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'],
+                series: [
+                    [8000, 12000, 3600, 1300, 12000, 12000],
+                    [2000, 4000, 5000, 3000, 7000, 4000],
+                    [1000, 2000, 4000, 6000, 3000, 2000]
+                ]
+            };
+            new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
+                height: "228px",
+                stackBars: true,
+                axisX: {
+                    showGrid: false
+                },
+                axisY: {
+                    labelInterpolationFnc: function(value) {
+                        return (value / 1000) + 'k';
+                    }
+                },
+                plugins: [
+                    Chartist.plugins.tooltip({
+                        appendToBody: true
+                    }),
+                    Chartist.plugins.legend({
+                        legendNames: ['Income', 'Revenue', 'Expense']
+                    })
+                ]
+            }).on('draw', function(data) {
+                if (data.type === 'bar') {
+                    data.element.attr({
+                        style: 'stroke-width: 25px'
+                    });
                 }
             });
         });
