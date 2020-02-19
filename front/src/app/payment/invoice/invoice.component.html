@@ -31,16 +31,16 @@
                           <img width="4%" src="../assets/images/icon.svg" alt="Check Logo" class="center"><span id="cin">Check HMS</span>
                           </div>
                           <div class="text-center">
-                            <p id="oid"><strong>Order ID: </strong> {{inv.pres[0].voucher_id}}</p> 
+                            <p id="oid"><strong>Order ID: </strong> {{voucher_id}}</p> 
                           </div>
                           <hr>  
                         </div>
                           <div class="col-md-6 col-sm-6">                           
-                            <p class="m-b-0"><strong>Order Date: </strong> {{inv.pres[0].p_date}}</p>
-                              <p class="m-b-0"><strong>Name: </strong>{{inv.patient.name}} {{inv.patient.othername}}</p>
-                              <p class="m-b-0"><strong>Card Number: </strong> {{inv.patient.card_number}}</p> 
-                              <p class="m-b-0"><strong>Address: </strong>{{inv.patient.address}}, {{inv.patient.city}}, {{inv.patient.state}}, {{inv.patient.country}}</p>
-                              <p class="m-b-0"><strong>Phone: </strong>{{inv.patient.mobile_number}}</p>                                   
+                            <p class="m-b-0"><strong>Order Date: </strong> {{p_date}}</p>
+                              <p class="m-b-0"><strong>Name: </strong>{{name}} {{othername}}</p>
+                              <p class="m-b-0"><strong>Card Number: </strong> {{card_number}}</p> 
+                              <p class="m-b-0"><strong>Address: </strong>{{address}}, {{city}}, {{state}}, {{country}}</p>
+                              <p class="m-b-0"><strong>Phone: </strong>{{mobile_no}}</p>                                   
                           </div>
                           <div class="col-md-6 col-sm-6 text-right">
                               
@@ -60,7 +60,7 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                            <tr *ngFor="let i of inv.pres; let n =index">
+                                            <tr *ngFor="let i of pres; let n =index">
                                                 <!-- <ng-container *ngIf = "i.status == 'invoice'" > -->
                                                     <td>{{n+1}}</td>
                                                     <td>
@@ -76,7 +76,7 @@
                                       <tfoot>
                                           <td colspan="4"></td>
                                           <td class="text-right">
-                                              <span>Total: <strong class="text-success">{{inv.totalAmount.amount  | currency:'NGN':'symbol-narrow'}}</strong></span>
+                                              <span>Total: <strong class="text-success">{{amount  | currency:'NGN':'symbol-narrow'}}</strong></span>
                                           </td>
                                       </tfoot>
                                   </table>
@@ -91,18 +91,18 @@
                   </div>
                   <div class="row clearfix mt-2">
                         <div class="col-md-6 text-left">
-                              <strong>Invoice Status: </strong><span *ngIf = "appointments[0].invoice == 'unpaid'" class="badge badge-danger">{{appointments[0].invoice}}</span> <span *ngIf = "appointments[0].invoice == 'paid'" class="badge badge-success">{{appointments[0].invoice}}</span>
+                              <strong>Invoice Status: </strong><span *ngIf = "invoice == 'unpaid'" class="badge badge-danger">{{invoice}}</span> <span *ngIf = "invoice == 'paid'" class="badge badge-success">{{invoice}}</span>
                         </div>
                       <div class="col-md-6 text-right">
 
                           <!-- Print -->
-                          <button class="btn btn-info ml-2" printSectionId="print-history" ngxPrint><i class="icon-printer"></i>Print</button>
+                          <button class="btn btn-info ml-2" (click)="printComponent()"><i class="icon-printer"></i>Print</button>
                           <!-- Payment -->
 
                           <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
-                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "appointments[0].invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
-                          <button class="btn btn-success ml-2" *ngIf = "appointments[0].invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" *ngIf = "invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
 
                           <!-- Terminate -->
                           <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>
@@ -120,7 +120,7 @@
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12">
-                <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "appointments[0].invoice == 'unpaid'" class="badge badge-danger">{{appointments[0].invoice}}</span> <span *ngIf = "appointments[0].invoice == 'paid'" class="badge badge-success">{{appointments[0].invoice}}</span>
+                <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "invoice == 'unpaid'" class="badge badge-danger">{{invoice}}</span> <span *ngIf = "invoice == 'paid'" class="badge badge-success">{{invoice}}</span>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">                    
                     <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be print immediatle Payment have been made</li>
@@ -128,8 +128,8 @@
                 </nav>
             </div>            
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "inv.pres[0].status == 'invoice'" disabled><i class="fa fa-hourglass-end"></i>End Process</button>
-                <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "inv.pres[0].status == 'paid'"><i class="icon-printer"></i>End Process</button>
+                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end"></i>End Process</button>
+                <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "status == 'paid'"><i class="icon-printer"></i>End Process</button>
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let i of inv.pres; let n =index">
+                        <tr *ngFor="let i of pres; let n =index">
                             <!-- <ng-container *ngIf = "i.status == 'paid'" > -->
                                 <td>
                                         <span>{{n+1}}</span>
@@ -165,8 +165,8 @@
                                     <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
                                     <td>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
-                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "appointments[0].invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
-                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "appointments[0].invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
+                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
                                     </td>
                             <!-- </ng-container> -->

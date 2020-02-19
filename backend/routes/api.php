@@ -241,6 +241,8 @@ Route::post('stockHistory','DisplayController@stockHistory');
 
 Route::get('displayRole','DisplayController@displayRole');
 
+
+Route::get('general_setting','DisplayController@general_setting');
 });
 
 

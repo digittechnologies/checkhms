@@ -34,7 +34,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password', 'status']);
         $email=$request->email;
         $psw=$request->password;
-        
+     
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password did not Exist'], 401);
         }
@@ -47,8 +47,7 @@ class AuthController extends Controller
         return response()->json(
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->join('roles','users.role_id','=','roles.id')
-                ->select('users.*','departments.name as dept_name', 'departments.position_id', 'roles.name')    
+                ->select('users.*','departments.name', 'departments.position_id')    
                 ->where('email','=',$email)   
                 // ->where('password','=',$psw)         
                 ->get(),
