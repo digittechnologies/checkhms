@@ -140,6 +140,7 @@ uploadFile(event){
   reader.readAsDataURL(files);
 }
 onSubmitprofile() {
+  alert('here')
   this.Jarwis.updateCustomer({formdata:this.submissionForm.value,image:this.image}).subscribe(
     data => this.handleResponsep(data),
    error => this.handleErrorp(error)
