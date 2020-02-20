@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   center: any;
   user: any;
   home: string;
+  pstatus: any;
 
   constructor(
     private Auth: AuthService,
@@ -85,6 +86,7 @@ export class DashboardComponent implements OnInit {
       this.module= this.moduleResponse
       this.hms=this.module[0]
       this.pharmacy=this.module[1]
+      this.pstatus=this.pharmacy.status
       this.laboratory=this.module[2]
       this.radiology=this.module[3]
       this.doctor=this.module[4]

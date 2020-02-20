@@ -37,7 +37,13 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+ public function general_setting()
+    {
+        return response()->json(
+            DB::table('general_settings')->first()
+        ); 
+    }
+    
     
     //staff
     public function staffdetails($id)
