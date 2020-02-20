@@ -57,6 +57,10 @@ Route::get('getalltitle','DisplayController@getalltitle');
 
 //Dashboard
 Route::get('displayModule','DisplayController@displayModule');
+Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
+Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
+
+
 
 // Staff
 Route::get('staffdetails/{id}','DisplayController@staffdetails');
