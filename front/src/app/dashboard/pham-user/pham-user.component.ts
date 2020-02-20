@@ -44,10 +44,7 @@ export class PhamUserComponent implements OnInit {
         data=>{
         console.log(data);   
         this.response = data;
-        this.department = this.response
-       
-        console.log('a',this.department[0].name);
-  
+        this.department = this.response  
       })
 
 //   var a= '56';
@@ -85,7 +82,6 @@ export class PhamUserComponent implements OnInit {
 
 
   onLoad(a){
-    alert(a)
     $(function() {
         "use strict";
 
