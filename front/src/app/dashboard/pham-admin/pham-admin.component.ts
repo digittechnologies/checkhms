@@ -16,9 +16,12 @@ declare let Chartist: any;
   styleUrls: ['./pham-admin.component.css']
 })
 export class PhamAdminComponent implements OnInit {
-  response: any;
-  pat: any;
+    response: any;
+    pat: any;
     department: any;
+    branches: any;
+    dashboardData: any;
+    dashboardDataStaff: any;
   
 
   constructor(
@@ -35,18 +38,39 @@ export class PhamAdminComponent implements OnInit {
     this.Jarwis.countCustomer().subscribe(
       data=>{
       this.response = data;      
-      this.pat = this.response[0]   
-      this.onLoad(this.pat)
+      this.pat = this.response[0]    
+      
+      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
+    this.Jarwis.displayBranch().subscribe(
+        data=>{
+        this.response = data;      
+        this.branches = this.response
+
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+    })
+    
+    this.Jarwis.displayPharAdminDash().subscribe(
+        data=>{
+        this.response = data;
+        this.dashboardData = this.response
+
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+    })
+
+    this.Jarwis.displayPharAdminDashStaff().subscribe(
+        data=>{
+        this.response = data;
+        this.dashboardDataStaff = this.response[0]
+
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+    })
+    
 
     this.Jarwis.displayDepartments().subscribe(
         data=>{
-        console.log(data);   
         this.response = data;
         this.department = this.response
-       
-        console.log('a',this.department[0].name);
-  
       })
 
 //   var a= '56';
@@ -80,39 +104,38 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
-  
-
-
-  onLoad(a){
+  onLoad(a, branc, pieData, staff){
+    var data = {}
+    var sites = []
+    var count = 0
+    branc.forEach(e => {
+        sites.push([e.br_name, pieData[count]])
+        data[e.br_name] = e.name
+        count++
+    });
     $(function() {
         "use strict";
-
         var chart = c3.generate({
             bindto: '#chart-Events-Interest', // id of chart wrapper
             data: {
-                columns: [
-                    // each columns data
-                    ['data1', a.male],
-                    ['data2', a.female],
-                    ['data3', 5],
-                ],
+                // each columns data
+                columns: sites,
                 type: 'pie', // default type of chart
-                colors: {
-                    'data1': '#e96a8d',
-                    'data2': '#f3aca2',
-                    'data3': '#f9cdac',
-                },
-                names: {
-                    // name of each serie
-                    'data1': 'Main',
-                    'data2': 'Buth 1',
-                    'data3': 'Buth 2',
-                }
+                // colors: {
+                //     'data1': '#e96a8d',
+                //     'data2': '#f3aca2',
+                //     'data3': '#f9cdac',
+                //     'data4': '#f9cdac',
+                // },
+                
+                // name of each serie
+                names: data
             },
             axis: {
             },
             legend: {
-                show: true, //hide legend
+
+                show: true,  //hide legend
             },
             padding: {
                 bottom: 20,
@@ -176,7 +199,7 @@ export class PhamAdminComponent implements OnInit {
                 barColor: '#77797c',        
             });
         
-            // Employee Structure
+            // Patients Structure
             var chart = c3.generate({
                 bindto: '#chart-bar-stacked', // id of chart wrapper
                 data: {
@@ -218,14 +241,15 @@ export class PhamAdminComponent implements OnInit {
                     left: -6,
                 },
             });
-            // Employee  Satisfaction
+
+            // Employee  Status
             var chart = c3.generate({
                 bindto: '#chart-area-spline-sracked', // id of chart wrapper
                 data: {
                     columns: [
                         // each columns data
-                        ['data1', 11, 8, 15, 18, 19, 17],
-                        ['data2', 7, 7, 5, 7, 9, 12]
+                        ['data1', staff.active],
+                        ['data2', staff.suspended]
                     ],
                     type: 'pie', // default type of chart
                     groups: [
@@ -234,12 +258,14 @@ export class PhamAdminComponent implements OnInit {
                     colors: {
                         'data1': '#007FFF', // blue            
                         'data2': '#2d96ff', // blue
+
                         'data3': '#2dd8ff', // blue
+
                     },
                     names: {
                         // name of each serie
-                        'data1': 'Last Month',
-                        'data2': 'This Month'
+                        'data1': 'Active',
+                        'data2': 'Suspended'
                     }
                 },
                 axis: {

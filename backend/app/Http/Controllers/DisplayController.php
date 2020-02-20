@@ -401,7 +401,7 @@ class DisplayController extends Controller
 
     public function displayBranch()
     {
-        return Branches::where('status', '=', 'active')->get();
+        return Branches::where('status', '=', 'active')->orderBy('id')->get();
     }
 
     public function edtBranch($id)
@@ -420,7 +420,6 @@ class DisplayController extends Controller
     {
         return DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
         ->get();
-      return $post;
     }
 
     public function countAppointmentDash()
@@ -957,9 +956,24 @@ class DisplayController extends Controller
         return Role::where('status', '=', 'active')->get();
     }
 
+    public function displayPharAdminDash()
+    {
+        // return 'reached';
+        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $array = array();
+        foreach($branch as $row){
+            $name = $row->br_name;
+            $return = DB::table($name)->sum($name.'.total_remain');
+            array_push($array, (int)$return);
+         }
+         return $array;
+    }
 
-
-
+    public function displayPharAdminDashStaff()
+    {
+        return DB::table('users')->select(DB::raw('count(id) as "staffs", (select COUNT(id) from users where status = "approved") as "active", (select COUNT(id) from users where status = "suspended") as "suspended" '))    
+        ->get();
+    }
 
 
 
