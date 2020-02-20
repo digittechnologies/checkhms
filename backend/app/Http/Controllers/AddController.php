@@ -584,8 +584,9 @@ class AddController extends Controller
             ->where('id','=',$request->item_type_id)          
             ->get();
             $request->merge(['item_img' => $getImage[0]->image]);   
-        }
 
+        }
+        
         if ($request->image != null){
             $file=$request->image;
             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];

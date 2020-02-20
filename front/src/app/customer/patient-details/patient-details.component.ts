@@ -102,7 +102,7 @@ export class PatientDetailsComponent implements OnInit {
      this.d_o_b=this.pat[0].d_o_b
      this.gender=this.pat[0].gender
     this.genotype= this.pat[0].genotype
-      console.log(this.name); 
+      // console.log(this.name); 
       this.submissionForm = this.formBuilder.group(
     
         {
@@ -126,7 +126,7 @@ export class PatientDetailsComponent implements OnInit {
     })
   
   }))
-  console.log(this.submissionForm)
+ 
 }
 uploadFile(event){
   let files =event.target.files[0];

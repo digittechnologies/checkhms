@@ -322,7 +322,7 @@
                                                         <td>{{a.date}}</td>
                                                         <td>{{a.time}}</td>
                                                         
-                                                        <td>{{a.voucher_id}}</td>
+                                                        <td><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', a.id]}}]">Invoice</a></td>
                                                     </tr>
                                                    
                                                 </tbody>
