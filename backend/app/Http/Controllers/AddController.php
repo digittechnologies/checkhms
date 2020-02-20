@@ -1946,8 +1946,10 @@ class AddController extends Controller
         };
         if($refill == 0){
             $refill_status = 'non-refillable';
+            $checkout = 'checkout';
         } else if($refill > 0){
             $refill_status = 'refillable';
+            $checkout = 'refill';
         }
 
         //customer_id
@@ -1988,7 +1990,7 @@ class AddController extends Controller
                                     ->where('appointments.branch_id', '=', $branchId)
                                     ->update([
                                         'prescription' => 'checkout',
-                                        'voucher' => 'checkout',
+                                        'voucher' => $checkout,
                                         'invoice' => 'unpaid',
                                         'treatment' => 'success',
                                     ]);
@@ -2024,7 +2026,20 @@ class AddController extends Controller
         $branchName = $getBranchName->br_name;
 
         //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
-        $getV = DB::table('vouchers')->select('vouchers.amount')->where('id', $vid)->first();
+        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status')->where('id', '=', $vid)->first();
+
+        $refill= $getV->refill_status;
+
+        if($refill == 'refillable'){
+
+            $success = 'refill';
+        } else {
+       
+            $success = 'success';
+        }
+
+
+
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
             'paid' => $getV->amount,
@@ -2067,7 +2082,7 @@ class AddController extends Controller
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
                                 ->update([
                                     'invoice' => 'paid',
-                                    'voucher' => 'success',
+                                    'voucher' => $success,
                                     'prescription' => 'success',
                                     'treatment' => 'success',
                                     // 'status' => 'close',

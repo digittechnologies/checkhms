@@ -85,7 +85,7 @@ export class PhamUserComponent implements OnInit {
 
 
   onLoad(a){
-    alert(a)
+  
     $(function() {
         "use strict";
 
@@ -303,7 +303,7 @@ export class PhamUserComponent implements OnInit {
 
 
 
-        
+
 
 
         
