@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'SC-Platform';
   response: any;
   status: any;
+  statu: any;
   // login = true;
   // home = false;
  
@@ -36,6 +37,7 @@ export class AppComponent {
       data=>{
       this.response = data;      
       this.status = this.response[0];
+      this.statu=this.status.status
     })
   
   }

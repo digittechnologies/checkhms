@@ -163,7 +163,7 @@ Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
 Route::post('makeAppointment','AddController@makeAppointment');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
-
+Route::get('patientbyappointment/{id}','DisplayController@patientbyappointment');
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');
@@ -249,6 +249,8 @@ Route::post('stockHistory','DisplayController@stockHistory');
 
 Route::get('displayRole','DisplayController@displayRole');
 
+
+Route::get('general_setting','DisplayController@general_setting');
 });
 
 

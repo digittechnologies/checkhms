@@ -60,14 +60,14 @@ export class PhamAdminComponent implements OnInit {
       this.response = data;      
       this.pat = this.response[0]    
       
-      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataInv)
+      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
     this.Jarwis.displayBranch().subscribe(
         data=>{
         this.response = data;      
         this.branches = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataInv)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
     
     this.Jarwis.displayPharAdminDash().subscribe(
@@ -75,7 +75,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardData = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataInv)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
 
     this.Jarwis.displayPharAdminDashStaff().subscribe(
@@ -85,7 +85,7 @@ export class PhamAdminComponent implements OnInit {
         this.active = this.dashboardDataStaff.active
         this.suspended = this.dashboardDataStaff.suspended
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataInv)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
 
     this.Jarwis.displayPharAdminDashInvoice().subscribe (
@@ -93,7 +93,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardDataInv = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataInv)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
     })
     
     this.Jarwis.displayPharAdminDashStock().subscribe(
@@ -148,10 +148,7 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
-  
-
-
-  onLoad(a, branc, pieData, staff, earning){
+  onLoad(a, branc, pieData, staff){
     var data = {}
     var sites = []
     var count = 0
@@ -185,11 +182,11 @@ export class PhamAdminComponent implements OnInit {
                 
                 // name of each serie
                 names: data
-
             },
             axis: {
             },
             legend: {
+
                 show: true,  //hide legend
             },
             padding: {
@@ -317,6 +314,9 @@ export class PhamAdminComponent implements OnInit {
                     colors: {
                         'data1': '#007FFF', // blue            
                         'data2': '#2d96ff', // blue
+
+                        'data3': '#2dd8ff', // blue
+
                     },
                     names: {
                         // name of each serie
