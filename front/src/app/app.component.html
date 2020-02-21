@@ -1,16 +1,16 @@
- <div *ngIf = "status.status == 'key'">
+ <div *ngIf = "statu == 'key'">
      <app-key></app-key>
  </div>
 
- <div *ngIf = "status.status == 'locked'">
+ <div *ngIf = "statu == 'locked'">
     <app-lock></app-lock>
 </div>
 
-<div *ngIf = "status.status == 'registerd'">
+<div *ngIf = "statu == 'registerd'">
     <app-register></app-register>
 </div>
  
- <div *ngIf = "status.status == 'activated'">
+ <div *ngIf = "statu == 'activated'">
     <router-outlet></router-outlet>
 </div>
         

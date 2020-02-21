@@ -44,7 +44,9 @@ export class PhamUserComponent implements OnInit {
         data=>{
         console.log(data);   
         this.response = data;
-        this.department = this.response  
+        this.department = this.response
+       
+        console.log('a',this.department[0].name);
       })
 
 //   var a= '56';

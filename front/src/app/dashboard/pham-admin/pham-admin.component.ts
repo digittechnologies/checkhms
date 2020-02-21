@@ -104,9 +104,6 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
-  
-
-
   onLoad(a, branc, pieData, staff){
     var data = {}
     var sites = []
@@ -133,11 +130,11 @@ export class PhamAdminComponent implements OnInit {
                 
                 // name of each serie
                 names: data
-
             },
             axis: {
             },
             legend: {
+
                 show: true,  //hide legend
             },
             padding: {
@@ -261,6 +258,9 @@ export class PhamAdminComponent implements OnInit {
                     colors: {
                         'data1': '#007FFF', // blue            
                         'data2': '#2d96ff', // blue
+
+                        'data3': '#2dd8ff', // blue
+
                     },
                     names: {
                         // name of each serie
