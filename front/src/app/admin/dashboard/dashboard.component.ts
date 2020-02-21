@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   center: any;
   user: any;
   home: string;
+  imgLink: any;
 
   constructor(
     private Auth: AuthService,
@@ -67,6 +68,12 @@ export class DashboardComponent implements OnInit {
       this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
     })
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayAllposition().subscribe(
       data=>{
        

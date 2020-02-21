@@ -26,6 +26,7 @@ export class SetdepartmentComponent implements OnInit {
   posid: any;
   deptid: any;
   data: string;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -51,6 +52,12 @@ export class SetdepartmentComponent implements OnInit {
    
     })
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayAllposition().subscribe(
       data=>{
       this.posRes = data;

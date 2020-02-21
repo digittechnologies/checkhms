@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\DailyDBUpdate::class,
+        Commands\DBRemoteBackup::class,
     ];
 
     /**
@@ -31,10 +32,11 @@ class Kernel extends ConsoleKernel
         //THIS RUN AT 11:59 MIDNIGHT EVERY DAY
         // 59 11 * * * cd /home/<username>/public_html/backend && php artisan schedule:run >> /dev/null 2>&1
 
-        $schedule->command('sync:day')
-                 ->daily();
+        $schedule->command('sync:day')->daily();
 
-        // $schedule->command('composer database-export')->daily();     
+        $schedule->command('composer export-database')->daily();  
+        
+        $schedule->command('remote:backup')->daily();
 
         // DB::table('recent_users')->delete();
         // })->daily();

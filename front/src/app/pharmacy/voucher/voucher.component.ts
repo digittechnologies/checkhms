@@ -62,6 +62,7 @@ export class VoucherComponent implements OnInit {
   prescription: any;
   voucher: any;
   invoice: any;
+  imgLink: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -85,6 +86,12 @@ export class VoucherComponent implements OnInit {
         console.log(this.pat);
 	    })
   }))
+  
+  this.Jarwis. generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+  })
   
   // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
   //   data=>{

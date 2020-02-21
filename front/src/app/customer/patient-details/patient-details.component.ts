@@ -14,6 +14,7 @@ import { NgForm } from '@angular/forms';
 export class PatientDetailsComponent implements OnInit {
   response: any;
   pat: any;
+  imgLink: any;
 
 
   constructor( 
@@ -27,6 +28,12 @@ export class PatientDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.actRoute.paramMap.subscribe((params => {
       let id = params.get('id');
       

@@ -93,6 +93,11 @@ import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgo
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guard.service';
+import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
+import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
+import { UserRoleGuardService } from './service/guards/user-role-guard.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -249,7 +254,17 @@ import { environment } from '../environments/environment';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   
   ],
-  providers: [JarwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService],
+  providers: [
+    JarwisService,
+    TokenService,
+    AuthService,
+    BeforeLoginService,
+    AfterLoginService,
+    DeptAdminRoleGuardService,
+    AdminRoleGuardService,
+    StaffRoleGuardService,
+    UserRoleGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 export class StaffComponent implements OnInit {
   response: any;
   staff: any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -32,8 +33,16 @@ export class StaffComponent implements OnInit {
      
    
     })
+
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
   }
 
+  
   uStatus(id){
     this.Jarwis.uStatus(id).subscribe(
      data => this.handleResponse(data),

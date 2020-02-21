@@ -18,6 +18,7 @@ export class PatientComponent implements OnInit {
   pat: any;
   department: any;
   appontId: any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -34,6 +35,12 @@ export class PatientComponent implements OnInit {
       this.pat = this.response   
     })
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayDepartments().subscribe(
       data=>{
       console.log(data);   
