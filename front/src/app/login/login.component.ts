@@ -88,6 +88,8 @@ export class LoginComponent implements OnInit {
     this.Token.handle(data.token.original.access_token);
    
     this.Auth.changeAuthStatus(true);  
+
+    alert(pos);
     this.ngOnInit() 
   
       this.router.navigateByUrl('/Admin/(side:'+pos+')');      

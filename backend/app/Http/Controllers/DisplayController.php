@@ -455,7 +455,24 @@ class DisplayController extends Controller
             ->get()   
         );
     }
-
+    public function patientbyappointment($id)
+    {
+        $customeId= Customers::where('id','=',$id)          
+            ->first() ;
+        $cId=$customeId->id;
+            // return $cId;
+    
+    //    return $customeId;
+    //     $cId= $customeId[0]->customer_id;
+        return response()->json([
+            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+            ->join('customers','appointments.customer_id','=','customers.id')
+            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+            ->where('appointments.customer_id','=',$cId)->get(),
+            "pat"=> Customers::where('id','=',$id)          
+            ->get()  
+        ]);
+    }
     //Appointment
     public function displayAllappointment()
     {          
