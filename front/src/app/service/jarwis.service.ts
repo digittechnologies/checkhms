@@ -675,6 +675,10 @@ displayPharAdminDashStock() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashStock`)
 }
 
+displayPharAdminDashAppointment() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashAppointment`)
+}
+
 
 
 

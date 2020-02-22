@@ -2181,6 +2181,7 @@ class AddController extends Controller
                                         'prescription' => 'close',
                                         'invoice' => 'close',
                                         'voucher' => 'close',
+                                        'status' => 'terminated', 
                             ]);
         
         $updateVoucher = DB::table('vouchers')->where('id', $vid)

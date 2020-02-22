@@ -30,8 +30,8 @@ export class PhamAdminComponent implements OnInit {
     suspended: any;
     json = JSON;
     imgLink: any;
+    dashboardDataAppt: any;
   
-
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -41,8 +41,7 @@ export class PhamAdminComponent implements OnInit {
   ) { }
 
   
-  ngOnInit() {
-
+  ngOnInit() {    
     this.Jarwis.profile().subscribe(
         data=>{
         this.response = data;
@@ -60,14 +59,14 @@ export class PhamAdminComponent implements OnInit {
       this.response = data;      
       this.pat = this.response[0]    
       
-      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
     })
     this.Jarwis.displayBranch().subscribe(
         data=>{
         this.response = data;      
         this.branches = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
     })
     
     this.Jarwis.displayPharAdminDash().subscribe(
@@ -75,7 +74,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardData = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
     })
 
     this.Jarwis.displayPharAdminDashStaff().subscribe(
@@ -85,7 +84,7 @@ export class PhamAdminComponent implements OnInit {
         this.active = this.dashboardDataStaff.active
         this.suspended = this.dashboardDataStaff.suspended
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
     })
 
     this.Jarwis.displayPharAdminDashInvoice().subscribe (
@@ -93,16 +92,21 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardDataInv = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+    })
+
+    this.Jarwis.displayPharAdminDashAppointment().subscribe (
+        data=>{
+        this.response = data;
+        this.dashboardDataAppt = this.response
+
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
     })
     
     this.Jarwis.displayPharAdminDashStock().subscribe(
         data=>{
         this.response = data;      
         this.stocks = this.response;
-        console.info('One', this.stocks.inbranch[0])
-        console.info('Two', this.stocks.inbranch[0][0])
-        console.info('Three', this.stocks.inbranch[0][0].total_remain)
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -148,14 +152,37 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
-  onLoad(a, branc, pieData, staff){
+  onLoad(a, branc, pieData, staff, appt){
     var data = {}
+    var apptName = []
     var sites = []
     var count = 0
     var earn = []
+    var defaultApptCount = 0
+    var apptValueActive = []
+    var apptValueTerminated = []
+    var apptValueClose = []    
     branc.forEach(e => {
         sites.push([e.br_name, pieData[count]])
         data[e.br_name] = e.name
+        apptName.push(e.name)
+        appt.forEach(a => {
+            if(e.id == a.branch_id){
+                if(a.status == 'active'){
+                    apptValueActive[count] = defaultApptCount+1
+                }
+                if(a.status == 'terminated'){
+                    apptValueTerminated[count] = defaultApptCount+1
+                }
+                if(a.status == 'close'){
+                    apptValueClose[count] = defaultApptCount+1
+                }
+            }else{ 
+                apptValueActive[count] = defaultApptCount 
+                apptValueTerminated[count] = defaultApptCount
+                apptValueClose[count] = defaultApptCount  
+            }
+        });
         count++
         // earning.forEach(d => {
         //     for(var i=0; i>=d.length; i++){
@@ -165,6 +192,10 @@ export class PhamAdminComponent implements OnInit {
         //     }    
         // })
     });
+
+    console.log('Active',apptValueActive)
+    console.log('Terminated',apptValueTerminated)
+    console.log('Closed',apptValueClose)
     $(function() {
         "use strict";
         var chart = c3.generate({
@@ -383,14 +414,12 @@ export class PhamAdminComponent implements OnInit {
 
         // Appointment Cart
 
-        // $(function(){
-        //     "use strict";
             var dataStackedBar = {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'],
+                labels: apptName,
                 series: [
-                    [8000, 12000, 3600, 1300, 12000, 12000],
-                    [2000, 4000, 5000, 3000, 7000, 4000],
-                    [1000, 2000, 4000, 6000, 3000, 2000]
+                    [1000, 2000, 3000, 4000, 5000, 6000],
+                    [7000, 8000, 9000, 10000, 11000, 12000],
+                    [13000, 14000, 15000, 16000, 17000, 18000]
                 ]
             };
             new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
@@ -419,9 +448,6 @@ export class PhamAdminComponent implements OnInit {
                     });
                 }
             });
-        // });
-
-
 
 
 

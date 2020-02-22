@@ -1006,7 +1006,10 @@ class DisplayController extends Controller
         ]);
     }
 
-
+public function displayPharAdminDashAppointment()
+{
+    return DB::table('appointments')->orderBy('id')->get();
+}
     
     // public function search($searchTerm)
     // {

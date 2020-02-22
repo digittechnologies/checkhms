@@ -62,7 +62,7 @@ Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
 Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
 Route::get('displayPharAdminDashInvoice','DisplayController@displayPharAdminDashInvoice');
 Route::get('displayPharAdminDashStock','DisplayController@displayPharAdminDashStock');
-
+Route::get('displayPharAdminDashAppointment','DisplayController@displayPharAdminDashAppointment');
 
 
 
