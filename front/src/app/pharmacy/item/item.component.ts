@@ -161,9 +161,6 @@ onUpdate(form: NgForm) {
 
   
   form.value.id=this.itemid
-  // this.image= form.value.image
-  //  console.log(form)
-   console.log(form.value)
   this.Jarwis.updateCategories(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

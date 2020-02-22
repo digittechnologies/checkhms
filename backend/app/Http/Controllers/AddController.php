@@ -1991,8 +1991,10 @@ class AddController extends Controller
         };
         if($refill == 0){
             $refill_status = 'non-refillable';
+            $checkout = 'checkout';
         } else if($refill > 0){
             $refill_status = 'refillable';
+            $checkout = 'refill';
         }
 
         //customer_id
@@ -2033,7 +2035,7 @@ class AddController extends Controller
                                     ->where('appointments.branch_id', '=', $branchId)
                                     ->update([
                                         'prescription' => 'checkout',
-                                        'voucher' => 'checkout',
+                                        'voucher' => $checkout,
                                         'invoice' => 'unpaid',
                                         'treatment' => 'success',
                                     ]);
@@ -2069,7 +2071,20 @@ class AddController extends Controller
         $branchName = $getBranchName->br_name;
 
         //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
-        $getV = DB::table('vouchers')->select('vouchers.amount')->where('id', $vid)->first();
+        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status')->where('id', '=', $vid)->first();
+
+        $refill= $getV->refill_status;
+
+        if($refill == 'refillable'){
+
+            $success = 'refill';
+        } else {
+       
+            $success = 'success';
+        }
+
+
+
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
             'paid' => $getV->amount,
@@ -2082,7 +2097,7 @@ class AddController extends Controller
             'i_date' => $cDate,
             'i_time' => $cTime,
             'graph_date' => date("Y-m"),
-        ]);
+        ]);      
 
         //GET PRESCRIPTIONS DATA
         $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
@@ -2113,7 +2128,7 @@ class AddController extends Controller
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
                                 ->update([
                                     'invoice' => 'paid',
-                                    'voucher' => 'success',
+                                    'voucher' => $success,
                                     'prescription' => 'success',
                                     'treatment' => 'success',
                                     // 'status' => 'close',
@@ -2123,17 +2138,20 @@ class AddController extends Controller
             $all_item =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
                                 ->where('doctor_prescriptions.voucher_id', '=', $vid)
                                 ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                                ->get();        
+                                ->get();    
               
             //UPDTE THE BRANCH SLAES WITH THE QUANTITY OUTPUT
             foreach($all_item as $row){
                 
                 $item = $row->item_id;
                 $val = $row->quantity;
+                $p_date= $row->p_date;
 
                 $bitem=DB::table($branchName)
                 ->where('item_detail_id','=', $item)
+                ->where('c_date','=', $p_date)
                 ->first();
+
                 $sales = $bitem->sales + $val;
                 $balance = $bitem->transfer + $sales;
                 $remain =  $bitem->open_stock + $bitem->receive - $balance;

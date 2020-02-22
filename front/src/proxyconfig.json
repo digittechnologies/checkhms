@@ -1,6 +1,5 @@
 {
     "/*": {
-        // "target": "https://sabiogun.jtcheck.com",
          "target": "https://hms.jtcheck.com",
         "secure": false,
         "changeOrigin": true

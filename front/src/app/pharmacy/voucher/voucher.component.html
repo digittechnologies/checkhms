@@ -78,7 +78,7 @@
                             </div> 
                             <div class="col-lg-1 col-md-12">
                                     <div class="form-group">
-                                            <label>Selling P</label>
+                                            <label>Price</label>
                                         <input type="text" class="form-control" value="{{selling_price | currency:'NGN':'symbol-narrow'}}" disabled>
                                     </div>
                                 </div>                               
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>                                             
                                     <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>{{type_name}} Prescription Inst</label>
+                                        <label>{{type_name}} Number</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
