@@ -18,6 +18,7 @@ export class HistoryComponent implements OnInit {
   action: any;
   payloads: any;
   getAction = '';
+  imgLink: any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -28,6 +29,12 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      

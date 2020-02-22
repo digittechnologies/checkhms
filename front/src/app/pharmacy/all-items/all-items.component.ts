@@ -73,6 +73,7 @@ export class AllItemsComponent implements OnInit {
   total_remain2: any;
   total_remain_To: any;
   img: any;
+  imgLink: any;
 
 
   constructor( 
@@ -92,6 +93,14 @@ export class AllItemsComponent implements OnInit {
       this.uBranchName= this.response.det[0].br_name
       this.uPos= this.response.det[0].role_id
       this.uDept= this.response.det[0].dept_id
+    })
+
+    this.Jarwis.setupStatus().subscribe(data=>{}) 
+
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
     })
 
     this.Jarwis.displayBranch().subscribe(

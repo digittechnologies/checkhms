@@ -66,7 +66,7 @@ class AuthController extends Controller
         $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
         $sendMail = Mail::send('password', $data, function($message) {
         $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
-        $message->from('ayoade0369@gmail.com','noreply');
+        $message->from('no-reply@jtcheck.com','noreply');
         });
         $user= User::create($request->all());
         if($user){

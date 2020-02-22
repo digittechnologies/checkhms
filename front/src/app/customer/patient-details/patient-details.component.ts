@@ -15,6 +15,8 @@ export class PatientDetailsComponent implements OnInit {
   public submissionForm: FormGroup;
   response: any;
   pat: any;
+  imgLink: any;
+
   p_date: any;
   name: any;
   othername: any;
@@ -54,6 +56,12 @@ export class PatientDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.submissionForm = this.formBuilder.group(
      
       {

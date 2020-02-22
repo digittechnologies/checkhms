@@ -1172,6 +1172,7 @@ class AddController extends Controller
         $dt = Carbon::now();
         $request->date = $dt->toFormattedDateString();
         $request->time = $dt->format('h:i:s A');
+        $request->merge(["graph_date" => date("Y-m")]);
         $invoice= Invoices::create($request-> all());
        
         if($invoice){
@@ -2080,6 +2081,7 @@ class AddController extends Controller
             'voucher_id' => $vid,
             'i_date' => $cDate,
             'i_time' => $cTime,
+            'graph_date' => date("Y-m"),
         ]);
 
         //GET PRESCRIPTIONS DATA

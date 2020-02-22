@@ -74,6 +74,9 @@
         ],
         "database-export" : [
             "vendor/scottjs/db-sync/database-export.sh"
+        ],
+        "export-database" : [
+            "export-database.sh"
         ]
     }
 }

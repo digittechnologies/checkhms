@@ -19,6 +19,7 @@ export class DepertmentComponent implements OnInit {
   error: any;
   posRes: any;
   pos: any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -38,6 +39,12 @@ export class DepertmentComponent implements OnInit {
    
     })
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayAllstaff().subscribe(
       data=>{      
       this.staffRes = data;

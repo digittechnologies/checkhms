@@ -17,6 +17,7 @@ export class DoctorHomeComponent implements OnInit {
   department: any;
   pat: any;
   count: any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -34,6 +35,12 @@ export class DoctorHomeComponent implements OnInit {
       this.count = data;      
     })
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
       this.response = data;      

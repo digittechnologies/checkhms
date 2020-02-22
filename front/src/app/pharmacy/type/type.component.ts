@@ -29,6 +29,7 @@ export class TypeComponent implements OnInit {
   typeimage: any;
   image: any;
   p:any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -39,6 +40,12 @@ export class TypeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayType().subscribe(
       data=>{
       this.response = data;      

@@ -49,6 +49,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/setupStatus`)
   }
 
+  generalSettings() {
+    return this.http.get(`${this.baseUrl}/generalSettings`)
+  }
+
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)
   }
@@ -663,6 +667,13 @@ displayPharAdminDashStaff() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashStaff`)
 }
 
+displayPharAdminDashInvoice() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashInvoice`)
+}
+
+displayPharAdminDashStock() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashStock`)
+}
 
 
 

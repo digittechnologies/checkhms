@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 export class DoctorLogComponent implements OnInit {
   response: any;
   log: any;
+  imgLink: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -24,6 +25,13 @@ export class DoctorLogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
       this.response = data;      

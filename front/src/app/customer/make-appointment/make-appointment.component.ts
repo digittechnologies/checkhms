@@ -23,6 +23,7 @@ export class MakeAppointmentComponent implements OnInit {
   manufid:any;
   p:any;
   onUpdate
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -35,6 +36,12 @@ export class MakeAppointmentComponent implements OnInit {
 
   ngOnInit() {
 
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayAllappointment().subscribe(
       data=>{
       this.response = data;      

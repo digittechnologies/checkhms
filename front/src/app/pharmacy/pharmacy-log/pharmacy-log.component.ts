@@ -32,6 +32,7 @@ export class PharmacyLogComponent implements OnInit {
   newArr = [];
   search: any;
   logUser: any;
+  imgLink: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -42,6 +43,12 @@ export class PharmacyLogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
       this.response = data;      
@@ -76,9 +83,9 @@ export class PharmacyLogComponent implements OnInit {
   // }
   streets: string[] = this.newArr ;
   private _filter(value: string): string[] {
-    console.log(this.newArr)
+    // console.log(this.newArr)
     
-    console.log(Array.isArray(this.streets));
+    // console.log(Array.isArray(this.streets));
     const filterValue = this._normalizeValue(value);
     return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));
   }
@@ -114,7 +121,7 @@ export class PharmacyLogComponent implements OnInit {
     );
      this.Jarwis.displayDepartments().subscribe(
       data=>{
-      console.log(data);   
+      // console.log(data);   
       this.response = data;
       this.department = this.response
      

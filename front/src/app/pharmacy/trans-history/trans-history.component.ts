@@ -19,6 +19,7 @@ export class TransHistoryComponent implements OnInit {
   getAction: any;
   error: any;
   payItem: any;
+  imgLink: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -29,6 +30,12 @@ export class TransHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.Jarwis.displayBranch().subscribe(
       data=>{
       this.response = data;      
