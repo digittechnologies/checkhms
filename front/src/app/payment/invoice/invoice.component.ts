@@ -26,6 +26,9 @@ export class InvoiceComponent implements OnInit {
   voucherId: any;
   appointments: any;
   0:any;
+  response: any;
+  imgLink: any;
+
   logo:any;
 setting:any;
   voucher_Id: any;
@@ -70,6 +73,12 @@ setting:any;
 	    })
   }))
 
+  this.Jarwis. generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+  })
+  
   this.Jarwis.displayDeptAppoint(this.appointID).subscribe(
     data=>{
     this.appointResponse = data;      

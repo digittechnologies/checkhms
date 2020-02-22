@@ -103,7 +103,7 @@
                                 <tr *ngFor="let a of appoints; let r = index" >
                                         <!-- <td> {{r+1}} </td> -->
                                         <td class="w60">
-                                            <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                            <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                         </td>
                                         <td>
                                             <a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', a.cust_id]}}]" title="">{{a.card_number}}</a>

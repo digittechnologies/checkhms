@@ -19,6 +19,7 @@ export class AdminProfileComponent implements OnInit {
   np2: any;
   image: any;
   public submissionForm: FormGroup;
+  imgLink: any;
   constructor(
     public actRoute: ActivatedRoute, 
     private formBuilder: FormBuilder,
@@ -46,6 +47,13 @@ export class AdminProfileComponent implements OnInit {
       twitter_handle:[''],
      },
    )
+
+   this.Jarwis. generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+  })
+  
     this.Jarwis.profile().subscribe(
       data=>{
       this.response = data;

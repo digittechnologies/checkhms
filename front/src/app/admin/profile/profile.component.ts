@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
   branch: any;
   givenDept = 0;
   givenRole = 0;
+  imgLink: any;
   constructor( 
      private http: HttpClient,
      public actRoute: ActivatedRoute, 
@@ -65,6 +66,12 @@ export class ProfileComponent implements OnInit {
     })
   }));
 
+  this.Jarwis. generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+  })
+  
   this.Jarwis.profile().subscribe(
     data=>{
     this.response = data;

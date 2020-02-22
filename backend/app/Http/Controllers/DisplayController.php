@@ -351,30 +351,30 @@ class DisplayController extends Controller
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->get(),
            'addedItem'=>DB::table($id)->select($id.'.*')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->sum($id.'.receive'),
            'transferredItem'=>DB::table($id)->select($id.'.*')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->sum($id.'.transfer'),
            'soldItem'=>DB::table($id)->select($id.'.*')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->sum($id.'.sales'),
            'varianced'=>DB::table($id)->select($id.'.*')->sum($id.'.variance'),
            'openBal'=>DB::table($id)->select($id.'.*')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->sum($id.'.open_stock'),
            'physBal'=>DB::table($id)->select($id.'.*')
            ->sum($id.'.physical_balance'),
            'total'=>DB::table($id)->select($id.'.*')
-        //    ->where ('c_date', '=', $cDate)
+           ->where ('c_date', '=', $cDate)
            ->sum($id.'.total_remain'),
            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)
            ->first(), 
            'itemAmount'=>DB::table('invoices')->select('paid')
-        //    ->where ('i_date', '=', $cDate)
+           ->where ('i_date', '=', $cDate)
            ->where('branch_id', '=', $bid)
             ->sum('paid'),
 
@@ -958,7 +958,6 @@ class DisplayController extends Controller
 
     public function displayPharAdminDash()
     {
-        // return 'reached';
         $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
         $array = array();
         foreach($branch as $row){
@@ -975,6 +974,37 @@ class DisplayController extends Controller
         ->get();
     }
 
+    public function displayPharAdminDashInvoice()
+    {
+
+
+    }
+
+    public function displayPharAdminDashStock()
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
+        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $array = array();
+        foreach($branch as $row){
+            $name = $row->br_name;
+            $return = DB::table($name)->orderBy($name.'.id')->select($name.'.item_detail_id', $name.'.total_remain')
+                    // ->where ('c_date', '=', $cDate)
+                    ->get();
+            // $return = [$name => $returnItems];
+            array_push($array, $return);
+        }
+        return response()->json([
+            "item" => DB::table('branch_main')->orderBy('branch_main.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+            ->where ('c_date', '=', $cDate)
+            ->join ('item_details', 'branch_main.item_detail_id','=','item_details.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->get(),
+            "inbranch" =>  $array,
+        ]);
+    }
 
 
     
