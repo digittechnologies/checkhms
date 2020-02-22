@@ -2097,7 +2097,7 @@ class AddController extends Controller
             'i_date' => $cDate,
             'i_time' => $cTime,
             'graph_date' => date("Y-m"),
-        ]);
+        ]);      
 
         //GET PRESCRIPTIONS DATA
         $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
@@ -2138,17 +2138,20 @@ class AddController extends Controller
             $all_item =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'paid')
                                 ->where('doctor_prescriptions.voucher_id', '=', $vid)
                                 ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                                ->get();        
+                                ->get();    
               
             //UPDTE THE BRANCH SLAES WITH THE QUANTITY OUTPUT
             foreach($all_item as $row){
                 
                 $item = $row->item_id;
                 $val = $row->quantity;
+                $p_date= $row->p_date;
 
                 $bitem=DB::table($branchName)
                 ->where('item_detail_id','=', $item)
+                ->where('c_date','=', $p_date)
                 ->first();
+
                 $sales = $bitem->sales + $val;
                 $balance = $bitem->transfer + $sales;
                 $remain =  $bitem->open_stock + $bitem->receive - $balance;

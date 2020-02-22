@@ -61,7 +61,7 @@
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></li>
                         </ul>
-                        <hr><hr>
+                        <hr>Status<hr>
                         <div class="d-flex justify-content-between">
                             <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
                             <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
