@@ -24,21 +24,21 @@
                             <div class="col-lg-3 col-md-3 col-sm-4">
                                 <label>Date: From</label>
                                 <div class="form-group">
-                                    <input type="date" class="form-control"  ngModel name="sDate">
+                                    <input type="date" class="form-control"  ngModel name="sDate" required>
                                 </div>
                             </div>
                             
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                 <label>Date: To</label>
                                 <div class="form-group">
-                                    <input type="date" (click)="get()" class="form-control" ngModel name="eDate">
+                                    <input type="date" (click)="get()" class="form-control" ngModel name="eDate" required>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <label>Branch</label>
                                 <div class="form-group">
-                                    <select class="form-control" ngModel name="to">                           
-                                        <option value="">To...</option>
+                                    <select class="form-control" ngModel name="to" required>                           
+                                        <option value="">Select Branch...</option>
                                         <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
                                     </select>
                                 </div>
@@ -88,15 +88,15 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>Amount</th>
-                                <th>Close Cost</th>
+                                <th>Pice</th>
+                                <th>Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of payItem; let r = index">
                                 <td>{{r+1}}</td>
                                 <td class="width45">
-                                    <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
@@ -115,6 +115,13 @@
                                 </td>
                                 <td>
                                     <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    </td>
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                             </tr>                            
                         </tbody>

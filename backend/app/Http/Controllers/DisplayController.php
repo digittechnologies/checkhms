@@ -841,6 +841,8 @@ class DisplayController extends Controller
             'physBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.physical_balance'),
             'total'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain'),
             'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
+
+            "itemDet" => DB::table('item_details')->orderBy('id')->get(),
  
          ]);
     }
@@ -886,6 +888,9 @@ class DisplayController extends Controller
             $dateRange[] = $startDate->toFormattedDateString();
             $startDate->addDay();
         }
+        $branch = Branches::select('branches.id')
+        ->where('br_name', '=', $branch)
+        ->first();
 
         if($action == 'prescriptions'){
             return DB::table('doctor_prescriptions')
@@ -895,7 +900,8 @@ class DisplayController extends Controller
             ->join('users', 'doctor_prescriptions.pharmacist_id', '=', 'users.id')
             ->join('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
             ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')
-            ->where('doctor_prescriptions.status','=','close')
+            ->where('doctor_prescriptions.status','=','paid')
+            ->where('doctor_prescriptions.branch_id','=',$branch->id)
             ->whereIn('doctor_prescriptions.p_date', $dateRange)
             ->get();
         }

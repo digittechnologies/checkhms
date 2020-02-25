@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
 
   
   handleResponse(data) {
-    let pos =data.details[0].dept_name+'-'+ data.details[0].name ;
+    let pos =data.details[0].dept_name+'-'+ data.details[0].role_name ;
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
@@ -89,7 +89,6 @@ export class LoginComponent implements OnInit {
    
     this.Auth.changeAuthStatus(true);  
 
-    alert(pos);
     this.ngOnInit() 
   
       this.router.navigateByUrl('/Admin/(side:'+pos+')');      

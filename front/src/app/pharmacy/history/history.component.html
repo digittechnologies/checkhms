@@ -7,7 +7,7 @@
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
-                      <li class="breadcrumb-item"><a href="index.html">Inventory</a></li>
+                      <li class="breadcrumb-item"><a href="ijavascript:void(0)">Inventory</a></li>
                       <li class="breadcrumb-item active" aria-current="page">History</li>
                       </ol>
                   </nav>
@@ -24,20 +24,20 @@
                             <div class="col-lg-3 col-md-3 col-sm-4">
                                 <label>Date: From</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control"  ngModel name="sDate">
+                                    <input type="date" class="form-control"  ngModel name="sDate" required>
                                 </div>
                             </div>
                             
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                 <label>Date: To</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" ngModel name="eDate">
+                                    <input type="date" class="form-control" ngModel name="eDate" required>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-6">
                                 <label>Action</label>
                                 <div class="form-group">
-                                    <select class="custom-select" (change)="onSelectAction($event)" ngModel name="action">
+                                    <select class="custom-select" (change)="onSelectAction($event)" ngModel name="action" required>
                                         <option>Select Action...</option>
                                         <option value="prescriptions">Prescriptions</option>
                                         <option value="adds">Add</option>
@@ -52,7 +52,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-6" *ngIf = "getAction != 'adds'">
                                 <label>Branch</label>
                                 <div class="form-group">
-                                    <select class="form-control" ngModel name="branch">                           
+                                    <select class="form-control" ngModel name="branch" required>                           
                                         <option value="">Select Branch...</option>
                                         <option  *ngFor="let br of branch" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
                                     </select>
@@ -112,7 +112,7 @@
                         </thead>
                             <tr *ngFor="let pres of payloads; let r = index">
                                 <td>{{r+1}}</td>
-                                <td><img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
+                                <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
                                 <td>{{pres.original_qty}}</td>
                                 <td>{{pres.quantity}}</td>
                                 <td>{{pres.refill}}</td>
@@ -154,7 +154,7 @@
                         <tbody>
                             <tr *ngFor="let trans of payloads; let r = index">
                                 <td>{{r+1}}</td>
-                                <td><img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.quantity_from}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                 <td><span class="text-success">{{trans.total_quantity}}</span></td>     
@@ -191,7 +191,7 @@
                         <tbody>
                             <tr *ngFor="let trans of payloads; let r = index">
                                 <td>{{r+1}}</td>
-                                <td><img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.quantity_to}}</span></td>
                                 <td><span class="badge badge-warning">{{trans.remain_to}}</span></td>
                                 <td><span class="text-success">{{trans.total_quantity}}</span></td>     
@@ -266,7 +266,7 @@
                         </thead>
                             <tr  *ngFor="let added of payloads; let r = index">
                                 <td>{{r+1}}</td>
-                                <!-- <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> -->
+                                <!-- <img src="http://{{imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> -->
                                 <td> <span>{{added.generic_name}}</span></td>
                                 <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
                                 <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
@@ -304,7 +304,7 @@
                         </thead>
                             <tr  *ngFor="let vadded of payloads; let v = index">
                                 <td>{{v+1}}</td>
-                                <td><img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
+                                <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
                                 <td><span class="badge badge-warning">{{vadded.manuf_name}}</span></td>   
                                 <td><span class="badge badge-warning">{{vadded.instock}}</span></td>                                                
                                 <td><span class="text-success">{{vadded.quantity}}</span></td>

@@ -100,8 +100,8 @@ const routes: Routes = [
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
          {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [AdminRoleGuardService]},
          {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
-         {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
+         {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // doctor

@@ -168,19 +168,19 @@ export class PhamAdminComponent implements OnInit {
         apptName.push(e.name)
         appt.forEach(a => {
             if(e.id == a.branch_id){
-                if(a.status == 'active'){
-                    apptValueActive[count] = defaultApptCount+1
-                }
-                if(a.status == 'terminated'){
-                    apptValueTerminated[count] = defaultApptCount+1
-                }
+                // if(a.status == 'active'){
+                //     apptValueActive[count] = defaultApptCount+1
+                // }
+                // if(a.status == 'terminated'){
+                //     apptValueTerminated[count] = defaultApptCount+1
+                // }
                 if(a.status == 'close'){
-                    apptValueClose[count] = defaultApptCount+1
+                    apptValueClose[count] = a.status
                 }
             }else{ 
                 apptValueActive[count] = defaultApptCount 
                 apptValueTerminated[count] = defaultApptCount
-                apptValueClose[count] = defaultApptCount  
+                apptValueClose[count] = a.status+e.id+a.br_name
             }
         });
         count++
@@ -193,8 +193,8 @@ export class PhamAdminComponent implements OnInit {
         // })
     });
 
-    console.log('Active',apptValueActive)
-    console.log('Terminated',apptValueTerminated)
+    // console.log('Active',apptValueActive)
+    // console.log('Terminated',apptValueTerminated)
     console.log('Closed',apptValueClose)
     $(function() {
         "use strict";

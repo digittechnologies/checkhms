@@ -20,7 +20,7 @@
                   <div class="profile-header d-flex justify-content-between justify-content-center">
                       <div class="d-flex">
                           <div class="mr-3">
-                              <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                              <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
                          <div class="details">
                                 <h5 class="mb-0">{{pat[0].card_number}}</h5>
@@ -213,7 +213,7 @@
                         <tr *ngFor="let r of prescriptionsList; let i =index">
                            <td>{{i+1}}</td>                                                                                     
                            <td class="w60">
-                            <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                            <img src="http://{{imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                         </td>
                         <td>
                             <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
