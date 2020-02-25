@@ -482,7 +482,6 @@ class DisplayController extends Controller
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')               
                 ->get();
     }
-
     public function displayDeptAppointment()
     {
         $deptId= Auth()->user()->dept_id;

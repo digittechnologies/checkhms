@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
    
     this.Auth.changeAuthStatus(true);  
     this.ngOnInit() 
-  
+  console.log(pos)
       this.router.navigateByUrl('/Admin/(side:'+pos+')');      
    
    this.disabled= false;

@@ -243,6 +243,8 @@ Route::get('displayRole','DisplayController@displayRole');
 
 
 Route::get('general_setting','DisplayController@general_setting');
+Route::post('updateGeneralset', 'AddController@updateGeneralSet');
+Route::post('addGeneralset', 'AddController@GeneralSet');
 });
 
 
