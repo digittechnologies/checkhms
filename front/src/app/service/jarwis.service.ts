@@ -652,6 +652,30 @@ deleteAppointment(data) {
   }
 
 
+
+//DASHBOARDS
+
+displayPharAdminDash() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDash`)
+}
+
+displayPharAdminDashStaff() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashStaff`)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
   }
