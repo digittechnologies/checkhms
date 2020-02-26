@@ -59,14 +59,14 @@ export class PhamAdminComponent implements OnInit {
       this.response = data;      
       this.pat = this.response[0]    
       
-      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     this.Jarwis.displayBranch().subscribe(
         data=>{
         this.response = data;      
         this.branches = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     
     this.Jarwis.displayPharAdminDash().subscribe(
@@ -74,7 +74,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardData = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
     this.Jarwis.displayPharAdminDashStaff().subscribe(
@@ -84,15 +84,15 @@ export class PhamAdminComponent implements OnInit {
         this.active = this.dashboardDataStaff.active
         this.suspended = this.dashboardDataStaff.suspended
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
     this.Jarwis.displayPharAdminDashInvoice().subscribe (
         data=>{
         this.response = data;
         this.dashboardDataInv = this.response
-
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+        console.info(this.dashboardDataInv)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
     this.Jarwis.displayPharAdminDashAppointment().subscribe (
@@ -100,7 +100,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardDataAppt = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     
     this.Jarwis.displayPharAdminDashStock().subscribe(
@@ -152,7 +152,8 @@ export class PhamAdminComponent implements OnInit {
       
   }
 
-  onLoad(a, branc, pieData, staff, appt){
+  onLoad(a, branc, pieData, staff, appt, earning){
+      console.info("two", earning)
     var data = {}
     var apptName = []
     var sites = []
@@ -166,36 +167,8 @@ export class PhamAdminComponent implements OnInit {
         sites.push([e.br_name, pieData[count]])
         data[e.br_name] = e.name
         apptName.push(e.name)
-        appt.forEach(a => {
-            if(e.id == a.branch_id){
-                // if(a.status == 'active'){
-                //     apptValueActive[count] = defaultApptCount+1
-                // }
-                // if(a.status == 'terminated'){
-                //     apptValueTerminated[count] = defaultApptCount+1
-                // }
-                if(a.status == 'close'){
-                    apptValueClose[count] = a.status
-                }
-            }else{ 
-                apptValueActive[count] = defaultApptCount 
-                apptValueTerminated[count] = defaultApptCount
-                apptValueClose[count] = a.status+e.id+a.br_name
-            }
-        });
         count++
-        // earning.forEach(d => {
-        //     for(var i=0; i>=d.length; i++){
-        //         if(e.id == d[i].branch_id){
-        //             earn.push([e.br.name, d[i].branch_id])
-        //         }
-        //     }    
-        // })
     });
-
-    // console.log('Active',apptValueActive)
-    // console.log('Terminated',apptValueTerminated)
-    console.log('Closed',apptValueClose)
     $(function() {
         "use strict";
         var chart = c3.generate({
@@ -232,14 +205,7 @@ export class PhamAdminComponent implements OnInit {
         var chart = c3.generate({
             bindto: '#chart-bar', // id of chart wrapper
             data: {
-                columns: [
-                    // each columns data
-                    ['branch_main', 11, 8, 15, 18, 19, 17],
-                    ['branch_buth', 8, 7, 11, 11, 4, 8],
-                    ['branch_buth2', 8, 9, 8, 10, 12, 14],
-                    ['branch_buth3', 8, 7, 11, 11, 4, 8],
-                    ['branch_buth4', 8 , 9, 8, 10, 12, 14],
-                ],
+                columns: earning,
                 type: 'bar', // default type of chart
                 // colors: {
                 //     'data1': '#007FFF', // blue            
@@ -248,19 +214,16 @@ export class PhamAdminComponent implements OnInit {
                 // },
 
                 names: data,
-                // names: {
-                //     // name of each serie
-                //     'data1': 'Main ',            
-                //     'data2': 'Buth 2',
-                //     'data3': 'Buth 3',
-                // }
             },
             axis: {
                 x: {
                     type: 'category',
                     // name of each category
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
+                y: {
+                    min: 0,
+                }
             },
             bar: {
                 width: 16
@@ -371,43 +334,6 @@ export class PhamAdminComponent implements OnInit {
                     left: -7,
                 },
             });
-        
-            // Total Revenue
-            var plot = $.plot('#flotChart', [{
-                data: flotSampleData1,
-                color: '#c0458a',
-                lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                }},{
-                    data: flotSampleData2,
-                    color: '#f3a8a1',
-                    lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                    }
-                }],{
-                series: {
-                    shadowSize: 0,
-                    lines: {
-                        show: true,
-                        lineWidth: 1,
-                        fill: true
-                    }
-                },
-                grid: {
-                    borderWidth: 0,
-                    labelMargin: 8
-                },
-                yaxis: {
-                    show: true,
-                        min: 0,
-                        max: 100,
-                    ticks: [[0,''],[20,'14K'],[40,'37K'],[60,'49K'],[80,'68K']],        
-                },
-                xaxis: {
-                    show: true,
-                    ticks: [[25,'JAN 21'],[50,'JAN 22'],[75,'JAN 23'],[100,'JAN 24']],
-                }
-            });
         });
 
 
@@ -417,9 +343,9 @@ export class PhamAdminComponent implements OnInit {
             var dataStackedBar = {
                 labels: apptName,
                 series: [
-                    [1000, 2000, 3000, 4000, 5000, 6000],
-                    [7000, 8000, 9000, 10000, 11000, 12000],
-                    [13000, 14000, 15000, 16000, 17000, 18000]
+                    appt.active,
+                    appt.closed,
+                    appt.terminated
                 ]
             };
             new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
@@ -430,7 +356,7 @@ export class PhamAdminComponent implements OnInit {
                 },
                 axisY: {
                     labelInterpolationFnc: function(value) {
-                        return (value / 1000) + 'k';
+                        return Math.round(value / appt.countAll * 100) + '%';
                     }
                 },
                 plugins: [
@@ -438,13 +364,13 @@ export class PhamAdminComponent implements OnInit {
                         appendToBody: true
                     }),
                     Chartist.plugins.legend({
-                        legendNames: ['Income', 'Revenue', 'Expense']
+                        legendNames: ['Active', 'Closed', 'Terminated']
                     })
                 ]
             }).on('draw', function(data) {
                 if (data.type === 'bar') {
                     data.element.attr({
-                        style: 'stroke-width: 25px'
+                        style: 'stroke-width: 20px'
                     });
                 }
             });
