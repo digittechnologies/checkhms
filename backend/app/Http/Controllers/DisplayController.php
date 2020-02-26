@@ -497,6 +497,22 @@ class DisplayController extends Controller
                 ->get();
     }
 
+    public function displayPharmStaffDashAppointment()
+    {
+        $deptId= Auth()->user()->dept_id;
+        $branchId= Auth()->user()->branch_id;
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
+                ->where('appointments.department_id','=',$deptId)
+                // ->where('appointments.prescription','!=','close')
+                ->where('appointments.branch_id','=',$branchId)
+                ->where('appointments.date', '=', $cDate)
+                ->get();
+    }
+
     public function displayDeptAppoint($id)
     {
         // $deptId= Auth()->user()->dept_id;
@@ -1023,25 +1039,52 @@ class DisplayController extends Controller
         $cDate = $dt->toFormattedDateString();
 
         $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $itemD = DB::table("item_details")->select('id')->orderBy('id')->get(); 
+        $tempArray = array();
         $array = array();
         foreach($branch as $row){
             $name = $row->br_name;
-            $return = DB::table($name)->orderBy($name.'.id')->select($name.'.item_detail_id', $name.'.total_remain')
-                    // ->where ('c_date', '=', $cDate)
-                    ->get();
-            // $return = [$name => $returnItems];
-            array_push($array, $return);
+            foreach($itemD as $row2){
+                $itemFromBranch = DB::table($name)->select($name.'.item_detail_id', $name.'.total_remain')->where($name.'.item_detail_id', '=', $row2->id)->sum($name.'.total_remain');
+                array_push($tempArray, $itemFromBranch);
+            }
+            array_push($array, $tempArray);
+            $tempArray = [];
         }
         return response()->json([
-            "item" => DB::table('branch_main')->orderBy('branch_main.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
-            ->where ('c_date', '=', $cDate)
-            ->join ('item_details', 'branch_main.item_detail_id','=','item_details.id')
+            "item" => DB::table('item_details')->orderBy('item_details.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
             ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
             ->get(),
             "inbranch" =>  $array,
         ]);
     }
+
+    // public function displayPharAdminDashStock()
+    // {
+    //     $dt = Carbon::now();
+    //     $cDate = $dt->toFormattedDateString();
+
+    //     $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+    //     $array = array();
+    //     foreach($branch as $row){
+    //         $name = $row->br_name;
+    //         $return = DB::table($name)->orderBy($name.'.id')->select($name.'.item_detail_id', $name.'.total_remain')
+    //                 // ->where ('c_date', '=', $cDate)
+    //                 ->get();
+    //         // $return = [$name => $returnItems];
+    //         array_push($array, $return);
+    //     }
+    //     return response()->json([
+    //         "item" => DB::table('branch_main')->orderBy('branch_main.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
+    //         ->where ('c_date', '=', $cDate)
+    //         ->join ('item_details', 'branch_main.item_detail_id','=','item_details.id')
+    //         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+    //         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+    //         ->get(),
+    //         "inbranch" =>  $array,
+    //     ]);
+    // }
 
 public function displayPharAdminDashAppointment()
 {

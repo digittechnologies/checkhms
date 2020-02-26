@@ -229,7 +229,7 @@
                                   <td><span>{{item.cat_name}}</span></td>
                                   <ng-container *ngFor="let inb of stocks.inbranch; let count = index">
                                         <ng-container *ngFor="let inb2 of inb">
-                                                <td *ngIf="item.item_id == inb2.item_detail_id">{{inb2.total_remain}}</td>
+                                                <td>{{inb2}}</td>
                                         </ng-container>
                                     </ng-container>
                                   <td>
