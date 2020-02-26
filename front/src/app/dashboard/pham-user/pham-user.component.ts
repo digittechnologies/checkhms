@@ -17,9 +17,11 @@ declare let d3: any;
   styleUrls: ['./pham-user.component.css']
 })
 export class PhamUserComponent implements OnInit {
-  response: any;
-  pat: any;
+    response: any;
+    pat: any;
     department: any;
+    appointments: any;
+    imgLink: any;
   
 
   constructor(
@@ -39,6 +41,18 @@ export class PhamUserComponent implements OnInit {
       this.pat = this.response[0]   
       this.onLoad(this.pat)
     })
+
+    this.Jarwis. generalSettings().subscribe(
+        data=>{
+        this.response = data;      
+        this.imgLink = this.response[0].app_url;
+      })
+
+    this.Jarwis.displayPharmStaffDashAppointment().subscribe(
+        data=>{
+        this.response = data;      
+        this.appointments = this.response; 
+      })
 
     this.Jarwis.displayDepartments().subscribe(
         data=>{
@@ -88,19 +102,19 @@ export class PhamUserComponent implements OnInit {
         "use strict";
 
 
-        $('.knob').knob({ 
-          'format' : function (value) { if (value > 0) { return value + '%'; } else { return value; } }
-      });
+    //     $('.knob').knob({ 
+    //       'format' : function (value) { if (value > 0) { return value + '%'; } else { return value; } }
+    //   });
   
-      $(".rtl .knob").knob({
-      draw: function () {
-         //style rtl
-        this.i.css({
-          'margin-right': '-' + ((this.w * 3 / 4 + 2) >> 0) + 'px',
-          'margin-left': 'auto'
-        });
-      },
-    });
+    //   $(".rtl .knob").knob({
+    //   draw: function () {
+    //      //style rtl
+    //     this.i.css({
+    //       'margin-right': '-' + ((this.w * 3 / 4 + 2) >> 0) + 'px',
+    //       'margin-left': 'auto'
+    //     });
+    //   },
+    // });
   
       $('.chart_3').sparkline('html', {
           type: 'bar',
@@ -122,54 +136,54 @@ export class PhamUserComponent implements OnInit {
           spotRadius: 0
       });
   
-      var chart = c3.generate({
-          bindto: '#chart-bar', // id of chart wrapper
-          data: {
-              columns: [
-                  // each columns data
-                  ['data1', 11, 8, 15, 18, -1, 17],
-                  ['data2', 22, -3, 25, 27, 17, 18],
-                  ['data3', 17, 18, 21, 28, 21, 27],
-                  ['data4', 11, 15, -4, 22, 12, 25],
-              ],
-              type: 'bar', // default type of chart
-              colors: {
-                  'data1': '#93e3ff',
-                  'data2': '#69c1e0',
-                  'data3': '#41a7cb',
-                  'data4': '#2085a8',
-              },
-              names: {
-                  // name of each serie
-                  'data1': 'Doller',
-                  'data2': 'Euro',
-                  'data3': 'Pound',
-                  'data4': 'Rupee'
-              }
-          },
-          axis: {
-              x: {
-                  type: 'category',
-                  // name of each category
-                  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-              },
-              y : {
-                  tick: {
-                      format: d3.format("$,")
-                  }
-              }
-          },
-          bar: {
-              width: 15
-          },
-          legend: {
-              show: true, //hide legend
-          },
-          padding: {
-              bottom: 20,
-              top: 0
-          },
-      });
+    //   var chart = c3.generate({
+    //       bindto: '#chart-bar', // id of chart wrapper
+    //       data: {
+    //           columns: [
+    //               // each columns data
+    //               ['data1', 11, 8, 15, 18, -1, 17],
+    //               ['data2', 22, -3, 25, 27, 17, 18],
+    //               ['data3', 17, 18, 21, 28, 21, 27],
+    //               ['data4', 11, 15, -4, 22, 12, 25],
+    //           ],
+    //           type: 'bar', // default type of chart
+    //           colors: {
+    //               'data1': '#93e3ff',
+    //               'data2': '#69c1e0',
+    //               'data3': '#41a7cb',
+    //               'data4': '#2085a8',
+    //           },
+    //           names: {
+    //               // name of each serie
+    //               'data1': 'Doller',
+    //               'data2': 'Euro',
+    //               'data3': 'Pound',
+    //               'data4': 'Rupee'
+    //           }
+    //       },
+    //       axis: {
+    //           x: {
+    //               type: 'category',
+    //               // name of each category
+    //               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    //           },
+    //           y : {
+    //               tick: {
+    //                   format: d3.format("$,")
+    //               }
+    //           }
+    //       },
+    //       bar: {
+    //           width: 15
+    //       },
+    //       legend: {
+    //           show: true, //hide legend
+    //       },
+    //       padding: {
+    //           bottom: 20,
+    //           top: 0
+    //       },
+    //   });
   
       var chart = c3.generate({
           bindto: '#chart-Short-Term-Assets', // id of chart wrapper
@@ -399,84 +413,84 @@ export class PhamUserComponent implements OnInit {
             });
         
             // Total Revenue
-            var plot = $.plot('#flotChart', [{
-                data: flotSampleData1,
-                color: '#c0458a',
-                lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                }},{
-                    data: flotSampleData2,
-                    color: '#f3a8a1',
-                    lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                    }
-                }],{
-                series: {
-                    shadowSize: 0,
-                    lines: {
-                        show: true,
-                        lineWidth: 1,
-                        fill: true
-                    }
-                },
-                grid: {
-                    borderWidth: 0,
-                    labelMargin: 8
-                },
-                yaxis: {
-                    show: true,
-                        min: 0,
-                        max: 100,
-                    ticks: [[0,''],[20,'14K'],[40,'37K'],[60,'49K'],[80,'68K']],        
-                },
-                xaxis: {
-                    show: true,
-                    ticks: [[25,'JAN 21'],[50,'JAN 22'],[75,'JAN 23'],[100,'JAN 24']],
-                }
-            });
+            // var plot = $.plot('#flotChart', [{
+            //     data: flotSampleData1,
+            //     color: '#c0458a',
+            //     lines: {
+            //         fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
+            //     }},{
+            //         data: flotSampleData2,
+            //         color: '#f3a8a1',
+            //         lines: {
+            //         fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
+            //         }
+            //     }],{
+            //     series: {
+            //         shadowSize: 0,
+            //         lines: {
+            //             show: true,
+            //             lineWidth: 1,
+            //             fill: true
+            //         }
+            //     },
+            //     grid: {
+            //         borderWidth: 0,
+            //         labelMargin: 8
+            //     },
+            //     yaxis: {
+            //         show: true,
+            //             min: 0,
+            //             max: 100,
+            //         ticks: [[0,''],[20,'14K'],[40,'37K'],[60,'49K'],[80,'68K']],        
+            //     },
+            //     xaxis: {
+            //         show: true,
+            //         ticks: [[25,'JAN 21'],[50,'JAN 22'],[75,'JAN 23'],[100,'JAN 24']],
+            //     }
+            // });
         });
 
 
 
         // Appointment Cart
 
-        $(function(){
-            "use strict";
-            var dataStackedBar = {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'],
-                series: [
-                    [8000, 12000, 3600, 1300, 12000, 12000],
-                    [2000, 4000, 5000, 3000, 7000, 4000],
-                    [1000, 2000, 4000, 6000, 3000, 2000]
-                ]
-            };
-            new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
-                height: "228px",
-                stackBars: true,
-                axisX: {
-                    showGrid: false
-                },
-                axisY: {
-                    labelInterpolationFnc: function(value) {
-                        return (value / 1000) + 'k';
-                    }
-                },
-                plugins: [
-                    Chartist.plugins.tooltip({
-                        appendToBody: true
-                    }),
-                    Chartist.plugins.legend({
-                        legendNames: ['Income', 'Revenue', 'Expense']
-                    })
-                ]
-            }).on('draw', function(data) {
-                if (data.type === 'bar') {
-                    data.element.attr({
-                        style: 'stroke-width: 25px'
-                    });
-                }
-            });
-        });
+        // $(function(){
+        //     "use strict";
+        //     var dataStackedBar = {
+        //         labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'],
+        //         series: [
+        //             [8000, 12000, 3600, 1300, 12000, 12000],
+        //             [2000, 4000, 5000, 3000, 7000, 4000],
+        //             [1000, 2000, 4000, 6000, 3000, 2000]
+        //         ]
+        //     };
+        //     new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
+        //         height: "228px",
+        //         stackBars: true,
+        //         axisX: {
+        //             showGrid: false
+        //         },
+        //         axisY: {
+        //             labelInterpolationFnc: function(value) {
+        //                 return (value / 1000) + 'k';
+        //             }
+        //         },
+        //         plugins: [
+        //             Chartist.plugins.tooltip({
+        //                 appendToBody: true
+        //             }),
+        //             Chartist.plugins.legend({
+        //                 legendNames: ['Income', 'Revenue', 'Expense']
+        //             })
+        //         ]
+        //     }).on('draw', function(data) {
+        //         if (data.type === 'bar') {
+        //             data.element.attr({
+        //                 style: 'stroke-width: 25px'
+        //             });
+        //         }
+        //     });
+        // });
 
 
 

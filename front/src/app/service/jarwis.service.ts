@@ -454,6 +454,12 @@ displayDeptAppointment() {
   }})
 }
 
+displayPharmStaffDashAppointment() {
+  return this.http.get(`${this.baseUrl}/displayPharmStaffDashAppointment`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 displayDeptAppoint(id:string) {
   return this.http.get<any>(`${this.baseUrl}/displayDeptAppoint/${id}`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
