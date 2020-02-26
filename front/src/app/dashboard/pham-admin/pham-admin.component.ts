@@ -222,7 +222,9 @@ export class PhamAdminComponent implements OnInit {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 y: {
-                    min: 0,
+                   margin: {
+                       left: 10
+                   }
                 }
             },
             bar: {
