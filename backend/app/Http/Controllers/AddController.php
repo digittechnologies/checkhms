@@ -1612,25 +1612,28 @@ class AddController extends Controller
     {
         $dt = Carbon::now();
         $today = $dt->toFormattedDateString();
-        $all_item= DB::table('purchases')->select('purchases.item_detail_id', 'purchases.quantity')->where('status', '=', 'saved')->get();        
+        $all_item= DB::table('purchases')->select('purchases.item_detail_id', 'purchases.quantity', 'purchases.p_date')->where('status', '=', 'saved')->get();        
               
         foreach($all_item as $row){
             
             $item = $row->item_detail_id;
             $val = $row->quantity;
-
+            $p_date= $row->p_date;
+            
             $bitem2=DB::table('branch_main')
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $receive = $bitem2[0]->receive + $val;
-            $balance2 = $bitem2[0]->balance;
+            $balance2 = $bitem2[0]->transfer + $bitem2[0]->sales;
             $remain2 =  $bitem2[0]->open_stock + $receive - $balance2;
             $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table('branch_main')
              ->where('item_detail_id','=', $item)
-             ->where ('c_date', '=', $today)
+             ->where('c_date','=', $p_date)
              ->update([
                 'receive' => $receive,
+                'balance' => $balance2,
                 'total_remain' => $remain2,
                 'physical_balance' => $physical2,
                 'add_status' => 'added'
@@ -1650,7 +1653,7 @@ class AddController extends Controller
 
     public function saveTransfer()
     {
-        $all_item= DB::table('transfers')->select('transfers.item_detail_id', 'transfers.total_quantity', 'transfers.quantity_from', 'transfers.quantity_to')->where('status', '=', 'open')->get();        
+        $all_item= DB::table('transfers')->select('transfers.item_detail_id', 'transfers.total_quantity', 'transfers.quantity_from', 'transfers.quantity_to', 'transfers.t_date')->where('status', '=', 'open')->get();        
               
         foreach($all_item as $row){
             
@@ -1658,9 +1661,11 @@ class AddController extends Controller
             $val = $row->total_quantity;
             $from = $row->quantity_from;
             $to = $row->quantity_to;
+            $p_date= $row->t_date;            
 
             $bitem=DB::table($from)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $transfer = $bitem[0]->transfer + $val;
             $balance = $bitem[0]->sales + $transfer;
@@ -1668,6 +1673,7 @@ class AddController extends Controller
             $physical = $remain - $bitem[0]->variance;
             $transf=DB::table($from)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'transfer' => $transfer,
                 'balance' => $balance,
@@ -1678,6 +1684,7 @@ class AddController extends Controller
 
             $bitem2=DB::table($to)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $receive = $bitem2[0]->receive + $val;
             $balance2 = $bitem2[0]->balance;
@@ -1685,6 +1692,7 @@ class AddController extends Controller
             $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table($to)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'receive' => $receive,
                 'total_remain' => $remain2,
@@ -1705,22 +1713,25 @@ class AddController extends Controller
 
     public function saveVariance()
     {
-        $all_item= DB::table('variances')->select('variances.item_detail_id', 'variances.quantity', 'variances.branch_id')->where('status', '=', 'open')->get();        
+        $all_item= DB::table('variances')->select('variances.item_detail_id', 'variances.quantity', 'variances.branch_id', 'variances.v_date')->where('status', '=', 'open')->get();        
               
         foreach($all_item as $row){
             
             $item = $row->item_detail_id;
             $val = $row->quantity;
             $banch = $row->branch_id;
+            $p_date= $row->v_date; 
 
             $bitem2=DB::table($banch)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $variance = $bitem2[0]->variance + $val;
             $remain2 =  $bitem2[0]->total_remain;
             $physical2 = $remain2 - $variance;
             $add=DB::table($banch)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'variance' => $variance,
                 'physical_balance' => $physical2,
