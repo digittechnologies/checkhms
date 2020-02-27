@@ -387,7 +387,7 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Item</th>
-                                                        <th>Manufacturer</th>        
+                                                        <th>Brand</th>        
                                                         <th>Instock</th>                                                       
                                                         <th>Qty</th>
                                                         <th>New Stock</th>
@@ -512,11 +512,11 @@
                                                 <tbody>
                                                     <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="https://{{imgLink}}/back/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
-                                                        <td><h6 class="mb-0">{{trans.quantity_from}}</h6></td>
+                                                        <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                                        <td><h6 class="badge badge-success">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>     
-                                                        <td><h6 class="mb-0">{{trans.quantity_to}}</h6></td>
+                                                        <td><h6 class="badge badge-success">{{trans.quantity_to}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_to}}</span></td>
                                                         <td><span class="badge badge-warning">{{trans.newstock}}</span></td>
                                                         <td>

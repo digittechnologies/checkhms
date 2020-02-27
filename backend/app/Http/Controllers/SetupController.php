@@ -28,7 +28,7 @@ class SetupController extends Controller
         $yesterDate = $dt->toFormattedDateString();
         $dt2 = Carbon::now();
         $todayDate = $dt2->toFormattedDateString();
-        $cTime = $dt->format('h:i:s A');
+        $cTime = $dt2->format('h:i:s A');
         foreach($branch as $brancID){
             $branch_name = $brancID->br_name;
             $getFromBranch = DB::table($branch_name)

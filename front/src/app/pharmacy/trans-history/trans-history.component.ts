@@ -20,6 +20,7 @@ export class TransHistoryComponent implements OnInit {
   error: any;
   payItem: any;
   imgLink: any;
+  payDetail: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -53,8 +54,10 @@ export class TransHistoryComponent implements OnInit {
         this.response = data;
         this.payloads = this.response;
         this.payItem= this.payloads.item;
+        this.payDetail = this.payloads.details;
       });  
   }  
+
   printComponent() {
     var divToPrint=document.getElementById("print-history");
     

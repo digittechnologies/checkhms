@@ -7,7 +7,7 @@ import { JarwisService } from './jarwis.service';
 
 @Injectable()
 export class BeforeLoginService implements CanActivate {
-  response: Object;
+  response: any;
   role: any;
   pos:any;
 
@@ -15,12 +15,11 @@ export class BeforeLoginService implements CanActivate {
     if(this.Token.get()){
       this.Jarwis.profile().subscribe(
         data=>{       
-        this.response = data;     
-        this.role= this.response
-        this.pos = this.role.details[0].dept_name+'-'+ this.role.details[0].name ;
-
+        this.response = data;    
+        this.role = this.response
+        this.pos = this.role.det[0].nameD+'-'+this.role.det[0].role_name
+        this.router.navigateByUrl('/Admin/(side:'+this.pos+')');
       })
-      this.router.navigateByUrl('/Admin/(side:'+this.pos+')');
     }
     return !this.Token.loggedIn();
   }

@@ -20,7 +20,7 @@
                   <div class="profile-header d-flex justify-content-between justify-content-center">
                       <div class="d-flex">
                           <div class="mr-3">
-                              <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                              <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
                          <div class="details">
                                 <h5 class="mb-0">{{pat[0].card_number}}</h5>
@@ -78,7 +78,7 @@
                             </div> 
                             <div class="col-lg-1 col-md-12">
                                     <div class="form-group">
-                                            <label>Selling P</label>
+                                            <label>Price</label>
                                         <input type="text" class="form-control" value="{{selling_price | currency:'NGN':'symbol-narrow'}}" disabled>
                                     </div>
                                 </div>                               
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>                                             
                                     <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>{{type_name}} Prescription Inst</label>
+                                        <label>{{type_name}} Number</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
@@ -213,7 +213,7 @@
                         <tr *ngFor="let r of prescriptionsList; let i =index">
                            <td>{{i+1}}</td>                                                                                     
                            <td class="w60">
-                            <img src="http://{{imgLink}}/back/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                            <img src="http://{{imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                         </td>
                         <td>
                             <a href="javascript:void(0);" title="">{{r.generic_name}}</a>

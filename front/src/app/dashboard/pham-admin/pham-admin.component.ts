@@ -30,8 +30,8 @@ export class PhamAdminComponent implements OnInit {
     suspended: any;
     json = JSON;
     imgLink: any;
+    dashboardDataAppt: any;
   
-
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -41,8 +41,7 @@ export class PhamAdminComponent implements OnInit {
   ) { }
 
   
-  ngOnInit() {
-
+  ngOnInit() {    
     this.Jarwis.profile().subscribe(
         data=>{
         this.response = data;
@@ -60,14 +59,14 @@ export class PhamAdminComponent implements OnInit {
       this.response = data;      
       this.pat = this.response[0]    
       
-      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+      this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     this.Jarwis.displayBranch().subscribe(
         data=>{
         this.response = data;      
         this.branches = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     
     this.Jarwis.displayPharAdminDash().subscribe(
@@ -75,7 +74,7 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.dashboardData = this.response
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
     this.Jarwis.displayPharAdminDashStaff().subscribe(
@@ -85,24 +84,27 @@ export class PhamAdminComponent implements OnInit {
         this.active = this.dashboardDataStaff.active
         this.suspended = this.dashboardDataStaff.suspended
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
     this.Jarwis.displayPharAdminDashInvoice().subscribe (
         data=>{
         this.response = data;
         this.dashboardDataInv = this.response
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
+    })
 
-        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff)
+    this.Jarwis.displayPharAdminDashAppointment().subscribe (
+        data=>{
+        this.response = data;
+        this.dashboardDataAppt = this.response
+        this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     
     this.Jarwis.displayPharAdminDashStock().subscribe(
         data=>{
         this.response = data;      
         this.stocks = this.response;
-        console.info('One', this.stocks.inbranch[0])
-        console.info('Two', this.stocks.inbranch[0][0])
-        console.info('Three', this.stocks.inbranch[0][0].total_remain)
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -115,55 +117,32 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;
         this.department = this.response
-      })
-
-//   var a= '56';
-//   var b= this.department[0].name
-//     console.log(this.department[0].name);
-// alert(b);     
-      
-      
-      function getRandomData(totalPoints = 250, start = 50) {
-          var data = [];
-      
-          // Do a random walk
-          while (data.length < totalPoints) {
-              var prev = data.length > 0 ? data[data.length - 1] : start;
-              var y = prev + Math.random() * 10 - 5;
-      
-              if(y < 0) { y = Math.random() * 10; }
-              else if(y > 100) { y = 80; }
-      
-              data.push(y);
-          }
-      
-          // Zip the generated y values with the x values
-          var res = [];
-          for (var i = 0; i < data.length; ++i) {
-              res.push([i, data[i]])
-          }
-      
-          return res;
-      }     
+      })    
       
   }
 
-  onLoad(a, branc, pieData, staff){
+  onLoad(a, branc, pieData, staff, appt, earning){
+      
+    $('.chart').sparkline('html', {
+        type: 'pie',
+        height: '60px',        
+    });
+
+    
     var data = {}
+    var apptName = []
     var sites = []
     var count = 0
     var earn = []
+    var defaultApptCount = 0
+    var apptValueActive = []
+    var apptValueTerminated = []
+    var apptValueClose = []    
     branc.forEach(e => {
         sites.push([e.br_name, pieData[count]])
         data[e.br_name] = e.name
+        apptName.push(e.name)
         count++
-        // earning.forEach(d => {
-        //     for(var i=0; i>=d.length; i++){
-        //         if(e.id == d[i].branch_id){
-        //             earn.push([e.br.name, d[i].branch_id])
-        //         }
-        //     }    
-        // })
     });
     $(function() {
         "use strict";
@@ -201,14 +180,7 @@ export class PhamAdminComponent implements OnInit {
         var chart = c3.generate({
             bindto: '#chart-bar', // id of chart wrapper
             data: {
-                columns: [
-                    // each columns data
-                    ['branch_main', 11, 8, 15, 18, 19, 17],
-                    ['branch_buth', 8, 7, 11, 11, 4, 8],
-                    ['branch_buth2', 8, 9, 8, 10, 12, 14],
-                    ['branch_buth3', 8, 7, 11, 11, 4, 8],
-                    ['branch_buth4', 8 , 9, 8, 10, 12, 14],
-                ],
+                columns: earning,
                 type: 'bar', // default type of chart
                 // colors: {
                 //     'data1': '#007FFF', // blue            
@@ -217,43 +189,25 @@ export class PhamAdminComponent implements OnInit {
                 // },
 
                 names: data,
-                // names: {
-                //     // name of each serie
-                //     'data1': 'Main ',            
-                //     'data2': 'Buth 2',
-                //     'data3': 'Buth 3',
-                // }
             },
             axis: {
                 x: {
                     type: 'category',
                     // name of each category
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
             },
             bar: {
-                width: 16
+                width: 8
             },
             legend: {
                 show: true, //hide legend
             },
             padding: {
                 bottom: 20,
-                top: 0
+                top: 0,
             },
-        });
-
-
-        
-        
-            // Top Countries 
-            $('.chart').sparkline('html', {
-                type: 'pie',
-                height: '40px',
-                barSpacing: 5,
-                barWidth: 2,
-                barColor: '#77797c',        
-            });
+        })
         
             // Patients Structure
             var chart = c3.generate({
@@ -340,57 +294,18 @@ export class PhamAdminComponent implements OnInit {
                     left: -7,
                 },
             });
-        
-            // Total Revenue
-            var plot = $.plot('#flotChart', [{
-                data: flotSampleData1,
-                color: '#c0458a',
-                lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                }},{
-                    data: flotSampleData2,
-                    color: '#f3a8a1',
-                    lines: {
-                    fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
-                    }
-                }],{
-                series: {
-                    shadowSize: 0,
-                    lines: {
-                        show: true,
-                        lineWidth: 1,
-                        fill: true
-                    }
-                },
-                grid: {
-                    borderWidth: 0,
-                    labelMargin: 8
-                },
-                yaxis: {
-                    show: true,
-                        min: 0,
-                        max: 100,
-                    ticks: [[0,''],[20,'14K'],[40,'37K'],[60,'49K'],[80,'68K']],        
-                },
-                xaxis: {
-                    show: true,
-                    ticks: [[25,'JAN 21'],[50,'JAN 22'],[75,'JAN 23'],[100,'JAN 24']],
-                }
-            });
         });
 
 
 
         // Appointment Cart
 
-        // $(function(){
-        //     "use strict";
             var dataStackedBar = {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'],
+                labels: apptName,
                 series: [
-                    [8000, 12000, 3600, 1300, 12000, 12000],
-                    [2000, 4000, 5000, 3000, 7000, 4000],
-                    [1000, 2000, 4000, 6000, 3000, 2000]
+                    appt.active,
+                    appt.closed,
+                    appt.terminated
                 ]
             };
             new Chartist.Bar('#stackedbar-chart', dataStackedBar, {
@@ -401,7 +316,7 @@ export class PhamAdminComponent implements OnInit {
                 },
                 axisY: {
                     labelInterpolationFnc: function(value) {
-                        return (value / 1000) + 'k';
+                        return Math.round(value / appt.countAll * 100) + '%';
                     }
                 },
                 plugins: [
@@ -409,19 +324,16 @@ export class PhamAdminComponent implements OnInit {
                         appendToBody: true
                     }),
                     Chartist.plugins.legend({
-                        legendNames: ['Income', 'Revenue', 'Expense']
+                        legendNames: ['Active', 'Closed', 'Terminated']
                     })
                 ]
             }).on('draw', function(data) {
                 if (data.type === 'bar') {
                     data.element.attr({
-                        style: 'stroke-width: 25px'
+                        style: 'stroke-width: 20px'
                     });
                 }
             });
-        // });
-
-
 
 
 

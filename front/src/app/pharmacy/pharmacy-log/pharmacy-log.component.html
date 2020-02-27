@@ -52,7 +52,7 @@
                 <div class="card c_grid c_yellow">
                     <div class="body text-center p-4">
                         <div class="circle">
-                            <img class="rounded-circle" src="http://{{imgLink}}/back/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+                            <img class="rounded-circle" src="http://{{imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
                         </div>
                         <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
                         <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
@@ -61,7 +61,7 @@
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></li>
                             <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></li>
                         </ul>
-                        <hr><hr>
+                        <hr>Status<hr>
                         <div class="d-flex justify-content-between">
                             <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
                             <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
@@ -69,6 +69,7 @@
                             <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
                             <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
                             <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
+                            <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>
                         </div>
                     </div>                        
                 </div>
