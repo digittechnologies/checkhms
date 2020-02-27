@@ -21,7 +21,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body ribbon">
-                      <div class="ribbon-box green">5</div>
+                      <div class="ribbon-box green"></div>
                       <a href="#" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]" class="my_sort_cut text-muted">
                           <i class="icon-users"></i>
                           <span>Users</span>
@@ -42,7 +42,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body ribbon">
-                      <div class="ribbon-box orange">8</div>
+                      <div class="ribbon-box orange"></div>
                       <a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]" class="my_sort_cut text-muted">
                           <i class="icon-calendar"></i>
                           <span>Refill</span>
@@ -220,21 +220,19 @@
                               <tr *ngFor="let item of stocks.item; let r = index">
                                 <td>{{r+1}}</td>
                                 <td class="width45">
-                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar   Name">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
                                     <span>{{item.name}}</span>
                                 </td>
-                                  <td><span>{{item.cat_name}}</span></td>
-                                  <ng-container *ngFor="let inb of stocks.inbranch; let count = index">
-                                        <ng-container *ngFor="let inb2 of inb">
-                                                <td>{{inb2}}</td>
-                                        </ng-container>
+                                    <td><span>{{item.cat_name}}</span></td>
+                                    <ng-container *ngFor="let inb of stocks.inbranch[r];">
+                                        <td>{{inb}}</td>
                                     </ng-container>
-                                  <td>
-                                      <span class="chart">5,3,-7,8,-6,1,4,9</span>
-                                  </td>
+                                    <td>
+                                        <span class="chart">{{stocks.inbranch[r]}},</span>
+                                    </td>
                               </tr>
                           </tbody>
                       </table>
