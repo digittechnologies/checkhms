@@ -177,6 +177,7 @@ openPrintDialogue(label){
         .append(`        
                 <table>
                 <thead>
+                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/male.png">
                     <th colspan="3">
                         <img width="6%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
                     </th>
