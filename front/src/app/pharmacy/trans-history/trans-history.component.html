@@ -88,7 +88,7 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>Pice</th>
+                                <th>Price</th>
                                 <th>Total Price</th>
                             </tr>
                         </thead>
@@ -119,7 +119,8 @@
                                     </td>
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
-                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    </td>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    
+                                </td>
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>

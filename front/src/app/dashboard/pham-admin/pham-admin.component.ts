@@ -324,7 +324,7 @@ export class PhamAdminComponent implements OnInit {
                         appendToBody: true
                     }),
                     Chartist.plugins.legend({
-                        legendNames: ['Active', 'Closed', 'Terminated']
+                        legendNames: ['Open', 'Closed', 'Terminated']
                     })
                 ]
             }).on('draw', function(data) {
