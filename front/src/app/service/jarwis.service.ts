@@ -49,6 +49,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/setupStatus`)
   }
 
+  generalSettings() {
+    return this.http.get(`${this.baseUrl}/generalSettings`)
+  }
+
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)
   }
@@ -450,6 +454,12 @@ displayDeptAppointment() {
   }})
 }
 
+displayPharmStaffDashAppointment() {
+  return this.http.get(`${this.baseUrl}/displayPharmStaffDashAppointment`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 displayDeptAppoint(id:string) {
   return this.http.get<any>(`${this.baseUrl}/displayDeptAppoint/${id}`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -663,18 +673,17 @@ displayPharAdminDashStaff() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashStaff`)
 }
 
+displayPharAdminDashInvoice() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashInvoice`)
+}
 
+displayPharAdminDashStock() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashStock`)
+}
 
-
-
-
-
-
-
-
-
-
-
+displayPharAdminDashAppointment() {
+  return this.http.get(`${this.baseUrl}/displayPharAdminDashAppointment`)
+}
 
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)

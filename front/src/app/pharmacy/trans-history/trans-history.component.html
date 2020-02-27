@@ -24,21 +24,21 @@
                             <div class="col-lg-3 col-md-3 col-sm-4">
                                 <label>Date: From</label>
                                 <div class="form-group">
-                                    <input type="date" class="form-control"  ngModel name="sDate">
+                                    <input type="date" class="form-control"  ngModel name="sDate" required>
                                 </div>
                             </div>
                             
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                 <label>Date: To</label>
                                 <div class="form-group">
-                                    <input type="date" (click)="get()" class="form-control" ngModel name="eDate">
+                                    <input type="date" (click)="get()" class="form-control" ngModel name="eDate" required>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <label>Branch</label>
                                 <div class="form-group">
-                                    <select class="form-control" ngModel name="to">                           
-                                        <option value="">To...</option>
+                                    <select class="form-control" ngModel name="to" required>                           
+                                        <option value="">Select Branch...</option>
                                         <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
                                     </select>
                                 </div>
@@ -88,34 +88,44 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>Amount</th>
-                                <th>Close Cost</th>
+                                <th>Pice</th>
+                                <th>Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of payItem; let r = index">
                                 <td>{{r+1}}</td>
                                 <td class="width45">
-                                    <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
                                     <span>{{item.name}}</span>
                                 </td>  
-                                <td class="text text-success">{{item.open_stock}}</td>
-                                <td class="text text-primary">{{item.receive}}</td>
-                                <td class="text text-warning">{{item.transfer}}</td>
-                                <td class="text text-danger">{{item.sales}}</td>
-                                <td class="text text-info">{{item.balance}}</td>
+                                <ng-container *ngFor="let det of payDetail[r]">
+                                    <td class="text text-success">{{det.open_stock == null ? 0 : det.open_stock}}</td>
+                                    <td class="text text-primary">{{det.receive == null ? 0 : det.receive}}</td>
+                                    <td class="text text-warning">{{det.transfer == null ? 0 : det.transfer}}</td>
+                                    <td class="text text-danger">{{det.sales == null ? 0 : det.sales}}</td>
+                                    <td class="text text-info">{{det.balance == null ? 0 : det.balance}}</td>
+                                    <td>
+                                        <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title=""><span>{{det.open_stock+det.receive-det.balance}}</span></div>
+                                    </td>
+                                    <td>
+                                        <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title=""><span>{{det.variance == null ? 0 : det.variance}}</span></div>
+                                    </td>
+                                    <td>
+                                        <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{det.physical_balance == null ? 0 : det.physical_balance}}</span></div>
+                                    </td>
                                 <td>
-                                        <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.open_stock+item.receive-item.balance}}</span></div>
-                                </td>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    </td>
                                 <td>
-                                    <div class="avtar-pic w35 bg-secon  dary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
-                                <td>
-                                    <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
-                                </td>
+                            </ng-container>
+
                             </tr>                            
                         </tbody>
                     </table>

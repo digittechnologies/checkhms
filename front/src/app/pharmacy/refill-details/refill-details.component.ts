@@ -24,6 +24,7 @@ export class RefillDetailsComponent implements OnInit {
   int = parseInt;
   voucherId: any;
   refillAmt = 1;
+  imgLink: any;
 
   constructor( 
     private http: HttpClient,
@@ -36,6 +37,12 @@ export class RefillDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.patID = id;

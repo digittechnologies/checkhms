@@ -45,7 +45,7 @@
                             <tr *ngFor="let a of appoints | paginate: {itemsPerPage:10, currentPage: p}; let r = index; let r = index">
                                 <!-- <td> {{r+1}} </td> -->
                                 <td class="w60">
-                                    <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{a.card_number}}</a>
@@ -77,6 +77,7 @@
                                 <td>                                        
                                         <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
                                         <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
+                                        <span class="badge badge-secondary" *ngIf ="a.voucher=== 'refill'">Refill</span> 
                                         <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
                                         <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
                                         <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               

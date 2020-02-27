@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2020 at 11:34 AM
+-- Generation Time: Feb 21, 2020 at 08:25 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -69,33 +69,43 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `customer_id` int(100) NOT NULL,
   `department_id` int(100) NOT NULL,
   `doctor_id` int(100) DEFAULT NULL,
-  `branch_id` int(200) NOT NULL,
+  `branch_id` int(200) DEFAULT NULL,
+  `voucher_id` int(200) NOT NULL,
   `treatment` varchar(100) NOT NULL DEFAULT 'close',
   `lab` varchar(100) NOT NULL DEFAULT 'close',
   `prescription` varchar(100) DEFAULT 'close',
   `invoice` varchar(100) NOT NULL DEFAULT 'close',
   `voucher` varchar(100) NOT NULL DEFAULT 'close',
-  `status` varchar(50) NOT NULL DEFAULT 'inactive',
+  `status` varchar(50) NOT NULL DEFAULT 'open',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date` varchar(100) DEFAULT NULL,
   `time` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `customer_id_2` (`customer_id`),
   KEY `customer_id` (`customer_id`),
   KEY `depertments_id` (`department_id`),
-  KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+  KEY `doctor_id` (`doctor_id`),
+  KEY `voucher_id` (`voucher_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `customer_id`, `department_id`, `doctor_id`, `branch_id`, `treatment`, `lab`, `prescription`, `invoice`, `voucher`, `status`, `updated_at`, `created_at`, `date`, `time`) VALUES
-(12, 1, 2, 0, 7, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-28 09:22:26', '2019-11-18 06:50:51', 'Nov 18, 2019', '07:50:51 AM'),
-(16, 2, 1, 0, 1, 'open', 'close', 'close', 'close', 'close', 'active', '2020-01-30 11:31:04', '2019-11-18 09:47:07', 'Nov 18, 2019', '10:47:06 AM'),
-(24, 3, 1, NULL, 1, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-28 23:53:06', '2020-01-08 11:38:15', 'Jan 8, 2020', '12:38:15 PM'),
-(25, 4, 2, NULL, 7, 'open', 'close', 'open', 'open', 'open', 'active', '2020-01-28 09:22:23', '2020-01-08 15:54:47', 'Jan 8, 2020', '04:54:47 PM');
+INSERT INTO `appointments` (`id`, `customer_id`, `department_id`, `doctor_id`, `branch_id`, `voucher_id`, `treatment`, `lab`, `prescription`, `invoice`, `voucher`, `status`, `updated_at`, `created_at`, `date`, `time`) VALUES
+(48, 5, 1, NULL, 1, 1009, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-02 11:54:42', 'Feb 2, 2020', '12:54:42 PM'),
+(49, 1, 1, NULL, 1, 1010, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-02 11:56:01', 'Feb 2, 2020', '12:56:01 PM'),
+(50, 2, 1, NULL, 1, 1011, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-02 21:58:30', 'Feb 2, 2020', '10:58:30 PM'),
+(51, 2, 1, NULL, 1, 1012, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-03 14:29:32', 'Feb 3, 2020', '03:29:32 PM'),
+(52, 1, 1, NULL, 1, 1013, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-03 15:57:22', 'Feb 3, 2020', '04:57:22 PM'),
+(53, 5, 1, NULL, 1, 1014, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-03 15:59:19', 'Feb 3, 2020', '04:59:19 PM'),
+(54, 2, 1, NULL, 1, 1015, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-05 20:00:37', 'Feb 5, 2020', '09:00:37 PM'),
+(55, 1, 1, NULL, 1, 1016, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-12 20:55:13', 'Feb 12, 2020', '09:55:13 PM'),
+(56, 2, 1, NULL, 1, 1017, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-12 21:57:03', 'Feb 12, 2020', '10:57:03 PM'),
+(57, 1, 1, NULL, 1, 1018, 'open', 'close', 'open', 'open', 'open', 'active', '2020-02-16 04:39:06', '2020-02-13 08:21:40', 'Feb 13, 2020', '09:21:40 AM'),
+(58, 2, 1, NULL, 1, 1019, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-13 08:22:02', 'Feb 13, 2020', '09:22:02 AM'),
+(59, 2, 1, NULL, 1, 1020, 'success', 'close', 'success', 'paid', 'success', 'close', '2020-02-16 04:39:06', '2020-02-14 21:17:33', 'Feb 14, 2020', '10:17:33 PM'),
+(60, 2, 1, NULL, 7, 1021, 'open', 'close', 'open', 'open', 'open', 'active', '2020-02-16 04:39:06', '2020-02-15 10:36:37', 'Feb 15, 2020', '11:36:37 AM');
 
 -- --------------------------------------------------------
 
@@ -183,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth` (
   PRIMARY KEY (`id`),
   KEY `branch_buth_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth`
@@ -197,7 +207,25 @@ INSERT INTO `branch_buth` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `
 (5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
 (6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
 (7, '0', '0', '0', '50', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, 'added', NULL, '7', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0');
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0'),
+(9, '50', '0', '0', '0', '50', '0', '20', '30', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(10, '40', '0', '0', '0', '40', '0', '8', '32', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(11, '170', '0', '0', '0', '170', '0', '0', '170', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(17, '0', '0', '0', '20', '20', '0', '0', '20', '0', '0', 'Feb 20, 2020', '06:09:30 PM', NULL, NULL, 'added', NULL, '9', '0'),
+(18, '50', '0', '0', '0', '50', '0', '20', '30', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(19, '40', '0', '0', '0', '40', '0', '8', '32', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(20, '170', '0', '0', '0', '170', '0', '0', '170', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(21, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(22, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(23, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(24, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(25, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(26, '20', '0', '0', '0', '20', '0', '0', '20', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '9', '0');
 
 -- --------------------------------------------------------
 
@@ -229,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth2` (
   PRIMARY KEY (`id`),
   KEY `branch_buth2_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth2_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth2`
@@ -243,7 +271,25 @@ INSERT INTO `branch_buth2` (`id`, `open_stock`, `sales`, `transfer`, `receive`, 
 (5, '0', '0', '0', '10', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
 (6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
 (7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0'),
-(8, '0', '0', '0', '100', '100', '0', '0', '100', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, 'added', NULL, '8', '0');
+(8, '0', '0', '0', '100', '100', '0', '0', '100', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, 'added', NULL, '8', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(10, '20', '0', '0', '0', '20', '0', '0', '20', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(12, '10', '0', '0', '0', '10', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(16, '100', '0', '0', '0', '100', '0', '0', '100', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '06:09:30 PM', NULL, NULL, NULL, NULL, '9', '0'),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(19, '20', '0', '0', '0', '20', '0', '0', '20', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(20, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(21, '10', '0', '0', '0', '10', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(22, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(23, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(24, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(25, '100', '0', '0', '0', '100', '0', '0', '100', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(26, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '9', '0');
 
 -- --------------------------------------------------------
 
@@ -275,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth3` (
   PRIMARY KEY (`id`),
   KEY `branch_buth3_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth3_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth3`
@@ -289,7 +335,25 @@ INSERT INTO `branch_buth3` (`id`, `open_stock`, `sales`, `transfer`, `receive`, 
 (5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
 (6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
 (7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0'),
-(8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0');
+(8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0'),
+(9, 10, 0, 0, 0, 10, 0, 0, 10, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(10, 20, 0, 0, 0, 20, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 20, 2020', '06:09:30 PM', NULL, NULL, NULL, NULL, '9', '0'),
+(18, 10, 0, 0, 0, 10, 0, 0, 10, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(19, 20, 0, 0, 0, 20, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '9', '0');
 
 -- --------------------------------------------------------
 
@@ -321,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth4` (
   PRIMARY KEY (`id`),
   KEY `branch_buth4_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth4_staff_id_index` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth4`
@@ -335,7 +399,25 @@ INSERT INTO `branch_buth4` (`id`, `open_stock`, `sales`, `transfer`, `receive`, 
 (5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
 (6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
 (7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0');
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(10, '10', '0', '0', '0', '10', '0', '0', '10', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '06:09:30 PM', NULL, NULL, NULL, NULL, '9', '0'),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(19, '10', '0', '0', '0', '10', '0', '0', '10', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(20, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(21, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(22, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(23, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(24, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(25, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(26, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '9', '0');
 
 -- --------------------------------------------------------
 
@@ -367,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `branch_buth5` (
   PRIMARY KEY (`id`),
   KEY `branch_buth5_item_detail_id_index` (`item_detail_id`),
   KEY `branch_buth5_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_buth5`
@@ -381,7 +463,25 @@ INSERT INTO `branch_buth5` (`id`, `open_stock`, `sales`, `transfer`, `receive`, 
 (5, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '12:16:42 PM', NULL, NULL, NULL, NULL, '5', '0'),
 (6, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 8, 2020', '04:32:59 PM', NULL, NULL, NULL, NULL, '6', '0'),
 (7, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '12:08:46 AM', NULL, NULL, NULL, NULL, '7', '0'),
-(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0');
+(8, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Jan 9, 2020', '08:46:36 PM', NULL, NULL, NULL, NULL, '8', '0'),
+(9, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(10, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(11, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(12, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(13, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(14, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(15, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(16, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(17, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 20, 2020', '06:09:30 PM', NULL, NULL, NULL, NULL, '9', '0'),
+(18, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '1', '0'),
+(19, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '2', '0'),
+(20, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '3', '0'),
+(21, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '4', '0'),
+(22, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '5', '0'),
+(23, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '6', '0'),
+(24, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '7', '0'),
+(25, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '8', '0'),
+(26, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Feb 21, 2020', '12:00:00 AM', NULL, NULL, NULL, NULL, '9', '0');
 
 -- --------------------------------------------------------
 
@@ -413,21 +513,39 @@ CREATE TABLE IF NOT EXISTS `branch_main` (
   PRIMARY KEY (`id`),
   KEY `branch_names_item_detail_id_index` (`item_detail_id`),
   KEY `branch_names_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branch_main`
 --
 
 INSERT INTO `branch_main` (`id`, `open_stock`, `sales`, `transfer`, `receive`, `total_remain`, `close_balance`, `variance`, `physical_balance`, `amount`, `balance`, `c_date`, `c_time`, `created_at`, `updated_at`, `add_status`, `transfer_status`, `item_detail_id`, `staff_id`) VALUES
-(1, 0, 0, 60, 510, 450, 0, 0, 450, 0, 60, 'Jan 3, 2020', '07:47:50 AM', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'transfer', NULL, 1, 0),
-(2, 0, 1, 110, 1500, 1499, 0, 0, 1499, 0, 1, 'Jan 3, 2020', '07:48:34 AM', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'transfer', 'saved', 2, 0),
-(3, 0, 0, 170, 550, 380, 0, 10, 370, 0, 170, 'Jan 3, 2020', '01:23:34 PM', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'variance', 'transferd', 3, 0),
-(4, 0, 0, 20, 100, 80, 0, 0, 0, 0, 20, 'Jan 7, 2020', '05:07:26 PM', '2020-01-07 16:07:26', '2020-01-07 16:07:26', 'transfer', NULL, 4, 0),
-(5, 0, 0, 10, 204, 204, 0, 0, 0, 0, 10, 'Jan 8, 2020', '12:16:42 PM', '2020-01-08 11:16:42', '2020-01-08 11:16:42', 'added', 'saved', 5, 0),
-(6, 0, 45, 0, 3150, 3075, 0, 0, 3075, 0, 75, 'Jan 8, 2020', '04:32:59 PM', '2020-01-08 15:32:59', '2020-01-08 15:32:59', 'added', NULL, 6, 0),
-(7, 0, 25, 50, 250, 225, 0, 0, 225, 0, 25, 'Jan 9, 2020', '12:08:46 AM', '2020-01-08 23:08:46', '2020-01-08 23:08:46', 'added', NULL, 7, 0),
-(8, 0, 0, 100, 200, 100, 0, 0, 100, 0, 100, 'Jan 9, 2020', '08:46:36 PM', '2020-01-09 19:46:36', '2020-01-09 19:46:36', 'transfer', NULL, 8, 0);
+(1, 0, 53, 60, 510, 397, 0, 0, 397, 0, 113, 'Jan 3, 2020', '07:47:50 AM', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'transfer', NULL, 1, 0),
+(2, 0, 13, 110, 1500, 1377, 0, 0, 1377, 0, 123, 'Jan 3, 2020', '07:48:34 AM', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'transfer', 'saved', 2, 0),
+(3, 0, 0, 170, 600, 430, 0, 10, 420, 0, 170, 'Jan 3, 2020', '01:23:34 PM', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'added', 'transferd', 3, 0),
+(4, 0, 20, 20, 100, 60, 0, 50, 10, 0, 40, 'Jan 7, 2020', '05:07:26 PM', '2020-01-07 16:07:26', '2020-01-07 16:07:26', 'variance', NULL, 4, 0),
+(5, 0, 70, 10, 204, 124, 0, 0, 124, 0, 80, 'Jan 8, 2020', '12:16:42 PM', '2020-01-08 11:16:42', '2020-01-08 11:16:42', 'added', 'saved', 5, 0),
+(6, 0, 300, 0, 3150, 2850, 0, 0, 2850, 0, 300, 'Jan 8, 2020', '04:32:59 PM', '2020-01-08 15:32:59', '2020-01-08 15:32:59', 'added', NULL, 6, 0),
+(7, 0, 59, 50, 250, 141, 0, 0, 141, 0, 109, 'Jan 9, 2020', '12:08:46 AM', '2020-01-08 23:08:46', '2020-01-08 23:08:46', 'added', NULL, 7, 0),
+(8, 0, 0, 100, 200, 100, 0, 0, 100, 0, 100, 'Jan 9, 2020', '08:46:36 PM', '2020-01-09 19:46:36', '2020-01-09 19:46:36', 'transfer', NULL, 8, 0),
+(9, 397, 0, 0, 0, 397, 0, 0, 397, 0, 0, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 1, 0),
+(10, 1377, 0, 0, 0, 1377, 0, 0, 1377, 0, 0, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 2, 0),
+(11, 380, 0, 0, 600, 430, 0, 10, 420, 0, 0, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', 'added', NULL, 3, 0),
+(12, 60, 0, 0, 0, 60, 0, 50, 10, 0, 0, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', 'variance', NULL, 4, 0),
+(13, 164, 70, 0, 0, 124, 0, 0, 124, 0, 80, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 5, 0),
+(14, 3025, 300, 0, 0, 2850, 0, 0, 2850, 0, 300, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 6, 0),
+(15, 171, 59, 0, 0, 141, 0, 0, 141, 0, 109, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 7, 0),
+(16, 100, 0, 0, 0, 100, 0, 0, 100, 0, 0, 'Feb 20, 2020', '12:00:00 AM', '2020-02-06 09:47:41', '2020-02-06 09:47:41', NULL, NULL, 8, 0),
+(17, 0, 0, 20, 50, 30, 0, 0, 30, 0, 20, 'Feb 20, 2020', '06:09:30 PM', '2020-02-13 17:09:30', '2020-02-13 17:09:30', 'transfer', NULL, 9, 0),
+(18, 397, 0, 0, 0, 397, 0, 0, 397, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 1, 0),
+(19, 1377, 0, 0, 0, 1377, 0, 0, 1377, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 2, 0),
+(20, 430, 0, 0, 0, 430, 0, 10, 420, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 3, 0),
+(21, 60, 0, 0, 0, 60, 0, 50, 10, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 4, 0),
+(22, 124, 0, 0, 0, 124, 0, 0, 124, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 5, 0),
+(23, 2850, 0, 0, 0, 2850, 0, 0, 2850, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 6, 0),
+(24, 141, 0, 0, 0, 141, 0, 0, 141, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 7, 0),
+(25, 100, 0, 0, 0, 100, 0, 0, 100, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 8, 0),
+(26, 30, 0, 0, 0, 30, 0, 0, 30, 0, 0, 'Feb 21, 2020', '12:00:00 AM', '2020-02-21 12:19:31', '2020-02-21 12:19:31', NULL, NULL, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -526,16 +644,16 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '000000',
   `patient_image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'male.png',
   `mobile_number` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `d_o_b` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `about` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `allergy` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `d_o_b` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about` longtext COLLATE utf8mb4_unicode_ci,
+  `allergy` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `blood_group` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `genotype` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `n_h_i_s` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `n_h_i_s` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `card_number` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -543,7 +661,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `customers_email_unique` (`email`),
   UNIQUE KEY `customers_mobile_number_unique` (`mobile_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `customers`
@@ -553,7 +671,8 @@ INSERT INTO `customers` (`id`, `name`, `othername`, `gender`, `email`, `password
 (1, 'Ayo Lala', 'Name', 'Female', 'ayoadelala@yahoo.com', '000000', 'male.png', '764196171', 'Lala\'s Compound, Randa Area', 'Ogbomoso', 'Oyo', 'Nigeria', '10/28/2019', 'ojik', 'Allergy 1', '0+', 'AA', '7637kl', '4737474t', 'active', '2019-11-17 15:16:08', '2019-11-17 15:16:08'),
 (2, 'Kune', 'Afford', 'Male', 'kunle@yahoo.com', '000000', 'male.png', '07064196171', 'Lala\'s Compound, Randa Area', 'Ogbomoso', 'Oyo', 'Nigeria', '11/05/2019', 'ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'ewedu', 'A-', 'AS', '48848', 'ae4444', 'active', '2019-11-18 00:20:15', '2019-11-18 00:20:15'),
 (3, 'Alfred', 'Depay', 'Male', 'alfred@mail.com', '000000', 'male.png', '353554', 'dgtrt', 'sfwrf', 'frwrw', 'vdgdg', '11/05/2019', 'zczcczczcz', 'aadsewr', '0', 'AA', '24244dw', 'sfsf42424', 'active', '2019-11-18 10:18:03', '2019-11-18 10:18:03'),
-(4, 'Tobi', 'Igeh', 'Male', 'ige@yahoo.com', '000000', 'male.png', '12345', 'Lala\'s Compound, Randa Area', 'Ogbomoso', 'Oyo', 'Nigeria', '10/28/1995', 'ojikororoooe eoeoeoe ekeokpepodept_id kkkldkkdk', 'oil', NULL, NULL, '7637kk', '83885', 'active', '2020-01-05 03:01:50', '2020-01-05 03:01:50');
+(4, 'Tobi', 'Igeh', 'Male', 'ige@yahoo.com', '000000', 'male.png', '12345', 'Lala\'s Compound, Randa Area', 'Ogbomoso', 'Oyo', 'Nigeria', '10/28/1995', 'ojikororoooe eoeoeoe ekeokpepodept_id kkkldkkdk', 'oil', NULL, NULL, '7637kk', '83885', 'active', '2020-01-05 03:01:50', '2020-01-05 03:01:50'),
+(5, 'Dele', 'Oguntoye', 'Male', 'dele1234@gmail.com', '000000', 'male.png', '0600606006069', 'Adisamm Stret', 'oyo', 'Oyo', 'Nigeria', '2020-01-16', 'me', 'Water', NULL, NULL, '494949', '050553', 'active', '2020-01-30 23:08:32', '2020-01-30 23:08:32');
 
 -- --------------------------------------------------------
 
@@ -572,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `daily_supply` (
   `updated_at` datetime NOT NULL,
   `user_id` varchar(220) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `daily_supply`
@@ -580,7 +699,8 @@ CREATE TABLE IF NOT EXISTS `daily_supply` (
 
 INSERT INTO `daily_supply` (`id`, `name`, `value`, `type_id`, `status`, `created_at`, `updated_at`, `user_id`) VALUES
 (1, 'once daily', '1', '4', 'active', '2020-01-01 00:00:00', '2020-01-23 00:00:00', '6'),
-(3, 'twice Daily', '2', '6', 'active', '2020-01-25 11:41:07', '2020-01-25 11:41:07', '3');
+(3, 'twice Daily', '2', '6', 'active', '2020-01-25 11:41:07', '2020-01-25 11:41:07', '3'),
+(4, 'three in a day', '3', '6', 'active', '2020-02-03 16:16:51', '2020-02-03 16:16:51', '3');
 
 -- --------------------------------------------------------
 
@@ -599,7 +719,7 @@ CREATE TABLE IF NOT EXISTS `departments` (
   `position_id` int(190) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `departments_position_id_index` (`position_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `departments`
@@ -609,7 +729,8 @@ INSERT INTO `departments` (`id`, `name`, `description`, `image`, `created_at`, `
 (1, 'Pharmacy', 'Pharmacy', 'pharm.jpg', '2019-11-05 23:00:00', '2019-11-05 23:00:00', 1),
 (2, 'Surgeon', 'sogeon', 'doc.jpg', '2019-11-05 23:00:00', '2019-11-05 23:00:00', 3),
 (10, 'Admin', 'admin', 'admin.jpg', '2019-11-10 20:27:46', '2019-11-10 20:27:46', 4),
-(11, 'Cashier', 'payment', 'cash.jpg', '2019-11-10 20:28:22', '2019-11-10 20:28:22', 2);
+(11, 'Cashier', 'payment', 'cash.jpg', '2019-11-10 20:28:22', '2019-11-10 20:28:22', 2),
+(12, 'cadio', 'this is cadio', 'hosp.jpg', '2020-01-30 18:21:50', '2020-01-30 18:21:50', 1);
 
 -- --------------------------------------------------------
 
@@ -670,21 +791,35 @@ CREATE TABLE IF NOT EXISTS `doctor_prescriptions` (
   KEY `item_id` (`item_id`),
   KEY `customer_id` (`appointment_id`),
   KEY `voucher_id` (`voucher_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `doctor_prescriptions`
 --
 
 INSERT INTO `doctor_prescriptions` (`id`, `item_id`, `instock`, `instruction`, `day_supply`, `days`, `dispense`, `original_qty`, `quantity`, `refill`, `remain`, `refill_range`, `amount`, `amount_paid`, `caution`, `created_at`, `updated_at`, `p_date`, `p_time`, `doctor_id`, `pharmacist_id`, `branch_id`, `appointment_id`, `customer_id`, `status`, `refill_status`, `voucher_id`) VALUES
-(1, 1, 0, 'Instruction Number 1', '2', '30', 0, 0, 0, 0, 0, 0, 0, 0, '', '2020-01-05 19:29:17', '2020-01-05 19:29:17', 'Jan 5, 2020', '08:29:17 PM', NULL, NULL, NULL, NULL, NULL, 'open', NULL, NULL),
-(2, 5, 0, 'ftytytyty', '3', '7', 0, 0, 0, 0, 0, 0, 0, 0, '', '2020-01-08 11:41:28', '2020-01-08 11:41:28', 'Jan 8, 2020', '12:41:28 PM', NULL, NULL, NULL, NULL, 4, 'open', NULL, NULL),
-(3, 4, 0, 'ftytytyty', '3', '10', 0, 0, 0, 0, 0, 0, 0, 0, '', '2020-01-08 11:42:56', '2020-01-08 11:42:56', 'Jan 8, 2020', '12:42:56 PM', NULL, NULL, NULL, NULL, 4, 'save', NULL, NULL),
-(4, 6, 0, '1.5', '2', '10', 10, 300, 30, 9, 270, 30, 0, 0, 'ok no any', '2020-01-27 08:57:50', '2020-01-27 08:57:50', 'Jan 27, 2020', '09:57:50 AM', 'Mr Glory', '3', '7', NULL, 2, 'save', 'refillable', NULL),
-(5, 6, 0, '1.5', '2', '10', 10, 300, 30, 9, 270, 30, 0, 0, 'ok no any', '2020-01-27 09:02:01', '2020-01-27 09:02:01', 'Jan 27, 2020', '10:02:01 AM', 'Mr Glory', '3', '1', NULL, 2, 'paid', 'refillable', 1001),
-(6, 7, 0, '2.5', '2', '5', 2, 50, 25, 1, 25, 25, 0, 0, 'oooo', '2020-01-27 12:28:46', '2020-01-27 12:28:46', 'Jan 27, 2020', '01:28:45 PM', 'iiiii', '3', '1', NULL, 2, 'paid', 'refillable', 1001),
-(7, 6, 3150, '1.5', '1', '10', 1, 15, 15, 0, 0, 15, 200, 3000, 'pre caution number 1', '2020-01-28 09:54:49', '2020-01-28 09:54:49', 'Jan 28, 2020', '10:54:49 AM', 'pysician gaius', '3', '1', NULL, 2, 'paid', 'refillable', 1001),
-(8, 2, 1390, '1', '1', '10', 1, 1, 1, 0, 0, 1, 250, 250, 'prec', '2020-01-28 13:30:16', '2020-01-28 13:30:16', 'Jan 28, 2020', '02:30:16 PM', 'pysician gaius', '3', '1', NULL, 2, 'paid', 'non-refillable', 1001);
+(35, 6, 3035, '2.5', '2', '7', 1, 10, 10, 0, 0, 10, 200, 2000, 'm,mmm', '2020-02-05 20:05:17', '2020-02-05 20:05:17', 'Feb 5, 2020', '09:05:16 PM', 'Dr durodola', '3', '1', 54, 2, 'paid', 'non-refillable', 1015),
+(34, 4, 80, '1', '2', '5', 1, 10, 10, 0, 0, 10, 200, 2000, 'm,mmm', '2020-02-05 20:02:09', '2020-02-05 20:02:09', 'Feb 5, 2020', '09:02:09 PM', 'Dr durodola', '3', '1', 54, 2, 'paid', 'non-refillable', 1015),
+(33, 4, 80, '1', '2', '5', 1, 10, 10, 0, 0, 10, 200, 2000, 'm,mmm', '2020-02-05 20:02:01', '2020-02-05 20:02:01', 'Feb 5, 2020', '09:02:01 PM', 'Dr durodola', '3', '1', 54, 2, 'paid', 'non-refillable', 1015),
+(32, 6, 3055, '1.5', '1', '10', 1, 10, 10, 0, 0, 10, 200, 2000, 'this is caution 1', '2020-02-04 10:35:36', '2020-02-04 10:35:36', 'Feb 4, 2020', '11:35:36 AM', 'Dr durodola', '3', '1', 52, 1, 'paid', 'non-refillable', 1013),
+(31, 6, 3055, '1.5', '1', '10', 1, 10, 10, 0, 0, 10, 200, 2000, 'this is caution 2', '2020-02-04 10:35:25', '2020-02-04 10:35:25', 'Feb 4, 2020', '11:35:25 AM', 'Dr durodola', '3', '1', 52, 1, 'paid', 'non-refillable', 1013),
+(30, 2, 1499, '1', '1', '5', 1, 10, 10, 0, 0, 10, 250, 2500, 'take with food', '2020-02-03 16:17:50', '2020-02-03 16:17:50', 'Feb 3, 2020', '05:17:50 PM', 'Dr Ariloba', '3', '1', 51, 2, 'paid', 'non-refillable', 1012),
+(29, 6, 3080, '2.5', '2', '5', 1, 25, 25, 0, 0, 25, 200, 5000, 'take with food', '2020-02-03 16:12:26', '2020-02-03 16:12:26', 'Feb 3, 2020', '05:12:26 PM', 'Dr Ariloba', '3', '1', 51, 2, 'paid', 'non-refillable', 1012),
+(28, 1, 448, '1', '1', '4', 1, 50, 50, 0, 0, 50, 555, 27750, 'this', '2020-02-03 02:32:04', '2020-02-03 02:32:04', 'Feb 3, 2020', '03:32:04 AM', 'Dr durodola', '3', '1', 49, 1, 'paid', 'non-refillable', 1010),
+(27, 6, 3075, '2.5', '2', '5', 1, 25, 25, 0, 0, 25, 200, 5000, 'this is the caution', '2020-02-02 22:03:25', '2020-02-02 22:03:25', 'Feb 2, 2020', '11:03:25 PM', 'Dr durodola', '3', '1', 50, 2, 'paid', 'non-refillable', 1011),
+(26, 1, 450, '1', '1', '2', 1, 2, 2, 0, 0, 2, 555, 1110, 'this is the caution', '2020-02-02 22:02:13', '2020-02-02 22:02:13', 'Feb 2, 2020', '11:02:13 PM', 'Dr durodola', '3', '1', 50, 2, 'paid', 'non-refillable', 1011),
+(23, 7, 225, '1.5', '1', '2.5', 2, 8, 8, 0, 4, 4, 15, 105, 'booo', '2020-02-02 12:57:54', '2020-02-02 12:57:54', 'Feb 2, 2020', '01:57:54 PM', 'Dr durodola', '3', '1', 48, 5, 'paid', 'non-refillable', 1009),
+(24, 5, 204, '1', '2', '8', 4, 10, 40, 0, -50, 10, 200, 8000, 'booo', '2020-02-02 12:58:47', '2020-02-02 12:58:47', 'Feb 2, 2020', '01:58:47 PM', 'Dr durodola', '3', '1', 48, 5, 'paid', 'non-refillable', 1009),
+(25, 5, 204, '1', '2', '8', 1, 10, 10, 0, 0, 10, 200, 2000, 'booo', '2020-02-02 13:01:41', '2020-02-02 13:01:41', 'Feb 2, 2020', '02:01:41 PM', 'Dr durodola', '3', '1', 48, 5, 'paid', 'non-refillable', 1009),
+(36, 1, 398, '1', '1', '1', 1, 1, 1, 0, 0, 1, 555, 555, 'pre caution before drug', '2020-02-05 22:22:15', '2020-02-05 22:22:15', 'Feb 5, 2020', '11:22:15 PM', 'Dr Lancelot', '3', '1', 53, 5, 'paid', 'non-refillable', 1014),
+(37, 2, 1379, '1', '1', '2', 1, 2, 2, 0, 0, 2, 250, 500, 'this is the second drug precaution', '2020-02-05 22:27:05', '2020-02-05 22:27:05', 'Feb 5, 2020', '11:27:05 PM', 'Physician Gaius', '3', '1', 53, 5, 'paid', 'non-refillable', 1014),
+(38, 6, 3025, '1.5', '1', '2', 1, 3, 3, 0, 0, 3, 200, 600, 'www', '2020-02-12 20:56:45', '2020-02-12 20:56:45', 'Feb 12, 2020', '09:56:45 PM', 'Dr Ariloba', '3', '1', 55, 1, 'paid', 'non-refillable', 1016),
+(39, 6, 3022, '2.5', '2', '20', 1, 100, 100, 0, 0, 100, 200, 20000, 'fffff', '2020-02-13 08:14:10', '2020-02-13 08:14:10', 'Feb 13, 2020', '09:14:10 AM', 'Mr Glory', '3', '1', 56, 2, 'paid', 'non-refillable', 1017),
+(40, 6, 3022, '1.5', '1', '5', 4, 30, 8, 3, 22, 8, 200, 1400, 'nnnnnn', '2020-02-13 08:15:14', '2020-02-13 08:15:14', 'Feb 13, 2020', '09:15:14 AM', 'Mr Glory', '3', '1', 56, 2, 'paid', 'refillable', 1017),
+(41, 5, 164, '1', '1', '12', 2, 50, 50, 1, 0, 50, 200, 10000, 'jjjjj', '2020-02-13 08:17:33', '2020-02-13 08:17:33', 'Feb 13, 2020', '09:17:33 AM', NULL, '3', '1', 56, 2, 'paid', 'refillable', 1017),
+(42, 6, 2914, '2.5', '1', '22.5', 2, 112, 112, 0, 56, 56, 200, 22400, 'gggg', '2020-02-13 08:24:21', '2020-02-13 08:24:21', 'Feb 13, 2020', '09:24:21 AM', 'Mr Glory', '3', '1', 58, 2, 'paid', 'non-refillable', 1019),
+(43, 6, 2914, '1.5', '1', '5', 4, 30, 16, 2, 36, 8, 200, 3000, 'jjj', '2020-02-13 08:28:25', '2020-02-13 08:28:25', 'Feb 13, 2020', '09:28:25 AM', 'Dr Ariloba', '3', '1', 58, 2, 'paid', 'refillable', 1019),
+(44, 7, 171, '1.5', '2', '10', 1, 30, 30, 0, 0, 30, 15, 450, 'hhhh', '2020-02-14 21:18:10', '2020-02-14 21:18:10', 'Feb 14, 2020', '10:18:10 PM', 'Dr durodola', '3', '1', 59, 2, 'paid', 'non-refillable', 1020);
 
 -- --------------------------------------------------------
 
@@ -749,7 +884,7 @@ CREATE TABLE IF NOT EXISTS `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `company_name`, `short_name`, `address`, `logo`, `contact_number`, `email`, `web_url`, `app_url`, `module`, `status`, `license_key`, `expiring_date`, `app`, `create_date`, `create_time`, `created_at`, `updated_at`) VALUES
-(1, 'Check CMS', 'Check', 'Check Address', 'logo.png', '070123456789', 'check@jtcheck.com', 'jtcheck.com', 'jtcheck.com', 'HMS', 'activated', 'qwert123yuij3kds6', NULL, 'Check', '', '', '2020-01-26 23:00:00', '2020-01-26 23:00:00');
+(1, 'Check CMS', 'Check', 'Check Address', 'logo.png', '070123456789', 'check@jtcheck.com', 'jtcheck.com', 'hms.jtcheck.com', 'pharmacy', 'activated', 'qwert123yuij3kds6', NULL, 'Check', '', '', '2020-01-26 23:00:00', '2020-01-26 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -769,6 +904,7 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `i_date` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `i_time` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `graph_date` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `branch_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `voucher_id` int(200) NOT NULL,
@@ -776,14 +912,29 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   KEY `invoices_branch_id_index` (`branch_id`),
   KEY `invoices_staff_id_index` (`staff_id`),
   KEY `voucher_id` (`voucher_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `amount`, `paid`, `balance`, `status`, `delivery_status`, `created_at`, `updated_at`, `i_date`, `i_time`, `branch_id`, `staff_id`, `voucher_id`) VALUES
-(14, '3250', '3250', '0', 'paid', 'delivered', NULL, NULL, 'Jan 30, 2020', '11:38:04 AM', '1', '3', 1001);
+INSERT INTO `invoices` (`id`, `amount`, `paid`, `balance`, `status`, `delivery_status`, `created_at`, `updated_at`, `i_date`, `i_time`, `graph_date`, `branch_id`, `staff_id`, `voucher_id`) VALUES
+(14, '3250', '3250', '0', 'paid', 'delivered', NULL, NULL, 'Jan 30, 2020', '11:38:04 AM', '2020-01', '1', '3', 1001),
+(15, '60000', '60000', '0', 'paid', 'delivered', NULL, NULL, 'Jan 30, 2020', '01:13:13 PM', '2020-01', '2', '3', 1002),
+(16, '60000', '60000', '0', 'paid', 'delivered', NULL, NULL, 'Jan 30, 2020', '01:13:20 PM', '2020-01', '1', '3', 1002),
+(17, '60000', '60000', '0', 'paid', 'delivered', NULL, NULL, 'Jan 30, 2020', '01:13:36 PM', '2020-01', '1', '3', 1002),
+(18, '4045', '4045', '0', 'paid', 'delivered', NULL, NULL, 'Feb 2, 2020', '10:19:19 PM', '2020-02', '1', '3', 1009),
+(19, '4045', '4045', '0', 'paid', 'delivered', NULL, NULL, 'Feb 2, 2020', '10:31:31 PM', '2020-02', '1', '3', 1009),
+(20, '6110', '6110', '0', 'paid', 'delivered', NULL, NULL, 'Feb 2, 2020', '11:17:48 PM', '2020-02', '1', '3', 1011),
+(21, '27750', '27750', '0', 'paid', 'delivered', NULL, NULL, 'Feb 3, 2020', '03:30:08 PM', '2020-02', '1', '3', 1010),
+(22, '7500', '7500', '0', 'paid', 'delivered', NULL, NULL, 'Feb 3, 2020', '05:27:59 PM', '2020-02', '1', '3', 1012),
+(23, '4000', '4000', '0', 'paid', 'delivered', NULL, NULL, 'Feb 4, 2020', '11:36:15 AM', '2020-02', '1', '3', 1013),
+(24, '6000', '6000', '0', 'paid', 'delivered', NULL, NULL, 'Feb 5, 2020', '10:27:10 PM', '2020-02', '1', '3', 1015),
+(25, '1055', '1055', '0', 'paid', 'delivered', NULL, NULL, 'Feb 6, 2020', '08:57:02 AM', '2020-02', '1', '3', 1014),
+(26, '600', '600', '0', 'paid', 'delivered', NULL, NULL, 'Feb 12, 2020', '09:57:05 PM', '2020-02', '1', '3', 1016),
+(27, '31400', '31400', '0', 'paid', 'delivered', NULL, NULL, 'Feb 13, 2020', '09:19:09 AM', '2020-02', '1', '3', 1017),
+(28, '12600', '12600', '0', 'paid', 'delivered', NULL, NULL, 'Feb 13, 2020', '09:32:09 AM', '2020-02', '1', '3', 1019),
+(29, '450', '450', '0', 'paid', 'delivered', NULL, NULL, 'Feb 14, 2020', '10:18:38 PM', '2020-02', '1', '3', 1020);
 
 -- --------------------------------------------------------
 
@@ -853,7 +1004,7 @@ CREATE TABLE IF NOT EXISTS `item_details` (
   KEY `item_details_discount_id_index` (`discount_id`),
   KEY `item_details_staff_id_index` (`staff_id`),
   KEY `shelve_id` (`shelve_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `item_details`
@@ -861,13 +1012,14 @@ CREATE TABLE IF NOT EXISTS `item_details` (
 
 INSERT INTO `item_details` (`id`, `generic_name`, `selling_price`, `purchasing_price`, `markup_price`, `manufacture_date`, `expiring_date`, `status`, `created_at`, `updated_at`, `item_date`, `item_time`, `item_img`, `item_unit_id`, `item_category_id`, `item_type_id`, `manufacturer_id`, `item_shelf_id`, `tax_id`, `discount_id`, `staff_id`, `shelve_id`) VALUES
 (1, 'Paracetamol', 555, 460, 0, NULL, NULL, 'active', '2020-01-03 06:47:50', '2020-01-03 06:47:50', 'Jan 3, 2020', '07:47:50 AM', 'drug.jpg', 2, 5, 1, 1, '', '0', 0, NULL, 1),
-(2, 'Penicillin', 250, 100, 0, NULL, NULL, 'active', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'Jan 3, 2020', '07:48:34 AM', 'drug.jpg', 1, 5, 1, 2, '', '0', 0, NULL, 1),
+(2, 'Penicillin', 250, 100, 0, NULL, NULL, 'active', '2020-01-03 06:48:34', '2020-01-03 06:48:34', 'Jan 3, 2020', '07:48:34 AM', '1580810604.png', 1, 5, 1, 2, '', '0', 0, NULL, 1),
 (3, 'Item 1', 150, 10, 0, NULL, NULL, 'active', '2020-01-03 12:23:34', '2020-01-03 12:23:34', 'Jan 3, 2020', '01:23:34 PM', 'drug.jpg', 2, 5, 1, 1, '', '10', 0, NULL, 1),
 (4, 'CIROFLOXACIN 500mg', 200, 20, 1.5, NULL, NULL, 'active', '2020-01-07 16:07:26', '2020-01-07 16:07:26', 'Jan 7, 2020', '05:07:26 PM', 'drug.jpg', 1, 8, 1, 2, '', '10', 0, NULL, 1),
 (5, 'Bonadol Paracetamol', 200, 100, 0, NULL, NULL, 'active', '2020-01-08 11:16:42', '2020-01-08 11:16:42', 'Jan 8, 2020', '12:16:42 PM', 'drug.jpg', 1, 5, 1, 1, '', '10', 0, NULL, 1),
 (6, 'Atorvastatin 20mg', 200, 100, 0, NULL, NULL, 'active', '2020-01-08 15:32:59', '2020-01-08 15:32:59', 'Jan 8, 2020', '04:32:59 PM', 'drug.jpg', 1, 6, 6, 6, '', '0', 0, NULL, 1),
 (7, 'Albendazole 200mg', 15, 10, 1.5, NULL, NULL, 'active', '2020-01-08 23:08:46', '2020-01-08 23:08:46', 'Jan 9, 2020', '12:08:46 AM', 'drug.jpg', 1, 5, 6, 1, '', '0', 0, NULL, 1),
-(8, 'Item 2', 0, 10, 1.5, NULL, NULL, 'active', '2020-01-09 19:46:36', '2020-01-09 19:46:36', 'Jan 9, 2020', '08:46:36 PM', 'drug.jpg', 1, 6, 6, 6, '', '0', 10, NULL, 1);
+(8, 'Item 2', 0, 10, 1.5, NULL, NULL, 'active', '2020-01-09 19:46:36', '2020-01-09 19:46:36', 'Jan 9, 2020', '08:46:36 PM', 'drug.jpg', 1, 6, 6, 6, '', '0', 10, NULL, 1),
+(9, 'tert', 750, 300, 2.5, NULL, NULL, 'active', '2020-02-13 17:09:30', '2020-02-13 17:09:30', 'Feb 13, 2020', '06:09:30 PM', '1581613770.png', 2, 7, 6, 1, '1', '10', 10, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -947,8 +1099,8 @@ CREATE TABLE IF NOT EXISTS `lab_depts` (
 --
 
 INSERT INTO `lab_depts` (`id`, `lab_name`, `description`, `status`, `created_at`, `updated_at`, `department_id`) VALUES
-(1, 'Lab One', 'Lab One Description', 'active', '2020-01-28 08:41:45', '2019-11-21 19:11:06', 2),
-(2, 'Lab Two Edited', 'Lab Two Description Edited', 'suspend', '2020-01-28 08:41:45', '2019-11-21 19:11:27', 2);
+(1, 'Lab One', 'Lab One Description', 'active', '2020-02-16 04:39:09', '2019-11-21 19:11:06', 2),
+(2, 'Lab Two Edited', 'Lab Two Description Edited', 'suspend', '2020-02-16 04:39:09', '2019-11-21 19:11:27', 2);
 
 -- --------------------------------------------------------
 
@@ -999,8 +1151,8 @@ CREATE TABLE IF NOT EXISTS `lab_test_types` (
 --
 
 INSERT INTO `lab_test_types` (`id`, `test_name`, `test_description`, `created_at`, `updated_at`, `lab_dept_id`) VALUES
-(1, 'Test One', 'Test One Description', '2020-01-28 08:41:46', '2019-11-23 13:38:12', 1),
-(3, 'Test Two Edited', 'Test Two Description Edited', '2020-01-28 08:41:46', '2019-11-23 13:51:22', 2);
+(1, 'Test One', 'Test One Description', '2020-02-16 04:39:10', '2019-11-23 13:38:12', 1),
+(3, 'Test Two Edited', 'Test Two Description Edited', '2020-02-16 04:39:10', '2019-11-23 13:51:22', 2);
 
 -- --------------------------------------------------------
 
@@ -1155,11 +1307,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 DROP TABLE IF EXISTS `module`;
 CREATE TABLE IF NOT EXISTS `module` (
   `id` int(200) NOT NULL AUTO_INCREMENT,
-  `module` varchar(20) NOT NULL,
-  `description` varchar(20) NOT NULL,
-  `status` varchar(20) NOT NULL,
+  `module` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `module`
@@ -1205,7 +1357,8 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('admin@gmail.com', 'UJvvs9Z7JmzbXmp4lwzM9RTefgA0GQ0oTlSrDxshL4a1J9J51LiZB948IxxZ', '2019-11-20 21:02:01');
+('admin@gmail.com', 'UJvvs9Z7JmzbXmp4lwzM9RTefgA0GQ0oTlSrDxshL4a1J9J51LiZB948IxxZ', '2019-11-20 21:02:01'),
+('ayoadelala@yahoo.com', '6kQSP8amqbIySsIf3aVR4xP5PMd6KqDCchrqP2YNBFrslY3OYIqlKg3sGURv', '2020-01-31 10:42:24');
 
 -- --------------------------------------------------------
 
@@ -1263,7 +1416,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   KEY `purchases_staff_id_index` (`staff_id`),
   KEY `purchases_branch_id_index` (`branch_id`),
   KEY `purchases_manufacturer_detail_id_index` (`manufacturer_detail_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `purchases`
@@ -1280,7 +1433,9 @@ INSERT INTO `purchases` (`id`, `instock`, `quantity`, `newstock`, `status`, `p_d
 (26, '100', '100', '200', 'added', '', '', '09:10:28 PM', NULL, '8', '6', '0', NULL),
 (27, '20', '180', '200', 'added', '', '', '06:42:26 PM', NULL, '7', '3', '0', NULL),
 (32, '435', '20', '455', 'added', '', '', '01:10:48 AM', NULL, '1', '3', '0', NULL),
-(33, '455', '5', '460', 'added', 'Jan 11, 2020', '09:37:49 AM', NULL, NULL, '1', '3', '0', NULL);
+(33, '455', '5', '460', 'added', 'Jan 11, 2020', '09:37:49 AM', NULL, NULL, '1', '3', '0', NULL),
+(34, '380', '50', '430', 'added', 'Feb 13, 2020', '08:40:16 AM', NULL, NULL, '3', '3', '1', NULL),
+(35, '0', '50', '50', 'added', 'Feb 13, 2020', '06:10:17 PM', NULL, NULL, '9', '3', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -1321,10 +1476,10 @@ CREATE TABLE IF NOT EXISTS `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1001, 'Super Admin', 'The Super Admin of this platform', 'active', '2020-01-09 23:00:00', '2020-01-10 00:00:00'),
-(2002, 'Global Admin', 'The Admin of this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00'),
-(3003, 'Department Admin', 'The head of each departments in this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00'),
-(4004, 'Staff', 'This staffs in this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00');
+(1001, 'super_admin', 'The Super Admin of this platform', 'active', '2020-01-09 23:00:00', '2020-01-10 00:00:00'),
+(2002, 'global_admin', 'The Admin of this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00'),
+(3003, 'department_admin', 'The head of each departments in this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00'),
+(4004, 'staff', 'This staffs in this platform', 'active', '2020-01-09 23:00:00', '2020-01-09 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -1416,7 +1571,7 @@ CREATE TABLE IF NOT EXISTS `transfers` (
   PRIMARY KEY (`id`),
   KEY `transfers_item_detail_id_index` (`item_detail_id`),
   KEY `transfers_staff_id_index` (`staff_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `transfers`
@@ -1438,7 +1593,7 @@ INSERT INTO `transfers` (`id`, `quantity_from`, `remain_from`, `quantity_to`, `r
 (25, 'branch_main', 550, 'branch_buth', 0, '50', 50, 'close', '', '', '12:33:44 AM', NULL, '3', '3'),
 (26, 'branch_buth', 50, 'branch_buth4', 0, '10', 10, 'close', '', '', '01:57:09 AM', NULL, '2', '3'),
 (27, 'branch_main', 460, 'branch_buth3', 0, '10', 10, 'close', 'Jan 11, 2020', '09:41:09 AM', NULL, NULL, '1', '3'),
-(28, 'branch_buth2', 20, 'branch_buth4', 10, '10', 20, 'open', 'Jan 11, 2020', '10:10:26 AM', NULL, NULL, '2', '3');
+(29, 'branch_main', 50, 'branch_buth', 0, '20', 20, 'close', 'Feb 13, 2020', '06:11:45 PM', NULL, NULL, '9', '3');
 
 -- --------------------------------------------------------
 
@@ -1477,7 +1632,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `d_o_b` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `mobile_number` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile_number` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `state` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1500,19 +1655,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_mobile_number_unique` (`mobile_number`),
   KEY `users_dept_id_index` (`dept_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `d_o_b`, `email`, `email_verified_at`, `mobile_number`, `address`, `city`, `state`, `password`, `remember_token`, `id_number`, `image`, `facebook_handle`, `twitter_handle`, `instagram_handle`, `degree`, `about`, `status`, `created_at`, `updated_at`, `dept_id`, `branch_id`, `role_id`) VALUES
-(6, 'admin', 'admin', 'male', NULL, 'admin@gmail.com', NULL, '0807796884747', NULL, NULL, NULL, '$2y$10$IkuoyQzu4NApJ7ct3Vm/7.wUVnsP7YclTd6xT1/YTtFmcZ21Dkp2u', NULL, 'yey333', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:34:46', '2019-11-10 20:34:46', 10, 1, 1001),
-(2, 'Glory', 'Olusola', 'male', NULL, 'glory@gmail.com', NULL, '080070060060', NULL, NULL, NULL, '$2y$10$Fzoku2ldHZoEIFTpYbGMK.zUXVYlMdnJ2zLve9IAqIDza.o8aI5gi', NULL, 'ww777', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:36:07', '2019-11-06 23:36:07', 10, 2, 2002),
-(3, 'Ayo', 'Lala', 'male', NULL, 'ayoadelala@yahoo.com', NULL, '764196171', NULL, NULL, NULL, '$2y$10$iSRacz.5FF9N0dXy3B56Ju5Hf1kBwH0txtPA4Q1DC.3b2rOI/v5dm', NULL, 'ywy77', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:38:56', '2019-11-06 23:38:56', 1, 1, 3003),
-(7, 'adeola', 'adeola', 'male', NULL, 'adeola@yahoo.com', NULL, '9494304394', NULL, NULL, NULL, '$2y$10$pGLDEzhiFwRv/j8B.4SVMuqIaveamkZfO2S1WxH.XhCHHHnh0h5P2', NULL, 'adeola', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:39:46', '2019-11-10 20:39:46', 1, 7, 4004),
+(6, 'admin', 'admin', 'male', NULL, 'admin@gmail.com', NULL, '0807796884747', NULL, NULL, NULL, '$2y$10$IkuoyQzu4NApJ7ct3Vm/7.wUVnsP7YclTd6xT1/YTtFmcZ21Dkp2u', NULL, 'yey333', '1580638681.jpeg', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:34:46', '2020-02-02 10:18:01', 10, 1, 1001),
+(2, 'Glory', 'Olusola', 'male', NULL, 'glory@gmail.com', NULL, '080070060060', NULL, NULL, NULL, '$2y$10$PSahJY2NJR3nNpL5pqmnBOEWhG937EovBlegWGJZeLni5w.GvqEKS', NULL, 'ww777', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:36:07', '2019-11-06 23:36:07', 10, 2, 2002),
+(3, 'Ayo', 'Lala', 'male', NULL, 'ayoadelala@yahoo.com', NULL, '764196171', NULL, NULL, NULL, '$2y$10$PSahJY2NJR3nNpL5pqmnBOEWhG937EovBlegWGJZeLni5w.GvqEKS', NULL, 'ywy77', '1580402869.jpeg', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-06 23:38:56', '2020-01-30 16:47:50', 1, 1, 3003),
+(7, 'adeola', 'adeola', 'male', NULL, 'adeola@yahoo.com', NULL, '9494304394', NULL, NULL, NULL, '$2y$10$PSahJY2NJR3nNpL5pqmnBOEWhG937EovBlegWGJZeLni5w.GvqEKS', NULL, 'adeola', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-10 20:39:46', '2019-11-10 20:39:46', 1, 7, 4004),
 (8, 'ppp', 'ppp', 'male', NULL, 'ppp@gmail.com', NULL, '08007070700', NULL, NULL, NULL, '$2y$10$JQZfumDyHh10SVlsHHqf6OCaSStGZ9ZXMLTEW4rKqyp.ZptztxVoO', NULL, 'jeu74', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-12 15:18:38', '2019-11-12 15:18:38', 1, 6, 0),
-(9, 'Ade', 'Duro', 'male', NULL, 'ade@gmail.com', NULL, '08077997978', NULL, NULL, NULL, '$2y$10$E6v2TpeGOzoFUMvIluL.YuKf9YZZNsmO/WD19F7aAW2uwwGQZP8Ca', NULL, 'qw1234', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-14 14:20:21', '2019-11-14 14:20:21', 2, 0, 0);
+(9, 'Ade', 'Duro', 'male', NULL, 'ade@gmail.com', NULL, '08077997978', NULL, NULL, NULL, '$2y$10$E6v2TpeGOzoFUMvIluL.YuKf9YZZNsmO/WD19F7aAW2uwwGQZP8Ca', NULL, 'qw1234', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2019-11-14 14:20:21', '2019-11-14 14:20:21', 2, 0, 0),
+(1000, 'dayo', 'Ajamu', 'male', NULL, 'zenithsilvarex@protonmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$D2AElN8/I1vTOfOcXfVbT.XFequq6RD359noKXwVAedP2R3kaJmSO', NULL, '12365', 'male.png', NULL, NULL, NULL, NULL, NULL, 'approved', '2020-01-30 19:27:54', '2020-01-30 19:27:54', 1, 6, 4004);
 
 -- --------------------------------------------------------
 
@@ -1537,7 +1693,7 @@ CREATE TABLE IF NOT EXISTS `variances` (
   `v_time` varchar(50) NOT NULL,
   `user_id` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `variances`
@@ -1546,7 +1702,8 @@ CREATE TABLE IF NOT EXISTS `variances` (
 INSERT INTO `variances` (`id`, `item_detail_id`, `branch_id`, `instock`, `quantity`, `newstock`, `purpose`, `detail`, `status`, `created_at`, `updated_at`, `v_date`, `v_time`, `user_id`) VALUES
 (1, 1, 'branch_buth', 50, 10, 40, 'damaged', 'damaged', 'close', NULL, NULL, 'Jan 11, 2020', '09:48:22 AM', 3),
 (2, 2, 'branch_buth', 40, 4, 36, 'expire', '11/12/2019', 'close', NULL, NULL, 'Jan 12, 2020', '07:31:05 PM', 3),
-(3, 3, 'branch_main', 380, 10, 370, 'expire', '12/12/2019', 'close', NULL, NULL, 'Jan 13, 2020', '11:28:15 AM', 6);
+(3, 3, 'branch_main', 380, 10, 370, 'expire', '12/12/2019', 'close', NULL, NULL, 'Jan 13, 2020', '11:28:15 AM', 6),
+(4, 4, 'branch_main', 60, 50, 10, 'expire', 'jh', 'close', NULL, NULL, 'Feb 13, 2020', '06:12:33 PM', 3);
 
 -- --------------------------------------------------------
 
@@ -1557,19 +1714,19 @@ INSERT INTO `variances` (`id`, `item_detail_id`, `branch_id`, `instock`, `quanti
 DROP TABLE IF EXISTS `vouchers`;
 CREATE TABLE IF NOT EXISTS `vouchers` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `quantity` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `paid` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `balance` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_refill` int(200) NOT NULL,
-  `refill_remain` int(200) NOT NULL,
-  `paid_status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delivery_status` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `refill_status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quantity` int(250) DEFAULT '0',
+  `amount` int(250) DEFAULT '0',
+  `paid` int(250) DEFAULT '0',
+  `balance` int(250) DEFAULT '0',
+  `total_refill` int(200) DEFAULT '0',
+  `refill_remain` int(200) DEFAULT '0',
+  `paid_status` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT 'open',
+  `delivery_status` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT 'open',
+  `refill_status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT 'open',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `v_date` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `v_time` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `v_date` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `v_time` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_detail_id` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `customer_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `staff_id` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1581,14 +1738,26 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   KEY `vouchers_staff_id_index` (`staff_id`),
   KEY `vouchers_branch_id_index` (`branch_id`),
   KEY `vouchers_invoice_id_index` (`invoice_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=1022 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `vouchers`
 --
 
 INSERT INTO `vouchers` (`id`, `quantity`, `amount`, `paid`, `balance`, `total_refill`, `refill_remain`, `paid_status`, `delivery_status`, `refill_status`, `created_at`, `updated_at`, `v_date`, `v_time`, `item_detail_id`, `customer_id`, `staff_id`, `branch_id`, `invoice_id`) VALUES
-(1001, '71', '3250', '3250', '0', 10, 295, 'paid', 'delivered', 'refillable', NULL, NULL, 'Jan 29, 2020', '02:55:36 AM', NULL, '2', '3', '1', '14');
+(1011, 27, 6110, 6110, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-02 21:58:30', '2020-02-02 21:58:30', 'Feb 2, 2020', '11:05:51 PM', NULL, '2', '3', '1', '20'),
+(1010, 50, 27750, 27750, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-02 11:56:01', '2020-02-02 11:56:01', 'Feb 3, 2020', '03:32:20 AM', NULL, '1', '3', '1', '21'),
+(1009, 24, 4045, 4045, 0, 4, 4, 'paid', 'delivered', 'refillable', '2020-02-02 11:54:42', '2020-02-02 11:54:42', 'Feb 2, 2020', '08:21:22 PM', NULL, '5', '3', '1', '19'),
+(1012, 35, 7500, 7500, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-03 14:29:32', '2020-02-03 14:29:32', 'Feb 3, 2020', '05:20:24 PM', NULL, '2', '3', '1', '22'),
+(1013, 20, 4000, 4000, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-03 15:57:22', '2020-02-03 15:57:22', 'Feb 4, 2020', '11:35:42 AM', NULL, '1', '3', '1', '23'),
+(1014, 3, 1055, 1055, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-03 15:59:19', '2020-02-03 15:59:19', 'Feb 6, 2020', '08:21:28 AM', NULL, '5', '3', '1', '25'),
+(1015, 30, 6000, 6000, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-05 20:00:37', '2020-02-05 20:00:37', 'Feb 5, 2020', '09:06:04 PM', NULL, '2', '3', '1', '24'),
+(1016, 3, 600, 600, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-12 20:55:13', '2020-02-12 20:55:13', 'Feb 12, 2020', '09:56:52 PM', NULL, '1', '3', '1', '26'),
+(1017, 158, 31400, 31400, 0, 4, 4, 'paid', 'delivered', 'refillable', '2020-02-12 21:57:03', '2020-02-12 21:57:03', 'Feb 13, 2020', '09:17:54 AM', NULL, '2', '3', '1', '27'),
+(1018, 0, 0, 0, 0, 0, 0, 'open', 'open', 'open', '2020-02-13 08:21:40', '2020-02-13 08:21:40', NULL, NULL, NULL, '1', '1', '1', NULL),
+(1019, 64, 12600, 12600, 0, 4, 4, 'paid', 'delivered', 'refillable', '2020-02-13 08:22:02', '2020-02-13 08:22:02', 'Feb 13, 2020', '09:28:34 AM', NULL, '2', '3', '1', '28'),
+(1020, 30, 450, 450, 0, 0, 0, 'paid', 'delivered', 'non-refillable', '2020-02-14 21:17:33', '2020-02-14 21:17:33', 'Feb 14, 2020', '10:18:18 PM', NULL, '2', '3', '1', '29'),
+(1021, 0, 0, 0, 0, 0, 0, 'open', 'open', 'open', '2020-02-15 10:36:37', '2020-02-15 10:36:37', NULL, NULL, NULL, '2', '1', '7', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

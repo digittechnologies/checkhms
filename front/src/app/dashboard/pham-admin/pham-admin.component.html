@@ -21,7 +21,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body ribbon">
-                      <div class="ribbon-box green">5</div>
+                      <div class="ribbon-box green"></div>
                       <a href="#" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]" class="my_sort_cut text-muted">
                           <i class="icon-users"></i>
                           <span>Users</span>
@@ -42,7 +42,7 @@
           <div class="col-6 col-md-4 col-xl-2">
               <div class="card">
                   <div class="body ribbon">
-                      <div class="ribbon-box orange">8</div>
+                      <div class="ribbon-box orange"></div>
                       <a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]" class="my_sort_cut text-muted">
                           <i class="icon-calendar"></i>
                           <span>Refill</span>
@@ -146,11 +146,11 @@
                       <hr>
                       <div class="row clearfix">
                           <div class="col-6">
-                              <h6 class="mb-0">{{dashboardDataStaff.active}}</h6>
+                              <h6 class="mb-0">{{active}}</h6>
                               <small class="text-muted">Active</small>
                           </div>
                           <div class="col-6">
-                              <h6 class="mb-0">{{dashboardDataStaff.suspended}}</h6>
+                              <h6 class="mb-0">{{suspended}}</h6>
                               <small class="text-muted">Suspended</small>
                           </div>
                       </div>
@@ -187,6 +187,7 @@
             </div>
         </div>
       </div>
+      
       <div class="row clearfix">
           <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="card">
@@ -208,114 +209,30 @@
                           <thead>
                               <tr>
                                   <th>#</th>
-                                  <th>Generic Name</th>
-                                  <th>Band Name</th>
-                                  <th>Main Branch</th>
-                                  <th>Branch 1</th>
-                                  <th>Branch 2</th>
-                                  <th></th>
+                                  <th>Image</th>
+                                  <th>Item Detail</th>
+                                  <th>Category Name</th>
+                                  <th *ngFor="let br of bran">{{br.name}}</th>
+                                  <th>Visualization</th>
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                  <td class="w60">
-                                      <label class="fancy-checkbox">
-                                          <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                          <span></span>
-                                      </label>
-                                      <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>MN</span></div>
-                                  </td>
-                                  <td>
-                                      <div class="font-15">Marshall Nichols</div>
-                                      <span class="text-muted">marshall-n@gmail.com</span>
-                                  </td>
-                                  <td><span>LA-0215</span></td>
-                                  <td><span>+ 264-625-2583</span></td>
-                                  <td>24 Jun, 2015</td>
-                                  <td>Web Designer</td>
-                                  <td>
-                                      <span class="chart">5,3,-7,8,-6,1,4,9</span>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <label class="fancy-checkbox">
-                                          <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                          <span></span>
-                                      </label>
-                                      <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                  </td>
-                                  <td>
-                                      <div class="font-15">Susie Willis</div>
-                                      <span class="text-muted">sussie-w@gmail.com</span>
-                                  </td>
-                                  <td><span>LA-0216</span></td>
-                                  <td><span>+ 264-625-2583</span></td>
-                                  <td>28 Jun, 2015</td>
-                                  <td>Web Developer</td>
-                                  <td>
-                                      <span class="chart">5,3,7,8,6,1,4,9</span>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <label class="fancy-checkbox">
-                                          <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                          <span></span>
-                                      </label>
-                                      <div class="avtar-pic w35 bg-pink" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>MN</span></div>
-                                  </td>
-                                  <td>
-                                      <div class="font-15">Debra Stewart</div>
-                                      <span class="text-muted">debra@gmail.com</span>
-                                  </td>
-                                  <td><span>LA-0218</span></td>
-                                  <td><span>+ 264-625-2583</span></td>
-                                  <td>21 July, 2015</td>
-                                  <td>Web Developer</td>
-                                  <td>
-                                      <span class="chart">-5,3,7,8,6,1,4,9</span>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <label class="fancy-checkbox">
-                                          <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                          <span></span>
-                                      </label>
-                                      <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                  </td>
-                                  <td>
-                                      <div class="font-15">Francisco Vasquez</div>
-                                      <span class="text-muted">francisv@gmail.com</span>
-                                  </td>
-                                  <td><span>LA-0222</span></td>
-                                  <td><span>+ 264-625-2583</span></td>
-                                  <td>18 Jan, 2016</td>
-                                  <td>Team Leader</td>
-                                  <td>
-                                      <span class="chart">5,3,7,8,6,1,-4,9</span>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <label class="fancy-checkbox">
-                                          <input class="checkbox-tick" type="checkbox" name="checkbox">
-                                          <span></span>
-                                      </label>
-                                      <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                  </td>
-                                  <td>
-                                      <div class="font-15">Jane Hunt</div>
-                                      <span class="text-muted">jane-hunt@gmail.com</span>
-                                  </td>
-                                  <td><span>LA-0232</span></td>
-                                  <td><span>+ 264-625-2583</span></td>
-                                  <td>08 Mar, 2016</td>
-                                  <td>Android Developer</td>
-                                  <td>
-                                      <span class="chart">5,-3,7,8,6,-1,4,9</span>
-                                  </td>
+                              <tr *ngFor="let item of stocks.item; let r = index">
+                                <td>{{r+1}}</td>
+                                <td class="width45">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar   Name">
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
+                                    <span>{{item.name}}</span>
+                                </td>
+                                    <td><span>{{item.cat_name}}</span></td>
+                                    <ng-container *ngFor="let inb of stocks.inbranch[r];">
+                                        <td>{{inb}}</td>
+                                    </ng-container>
+                                    <td>
+                                        <span class="chart">{{stocks.inbranch[r]}},</span>
+                                    </td>
                               </tr>
                           </tbody>
                       </table>

@@ -47,7 +47,8 @@ class AuthController extends Controller
         return response()->json(
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->select('users.*','departments.name', 'departments.position_id')    
+                ->join('roles', 'users.role_id','=','roles.id')
+                ->select('users.*','departments.name as dept_name', 'departments.position_id', 'roles.name AS role_name')    
                 ->where('email','=',$email)   
                 // ->where('password','=',$psw)         
                 ->get(),
@@ -66,7 +67,7 @@ class AuthController extends Controller
         $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
         $sendMail = Mail::send('password', $data, function($message) {
         $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
-        $message->from('ayoade0369@gmail.com','noreply');
+        $message->from('no-reply@jtcheck.com','noreply');
         });
         $user= User::create($request->all());
         if($user){

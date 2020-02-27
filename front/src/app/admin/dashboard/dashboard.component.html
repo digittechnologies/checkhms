@@ -99,7 +99,7 @@
 
             <div class="navbar-left">
                 <div class="navbar-btn">
-                    <a href="javascript:void(0);"><img src="../assets/images/icon.svg" alt="Check Logo" class="img-fluid logo"></a>
+                    <a href="javascript:void(0);"><img src="../assets/images/checklogo_3.png" alt="Check Logo" class="img-fluid logo"></a>
                     <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                 </div>
                 <ul class="nav navbar-nav">
@@ -669,13 +669,13 @@
 
     <div id="left-sidebar" class="sidebar">
         <div class="navbar-brand">
-            <a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><img src="./assets/images/icon.svg" alt="Check Logo" class="img-fluid logo"><span>Check HMS</span></a>
+            <a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><img src="./assets/images/checklogo_3.png" alt="Check Logo" class="img-fluid logo"><span>Check HMS</span></a>
             <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu icon-close"></i></button>
         </div>
         <div class="sidebar-scroll">
             <div class="user-account">
                 <div class="user_div">
-                    <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{image}}" class="user-photo" alt="User Profile Picture">
+                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{image}}" class="user-photo" alt="User Profile Picture">
                 </div>
                 <div class="dropdown">
                     <span>Welcome,</span>
@@ -701,7 +701,7 @@
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="header">Admin</li>
-                    <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
+                    <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: ['ngModel=home']}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
                     <!-- <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-admin-dashboard']}}]"><i class="icon-speedometer"></i><span>Admin Dashboard</span> </a></li> 
                     <li><a [routerLink]="['/Admin', {outlets: {side: ['phamarcy-user-dashboard']}}]"><i class="icon-speedometer"></i><span>User Dashboard</span></a></li> -->
                     <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>

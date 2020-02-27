@@ -11,10 +11,10 @@
                         </ol>
                     </nav>
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Doctor </a>
                     <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -103,7 +103,7 @@
                                 <tr *ngFor="let a of appoints; let r = index" >
                                         <!-- <td> {{r+1}} </td> -->
                                         <td class="w60">
-                                            <img src="http://hms.jtcheck.com/back/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                            <img src="http://{{imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                         </td>
                                         <td>
                                             <a href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', a.cust_id]}}]" title="">{{a.card_number}}</a>

@@ -9,6 +9,12 @@ import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgo
 // import { AccountComponent } from './user/account/account.component';
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
+
+import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guard.service';
+import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
+import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
+import { UserRoleGuardService } from './service/guards/user-role-guard.service';
+
 // import { DetailsComponent } from './user/details/details.component';
 import { ProfileComponent } from './admin/profile/profile.component';
 // import { PostComponent } from './user/post/post.component';
@@ -93,9 +99,16 @@ const routes: Routes = [
   children: [
     
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
-         {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
-         {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+        //  {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
+        //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [AdminRoleGuardService]},
+         {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
+         {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // doctor
@@ -125,8 +138,13 @@ const routes: Routes = [
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          // Dashboard
-         {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+        //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+         {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
+         {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
+
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff

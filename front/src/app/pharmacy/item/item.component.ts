@@ -36,6 +36,7 @@ export class ItemComponent implements OnInit {
   type:any;
   // image: any;
   public submissionForm: FormGroup;
+  imgLink: any;
   constructor(
     private formBuilder: FormBuilder, 
     private Jarwis: JarwisService,
@@ -46,6 +47,12 @@ export class ItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis. generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+    
     this.submissionForm = this.formBuilder.group(
      
       {
@@ -154,9 +161,6 @@ onUpdate(form: NgForm) {
 
   
   form.value.id=this.itemid
-  // this.image= form.value.image
-  //  console.log(form)
-   console.log(form.value)
   this.Jarwis.updateCategories(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

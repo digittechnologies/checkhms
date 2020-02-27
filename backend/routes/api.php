@@ -12,6 +12,7 @@ Route::group([
 
 //Settings
 Route::get('setupStatus', 'SetupController@setupStatus');
+Route::get('generalSettings', 'SetupController@generalSettings');
 
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
@@ -59,6 +60,9 @@ Route::get('getalltitle','DisplayController@getalltitle');
 Route::get('displayModule','DisplayController@displayModule');
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
 Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
+Route::get('displayPharAdminDashInvoice','DisplayController@displayPharAdminDashInvoice');
+Route::get('displayPharAdminDashStock','DisplayController@displayPharAdminDashStock');
+Route::get('displayPharAdminDashAppointment','DisplayController@displayPharAdminDashAppointment');
 
 
 
@@ -164,6 +168,7 @@ Route::get('patientbyappointment/{id}','DisplayController@patientbyappointment')
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
+Route::get('displayPharmStaffDashAppointment','DisplayController@displayPharmStaffDashAppointment');
 Route::get('displayDeptAppoint/{id}','DisplayController@displayDeptAppoint');
 Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
