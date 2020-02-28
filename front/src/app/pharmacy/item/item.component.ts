@@ -75,12 +75,12 @@ export class ItemComponent implements OnInit {
       // details:[''],
      },
    )
-    this.Jarwis.displayItemDetails().subscribe(
-      data=>{
-      this.response = data;
+    // this.Jarwis.displayItemDetails().subscribe(
+    //   data=>{
+    //   this.response = data;
       
-      this.branch = this.response
-      })
+    //   this.branch = this.response
+    //   })
 
       this.actRoute.paramMap.subscribe((params => {
         let id = params.get('id');
@@ -121,11 +121,11 @@ export class ItemComponent implements OnInit {
       
           }));
 
-    this.Jarwis.displayItem('branch_main').subscribe(
-      data=>{
-      this.response = data;      
-      this.items = this.response   
-    })
+    // this.Jarwis.displayItem('branch_main').subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.items = this.response   
+    // })
   
 }
 uploadFile(event){
@@ -148,7 +148,6 @@ onSubmitItem(){
  
 }
 editdept(id: string) {
-  console.log(id)
   this.Jarwis.edtCategories(id).subscribe(
     data=>{      
       this.itemres = data; 

@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   user: any;
   home: string;
   imgLink: any;
-  pstatus: any;
+  pstatus = 'active';
 
   constructor(
     private Auth: AuthService,

@@ -18,8 +18,9 @@ export class TransHistoryComponent implements OnInit {
   action: any;
   getAction: any;
   error: any;
-  payItem = [];
+  payItem: any;
   imgLink: any;
+  payDetail: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -48,50 +49,15 @@ export class TransHistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
-    this.payItem = []
     this.Jarwis.stockReport(form.value).subscribe(
       data => {
         this.response = data;
         this.payloads = this.response;
-        // this.payItem= this.payloads.item;
-        this.loadReport(this.payloads.item, this.payloads.itemDet)
+        this.payItem= this.payloads.item;
+        this.payDetail = this.payloads.details;
       });  
   }  
 
-  loadReport(payloads, dets){
-    let count = 1
-    dets.forEach(element => {
-      let keepGoing = true
-      payloads.forEach(e => {
-        if(keepGoing){
-          if(element.id == e.item_detail_id){
-            this.payItem.push({
-              "id": e.item_detail_id, 
-              "open_stock": e.open_stock,
-              "sales": e.sales,
-              "transfer": e.transfer,
-              "receive": e.receive,
-              "total_remain": e.total_remain,
-              "close_balance": e.close_balance,
-              "variance": e.variance,
-              "physical_balance": e.physical_balance,
-              "amount": e.amount,
-              "balance": e.balance,
-              "item_img": element.item_img,
-              "generic_name": element.generic_name,
-              "cat_name": e.cat_name,
-              "name": e.name,
-              "purchasing_price": element.purchasing_price,
-              "markup_price": element.markup_price,
-              "item_detail_id": e.item_detail_id
-            })
-            keepGoing = false
-          }
-        }
-      });
-    });
-    console.log(this.payItem)
-  }
   printComponent() {
     var divToPrint=document.getElementById("print-history");
     

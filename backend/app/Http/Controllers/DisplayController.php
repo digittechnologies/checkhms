@@ -457,19 +457,20 @@ class DisplayController extends Controller
     }
     public function patientbyappointment($id)
     {
-        $customeId= Customers::where('id','=',$id)          
-            ->first() ;
+        $customeId= Customers::where('id','=',$id)->first() ;
         $cId=$customeId->id;
-            // return $cId;
-    
-    //    return $customeId;
-    //     $cId= $customeId[0]->customer_id;
         return response()->json([
             "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
             ->join('customers','appointments.customer_id','=','customers.id')
             ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
             ->where('appointments.customer_id','=',$cId)->get(),
-            "pat"=> Customers::where('id','=',$id)          
+            "pat"=> Customers::where('id','=',$id)->get(),
+            "pres" => Doctor_prescriptions::select('doctor_prescriptions.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname')->where('customer_id', $id)
+            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join('users', 'doctor_prescriptions.pharmacist_id', '=', 'users.id')
+            ->join('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')
             ->get()  
         ]);
     }
@@ -824,8 +825,6 @@ class DisplayController extends Controller
 
     public function stockReport(Request $request)
     {
-
-        
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -836,19 +835,23 @@ class DisplayController extends Controller
         $startDate = new Carbon($sDate);
         $endDate = new Carbon($eDate);
         $dateRange = array();
+        $array = array();
         while ($startDate->lte($endDate)) {
             $dateRange[] = $startDate->toFormattedDateString();
             $startDate->addDay();
         }
+        $itemD = DB::table("item_details")->select('id')->orderBy('id')->get(); 
+        foreach($itemD as $row){
+            $get = DB::table($id)->select(DB::raw('sum(open_stock) as "open_stock", sum(sales) as "sales", sum(transfer) as "transfer", sum(receive) as "receive", sum(total_remain) as "total_remain", sum(close_balance) as "close_balance", sum(variance) as "variance", sum(physical_balance) as "physical_balance", sum(balance) as "balance"'))->where($id.'.item_detail_id', $row->id)->whereIn($id.'.c_date', $dateRange)->first();
+            array_push($array, array($get));
+        }
 
         return response()->json([
-
-            'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
-            ->join ('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+            'item'=>DB::table('item_details')->select('item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
             ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->whereIn($id.'.c_date', $dateRange)
             ->get(),
+            'details' => $array,
             'addedItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.receive'),
             'transferredItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.transfer'),
             'soldItem'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales'),
@@ -856,10 +859,7 @@ class DisplayController extends Controller
             'openBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.open_stock'),
             'physBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.physical_balance'),
             'total'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain'),
-            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(), 
-
-            "itemDet" => DB::table('item_details')->orderBy('id')->get(),
- 
+            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(),  
          ]);
     }
 
@@ -1042,11 +1042,11 @@ class DisplayController extends Controller
         $itemD = DB::table("item_details")->select('id')->orderBy('id')->get(); 
         $tempArray = array();
         $array = array();
-        foreach($branch as $row){
-            $name = $row->br_name;
-            foreach($itemD as $row2){
+        foreach($itemD as $row2){
+            foreach($branch as $row){
+                $name = $row->br_name;
                 $itemFromBranch = DB::table($name)->select($name.'.item_detail_id', $name.'.total_remain')->where($name.'.item_detail_id', '=', $row2->id)->sum($name.'.total_remain');
-                array_push($tempArray, $itemFromBranch);
+                array_push($tempArray, (int)$itemFromBranch);
             }
             array_push($array, $tempArray);
             $tempArray = [];
@@ -1059,32 +1059,6 @@ class DisplayController extends Controller
             "inbranch" =>  $array,
         ]);
     }
-
-    // public function displayPharAdminDashStock()
-    // {
-    //     $dt = Carbon::now();
-    //     $cDate = $dt->toFormattedDateString();
-
-    //     $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
-    //     $array = array();
-    //     foreach($branch as $row){
-    //         $name = $row->br_name;
-    //         $return = DB::table($name)->orderBy($name.'.id')->select($name.'.item_detail_id', $name.'.total_remain')
-    //                 // ->where ('c_date', '=', $cDate)
-    //                 ->get();
-    //         // $return = [$name => $returnItems];
-    //         array_push($array, $return);
-    //     }
-    //     return response()->json([
-    //         "item" => DB::table('branch_main')->orderBy('branch_main.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img')
-    //         ->where ('c_date', '=', $cDate)
-    //         ->join ('item_details', 'branch_main.item_detail_id','=','item_details.id')
-    //         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-    //         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-    //         ->get(),
-    //         "inbranch" =>  $array,
-    //     ]);
-    // }
 
 public function displayPharAdminDashAppointment()
 {

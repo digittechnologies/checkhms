@@ -91,7 +91,6 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;
         this.dashboardDataInv = this.response
-        console.info(this.dashboardDataInv)
         this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
 
@@ -99,7 +98,6 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;
         this.dashboardDataAppt = this.response
-
         this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
     
@@ -119,41 +117,18 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;
         this.department = this.response
-      })
-
-//   var a= '56';
-//   var b= this.department[0].name
-//     console.log(this.department[0].name);
-// alert(b);     
-      
-      
-      function getRandomData(totalPoints = 250, start = 50) {
-          var data = [];
-      
-          // Do a random walk
-          while (data.length < totalPoints) {
-              var prev = data.length > 0 ? data[data.length - 1] : start;
-              var y = prev + Math.random() * 10 - 5;
-      
-              if(y < 0) { y = Math.random() * 10; }
-              else if(y > 100) { y = 80; }
-      
-              data.push(y);
-          }
-      
-          // Zip the generated y values with the x values
-          var res = [];
-          for (var i = 0; i < data.length; ++i) {
-              res.push([i, data[i]])
-          }
-      
-          return res;
-      }     
+      })    
       
   }
 
   onLoad(a, branc, pieData, staff, appt, earning){
-      console.info("two", earning)
+      
+    $('.chart').sparkline('html', {
+        type: 'pie',
+        height: '60px',        
+    });
+
+    
     var data = {}
     var apptName = []
     var sites = []
@@ -221,35 +196,18 @@ export class PhamAdminComponent implements OnInit {
                     // name of each category
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
-                y: {
-                   margin: {
-                       left: 10
-                   }
-                }
             },
             bar: {
-                width: 16
+                width: 8
             },
             legend: {
                 show: true, //hide legend
             },
             padding: {
                 bottom: 20,
-                top: 0
+                top: 0,
             },
-        });
-
-
-        
-        
-            // Top Countries 
-            $('.chart').sparkline('html', {
-                type: 'pie',
-                height: '40px',
-                barSpacing: 5,
-                barWidth: 2,
-                barColor: '#77797c',        
-            });
+        })
         
             // Patients Structure
             var chart = c3.generate({

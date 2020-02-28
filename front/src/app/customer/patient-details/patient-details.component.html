@@ -6,8 +6,8 @@
                     <h1>Patient Profile</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard/ </a></li>
-                        <li class="#" ><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"> Patient/ </a></li>
+                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard / </a></li>
+                        <li class="#" ><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"> Patient / </a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Patient Profile</li>
                         </ol>
                     </nav>
@@ -28,15 +28,15 @@
                                 <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="">
                             </div>
                             <div class="details">
-                                <h5 class="mb-0">{{card_number}}</h5>
-                                <span class="text-light">{{name }} {{othername}}</span>
-                                <div>{{mobile_no}}</div>
+                                <label>Card Number : </label> <span class="mb-0"> {{card_number}}</span><br>
+                                Name: <span class="text-light">{{name }} {{othername}}</span><br>
+                                Mobile: <span>{{mobile_no}}</span>
                             </div>                                
                         </div>
-                        <div class="col text-right">
+                        <!-- <div class="col text-right">
                                 <div class="small text-light">Wallet</div>
                                 <div class="h4 m-0">N0</div>
-                            </div>
+                            </div> -->
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                                     <td>Genotype</td>
                                     <td>{{genotype}}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Weigth </td>
                                     <td></td>
                                 </tr>
@@ -92,7 +92,7 @@
                                 <tr>
                                     <td>Total</td>
                                     <td>100.0%</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -105,14 +105,14 @@
                                     <ul class="nav nav-tabs">
                                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Basic Information</a></li>
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Appointment</a></li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li>
+                                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li> -->
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prescription"> Prescriptions</a></li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#invoice">Invoices</a></li>
+                                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#invoice">Invoices</a></li> -->
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="row profile_state">
                                     <div class="col-lg-4 col-md-12">
                                         <div class="body">
@@ -145,7 +145,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
             
                             <div class="tab-content padding-0">
                                 <div class="tab-pane active" id="Basic">
@@ -183,9 +183,9 @@
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
                                                             <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="icon-globe"></i></span>
-                                                                </div>
+                                                                <!-- <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i class=""></i></span>
+                                                                </div> -->
                                                                 <input type="text" class="form-control" formControlName="genotype" placeholder="genotype">
                                                                 
                                                             </div>
@@ -201,9 +201,10 @@
                                                         <input type="text" class="form-control" formControlName="d_o_b" placeholder="d_o_b">
                                                       </div>
                                                   </div>
+                                                    
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" formControlName="state" placeholder="State">
+                                                            <input type="text" class="form-control" formControlName="blood_group" placeholder="blood_group">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
@@ -219,7 +220,7 @@
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" formControlName="blood_group" placeholder="blood_group">
+                                                            <input type="text" class="form-control" formControlName="state" placeholder="State">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
@@ -237,6 +238,54 @@
                                                 <button type="button" (click)="onSubmitprofile()" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
                                                 <button type="button" class="btn btn-round btn-default">Cancel</button>
                                                 </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="prescription">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>Account Data</h2>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Item</th>
+                                                        <th>Original Qty</th>
+                                                        <th>Quantity</th>
+                                                        <th>Refill</th>
+                                                        <th>Refill Range</th>
+                                                        <th>Remain</th>
+                                                        <th>Instock</th>
+                                                        <th>Total Amount</th>                                
+                                                        <th>Patient Name</th>
+                                                        <th>Pharmacist Name</th>
+                                                        <th>Branch</th>
+                                                        <th>Physician Name</th>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                    </tr>
+                                                </thead>
+                                                    <tr *ngFor="let pres of prescription; let r = index">
+                                                        <td>{{r+1}}</td>
+                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
+                                                        <td>{{pres.original_qty}}</td>
+                                                        <td>{{pres.quantity}}</td>
+                                                        <td>{{pres.refill}}</td>
+                                                        <td>{{pres.refill_range}}</td>
+                                                        <th>{{pres.remain}}</th>
+                                                        <th>{{pres.instock}}</th>
+                                                        <th>{{pres.amount_paid}}</th>
+                                                        <th>{{pres.cname}} {{pres.coname}}</th>
+                                                        <th>{{pres.firstname}} {{pres.lastname}}</th>
+                                                        <th>{{pres.branch_name}}</th>
+                                                        <th>{{pres.doctor_id}}</th>
+                                                        <th>{{pres.p_date}}</th>
+                                                        <th>{{pres.p_time}}</th>
+                                                    </tr>                            
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -294,19 +343,19 @@
                                                                 <span class="badge badge-primary" *ngIf ="a.prescription=== 'open'">Open</span>     
                                                                 <span class="badge badge-warning" *ngIf ="a.prescription=== 'close'">close</span>                                                                         
                                                         </td>
+                                                        <td>
+                                                            <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
+                                                            <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">Paid</span> 
+                                                            <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
+                                                            <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
+                                                            <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
+                                                    </td>
                                                         <td>                                        
                                                                 <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
                                                                 <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
                                                                 <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
                                                                 <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
                                                                 <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               
-                                                        </td>
-                                                        <td>
-                                                                <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
-                                                                <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">paid</span> 
-                                                                <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
-                                                                <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
-                                                                <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
                                                         </td>
                                                         <td>
                                                                 <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
@@ -334,7 +383,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="test">
+                                <!-- <div class="tab-pane" id="test">
                                     <div class="card">
                                         <div class="header">
                                             <h2>General Information</h2>
@@ -483,45 +532,9 @@
                                             <button class="btn btn-default">Cancel</button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="prescription">
-                                        <div class="card">
-                                            <div class="header">
-                                                <h2>Account Data</h2>
-                                            </div>
-                                            <div class="body">
-                                                <div class="row clearfix">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">                                                
-                                                            <input type="text" class="form-control" value="ChandlerBing" disabled placeholder="Username">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="email" class="form-control" value="Chandler.info@yourdomain.com" placeholder="Email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Phone Number">
-                                                        </div>
-                                                    </div>
-                
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <h6>Change Password</h6>
-                                                        <div class="form-group">
-                                                            <input type="password" class="form-control" placeholder="Current Password">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="password" class="form-control" placeholder="New Password">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="password" class="form-control" placeholder="Confirm New Password">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                                                <button class="btn btn-default">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="voucher">
+                                </div> -->
+                              
+                                    <!-- <div class="tab-pane" id="voucher">
                                             <div class="card">
                                                 <div class="header">
                                                     <h2>Account Data</h2>
@@ -594,7 +607,7 @@
                                                         <button class="btn btn-default">Cancel</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                             </div>
                             
                         </div>

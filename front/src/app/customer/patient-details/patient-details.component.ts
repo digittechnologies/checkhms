@@ -44,6 +44,7 @@ export class PatientDetailsComponent implements OnInit {
   image: any;
   error: any;
   appointment: any;
+  prescription: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -94,6 +95,7 @@ export class PatientDetailsComponent implements OnInit {
       // this.addres=this.response.address
       // this.about=this.response.about
       this.appointment=this.response.app;
+      this.prescription=this.response.pres;
       this.pat = this.response.pat;
       this.name=this.pat[0].name
       this.othername=this.pat[0].othername
