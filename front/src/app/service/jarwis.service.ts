@@ -677,12 +677,36 @@ displayPharAdminDashInvoice() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashInvoice`)
 }
 
+displayPharStaffDashInvoice(data) {
+  return this.http.post(`${this.baseUrl}/displayPharStaffDashInvoice`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 displayPharAdminDashStock() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashStock`)
 }
 
+displayPharStaffDashStock(data) {
+  return this.http.post(`${this.baseUrl}/displayPharStaffDashStock`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 displayPharAdminDashAppointment() {
   return this.http.get(`${this.baseUrl}/displayPharAdminDashAppointment`)
+}
+
+displayPharStaffDashAppointment(data) {
+  return this.http.post(`${this.baseUrl}/displayPharStaffDashAppointment`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+displayPharStaffDash(data) {
+  return this.http.post(`${this.baseUrl}/displayPharStaffDash`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
 }
 
 

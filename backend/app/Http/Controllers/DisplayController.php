@@ -803,7 +803,6 @@ class DisplayController extends Controller
     {
 
         $id= Auth()->user()->branch_id;
-        // return  $item;
         $branch1 = DB::table("branches")
             ->select('branches.br_name')
             ->where('id', $id)
@@ -990,6 +989,22 @@ class DisplayController extends Controller
          return $array;
     }
 
+    public function displayPharStaffDash()
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
+        $id= Auth()->user()->branch_id;
+        $get = DB::table("branches")->select('branches.br_name')->where('id', $id)->first();
+        $branch = $get->br_name;
+
+        return response()->json([
+           "todayIncome" => DB::table('invoices')->where(['branch_id' => $id, 'i_date' => $cDate])->sum('paid'),
+           "totalQuantity" => DB::table($branch)->where('c_date', $cDate)->sum('total_remain'),
+           "totalPatients" => DB::table('customers')->count()
+        ]);
+    }
+
     public function displayPharAdminDashStaff()
     {
         return DB::table('users')->select(DB::raw('count(id) as "staffs", (select COUNT(id) from users where status = "approved") as "active", (select COUNT(id) from users where status = "suspended") as "suspended" '))    
@@ -1033,6 +1048,46 @@ class DisplayController extends Controller
 
     }
 
+    public function displayPharStaffDashInvoice()
+    {
+        $id= Auth()->user()->branch_id;
+        $get = DB::table("branches")->select('branches.name')->where('id', $id)->first();
+        $branch = $get->name;
+
+        $array = array();
+        //Jan
+        $getJan = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-01")])->sum('paid');
+        //Feb
+        $getFeb = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-02")])->sum('paid');
+        //Mar
+        $getMar = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-03")])->sum('paid');
+        //Apr
+        $getApr = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-04")])->sum('paid');
+        //May
+        $getMay = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-05")])->sum('paid');
+        //Jun
+        $getJun = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-06")])->sum('paid');
+        //Jul
+        $getJul = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-07")])->sum('paid');
+        //Aug
+        $getAug = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-08")])->sum('paid');
+        //Sep
+        $getSep = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-09")])->sum('paid');
+        //Oct
+        $getOct = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-10")])->sum('paid');
+        //Nov
+        $getNov = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-11")])->sum('paid');
+        //Dec
+        $getDec = DB::table('invoices')->where(["branch_id" => $id, "graph_date" => date("Y-12")])->sum('paid');
+        
+        array_push($array, array($branch, $getJan, $getFeb, $getMar, $getApr, $getMay, $getJun, $getJul, $getAug, $getSep, $getOct, $getNov, $getDec));    
+
+        return response()->json([
+            "branch" => $branch,
+            "invoices" => $array
+        ]);
+    }
+
     public function displayPharAdminDashStock()
     {
         $dt = Carbon::now();
@@ -1060,43 +1115,107 @@ class DisplayController extends Controller
         ]);
     }
 
-public function displayPharAdminDashAppointment()
-{
-    $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
-    $activeArray = array();
-    $terminatedArray = array();
-    $closeArray = array();
-    foreach($branch as $row){
+    public function displayPharStaffDashStock()
+    {
+        $id= Auth()->user()->branch_id;
+        $get = DB::table("branches")->select('branches.br_name')->where('id', $id)->first();
+        $branch = $get->br_name;
+        $itemD = DB::table("item_details")->select('id')->orderBy('id')->get();
+        $array = array(); 
+        foreach($itemD as $row){
+            $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where($branch.'.item_detail_id', '=', $row->id)->sum($branch.'.total_remain');
+            array_push($array, (int)$itemFromBranch);
+        }
+        return response()->json([
+            "item" => DB::table('item_details')->orderBy('item_details.id')->select('item_details.id AS item_id', 'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'shelves.name as shelf_name', 'shelves.point as shelf_point','item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price', 'item_types.type_name')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('item_types','item_details.item_type_id','=','item_types.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join ('shelves','shelves.id','=','item_details.shelve_id')
+            ->get(),
+            "total" =>  $array,
+        ]);
+    }
+
+    public function displayPharAdminDashAppointment()
+    {
+        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $activeArray = array();
+        $terminatedArray = array();
+        $closeArray = array();
+        foreach($branch as $row){
+            //Active appointments
+            $getActive = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'active'])->count('status');
+            if(empty($getActive)){
+                array_push($activeArray, 0);
+            }else {
+                array_push($activeArray, $getActive);
+            }
+            //Terminated appointments
+            $getTerminated = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'terminated'])->count('status');
+            if(empty($getTerminated)){
+                array_push($terminatedArray, 0);
+            }else {
+                array_push($terminatedArray, $getTerminated);
+            }
+            //Closed appointments
+            $getClosed = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'close'])->count('status');
+            if(empty($getClosed)){
+                array_push($closeArray, 0);
+            }else {
+                array_push($closeArray, $getClosed);
+            }
+        }
+        return response()->json([
+            "active" => $activeArray,
+            "terminated" => $terminatedArray,
+            "closed" => $closeArray,
+            "countAll" => DB::table('appointments')->count()
+        ]);
+    }
+    
+    public function displayPharStaffDashAppointment()
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
+        $id= Auth()->user()->branch_id; 
+
+        $activeArray = array();
+        $terminatedArray = array();
+        $closeArray = array();
+
         //Active appointments
-        $getActive = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'active'])->count('status');
+        $getActive = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'active', 'date' => $cDate])->count('status');
         if(empty($getActive)){
             array_push($activeArray, 0);
         }else {
             array_push($activeArray, $getActive);
         }
         //Terminated appointments
-        $getTerminated = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'terminated'])->count('status');
+        $getTerminated = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'terminated', 'date' => $cDate])->count('status');
         if(empty($getTerminated)){
             array_push($terminatedArray, 0);
         }else {
             array_push($terminatedArray, $getTerminated);
         }
         //Closed appointments
-        $getClosed = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'close'])->count('status');
+        $getClosed = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'close', 'date' => $cDate])->count('status');
         if(empty($getClosed)){
             array_push($closeArray, 0);
         }else {
             array_push($closeArray, $getClosed);
         }
+
+        return response()->json([
+            "active" => $activeArray,
+            "terminated" => $terminatedArray,
+            "closed" => $closeArray,
+            "countAll" => DB::table('appointments')->where('branch_id', $id)->count(),
+            "countToday" => DB::table('appointments')->where(['branch_id'=> $id, 'date' => $cDate])->count()
+        ]);
     }
-    return response()->json([
-        "active" => $activeArray,
-        "terminated" => $terminatedArray,
-        "closed" => $closeArray,
-        "countAll" => DB::table('appointments')->count()
-    ]);
-}
-    
+
     // public function search($searchTerm)
     // {
     //     return response()->json(
