@@ -110,25 +110,16 @@
                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(a.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
-                            <div *ngIf="!appoint" >
+                            <div *ngIf="!items.item">
                                 <div class="spinner-grow text-primary" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         <div class="spinner-grow text-secondary" role="status">
-                        <span class="sr-only">Loading...</span>
-                         </div>
-                     <div class="spinner-grow text-success" role="status">
-                    <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-primary" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        <div class="spinner-grow text-secondary" role="status">
-                        <span class="sr-only">Loading...</span>
-                         </div>
-                     <div class="spinner-grow text-success" role="status">
-                    <span class="sr-only">Loading...</span>
-                            </div>
+    <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
                               </div>  
                         </tbody>
                     </table>
