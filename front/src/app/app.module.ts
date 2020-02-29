@@ -97,7 +97,8 @@ import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guar
 import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
 import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
 import { UserRoleGuardService } from './service/guards/user-role-guard.service';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -245,6 +246,8 @@ import { UserRoleGuardService } from './service/guards/user-role-guard.service';
     NgxPrintModule,
     NgxPaginationModule,
     MatAutocompleteModule,
+    ScrollingModule,
+    InfiniteScrollModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),

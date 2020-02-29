@@ -711,16 +711,6 @@ displayPharStaffDash(data) {
 
 
 
-
-
-
-
-
-
-
-
-
-
   getcontent(id:string) {
     return this.http.get(`${this.baseUrl}/getcontent/${id}`)
   }
@@ -758,5 +748,11 @@ comment(data) {
 
 general_setting() {
   return this.http.get(`${this.baseUrl}/general_setting`,)
+}
+updateGeneralSet(data) {
+  return this.http.post(`${this.baseUrl}/updateGeneralset`, data)
+}
+addGeneralSet(data) {
+  return this.http.post(`${this.baseUrl}/addGeneralset`, data)
 }
 }

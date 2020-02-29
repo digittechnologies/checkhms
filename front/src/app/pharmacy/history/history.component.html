@@ -59,7 +59,11 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-6 m-t-30">
-                                <button type="submit" class="btn btn-primary">Search</button>
+                                <button class="buttonload" *ngIf="spin=='disable'" type="submit" class="btn btn-primary">
+                                    <i class="fa fa-spinner fa-spin"></i>Search
+                                  </button>
+                                <button *ngIf="spin==''" type="submit" class="btn btn-primary">Search</button>
+                                <!-- <button type="submit" class="btn btn-primary">Search</button> -->
                             </div>
                         </div>
                     </div>
@@ -86,7 +90,17 @@
                 </ul>
             </div>
             
-            
+            <div  *ngIf="spin=='disable'">
+                <div class="spinner-grow text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+              </div> 
             <!-- Prescriptions -->
             <div class="body"  *ngIf = "action == 'prescriptions'">
                 <div class="table-responsive">
