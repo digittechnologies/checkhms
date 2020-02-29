@@ -54,7 +54,18 @@
                                   <a class="btn btn-default btn-sm" style="color: limegreen;" title="Voucher Details" [routerLink]="['/Admin', {outlets: {side: ['refill-details', r.id]}}]"><i class="fa fa-pencil"></i> Voucher</a>
                                   <!-- <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i> Councel</button> -->
                               </td>
-                          </tr>                                                   
+                          </tr>  
+                          <div *ngIf="!refill">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+                          </div>                                                  
                       </tbody>
                   </table>
               </div>

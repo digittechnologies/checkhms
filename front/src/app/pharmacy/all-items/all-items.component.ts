@@ -74,6 +74,7 @@ export class AllItemsComponent implements OnInit {
   total_remain_To: any;
   img: any;
   imgLink: any;
+  itm: any;
 
 
   constructor( 
@@ -113,6 +114,7 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response;
+      this.itm=this.items.item;
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -219,6 +221,7 @@ allItem(aa) {
     data=>{
     this.response = data;      
     this.items = this.response;
+    this.itm=this.items.item;
   })
 }
 

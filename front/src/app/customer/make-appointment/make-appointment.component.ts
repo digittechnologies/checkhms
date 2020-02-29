@@ -24,7 +24,9 @@ export class MakeAppointmentComponent implements OnInit {
   p:any;
   onUpdate
   imgLink: any;
-
+  pats: any;
+  filterString = "";
+  appoint: any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -60,9 +62,28 @@ export class MakeAppointmentComponent implements OnInit {
       this.response = data;      
       this.pat = this.response   
     })
-
+this.onFilterChange();
   }
-
+  onFilterChange() {
+    // console.log(this.appoints)
+    this.Jarwis.displayAllappointment().subscribe(
+      data=>{
+      // this.response = data;      
+      this.appoints  = data
+      this.appoint =  this.appoints.filter((cate) => this.isMatch(cate));
+      
+    })
+  
+  }
+    
+  
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item.toString().indexOf(this.filterString) > -1
+    }
+  }
   onSubmitApp(form: NgForm) {
     this.Jarwis.makeAppointment({aid:form.value.patient_id, form:form.value }).subscribe(
       data => this.handleResponse(data),

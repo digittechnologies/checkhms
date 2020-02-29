@@ -21,7 +21,7 @@ export class TransHistoryComponent implements OnInit {
   payItem: any;
   imgLink: any;
   payDetail: any;
-
+spin="";
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -49,12 +49,14 @@ export class TransHistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
+this.spin="disable";
     this.Jarwis.stockReport(form.value).subscribe(
       data => {
         this.response = data;
         this.payloads = this.response;
         this.payItem= this.payloads.item;
         this.payDetail = this.payloads.details;
+        this.spin="";
       });  
   }  
 

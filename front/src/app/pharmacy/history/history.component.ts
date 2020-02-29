@@ -19,6 +19,7 @@ export class HistoryComponent implements OnInit {
   payloads: any;
   getAction = '';
   imgLink: any;
+  spin="";
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -44,11 +45,13 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
+    this.spin="disable";
     this.Jarwis.stockHistory(form.value).subscribe(
       data => {
         this.response = data;
         this.payloads = this.response;
         this.action = this.getAction;
+        this.spin="";
       },
       error => this.handleError(error),      
     );  

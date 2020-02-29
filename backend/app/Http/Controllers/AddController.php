@@ -32,7 +32,85 @@ use App\Daily_supply;
 
 class AddController extends Controller
 {
+//General Setting
+public function addGeneralSet(Request $request)
+{
+    do{
+        $license_key= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 15);
+    }while(DB::table('general_settings')->where('license_key','=',$license_key)->exists());
 
+       $datas=$request->formdata;
+       
+        if ($request->image){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            
+        }    
+ 
+
+$update = DB::table('general_settings')->insert([
+        'company_name'=>$datas['company_name'],
+        'app' => $datas['app'],
+        'short_name' =>$datas['short_name'],
+        'address' =>$datas['address'],
+        'contact_number' =>$datas['contact_number'],
+        'web_url' =>$datas['web_url'],
+        'email' =>$datas['email'],
+        'module' =>$datas['module'],
+        'logo'=> $filename,
+        'status'=>'registerd',
+        'license_key'=>$license_key
+    ]);
+    if($update){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
+public function updateGeneralSet(Request $request)
+{
+   
+       $datas=$request->formdata;
+       $id=$datas['id'];
+  
+    $currentfile= $datas['logo'];
+        if ($request->image != $currentfile){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            $update =DB::table('general_settings')->where('id','=',$id)->update([ 'logo'=>$filename]);
+        }    
+ 
+// return $update;
+$update = DB::table('general_settings')->where('id','=',$id)->update([
+        'company_name'=>$datas['company_name'],
+        'app' => $datas['app'],
+        'short_name' =>$datas['short_name'],
+        'address' =>$datas['address'],
+        'contact_number' =>$datas['contact_number'],
+        'web_url' =>$datas['web_url'],
+        'email' =>$datas['email'],
+        'module' =>$datas['module'],
+    ]);
+    if($update){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
 //Set Depertment Component
 
     public function addDept(Request $request)

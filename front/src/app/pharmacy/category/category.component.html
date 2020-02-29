@@ -22,6 +22,13 @@
         <div class="row clearfix">
             <div class="col-sm-12">
                 <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
+                <div
+                class="search-results"
+                infiniteScroll
+                [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"
+              >
                 <div class="table-responsive">
                     <table class="table table-hover table-custom spacing8">
                         <thead>
@@ -32,7 +39,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let c of cats  | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
+       
+                            <tr *ngFor="let c of cats; let r = index">
                                 <td>
                                     {{r+1}}
                                 </td>                              
@@ -46,10 +54,23 @@
                                     <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button>
                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
-                            </tr>                                                   
+                            </tr> 
+                           
+                            <div *ngIf="!cats">
+                                <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+                              </div>                                                   
                         </tbody>
                     </table>
-                    <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+                    <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls> -->
+                </div>
                 </div>
             </div>
         </div>
