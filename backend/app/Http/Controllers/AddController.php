@@ -711,6 +711,9 @@ class AddController extends Controller
     public function createBranch(Request $request)
     {
         $req_name=$request->bran_name;
+        $dt = Carbon::now();
+        $item_date = $dt->toFormattedDateString();
+        $item_time = $dt->format('h:i:s A');
         $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         Schema::create($table_name, function (Blueprint $table) {
             $table->increments('id');
@@ -738,6 +741,8 @@ class AddController extends Controller
             $insert = DB::table($table_name)->insertGetId(
                 [
                     'item_detail_id' => $rowID->id,
+                    'c_date' => $item_date,
+                    'c_time' => $item_time,
                 ]
                 );
         }

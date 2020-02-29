@@ -364,7 +364,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label"></label>
                                                                 <div class="col-md-6 col-sm-10">
-                                                                    <button type="submit" name="form1" class="btn btn-primary">Submit</button>
+                                                                    <button type="submit" name="form1" class="btn btn-primary">Submit<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                                                     <button type="button" class="btn btn-default">Cancel</button>
                                                                 </div>
                                                             </div>
@@ -442,7 +442,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-round btn-primary">Update</button>
+                                                                <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                                                 <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
                                                             </div>
                                                             </form>
@@ -475,14 +475,14 @@
                                                         </td><!-- 
                                                         <td></td>
                                                         <td></td> -->
-                                                        <td><button class="btn btn-primary btn-block" type="submit">Save</button></td>
+                                                        <td><button class="btn btn-primary btn-block" type="submit">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button></td>
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
                                             <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
 
                                         </div>
-                                        <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add</button>
+                                        <button type="button" (click)="onSaveAdd()" class="btn btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
                                 </form>
@@ -572,7 +572,7 @@
                                                            
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-round btn-primary">Update</button>
+                                                                    <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                                                     <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
                                                                 </div>
                                                                 </form>
@@ -616,14 +616,14 @@
                                                             </div>                                                        
                                                         </td>
                                                         
-                                                        <td><button class="btn btn-primary btn-block" type="submit">Save</button></td>
+                                                        <td><button class="btn btn-primary btn-block" type="submit">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button></td>
                                                     </tr>                                                    
                                                 </tbody>
                                             </table>
                                             <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
 
                                         </div>
-                                        <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add</button>
+                                        <button type="button" (click)="onSaveTrans()" class="btn btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                     </div>
                                     </form>
@@ -712,12 +712,12 @@
 
                                                                     </div>                                                        
                                                                 </td>
-                                                                <td><button class="btn btn-primary btn-block" type="submit">Save</button></td>
+                                                                <td><button class="btn btn-primary btn-block" type="submit">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button></td>
                                                             </tr>                                                    
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <button type="button" (click)="onSaveVariance()" class="btn btn-primary">Add</button>
+                                                <button type="button" (click)="onSaveVariance()" class="btn btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                             </div>
                                             </form>

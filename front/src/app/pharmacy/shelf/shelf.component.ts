@@ -110,7 +110,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:shelvacturer');
+    this.router.navigateByUrl('/Admin/(side:shelves)');
     this.ngOnInit();
     
   }
