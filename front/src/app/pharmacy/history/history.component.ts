@@ -20,6 +20,7 @@ export class HistoryComponent implements OnInit {
   getAction = '';
   imgLink: any;
   spin="";
+  disabled = false;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -45,6 +46,7 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
+    this.disabled = true;
     this.spin="disable";
     this.Jarwis.stockHistory(form.value).subscribe(
       data => {
@@ -54,7 +56,8 @@ export class HistoryComponent implements OnInit {
         this.spin="";
       },
       error => this.handleError(error),      
-    );  
+    ); 
+    this.disabled = false; 
   }
 
   onSelectAction(id) {
@@ -62,22 +65,22 @@ export class HistoryComponent implements OnInit {
     this.ngOnInit()
   }
 
-  handleResponse(data) {     
+  handleResponse(data) {   
+    this.disabled = false;  
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    this.router.navigateByUrl('/Admin/(side:history)');
     this.ngOnInit();
-    
   }
 
   handleError(error) {
+    this.disabled = false;    
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
       duration: 2000
 
     })
-    
   }
   printComponent() {
     var divToPrint=document.getElementById("print-history");
