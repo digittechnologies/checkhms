@@ -12,9 +12,9 @@
                         </ol>
                     </nav>
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Item Profile</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row clearfix">
@@ -32,7 +32,7 @@
                             </div>                                
                         </div>
                         <div>
-                            <button class="btn btn-primary btn-sm">Add to Cart</button>
+                            <!-- <button class="btn btn-primary btn-sm">Add to Cart</button> -->
                              <!-- <button class="btn btn-success btn-sm">Message</button> -->
                         </div> 
                     </div>
@@ -64,15 +64,15 @@
                             </div>
                             <div class="card-footer text-center">
                                 <div class="row clearfix">
-                                    <div class="col-6">
-                                
+                                    <div class="col-md-6">
+                                        <label>Purchasing Price</label><br>
                                         <i class="fa fa-money text-danger font-22"></i>
                                         <div><span class="text-muted">{{resitem.purchasing_price}}</span></div>
                                     </div>
-                                    <div class="col-6">
-                                      
+                                    <div class="col-md-6">
+                                        <label>Selling Price</label><br>
                                         <i class="fa fa-money font-22"></i>
-                                        <div><span class="text-muted">{{resitem.selling_price}}</span></div>
+                                        <div><span class="text-muted">{{resitem.purchasing_price*resitem.markup_price}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -88,8 +88,8 @@
                         <!-- <small class="text-muted">Birth Date: </small>
                         <p class="m-b-0">October 17th, 93</p>
                         <hr> -->
-                        <small class="text-muted">Manufacturer Details: </small>
-                        <p class="mb-0"><span>Manufacturer: <strong>{{resitem.manuf_name}}</strong></span></p>
+                        <small class="text-muted">Brand/Manufacturer Details: </small>
+                        <p class="mb-0"><span>Brand Name: <strong>{{resitem.manuf_name}}</strong></span></p>
                         <p class="mb-0"><span>Address: <strong>{{resitem.address}}</strong></span></p>
                         <p class="mb-0"><span>Contact Number: <strong>{{resitem.contact_number}}</strong></span></p>      
                     </div>

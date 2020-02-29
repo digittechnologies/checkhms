@@ -58,11 +58,22 @@ Route::get('getalltitle','DisplayController@getalltitle');
 
 //Dashboard
 Route::get('displayModule','DisplayController@displayModule');
+
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
 Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
+
 Route::get('displayPharAdminDashInvoice','DisplayController@displayPharAdminDashInvoice');
+Route::post('displayPharStaffDashInvoice','DisplayController@displayPharStaffDashInvoice');
+
 Route::get('displayPharAdminDashStock','DisplayController@displayPharAdminDashStock');
+Route::post('displayPharStaffDashStock','DisplayController@displayPharStaffDashStock');
+
 Route::get('displayPharAdminDashAppointment','DisplayController@displayPharAdminDashAppointment');
+Route::post('displayPharStaffDashAppointment','DisplayController@displayPharStaffDashAppointment');
+
+Route::post('displayPharStaffDash','DisplayController@displayPharStaffDash');
+
+
 
 
 
