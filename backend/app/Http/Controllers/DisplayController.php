@@ -476,9 +476,9 @@ class DisplayController extends Controller
     //Appointment
     public function displayAllappointment()
     {          
-        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+        return Appointments::orderBy('appointments.id')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')               
+                ->select('appointments.treatment','customers.name as pat_name', 'customers.othername','customers.card_number','appointments.lab','appointments.prescription','appointments.invoice','appointments.voucher','appointments.status','appointments.updated_at','appointments.created_at','appointments.date','appointments.time','appointments.customer_id','appointments.department_id','appointments.voucher_id','appointments.branch_id','departments.name as dept_name','customers.patient_image')               
                 ->get();
     }
     public function displayDeptAppointment()

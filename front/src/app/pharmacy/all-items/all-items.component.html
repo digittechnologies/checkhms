@@ -186,6 +186,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <div *ngIf="!items.item">
+                                            <div class="spinner-grow text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    <div class="spinner-grow text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                <span class="sr-only">Loading...</span>
+                </div>
+                                          </div> 
                                         <tr *ngFor="let item of items.item | paginate: {itemsPerPage:10, currentPage: p} let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
