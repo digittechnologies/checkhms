@@ -18,6 +18,7 @@ export class SetBranchComponent implements OnInit {
   catName:any;
   manufid:any;
   onUpdate:any;
+  disabled = false;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -37,7 +38,7 @@ export class SetBranchComponent implements OnInit {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.createBranch(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -73,7 +74,7 @@ export class SetBranchComponent implements OnInit {
     })   
     this.router.navigateByUrl('/Admin/(side:set_branch');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -82,6 +83,6 @@ export class SetBranchComponent implements OnInit {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 }

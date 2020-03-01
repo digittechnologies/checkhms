@@ -217,7 +217,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr *ngFor="let item of stocks.item; let r = index">
+                              <tr *ngFor="let item of stocks.item | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                 <td>{{r+1}}</td>
                                 <td class="width45">
                                     <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar   Name">
@@ -236,6 +236,7 @@
                               </tr>
                           </tbody>
                       </table>
+                      <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
                   </div>
               </div>
           </div>
