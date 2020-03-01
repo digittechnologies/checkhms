@@ -37,6 +37,7 @@ export class PhamUserComponent implements OnInit {
     tIncome: any;
     tQuantity: any;
     tPatient: any;
+    p:any;
   
 
   constructor(

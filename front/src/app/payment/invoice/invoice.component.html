@@ -101,7 +101,7 @@
 
                           <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
-                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer fa fa-spin fa-spinner" *ngIf="disabled"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
 
                           <!-- Terminate -->
@@ -128,7 +128,7 @@
                 </nav>
             </div>            
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end"></i>End Process</button>
+                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end fa fa-spin fa-spinner"></i>End Process</button>
                 <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "status == 'paid'"><i class="icon-printer"></i>End Process</button>
             </div>
         </div>

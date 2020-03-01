@@ -47,6 +47,7 @@ setting:any;
   pres: any;
   ins: any;
   durat: Object;
+  disabled = false;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -108,6 +109,7 @@ setting:any;
   }
   
   saveToInvoice(){
+    this.disabled = true;
     this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -135,7 +137,7 @@ setting:any;
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -144,7 +146,7 @@ setting:any;
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
   printComponent() {
     var divToPrint=document.getElementById("print-history");

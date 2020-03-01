@@ -30,6 +30,7 @@ export class TypeComponent implements OnInit {
   image: any;
   p:any;
   imgLink: any;
+  disabled = false;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -67,7 +68,7 @@ editdept(id: string) {
 }
 
 onUpdate(form: NgForm) {
-
+this.disabled = true;
   
   form.value.id=this.typeid
   // this.image= form.value.image
@@ -107,7 +108,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addType(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -123,7 +124,7 @@ onDelete(id: string) {
     })   
     this.router.navigateByUrl('/Admin/(side:item_type)');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -132,7 +133,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   councle(){}

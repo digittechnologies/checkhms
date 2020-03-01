@@ -33,6 +33,7 @@ export class DailySupplyComponent implements OnInit {
   upItem_id: any;
   durares: any;
   duraid: string;
+  disabled = false;
 
   constructor(
     private Jarwis: JarwisService,
@@ -71,7 +72,7 @@ export class DailySupplyComponent implements OnInit {
   }
 
 onUpdate(form: NgForm) {
-  
+  this.disabled = true;
   form.value.id=this.duraid; 
    console.log(form.value)
   this.Jarwis.updateInstruction(form.value).subscribe(        
@@ -95,7 +96,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addInstruction(form.value).subscribe(     
       data => this.handleResponse(data),
       error => this.handleError(error),            
@@ -109,7 +110,7 @@ onDelete(id: string) {
     })   
     this.router.navigateByUrl('/Admin/(side:manufacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -118,7 +119,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   councle(){}
