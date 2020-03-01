@@ -155,7 +155,6 @@ setting:any;
     style = style + "table {width: 100%;font: 17px Calibri;}";
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
-    style = style + "#head1: align:center;";
     // style = style + "#cin: align:center;color:red}";
     // style = style + "#oid: align: center;}";
     style = style + "</style>";
@@ -180,7 +179,7 @@ openPrintDialogue(label){
     }
    
     arr.push(this.result)
-        document.write = $('<iframe>', {
+        $('<iframe>', {
           name: 'myiframe',
           class: 'printFrame'
         })
@@ -189,11 +188,10 @@ openPrintDialogue(label){
         .append(`        
                 <table>
                 <thead>
-                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/male.png">
-                    <th colspan="3">
-                        <img width="6%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
+                    <th colspan="6">
+                        <img width="2%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;"></span>
                     </th>
-                    <th colspan="3">
+                    <th classs="text-center">
                         <p class="m-b-0"><strong>${this.setting.address}</strong></p>
                         <h5 class="m-b-0">${this.setting.contact_number}</h5> 
                     </th>
@@ -202,32 +200,28 @@ openPrintDialogue(label){
                     <tr>
                         <td colspan="6"> </td>
                     </tr>
-                    <tr class="row">
-                        <td class="col-md-6">
-                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>   
-                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>  
-                            <p class="h5"><strong>Medicine</strong> <small>${arr[0].generic_name}</small></p>  
-                            <p class="h5">Mfg: <small>${arr[0].manuf}</small></p>                           
+                    <tr >
+                        <td colspan="4">
+                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>                               
+                            <p class="m-b-0"><strong>Doctor: </strong> ${arr[0].doctor_id}</p>
+                            <p class="m-b-0"><strong>Order Date: </strong>  ${arr[0].p_date}</p>  
                         </td>
-                        <td class="col-md-6">
-                            <p class="m-b-0"><strong>Filled Date: </strong> ${arr[0].p_date}</p>
+                        <td  colspan="2" style="padding-top:20px;">
+                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>
                             <p class="m-b-0"><strong>Refill: ${arr[0].refill}</strong></p>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6">
-                           <p>Instruction: Take ${arr[0].instruction}</p>
+                        <td colspan="4" >                    
+                            <p class="h5">Medicine <small>${arr[0].generic_name}</small> <small class="float-right text-muted">QTY:${arr[0].quantity}</small></p>
+                           <p>instruction: ${arr[0].instruction}</p>
                           <p>Duration: ${arr[0].day_supply}</p>
                         </td>
-                    </tr>     
-                    <tr>
-                        <td colspan="6">
-                        <strong class="mr-5">QTY: <small>${arr[0].quantity} </small></strong> <strong>Doctor: <small> ${arr[0].doctor_id} </small></strong> 
-                        </td>
-                    </tr>   
-                    <tr>
-                        <td colspan="6" >
-                            <p class="m-b-0"><strong>CAUTION: </strong>${arr[0].caution}</p> 
+                    </tr>        
+                    <tr >
+                        <td colspan="4" >
+                            <p class="m-b-0"><strong><u>Caution</u></strong></p> 
+                            <p>${arr[0].caution}</p>
                         </td>
                     </tr>   
                 </tbody>
