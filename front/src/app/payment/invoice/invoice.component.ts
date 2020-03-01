@@ -155,6 +155,7 @@ setting:any;
     style = style + "table {width: 100%;font: 17px Calibri;}";
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "#head1: align:center;";
     // style = style + "#cin: align:center;color:red}";
     // style = style + "#oid: align: center;}";
     style = style + "</style>";

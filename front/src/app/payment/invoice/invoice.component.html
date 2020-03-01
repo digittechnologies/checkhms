@@ -26,9 +26,9 @@
                   </div>
                   <div class="body" id="print-history">
                       <div class="row clearfix"> 
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-12 col-sm-12" id="head1">
                           <div class="text-center">
-                          <img width="2%" src="../assets/images/checklogo_3.png" alt="Check Logo" class="center"><span id="cin">Check HMS</span>
+                          <img width="5%" src="../assets/images/checklogo_3.png" alt="Check Logo" class="center"><span id="cin">BUTH PHARMACY</span>
                           </div>
                           <div class="text-center">
                             <p id="oid"><strong>Order ID: </strong> {{voucher_Id}}</p> 
@@ -40,7 +40,7 @@
                               <p class="m-b-0"><strong>Name: </strong>{{name}} {{othername}}</p>
                               <p class="m-b-0"><strong>Card Number: </strong> {{card_number}}</p> 
                               <p class="m-b-0"><strong>Address: </strong>{{address}}, {{city}}, {{state}}, {{country}}</p>
-                              <p class="m-b-0"><strong>Phone: </strong>{{mobile_no}}</p>                                   
+                              <p class="m-b-0"><strong>Mobile Contact: </strong>{{mobile_no}}</p>                                   
                           </div>
                           <div class="col-md-6 col-sm-6 text-right">
                               
@@ -83,11 +83,11 @@
                               </div>
                           </div>
                       </div>
-                      <div class="row clearfix">
+                      <!-- <div class="row clearfix">
                           <div class="col-md-6">
                               <span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span>
                           </div>
-                      </div> 
+                      </div>  -->
                   </div>
                   <div class="row clearfix mt-2">
                         <div class="col-md-6 text-left">
@@ -154,7 +154,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                                <img src="https://{{imgLink}}/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
                                                 <div class="ml-3">
                                                 <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
                                                 <p class="mb-0">{{i.name}}</p>

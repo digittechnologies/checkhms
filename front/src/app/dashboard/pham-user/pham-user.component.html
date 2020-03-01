@@ -333,7 +333,7 @@
                                 <td>{{i+1}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img class="w30 rounded-circle mr-2" src="http://{{imgLink}}/backend/public/upload/uploads/{{apt.patient_image}}" alt="Patient Image">
+                                        <img class="w30 rounded-circle mr-2" src="https://{{imgLink}}/backend/public/upload/uploads/{{apt.patient_image}}" alt="Patient Image">
                                         <div class="ml-3">
                                             <a href="javascript:void(0);" title="" [routerLink]="['/Admin', {outlets: {side: ['patient_profile',apt.cust_id]}}]">{{apt.pat_name+ ' ' +apt.othername}}</a>
                                             <p class="mb-0">{{apt.card_number}}</p>
@@ -397,7 +397,7 @@
                                         <tr *ngFor="let item of stockItem | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
-                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar   Name">
+                                                <img src="https://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar   Name">
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
