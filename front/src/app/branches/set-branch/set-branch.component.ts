@@ -72,7 +72,7 @@ export class SetBranchComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:set_branch');
+    // this.router.navigateByUrl('/Admin/(side:set_branch');
     this.ngOnInit();
     this.disabled = false;
   }

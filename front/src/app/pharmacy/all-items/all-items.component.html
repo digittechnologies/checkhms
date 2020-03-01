@@ -188,10 +188,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of items.item | paginate: {itemsPerPage:10, currentPage: p} let r = index">
+                                        <tr *ngFor="let item of items.item; let r = index">
                                             <td>{{r+1}}</td>
                                             <td class="width45">
-                                                <img src="https://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
@@ -230,7 +230,7 @@
                                         </tr>                                                            
                                     </tbody>
                                 </table>   
-                                <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+                                <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls> -->
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
@@ -399,7 +399,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
+                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
                                                         <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
                                                         <td><span class="text-success">{{added.quantity}}</span></td>
@@ -514,7 +514,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="badge badge-success">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>     
@@ -656,7 +656,7 @@
                                                     <tbody>
                                                         <tr *ngFor="let vadded of varianceAdded; let v = index">
                                                             <td>{{v+1}}</td>
-                                                            <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
+                                                            <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
                                                             <td><span class="badge badge-warning">{{vadded.manuf_name}}</span></td>   
                                                             <td><span class="badge badge-warning">{{vadded.instock}}</span></td>                                                
                                                             <td><span class="text-success">{{vadded.quantity}}</span></td>
