@@ -25,6 +25,7 @@ export class ForgotPasswordEmailComponent implements OnInit {
   user: any;
   center: any;
   role:any;
+  disabled = false;
 
   constructor(
     private Jarwis: JarwisService,
@@ -39,12 +40,14 @@ export class ForgotPasswordEmailComponent implements OnInit {
 
   
 onSubmit(form: NgForm) {
+  this.disabled = true;
   this.Jarwis.sendPasswordResetLink(form.value).subscribe(
     data => this.handleResponse(data),
     error => this.handleError(error)
     );
 }
 handleResponse(data) {
+  this.disabled = false;
   if(data == false){
     let snackBarRef = this.snackBar.open("Invalid email address", 'Dismiss', {
       duration: 2000
@@ -57,6 +60,7 @@ handleResponse(data) {
 }
 
 handleError(error) {
+  this.disabled = false;
   this.error = error.error.error;
   if(error){
     let snackBarRef = this.snackBar.open("Invalid email address", 'Dismiss', {
