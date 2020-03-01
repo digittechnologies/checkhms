@@ -28,7 +28,7 @@
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="https://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="">
+                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="">
                             </div>
                             <div class="details">
                                 <label>Card Number : </label> <span class="mb-0"> {{card_number}}</span><br>
@@ -272,7 +272,7 @@
                                                 </thead>
                                                     <tr *ngFor="let pres of prescription; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
+                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{pres.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{pres.generic_name}}</span></td>
                                                         <td>{{pres.original_qty}}</td>
                                                         <td>{{pres.quantity}}</td>
                                                         <td>{{pres.refill}}</td>
