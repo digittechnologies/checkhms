@@ -180,7 +180,7 @@ openPrintDialogue(label){
     }
    
     arr.push(this.result)
-        $('<iframe>', {
+        document.write = $('<iframe>', {
           name: 'myiframe',
           class: 'printFrame'
         })
@@ -202,32 +202,32 @@ openPrintDialogue(label){
                     <tr>
                         <td colspan="6"> </td>
                     </tr>
-                    <tr >
-                        <td colspan="4">
-                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>                               
-                            <p class="m-b-0"><strong>Doctor: </strong> ${arr[0].doctor_id}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong>  ${arr[0].p_date}</p>  
+                    <tr class="row">
+                        <td class="col-md-6">
+                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>   
+                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>  
+                            <p class="h5"><strong>Medicine</strong> <small>${arr[0].generic_name}</small></p>  
+                            <p class="h5">Mfg: <small>${arr[0].manuf}</small></p>                           
                         </td>
-                        <td  colspan="2" style="padding-top:20px;">
-                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong> ${arr[0].p_date}</p>
+                        <td class="col-md-6">
+                            <p class="m-b-0"><strong>Filled Date: </strong> ${arr[0].p_date}</p>
                             <p class="m-b-0"><strong>Refill: ${arr[0].refill}</strong></p>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" >                    
-                            <p class="h5">Medicine <small>${arr[0].generic_name}</small> <small class="float-right text-muted">QTY:${arr[0].quantity}</small></p>
-                           <p>instruction: ${arr[0].instruction}</p>
+                        <td colspan="6">
+                           <p>Instruction: Take ${arr[0].instruction}</p>
                           <p>Duration: ${arr[0].day_supply}</p>
                         </td>
-                    </tr>        
-                    <tr >
-                        <td colspan="4" >
-                            <p class="m-b-0"><strong><u>Caution</u></strong></p> 
-                            <p>${arr[0].caution}</p>
+                    </tr>     
+                    <tr>
+                        <td colspan="6">
+                        <strong class="mr-5">QTY: <small>${arr[0].quantity} </small></strong> <strong>Doctor: <small> ${arr[0].doctor_id} </small></strong> 
                         </td>
-                        <td  colspan="2">
-                            |||||||||||||||| BARCODE|||||||||||||||||         
+                    </tr>   
+                    <tr>
+                        <td colspan="6" >
+                            <p class="m-b-0"><strong>CAUTION: </strong>${arr[0].caution}</p> 
                         </td>
                     </tr>   
                 </tbody>
