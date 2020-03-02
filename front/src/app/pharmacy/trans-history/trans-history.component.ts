@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
-
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 @Component({
   selector: 'app-trans-history',
   templateUrl: './trans-history.component.html',
@@ -22,7 +22,12 @@ export class TransHistoryComponent implements OnInit {
   imgLink: any;
   payDetail: any;
 spin="";
-  constructor( 
+exportAsConfig: ExportAsConfig = {
+  type: 'xlsx', // the type you want to download
+  elementId: 'print-history', // the id of html/table element
+}
+constructor( 
+  private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
@@ -76,5 +81,16 @@ win.document.write(divToPrint.outerHTML);
 win.document.close();
 win.print();
    
+}
+exportAsXLSX(){
+  
+  // download the file using old school javascript method
+  this.exportAsService.save(this.exportAsConfig, 'Report-Data').subscribe(() => {
+    // save started
+  });
+  // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+  // this.exportAsService.get(this.config).subscribe(content => {
+  //   console.log(content);
+  // });
 }
 }
