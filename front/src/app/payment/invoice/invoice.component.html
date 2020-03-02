@@ -72,6 +72,18 @@
                                                     <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
                                                 <!-- </ng-container> -->
                                             </tr>
+                                            <div *ngIf="!pres">
+                                                
+                                                <div class="spinner-grow text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        <div class="spinner-grow text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-success" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                                              </div> 
                                       </tbody>
                                       <tfoot>
                                           <td colspan="4"></td>
@@ -171,6 +183,18 @@
                                     </td>
                             <!-- </ng-container> -->
                         </tr>
+                        <div *ngIf="!pres">
+                            
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+                          </div> 
                     </tbody>
                 </table>
             </div>

@@ -14,6 +14,7 @@ export class StaffComponent implements OnInit {
   response: any;
   staff: any;
   imgLink: any;
+  allstaff: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -26,11 +27,11 @@ export class StaffComponent implements OnInit {
   ngOnInit() {
     this.Jarwis.displayAllstaff().subscribe(
       data=>{
-      console.log(data);   
+      // console.log(data);   
       this.response = data;
       
       this.staff = this.response
-     
+      this.allstaff=this.staff.all
    
     })
 

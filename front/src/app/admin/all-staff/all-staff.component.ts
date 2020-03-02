@@ -24,6 +24,7 @@ export class AllStaffComponent implements OnInit {
   staff: any;
   thisStaff: any;
   imgLink: any;
+  allstaff: any;
 
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
@@ -35,6 +36,7 @@ export class AllStaffComponent implements OnInit {
       data=>{
       this.response = data;
       this.staff = this.response
+      this.allstaff=this.staff.all
     })
     
     this.Jarwis. generalSettings().subscribe(

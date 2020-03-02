@@ -74,8 +74,9 @@ export class AllItemsComponent implements OnInit {
   total_remain_To: any;
   img: any;
   imgLink: any;
-  itm: any;
-
+  itemsitem: any;
+  itemsi: any;
+  filterString = "";
 
   constructor( 
     private Jarwis: JarwisService,
@@ -114,7 +115,7 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response;
-      this.itm=this.items.item;
+      this.itemsitem=this.items.item;
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -189,6 +190,27 @@ export class AllItemsComponent implements OnInit {
       this.itemTransferred = this.response       
 
     })
+    this.onFilterChange()
+}
+onFilterChange() {
+  this.Jarwis.displayItem(this.uBranch).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+    this.itemsi=this.items.item;
+    this.itemsitem = this.itemsi.filter((cate) => this.isMatch(cate));
+  })
+  
+
+}
+  
+
+isMatch(item) {
+  if (item instanceof Object) {
+    return Object.keys(item).some((k) => this.isMatch(item[k]));
+  } else {
+    return item.toString().indexOf(this.filterString) > -1
+  }
 }
 
 get(){
@@ -221,7 +243,7 @@ allItem(aa) {
     data=>{
     this.response = data;      
     this.items = this.response;
-    this.itm=this.items.item;
+    this.itemsitem=this.items.item;
   })
 }
 

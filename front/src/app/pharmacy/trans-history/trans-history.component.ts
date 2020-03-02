@@ -67,6 +67,7 @@ this.spin="disable";
     style = style + "table {width: 100%;font: 17px Calibri;}";
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "img {width: 25px;height: 25px;}";
     style = style + "</style>";
 
 var win = window.open('', '', 'height=700,width=700');

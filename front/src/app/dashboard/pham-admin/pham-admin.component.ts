@@ -31,6 +31,7 @@ export class PhamAdminComponent implements OnInit {
     json = JSON;
     imgLink: any;
     dashboardDataAppt: any;
+    item: any;
   
   constructor(
     private Jarwis: JarwisService,
@@ -105,6 +106,7 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;      
         this.stocks = this.response;
+        this.item=this.stocks.item
     })
 
     this.Jarwis.displayBranch().subscribe(

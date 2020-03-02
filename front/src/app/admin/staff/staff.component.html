@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let s of staff.all">
+                            <tr *ngFor="let s of allstaff">
                                 <td class="w60">
                                     <img src="https://back.{{imgLink}}/backend/public/upload/uploads/{{s.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
                                 </td>
@@ -58,7 +58,17 @@
                                         <!-- <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button> -->
                                 </td>
                             </tr>                    
-
+                            <div *ngIf="!allstaff">
+                                <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+                              </div> 
                         </tbody>
                     </table>
                 </div>
