@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
-
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -20,8 +20,12 @@ export class HistoryComponent implements OnInit {
   getAction = '';
   imgLink: any;
   spin="";
-  disabled = false;
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementId: 'print-history', // the id of html/table element
+  }
   constructor( 
+    private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
@@ -46,7 +50,6 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
-    this.disabled = true;
     this.spin="disable";
     this.Jarwis.stockHistory(form.value).subscribe(
       data => {
@@ -56,8 +59,7 @@ export class HistoryComponent implements OnInit {
         this.spin="";
       },
       error => this.handleError(error),      
-    ); 
-    this.disabled = false; 
+    );  
   }
 
   onSelectAction(id) {
@@ -65,22 +67,22 @@ export class HistoryComponent implements OnInit {
     this.ngOnInit()
   }
 
-  handleResponse(data) {   
-    this.disabled = false;  
+  handleResponse(data) {     
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:history)');
+    this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
+    
   }
 
   handleError(error) {
-    this.disabled = false;    
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
       duration: 2000
 
     })
+    
   }
   printComponent() {
     var divToPrint=document.getElementById("print-history");
@@ -89,6 +91,7 @@ export class HistoryComponent implements OnInit {
     style = style + "table {width: 100%;font: 17px Calibri;}";
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "img {width: 25px;height: 25px;}";
     style = style + "</style>";
 
 var win = window.open('', '', 'height=700,width=700');
@@ -97,5 +100,16 @@ win.document.write(divToPrint.outerHTML);
 win.document.close();
 win.print();
    
+}
+exportAsXLSX(){
+  // Supported Formats:Image - .png,PDF - .pdf,CSV - .csv,Text - .txt,Microsoft Excel sheets - .xls, .xlsx,Microsoft Word documents - .doc, .docx,JSON - .json,XML - .xml
+  // download the file using old school javascript method
+  this.exportAsService.save(this.exportAsConfig, 'History-Data').subscribe(() => {
+    // save started
+  });
+  // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+  // this.exportAsService.get(this.config).subscribe(content => {
+  //   console.log(content);
+  // });
 }
 }
