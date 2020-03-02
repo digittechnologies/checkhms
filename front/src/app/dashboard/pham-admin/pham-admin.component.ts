@@ -31,7 +31,11 @@ export class PhamAdminComponent implements OnInit {
     json = JSON;
     imgLink: any;
     dashboardDataAppt: any;
+
     item: any;
+
+    p:any;
+
   
   constructor(
     private Jarwis: JarwisService,
@@ -318,7 +322,11 @@ export class PhamAdminComponent implements OnInit {
                 },
                 axisY: {
                     labelInterpolationFnc: function(value) {
-                        return Math.round(value / appt.countAll * 100) + '%';
+                        if(appt.countAll <= 0){
+                            return Math.round(value * 100) + '%';
+                        } else{
+                            return Math.round(value / appt.countAll * 100) + '%';
+                        }
                     }
                 },
                 plugins: [

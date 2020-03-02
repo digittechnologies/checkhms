@@ -39,6 +39,8 @@ export class ProfileComponent implements OnInit {
   givenDept = 0;
   givenRole = 0;
   imgLink: any;
+  roleID: any;
+  IMG: any;
   constructor( 
      private http: HttpClient,
      public actRoute: ActivatedRoute, 
@@ -62,7 +64,8 @@ export class ProfileComponent implements OnInit {
     this.uid = id;
     this.Jarwis.staffdetails(id).subscribe(data=>{
       this.resp = data;
-      this.response=this.resp[0]
+      this.response=this.resp[0];
+      this.IMG = this.response.image;
     })
   }));
 
@@ -76,6 +79,7 @@ export class ProfileComponent implements OnInit {
     data=>{
     this.response = data;
     this.profile = this.response.det[0];
+    this.roleID = this.profile.role_id
   })
 
     this.Jarwis.displayRole().subscribe(

@@ -154,9 +154,11 @@
                 <div class="card">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items" (click)="get()">All Items</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
+                        <ng-container *ngIf ="4004 > uPos">
+                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
+                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
+                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
+                        </ng-container>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance" (click)="get()">Variance</a></li>
                     </ul>
                     <div class="tab-content mt-0">
@@ -187,8 +189,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of itemsitem | paginate: {itemsPerPage:10, currentPage: p} let r = index">
-                                            <td>{{r+1}}</td>
+                                  <tr *ngFor="let item of itemsitem | paginate: {itemsPerPage:10, currentPage: p} let r = index">
+
+                                   <td>{{r+1}}</td>
                                             <td class="width45">
                                                 <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                             </td>
@@ -226,6 +229,7 @@
                                                     <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
                                                     <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
                                                 </td>
+
                                         </tr> 
                                          <div *ngIf="!itemsitem">
                                             <div class="spinner-grow text-primary" role="status">
@@ -238,9 +242,10 @@
                 <span class="sr-only">Loading...</span>
                 </div>
                                           </div>                                                           
+
                                     </tbody>
                                 </table>   
-                                <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+                                <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls> -->
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
@@ -524,7 +529,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="https://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="badge badge-success">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>     

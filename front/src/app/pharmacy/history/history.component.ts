@@ -102,7 +102,7 @@ win.print();
    
 }
 exportAsXLSX(){
- 
+  // Supported Formats:Image - .png,PDF - .pdf,CSV - .csv,Text - .txt,Microsoft Excel sheets - .xls, .xlsx,Microsoft Word documents - .doc, .docx,JSON - .json,XML - .xml
   // download the file using old school javascript method
   this.exportAsService.save(this.exportAsConfig, 'History-Data').subscribe(() => {
     // save started

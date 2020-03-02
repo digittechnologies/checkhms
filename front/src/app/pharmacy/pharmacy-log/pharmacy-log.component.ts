@@ -34,6 +34,7 @@ export class PharmacyLogComponent implements OnInit {
   logUser: any;
   imgLink: any;
   spin: string;
+  disabled = false;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -104,7 +105,7 @@ export class PharmacyLogComponent implements OnInit {
    }
  
    onSubmitApp(form: NgForm) {
-   
+    this.disabled = true;
      this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
        data => this.handleResponse(data),
          error => this.handleError(error)
@@ -113,7 +114,7 @@ export class PharmacyLogComponent implements OnInit {
    }
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addCustomer(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -132,18 +133,20 @@ export class PharmacyLogComponent implements OnInit {
 
     
   }
-  handleResponse(data) {
-    
-    // 
+
+  handleResponse(data) {    // 
+    this.disabled = false;
+
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:set_branch');
+    this.router.navigateByUrl('/Admin/(side:pharmacy_log)');
     this.ngOnInit();
     
   }
 
   handleError(error) {
+    this.disabled = false;
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000
@@ -153,7 +156,11 @@ export class PharmacyLogComponent implements OnInit {
   }
 
   onClickSubmit() {
+
     this.spin="disable";
+
+    this.disabled = true;
+
     this.Jarwis.makeAppointment(this.form).subscribe(
       data => this.handleRespons(data),
         error => this.handleErro(error)

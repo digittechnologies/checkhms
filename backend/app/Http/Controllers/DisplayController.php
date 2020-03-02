@@ -640,7 +640,7 @@ class DisplayController extends Controller
                 ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
                 // ->where('doctor_prescriptions.status', '=', 'close')
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
                 ->where('doctor_prescriptions.branch_id', '=', $bId)
@@ -800,6 +800,8 @@ class DisplayController extends Controller
 
     public function voucherAllStock($item)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
 
         $id= Auth()->user()->branch_id;
         $branch1 = DB::table("branches")
@@ -814,7 +816,7 @@ class DisplayController extends Controller
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
         ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
         ->join ('shelves','shelves.id','=','item_details.shelve_id')
-        ->where('item_details.id', '=', $item)
+        ->where(['item_details.id' => $item, 'c_date' => $cDate])
         ->get();
         return $itemr;
     }

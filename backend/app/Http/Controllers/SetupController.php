@@ -23,7 +23,7 @@ class SetupController extends Controller
     public function updateItemTables()
     {
         $loop = true;
-        $branch = DB::table("branches")->get();   
+        $branch = DB::table("branches")->select('branches.*')->get();   
         $dt = Carbon::yesterday();
         $yesterDate = $dt->toFormattedDateString();
         $dt2 = Carbon::now();

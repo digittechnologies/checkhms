@@ -39,9 +39,8 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <button type="submit" *ngIf="spin=='disable'" class="btn btn-sm btn-primary btn-block buttonload" title=""><i class="fa fa-spinner fa-spin"></i>Log</button>
-                                <label>&nbsp;</label>
-                                <button type="submit" *ngIf="spin==''" class="btn btn-sm btn-primary btn-block" title="">Log</button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+
                             </div>
                         </div>
                     </form>
@@ -243,7 +242,7 @@
               </div>
           </div>      
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Add</button>
+              <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
               <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
           </div>
           </form>

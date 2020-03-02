@@ -77,6 +77,8 @@ export class AllItemsComponent implements OnInit {
   itemsitem: any;
   itemsi: any;
   filterString = "";
+  disabled = false;
+  itm: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -299,6 +301,7 @@ onDelete(id: string) {
 }
 
   onClickSubmit(form: NgForm) {
+    this.disabled = true;
     form.value.image = this.image
     form.value.selling_price = this.selling_price
     this.Jarwis.addItemDetails(form.value).subscribe(
@@ -317,6 +320,7 @@ onDelete(id: string) {
     reader.readAsDataURL(files);
   }
   onSubmitAdd(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.addToStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -324,6 +328,7 @@ onDelete(id: string) {
   }
 
   onSaveAdd() {
+    this.disabled = true;
     this.Jarwis.saveAdd().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -331,6 +336,7 @@ onDelete(id: string) {
   }
 
   onSubmitTrans(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.transToStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -338,6 +344,7 @@ onDelete(id: string) {
   }
 
   onSubmitVariance(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.varianceStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -345,6 +352,7 @@ onDelete(id: string) {
   }
 
   onSaveTrans() {
+    this.disabled = true;
     this.Jarwis.saveTransfer().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -352,6 +360,7 @@ onDelete(id: string) {
   }
 
   onSaveVariance() {
+    this.disabled = true;
     this.Jarwis.saveVariance().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -380,6 +389,7 @@ onDelete(id: string) {
     }
   }
   onUpdateAdd(form: NgForm) {
+    this.disabled = true;
     form.value.id=this.addId
     this.Jarwis.updateAddItem(form.value).subscribe(        
       data => this.handleResponse(data),
@@ -410,7 +420,7 @@ onDelete(id: string) {
   }
 
   onUpdate(form: NgForm) {
-
+    this.disabled = true;
     form.value.id=this.transId
     this.Jarwis.updatetransferItem(form.value).subscribe(        
       data => this.handleResponse(data),
@@ -432,6 +442,7 @@ onDelete(id: string) {
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
+    this.disabled = false;
     
   }
 
@@ -441,7 +452,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
 }

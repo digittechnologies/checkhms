@@ -24,7 +24,12 @@ export class AllStaffComponent implements OnInit {
   staff: any;
   thisStaff: any;
   imgLink: any;
+
   allstaff: any;
+
+  disabled = false;
+  roleID: any;
+
 
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
@@ -49,6 +54,7 @@ export class AllStaffComponent implements OnInit {
       data=>{
       this.response = data;
       this.profile = this.response.det[0];
+      this.roleID = this.profile.role_id
     })
 
     this.Jarwis.displayDepartments().subscribe(
@@ -80,6 +86,7 @@ export class AllStaffComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.signup(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -119,7 +126,7 @@ export class AllStaffComponent implements OnInit {
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -128,6 +135,6 @@ export class AllStaffComponent implements OnInit {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 }

@@ -44,10 +44,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-6 m-t-30">
-                                <button class="buttonload" *ngIf="spin=='disable'" type="submit" class="btn btn-primary">
+                                <!-- <button class="buttonload" *ngIf="spin=='disable'" type="submit" class="btn btn-primary">
                                     <i class="fa fa-spinner fa-spin"></i>Search
-                                  </button>
-                                <button *ngIf="spin==''" type="submit" class="btn btn-primary">Search</button>
+                                  </button> -->
+                                <button type="submit" class="btn btn-primary">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                             
                             </div>
                         </div>

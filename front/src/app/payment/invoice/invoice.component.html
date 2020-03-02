@@ -22,13 +22,13 @@
           <div class="col-lg-12">
               <div class="card">
                   <div class="header">
-                      <h2 >Check Invoice <small> </small></h2>
+                      <h2 >Buth Phamarcy Sales Invoice <small> </small></h2>
                   </div>
                   <div class="body" id="print-history">
                       <div class="row clearfix"> 
                         <div class="col-md-12 col-sm-12">
                           <div class="text-center">
-                          <img width="2%" src="../assets/images/checklogo_3.png" alt="Check Logo" class="center"><span id="cin">Check HMS</span>
+                          <img width="3%" src="../assets/images/checklogo_3.png" alt="Check Logo" class="center"><span id="cin">BUTH PHARMACY</span>
                           </div>
                           <div class="text-center">
                             <p id="oid"><strong>Order ID: </strong> {{voucher_Id}}</p> 
@@ -40,7 +40,7 @@
                               <p class="m-b-0"><strong>Name: </strong>{{name}} {{othername}}</p>
                               <p class="m-b-0"><strong>Card Number: </strong> {{card_number}}</p> 
                               <p class="m-b-0"><strong>Address: </strong>{{address}}, {{city}}, {{state}}, {{country}}</p>
-                              <p class="m-b-0"><strong>Phone: </strong>{{mobile_no}}</p>                                   
+                              <p class="m-b-0"><strong>Mobile Contact: </strong>{{mobile_no}}</p>                                   
                           </div>
                           <div class="col-md-6 col-sm-6 text-right">
                               
@@ -95,11 +95,11 @@
                               </div>
                           </div>
                       </div>
-                      <div class="row clearfix">
+                      <!-- <div class="row clearfix">
                           <div class="col-md-6">
                               <span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span>
                           </div>
-                      </div> 
+                      </div>  -->
                   </div>
                   <div class="row clearfix mt-2">
                         <div class="col-md-6 text-left">
@@ -113,7 +113,7 @@
 
                           <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
-                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer fa fa-spin fa-spinner" *ngIf="disabled"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
 
                           <!-- Terminate -->
@@ -135,12 +135,12 @@
                 <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "invoice == 'unpaid'" class="badge badge-danger">{{invoice}}</span> <span *ngIf = "invoice == 'paid'" class="badge badge-success">{{invoice}}</span>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">                    
-                    <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be print immediatle Payment have been made</li>
+                    <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be printable immediatle Payment have been made</li>
                     </ol>
                 </nav>
             </div>            
             <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end"></i>End Process</button>
+                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end fa fa-spin fa-spinner"></i>End Process</button>
                 <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "status == 'paid'"><i class="icon-printer"></i>End Process</button>
             </div>
         </div>

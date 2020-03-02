@@ -63,6 +63,7 @@ export class VoucherComponent implements OnInit {
   voucher: any;
   invoice: any;
   imgLink: any;
+  disabled = false;
 
   constructor(
     private Jarwis: JarwisService,
@@ -218,6 +219,7 @@ export class VoucherComponent implements OnInit {
   }
 
   onSubmitAdd(form: NgForm) {
+    this.disabled = true;
     form.value.appointment_id=this.appId
     form.value.customer_id=this.patID
     form.value.quantity = this.quant
@@ -235,6 +237,7 @@ export class VoucherComponent implements OnInit {
   }
 
   saveTovoucher(){
+    this.disabled = true;
     this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -247,7 +250,7 @@ export class VoucherComponent implements OnInit {
     })   
     // this.router.navigateByUrl('/Admin/(side:voucher');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -256,6 +259,6 @@ export class VoucherComponent implements OnInit {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 }

@@ -22,6 +22,9 @@ export class TransHistoryComponent implements OnInit {
   imgLink: any;
   payDetail: any;
 spin="";
+
+disabled = false;
+
 exportAsConfig: ExportAsConfig = {
   type: 'xlsx', // the type you want to download
   elementId: 'print-history', // the id of html/table element
@@ -54,6 +57,7 @@ constructor(
   }
 
   onClickSubmit(form: NgForm) {
+    this.disabled = true;
 this.spin="disable";
     this.Jarwis.stockReport(form.value).subscribe(
       data => {
@@ -62,7 +66,8 @@ this.spin="disable";
         this.payItem= this.payloads.item;
         this.payDetail = this.payloads.details;
         this.spin="";
-      });  
+      }); 
+      this.disabled = false; 
   }  
 
   printComponent() {

@@ -164,7 +164,7 @@
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
                         <button type="button" disabled *ngIf = "prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                     </div>
@@ -263,7 +263,7 @@
                 </table>
                 <div>
                     <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
                     <button type="button" *ngIf = "invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
                     <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>

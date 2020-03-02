@@ -47,6 +47,7 @@ setting:any;
   pres: any;
   ins: any;
   durat: Object;
+  disabled = false;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -108,6 +109,7 @@ setting:any;
   }
   
   saveToInvoice(){
+    this.disabled = true;
     this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -135,7 +137,7 @@ setting:any;
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -144,7 +146,7 @@ setting:any;
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
   printComponent() {
     var divToPrint=document.getElementById("print-history");
@@ -186,11 +188,10 @@ openPrintDialogue(label){
         .append(`        
                 <table>
                 <thead>
-                <img src="http://localhost/buth-pharm/backend/public/upload/uploads/male.png">
-                    <th colspan="3">
-                        <img width="6%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
+                    <th colspan="6">
+                        <img width="2%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;"></span>
                     </th>
-                    <th colspan="3">
+                    <th classs="text-center">
                         <p class="m-b-0"><strong>${this.setting.address}</strong></p>
                         <h5 class="m-b-0">${this.setting.contact_number}</h5> 
                     </th>
@@ -207,7 +208,6 @@ openPrintDialogue(label){
                         </td>
                         <td  colspan="2" style="padding-top:20px;">
                             <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong> ${arr[0].p_date}</p>
                             <p class="m-b-0"><strong>Refill: ${arr[0].refill}</strong></p>
                         </td>
                     </tr>
@@ -222,9 +222,6 @@ openPrintDialogue(label){
                         <td colspan="4" >
                             <p class="m-b-0"><strong><u>Caution</u></strong></p> 
                             <p>${arr[0].caution}</p>
-                        </td>
-                        <td  colspan="2">
-                            |||||||||||||||| BARCODE|||||||||||||||||         
                         </td>
                     </tr>   
                 </tbody>
