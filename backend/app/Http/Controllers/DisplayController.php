@@ -347,7 +347,7 @@ class DisplayController extends Controller
         $bid = $branch->id;
         return response()->json([
 
-           'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
+           'item'=>DB::table($id)->orderBy('item_details.generic_name')->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
@@ -362,7 +362,7 @@ class DisplayController extends Controller
            'soldItem'=>DB::table($id)->select($id.'.*')
            ->where ('c_date', '=', $cDate)
            ->sum($id.'.sales'),
-           'varianced'=>DB::table($id)->select($id.'.*')->sum($id.'.variance'),
+           'varianced'=>DB::table($id)->select($id.'.*')->where($id.'.c_date', '=', $cDate)->sum($id.'.variance'),
            'openBal'=>DB::table($id)->select($id.'.*')
            ->where ('c_date', '=', $cDate)
            ->sum($id.'.open_stock'),
@@ -742,7 +742,7 @@ class DisplayController extends Controller
     public function disItemDet()
     {
         return response()->json(
-            Item_details::orderBy('id')->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id') 
+            Item_details::orderBy('generic_name')->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id') 
                                     ->select('item_details.*', 'manufacturer_details.name AS manuf_name')        
                                     ->get()
         );
@@ -785,8 +785,7 @@ class DisplayController extends Controller
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
            return DB::table("branch_main")
-            ->where('item_detail_id', '=', $id)
-            ->whee("branch_main.c_date", '=', $cDate)
+            ->where(['item_detail_id' => $id, 'branch_main.c_date' => $cDate])
             ->select('branch_main.total_remain')
             ->get();
     }
@@ -1106,7 +1105,7 @@ class DisplayController extends Controller
         foreach($itemD as $row2){
             foreach($branch as $row){
                 $name = $row->br_name;
-                $itemFromBranch = DB::table($name)->select($name.'.item_detail_id', $name.'.total_remain')->where($name.'.item_detail_id', '=', $row2->id)->sum($name.'.total_remain');
+                $itemFromBranch = DB::table($name)->select($name.'.item_detail_id', $name.'.total_remain')->where([$name.'.item_detail_id' => $row2->id, $name.'.c_date' => $cDate])->sum($name.'.total_remain');
                 array_push($tempArray, (int)$itemFromBranch);
             }
             array_push($array, $tempArray);
@@ -1123,13 +1122,16 @@ class DisplayController extends Controller
 
     public function displayPharStaffDashStock()
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $id= Auth()->user()->branch_id;
         $get = DB::table("branches")->select('branches.br_name')->where('id', $id)->first();
         $branch = $get->br_name;
         $itemD = DB::table("item_details")->select('id')->orderBy('id')->get();
         $array = array(); 
         foreach($itemD as $row){
-            $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where($branch.'.item_detail_id', '=', $row->id)->sum($branch.'.total_remain');
+            $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where([$branch.'.item_detail_id'=> $row->id, $branch.'c_date' => $cDate])->sum($branch.'.total_remain');
             array_push($array, (int)$itemFromBranch);
         }
         return response()->json([

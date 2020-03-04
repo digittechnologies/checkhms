@@ -33,7 +33,7 @@ export class CategoryComponent implements OnInit {
   cats;
   p:any;
   disabled = false;
-  onScroll: any;
+  onScroll:any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,

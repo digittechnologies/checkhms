@@ -72,6 +72,18 @@
                                                     <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
                                                 <!-- </ng-container> -->
                                             </tr>
+                                            <div *ngIf="!pres">
+                                                
+                                                <div class="spinner-grow text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        <div class="spinner-grow text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-success" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                                              </div> 
                                       </tbody>
                                       <tfoot>
                                           <td colspan="4"></td>
@@ -154,7 +166,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
                                                 <div class="ml-3">
                                                 <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
                                                 <p class="mb-0">{{i.name}}</p>
@@ -171,6 +183,18 @@
                                     </td>
                             <!-- </ng-container> -->
                         </tr>
+                        <div *ngIf="!pres">
+                            
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+                          </div> 
                     </tbody>
                 </table>
             </div>

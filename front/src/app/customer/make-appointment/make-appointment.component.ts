@@ -27,7 +27,7 @@ export class MakeAppointmentComponent implements OnInit {
   pats: any;
   filterString = "";
   appoint: any;
-  onScroll: any;
+  onScroll:any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,

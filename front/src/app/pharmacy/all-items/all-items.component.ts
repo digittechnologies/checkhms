@@ -74,9 +74,17 @@ export class AllItemsComponent implements OnInit {
   total_remain_To: any;
   img: any;
   imgLink: any;
+  itemsitem: any;
+  itemsi: any;
+  filterString = "";
   disabled = false;
   itm: any;
-
+  varId: any;
+  varRes: any;
+  varName: any;
+  varQuantity: any;
+  varDetails: any;
+  varId2: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -115,7 +123,7 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response;
-      this.itm=this.items.item;
+      this.itemsitem=this.items.item;
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -190,6 +198,27 @@ export class AllItemsComponent implements OnInit {
       this.itemTransferred = this.response       
 
     })
+    this.onFilterChange()
+}
+onFilterChange() {
+  this.Jarwis.displayItem(this.uBranch).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+    this.itemsi=this.items.item;
+    this.itemsitem = this.itemsi.filter((cate) => this.isMatch(cate));
+  })
+  
+
+}
+  
+
+isMatch(item) {
+  if (item instanceof Object) {
+    return Object.keys(item).some((k) => this.isMatch(item[k]));
+  } else {
+    return item.toString().indexOf(this.filterString) > -1
+  }
 }
 
 get(){
@@ -222,7 +251,7 @@ allItem(aa) {
     data=>{
     this.response = data;      
     this.items = this.response;
-    this.itm=this.items.item;
+    this.itemsitem=this.items.item;
   })
 }
 
@@ -243,6 +272,13 @@ restrict(r) {
   if(r.target.value > this.totalFrom.total_remain){
     alert('Quantity greater than quantity in stock')
     r.target.value = ''
+  }
+}
+
+restrictVariance(rv){
+  if(rv.target.value > this.totalFrom.total_remain){
+    alert('Quantity greater than quantity in stock')
+    rv.target.value = ''
   }
 }
 
@@ -403,6 +439,36 @@ onDelete(id: string) {
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );   
+  }
+
+  editVariance(id: string){
+    this.Jarwis.editVariance(id).subscribe(
+      data=>{   
+        this.varRes = data;
+        this.varId= id;
+        this.varName= this.varRes[0].generic_name;
+        this.varQuantity= this.varRes[0].quantity;
+        this.varDetails= this.varRes[0].detail;
+        this.varId2 = this.varRes[0].id;
+      })
+  }
+
+  deleteVariance(id: string){
+    if(confirm('This can\'t be revert after deleted')){
+      this.Jarwis.deleteVariance(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
+  }
+
+  onUpdateVariance(form: NgForm){
+    this.disabled = true;
+    form.value.id=this.varId
+    this.Jarwis.updateVarianceItem(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
   }
 
   onSelect(id: string){

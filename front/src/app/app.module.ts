@@ -99,6 +99,7 @@ import { StaffRoleGuardService } from './service/guards/staff-role-guard.service
 import { UserRoleGuardService } from './service/guards/user-role-guard.service';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ExportAsModule } from 'ngx-export-as';
 @NgModule({
   declarations: [
     AppComponent,
@@ -248,6 +249,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatAutocompleteModule,
     ScrollingModule,
     InfiniteScrollModule,
+    ExportAsModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),

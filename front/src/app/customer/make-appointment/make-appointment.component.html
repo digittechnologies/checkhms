@@ -29,7 +29,7 @@
                 [infiniteScrollThrottle]="50"
                 (scrolled)="onScroll()"
               >
-                <div class="table-responsive">
+                <div class="">
                     <table class="table header-border table-hover  spacing5">
                         <thead>
                             <tr>
@@ -53,7 +53,7 @@
                             <tr *ngFor="let a of appoint ; let r = index">
                                 <!-- <td> {{r+1}} </td>| paginate: {itemsPerPage:10, currentPage: p} -->
                                 <td class="w60">
-                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{a.card_number}}</a>

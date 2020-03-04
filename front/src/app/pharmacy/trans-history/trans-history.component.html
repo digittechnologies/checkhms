@@ -69,7 +69,7 @@
                         <ul class="dropdown-menu">
                             <li><a (click)="printComponent()">Print</a></li>
                             <li><a href="javascript:void(0);">Copy</a></li>
-                            <li><a href="javascript:void(0);">Export</a></li>
+                            <li><a (click)="exportAsXLSX()">Export</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -82,7 +82,7 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <!-- <th>Image</th> -->
+                                <th>Image</th>
                                 <th>Item</th>
                                 <th>Open Balance</th>
                                 <th>Add</th>
@@ -99,9 +99,9 @@
                         <tbody>
                             <tr *ngFor="let item of payItem; let r = index">
                                 <td>{{r+1}}</td>
-                                <!-- <td class="width45">
-                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
-                                </td> -->
+                                <td class="width45">
+                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                </td>
                                 <td>
                                     <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
                                     <span>{{item.name}}</span>
