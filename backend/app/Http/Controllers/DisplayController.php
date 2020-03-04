@@ -782,18 +782,23 @@ class DisplayController extends Controller
 
     public function inStock($id)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
            return DB::table("branch_main")
             ->where('item_detail_id', '=', $id)
+            ->whee("branch_main.c_date", '=', $cDate)
             ->select('branch_main.total_remain')
             ->get();
     }
 
     public function inStockT(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
         $item = $request[0];
         $branch= $request[1];
         return DB::table($branch)
-        ->where('item_detail_id', '=', $item)
+        ->where(['item_detail_id' => $item, $branch.'.c_date'=> $cDate])
         ->select($branch.'.total_remain')
         ->get();
     }
