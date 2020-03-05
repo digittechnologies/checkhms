@@ -45,7 +45,7 @@
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th>Progress</th>
+                                <!-- <th>Progress</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -53,7 +53,7 @@
                             <tr *ngFor="let a of appoint ; let r = index">
                                 <!-- <td> {{r+1}} </td>| paginate: {itemsPerPage:10, currentPage: p} -->
                                 <td class="w60">
-                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{a.card_number}}</a>
@@ -104,13 +104,14 @@
                                 </td>                                
                                 <td>{{a.date}}</td> 
                                 <td>{{a.time}}</td>                                
-                                <td><span class="badge badge-warning">20%</span>
-                                </td>
+                                <!-- <td>
+                                    <span class="badge badge-warning">20%</span>
+                                </td> -->
                                 <td>                
                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(a.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
-                            <div *ngIf="!appoint">
+                            <!-- <div *ngIf="!appoint">
                                 <div class="spinner-grow text-primary" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
@@ -120,7 +121,7 @@
     <div class="spinner-grow text-success" role="status">
     <span class="sr-only">Loading...</span>
     </div>
-                              </div>  
+                              </div>   -->
                         </tbody>
                     </table>
                     <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>   -->

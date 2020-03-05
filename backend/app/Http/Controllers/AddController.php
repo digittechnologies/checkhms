@@ -1863,13 +1863,16 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function updateAddItem(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $pid=$request->id;
         // $item= $request->addName;
         $aQty= $request->addQuantity;
 
         $itemId = DB::table('purchases')->select('purchases.item_detail_id')->where('id', $pid)->get();
         $item= $itemId[0]->item_detail_id;
-        $select=DB::table('branch_main')->select('branch_main.total_remain')->where('item_detail_id','=', $item)->get();
+        $select=DB::table('branch_main')->select('branch_main.total_remain')->where(['item_detail_id' => $item, 'branch_main.c_date' => $cDate])->get();
         $nstock = $select[0]->total_remain + $aQty;
 
         $add=DB::table('purchases')
@@ -1894,6 +1897,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function updatetransferItem(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $pid=$request->id;
         $aQty= $request->transQuantity;
         $brFrom= $request->transFrom;
@@ -1901,7 +1907,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $itemId = DB::table('transfers')->select('transfers.item_detail_id')->where('id', $pid)->get();
         $item= $itemId[0]->item_detail_id;
-        $select=DB::table($brTo)->select($brTo.'.total_remain')->where('item_detail_id','=', $item)->get();
+        $select=DB::table($brTo)->select($brTo.'.total_remain')->where(['item_detail_id' => $item, $brTo.'.c_date' => $cDate])->get();
         $nstock = $select[0]->total_remain + $aQty;
 
         $add=DB::table('transfers')
@@ -1952,7 +1958,74 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         
     }
 
+    public function editVariance($id)
+    {
+       return DB::table('variances')
+              ->select('variances.*', 'item_details.generic_name')
+              ->join ('item_details','variances.item_detail_id','=','item_details.id')
+              ->where('variances.id', $id)
+              ->get();
+    }
 
+    public function deleteVariance(Request $request)
+    {
+        $id = $request[0];
+        $del = DB::table('variances')->where('id', $id)->delete();
+
+         if($del){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+    }
+
+    public function updateVarianceItem(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
+        $branchId= Auth()->user()->branch_id;
+        $detail = $request->varDetails;
+        $qty = $request->varQuantity;
+        $vid = $request->id;
+
+        $itemId = DB::table('variances')->select('variances.item_detail_id')->where('id', $vid)->get();
+        $item= $itemId[0]->item_detail_id;
+
+        $branch = DB::table("branches")->select('branches.br_name')->where('id', $branchId)->first(); 
+
+        $vitem=DB::table($branch->br_name)
+            ->where(['item_detail_id' => $item, $branch->br_name.'.c_date' => $cDate])
+            ->get();
+
+            $total_from = $vitem[0]->total_remain;            
+        
+            $vari=DB::table('variances')->where('id','=', $vid)   
+            ->update([
+                'quantity' => $qty,
+                'newstock' => $total_from - $qty,
+                'detail' => $detail
+        ]);
+
+        if($vari){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
     // Pharmacy Prescription 
 
     public function pharmPriscription(Request $request)

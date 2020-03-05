@@ -48,12 +48,12 @@
                                         <th>Name</th>
                                         <th>Card Number</th>
                                         <th>Gender</th>
-                                        <th>Date of Birth</th>
+                                        <!-- <th>Date of Birth</th> -->
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
+                                <!-- <tfoot>
                                     <tr>
                                         <th>S/N</th>
                                         <th>Image</th>
@@ -64,12 +64,12 @@
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
-                                </tfoot>
+                                </tfoot> -->
                                 <tbody>
                                     <tr  *ngFor="let p of pat; let r = index">
                                         <td> {{r+1}}</td>
                                         <td class="w60">
-                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                             </td>
                                         <td>
                                             <a href="javascript:void(0);" title="" [routerLink]="['/Admin', {outlets: {side: ['patient_profile',p.id]}}]">{{p.name}}</a>
@@ -77,7 +77,7 @@
                                         </td>
                                         <td>{{p.card_number}}</td>  
                                         <td>{{p.gender}}</td>   
-                                        <td>{{p.d_o_b}}</td>
+                                        <!-- <td>{{p.d_o_b}}</td> -->
                                         <td>
                                                 <span class="badge badge-success" *ngIf ="p.status=== 'active'">Active</span>
                                                   <span class="badge badge-danger" *ngIf ="p.status=== 'suspend'">Suspend</span>                                   
@@ -86,7 +86,7 @@
                                             <a href="javascript:void(0);" class="btn btn-primary btn-round" (click)= "appointment(p.id)" data-toggle="modal" data-target=".new-project-modal">Make Appointment</a>
                                         </td>
                                     </tr>  
-                                    <div *ngIf="!pat">
+                                    <!-- <div *ngIf="!pat">
                                         <div class="spinner-grow text-primary" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
@@ -96,7 +96,7 @@
             <div class="spinner-grow text-success" role="status">
             <span class="sr-only">Loading...</span>
             </div>
-                                      </div> 
+                                      </div>  -->
                                     <!-- <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target=".new-project-modal">Setup New Project</button> -->
 <!-- Setup New Project -->
                             <div class="modal fade new-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
