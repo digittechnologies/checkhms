@@ -204,6 +204,7 @@
                           </li>
                       </ul>
                   </div>
+                  <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
                   <div
                   class="search-results"
                   infiniteScroll

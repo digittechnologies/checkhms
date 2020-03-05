@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Item List of {{items.bran.name}}</h2>
+                    <h2>Item List of {{name}}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
@@ -31,7 +31,7 @@
                             <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-shopping-cart"></i></div>
                             <div class="ml-4">
                                 <span>Total Sales</span>
-                                <h4 class="mb-0 font-weight-medium">{{items.soldItem}}</h4>
+                                <h4 class="mb-0 font-weight-medium">{{soldItem}}</h4>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
                             <div class="ml-4">
                                 <span>Total Added</span>
-                                <h4 class="mb-0 font-weight-medium">{{items.addedItem}}</h4>
+                                <h4 class="mb-0 font-weight-medium">{{addedItem}}</h4>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-users"></i></div>
                             <div class="ml-4">
                                 <span>Total Transfer</span>
-                                <h4 class="mb-0 font-weight-medium">{{items.transferredItem}}</h4>
+                                <h4 class="mb-0 font-weight-medium">{{transferredItem}}</h4>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-life-ring"></i></div>
                             <div class="ml-4">
                                 <span>Total Variance</span>
-                                <h4 class="mb-0 font-weight-medium">{{items.varianced}}</h4>
+                                <h4 class="mb-0 font-weight-medium">{{varianced}}</h4>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <div class="icon bg-warning text-white"><i class="fa fa-building"></i> </div>
                         <div class="content">
                             <span>Open Balance</span>
-                            <h5 class="number mb-0">{{items.openBal}}</h5>
+                            <h5 class="number mb-0">{{openBal}}</h5>
                         </div>
                     </div>                        
                 </div>
@@ -96,7 +96,7 @@
                         <div class="icon bg-success text-white"><i class="fa fa-area-chart"></i> </div>
                         <div class="content">
                             <span>Close Balance</span>
-                            <h5 class="number mb-0">{{items.total}}</h5>
+                            <h5 class="number mb-0">{{totala}}</h5>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <div class="icon bg-info text-white"><i class="fa fa-shopping-cart"></i> </div>
                         <div class="content">                            
                             <span>Physical Balance</span>
-                            <h5 class="number mb-0">{{items.physBal}}</h5>
+                            <h5 class="number mb-0">{{physBal}}</h5>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                         <div class="icon bg-danger text-white"><i class="fa fa-tag"></i> </div>
                         <div class="content">                            
                             <span>Daily Revenue</span>
-                            <h4 class="mb-0 font-weight-medium text-danger">{{items.itemAmount | currency:'NGN':'symbol-narrow'}}</h4>
+                            <h4 class="mb-0 font-weight-medium text-danger">{{itemAmount | currency:'NGN':'symbol-narrow'}}</h4>
                         </div>
                     </div>
                 </div>
@@ -164,6 +164,13 @@
                     <div class="tab-content mt-0">
                         <div class="tab-pane active show" id="items">
                             <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
+                            <div
+                            class="search-results"
+                            infiniteScroll
+                            [infiniteScrollDistance]="2"
+                            [infiniteScrollThrottle]="50"
+                            (scrolled)="onScroll()"
+                          >
                             <div class="table-responsive">
 
                                 <table class="table table-hover table-custom spacing8">
@@ -246,6 +253,7 @@
                                     </tbody>
                                 </table>   
                                 <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls> -->
+                            </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="add_item">
