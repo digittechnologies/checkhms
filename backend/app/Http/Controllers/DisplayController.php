@@ -347,7 +347,7 @@ class DisplayController extends Controller
         $bid = $branch->id;
         return response()->json([
 
-           'item'=>DB::table($id)->select($id.'.*', 'item_details.id AS item_id',  'item_details.generic_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price')
+           'item'=>DB::table($id)->select( 'item_details.generic_name','item_details.id AS item_id', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'item_details.purchasing_price', 'item_details.markup_price',$id.'.open_stock',$id.'.sales',$id.'.transfer',$id.'.receive',$id.'.total_remain',$id.'.close_balance',$id.'.physical_balance',$id.'.variance',$id.'.amount',$id.'.balance',$id.'.c_date',$id.'.c_time')
            ->join ('item_details',$id.'.item_detail_id','=','item_details.id')
            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
@@ -377,7 +377,7 @@ class DisplayController extends Controller
            ->where ('i_date', '=', $cDate)
            ->where('branch_id', '=', $bid)
             ->sum('paid'),
-
+           
         ]);
     }
 
