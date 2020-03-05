@@ -590,6 +590,18 @@ deleteAppointment(data) {
   deleteTrans(data) {
     return this.http.post(`${this.baseUrl}/deleteTrans`, data)
   }
+  
+  editVariance(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editVariance/${id}`)
+  }
+  deleteVariance(data) {
+    return this.http.post(`${this.baseUrl}/deleteVariance`, data)
+  }
+  updateVarianceItem(data) {
+    return this.http.post(`${this.baseUrl}/updateVarianceItem`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   stockHistory(data) {
     return this.http.post(`${this.baseUrl}/stockHistory`, data)
   }
