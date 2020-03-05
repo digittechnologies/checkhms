@@ -64,11 +64,11 @@ class AuthController extends Controller
         $request->merge(['password' => $cot]);
 
         $GLOBALS['email']=$request->email;
-        // $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
-        // $sendMail = Mail::send('password', $data, function($message) {
-        // $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
-        // $message->from('no-reply@jtcheck.com','noreply');
-        // });
+        $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
+        $sendMail = Mail::send('password', $data, function($message) {
+        $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
+        $message->from('no-reply@jtcheck.com','noreply');
+        });
         $user= User::create($request->all());
         if($user){
             return '{

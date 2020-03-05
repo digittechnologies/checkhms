@@ -31,6 +31,7 @@ export class PhamAdminComponent implements OnInit {
     json = JSON;
     imgLink: any;
     dashboardDataAppt: any;
+    onScroll:any;
 
     item: any;
 

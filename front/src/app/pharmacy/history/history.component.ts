@@ -20,6 +20,7 @@ export class HistoryComponent implements OnInit {
   getAction = '';
   imgLink: any;
   spin="";
+  disabled:any;
   exportAsConfig: ExportAsConfig = {
     type: 'xlsx', // the type you want to download
     elementId: 'print-history', // the id of html/table element
