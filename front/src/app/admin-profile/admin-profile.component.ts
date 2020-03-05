@@ -20,6 +20,17 @@ export class AdminProfileComponent implements OnInit {
   image: any;
   public submissionForm: FormGroup;
   imgLink: any;
+  myFname: any;
+  myLname: any;
+  myDept: any;
+  myRole: any;
+  myAdd: any;
+  myEmail: any;
+  myMobile: any;
+  myGender: any;
+  myTw: any;
+  myFb: any;
+  myInst: any;
   constructor(
     public actRoute: ActivatedRoute, 
     private formBuilder: FormBuilder,
@@ -58,6 +69,17 @@ export class AdminProfileComponent implements OnInit {
       data=>{
       this.response = data;
       this.me = this.response.det[0]
+      this.myFname = this.me.firstname;
+      this.myLname = this.me.lastname;
+      this.myDept = this.me.nameD;
+      this.myRole = this.me.role_name;
+      this.myAdd = this.me.address;
+      this.myEmail = this.me.email;
+      this.myMobile = this.me.mobile_number;
+      this.myGender = this.me.gender;
+      this.myTw = this.me.twitter_handle;
+      this.myFb = this.me.facebook_handle;
+      this.myInst = this.me.instagram_handle;
 
       this.submissionForm = this.formBuilder.group(
     
