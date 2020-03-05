@@ -141,7 +141,6 @@ export class PhamAdminComponent implements OnInit {
     
   
   isMatch(item) {
-    console.log(item)
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {

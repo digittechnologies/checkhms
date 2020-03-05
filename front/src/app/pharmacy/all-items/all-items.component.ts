@@ -127,6 +127,13 @@ export class AllItemsComponent implements OnInit {
       this.items = this.response;
       this.itemsitem=this.items.item;
       this.name=this.items.bran.name
+      this.soldItem=this.items.soldItem
+    this.transferredItem=this.items.transferredItem
+    this.varianced=this.items.varianced
+    this.openBal=this.items.openBal
+    this.totala=this.items.total
+    this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -230,7 +237,6 @@ this.itemAmount=this.items.itemAmount
   
 
 isMatch(item) {
-  console.log(item)
   if (item instanceof Object) {
     return Object.keys(item).some((k) => this.isMatch(item[k]));
   } else {
