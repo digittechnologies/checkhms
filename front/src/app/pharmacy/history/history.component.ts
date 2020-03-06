@@ -25,6 +25,15 @@ export class HistoryComponent implements OnInit {
     type: 'xlsx', // the type you want to download
     elementId: 'print-history', // the id of html/table element
   }
+  presc: any;
+  transFrm: any;
+  transTo: any;
+  vari: any;
+  sBranch: any;
+  sDate: any;
+  eDate: any;
+  hAction: any;
+  adds: any;
   constructor( 
     private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -51,11 +60,21 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickSubmit(form: NgForm) {
+    this.payloads = '';
     this.spin="disable";
     this.Jarwis.stockHistory(form.value).subscribe(
       data => {
         this.response = data;
         this.payloads = this.response;
+        this.adds = this.payloads.adds;
+        this.presc = this.payloads.pres;
+        this.transFrm = this.payloads.transFrm;
+        this.transTo = this.payloads.transTo;
+        this.vari = this.payloads.vari;
+        this.sBranch = this.payloads.bran.toUpperCase();
+        this.sDate = this.payloads.date[0];
+        this.eDate = this.payloads.date[1];
+        this.hAction = this.payloads.action;
         this.action = this.getAction;
         this.spin="";
       },
@@ -93,6 +112,7 @@ export class HistoryComponent implements OnInit {
     style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
     style = style + "padding: 2px 3px;text-align: center;}";
     style = style + "img {width: 25px;height: 25px;}";
+    style = style + "h5 {text-align: center;}";
     style = style + "</style>";
 
 var win = window.open('', '', 'height=700,width=700');

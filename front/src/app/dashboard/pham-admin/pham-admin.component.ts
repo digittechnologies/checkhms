@@ -33,8 +33,9 @@ export class PhamAdminComponent implements OnInit {
     dashboardDataAppt: any;
     onScroll:any;
 
+    filterString="";
     item: any;
-
+    items: any;
     p:any;
 
   
@@ -125,9 +126,29 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.department = this.response
       })    
-      
+     this.onFilterChange()  
   }
-
+  onFilterChange() {
+    this.Jarwis.displayPharAdminDashStock().subscribe(
+        data=>{
+        this.response = data;      
+        this.stocks = this.response;
+        this.items=this.stocks.item
+        this.item= this.items.filter((cate) => this.isMatch(cate));
+    })
+    
+   
+  
+  }
+    
+  
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item.toString().indexOf(this.filterString) > -1
+    }
+  }
   onLoad(a, branc, pieData, staff, appt, earning){
       
     $('.chart').sparkline('html', {

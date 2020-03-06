@@ -1104,20 +1104,49 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
+
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
+       
+
+        if ( empty ( $checkAppointment[0] )) {
+
+            $appointment= Vouchers::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'staff_id' => $dept_id,           
+                    'branch_id' => $bid
+                ]);    
+            
+          
+            $appointment= Appointments::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'department_id' => $dept_id, 
+                    'voucher_id'=> $appointment->id,
+                    'prescription' => 'open', 
+                    'invoice' => 'open', 
+                    'voucher' => 'open',
+                    'treatment' => 'open', 
+                    'status' => 'active',
+                    'date' => $date,
+                    'time' => $time,
+                    'branch_id' => $bid
+                ]);   
+             }
         
-         $appointment= Appointments::create(
-            [
-                'customer_id' => $cust_id, 
-                'department_id' => $dept_id, 
-                'prescription' => 'open', 
-                'invoice' => 'open', 
-                'voucher' => 'open',
-                'treatment' => 'open', 
-                'status' => 'active',
-                'date' => $date,
-                'time' => $time,
-                // 'branch_id' => $bid
-            ]);    
+        //  $appointment= Appointments::create(
+        //     [
+        //         'customer_id' => $cust_id, 
+        //         'department_id' => $dept_id, 
+        //         'prescription' => 'open', 
+        //         'invoice' => 'open', 
+        //         'voucher' => 'open',
+        //         'treatment' => 'open', 
+        //         'status' => 'active',
+        //         'date' => $date,
+        //         'time' => $time,
+        //         // 'branch_id' => $bid
+        //     ]);    
   
      if($appointment){
         return '{

@@ -39,9 +39,9 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
+  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  // private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
 

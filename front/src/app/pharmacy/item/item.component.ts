@@ -99,7 +99,7 @@ export class ItemComponent implements OnInit {
      
             {
               generic_name: [this.resitem.generic_name],
-             selling_price: [this.resitem.selling_price],
+             selling_price: [this.resitem.purchasing_price*this.resitem.markup_price],
              purchasing_price:[this.resitem.purchasing_price],
              markup_price:[this.resitem.markup_price],
              manufacture_date:[this.resitem.manufacture_date],
@@ -193,7 +193,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:itemacturer');
+    this.router.navigateByUrl('/Admin/(side:items)');
     this.ngOnInit();
     
   }

@@ -150,7 +150,7 @@ export class VoucherComponent implements OnInit {
         this.shelve_name= this.total.shelve_name;
         this.shelve_point= this.total.shelve_point;
         this.getInst = this.total.type_id;
-        this.selling_price= this.total.selling_price;
+        this.selling_price= this.total.purchasing_price*this.total.markup_price;
         this.ngOnInit()
         this.Jarwis.displayDurationForV(this.getInst).subscribe(
           data=>{
@@ -170,7 +170,7 @@ export class VoucherComponent implements OnInit {
 
   putQty(d){
     this.quant = ''
-    if(this.getInst == '6'){
+    if(this.getInst == '7'){
       this.days = d.target.value
       this.tQuantity = this.amt * this.sup * this.days
       this.quantity =  this.amt * this.sup * this.days
@@ -183,13 +183,13 @@ export class VoucherComponent implements OnInit {
       }
       this.useFor = this.days
     }
-    if(this.getInst != '6'){
+    if(this.getInst != '7'){
       this.useFor = d.target.value
     }
   }
 
   onRefill(r){
-    if(this.getInst == '6'){
+    if(this.getInst == '7'){
       if(r.target.value > 0){
         this.count = parseInt(r.target.value) 
         this.quantity = this.amt * this.sup * this.days / this.count
@@ -212,7 +212,7 @@ export class VoucherComponent implements OnInit {
       alert('Quantity minimum is 1')
       n.target.value = ''
     }
-    if(this.getInst != '6'){
+    if(this.getInst != '7'){
       this.tQuantity = n.target.value
     }
     this.quant = n.target.value

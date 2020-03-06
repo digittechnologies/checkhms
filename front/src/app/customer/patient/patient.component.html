@@ -48,12 +48,12 @@
                                         <th>Name</th>
                                         <th>Card Number</th>
                                         <th>Gender</th>
-                                        <!-- <th>Date of Birth</th> -->
+                                        <th>Date of Birth</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <!-- <tfoot>
+                                <tfoot>
                                     <tr>
                                         <th>S/N</th>
                                         <th>Image</th>
@@ -64,7 +64,7 @@
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
-                                </tfoot> -->
+                                </tfoot>
                                 <tbody>
                                     <tr  *ngFor="let p of pat; let r = index">
                                         <td> {{r+1}}</td>
@@ -77,7 +77,7 @@
                                         </td>
                                         <td>{{p.card_number}}</td>  
                                         <td>{{p.gender}}</td>   
-                                        <!-- <td>{{p.d_o_b}}</td> -->
+                                        <td>{{p.d_o_b}}</td>
                                         <td>
                                                 <span class="badge badge-success" *ngIf ="p.status=== 'active'">Active</span>
                                                   <span class="badge badge-danger" *ngIf ="p.status=== 'suspend'">Suspend</span>                                   
@@ -86,19 +86,7 @@
                                             <a href="javascript:void(0);" class="btn btn-primary btn-round" (click)= "appointment(p.id)" data-toggle="modal" data-target=".new-project-modal">Make Appointment</a>
                                         </td>
                                     </tr>  
-                                    <!-- <div *ngIf="!pat">
-                                        <div class="spinner-grow text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
-                                      </div>  -->
-                                    <!-- <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target=".new-project-modal">Setup New Project</button> -->
-<!-- Setup New Project -->
+                                  
                             <div class="modal fade new-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -110,13 +98,13 @@
                                         </div>
                                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitApp(ap)" #ap="ngForm"> 
                                         <div class="modal-body">
-                                                <div class="input-group-prepend">
-                                                        <label class="input-group-text" for="inputGroupSelect01">Select Department</label>
-                                                    </div> 
-                                                    <select class="custom-select"  id="inputGroupSelect01"  ngModel name="dept_id">
-                                                        <option *ngFor="let d of department" [value]="d.id">{{d.name}}</option>                                       
-                                                    </select>                                           
-                                        </div>
+                                            <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="inputGroupSelect01">Select Department</label>
+                                                </div> 
+                                                <select class="custom-select"  id="inputGroupSelect01"  ngModel name="dept_id">
+                                                    <option *ngFor="let d of department" [value]="d.id">{{d.name}}</option>                                       
+                                                </select>                                                                                       
+                                            </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-round btn-success" >Appoint</button>
@@ -290,7 +278,7 @@
               </div>      
               <div class="modal-footer">
                   <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                  <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+                  <button type="button" class="btn btn-round btn-default" data-dismiss="modal" data-toggle="modal">Close</button>
               </div>
               </form>
           </div>
