@@ -643,6 +643,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     // Item Details
     public function addItemDetails(Request $request)
     {
+        // return $request;       
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');

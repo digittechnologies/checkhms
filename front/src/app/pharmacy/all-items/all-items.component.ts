@@ -285,8 +285,7 @@ allItem(aa) {
     this.response = data;      
     this.items = this.response;
     this.itemsitem=this.items.item;
-
-    this.itemsitem=this.items.item;
+    // this.itemsitem=this.items.item;
     this.name=this.items.bran.name
     this.soldItem=this.items.soldItem
   this.transferredItem=this.items.transferredItem

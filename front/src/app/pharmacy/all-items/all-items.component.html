@@ -180,15 +180,17 @@
                                             <th>Image</th>
                                             <th class="w60">Item Name</th>
                                             <th>Category</th>
-                                            <th>Open Balance</th>
+                                            <th>Opening Balance</th>
                                             <th>Add</th>
                                             <th>Transfer</th>
                                             <th>Sales</th>
                                             <th>Total Balance</th>
-                                            <th>Close Balance</th>
+                                            <th>Closeing Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
-                                            <th>Selling Price</th>
+                                            <th>General Price</th>
+                                            <th>Gohya Price</th>
+                                            <th>NHIS Price</th>
                                             <th>Total Price in Sumation</th>
                                             <th>% Remaining</th>
                                             <!-- <th>Role</th>
@@ -227,7 +229,16 @@
                                                     </div> -->
                                                     <td>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    </td>
+                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>    
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-success">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <!-- <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>     -->
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-success">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <!-- <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>     -->
+                                                    </td>
                                                     <td>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
@@ -330,7 +341,20 @@
                                                             <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">Selling Price</label>
                                                                     <div class="col-md-6 col-sm-10">
-                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price" disabled="true">
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price"disabled="true">
+                                                                        <input type="hidden" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Price List 2 (GOYAH)</label>
+                                                                    <div class="col-md-6 col-sm-10">
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_2"  ngModel name="price_2" placeholder="Enter Price two">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Price List 3 (NHIS)</label>
+                                                                    <div class="col-md-6 col-sm-10">
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_3"  ngModel name="price_3" placeholder="Enter Price three">
                                                                     </div>
                                                                 </div>
                                                             <div class="form-group row">
@@ -345,7 +369,7 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group row">
+                                                                <!-- <div class="form-group row">
                                                                         <label class="col-sm-2 col-form-label">Discount</label>
                                                                         <div class="col-md-6 col-sm-10">
                                                                             <select class="form-control input-height" ngModel name="discount_id">
@@ -356,7 +380,7 @@
                                                                                 
                                                                             </select>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-2 col-form-label">Status</label>
                                                                         <div class="col-md-6 col-sm-10">
