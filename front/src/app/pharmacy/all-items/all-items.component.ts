@@ -88,6 +88,7 @@ export class AllItemsComponent implements OnInit {
   totala: any;
   itemAmount: any;
   name: any;
+  addedItem: any
 
   varId: any;
   varRes: any;
@@ -142,6 +143,8 @@ export class AllItemsComponent implements OnInit {
     this.totala=this.items.total
     this.physBal=this.items.physBal
   this.itemAmount=this.items.itemAmount
+        this.addedItem=this.items.addedItem
+
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -283,6 +286,17 @@ allItem(aa) {
     this.response = data;      
     this.items = this.response;
     this.itemsitem=this.items.item;
+    // this.itemsitem=this.items.item;
+    this.name=this.items.bran.name
+    this.soldItem=this.items.soldItem
+  this.transferredItem=this.items.transferredItem
+  this.varianced=this.items.varianced
+  this.openBal=this.items.openBal
+  this.totala=this.items.total
+  this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
+      this.addedItem=this.items.addedItem
+
   })
 }
 

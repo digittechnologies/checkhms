@@ -49,6 +49,7 @@ setting:any;
   durat: Object;
   disabled = false;
   isEmpty: any;
+  icon: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -76,6 +77,13 @@ setting:any;
   }))
 
   this.Jarwis.generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+    this.icon = this.response[0].logo;
+  })
+
+  this.Jarwis. generalSettings().subscribe(
     data=>{
     this.response = data;      
     this.imgLink = this.response[0].app_url;
