@@ -241,7 +241,7 @@
 
                                    <td>{{r+1}}</td>
                                             <td class="width45">
-                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
+                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
@@ -254,7 +254,7 @@
                                             <td class="text text-danger">{{item.sales}}</td>
                                             <td class="text text-info">{{item.balance}}</td>
                                             <td>
-                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.open_stock+item.receive-item.balance}}</span></div>
+                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.total_remain}}</span></div>
                                             </td>
                                             <td>
                                                 <div class="avtar-pic w35 bg-secondary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
@@ -463,7 +463,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
+                                                        <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
                                                         <td><span class="badge badge-warning">{{added.instock}}</span></td>                                                
                                                         <td><span class="text-success">{{added.quantity}}</span></td>
@@ -578,7 +578,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let trans of itemTransferred | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
-                                                        <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
+                                                        <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{trans.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{trans.generic_name}}</span></td>
                                                         <td><h6 class="badge badge-success">{{trans.quantity_from}}</h6></td>
                                                         <td><span class="badge badge-warning">{{trans.remain_from}}</span></td>
                                                         <td><span class="text-success">{{trans.total_quantity}}</span></td>     
@@ -714,13 +714,13 @@
                                                             <th>Physical</th>                                                             
                                                             <th>Purpose</th>     
                                                             <th>Details</th>                                                
-                                                            <!-- <td>Action</td> -->
+                                                            <td>Action</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let vadded of varianceAdded; let v = index">
                                                             <td>{{v+1}}</td>
-                                                            <td><img src="http://{{imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
+                                                            <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
                                                             <td><span class="badge badge-warning">{{vadded.manuf_name}}</span></td>   
                                                             <td><span class="badge badge-warning">{{vadded.instock}}</span></td>                                                
                                                             <td><span class="text-success">{{vadded.quantity}}</span></td>
@@ -728,12 +728,65 @@
                                                             <td><span class="badge badge-warning">{{vadded.purpose}}</span></td>
                                                             <td><span class="badge badge-warning">{{vadded.detail}}</span></td>
                                                             <!-- <td><span class="badge badge-primary">100%</span></td> -->
-                                                            <!-- <td>
-                                                                <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAdd" (click)="editAdd(vadded.vID)"><i class="fa fa-pencil"></i></button>
-                                                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteAdd(vadded.vID)"><i class="fa fa-trash-o"></i></button>
-                                                            </td> -->
+                                                            <td>
+                                                                <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditVariance" (click)="editVariance(vadded.vID)"><i class="fa fa-pencil"></i></button>
+                                                                <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteVariance(vadded.vID)"><i class="fa fa-trash-o"></i></button>
+                                                            </td>
                                                         </tr> 
                                                         <br>
+
+                                                        <div class="modal fade" id="EditVariance" tabindex="1" role="dialog">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title h4" id="myLargeModalLabel">Edit Variance Item</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateVariance(edtvar)" #edtvar="ngForm"> 
+                                                                        <div class="modal-body">             
+                                                                            <div class="modal-body">             
+                                                                                <div class="row clearfix">
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="form-group">
+                                                                                            <input type="text" class="form-control" placeholder="Item" [(ngModel)]="varName" ngModel name="varName" disabled="true">
+                                                                                            
+                                                                                        </div>
+                                                                                    </div>             
+                                                                                </div>
+                                                                            </div>
+                                                                        <div class="modal-body">             
+                                                                        <div class="row clearfix">
+                                                                            <div class="col-md-8">
+                                                                                <div class="form-group">
+                                                                                    <input type="text" class="form-control" placeholder="To" [(ngModel)]="varQuantity" ngModel name="varQuantity">
+                                                                                </div>
+                                                                            </div>             
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-body">             
+                                                                        <div class="row clearfix">
+                                                                            <div class="col-md-8">
+                                                                                <div class="form-group">
+                                                                                    <div class="form-group">
+                                                                                        <input type="textarea" class="form-control" placeholder="To" [(ngModel)]="varDetails" ngModel name="varDetails">
+                                                                                    </div>                
+                                                                                </div>
+                                                                            </div>             
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-round btn-primary">Update</button>
+                                                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                                                        </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+
                                                         <tr>
                                                                 <td>
                                                                     <div class="form-group"> 
@@ -746,7 +799,7 @@
                                                                 </td>                                                  
                                                                 <td>                                                            
                                                                     <div class="form-group">
-                                                                        <select class="form-control" ngModel name="from">
+                                                                        <select class="form-control" (change)="onSelectFrom($event)" ngModel name="from">
                                                                                 <option value="">-- From --</option>
                                                                                 <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
                                                                         </select> 
@@ -755,7 +808,7 @@
                                                                 <td><span class="badge badge-warning">{{total_remain2}}</span></td>                                                    
                                                                 <td>                                                           
                                                                     <div class="form-group">
-                                                                        <input type="text" class="form-control" ngModel name="quantity" placeholder="Quantity *">        
+                                                                        <input type="text" class="form-control"  (keyup)="restrictVariance($event)" ngModel name="quantity" placeholder="Quantity *">        
                                                                     </div>                                                        
                                                                 </td>
                                                                 <td><span class="badge badge-warning">{{total_remain_To}}</span></td>

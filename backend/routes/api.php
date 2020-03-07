@@ -253,6 +253,11 @@ Route::post('updatetransferItem', 'AddController@updatetransferItem');
 Route::get('editTrans/{id}', 'AddController@editTrans');
 Route::post('deleteTrans', 'AddController@deleteTrans');
 
+Route::get('editVariance/{id}', 'AddController@editVariance');
+Route::post('deleteVariance', 'AddController@deleteVariance');
+Route::post('updateVarianceItem', 'AddController@updateVarianceItem');
+
+
 //Stock Report
 Route::post('stockReport','DisplayController@stockReport');
 Route::post('searchReport','DisplayController@searchReport');
