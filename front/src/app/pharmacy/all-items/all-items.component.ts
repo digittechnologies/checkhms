@@ -142,8 +142,9 @@ export class AllItemsComponent implements OnInit {
     this.openBal=this.items.openBal
     this.totala=this.items.total
     this.physBal=this.items.physBal
-this.itemAmount=this.items.itemAmount
+  this.itemAmount=this.items.itemAmount
         this.addedItem=this.items.addedItem
+
     })
 
     this.Jarwis.displayBranch().subscribe(

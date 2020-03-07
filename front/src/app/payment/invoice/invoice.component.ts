@@ -48,6 +48,7 @@ setting:any;
   ins: any;
   durat: Object;
   disabled = false;
+  isEmpty: any;
   icon: any;
   constructor(
     private Jarwis: JarwisService,
@@ -75,7 +76,7 @@ setting:any;
 	    })
   }))
 
-  this.Jarwis. generalSettings().subscribe(
+  this.Jarwis.generalSettings().subscribe(
     data=>{
     this.response = data;      
     this.imgLink = this.response[0].app_url;
@@ -100,6 +101,7 @@ setting:any;
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
+    this.isEmpty=this.inv.isE
     this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date
     this.name=this.inv.patient.name
@@ -112,7 +114,8 @@ setting:any;
     this.country=this.inv.patient.country
     this.amount=this.inv.totalAmount.amount
     this.status=this.inv.pres[0].status
-    this.pres=this.inv.pres  
+    this.pres=this.inv.pres 
+    
     })
   }
   
