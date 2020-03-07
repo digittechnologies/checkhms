@@ -44,6 +44,8 @@ export class DashboardComponent implements OnInit {
   imgLink: any;
   pstatus = 'active';
   roleD: Object;
+  shorName: any;
+  
 
   constructor(
     private Auth: AuthService,
@@ -74,6 +76,7 @@ export class DashboardComponent implements OnInit {
       data=>{
       this.response = data;      
       this.imgLink = this.response[0].app_url;
+      this.shorName = this.response[0].short_name;
     })
     
     this.Jarwis.displayAllposition().subscribe(

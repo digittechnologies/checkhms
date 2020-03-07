@@ -18,7 +18,7 @@ class SetupController extends Controller
 
     public function generalSettings()
     {
-        return DB::table('general_settings')->select('app_url')->get();
+        return DB::table('general_settings')->select('app_url', 'logo')->get();
     }
     public function updateItemTables()
     {

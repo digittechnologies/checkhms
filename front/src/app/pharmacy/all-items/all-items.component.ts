@@ -79,6 +79,17 @@ export class AllItemsComponent implements OnInit {
   filterString = "";
   disabled = false;
   itm: any;
+
+  soldItem: any;
+  transferredItem: any;
+  physBal: any;
+  openBal: any;
+  varianced: any;
+  totala: any;
+  itemAmount: any;
+  name: any;
+  addedItem: any
+
   varId: any;
   varRes: any;
   varName: any;
@@ -124,6 +135,16 @@ export class AllItemsComponent implements OnInit {
       this.response = data;      
       this.items = this.response;
       this.itemsitem=this.items.item;
+      this.name=this.items.bran.name
+      this.soldItem=this.items.soldItem
+    this.transferredItem=this.items.transferredItem
+    this.varianced=this.items.varianced
+    this.openBal=this.items.openBal
+    this.totala=this.items.total
+    this.physBal=this.items.physBal
+  this.itemAmount=this.items.itemAmount
+        this.addedItem=this.items.addedItem
+
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -201,14 +222,27 @@ export class AllItemsComponent implements OnInit {
     this.onFilterChange()
 }
 onFilterChange() {
+  // console.log(event)
+  // const filterValue=(event.target as HTMLInputElement).value;
+  // console.log(filterValue)
+  // this.itemsitem.filter=filterValue.trim().toLowerCase()
+  console.log(this.itemsitem)
   this.Jarwis.displayItem(this.uBranch).subscribe(
     data=>{
     this.response = data;      
     this.items = this.response;
-    this.itemsi=this.items.item;
-    this.itemsitem = this.itemsi.filter((cate) => this.isMatch(cate));
-  })
+    this.soldItem=this.items.soldItem
+    this.transferredItem=this.items.transferredItem
+    this.varianced=this.items.varianced
+    this.openBal=this.items.openBal
+    this.totala=this.items.total
+    this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
+    this.itemsi =this.items.item;
+  this.itemsitem = this.itemsi.filter((cate) => this.isMatch(cate));
   
+  })
+ 
 
 }
   
@@ -252,6 +286,17 @@ allItem(aa) {
     this.response = data;      
     this.items = this.response;
     this.itemsitem=this.items.item;
+    // this.itemsitem=this.items.item;
+    this.name=this.items.bran.name
+    this.soldItem=this.items.soldItem
+  this.transferredItem=this.items.transferredItem
+  this.varianced=this.items.varianced
+  this.openBal=this.items.openBal
+  this.totala=this.items.total
+  this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
+      this.addedItem=this.items.addedItem
+
   })
 }
 

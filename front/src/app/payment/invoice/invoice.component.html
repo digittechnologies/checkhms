@@ -27,10 +27,10 @@
                   <div class="body" id="print-history">
                       <div class="row clearfix"> 
                         <div class="col-md-12 col-sm-12">
-                          <div class="text-center">
-                          <img width="3%" src="../assets/images/checklogo_3.png" alt="Check Logo" class="center"><span id="cin">BUTH PHARMACY</span>
-                          </div>
-                          <div class="text-center">
+                          <div style="margin-left:35% ;" class="col-md-6 col-sm-6">
+                          <img width="70%" src="http://{{imgLink}}/backend/public/upload/icons/{{icon}}" alt="Check Logo" class="center"><span id="cin"></span>
+                          <!-- </div>
+                          <div class="col-md-4 col-sm-4">  -->
                             <p id="oid"><strong>Order ID: </strong> {{voucher_Id}}</p> 
                           </div>
                           <hr>  
@@ -59,7 +59,7 @@
                                               <th style="width: 80px; text-align: right">Total</th>
                                           </tr>
                                       </thead>
-                                      <tbody>
+                                      <tbody *ngIf="isEmpty !='0'">
                                             <tr *ngFor="let i of pres; let n =index">
                                                 <!-- <ng-container *ngIf = "i.status == 'invoice'" > -->
                                                     <td>{{n+1}}</td>
@@ -72,19 +72,24 @@
                                                     <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
                                                 <!-- </ng-container> -->
                                             </tr>
-                                            <div *ngIf="!pres">
-                                                
-                                                <div class="spinner-grow text-primary" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        <div class="spinner-grow text-secondary" role="status">
-                                <span class="sr-only">Loading...</span>
-                                </div>
-                                <div class="spinner-grow text-success" role="status">
-                                <span class="sr-only">Loading...</span>
-                                </div>
-                                              </div> 
+                                         
                                       </tbody>
+                                      <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+                                        No Invoice
+                                    </div>
+                                 
+                                    <div *ngIf="!inv">
+                                        
+                                        <div class="spinner-grow text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                <div class="spinner-grow text-secondary" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                                      </div> 
                                       <tfoot>
                                           <td colspan="4"></td>
                                           <td class="text-right">
@@ -158,7 +163,7 @@
                             <th style="width: 110px;">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="isEmpty !='0'">
                         <tr *ngFor="let i of pres; let n =index">
                             <!-- <ng-container *ngIf = "i.status == 'paid'" > -->
                                 <td>
@@ -183,19 +188,24 @@
                                     </td>
                             <!-- </ng-container> -->
                         </tr>
-                        <div *ngIf="!pres">
-                            
-                            <div class="spinner-grow text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
-                          </div> 
+                       
                     </tbody>
+                    <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+                        No Label
+                    </div>
+                 
+                    <div *ngIf="!inv">
+                        
+                        <div class="spinner-grow text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+                      </div> 
                 </table>
             </div>
         </div>

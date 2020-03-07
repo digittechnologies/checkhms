@@ -29,6 +29,9 @@ exportAsConfig: ExportAsConfig = {
   type: 'xlsx', // the type you want to download
   elementId: 'print-history', // the id of html/table element
 }
+  sBranch: any;
+  sDate: any;
+  eDate: any;
 constructor( 
   private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -65,6 +68,9 @@ this.spin="disable";
         this.payloads = this.response;
         this.payItem= this.payloads.item;
         this.payDetail = this.payloads.details;
+        this.sBranch = this.payloads.bran.name.toUpperCase();
+        this.sDate = this.payloads.date[0];
+        this.eDate = this.payloads.date[1];
         this.spin="";
       }); 
       this.disabled = false; 
@@ -79,6 +85,7 @@ this.spin="disable";
     style = style + "padding: 2px 3px;text-align: center;}";
     style = style + "a {text-decoration: none; color: black;}";
     style = style + "img {width: 25px;height: 25px;}";
+    style = style + "h5 {text-align: center;}";
     style = style + "</style>";
 
 var win = window.open('', '', 'height=700,width=700');
