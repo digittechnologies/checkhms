@@ -655,6 +655,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $request->merge(['item_date' => $item_date]);
         $request->merge(['item_time' => $item_time]);
         $request->merge(['item_shelf_id' => $request->shelve_id]);
+        $request->merge(['discount_id' => '0']);
         $staffId= Auth()->user()->id;
         $request->merge(['staff_id' => $staffId]);
 
@@ -709,6 +710,12 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $expiring_date = $datas['expiring_date'];
         $markup_price=$datas['markup_price'];
         $currentfile=$datas['item_img'];
+        
+        $manufacturer_id = $datas['manufacturer_id'];
+        $item_category_id = $datas['item_category_id'];
+        $item_type_id = $datas['item_type_id'];
+        $price_2 = $datas['price_2'];
+        $price_3 = $datas['price_3'];
         // $status= $request->status;
         // $item_unit_id= $request->item_unit_id;
         // $item_category_id= $request->item_category_id;
@@ -728,6 +735,16 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             // $update->update();
             DB::table('item_details')->where('item_details.id','=',$id)->update(['item_img' => $filename,]);
         }
+
+        if(!empty($manufacturer_id)){
+            DB::table('item_details')->where('item_details.id','=',$id)->update(['manufacturer_id' => $manufacturer_id]);
+        }
+        if(!empty($item_category_id)){
+            DB::table('item_details')->where('item_details.id','=',$id)->update(['item_category_id' => $item_category_id]);
+        }
+        if(!empty($item_type_id)){
+            DB::table('item_details')->where('item_details.id','=',$id)->update(['item_type_id' => $item_type_id]);
+        }
       
         $update = DB::table('item_details')->where('item_details.id','=',$id)->update([
             'generic_name'=>  $generic_name,
@@ -736,6 +753,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             'manufacture_date' => $manufacture_date,
             'expiring_date' => $expiring_date,
             'markup_price' => $markup_price,
+            'price_2' => $price_2,
+            'price_3' => $price_3,
             
             // 'status' => $status,
             // 'item_unit_id' => $item_unit_id,
@@ -2170,6 +2189,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $refill = 0;
         $remain = 0;
 
+        
+
         $get =  Doctor_prescriptions::orderBy('id') 
                         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
                         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
@@ -2179,7 +2200,12 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                         ->where('doctor_prescriptions.voucher_id', '=', $cid)
                         ->where('doctor_prescriptions.branch_id', '=', $branchId)
                         ->get();
-       
+
+        $cust =  $get[0]->customer_id;
+        $getCustCat = DB::table('customers')->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                         ->select('customer_category.pacentage_value')->where('customers.id', '=', $cust)->get();
+        $percent = $getCustCat[0]->pacentage_value;
+
         foreach($get as $row){
             $quantity += $row->quantity;
             $amount += $row->amount_paid;
@@ -2205,7 +2231,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $insert = DB::table('vouchers')->where('vouchers.id',$cid)->update([
                 'quantity' => $quantity,
                 'amount' => $amount,
-                'paid' => $amount,
+                'paid' => $percent / 100 * $amount,
                 'balance' => 0,
                 'total_refill' => $refill,
                 'refill_remain' => $remain,
@@ -2268,7 +2294,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $branchName = $getBranchName->br_name;
 
         //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
-        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status')->where('id', '=', $vid)->first();
+        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.paid', 'vouchers.refill_status')->where('id', '=', $vid)->first();
 
         $refill= $getV->refill_status;
 
@@ -2284,7 +2310,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
-            'paid' => $getV->amount,
+            'paid' => $getV->paid,
             'balance' => 0,
             'status' => 'paid',
             'delivery_status' => 'delivered',
@@ -2378,10 +2404,12 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                                     ->update([
                                         'status' => 'close',                                       
                                     ]); 
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
+        if($updateAppointment){  
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        }
     }
 
     public function terminateAppointment($vid)

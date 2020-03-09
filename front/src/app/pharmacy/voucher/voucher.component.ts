@@ -64,6 +64,13 @@ export class VoucherComponent implements OnInit {
   invoice: any;
   imgLink: any;
   disabled = false;
+  schemeCat: any;
+  schemeId: any;
+  schemePercent: any;
+  schemePriceList: any;
+  afterPercentCost: any;
+  schemeAmt: any;
+  schemePercentToView: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -84,7 +91,11 @@ export class VoucherComponent implements OnInit {
 	      this.patientResponse = data;      
         this.pat = this.patientResponse;
         this.patID = this.pat[0].id;
-        console.log(this.pat);
+        this.schemeCat = this.pat[0].category_name;
+        this.schemeId = this.pat[0].n_h_i_s;
+        this.schemePercent = this.pat[0].pacentage_value;
+        this.schemePercentToView = 100 -this.pat[0].pacentage_value;
+        this.schemePriceList = this.pat[0].price_list_column;
 	    })
   }))
   
@@ -118,6 +129,8 @@ export class VoucherComponent implements OnInit {
     this.refill = this.prescriptions.refill;
     this.remain = this.prescriptions.remain;
     this.tcost = this.prescriptions.tcost;
+    this.afterPercentCost = this.schemePercent / 100 * this.tcost; 
+    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost;
     this.prescriptionsList= this.PharmPreresponse.pres; 
   })
 
@@ -138,7 +151,7 @@ export class VoucherComponent implements OnInit {
     
   // }
   onSelectItem(Itemid) {
-    this.Jarwis.voucherAllStock(Itemid.target.value,'').subscribe(  
+    this.Jarwis.voucherAllStock(Itemid.target.value, '').subscribe(  
       data=>{
         this.AllStockresponse = data;
         this.total =this.AllStockresponse[0];
@@ -150,7 +163,15 @@ export class VoucherComponent implements OnInit {
         this.shelve_name= this.total.shelve_name;
         this.shelve_point= this.total.shelve_point;
         this.getInst = this.total.type_id;
-        this.selling_price= this.total.purchasing_price*this.total.markup_price;
+        if(this.schemePriceList == 'price_2'){
+          this.selling_price = this.total.price_2;
+        }
+        else if(this.schemePriceList == 'price_3'){
+          this.selling_price = this.total.price_3;
+        }
+        else{
+          this.selling_price= this.total.purchasing_price*this.total.markup_price;
+        }
         this.ngOnInit()
         this.Jarwis.displayDurationForV(this.getInst).subscribe(
           data=>{
@@ -226,8 +247,20 @@ export class VoucherComponent implements OnInit {
     form.value.voucher_id = this.voucherId
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
-    form.value.amount = this.total.selling_price
-    form.value.amount_paid = parseInt(this.total.selling_price) * parseInt(this.quant)
+    if(this.schemePriceList == 'price_2'){
+      form.value.amount = this.total.price_2;
+      form.value.amount_paid = parseInt(this.total.price_2) * parseInt(this.quant)
+    }
+    else if(this.schemePriceList == 'price_3'){
+      form.value.amount = this.total.price_3;
+      form.value.amount_paid = parseInt(this.total.price_3) * parseInt(this.quant)
+    }
+    else{
+      form.value.amount = this.total.purchasing_price*this.total.markup_price;
+      form.value.amount_paid = (parseInt(this.total.purchasing_price) * parseInt(this.total.markup_price)) * parseInt(this.quant)
+    }
+    // form.value.amount = this.total.selling_price
+    // form.value.amount_paid = parseInt(this.total.selling_price) * parseInt(this.quant)
     form.value.instock = this.total.total_remain
     // console.log(form.value)
     this.Jarwis.pharmPriscription(form.value).subscribe(

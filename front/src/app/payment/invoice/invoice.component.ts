@@ -50,6 +50,10 @@ setting:any;
   disabled = false;
   isEmpty: any;
   icon: any;
+  schemePercent: any;
+  afterPercentCost: any;
+  schemeAmt: any;
+  schemePercentToView: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -115,7 +119,10 @@ setting:any;
     this.amount=this.inv.totalAmount.amount
     this.status=this.inv.pres[0].status
     this.pres=this.inv.pres 
-    
+    this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
+    this.schemePercent = this.inv.patient.pacentage_value;
+    this.afterPercentCost = this.schemePercent / 100 * this.amount; 
+    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount;
     })
   }
   

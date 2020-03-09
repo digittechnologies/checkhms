@@ -135,24 +135,22 @@ export class PharmacyLogComponent implements OnInit {
   }
 
   handleResponse(data) {    // 
-    this.disabled = false;
-
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
+    this.disabled = false;
     this.router.navigateByUrl('/Admin/(side:pharmacy_log)');
     this.ngOnInit();
     
   }
 
   handleError(error) {
-    this.disabled = false;
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   onClickSubmit() {
