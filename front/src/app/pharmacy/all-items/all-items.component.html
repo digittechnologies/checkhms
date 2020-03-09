@@ -230,7 +230,7 @@
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
                                             <th>General Price</th>
-                                            <th>Gohya Price</th>
+                                            <th>GORAH Price</th>
                                             <th>NHIS Price</th>
                                             <th>Total Price in Sumation</th>
                                             <th>% Remaining</th>
@@ -274,11 +274,9 @@
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-success">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <!-- <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>     -->
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-success">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <!-- <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>     -->
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
@@ -380,22 +378,22 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Selling Price</label>
+                                                                    <label class="col-sm-2 col-form-label">General Selling Price</label>
                                                                     <div class="col-md-6 col-sm-10">
                                                                         <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price"disabled="true">
                                                                         <input type="hidden" class="form-control" id="inputEmail3" [(ngModel)]="selling_price"  ngModel name="selling_price">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Price List 2 (GOYAH)</label>
+                                                                    <label class="col-sm-2 col-form-label">Price 2 (GORAH Scheme)</label>
                                                                     <div class="col-md-6 col-sm-10">
-                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_2"  ngModel name="price_2" placeholder="Enter Price two">
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_2"  ngModel name="price_2" placeholder="Enter Price two" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Price List 3 (NHIS)</label>
+                                                                    <label class="col-sm-2 col-form-label">Price 3 (NHIS Scheme)</label>
                                                                     <div class="col-md-6 col-sm-10">
-                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_3"  ngModel name="price_3" placeholder="Enter Price three">
+                                                                        <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_3"  ngModel name="price_3" placeholder="Enter Price three" required>
                                                                     </div>
                                                                 </div>
                                                             <div class="form-group row">

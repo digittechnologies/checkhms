@@ -264,7 +264,7 @@ get(){
   }
   sellPrice2(e){
     this.markup_p = e.target.value;
-    this.selling_price = this.purchasing_p * this.markup_p;
+    this.selling_price = Math.round(this.purchasing_p * this.markup_p);
   }
 
 onSelectItem(id) {

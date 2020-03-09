@@ -2118,7 +2118,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function saveRefill(Request $request)
     {
-        return $request->refill[0];
+        return $request->refill;
         $id = $request->id;
         $getPres = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $id)->first();
         $quantity = $getPres->refill_range * $request->refill;

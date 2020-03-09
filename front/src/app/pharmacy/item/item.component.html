@@ -77,17 +77,17 @@
                                 </div>
                             </div>
                         </a>
-                        <small class="text-muted">Category: </small>
+                        <small class="text-muted">Class: </small>
                         <p>{{resitem.cat_name}}</p>                            
                         <hr>
-                        <small class="text-muted">Unit: </small>
+                        <!-- <small class="text-muted">Unit: </small>
                         <p class="mb-0"><span>Name: <strong>{{resitem.unit_name}}</strong></span></p>
                         <p class="mb-0"><span>Box Size: <strong>{{resitem.box_size}}</strong></span></p>
                         <p class="mb-0"><span>Unit Value: <strong>{{resitem.value}}</strong></span></p>
-                        <hr>
-                        <!-- <small class="text-muted">Birth Date: </small>
-                        <p class="m-b-0">October 17th, 93</p>
                         <hr> -->
+                        <small class="text-muted">Type: </small>
+                        <p class="m-b-0">{{resitem.type_name}}</p>
+                        <hr>
                         <small class="text-muted">Brand/Manufacturer Details: </small>
                         <p class="mb-0"><span>Brand Name: <strong>{{resitem.manuf_name}}</strong></span></p>
                         <p class="mb-0"><span>Address: <strong>{{resitem.address}}</strong></span></p>
@@ -116,28 +116,84 @@
                         <form [formGroup]="submissionForm" >
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-12">
-                                <label>Generic name</label>
+                                <label>Generic Name</label>
                                 <div class="form-group">                                                
                                     <input type="text" class="form-control" formControlName="generic_name">
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Brand</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="manuf_name" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Select Brand</label>
+                                    <select class="form-control" formControlName="manufacturer_id">
+                                        <option value="">-- Change Brand --</option>
+                                        <option *ngFor="let m of manuf" [value]="m.id">{{m.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Class</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="cat_name" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Select Class</label>
+                                    <select class="form-control" formControlName="item_category_id">
+                                        <option value="">-- Change Class --</option>
+                                        <option  *ngFor="let c of cat" [value]="c.id">{{c.cat_name}}</option>                                      
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row ml-5">
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Type</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="type_name" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Select Type</label>
+                                    <select class="form-control"formControlName="item_type_id">
+                                        <option value="">-- Change Type --</option>
+                                        <option *ngFor="let t of typ" [value]="t.id">{{t.type_name}}</option>                                      
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <label>Purchasing Price</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  formControlName="purchasing_price">
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-md-12">
-                                <label>Selling price</label>
+                                <label>General Selling Price</label>
                                 <div class="form-group">                                                
                                     <input type="text" class="form-control"  formControlName="selling_price">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
-                                <label>Purchasing price</label>
+                                <label>GORAH Price</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  formControlName="purchasing_price">
+                                    <input type="text" class="form-control"  formControlName="price_2">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <label>NHIS Price</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  formControlName="price_3">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
                                 <label>Manufacture date</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                
                                         <input type="date" class="form-control" formControlName="manufacture_date" placeholder="Manufacture date">
                                     </div>
                                 </div>
