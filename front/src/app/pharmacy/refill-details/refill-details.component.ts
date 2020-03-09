@@ -31,6 +31,8 @@ export class RefillDetailsComponent implements OnInit {
   pat2: any;
   response2: any;
   pat_refil: any;
+  rValue: any;
+  rId: any;
 
   constructor( 
     private http: HttpClient,
@@ -76,40 +78,42 @@ export class RefillDetailsComponent implements OnInit {
       this.itemDet = this.response       
     })
   }
-
-  getRefill(r){
-    if(r.target.value > 1){
-      this.refillAmt = r.target.value;
-      // this.qty= this.refillAmt *
-    }
-  }
+ 
 
   onRefill(id) {
-    
-    // this.Jarwis.pres_refill_id(id).subscribe(
-    //   data=>{
-    //   this.response2 = data;      
-    //   this.pat_refil = this.response2[0].refill;
-     
-    // })
 
-    // if (this.refillAmt >= this.pat_refil) {
-    //   // alert('Refill is not up to this value');  
-    //   alert(this.refillAmt)    
-    // } else {
+       
+    this.rId= id
+    this.Jarwis.pres_refill_id(id).subscribe(
+      data=>{
+      this.response2 = data;      
+      this.pat_refil = this.response2[0].refill;     
+    })
 
-    //   alert('u are doing well');
-      
-    // }
-
-
-   
-    // this.Jarwis.saveRefill({refill:this.refillAmt, id: id, voucher: this.voucherId}).subscribe(
-    //   data => this.handleResponse(data),
-    //   error => this.handleError(error),  
-    // );
     this.refillAmt = 1;
   }
+
+  getRefill(r){
+
+    this.refillAmt = r.target.value;
+
+    if (this.refillAmt > this.pat_refil) {
+      alert('Refill is not up to this value');  
+      r.target.value = '';
+    } else {
+      
+    }
+   
+  }
+
+  onSubmit(form:NgForm){
+    this.Jarwis.saveRefill({refill:form.value, id: this.rId, voucher: this.voucherId}).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+
+  }
+  
 
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {

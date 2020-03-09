@@ -211,7 +211,7 @@
                          
                             <th>Cost</th>
                             <th>Amount</th>
-                            <th>Action</th>
+                            <!-- <th>Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -232,10 +232,10 @@
                      
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                        <td>
+                        <!-- <td>
                           <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
                           <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
-                      </td>
+                      </td> -->
                         </tr>
                         <div *ngIf="!prescriptionsList">
                             
@@ -257,9 +257,14 @@
                             <th></th>
                             <th></th>                                      
                             <th></th>
-                            <th>{{tquant}}</th>
+
+                            <th></th>
+                            <th></th>                                      
+                            <th></th>
+                            
+                            <!-- <th>{{tquant}}</th>
                             <th>{{refill}}</th> 
-                            <th>{{remain}}</th>    
+                            <th>{{remain}}</th>     -->
                             <th></th>                             
                             <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
                         </tr>
