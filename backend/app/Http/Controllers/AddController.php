@@ -2379,13 +2379,16 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                                     ->where('appointments.branch_id', $branchId)
                                     ->where('appointments.prescription', '=', 'success')
                                     ->where('appointments.invoice', '=', 'paid')
+                                    ->where('appointments.voucher_id', '=', $vid)
                                     ->update([
                                         'status' => 'close',                                       
                                     ]); 
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
+        if($updateAppointment){
+             return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        }
     }
 
     public function terminateAppointment($vid)

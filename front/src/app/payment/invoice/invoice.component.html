@@ -149,7 +149,7 @@
                     </ol>
                 </nav>
             </div>            
-            <div class="col-md-6 col-sm-12 text-right hidden-xs">
+            <div class="col-md-6 col-sm-12 text-right">
                 <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end fa fa-spin fa-spinner"></i>End Process</button>
                 <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "status == 'paid'"><i class="icon-printer"></i>End Process</button>
             </div>

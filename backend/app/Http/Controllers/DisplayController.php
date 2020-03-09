@@ -456,6 +456,7 @@ class DisplayController extends Controller
         $cId= $customeId[0]->customer_id;
         return response()->json(
             Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+            ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
             ->where('customers.id','=',$cId)          
             ->get()   
         );
@@ -678,7 +679,7 @@ class DisplayController extends Controller
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*', 'customer_category.*', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
                 // ->where('doctor_prescriptions.status', '=', 'close')
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
                 ->where('doctor_prescriptions.branch_id', '=', $bId)
@@ -702,7 +703,7 @@ class DisplayController extends Controller
             "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
             "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
             ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-            ->select('customers.*', 'customer_category.*')
+            ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
             ->first(),
             "isE" =>$p->count(),
             ]);
