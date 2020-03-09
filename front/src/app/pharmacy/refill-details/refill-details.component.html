@@ -139,17 +139,17 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                        <input style="border-color: blueviolet;" type="number" min="1" max="{{r.dispense - r.refill}}" value="1" ngModel name="refil" id="inp" class="form-control" required (keyup)="onRefill(inp)" placeholder="Refill Amount">
+                        <input style="border-color: blueviolet;" type="number" min="1" max="{{r.dispense - r.refill}}" value="" ngModel name="refil" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount">
                       </div>
                   </div>
-                  <div class="col-md-4">
+                  <!-- <div class="col-md-4">
                       <div class="form-group">
                           <select class="form-control show-tick" ngModel name="status">
                               <option value="active">Active</option>
                               <option value="suspend">Suspend</option>                                
                           </select>                  
                         </div>
-                  </div>            
+                  </div>             -->
               </div>
           </div>                
           <div class="modal-footer">
