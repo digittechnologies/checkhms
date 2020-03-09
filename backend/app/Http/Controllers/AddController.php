@@ -2126,13 +2126,15 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $amount_paid = $getPres->amount * $quantity;
 
         $quantity += $getPres->quantity;
-        $remain += $getPres->remain;
-        $amount_paid += $getPres->amount_paid;
+        // $remain += $getPres->remain;
+        // $amount_paid += $getPres->amount_paid;
 
         if($refill == 0){
             $refill_status = 'non-refillable';
+            $refill_voucher_status = 'save';
         } else if($refill > 0){
             $refill_status = 'refillable';
+            $refill_voucher_status = 'save';
         }
 
         $updatePrescription = DB::table('doctor_prescriptions')
@@ -2142,10 +2144,11 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             'remain' => $remain,
             'refill' => $refill,
             'amount_paid' => $amount_paid,
-            'refill_status' => $refill_status
+            'refill_status' => $refill_status,
+            'refill_voucher_status' => $refill_voucher_status
         ]);
 
-        if($pharmP){
+        if($updatePrescription){
             return '{
                 "success":true,
                 "message":"successful"

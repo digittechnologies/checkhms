@@ -196,6 +196,7 @@ Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
 Route::post('displayRefillPrescriptions/{id}','DisplayController@displayRefillPrescriptions');
+Route::post('pres_refill_id/{id}','DisplayController@pres_refill_id');
 Route::post('refillInStock','DisplayController@refillInStock');
 Route::post('saveRefill','AddController@saveRefill');
 Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
