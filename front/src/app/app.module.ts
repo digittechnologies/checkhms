@@ -100,6 +100,7 @@ import { UserRoleGuardService } from './service/guards/user-role-guard.service';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
+import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -229,7 +230,9 @@ import { ExportAsModule } from 'ngx-export-as';
   
     ForgotPasswordEmailComponent,
   
-    ForgotPasswordResetComponent
+    ForgotPasswordResetComponent,
+  
+    CustomerCategoryComponent
   ],
   imports: [
     BrowserModule,
