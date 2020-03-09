@@ -627,6 +627,13 @@ deleteAppointment(data) {
     }})
   }
 
+  pres_refill_id(id: any) {
+    return this.http.post<any>(`${this.baseUrl}/pres_refill_id/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+
   refillInStock(id:any, data) {
     return this.http.post<any>(`${this.baseUrl}/refillInStock/${id}`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`

@@ -5,7 +5,8 @@ import { TokenService } from 'src/app/service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
-import { NgForm } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from "@angular/forms";
+
 
 @Component({
   selector: 'app-refill-details',
@@ -13,7 +14,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./refill-details.component.css']
 })
 export class RefillDetailsComponent implements OnInit {
-
+  public submissionForm: FormGroup;
   response: any;
   total: any;
   error: any;
@@ -25,6 +26,11 @@ export class RefillDetailsComponent implements OnInit {
   voucherId: any;
   refillAmt = 1;
   imgLink: any;
+  patnt: any;
+  qty: any;
+  pat2: any;
+  response2: any;
+  pat_refil: any;
 
   constructor( 
     private http: HttpClient,
@@ -34,6 +40,7 @@ export class RefillDetailsComponent implements OnInit {
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
     public actRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -49,10 +56,19 @@ export class RefillDetailsComponent implements OnInit {
 	    this.Jarwis.displayRefillPrescriptions(id, '').subscribe(
 	      data=>{
 	      this.response = data;      
-        this.pat = this.response;
+        this.pat = this.response.refill;
+        this.pat2 = this.response.refill2;
+        this.patnt = this.pat[0];
         this.voucherId = this.pat[0].voucher_id
 	    })
-	}))
+  }))
+  
+  this.submissionForm = this.formBuilder.group(
+     
+    {
+      60: ['hhh'],
+   },
+ )
 
     this.Jarwis.disItemDet().subscribe(
       data=>{
@@ -64,28 +80,34 @@ export class RefillDetailsComponent implements OnInit {
   getRefill(r){
     if(r.target.value > 1){
       this.refillAmt = r.target.value;
+      // this.qty= this.refillAmt *
     }
   }
 
   onRefill(id) {
-    // this.Jarwis.refillInStock(id.target.value, '').subscribe(  
+    
+    // this.Jarwis.pres_refill_id(id).subscribe(
     //   data=>{
-    //     this.response = data;
-    //     this.total =this.response;
-    //   }
+    //   this.response2 = data;      
+    //   this.pat_refil = this.response2[0].refill;
+     
+    // })
+
+    // if (this.refillAmt >= this.pat_refil) {
+    //   // alert('Refill is not up to this value');  
+    //   alert(this.refillAmt)    
+    // } else {
+
+    //   alert('u are doing well');
+      
+    // }
+
+
+   
+    // this.Jarwis.saveRefill({refill:this.refillAmt, id: id, voucher: this.voucherId}).subscribe(
+    //   data => this.handleResponse(data),
+    //   error => this.handleError(error),  
     // );
-    // alert(this.refillAmt)
-    // alert(id)
-    // return
-    // let form: NgForm
-    // form.value.id = id
-    // form.value.refill = this.refillAmt
-    // console.log(form.value)
-    // return
-    this.Jarwis.saveRefill({refill:this.refillAmt, id: id, voucher: this.voucherId}).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),  
-    );
     this.refillAmt = 1;
   }
 

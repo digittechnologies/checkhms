@@ -544,6 +544,12 @@ class DisplayController extends Controller
     {
         return DB::table("doctor_prescriptions")->get();
     }
+
+    public function pres_refill_id($id)
+    {
+        return DB::table("doctor_prescriptions")->where('doctor_prescriptions.id',$id)->get();
+    }    
+
      public function displayRefillPrescriptions($vid)
      {
          $bid =  Auth()->user()->branch_id;
@@ -552,15 +558,30 @@ class DisplayController extends Controller
          ->where('id', $bid)
          ->get(); 
          $branch = $branch1[0]->br_name; 
-         return DB::table('doctor_prescriptions')
-                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                    ->join ('item_types','item_details.item_type_id','=','item_types.id')
-                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                    ->select('doctor_prescriptions.*', 'item_details.generic_name', 'item_types.type_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.patient_image') 
-                    ->where(['doctor_prescriptions.voucher_id' => $vid, 'doctor_prescriptions.refill_status' => 'refillable'])
-                    ->get();
+
+            return response()->json([         
+            'refill'=>  DB::table('doctor_prescriptions')
+                        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                        ->join ('item_types','item_details.item_type_id','=','item_types.id')
+                        ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')
+                        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                        ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                        ->select('doctor_prescriptions.*', 'item_details.generic_name', 'item_types.type_name', 'branches.name as branchName', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.patient_image') 
+                        ->where(['doctor_prescriptions.voucher_id' => $vid, 'doctor_prescriptions.refill_status' => 'refillable'])
+                        ->get(),
+            'refill2'=> DB::table('doctor_prescriptions')
+                        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                        ->join ('item_types','item_details.item_type_id','=','item_types.id')
+                        ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')
+                        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                        ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                        ->select('doctor_prescriptions.*', 'item_details.generic_name', 'item_types.type_name', 'branches.name as branchName', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.patient_image') 
+                        ->where(['doctor_prescriptions.voucher_id' => $vid, 'doctor_prescriptions.refill_voucher_status' => 'saved'])
+                        ->get(),
+            ]);
+        
      }
 
      public function refillInStock($id)
