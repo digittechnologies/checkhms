@@ -443,6 +443,26 @@ makeAppointment2(data) {
   }})
 }
 
+displayCustomerCategory() {
+  return this.http.get(`${this.baseUrl}/displayCustomerCategory`,)
+}
+updateCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/updateCustCategories`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+deleteCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/deleteCustCategories`, data)
+} 
+edtCustCategories(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/edtCustCategories/${id}`)
+}
+addCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/addCustCategories`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 //Appointment 
 displayAllappointment() {
   return this.http.get(`${this.baseUrl}/displayAllappointment`,)

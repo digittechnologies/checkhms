@@ -450,6 +450,14 @@ class DisplayController extends Controller
            
         );
     }
+
+    public function edtCustCategories($id)
+    {
+        return response()->json(
+            DB::table("customer_category")->where('id','=',$id) ->get()      
+        );
+    }
+
     public function patientdetails($id)
     {
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->get();
@@ -1309,6 +1317,10 @@ class DisplayController extends Controller
         ]);
     }
 
+    public function displayCustomerCategory()
+    {
+        return DB::table("customer_category")->get(); 
+    }
     // public function search($searchTerm)
     // {
     //     return response()->json(

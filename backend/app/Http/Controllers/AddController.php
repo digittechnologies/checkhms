@@ -28,6 +28,7 @@ use App\Lab_depts;
 use App\Lab_test_types;
 use App\Duration;
 use App\Daily_supply;
+use App\Customer_category;
 
 
 class AddController extends Controller
@@ -945,6 +946,74 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     }
 
+    public function addCustCategories(Request $request)
+    {
+        $cust_id = auth()->user()->id;
+        $request->merge(["created_by" => $cust_id]);
+        $request->merge(["update_by" => $cust_id]);
+        $customerCategory = DB::table('customer_category')->insert($request->all());
+       
+        if($customerCategory){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateCustCategories(Request $request)
+    {   
+        $cust_id = auth()->user()->id;
+        $name = $request->category_name;
+        $desc = $request->description;
+        $percent = $request->pacentage_value;
+        $priceList = $request->price_list_column;
+        $id = $request->id;   
+        $update = DB::table('customer_category')->where('id','=',$id)
+            ->update([
+                'category_name'=> $name,
+                'description'=> $desc,
+                'pacentage_value'=> $percent,
+                'price_list_column'=> $priceList,
+                'update_by' => $cust_id,
+            ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteCustCategories(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('customer_category')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+    
     public function updateCustomer(Request $request)
     {
         $id=$request->formdata['id'];
