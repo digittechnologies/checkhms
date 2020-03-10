@@ -59,6 +59,7 @@ import { PatientComponent } from './customer/patient/patient.component';
 import { PatientDetailsComponent } from './customer/patient-details/patient-details.component';
 import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
+import { AddPatientComponent } from './customer/add-patient/add-patient.component';
 
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
@@ -121,6 +122,7 @@ const routes: Routes = [
          {path: 'patient_profile/:id', component: PatientDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [AfterLoginService] },
+         {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [AfterLoginService] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
