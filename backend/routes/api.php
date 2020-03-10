@@ -177,6 +177,15 @@ Route::get('patientdetails/{id}','DisplayController@patientdetails');
 Route::get('customer_category','DisplayController@customer_category');
 Route::get('patientbyappointment/{id}','DisplayController@patientbyappointment');
 Route::post('changeCategory', 'AddController@changeCategory');
+
+Route::post('addCustCategories', 'AddController@addCustCategories');
+Route::get('displayCustomerCategory','DisplayController@displayCustomerCategory');
+Route::get('edtCustCategories/{id}','DisplayController@edtCustCategories');
+Route::post('updateCustCategories', 'AddController@updateCustCategories');
+Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
+
+
+
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');

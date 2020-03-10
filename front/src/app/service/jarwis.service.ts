@@ -39,9 +39,9 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
+  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  // private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
 
@@ -446,10 +446,29 @@ makeAppointment2(data) {
   }})
 }
 
-//Category
+//Category (PATIENTS)
 
 changeCategory(data) {
-  return this.http.post<any>(`${this.baseUrl}/changeCategory`, data,{headers:{
+  return this.http.post<any>(`${this.baseUrl}/changeCategory`, data,{headers:{ 
+    Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+displayCustomerCategory() {
+  return this.http.get(`${this.baseUrl}/displayCustomerCategory`,)
+}
+updateCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/updateCustCategories`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+deleteCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/deleteCustCategories`, data)
+} 
+edtCustCategories(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/edtCustCategories/${id}`)
+}
+addCustCategories(data) {
+  return this.http.post(`${this.baseUrl}/addCustCategories`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }

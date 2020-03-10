@@ -28,6 +28,7 @@ use App\Lab_depts;
 use App\Lab_test_types;
 use App\Duration;
 use App\Daily_supply;
+use App\Customer_category;
 
 
 class AddController extends Controller
@@ -709,6 +710,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $expiring_date = $datas['expiring_date'];
         $markup_price=$datas['markup_price'];
         $currentfile=$datas['item_img'];
+        $price2 = $datas['price_2'];
+        $price3 = $datas['price_3'];
         // $status= $request->status;
         // $item_unit_id= $request->item_unit_id;
         // $item_category_id= $request->item_category_id;
@@ -720,7 +723,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         // $discount_id= $request->discount_id;
         // return $request->image;
         
-        if ($request->image != $currentfile){
+        if ($request->image != $currentfile && !empty($request->image)){
             $file=$request->image;
             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
             Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
@@ -736,7 +739,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             'manufacture_date' => $manufacture_date,
             'expiring_date' => $expiring_date,
             'markup_price' => $markup_price,
-            
+            'price_2' => $price2,
+            'price_3' => $price3,
             // 'status' => $status,
             // 'item_unit_id' => $item_unit_id,
             // 'item_category_id' => $item_category_id,
@@ -949,6 +953,74 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     }
 
+    public function addCustCategories(Request $request)
+    {
+        $cust_id = auth()->user()->id;
+        $request->merge(["created_by" => $cust_id]);
+        $request->merge(["update_by" => $cust_id]);
+        $customerCategory = DB::table('customer_category')->insert($request->all());
+       
+        if($customerCategory){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateCustCategories(Request $request)
+    {   
+        $cust_id = auth()->user()->id;
+        $name = $request->category_name;
+        $desc = $request->description;
+        $percent = $request->pacentage_value;
+        $priceList = $request->price_list_column;
+        $id = $request->id;   
+        $update = DB::table('customer_category')->where('id','=',$id)
+            ->update([
+                'category_name'=> $name,
+                'description'=> $desc,
+                'pacentage_value'=> $percent,
+                'price_list_column'=> $priceList,
+                'update_by' => $cust_id,
+            ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteCustCategories(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('customer_category')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+    
     public function updateCustomer(Request $request)
     {
         $id=$request->formdata['id'];
@@ -977,6 +1049,15 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->state =  $datas['state'];
          $user->d_o_b =  $datas['d_o_b'];
          $user->country=$datas['country'];
+         $user->religion = $datas['religion'];
+         $user->age = $datas['age'];
+         $user->occupation = $datas['occupation'];
+         $user->type = $datas['type'];
+         $user->marital_status = $datas['marital_status'];
+         $user->next_of_kin_name = $datas['next_of_kin_name'];
+         $user->kin_relationship = $datas['kin_relationship'];
+         $user->next_of_kin_mobile = $datas['next_of_kin_mobile'];
+         $user->next_of_kin_address = $datas['next_of_kin_address'];
          $user->save();
          // $user->update($request->all());
          if($user){

@@ -105,7 +105,7 @@ this.onFilterChange();
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:appointment');
+    this.router.navigateByUrl('/Admin/(side:appointment)');
     this.ngOnInit();  
   }
 

@@ -226,7 +226,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:items)');
+    // this.router.navigateByUrl('/Admin/(side:items)');
     this.ngOnInit();
     
   }

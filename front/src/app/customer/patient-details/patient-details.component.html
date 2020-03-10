@@ -31,9 +31,10 @@
                                 <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="">
                             </div>
                             <div class="details">
-                                <label>Card Number : </label> <span class="mb-0"> {{card_number}}</span><br>
-                                Name: <span class="text-light">{{name }} {{othername}}</span><br>
-                                Mobile: <span>{{mobile_no}}</span>
+                                <label>Card Number: </label> <span class="mb-0"> {{card_number}}</span><br>
+                                <label>Name: </label><span class="text-light">{{name }} {{othername}}</span><br>
+                                <label>Gender: </label> <span>{{gender}}</span><br>
+                                <label>Mobile: </label><span>{{mobile_no}}</span>
                             </div>                                
                         </div>
                         <!-- <div class="col text-right">
@@ -154,89 +155,144 @@
                                 <div class="tab-pane active" id="Basic">
                                     <div class="card">
                                         <div class="header">
-                                            <h2>Basic Information</h2>
+                                            <h2>Patient Basic Information</h2>
                                         </div>
                                         <div class="body">
                                             <form [formGroup]="submissionForm" >
                                                 <div class="row clearfix">
                                                     <div class="col-lg-6 col-md-12">
-                                                        <div class="form-group">   
+                                                        <div class="form-group"> 
+                                                            <label class="fancy-radio custom-color-green">Patient First Name</label>  
                                                             <input type="text" class="form-control" formControlName="fname">                                             
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-12">
                                                         <div class="form-group">  
+                                                            <label class="fancy-radio custom-color-green">Patient Other Name</label> 
                                                             <input type="text" class="form-control" formControlName="oname">
-
                                                         </div>
                                                     </div>
-                                                    
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Email Address</label> 
                                                           <input type="text" class="form-control" formControlName="email">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
-                                                            <div class="input-group">
-                                                              <input type="text" class="form-control" formControlName="mobile_number" placeholder="mobile number">
+                                                            <div class="form-group">
+                                                                <label class="fancy-radio custom-color-green">Patient Mobile Number</label> 
+                                                              <input type="text" class="form-control" formControlName="mobile_number" placeholder="Mobile Number">
                                                             </div>
+                                                        </div>
+                                                    </div>                               
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Hospital/Card Number</label>
+                                                          <input type="text" class="form-control" formControlName="card_number" placeholder="Card Number">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
-                                                            <div class="input-group">
-                                                                <!-- <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class=""></i></span>
-                                                                </div> -->
-                                                                <input type="text" class="form-control" formControlName="genotype" placeholder="genotype">
-                                                                
+                                                            <div class="form-group">
+                                                                <label class="fancy-radio custom-color-green">Patient Scheme ID</label> 
+                                                                <input type="text" class="form-control" formControlName="n_h_i_s" placeholder="Scheme ID">  
                                                             </div>
                                                         </div>
-                                                    </div>                                
-                                                    <div class="col-lg-4 col-md-12">
-                                                        <div class="form-group">
-                                                          <input type="text" class="form-control" formControlName="card_number" placeholder="card_number">
-                                                        </div>
-                                                    </div>
+                                                    </div> 
                                                     <div class="col-lg-4 col-md-12">
                                                       <div class="form-group">
-                                                        <input type="text" class="form-control" formControlName="d_o_b" placeholder="d_o_b">
+                                                        <label class="fancy-radio custom-color-green">Patient Date of Birth</label>
+                                                        <input type="date" class="form-control" formControlName="d_o_b" placeholder="Date of Birth">
                                                       </div>
                                                   </div>
-                                                    
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" formControlName="blood_group" placeholder="blood_group">
+                                                            <label class="fancy-radio custom-color-green">Patient Age</label>
+                                                            <input type="text" class="form-control" formControlName="age" placeholder="Age">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
-                                                      <div class="form-group">
-                                                    <label>Change file</label><br>
-                                                    <input type="file" name="file"  (change)="uploadFile($event)">
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Type</label>
+                                                            <input type="text" class="form-control" formControlName="type" placeholder="Type">
+                                                        </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Occupation</label>
+                                                            <input type="text" class="form-control" formControlName="occupation" placeholder="Occupation">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Marital Status</label>
+                                                            <input type="text" class="form-control" formControlName="marital_status" placeholder="Marital Status">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Religion</label>
+                                                            <input type="text" class="form-control" formControlName="religion" placeholder="Religion">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient City</label>
                                                             <input type="text" class="form-control" formControlName="city" placeholder="City">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient State</label>
                                                             <input type="text" class="form-control" formControlName="state" placeholder="State">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-12">
                                                         <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Country</label>
                                                             <input type="text" class="form-control" formControlName="country" placeholder="Country">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">                                                
+                                                        <div class="form-group">      
+                                                            <label class="fancy-radio custom-color-green">Patient Home Address</label>                                          
                                                             <textarea rows="4" type="text" class="form-control" formControlName="address" placeholder="Address"></textarea>
                                                         </div>
                                                     </div>
-                                                
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <h4>Patient Next of Kin Information</h4>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Next of Kin Name</label>
+                                                            <input type="text" class="form-control" formControlName="next_of_kin_name" placeholder="Next of Kin Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Relationship to Next of Kin</label>
+                                                            <input type="text" class="form-control" formControlName="kin_relationship" placeholder="Next of Kin Relationship">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Patient Next of Kin Mobile Number</label>
+                                                            <input type="text" class="form-control" formControlName="next_of_kin_mobile" placeholder="Next of Kin Mobile Number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group">      
+                                                            <label class="fancy-radio custom-color-green">Patient Next of Kin Address</label>                                          
+                                                            <textarea rows="4" type="text" class="form-control" formControlName="next_of_kin_address" placeholder="Next of Kin Address"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                      <label>Change Patient Image</label><br>
+                                                      <input type="file" name="file"  (change)="uploadFile($event)">
+                                                      </div>
+                                                      </div>
                                                 </div>
                                                 <button type="button" (click)="onSubmitprofile()" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
                                                 <button type="button" class="btn btn-round btn-default">Cancel</button>
