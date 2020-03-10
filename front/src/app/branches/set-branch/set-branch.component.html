@@ -45,21 +45,21 @@
           <div class="col-sm-12">
               <div class="card">
                 <ul class="nav nav-tabs">
-                    <li *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#clinic" (click)="branch('clinic')" value="clinic">Clinic</a></li>
+                    <li *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#clinic" (click)="branch('clinic')" value="clinic">Clinic</a></li>
                     <!-- <ng-container *ngIf ="4004 > uPos"> -->
-                        <li *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#pharmacy" (click)="branch('pharmacy')" >Pharmacy</a></li>
-                        <li *ngIf="  role=='3003' && department=='Record' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#record" (click)="branch('record')">Record</a></li>
-                        <li *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#revenue" (click)="branch('revenue')">Revenue</a></li>
+                        <li *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#pharmacy" (click)="branch('pharmacy')" >Pharmacy</a></li>
+                        <li *ngIf="  role=='3003' && department=='Records' || role=='1001' || role==2002 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#record" (click)="branch('record')">Record</a></li>
+                        <li *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#revenue" (click)="branch('revenue')">Revenue</a></li>
                     <!-- </ng-container> -->
-                    <li *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#theater" (click)="branch('theater')">Theater</a></li>
-                    <li *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li>
-                    <li *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#nurse" (click)="branch('nurse')">Nurse</a></li>
-                    <li *ngIf=" role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#lab" (click)="branch('lab')">Lab</a></li>
-                    <li  *ngIf="role=='1001' || role==5006" class="nav-item"><a class="nav-link " data-toggle="tab" href="#admin" (click)="branch('admin')">Admin</a></li>
-                    <li *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#radio" (click)="branch('radio')">Radiology</a></li>
+                    <li *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#theater" (click)="branch('theater')">Theater</a></li>
+                    <li *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li>
+                    <li *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#nurse" (click)="branch('nurse')">Nurse</a></li>
+                    <li *ngIf=" role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#lab" (click)="branch('lab')">Lab</a></li>
+                    <li  *ngIf="role=='1001' || role==1002" class="nav-item"><a class="nav-link " data-toggle="tab" href="#admin" (click)="branch('admin')">Admin</a></li>
+                    <li *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#radio" (click)="branch('radio')">Radiology</a></li>
                 </ul>
                 <div  class="tab-content mt-0">
-                  <div *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 " class="tab-pane active show" id="clinic">
+                  <div *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==2001 || role==1002 " class="tab-pane active show" id="clinic">
                     <table class="table table-hover table-custom spacing8">
                         <thead>
                             <tr> 
@@ -107,7 +107,7 @@
                     </table>
                   
             </div>
-              <div *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="pharmacy">
+              <div *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==1002 " class="tab-pane" id="pharmacy">
                       <table class="table table-hover table-custom spacing8">
                       <thead>
                           <tr> 
@@ -154,7 +154,7 @@
                       </tbody>
                   </table>
             </div>
-            <div *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="radio">
+            <div *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="radio">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -202,7 +202,7 @@
                 </table>
               
             </div>
-            <div *ngIf="  role=='3003' && department=='Record' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="record">
+            <div *ngIf="  role=='3003' && department=='Records' || role=='1001' || role==2002 || role==1002 " class="tab-pane" id="record">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -250,7 +250,7 @@
                 </table>
               
             </div>
-            <div *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="revenue">
+            <div *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==1002 " class="tab-pane" id="revenue">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -298,7 +298,7 @@
                 </table>
               
              </div>
-             <div *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="theater">
+             <div *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="theater">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -346,7 +346,7 @@
                 </table>
               
              </div>
-             <div *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="nurse">
+             <div *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="nurse">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -394,7 +394,7 @@
                 </table>
               
              </div>
-             <div *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="ward">
+             <div *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="ward">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -442,7 +442,7 @@
                 </table>
               
              </div>
-             <div *ngIf=" role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="lab">
+             <div *ngIf=" role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="lab">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -490,7 +490,7 @@
                 </table>
               
              </div>
-             <div *ngIf="role=='1001' || role==5006" class="tab-pane" id="admin">
+             <div *ngIf="role=='1001' || role==1002" class="tab-pane" id="admin">
                 <table class="table table-hover table-custom spacing8">
                     <thead>
                         <tr> 
@@ -559,20 +559,20 @@
           <div class="row col-12 justify-content-center mb-2">
               <select name="dept"  (change)="dept($event)"  id="dep">
                   <option value="">Select Department</option>
-                  <option  *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 "  value="clinic">Clinic</option>
-                  <option  *ngIf="role=='3003' && department=='Pharmacy' || role=='1001' || role==5007 || role==5006 " value="pharmacy">pharmacy</option>
-                  <option  *ngIf="role=='3003' && department=='Record' || role=='1001' || role==5007 || role==5006 "  value="record">Record</option>
-                  <option  *ngIf="role=='3003' && department=='Revenue' || role=='1001' || role==5007 || role==5006"  value="revenue">Revenue</option>
-                  <option  *ngIf="role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 "  value="radio">Radio</option>
-                  <option  *ngIf="role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 "  value="theater">Theater</option>
-                  <option  *ngIf="role=='3003' && department=='War' || role=='1001' || role==5007 || role==5006 "  value="ward">Ward</option>
-                  <option  *ngIf="role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 "  value="nurse">Nurse</option>
-                  <option  *ngIf="role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 "  value="lab">Lab</option>
-                  <option  *ngIf="role=='1001' || role==5006 "  value="admin">Admin</option>
+                  <option  *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role=='2001' || role=='1002' "  value="clinic">Clinic</option>
+                  <option  *ngIf="role=='3003' && department=='Pharmacy' || role=='1001' || role=='2002'  || role==1002 " value="pharmacy">pharmacy</option>
+                  <option  *ngIf="role=='3003' && department=='Records' || role=='1001'   || role=='2002'  || role=='1002' "  value="record">Record</option>
+                  <option  *ngIf="role=='3003' && department=='Revenue' || role=='1001'  || role=='2002'  || role==1002"  value="revenue">Revenue</option>
+                  <option  *ngIf="role=='3003' && department=='Radiology' || role=='1001' || role==2001 || role==1002 "  value="radio">Radio</option>
+                  <option  *ngIf="role=='3003' && department=='Theater' || role=='1001' || role==2001 || role==1002 "  value="theater">Theater</option>
+                  <option  *ngIf="role=='3003' && department=='War' || role=='1001' || role==2001 || role==1002 "  value="ward">Ward</option>
+                  <option  *ngIf="role=='3003' && department=='Nurse' || role=='1001' || role==2001 || role==1002 "  value="nurse">Nurse</option>
+                  <option  *ngIf="role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 "  value="lab">Lab</option>
+                  <option  *ngIf="role=='1001' || role==1002 "  value="admin">Admin</option>
               </select>
           </div>
           <div class="co-12">
-              <strong >{{dept_name}} department</strong>
+              <strong *ngIf="dept_name">{{dept_name}} department</strong>
           </div>
       </div>
       <form  class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
@@ -607,7 +607,7 @@
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <select name="sales_rep" id="" required ngModel>
+                <select name="sales_rep" id="" required ngModel class="form-control">
                     <option value="">Select HOD</option>
                     <option *ngFor="let dpt of deptlists" value="{{dpt.id}}">{{dpt.firstname}}</option>
                 </select>

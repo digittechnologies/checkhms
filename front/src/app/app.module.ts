@@ -130,6 +130,7 @@ import { NurseAdminComponent } from './dashboard/nurse-admin/nurse-admin.compone
 import { NurseUserComponent } from './dashboard/nurse-user/nurse-user.component';
 import { WardAdminComponent } from './dashboard/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
+import { RecordLogComponent } from './record/record-log/record-log.component';
 
 @NgModule({
   declarations: [
@@ -321,6 +322,8 @@ import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
     WardAdminComponent,
   
     WardUserComponent,
+  
+    RecordLogComponent,
   
   ],
   imports: [

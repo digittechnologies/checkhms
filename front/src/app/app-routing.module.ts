@@ -91,6 +91,7 @@ import { NurseAdminComponent } from './dashboard/nurse-admin/nurse-admin.compone
 import { NurseUserComponent } from './dashboard/nurse-user/nurse-user.component';
 import { WardAdminComponent } from './dashboard/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
+import { RecordLogComponent } from './record/record-log/record-log.component';
 
 
 
@@ -149,6 +150,8 @@ const routes: Routes = [
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          // Dashboard
+         //Record
+         {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
