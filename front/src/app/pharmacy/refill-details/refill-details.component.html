@@ -139,7 +139,7 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                        <input style="border-color: blueviolet;" type="number" min="1" max="{{r.dispense - r.refill}}" value="" ngModel name="refil" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount">
+                        <!-- <input style="border-color: blueviolet;" type="number" min="1" max="{{r.dispense - r.refill}}" value="" ngModel name="refil" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount"> -->
                       </div>
                   </div>
                   <!-- <div class="col-md-4">
@@ -153,7 +153,7 @@
               </div>
           </div>                
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="submit" class="btn btn-round btn-primary">Save<i class="fa fa-spin fa-spinner"></i></button>
               <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
           </form>

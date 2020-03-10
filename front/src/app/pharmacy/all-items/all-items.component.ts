@@ -79,6 +79,10 @@ export class AllItemsComponent implements OnInit {
   filterString = "";
   disabled = false;
   itm: any;
+  price_2:any;
+  price_3:any;
+  onScroll:any;
+  
 
   soldItem: any;
   transferredItem: any;

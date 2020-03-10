@@ -23,15 +23,16 @@
                               <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
                          <div class="details">
-                                <h5 class="mb-0">Patient Card Number : {{pat[0].card_number}}</h5>
-                                <span class="text-light"><b>Patient Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
-                                <div><b>Patient Mobile</b>{{pat[0].mobile_number}}</div>
+                                <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
+                                <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
+                                <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
                           </div>                                 
                       </div>
                       <div class="col text-center">
-                        <div class="m-0"><b>Patient Scheme Category: </b>{{schemeCat}}</div>
-                        <div class="m-0"><b>Patient Scheme ID: </b>{{schemeId}}</div>
-                        <div class="m-0"><b>Patient Scheme Percentage: </b>{{schemePercentToView}}%</div>
+                        <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
+                        <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
+                        <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
+                        <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div>
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
@@ -41,6 +42,62 @@
               </div>                    
           </div>
       </div>
+
+
+      
+<!-- Default Size -->
+<div class="modal fade" id="category" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Customer Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit_cat(fm)" #fm="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <!-- <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Item Name" ngModel name="name" required>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Box size" ngModel name="box_size" required>
+                      </div>
+                  </div> -->
+                  <!-- <div class="col-lg-12">
+                      <input type="file" class="dropify">
+                  </div> -->
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                        <label><span class="hidden-xs">Customer Category</span> </label>
+                        <div class="form-inline">
+                            <select class="form-control" style="width:80%" ngModel name="category_name" >                               
+                                <option *ngFor="let c of cust_cat" value="{{c.id}}" >{{c.category_name}}</option>                                
+                            </select>                                                  
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-12">
+                      <button type="submit" class="btn btn-primary">Add</button>
+                      <button type="submit" class="btn btn-outline-secondary">Cancel</button>
+                  </div> -->
+              </div>
+              <!-- <input type="text" value="{{patID}}" ngModel name="cust_id" required>  -->
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Submit<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-dismiss="modal" data-toggle="modal">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
+    
 
     <div class="row clearfix">
         <div class="col-12">
@@ -261,7 +318,7 @@
                             <th></th>
                             <th></th>                                      
                             <th></th>
-                            
+
                             <!-- <th>{{tquant}}</th>
                             <th>{{refill}}</th> 
                             <th>{{remain}}</th>     -->

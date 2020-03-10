@@ -71,6 +71,9 @@ export class VoucherComponent implements OnInit {
   afterPercentCost: any;
   schemeAmt: any;
   schemePercentToView: any;
+  catResponds: any;
+  cust_cat: any;
+  editdept:any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -145,6 +148,12 @@ export class VoucherComponent implements OnInit {
       this.Instructionresponse = data;      
       this.instruct = this.Instructionresponse;      
     })
+
+    this.Jarwis.customer_category().subscribe(
+      data=>{
+      this.catResponds = data;      
+      this.cust_cat = this.catResponds;      
+    })
   }
 
   // get(){
@@ -207,6 +216,15 @@ export class VoucherComponent implements OnInit {
     if(this.getInst != '7'){
       this.useFor = d.target.value
     }
+  }
+
+  onSubmit_cat(form:NgForm){
+      // alert(form.value);
+      form.value.cust_id= this.patID;
+      this.Jarwis.changeCategory(form.value).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),  
+      );
   }
 
   onRefill(r){

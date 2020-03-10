@@ -39,9 +39,9 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
+  private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  // private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
 
@@ -428,6 +428,9 @@ updateCustomer(data) {
 patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
+customer_category() {
+  return this.http.get<any>(`${this.baseUrl}/customer_category`)
+}
 patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
@@ -435,10 +438,18 @@ makeAppointment(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
-}
+} 
 
 makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+//Category
+
+changeCategory(data) {
+  return this.http.post<any>(`${this.baseUrl}/changeCategory`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }

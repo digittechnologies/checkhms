@@ -461,6 +461,12 @@ class DisplayController extends Controller
             ->get()   
         );
     }
+
+    public function customer_category()
+    {
+        return DB::table("customer_category")->get();
+    }
+    
     public function patientbyappointment($id)
     {
         $customeId= Customers::where('id','=',$id)->first() ;
@@ -472,8 +478,8 @@ class DisplayController extends Controller
             ->where('appointments.customer_id','=',$cId)->get(),
             "pat"=> Customers::where('id','=',$id)->get(),
             "pres" => Doctor_prescriptions::select('doctor_prescriptions.*', 'item_details.id AS item_id',  'item_details.generic_name', 'item_details.item_img', 'manufacturer_details.name AS manuf_name', 'users.firstname', 'users.lastname')->where('customer_id', $id)
-            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->join('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            ->join('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
             ->join('users', 'doctor_prescriptions.pharmacist_id', '=', 'users.id')
             ->join('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
             ->join('branches', 'doctor_prescriptions.branch_id', '=', 'branches.id')

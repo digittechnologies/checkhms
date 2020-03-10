@@ -905,6 +905,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
     }
+
     // Customers / Patients
     public function addCustomer(Request $request)
     {
@@ -914,6 +915,28 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $customer= Customers::create($request-> all());
        
         if($customer){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    } 
+
+    public function changeCategory(Request $request)
+    {
+    //    return $request->all();
+        $customer= Customers::find($request->cust_id);
+
+        $customer->cust_category_id= $request->category_name;
+
+        $customer->save();
+       
+        if($customer->save()){
             return '{
                 "success":true,
                 "message":"successful"
