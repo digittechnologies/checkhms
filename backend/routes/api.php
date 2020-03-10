@@ -189,7 +189,8 @@ Route::get('displayCustomerCategory','DisplayController@displayCustomerCategory'
 Route::get('edtCustCategories/{id}','DisplayController@edtCustCategories');
 Route::post('updateCustCategories', 'AddController@updateCustCategories');
 Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
-
+//EPS Patients
+Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
 
 
 // Appointments 

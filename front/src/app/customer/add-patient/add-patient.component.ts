@@ -44,6 +44,14 @@ export class AddPatientComponent implements OnInit {
   eReferral_mobile: any;
   hostitalNum: any;
 
+  //EPS (External Paramedical Services)
+
+  eps_fullname: any;
+  eps_email: any;
+  eps_contact: any;
+  eps_address: any;
+  eps_status: any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -89,19 +97,33 @@ export class AddPatientComponent implements OnInit {
      );
      
    }
+
+   onSubmitEps(form: NgForm) {
+      this.disabled = true;
+      this.Jarwis.addEpsCustomer(form.value).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleEpsError(error),      
+      );
+   }
+
+   capsLock(argument){
+    let u = argument.target.value.toUpperCase()
+    argument.target.value = u
+  }
+
    handleResponse(data) {    // 
      this.disabled = false;
      let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
        duration: 2000
      })   
-     this.router.navigateByUrl('/Admin/(side:patient)');
+     this.router.navigateByUrl('/Admin/(side:add_patient)');
      this.ngOnInit();
      
    }
  
    handleError(error) {
-     this.disabled = false;
-     this.error = error.error.errors;
+      this.disabled = false;
+      this.error = error.error.errors;
       this.eName = this.error.name;  
       this.eOthername = this.error.othername; 
       this.eGender  = this.error.gender;
@@ -125,10 +147,23 @@ export class AddPatientComponent implements OnInit {
       this.eReferral_name = this.error.referral_name;
       this.eReferral_address = this.error.referral_address;
       this.eReferral_mobile = this.error.referral_mobile;
-     let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
+      let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
        duration: 2000
- 
      })
-     
    }
+
+
+  //EPS (External Paramedical Services)
+   handleEpsError(error) {
+    this.disabled = false;
+    this.error = error.error.errors;
+    this.eps_fullname = this.error.eps_fullname;
+    this.eps_contact = this.error.phone;
+    this.eps_address = this.error.eps_address;
+    this.eps_status = this.error.status;
+    let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
+     duration: 2000
+   })
+
+ }
 }

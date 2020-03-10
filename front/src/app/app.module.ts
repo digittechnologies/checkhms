@@ -102,6 +102,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
+import { RecordsComponent } from './dashboard/records/records.component';
 import { RecordChargeComponent } from './record/record-charge/record-charge.component';
 import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
 import { PharmacyComponent } from './admin/navs/pharmacy/pharmacy.component';
@@ -267,6 +268,8 @@ import { RecordLogComponent } from './record/record-log/record-log.component';
   
     PatDetailComponent,
   
+    RecordsComponent,
+    
     RecordChargeComponent,
   
     ClinicServiceComponent,

@@ -31,6 +31,7 @@ use App\Duration;
 use App\Daily_supply;
 use App\Customer_category;
 use App\Http\Requests\PatientRequest;
+use App\Http\Requests\EpsRequest;
 
 
 class AddController extends Controller
@@ -1056,6 +1057,35 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     } 
 
+    public function addEpsCustomer(EpsRequest $request)
+    {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $time= $dt->format('h:i:s A');
+
+        $cust_id = auth()->user()->id;
+        $request->merge(["created_by" => $cust_id]);
+        $request->merge(["updated_by" => $cust_id]);
+
+        $request->merge(["created_at" => 0]);
+        $request->merge(["updated_at" => $dt]);
+
+        $epsPatient = DB::table('eps')->insert($request->all());
+
+        if($epsPatient){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+
     public function changeCategory(Request $request)
     {
     //    return $request->all();
@@ -1152,7 +1182,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $user=Customers::find($id);
         $currentfile= $user->patient_image;
         $datas=$request->formdata;
-    //    return $currentfile;
          if ($request->image != $currentfile){
              $file=$request->image;
              $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
@@ -1163,8 +1192,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->name = $datas['name'];
          $user->othername = $datas['othername'];
          $user->card_number = $datas['card_number'];
-          $user->email =  $datas['email'];
-          $user->city =  $datas['city'];
+         $user->email =  $datas['email'];
+         $user->city =  $datas['city'];
          $user->address =  $datas['address'];
          $user->mobile_number =  $datas['mobile_number'];
         //  $user->gender =  $datas['gender'];
@@ -1185,6 +1214,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->referral_name = $datas['referral_name'];
          $user->referral_address = $datas['referral_address'];
          $user->referral_mobile = $datas['referral_mobile'];
+        //  return $user;
          $user->save();
          // $user->update($request->all());
          if($user){
@@ -1266,27 +1296,83 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function searchPatient(Request $request)
     {
-        // return $request->all();
         $value=$request->customer;
         $action=$request->action;
+        $category = $request->category;
 
-        $search=DB::table('customers')->where( $action, $value)->first();
 
-        // return $search;
-        
-        if ( empty($search)) {
-            return response()->json(['status'=> 1, 'message' => "successfully", 'search'=> $search, 'show'=>"empty"]);
-        } else {
-            return response()->json([
-                'status'=> 1,
-                'message' => "successfully", 
-                'search'=> $search, 
-                'show'=>"show",
-                "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                ->where('appointments.customer_id','=',$search->id)->get(),
+        //EPS PATIENTS
+        if($category == 'eps'){
+
+            if($action == 'name'){
+                $value = strtoupper($value);
+            }
+            switch ($action) {
+                case 'name':
+                    $action = 'eps_name';
+                    break;  
+                case 'card_number':
+                    $action = 'id';
+                    break;
+                case 'mobile_number':
+                    $action = 'phone';
+                    break;
+            }
+            $search=DB::table('eps')->where($action, $value)->get();
+            if (count($search) == 0) {
+                return response()->json([
+                    'count'=> count($search),
+                    'message' => "successfully", 
+                    'search'=> $search, 
+                    'show'=>"empty"
                 ]);
+            }
+            else {
+                foreach($search as $row){
+                        return response()->json([
+                            'count'=> count($search),
+                            'message' => "successfully", 
+                            'search'=> $search, 
+                            'show'=>"show",
+                            'category' => $category,
+                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                            ->join('customers','appointments.customer_id','=','customers.id')
+                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments.customer_id','=',$row->id)->get(),
+                        ]);
+                }
+            }
+        }
+
+        //REGULAR PATIENTS
+        if($category == 'regular'){
+            if($action == 'name'){
+                $value = strtoupper($value);
+            }
+            $search=DB::table('customers')->where($action, $value)->get();
+            if (count($search) == 0) {
+                return response()->json([
+                    'count'=> count($search),
+                    'message' => "successfully", 
+                    'search'=> $search, 
+                    'show'=>"empty"
+                ]);
+            }
+            else {
+                foreach($search as $row){
+                        return response()->json([
+                            'count'=> count($search),
+                            'message' => "successfully", 
+                            'search'=> $search, 
+                            'show'=>"show",
+                            'category' => $category,
+                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                            ->join('customers','appointments.customer_id','=','customers.id')
+                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments.customer_id','=',$row->id)->get(),
+                        ]);
+                }
+            }
         }
     
     }
@@ -1300,15 +1386,15 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $dept_id= auth()->user()->dept_id;
         $bid= Auth()->user()->branch_id;
         // $dept_id = $request->form['dept_id'];
-       
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
-
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
-       
-
-        if ( empty ( $checkAppointment[0] )) {
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+            'appointments.customer_id' => $cust_id,
+            'appointments.prescription' =>'open',
+            'appointments.date' => $date
+            ])->get();
+        if (count($checkAppointment) == 0) {
 
             $appointment= Vouchers::create(
                 [
@@ -1317,7 +1403,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                     'branch_id' => $bid
                 ]);    
             
-          
             $appointment= Appointments::create(
                 [
                     'customer_id' => $cust_id, 
@@ -1345,9 +1430,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
         
-        }else {
+        }else if(count($checkAppointment) > 0){
 
-            return 'Alredy Loged';
+            return 'Already Loged';
 
         }
         

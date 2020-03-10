@@ -449,11 +449,6 @@ displayHospitalNum(){
   return this.http.get(`${this.baseUrl}/displayHospitalNum`,)
 }
 
-// nextDisplayCustomer(PageNo: string) {
-//   const params = new HttpParams().set('page', PageNo);
-//   return this.http.get(`${this.baseUrl}/displayCustomer`,)
-// }
-
 countCustomer() {
   return this.http.get(`${this.baseUrl}/countCustomer`,)
 }
@@ -479,18 +474,24 @@ makeAppointment(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 } 
-
 searchPatient(data) {
   return this.http.post<any>(`${this.baseUrl}/searchPatient`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 } 
-
 makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+//EPS Patients
+addEpsCustomer(data) {
+  return this.http.post(`${this.baseUrl}/addEpsCustomer`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 
 //Category (PATIENTS)
 
