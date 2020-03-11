@@ -20,6 +20,7 @@ export class PatientComponent implements OnInit {
   appontId: any;
   imgLink: any;
   disabled= false;
+  p: any;
 
   constructor( 
     private Jarwis: JarwisService,
