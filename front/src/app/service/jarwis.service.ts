@@ -674,6 +674,12 @@ deleteAppointment(data) {
     return this.http.post(`${this.baseUrl}/saveRefill`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
+  }  
+
+  checkRefill(id: any) {
+    return this.http.post<any>(`${this.baseUrl}/checkRefill/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
 
   displayPharmPre2(id:string) {

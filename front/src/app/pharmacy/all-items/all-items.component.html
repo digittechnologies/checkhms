@@ -483,7 +483,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
+                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:100, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   

@@ -122,7 +122,7 @@
                       <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                         <table border="0" cellspacing="0" cellpadding="0">
                           <tr>
-                              <td align="center" style="border-radius: 3px;" bgcolor="#17a2b8"><a href="http://3.136.173.11/login" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #17a2b8; display: inline-block;">Go to Login</a></td>
+                              <td align="center" style="border-radius: 3px;" bgcolor="#17a2b8"><a href="http://buth.checkhms.com" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #17a2b8; display: inline-block;">Go to Login</a></td>
                           </tr>
                         </table>
                       </td>

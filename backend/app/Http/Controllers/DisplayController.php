@@ -437,6 +437,9 @@ class DisplayController extends Controller
 
     public function displayCustomer()
     {
+        return Customers::orderBy('id')
+        ->select('customers.*')->limit(10000)->get();
+
         return DB::table("customers")->get();
     }
 
