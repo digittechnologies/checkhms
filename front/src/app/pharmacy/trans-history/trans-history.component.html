@@ -102,7 +102,9 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>Price</th>
+                                <th>General Price</th>
+                                <th>Price 2 (GORAH)</th>
+                                <th>Price 3 (NHIS)</th>
                                 <th>Total Price</th>
                             </tr>
                         </thead>
@@ -135,6 +137,12 @@
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    
                                 </td>
+                                <td>
+                                    <span class="badge badge-warning">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
+                                </td>
+                                <td>
+                                        <span class="badge badge-info">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
+                                    </td>
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
