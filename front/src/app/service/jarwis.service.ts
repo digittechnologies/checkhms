@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 @Injectable(
   {
   providedIn: 'root'}
 )
+
 export class JarwisService {
   displayshelvegories() {
     throw new Error("Method not implemented.");
@@ -39,9 +40,9 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
+  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  // private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
 
@@ -414,6 +415,11 @@ export class JarwisService {
 displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
 }
+
+// nextDisplayCustomer(PageNo: string) {
+//   const params = new HttpParams().set('page', PageNo);
+//   return this.http.get(`${this.baseUrl}/displayCustomer`,)
+// }
 
 countCustomer() {
   return this.http.get(`${this.baseUrl}/countCustomer`,)

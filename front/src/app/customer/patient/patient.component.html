@@ -66,7 +66,7 @@
                                     </tr>
                                 </tfoot> -->
                                 <tbody>
-                                    <tr  *ngFor="let p of pat | paginate: {itemsPerPage:100, currentPage: p}; let r = index">
+                                    <tr  *ngFor="let p of pat; let r = index">
                                         <td> {{r+1}}</td>
                                         <td class="w60">
                                                 <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
@@ -127,9 +127,9 @@
                             </div>                                
                                 </tbody>
                             </table>
-                            <!-- <button class="btn btn-danger" (click)="prev(d.last_page)">Prev</button>
-                            <button class="btn btn-success" (click)="next(d.)">Next</button> -->
-                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+                            <button class="btn btn-danger" (click)="prev()">Prev</button>
+                            <button class="btn btn-success" (click)="next()">Next</button>
+                            <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>   -->
                         </div>
                     </div>
                 </div>
