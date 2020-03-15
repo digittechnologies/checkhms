@@ -57,6 +57,7 @@ import { PatientHomeComponent } from './customer/patient-home/patient-home.compo
 import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-taskboard.component';
 import { PatientComponent } from './customer/patient/patient.component';
 import { PatientDetailsComponent } from './customer/patient-details/patient-details.component';
+
 import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { AddPatientComponent } from './customer/add-patient/add-patient.component';
@@ -84,6 +85,8 @@ import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component'
 import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { RegisterComponent } from './setup/register/register.component';
+import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
+import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 
 
 
@@ -116,67 +119,69 @@ const routes: Routes = [
          // doctor
 
          // Patient
-         {path: 'card_home', component: PatientHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'taskboard', component: PatientTaskboardComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'patient_profile/:id', component: PatientDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [AfterLoginService] },
-         {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [AfterLoginService] },
+        //  {path: 'card_home', component: PatientHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'taskboard', component: PatientTaskboardComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'patient_profile/:id', component: PatientDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [AfterLoginService] },
+        //  {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [AfterLoginService] },
 
          // pharmacy
-         {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'unit', component: UnitComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'pharmacy_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'unit', component: UnitComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'manufacturer', component: ManufacturerComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'item_category', component: CategoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'pharmacy_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          // Dashboard
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
-         {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
+        //  {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
+        //  {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
 
-         {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         // Staff
-         {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  // Staff
+        //  {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Doctor
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'doctor_home', component: DoctorHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Surgeon-department_admin', component: DoctorLogComponent, outlet: 'side', canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
          {path: 'treatment/:id', component: MakePrescriptionComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'pat-detail/:id', component: PatDetailComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-          // Payment
-         {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'payment_home', component: PaymentHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'payment', component: PHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'invoice/:id', component: InvoiceComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //   // Payment
+        //  {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'payment_home', component: PaymentHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'payment', component: PHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'invoice/:id', component: InvoiceComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
 
-         // Lab
-         {path: 'lab_log', component: LabLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'lab_home', component: LabHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'test', component: TestComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  // Lab
+        //  {path: 'lab_log', component: LabLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'lab_home', component: LabHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'test', component: TestComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [AfterLoginService] },
        
        
-         //setting
-        {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  //setting
+        // {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [AfterLoginService] },
        
 
      ],

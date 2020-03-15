@@ -285,12 +285,8 @@ Route::post('addGeneralset', 'AddController@GeneralSet');
 });
 
 
-//  Route::get('test',function(){rolecate
-//      return response()->json([
-//          'user'=>['fname'=>'tawa',
-//          'lname'=>'adio']
-//      ]); 
-//  });
-// spiral
-// waterfall model
-// SDLC SCRUM
+
+// DOctor Module
+Route::get('patient-data/{id}', 'DoctorModule@patientData');
+Route::get('displayAppointment','DoctorModule@displayAppointment');
+
