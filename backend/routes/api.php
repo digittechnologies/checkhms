@@ -211,6 +211,7 @@ Route::post('pres_refill_id/{id}','DisplayController@pres_refill_id');
 Route::post('refillInStock','DisplayController@refillInStock');
 Route::post('saveRefill','AddController@saveRefill');
 Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
+Route::post('checkRefill/{id}','AddController@checkRefill');
 
 
 //Invoices

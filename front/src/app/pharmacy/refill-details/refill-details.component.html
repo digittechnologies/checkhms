@@ -100,7 +100,7 @@
                                 <input style="border-color: blueviolet;" disabled type="number" value="{{r.refill_input * r.refill_range}}" class="form-control" placeholder="Refill Amount">
                             </td>
                             <td >
-                              <span class="badge badge-success"> {{r.refill_input * r.amount | currency:'NGN':'symbol-narrow'}} </span>
+                              <span class="badge badge-success"> {{r.refill_input * r.amount * r.refill_range | currency:'NGN':'symbol-narrow'}} </span>
                             </td>
                             <td *ngIf="r.refill_voucher_status == 'close'"> <span class="badge badge-warning">Refill</span></td>
                             <td *ngIf="r.refill_voucher_status == 'saved'"> <span class="badge badge-success">Saved</span></td>
@@ -116,6 +116,9 @@
         </div>
     </div>
     </div>
+    
+    <button type="button" (click)="onCheckout()" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+    <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
     </div>
     </div>
     </div>
@@ -139,17 +142,9 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                        <!-- <input style="border-color: blueviolet;" type="number" min="1" max="{{r.dispense - r.refill}}" value="" ngModel name="refil" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount"> -->
+                        <input style="border-color: blueviolet;" type="number" min="1" max="1" value="" ngModel name="refil" class="form-control" required (keyup)="getRefill($event)" placeholder="Refill Amount">
                       </div>
-                  </div>
-                  <!-- <div class="col-md-4">
-                      <div class="form-group">
-                          <select class="form-control show-tick" ngModel name="status">
-                              <option value="active">Active</option>
-                              <option value="suspend">Suspend</option>                                
-                          </select>                  
-                        </div>
-                  </div>             -->
+                  </div>                 
               </div>
           </div>                
           <div class="modal-footer">

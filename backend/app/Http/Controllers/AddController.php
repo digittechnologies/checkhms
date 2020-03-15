@@ -2222,36 +2222,69 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function saveRefill(Request $request)
     {
-        return $request->refill;
-        $id = $request->id;
+        
+        $id = $request->rId;
         $getPres = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $id)->first();
-        $quantity = $getPres->refill_range * $request->refill;
-        $refill = $getPres->refill - $request->refill;
-        $remain = $getPres->remain - $quantity;
-        $amount_paid = $getPres->amount * $quantity;
-
-        $quantity += $getPres->quantity;
-        // $remain += $getPres->remain;
-        // $amount_paid += $getPres->amount_paid;
-
-        if($refill == 0){
-            $refill_status = 'non-refillable';
-            $refill_voucher_status = 'save';
-        } else if($refill > 0){
-            $refill_status = 'refillable';
-            $refill_voucher_status = 'save';
-        }
+        
+        $refill_input = $request->refil;       
 
         $updatePrescription = DB::table('doctor_prescriptions')
         ->where('doctor_prescriptions.id', '=', $id)
-        ->update([
-            'quantity' => $quantity,
-            'remain' => $remain,
-            'refill' => $refill,
-            'amount_paid' => $amount_paid,
-            'refill_status' => $refill_status,
-            'refill_voucher_status' => $refill_voucher_status
+        ->update([            
+            'refill_input' => $refill_input,
+            'refill_voucher_status' => 'saved'
         ]);
+
+        if($updatePrescription){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function checkRefill($id)
+    {
+       
+        $get = DB::table('doctor_prescriptions')->where('doctor_prescriptions.voucher_id', '=', $id)->where('doctor_prescriptions.refill_voucher_status', '=', 'saved')->get();
+    
+        // $remain += $getPres->remain;
+        // $amount_paid += $getPres->amount_paid;
+
+        foreach($get as $getPres){
+            $quantity = $getPres->refill_range * $getPres->refill_input;
+            $refill = $getPres->refill - $getPres->refill_input;
+            $remain = $getPres->remain - $quantity;
+            $amount_paid = $getPres->amount * $quantity;
+
+            $quantity += $getPres->quantity;
+
+            if($refill == 0){
+                $refill_status = 'non-refillable';
+                $refill_voucher_status = 'checkout';
+            } else if($refill > 0){
+                $refill_status = 'refillable';
+                $refill_voucher_status = 'checkout';
+            }
+    
+            $updatePrescription = DB::table('doctor_prescriptions')
+            ->where('doctor_prescriptions.voucher_id', '=', $id)
+            ->where('doctor_prescriptions.refill_voucher_status', '=', 'saved')
+            ->update([
+                'quantity' => $quantity,
+                'remain' => $remain,
+                'refill' => $refill,
+                'amount_paid' => $amount_paid,
+                'refill_status' => $refill_status,
+                'refill_voucher_status' => $refill_voucher_status
+            ]);
+    
+        };
 
         if($updatePrescription){
             return '{

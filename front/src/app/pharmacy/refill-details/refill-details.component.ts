@@ -107,7 +107,17 @@ export class RefillDetailsComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
-    this.Jarwis.saveRefill({refill:form.value, id: this.rId, voucher: this.voucherId}).subscribe(
+    form.value.rId = this.rId;
+    form.value.voucherId = this.voucherId;
+    this.Jarwis.saveRefill(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+
+  }
+
+  onCheckout(){
+    this.Jarwis.checkRefill(this.voucherId).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

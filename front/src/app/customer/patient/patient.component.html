@@ -66,7 +66,7 @@
                                     </tr>
                                 </tfoot> -->
                                 <tbody>
-                                    <tr  *ngFor="let p of pat; let r = index">
+                                    <tr  *ngFor="let p of pat | paginate: {itemsPerPage:100, currentPage: p}; let r = index">
                                         <td> {{r+1}}</td>
                                         <td class="w60">
                                                 <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{p.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
@@ -75,7 +75,7 @@
                                             <a href="javascript:void(0);" title="" [routerLink]="['/Admin', {outlets: {side: ['patient_profile',p.id]}}]">{{p.name}}</a>
                                             <p class="mb-0">{{p.othername}}</p>
                                         </td>
-                                        <td>{{p.card_number}}</td>  
+                                        <td class="text-center">{{p.card_number}}</td>  
                                         <td>{{p.gender}}</td>   
                                         <!-- <td>{{p.d_o_b}}</td> -->
                                         <td>
@@ -86,7 +86,7 @@
                                             <a href="javascript:void(0);" class="btn btn-primary btn-round" (click)= "appointment(p.id)" data-toggle="modal" data-target=".new-project-modal">Make Appointment</a>
                                         </td>
                                     </tr>  
-                                    <!-- <div *ngIf="!pat">
+                                    <div *ngIf="!pat">
                                         <div class="spinner-grow text-primary" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
@@ -96,7 +96,7 @@
             <div class="spinner-grow text-success" role="status">
             <span class="sr-only">Loading...</span>
             </div>
-                                      </div>  -->
+                                      </div> 
                                     <!-- <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target=".new-project-modal">Setup New Project</button> -->
 <!-- Setup New Project -->
                             <div class="modal fade new-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -127,6 +127,9 @@
                             </div>                                
                                 </tbody>
                             </table>
+                            <!-- <button class="btn btn-danger" (click)="prev(d.last_page)">Prev</button>
+                            <button class="btn btn-success" (click)="next(d.)">Next</button> -->
+                            <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
                         </div>
                     </div>
                 </div>

@@ -39,9 +39,9 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
-  // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
+  private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  // private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
 
   constructor(private http: HttpClient) { }
 
@@ -672,6 +672,12 @@ deleteAppointment(data) {
   
   saveRefill(data) {
     return this.http.post(`${this.baseUrl}/saveRefill`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }  
+
+  checkRefill(id: any) {
+    return this.http.post<any>(`${this.baseUrl}/checkRefill/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

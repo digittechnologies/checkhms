@@ -396,18 +396,7 @@
                                                                         <input type="text" class="form-control" id="inputEmail3" [(ngModel)]="price_3"  ngModel name="price_3" placeholder="Enter Price three" required>
                                                                     </div>
                                                                 </div>
-                                                            <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Tax</label>
-                                                                    <div class="col-md-6 col-sm-10">
-                                                                        <select class="form-control input-height" ngModel name="tax_id">
-                                                                            <option value="">-- Select Tax --</option>
-                                                                            <option [value]="0">0</option>
-                                                                            <option [value]="10">10</option>
-                                                                            <option [value]="20">20</option>
-                                                                            
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                           /
                                                                 <!-- <div class="form-group row">
                                                                         <label class="col-sm-2 col-form-label">Discount</label>
                                                                         <div class="col-md-6 col-sm-10">
@@ -483,7 +472,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:10, currentPage: p}; let r = index">
+                                                    <tr *ngFor="let added of itemAdded | paginate: {itemsPerPage:100, currentPage: p}; let r = index">
                                                         <td>{{r+1}}</td>
                                                         <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{added.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{added.generic_name}}</span></td>
                                                         <td><span class="badge badge-warning">{{added.manuf_name}}</span></td>   
