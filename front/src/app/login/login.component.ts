@@ -69,10 +69,7 @@ export class LoginComponent implements OnInit {
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
-      
       );
-      
-
     
   }
 
