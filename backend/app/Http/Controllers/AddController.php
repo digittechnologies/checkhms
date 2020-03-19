@@ -1364,9 +1364,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     }
 
-    public function deletePrescription(Request $request)
+    public function deletePrescription($id)
     {
-        $id=$request[0];
 
         $deletec=DB::table('doctor_prescriptions')->where('id', $id)->delete();
         if($deletec){
@@ -2236,6 +2235,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         ]);
 
         if($updatePrescription){
+
+            checkRefill($id);
+
             return '{
                 "success":true,
                 "message":"successful"
@@ -2298,100 +2300,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
     }
-    public function saveTovoucher($cid)
-    {
-        $dt = Carbon::now();
-        $cDate = $dt->toFormattedDateString();
-        $cTime = $dt->format('h:i:s A');
-        
-        $pharmacistId= auth()->user()->id;
-        $branchId= auth()->user()->branch_id;
-        $quantity = 0;
-        $amount = 0;
-        $refill = 0;
-        $remain = 0;
-
-        $get =  Doctor_prescriptions::orderBy('id') 
-                        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                        ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
-                        ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.voucher_id', '=', $cid)
-                        ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                        ->get();
-       
-        foreach($get as $row){
-            $quantity += $row->quantity;
-            $amount += $row->amount_paid;
-            $refill += $row->refill;
-            $remain += $row->refill;
-        };
-        if($refill == 0){
-            $refill_status = 'non-refillable';
-            $checkout = 'checkout';
-        } else if($refill > 0){
-            $refill_status = 'refillable';
-            $checkout = 'refill';
-        }
-
-        //customer_id
-        $checkCustomer_id= Appointments::where('appointments.voucher_id', $cid)->get();
-
-        $cust_id= $checkCustomer_id[0]->customer_id;
-
-        // return  $cust_id;
-
-        //  return $get;
-        $insert = DB::table('vouchers')->where('vouchers.id',$cid)->update([
-                'quantity' => $quantity,
-                'amount' => $amount,
-                'paid' => $amount,
-                'balance' => 0,
-                'total_refill' => $refill,
-                'refill_remain' => $remain,
-                'paid_status' => 'un-paid',
-                'delivery_status' => 'delivered',
-                'refill_status' => $refill_status,
-                'customer_id' =>  $cust_id,
-                'staff_id' => $pharmacistId,
-                'branch_id' => $branchId,
-                'v_date' => $cDate,
-                'v_time' => $cTime
-            ]);
-        foreach($get as $row2){
-            $getId = $row2->id;
-            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-            ->update([
-                'status' => 'close',
-                // 'voucher_id' => $insert,
-            ]);
-        }
-        $updateAppointment = DB::table('appointments')->where('appointments.prescription', '=', 'open')
-                                    ->where('appointments.prescription', '=', 'open')
-                                    ->where('appointments.voucher_id', '=', $cid)
-                                    ->where('appointments.branch_id', '=', $branchId)
-                                    ->update([
-                                        'prescription' => 'checkout',
-                                        'voucher' => $checkout,
-                                        'invoice' => 'unpaid',
-                                        'treatment' => 'success',
-                                    ]);
-
-        if ($updateAppointment) {
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-         return '{
-            "success":false,
-            "message":"failed"
-        }' ;
-        }
-        
-       
-    }
 
     public function saveToInvoice($vid)
     {
@@ -2425,8 +2333,11 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
-            'paid' => $getV->amount,
+            'paid' => $getV->amount + 50,
             'balance' => 0,
+            'discount' => 0,
+            'service_charge' => '50',
+            'other_charges' => 0,
             'status' => 'paid',
             'delivery_status' => 'delivered',
             'branch_id' => $branchId,
@@ -2464,6 +2375,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         //UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
+                                ->where('appointments.voucher_id', '=', $vid)
                                 ->update([
                                     'invoice' => 'paid',
                                     'voucher' => $success,

@@ -91,13 +91,19 @@
                         </div>
                                       </div> 
                                       <tfoot>
-                                          <tr class="text-right">  
-                                              <td colspan="4"></td> 
+                                          <tr class="text-left">  
+                                              <td colspan="3"></td> 
+                                              <td>
+                                                Sub Total: <br>
+                                                Discount %:<br>
+                                                Discount Amount: <br>
+                                                Total: <br>
+                                            </td>
                                             <td>
-                                                Sub Total: <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
-                                                Discount %: <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-                                                Discount Amount: <strong class="text-success">{{schemeAmt  | currency:'NGN':'symbol-narrow'}}</strong><br>
-                                                Total: <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                <strong class="text-warning">{{schemePercentToView}}%</strong><br>
+                                                <strong class="text-success">{{schemeAmt  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                             </td>
                                           </tr>
                                       </tfoot>
@@ -213,6 +219,7 @@
                       </div> 
                 </table>
             </div>
+           
         </div>
     </div>
 </div>

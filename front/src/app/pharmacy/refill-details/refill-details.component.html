@@ -118,7 +118,7 @@
     </div>
     
     <button type="button" (click)="onCheckout()" class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-    <button type="button" disabled class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+    <button type="button" class="btn btn-round btn-secondary"  [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</button> &nbsp;&nbsp;
     </div>
     </div>
     </div>

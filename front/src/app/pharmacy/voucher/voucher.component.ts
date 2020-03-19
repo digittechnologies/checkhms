@@ -74,6 +74,10 @@ export class VoucherComponent implements OnInit {
   catResponds: any;
   cust_cat: any;
   editdept:any;
+  DurationForVresponse_id: any;
+  Instructionresponse_id: any;
+  amt_value: any;
+  sup_id: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -192,10 +196,48 @@ export class VoucherComponent implements OnInit {
   }
 
   onSelectAmount(a){
-    this.amt = a.target.value
+    this.amt_value = a.target.value;
+    this.Jarwis.idDurationForV(this.amt_value).subscribe(
+      data=>{
+      this.DurationForVresponse_id = data;      
+      this.amt = this.DurationForVresponse_id[0].value   
+
+    })
+     
   }
+
+  editTrans(hh){
+
+    alert(hh);
+    // this.amt_value = a.target.value;
+    // this.Jarwis.idDurationForV(this.amt_value).subscribe(
+    //   data=>{
+    //   this.DurationForVresponse_id = data;      
+    //   this.amt = this.DurationForVresponse_id[0].value   
+
+    // })
+     
+  }
+
+  deleteTrans(dd){
+
+    if(confirm('Warning: You are about to delete the selected priscription.')){
+      this.Jarwis.deletePrescription(dd).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),  
+      );   
+     }     
+  }
+
   onSelectDailySup(s){
-    this.sup = s.target.value
+    this.sup_id = s.target.value;
+    this.Jarwis.idInstruction(this.sup_id).subscribe(
+      data=>{
+      this.Instructionresponse_id = data;      
+      this.sup = this.Instructionresponse_id[0].value
+  
+    })  
+   
   }
 
   putQty(d){

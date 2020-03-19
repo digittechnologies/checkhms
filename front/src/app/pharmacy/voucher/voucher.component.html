@@ -162,7 +162,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
-                                                <option  *ngFor="let dura of duration" value="{{dura.value}}">{{dura.duration_name}}</option>
+                                                <option  *ngFor="let dura of duration" value="{{dura.id}}">{{dura.duration_name}}</option>
                                             </select>
                                         </div>
                                     </div>                                            
@@ -171,7 +171,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
                                                 <option value="">Select Daily Supply</option>
-                                                <option  *ngFor="let inst of instruct" value="{{inst.value}}">{{inst.name}}</option>
+                                                <option  *ngFor="let inst of instruct" value="{{inst.id}}">{{inst.name}}</option>
                                             </select>
                                         </div>
                                     </div> 
@@ -268,7 +268,7 @@
                          
                             <th>Cost</th>
                             <th>Amount</th>
-                            <!-- <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -289,10 +289,10 @@
                      
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                        <!-- <td>
-                          <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
-                          <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
-                      </td> -->
+                        <td>
+                          <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button> -->
+                          <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                      </td>                     
                         </tr>
                         <div *ngIf="!prescriptionsList">
                             
@@ -323,7 +323,8 @@
                             <th>{{refill}}</th> 
                             <th>{{remain}}</th>     -->
                             <th></th>                             
-                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>`
+                            <th></th>
                         </tr>
                         <tr>
                             <th><strong>DISCOUNT %</strong></th>
@@ -336,9 +337,10 @@
                             <th></th>    
                             <th></th>                             
                             <th>{{schemePercentToView}}%</th>
+                            <th></th>
                         </tr>
                         <tr>
-                            <th><strong>DISCOUNT AMOUNT</strong></th>
+                            <th><strong>Service Charge</strong></th>
                             <th></th>
                             <th></th>
                             <th></th>                                      
@@ -347,7 +349,8 @@
                             <th></th> 
                             <th></th>    
                             <th></th>                             
-                            <th>{{schemeAmt | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{'50' | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                         <tr>
                             <th><strong>TOTAL</strong></th>
@@ -360,6 +363,7 @@
                             <th></th>    
                             <th></th>        
                             <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -373,6 +377,59 @@
                 </div>
                 </div>
                 </div>
+
+
+                <!-- Default Size -->
+<div class="modal fade" id="EditTra" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="myLargeModalLabel">Add Departments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                          <!-- <label>{{deptName}}</label> -->
+                            <input type="text" class="form-control" [value]="unitName" ngModel name="name" >
+                            <input hidden="true" [value]="unitid" ngModel name="id">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- <label>{{posid}}</label> -->
+                            <input type="text" class="form-control" [value]="unitDescrip" ngModel name="box_size" >
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-12">
+                        <input type="file" class="dropify">
+                    </div> -->
+                    <div class="col-sm-12">
+                        <div class="form-group mt-3">                            
+                          <input type="text" class="form-control" [value]="unitValue" ngModel name="value" >
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-outline-secondary">Cancel</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
             </div>
         </div>
     </div>
