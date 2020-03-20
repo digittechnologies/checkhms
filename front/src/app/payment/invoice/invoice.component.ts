@@ -121,8 +121,8 @@ setting:any;
     this.pres=this.inv.pres 
     this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
     this.schemePercent = this.inv.patient.pacentage_value;
-    this.afterPercentCost = this.schemePercent / 100 * this.amount; 
-    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount;
+    this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
+    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
     })
   }
   

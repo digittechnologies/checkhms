@@ -136,8 +136,8 @@ export class VoucherComponent implements OnInit {
     this.refill = this.prescriptions.refill;
     this.remain = this.prescriptions.remain;
     this.tcost = this.prescriptions.tcost;
-    this.afterPercentCost = this.schemePercent / 100 * this.tcost; 
-    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost;
+    this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50; 
+    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost + 50;
     this.prescriptionsList= this.PharmPreresponse.pres; 
   })
 
@@ -309,7 +309,7 @@ export class VoucherComponent implements OnInit {
     form.value.days = this.useFor
     if(this.schemePriceList == 'price_2'){
       form.value.amount = this.total.price_2;
-      form.value.amount_paid = parseInt(this.total.price_2) * parseInt(this.quant)
+      form.value.amount_paid = parseInt(this.total.price_2) * parseInt(this.quant) 
     }
     else if(this.schemePriceList == 'price_3'){
       form.value.amount = this.total.price_3;
