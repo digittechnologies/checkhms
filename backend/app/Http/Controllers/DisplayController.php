@@ -211,11 +211,18 @@ class DisplayController extends Controller
                 ->select('durations.*','item_types.type_name','firstname','lastname')               
                 ->get();
     }
-
+    
     public function displayDurationForV($id)
     {
         return DB::table("durations")->select('durations.*')  
                 ->where('type_id', '=', $id)             
+                ->get();
+    }
+
+    public function idDurationForV($id)
+    {
+        return DB::table("durations")->select('durations.*')  
+                ->where('id', '=', $id)             
                 ->get();
     }
 
@@ -227,6 +234,13 @@ class DisplayController extends Controller
             ->where('id','=',$id)          
             ->get()   
         );
+    }
+
+    public function idInstruction($id)
+    {
+        return DB::table("daily_supply")->select('daily_supply.*')  
+                ->where('id', '=', $id)             
+                ->get();
     }
 
     public function displayInstruction()
@@ -502,7 +516,7 @@ class DisplayController extends Controller
     //Appointment
     public function displayAllappointment()
     {          
-        return Appointments::orderBy('appointments.id')->join('departments','appointments.department_id','=','departments.id')
+        return Appointments::orderBy('appointments.id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.treatment','customers.name as pat_name', 'customers.othername','customers.card_number','appointments.lab','appointments.prescription','appointments.invoice','appointments.voucher','appointments.status','appointments.updated_at','appointments.created_at','appointments.date','appointments.time','appointments.customer_id','appointments.department_id','appointments.voucher_id','appointments.branch_id','departments.name as dept_name','customers.patient_image')               
                 ->get();
@@ -511,7 +525,7 @@ class DisplayController extends Controller
     {
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
-        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+        return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
                 ->where('appointments.department_id','=',$deptId)
@@ -600,6 +614,11 @@ class DisplayController extends Controller
                         ->select('doctor_prescriptions.*', 'item_details.generic_name', 'item_types.type_name', 'branches.name as branchName', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.patient_image') 
                         ->where(['doctor_prescriptions.voucher_id' => $vid, 'doctor_prescriptions.refill_voucher_status' => 'saved'])
                         ->get(),
+
+            'appId'=> DB::table("appointments")
+                        ->select('appointments.*')
+                        ->where('voucher_id', $vid)
+                        ->get(),
             ]);
         
      }
@@ -677,8 +696,9 @@ class DisplayController extends Controller
         return DB::table("invoices")->get();
     }
 
-    public function displayPharmInvoice($id)
+    public function displayPharmInvoice($id, $vid)
     {
+                                                                                                                                                      
         $bId= Auth()->user()->branch_id;
         $pc =  Doctor_prescriptions::orderBy('id') 
         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
@@ -694,11 +714,14 @@ class DisplayController extends Controller
             return response()->json([
                 "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
                 ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
                 ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name asdaily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
                 // ->where('doctor_prescriptions.status', '=', 'close')
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
                 ->where('doctor_prescriptions.branch_id', '=', $bId)
@@ -708,25 +731,52 @@ class DisplayController extends Controller
            
             
         }
-        return response()->json([
-            "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
-            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-            ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-            ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-            // ->where('doctor_prescriptions.status', '=', 'close')
-            ->where('doctor_prescriptions.appointment_id', '=', $id)
-            ->where('doctor_prescriptions.branch_id', '=', $bId)
-            ->get(),
-            "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
-            "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
-            ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-            ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
-            ->first(),
-            "isE" =>$p->count(),
-            ]);
-    }
+        if($vid=='inv'){
+            return response()->json([
+                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                // ->where('doctor_prescriptions.status', '=', 'close')
+                ->where('doctor_prescriptions.appointment_id', '=', $id)
+                ->where('doctor_prescriptions.branch_id', '=', $bId)
+                ->get(),
+                "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
+                "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
+                ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                ->first(),
+                "isE" =>$p->count(),
+                ]);
+        }else if ($vid=='ref') {
+            return response()->json([
+                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                // ->where('doctor_prescriptions.status', '=', 'close')
+                ->where('doctor_prescriptions.appointment_id', '=', $id)
+                ->where('doctor_prescriptions.branch_id', '=', $bId)
+                ->get(),
+                "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
+                "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
+                ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                ->first(),
+                "isE" =>$p->count(),
+                ]);
+        }
+    } 
 
     public function edtInvoice($id)
     {

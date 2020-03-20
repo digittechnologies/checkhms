@@ -162,7 +162,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
-                                                <option  *ngFor="let dura of duration" value="{{dura.value}}">{{dura.duration_name}}</option>
+                                                <option  *ngFor="let dura of duration" value="{{dura.id}}">{{dura.duration_name}}</option>
                                             </select>
                                         </div>
                                     </div>                                            
@@ -171,7 +171,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
                                                 <option value="">Select Daily Supply</option>
-                                                <option  *ngFor="let inst of instruct" value="{{inst.value}}">{{inst.name}}</option>
+                                                <option  *ngFor="let inst of instruct" value="{{inst.id}}">{{inst.name}}</option>
                                             </select>
                                         </div>
                                     </div> 
@@ -268,7 +268,7 @@
                          
                             <th>Cost</th>
                             <th>Amount</th>
-                            <!-- <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -289,10 +289,10 @@
                      
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                        <!-- <td>
-                          <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
-                          <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
-                      </td> -->
+                        <td>
+                          <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button> -->
+                          <button type="button" *ngIf = "prescription == 'open' " class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                      </td>                     
                         </tr>
                         <div *ngIf="!prescriptionsList">
                             
@@ -324,6 +324,7 @@
                             <th>{{remain}}</th>     -->
                             <th></th>                             
                             <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                         <tr>
                             <th><strong>DISCOUNT %</strong></th>
@@ -336,9 +337,10 @@
                             <th></th>    
                             <th></th>                             
                             <th>{{schemePercentToView}}%</th>
+                            <th></th>
                         </tr>
                         <tr>
-                            <th><strong>DISCOUNT AMOUNT</strong></th>
+                            <th><strong>Service Charge</strong></th>
                             <th></th>
                             <th></th>
                             <th></th>                                      
@@ -347,7 +349,8 @@
                             <th></th> 
                             <th></th>    
                             <th></th>                             
-                            <th>{{schemeAmt | currency:'NGN':'symbol-narrow'}}</th>
+                            <th>{{'50' | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                         <tr>
                             <th><strong>TOTAL</strong></th>
@@ -360,6 +363,7 @@
                             <th></th>    
                             <th></th>        
                             <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>

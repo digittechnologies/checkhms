@@ -101,6 +101,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
+import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
+import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -232,7 +234,11 @@ import { CustomerCategoryComponent } from './customer/customer-category/customer
   
     ForgotPasswordResetComponent,
   
-    CustomerCategoryComponent
+    CustomerCategoryComponent,
+  
+    DoctorAdminComponent,
+  
+    PatDetailComponent
   ],
   imports: [
     BrowserModule,

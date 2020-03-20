@@ -1364,9 +1364,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     }
 
-    public function deletePrescription(Request $request)
+    public function deletePrescription($id)
     {
-        $id=$request[0];
 
         $deletec=DB::table('doctor_prescriptions')->where('id', $id)->delete();
         if($deletec){
@@ -2236,6 +2235,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         ]);
 
         if($updatePrescription){
+
+            checkRefill($id);
+
             return '{
                 "success":true,
                 "message":"successful"
@@ -2298,6 +2300,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
     }
+
     public function saveTovoucher($cid)
     {
         $dt = Carbon::now();
@@ -2425,8 +2428,11 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
-            'paid' => $getV->amount,
+            'paid' => $getV->amount + 50,
             'balance' => 0,
+            'discount' => 0,
+            'service_charge' => '50',
+            'other_charges' => 0,
             'status' => 'paid',
             'delivery_status' => 'delivered',
             'branch_id' => $branchId,
@@ -2464,6 +2470,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         //UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
+                                ->where('appointments.voucher_id', '=', $vid)
                                 ->update([
                                     'invoice' => 'paid',
                                     'voucher' => $success,

@@ -95,12 +95,12 @@ export class DashboardComponent implements OnInit {
       data=>{       
       this.moduleResponse = data
       this.module= this.moduleResponse
-      this.hms=this.module[0]
-      this.pharmacy=this.module[1]
-      this.pstatus=this.pharmacy.status
+      this.hms=this.module[0].status
+      this.pstatus=this.module[1].status
+   
       this.laboratory=this.module[2]
       this.radiology=this.module[3]
-      this.doctor=this.module[4]
+      this.doctor=this.module[4].status
 
     })
 

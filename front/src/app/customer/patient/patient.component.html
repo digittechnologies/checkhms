@@ -39,6 +39,14 @@
                         </ul>
                     </div> -->
                     <div class="body">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10 col-sm-6">
+                                <label>Search User</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="patient_data" placeholder="Search..."  [formControl]="control">
+                                    
+                                </div>
+                            </div>  
                         <div class="table-responsive">
                             <table class="table table-hover js-basic-example dataTable table-custom spacing5">
                                 <thead>
@@ -127,8 +135,13 @@
                             </div>                                
                                 </tbody>
                             </table>
+<<<<<<< HEAD
                             <button class="btn btn-danger" (click)="prev()">Prev</button>
                             <button class="btn btn-success" (click)="next()">Next</button>
+=======
+                            <!-- <button class="btn btn-danger" (click)="prev(d.last_page)">Prev</button>
+                            <button class="btn btn-success" (click)="next(d.)">Next</button> -->
+>>>>>>> ab62231323aee3b005320e87fe924ee4cc4d4ba6
                             <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>   -->
                         </div>
                     </div>

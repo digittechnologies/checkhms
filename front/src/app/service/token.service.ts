@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TokenService {
   private iss = {
+
+    
+    // login: 'https://buthserver.checkhms.com/back/backend/public/api/login',
+    // signup: 'https://buthserver.checkhms.com/back/backend/public/api/signup'
     
     // login: 'https://hms.jtcheck.com/back/backend/public/api/login',
     // signup: 'https://hms.jtcheck.com/back/backend/public/api/signup'

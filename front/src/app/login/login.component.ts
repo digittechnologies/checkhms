@@ -69,10 +69,7 @@ export class LoginComponent implements OnInit {
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
-      
       );
-      
-
     
   }
 
@@ -84,6 +81,8 @@ export class LoginComponent implements OnInit {
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
+
+    
 
     this.Token.handle(data.token.original.access_token);
    

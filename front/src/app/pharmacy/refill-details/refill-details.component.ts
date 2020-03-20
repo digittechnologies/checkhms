@@ -33,6 +33,7 @@ export class RefillDetailsComponent implements OnInit {
   pat_refil: any;
   rValue: any;
   rId: any;
+  appId: any;
 
   constructor( 
     private http: HttpClient,
@@ -61,7 +62,8 @@ export class RefillDetailsComponent implements OnInit {
         this.pat = this.response.refill;
         this.pat2 = this.response.refill2;
         this.patnt = this.pat[0];
-        this.voucherId = this.pat[0].voucher_id
+        this.voucherId = this.pat[0].voucher_id;
+        this.appId = this.response.appId[0].id;
 	    })
   }))
   
