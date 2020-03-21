@@ -330,11 +330,16 @@ export class VoucherComponent implements OnInit {
   }
 
   saveTovoucher(){
-    this.disabled = true;
-    this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
+    if(this.prescriptionsList.length <= 0){
+      alert('No medications to process yet.')
+      return;
+    } else { 
+      this.disabled = true;
+      this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
+    }
   }
 
   handleResponse(data) {    // 

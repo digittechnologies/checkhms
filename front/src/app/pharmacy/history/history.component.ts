@@ -34,6 +34,7 @@ export class HistoryComponent implements OnInit {
   eDate: any;
   hAction: any;
   adds: any;
+  appt: any;
   constructor( 
     private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -71,6 +72,7 @@ export class HistoryComponent implements OnInit {
         this.transFrm = this.payloads.transFrm;
         this.transTo = this.payloads.transTo;
         this.vari = this.payloads.vari;
+        this.appt = this.payloads.appt;
         this.sBranch = this.payloads.bran.toUpperCase();
         this.sDate = this.payloads.date[0];
         this.eDate = this.payloads.date[1];

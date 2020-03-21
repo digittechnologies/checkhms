@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 @Injectable(
   {
   providedIn: 'root'}
@@ -40,9 +42,13 @@ export class JarwisService {
     throw new Error("Method not implemented.");
   }
 
+  // private baseUrl = 'https://buthserver.checkhms.com/back/backend/public/api';
+
   // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
-  private baseUrl = 'http://localhost/buth-pharm/backend/public/api';
+  private baseUrl = environment.baseUrl;
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -198,7 +204,7 @@ export class JarwisService {
   }
   disItemDet() {
     return this.http.get(`${this.baseUrl}/disItemDet`,)
-  }
+  }   
 
   // Item
   displayItem(id: any) {
@@ -269,6 +275,11 @@ export class JarwisService {
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
   }
+
+  idDurationForV(id: any) {
+    return this.http.get(`${this.baseUrl}/idDurationForV/${id}`,)
+  }
+
   updateDuration(data) {
     return this.http.post(`${this.baseUrl}/updateDuration`, data, {headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -289,13 +300,18 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/updateInstruction`, data, {headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  }
+  }         
   deleteInstruction(data) {
     return this.http.post(`${this.baseUrl}/deleteInstruction`, data)
   } 
   displayInstruction() {
     return this.http.get(`${this.baseUrl}/displayInstruction`,)
   }
+
+  idInstruction(id: any) {
+    return this.http.get(`${this.baseUrl}/idInstruction/${id}`,)
+  }
+
   edtinstruction(id:any) {
     return this.http.get<any>(`${this.baseUrl}/edtinstruction/${id}`)
   }
@@ -651,8 +667,8 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmInvoice(id: any,data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}`,data,{headers:{
+  displayPharmInvoice(id: any, vid:any ,data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}/${vid}`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   } 
@@ -690,6 +706,12 @@ deleteAppointment(data) {
 
   displayPharmPre2(id:string) {
     return this.http.get<any>(`${this.baseUrl}/displayPharmPrescription/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  deletePrescription(id:string) {
+    return this.http.post<any>(`${this.baseUrl}/deletePrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
