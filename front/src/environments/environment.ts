@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost/buth-pharm/backend/public/api',
+  login: 'http://localhost/buth-pharm/backend/public/api/login',
+  signup: 'http://localhost/buth-pharm/backend/public/api/signup'
 };
 
 /*

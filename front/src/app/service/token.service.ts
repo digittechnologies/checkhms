@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment'
 
 @Injectable()
 export class TokenService {
   private iss = {
 
-    
-    // login: 'https://buthserver.checkhms.com/back/backend/public/api/login',
-    // signup: 'https://buthserver.checkhms.com/back/backend/public/api/signup'
-    
-    // login: 'https://hms.jtcheck.com/back/backend/public/api/login',
-    // signup: 'https://hms.jtcheck.com/back/backend/public/api/signup'
-
-    login: 'http://localhost/buth-pharm/backend/public/api/login',
-    signup: 'http://localhost/buth-pharm/backend/public/api/signup'
+    login: environment.login,
+    signup: environment.signup,
 
     
   };
