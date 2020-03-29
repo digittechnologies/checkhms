@@ -19,8 +19,8 @@ class Customers extends Model
         'd_o_b', 
         // 'about',
         // 'allergy', 
-        'cust_category_id',
-        'n_h_i_s', 
+        // 'cust_category_id',
+        // 'n_h_i_s', 
         'card_number',
         'status',
         'age',
@@ -32,5 +32,9 @@ class Customers extends Model
         'kin_relationship',
         'next_of_kin_mobile',
         'next_of_kin_address',
+        'x_ray_number',
+        'referral_name',
+        'referral_address',
+        'referral_mobile',
     ];
 }

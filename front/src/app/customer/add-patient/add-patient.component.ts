@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
+declare let $: any ;
+
 @Component({
   selector: 'app-add-patient',
   templateUrl: './add-patient.component.html',
@@ -34,6 +36,11 @@ export class AddPatientComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    alert(form.value.d_o_b)
+    let dob = form.value.d_o_b;
+    let ageIndex = dob.lastIndexOf("/");
+    let age = dob.slice(ageIndex+1)
+    alert(age)
     this.disabled = true;
      this.Jarwis.addCustomer(form.value).subscribe(
        data => this.handleResponse(data),
