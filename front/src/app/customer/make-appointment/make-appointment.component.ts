@@ -28,6 +28,7 @@ export class MakeAppointmentComponent implements OnInit {
   filterString = "";
   appoint: any;
   onScroll:any;
+  appointEmpty = false;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -72,7 +73,9 @@ this.onFilterChange();
       // this.response = data;      
       this.appoints  = data
       this.appoint =  this.appoints.filter((cate) => this.isMatch(cate));
-      
+      if(this.appoint.length <= 0){
+        this.appointEmpty = true;
+      }
     })
   
   }

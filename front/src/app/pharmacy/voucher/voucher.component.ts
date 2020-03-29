@@ -207,8 +207,6 @@ export class VoucherComponent implements OnInit {
   }
 
   editTrans(hh){
-
-    alert(hh);
     // this.amt_value = a.target.value;
     // this.Jarwis.idDurationForV(this.amt_value).subscribe(
     //   data=>{
@@ -330,11 +328,16 @@ export class VoucherComponent implements OnInit {
   }
 
   saveTovoucher(){
-    this.disabled = true;
-    this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
+    if(this.prescriptionsList.length <= 0){
+      alert('No medications to process yet.')
+      return;
+    } else { 
+      this.disabled = true;
+      this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
+    }
   }
 
   handleResponse(data) {    // 

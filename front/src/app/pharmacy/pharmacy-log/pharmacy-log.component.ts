@@ -33,9 +33,10 @@ export class PharmacyLogComponent implements OnInit {
   newArr = [];
   search: any;
   logUser: any;
-  imgLink: any;
+  imgLink: any; 
   spin: string;
   disabled = false;
+  logEmpty = false;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -57,7 +58,9 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
       this.response = data;      
       this.log = this.response; 
-     
+     if(this.log.length <= 0){
+       this.logEmpty = true;
+     }
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -137,10 +140,10 @@ export class PharmacyLogComponent implements OnInit {
   }
 
   handleResponse(data) {    // 
+    this.disabled = false;
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    this.disabled = false;
     this.router.navigateByUrl('/Admin/(side:pharmacy_log)');
     this.ngOnInit();
     
@@ -148,12 +151,12 @@ export class PharmacyLogComponent implements OnInit {
 
 
   handleError(error) {
+    this.disabled = false;
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000
 
     })
-    this.disabled = false;
   }
 
   onClickSubmit() {
@@ -174,17 +177,19 @@ export class PharmacyLogComponent implements OnInit {
     //   });  
   }  
   handleRespons(data) {
+    this.disabled = false;
     this.spin="";    
     // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
     })   
-    // this.router.navigateByUrl('/Admin/(side:set_branch');
+    this.router.navigateByUrl('/Admin/(side:pharmacy_log)');
     this.ngOnInit();
     
   }
 
   handleErro(error) {
+    this.disabled = false;
     this.error = error.error.errors;
     let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
       duration: 2000

@@ -33,7 +33,10 @@
                                             <div class="col-lg-4 col-md-12">
                                                     <div class="form-group"> 
                                                         <label class="fancy-radio custom-color-green">Patient First Name</label>  
-                                                        <input type="text" class="form-control" ngModel name="name" placeholder="Firstname">                                             
+                                                        <input type="text" class="form-control" ngModel name="name" placeholder="Firstname">                                                      
+                                                        <div class="text-danger" [hidden]="!error.name">
+                                                            {{error.firstname}}
+                                                        </div>                                           
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-12">

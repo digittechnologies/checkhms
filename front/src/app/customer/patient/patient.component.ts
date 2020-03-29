@@ -22,6 +22,8 @@ export class PatientComponent implements OnInit {
   imgLink: any;
   disabled= false;
   p: any;
+  name: any;
+  route: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -45,7 +47,13 @@ export class PatientComponent implements OnInit {
     this.Jarwis.displayCustomer().subscribe(
       data=>{
       this.response = data;      
-      this.pat = this.response   
+      this.pat = this.response  
+      
+    //   this.name = this.pat.next_page_url.snapshot.queryParamMap.get("paramName")
+    //   this.route.queryParamMap.subscribe(queryParams => {
+    //     this.name = queryParams.get("paramName")
+    //   })
+    //   alert(this.name)
     })
 
     this.Jarwis. generalSettings().subscribe(
@@ -63,6 +71,10 @@ export class PatientComponent implements OnInit {
    
     })
   }
+
+  // next(){
+
+  // }
 
   appointment(id){
 
