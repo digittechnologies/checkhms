@@ -465,6 +465,12 @@ makeAppointment(data) {
   }})
 } 
 
+searchPatient(data) {
+  return this.http.post<any>(`${this.baseUrl}/searchPatient`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
 makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`

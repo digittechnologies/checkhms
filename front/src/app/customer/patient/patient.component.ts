@@ -14,10 +14,10 @@ declare var $: any;
 })
 export class PatientComponent implements OnInit {
 
-  public form = {
-    customer: null,
+  // public form = {
+  //   customer: null,
     
-  };
+  // };
   control = new FormControl();
   response: Object;
   bran: any;
@@ -31,6 +31,9 @@ export class PatientComponent implements OnInit {
   name: any;
   route: any;
   spin: string;
+  searchResponse: any;
+  patient: any;
+  show: boolean;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -91,17 +94,19 @@ export class PatientComponent implements OnInit {
     
   }
 
-  onClickSubmit() {
+  onClickSubmit(form: NgForm) {
     this.spin="disable";
     this.disabled = true;
-    console.log(this.form)
-    if(this.form.customer = ''){
+    if(form.value.customer == '' || form.value.action == ''){
       alert('Serch Box Empty')
     }else{
-      this.Jarwis.makeAppointment(this.form).subscribe(
-        data => this.handleResponse(data),
-          error => this.handleError(error)
-     );
+      this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+
+        this.show= true;
+        this.searchResponse = data;
+        this.patient = this.searchResponse[0]      
+     
+      })
     }
   }
 

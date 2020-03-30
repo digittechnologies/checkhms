@@ -176,6 +176,7 @@ Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
 Route::post('makeAppointment','AddController@makeAppointment');
+Route::post('searchPatient','AddController@searchPatient');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
 Route::get('customer_category','DisplayController@customer_category');
 Route::get('patientbyappointment/{id}','DisplayController@patientbyappointment');

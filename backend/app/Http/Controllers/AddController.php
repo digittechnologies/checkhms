@@ -1138,6 +1138,18 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     
     }
 
+    public function searchPatient(Request $request)
+    {
+        // return $request->all();
+        $value=$request->customer;
+        $action=$request->action;
+
+        $search=DB::table('customers')->where( $action, $value)->get();
+
+        return $search;
+    
+    }
+
     //Appointment
     public function makeAppointment(Request $request)
     {
