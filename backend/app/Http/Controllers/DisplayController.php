@@ -1005,23 +1005,45 @@ class DisplayController extends Controller
                 'physBal'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.physical_balance'),
                 'total'=>DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain'),
                 'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(),
-                'date'=> [$sDate, $eDate]  
+                'date'=> [$sDate, $eDate],
+                'action' => $action
              ]);
         }
 
         if($action == 'type'){
+            $result = 0;
             $array = array();
-            $getType = DB::table("item_types")->select('type_name')->get();
+            $getType = DB::table("item_types")->select('id', 'type_name')->get();
             foreach($getType as $row){
-                // $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where([$branch.'.item_detail_id'=> $row->id, $branch.'c_date' => $cDate])->sum($branch.'.total_remain');
-                array_push($array, $getType);
+               $getitemqty = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+                ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+                ->where('item_details.item_type_id', $row->id)
+                ->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales');
+
+                $getitemamount = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+                ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+                ->where('item_details.item_type_id', $row->id)
+                ->whereIn($id.'.c_date', $dateRange)->get();
+                foreach($getitemamount as $row2){
+                    if($row2->markup_price != 0){
+                        $result += $row2->purchasing_price * $row2->markup_price * $row2->sales;
+                    } else {
+                        $result += $row2->purchasing_price * $row2->sales;
+                    }
+                }
+                $getitemamount = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+                ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+                ->where('item_details.item_type_id', $row->id)
+                ->whereIn($id.'.c_date', $dateRange)->get();
+                array_push($array, [$row->type_name, $getitemqty, $result]);
+                $result = 0;
             }
-            return $array;
-        //    return response()->json([
-        //         // DB::table($id)->select($id.'.*')->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales')
-               
-        //         
-        //    ]) 
+           return response()->json([   
+            'payloads' => $array,            
+            'bran'=>DB::table('branches')->select('branches.name')->where('br_name', '=', $id)->first(),
+            'date'=> [$sDate, $eDate],
+            'action' => $action  
+           ]);
         }
     }
 

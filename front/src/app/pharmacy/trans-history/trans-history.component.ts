@@ -32,6 +32,7 @@ exportAsConfig: ExportAsConfig = {
   sBranch: any;
   sDate: any;
   eDate: any;
+  itemType: any;
 constructor( 
   private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -72,6 +73,8 @@ constructor(
         this.eDate = this.payloads.date[1];
         this.spin="";
         this.disabled = false; 
+        this.action =  this.payloads.action;
+        this.itemType = this.payloads.payloads;
       }); 
   }  
 
