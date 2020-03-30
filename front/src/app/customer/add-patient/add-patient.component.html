@@ -26,7 +26,7 @@
                       <div class="body">
                           <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm">
                               <div class="form-group row">
-                                  <label class="col-lg-2 col-md-2 col-sm-4 col-form-label">Patient Personal Information</label>
+                                  <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
                                   <div class="col-lg-10 col-md-10 col-sm-8">
                                       <div class="row clearfix">
 
@@ -34,8 +34,8 @@
                                                     <div class="form-group"> 
                                                         <label class="fancy-radio custom-color-green">First Name</label>  
                                                         <input type="text" class="form-control" ngModel name="name" placeholder="Patient Firstname">                                                      
-                                                        <div class="text-danger" [hidden]="!error.name">
-                                                            {{error.name}}
+                                                        <div class="text-danger" [hidden]="!eName">
+                                                            {{eName}}
                                                         </div>                                           
                                                     </div>
                                                 </div>
@@ -43,8 +43,8 @@
                                                     <div class="form-group">  
                                                         <label class="fancy-radio custom-color-green">Other Names</label> 
                                                         <input type="text" class="form-control"ngModel name="othername" placeholder="Patient Other Names">
-                                                        <div class="text-danger" [hidden]="!error.othername">
-                                                            {{error.othername}}
+                                                        <div class="text-danger" [hidden]="!eOthername">
+                                                            {{eOthername}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -53,8 +53,8 @@
                                                         <label class="fancy-radio custom-color-green">Sex</label><br>
                                                         <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Male" type="radio" checked><span><i></i>Male</span></label>
                                                         <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Female" type="radio"><span><i></i>Female</span></label>
-                                                        <div class="text-danger" [hidden]="!error.gender">
-                                                            {{error.gender}}
+                                                        <div class="text-danger" [hidden]="!eGender">
+                                                            {{eGender}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -68,17 +68,17 @@
                                                         <div class="form-group">
                                                             <label class="fancy-radio custom-color-green">Mobile Number</label> 
                                                             <input type="text" class="form-control" ngModel name="mobile_number" placeholder="Patient Mobile Number">
-                                                            <div class="text-danger" [hidden]="!error.mobile_number">
-                                                                {{error.mobile_number}}
+                                                            <div class="text-danger" [hidden]="!eMobile_number">
+                                                                {{eMobile_number}}
                                                             </div>
                                                         </div>
                                                 </div>                               
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Hospital Number</label>
-                                                        <input type="text" class="form-control" ngModel name="card_number" placeholder="Patient Hospital Number">
-                                                        <div class="text-danger" [hidden]="!error.card_number">
-                                                            {{error.card_number}}
+                                                        <input type="text" class="form-control" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                        <div class="text-danger" [hidden]="!eCard_number">
+                                                            {{eCard_number}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -102,24 +102,24 @@
                                                 <div class="col-lg-12 col-md-12">
                                                   <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Date of Birth</label>
-                                                    <input type="date" id="datePicker" class="form-control" ngModel name="d_o_b" placeholder="Patient Date of Birth">
-                                                    <div class="text-danger" [hidden]="!error.d_o_b">
-                                                        {{error.d_o_b}}
+                                                    <input type="date" class="form-control" (input)="showAge($event)" ngModel name="d_o_b" placeholder="Patient Date of Birth">
+                                                    <div class="text-danger" [hidden]="!eD_o_b">
+                                                        {{eD_o_b}}
                                                     </div>
                                                   </div>
                                               </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Age</label>
-                                                        <input type="text" class="form-control" ngModel name="age" placeholder="Patient Age">
+                                                        <input type="text" class="form-control" value="{{age}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Type</label>
                                                         <input type="text" class="form-control" ngModel name="type" placeholder="Patient Type">
-                                                        <div class="text-danger" [hidden]="!error.type">
-                                                                {{error.type}}
+                                                        <div class="text-danger" [hidden]="!eType">
+                                                                {{eType}}
                                                             </div>
                                                     </div>
                                                 </div>
@@ -127,8 +127,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Occupation</label>
                                                         <input type="text" class="form-control" ngModel name="occupation" placeholder="Patient Occupation">
-                                                        <div class="text-danger" [hidden]="!error.occupation">
-                                                            {{error.occupation}}
+                                                        <div class="text-danger" [hidden]="!eOccupation">
+                                                            {{eOccupation}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,8 +143,8 @@
                                                             <option value="Widow">Widow</option> 
                                                             <option value="Widower">Widower</option>
                                                         </select>
-                                                        <div class="text-danger" [hidden]="!error.marital_status">
-                                                            {{error.marital_status}}
+                                                        <div class="text-danger" [hidden]="!eMarital_status">
+                                                            {{eMarital_status}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,8 +152,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Religion</label>
                                                         <input type="text" class="form-control" ngModel name="religion" placeholder="Religion">
-                                                        <div class="text-danger" [hidden]="!error.religion">
-                                                            {{error.religion}}
+                                                        <div class="text-danger" [hidden]="!eReligion">
+                                                            {{eReligion}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,8 +165,8 @@
                                                             <option value="active">Active</option>
                                                             <option value="suspend">Suspend</option>                                
                                                         </select>
-                                                        <div class="text-danger" [hidden]="!error.status">
-                                                            {{error.status}}
+                                                        <div class="text-danger" [hidden]="!eStatus">
+                                                            {{eStatus}}
                                                         </div>                  
                                                     </div>
                                                 </div>
@@ -174,8 +174,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Home Towm</label>
                                                         <input type="text" class="form-control" ngModel name="city" placeholder="Home Town">
-                                                        <div class="text-danger" [hidden]="!error.city">
-                                                            {{error.city}}
+                                                        <div class="text-danger" [hidden]="!eCity">
+                                                            {{eCity}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,8 +183,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">State of Origin</label>
                                                         <input type="text" class="form-control" ngModel name="state" placeholder="State of Origin">
-                                                        <div class="text-danger" [hidden]="!error.state">
-                                                            {{error.state}}
+                                                        <div class="text-danger" [hidden]="!eState">
+                                                            {{eState}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -192,8 +192,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Nationality</label>
                                                         <input type="text" class="form-control" ngModel name="country" placeholder="Patient Nationality">
-                                                        <div class="text-danger" [hidden]="!error.country">
-                                                            {{error.country}}
+                                                        <div class="text-danger" [hidden]="!eCountry">
+                                                            {{eCountry}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,8 +201,8 @@
                                                     <div class="form-group">      
                                                         <label class="fancy-radio custom-color-green">Residential Address</label>                                          
                                                         <textarea rows="2" type="text" class="form-control"  ngModel name="address" placeholder="Patient Residential Address"></textarea>
-                                                        <div class="text-danger" [hidden]="!error.address">
-                                                            {{error.address}}
+                                                        <div class="text-danger" [hidden]="!eAddress">
+                                                            {{eAddress}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -210,24 +210,25 @@
                                                         <div class="form-group">      
                                                             <label class="fancy-radio custom-color-green">X-Ray Number</label>                                          
                                                             <input type="text" class="form-control" ngModel name="x_ray_number" placeholder="Patient X-Ray Number">
-                                                            <div class="text-danger" [hidden]="!error.x_ray_number">
-                                                                {{error.x_ray_number}}
+                                                            <div class="text-danger" [hidden]="!eX_ray_number">
+                                                                {{eX_ray_number}}
                                                             </div>
                                                         </div>
                                                     </div>
                                       </div>
                                   </div>
                               </div>
-                              <div class="form-group row mt-5">
-                                    <label class="col-lg-2 col-md-2 col-sm-4 col-form-label">Patient Referral Information</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-10">
+                              
+                              <div class="form-group row">
+                                    <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Referral Information</label>
+                                    <div class="col-lg-10 col-md-10 col-sm-8">
                                         <div class="row clearfix">
                                             <div class="col-lg-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Referral Name</label>
                                                         <input type="text" class="form-control" ngModel name="referral_name" placeholder="Referral Name">
-                                                        <div class="text-danger" [hidden]="!error.referral_name">
-                                                            {{error.referral_name}}
+                                                        <div class="text-danger" [hidden]="!eReferral_name">
+                                                            {{eReferral_name}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,8 +236,8 @@
                                                     <div class="form-group">      
                                                         <label class="fancy-radio custom-color-green">Referral Address</label>                                          
                                                         <textarea rows="4" type="text" class="form-control" ngModel name="referral_address" placeholder="Referral Address"></textarea>
-                                                        <div class="text-danger" [hidden]="!error.referral_address">
-                                                            {{error.referral_address}}
+                                                        <div class="text-danger" [hidden]="!eReferral_address">
+                                                            {{eReferral_address}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -244,24 +245,24 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Referral Mobile Number</label>
                                                         <input type="text" class="form-control" ngModel name="referral_mobile" placeholder="Referral Mobile Number">
-                                                        <div class="text-danger" [hidden]="!error.referral_mobile">
-                                                            {{error.referral_mobile}}
+                                                        <div class="text-danger" [hidden]="!eReferral_mobile">
+                                                            {{eReferral_mobile}}
                                                         </div>
                                                     </div>
                                                 </div>
                                         </div>
                                     </div>
                                 </div>
-                              <div class="form-group row mt-5">
-                                  <label class="col-lg-2 col-md-2 col-sm-4 col-form-label">Patient Next of Kin Information</label>
-                                  <div class="col-lg-10 col-md-10 col-sm-10">
+                              <div class="form-group row">
+                                  <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Next of Kin Information</label>
+                                  <div class="col-lg-10 col-md-10 col-sm-8">
                                       <div class="row clearfix">
                                             <div class="col-lg-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Patient Next of Kin Name</label>
                                                         <input type="text" class="form-control" ngModel name="next_of_kin_name" placeholder="Next of Kin Name">
-                                                        <div class="text-danger" [hidden]="!error.next_of_kin_name">
-                                                            {{error.next_of_kin_name}}
+                                                        <div class="text-danger" [hidden]="!eNext_of_kin_name">
+                                                            {{eNext_of_kin_name}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -269,8 +270,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Patient Relationship to Next of Kin</label>
                                                         <input type="text" class="form-control" ngModel name="kin_relationship" placeholder="Next of Kin Relationship">
-                                                        <div class="text-danger" [hidden]="!error.kin_relationship">
-                                                            {{error.kin_relationship}}
+                                                        <div class="text-danger" [hidden]="!eKin_relationship">
+                                                            {{eKin_relationship}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -278,8 +279,8 @@
                                                     <div class="form-group">
                                                         <label class="fancy-radio custom-color-green">Patient Next of Kin Mobile Number</label>
                                                         <input type="text" class="form-control" ngModel name="next_of_kin_mobile" placeholder="Next of Kin Mobile Number">
-                                                        <div class="text-danger" [hidden]="!error.next_of_kin_mobile">
-                                                            {{error.next_of_kin_mobile}}
+                                                        <div class="text-danger" [hidden]="!eNext_of_kin_mobile">
+                                                            {{eNext_of_kin_mobile}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -287,8 +288,8 @@
                                                     <div class="form-group">      
                                                         <label class="fancy-radio custom-color-green">Patient Next of Kin Address</label>                                          
                                                         <textarea rows="4" type="text" class="form-control" ngModel name="next_of_kin_address" placeholder="Next of Kin Address"></textarea>
-                                                        <div class="text-danger" [hidden]="!error.next_of_kin_address">
-                                                            {{error.next_of_kin_address}}
+                                                        <div class="text-danger" [hidden]="!eNext_of_kin_address">
+                                                            {{eNext_of_kin_address}}
                                                         </div>
                                                     </div>
                                                 </div>

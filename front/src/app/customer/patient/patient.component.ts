@@ -4,7 +4,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 declare var $: any;
 
 @Component({
@@ -13,6 +13,12 @@ declare var $: any;
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
+
+  public form = {
+    customer: null,
+    
+  };
+  control = new FormControl();
   response: Object;
   bran: any;
   error: any;
@@ -24,6 +30,7 @@ export class PatientComponent implements OnInit {
   p: any;
   name: any;
   route: any;
+  spin: string;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -82,6 +89,20 @@ export class PatientComponent implements OnInit {
 
   // console.log(id);
     
+  }
+
+  onClickSubmit() {
+    this.spin="disable";
+    this.disabled = true;
+    console.log(this.form)
+    if(this.form.customer = ''){
+      alert('Serch Box Empty')
+    }else{
+      this.Jarwis.makeAppointment(this.form).subscribe(
+        data => this.handleResponse(data),
+          error => this.handleError(error)
+     );
+    }
   }
 
   onSubmitApp(form: NgForm) {

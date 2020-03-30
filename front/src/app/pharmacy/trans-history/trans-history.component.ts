@@ -61,7 +61,6 @@ constructor(
 
   onClickSubmit(form: NgForm) {
     this.disabled = true;
-this.spin="disable";
     this.Jarwis.stockReport(form.value).subscribe(
       data => {
         this.response = data;
@@ -72,8 +71,8 @@ this.spin="disable";
         this.sDate = this.payloads.date[0];
         this.eDate = this.payloads.date[1];
         this.spin="";
+        this.disabled = false; 
       }); 
-      this.disabled = false; 
   }  
 
   printComponent() {

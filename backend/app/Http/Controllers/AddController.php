@@ -914,23 +914,22 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     // Customers / Patients
     public function addCustomer(PatientRequest $request)
     {
-        return $request;
         // $dt = Carbon::now();
         // $request->date = $dt->toFormattedDateString();
         // $request->time = $dt->format('h:i:s A');
-        // $customer= Customers::create($request-> all());
+        $customer= Customers::create($request-> all());
        
-        // if($customer){
-        //     return '{
-        //         "success":true,
-        //         "message":"successful"
-        //     }' ;
-        // } else {
-        //       return '{
-        //         "success":false,
-        //         "message":"Failed"
-        //     }';
-        // }
+        if($customer){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     } 
 
     public function changeCategory(Request $request)

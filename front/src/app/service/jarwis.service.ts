@@ -431,6 +431,9 @@ export class JarwisService {
 displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
 }
+displayHospitalNum(){
+  return this.http.get(`${this.baseUrl}/displayHospitalNum`,)
+}
 
 // nextDisplayCustomer(PageNo: string) {
 //   const params = new HttpParams().set('page', PageNo);

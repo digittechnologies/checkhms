@@ -21,20 +21,30 @@
                     <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit(filter)" #filter="ngForm">
                     <div class="body">
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="col-lg-2 col-md-2 col-sm-4">
                                 <label>Date: From</label>
                                 <div class="form-group">
                                     <input type="date" class="form-control"  ngModel name="sDate" required>
                                 </div>
                             </div>
                             
-                            <div class="col-lg-3 col-md-3 col-sm-6">
+                            <div class="col-lg-2 col-md-2 col-sm-6">
                                 <label>Date: To</label>
                                 <div class="form-group">
                                     <input type="date" (click)="get()" class="form-control" ngModel name="eDate" required>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="col-lg-2 col-md-2 col-sm-6">
+                                <label>Action</label>
+                                <div class="form-group">
+                                    <select class="custom-select" ngModel name="action" required>
+                                        <option>Select Action...</option>
+                                        <option value="general">General</option>
+                                        <option value="type">By Stock Types</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-6">
                                 <label>Branch</label>
                                 <div class="form-group">
                                     <select class="form-control" ngModel name="to" required>                           
@@ -102,10 +112,10 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>General Price</th>
-                                <th>Price 2 (GORAH)</th>
-                                <th>Price 3 (NHIS)</th>
-                                <th>Total Price</th>
+                                <th>Rate</th>
+                                <!-- <th>Price 2 (GORAH)</th>
+                                <th>Price 3 (NHIS)</th> -->
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,15 +147,15 @@
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <span class="badge badge-warning">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                                 <td>
                                         <span class="badge badge-info">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
-                                    </td>
+                                    </td> -->
                                 <td>
-                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
-                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                             </ng-container>
 

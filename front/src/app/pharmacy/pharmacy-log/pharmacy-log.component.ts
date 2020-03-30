@@ -160,21 +160,17 @@ export class PharmacyLogComponent implements OnInit {
   }
 
   onClickSubmit() {
-
     this.spin="disable";
-
     this.disabled = true;
-
-    this.Jarwis.makeAppointment(this.form).subscribe(
-      data => this.handleRespons(data),
-        error => this.handleErro(error)
-   );
-   
-    // this.Jarwis.stockReport(form.value).subscribe(
-    //   data => {
-    //     this.response = data;
-    //     this.search = this.response;
-    //   });  
+    console.log(this.form)
+    if(this.form.customer = ''){
+      alert('Serch Box Empty')
+    }else{
+      this.Jarwis.makeAppointment(this.form).subscribe(
+        data => this.handleRespons(data),
+          error => this.handleErro(error)
+     );
+    }
   }  
   handleRespons(data) {
     this.disabled = false;
