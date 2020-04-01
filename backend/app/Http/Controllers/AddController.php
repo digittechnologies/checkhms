@@ -1026,7 +1026,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     {
         $id=$request->formdata['id'];
         $user=Customers::find($id);
-      
         $currentfile= $user->patient_image;
         $datas=$request->formdata;
     //    return $currentfile;
@@ -1037,16 +1036,16 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
              $user->patient_image = $filename;
          }
         
-         $user->name = $datas['fname'];
-         $user->othername = $datas['oname'];
+         $user->name = $datas['name'];
+         $user->othername = $datas['othername'];
          $user->card_number = $datas['card_number'];
           $user->email =  $datas['email'];
           $user->city =  $datas['city'];
          $user->address =  $datas['address'];
          $user->mobile_number =  $datas['mobile_number'];
-         $user->gender =  $datas['gender'];
-         $user->genotype =  $datas['genotype'];
-         $user->blood_group =  $datas['blood_group'];
+        //  $user->gender =  $datas['gender'];
+        //  $user->genotype =  $datas['genotype'];
+        //  $user->blood_group =  $datas['blood_group'];
          $user->state =  $datas['state'];
          $user->d_o_b =  $datas['d_o_b'];
          $user->country=$datas['country'];
@@ -1059,6 +1058,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->kin_relationship = $datas['kin_relationship'];
          $user->next_of_kin_mobile = $datas['next_of_kin_mobile'];
          $user->next_of_kin_address = $datas['next_of_kin_address'];
+         $user->referral_name = $datas['referral_name'];
+         $user->referral_address = $datas['referral_address'];
+         $user->referral_mobile = $datas['referral_mobile'];
          $user->save();
          // $user->update($request->all());
          if($user){
@@ -1144,9 +1146,24 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $value=$request->customer;
         $action=$request->action;
 
-        $search=DB::table('customers')->where( $action, $value)->get();
+        $search=DB::table('customers')->where( $action, $value)->first();
 
-        return $search;
+        // return $search;
+        
+        if ( empty($search)) {
+            return response()->json(['status'=> 1, 'message' => "successfully", 'search'=> $search, 'show'=>"empty"]);
+        } else {
+            return response()->json([
+                'status'=> 1,
+                'message' => "successfully", 
+                'search'=> $search, 
+                'show'=>"show",
+                "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                ->where('appointments.customer_id','=',$search->id)->get(),
+                ]);
+        }
     
     }
 
@@ -2550,7 +2567,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function terminateAppointment($vid)
     {
-        return $vid; 
+        // return $vid; 
         $branchId= auth()->user()->branch_id;
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
                                     ->where('appointments.branch_id', $branchId)
