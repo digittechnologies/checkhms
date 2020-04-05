@@ -14,7 +14,7 @@ class ResetPasswordController extends Controller
 {
     public function sendEmail(Request $request)
     {
-		$getUrl = DB::table('general_settings')->select('general_settings.app_url')->get();
+		$getUrl = DB::table('general_settings')->select('general_settings.for_email')->get();
 		$url = $getUrl[0]->app_url;
         if($this->valiadateEmail($request->email) == 'valid'){
         	$token = DB::table('password_resets')->where('email', $request->email)->first();

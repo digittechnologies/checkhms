@@ -58,11 +58,22 @@ Route::get('getalltitle','DisplayController@getalltitle');
 
 //Dashboard
 Route::get('displayModule','DisplayController@displayModule');
+
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
 Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
+
 Route::get('displayPharAdminDashInvoice','DisplayController@displayPharAdminDashInvoice');
+Route::post('displayPharStaffDashInvoice','DisplayController@displayPharStaffDashInvoice');
+
 Route::get('displayPharAdminDashStock','DisplayController@displayPharAdminDashStock');
+Route::post('displayPharStaffDashStock','DisplayController@displayPharStaffDashStock');
+
 Route::get('displayPharAdminDashAppointment','DisplayController@displayPharAdminDashAppointment');
+Route::post('displayPharStaffDashAppointment','DisplayController@displayPharStaffDashAppointment');
+
+Route::post('displayPharStaffDash','DisplayController@displayPharStaffDash');
+
+
 
 
 
@@ -107,17 +118,19 @@ Route::get('edtType/{id}','DisplayController@edtType');
 Route::get('displayType','DisplayController@displayType');
 Route::post('addType', 'AddController@addType');
 Route::post('updateType', 'AddController@updateType');
-Route::post('deleteType', 'AddController@deleteType');
+Route::post('deleteType', 'AddController@deleteType'); 
 
 //settings
 Route::get('displayDuration','DisplayController@displayDuration');
 Route::get('displayDurationForV/{id}','DisplayController@displayDurationForV');
+Route::get('idDurationForV/{id}','DisplayController@idDurationForV');
 Route::post('addItemType', 'AddController@addItemType');
 Route::post('updateDuration', 'AddController@updateDuration');
 Route::get('edtduration/{id}','DisplayController@edtduration');
 Route::post('deleteDuration', 'AddController@deleteDuration');
 
 Route::get('displayInstruction','DisplayController@displayInstruction');
+Route::get('idInstruction/{id}','DisplayController@idInstruction');
 Route::post('updateInstruction', 'AddController@updateInstruction');
 Route::get('edtinstruction/{id}','DisplayController@edtinstruction');
 Route::post('addInstruction', 'AddController@addInstruction');
@@ -156,14 +169,27 @@ Route::post('deleteItem', 'AddController@deleteItem');
 
 //Customers / Patients
 Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
-Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::get('displayCustomer','DisplayController@displayCustomer');\
+Route::get('displayHospitalNum','DisplayController@displayHospitalNum');
 Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
 Route::post('makeAppointment','AddController@makeAppointment');
+Route::post('searchPatient','AddController@searchPatient');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
+Route::get('customer_category','DisplayController@customer_category');
 Route::get('patientbyappointment/{id}','DisplayController@patientbyappointment');
+Route::post('changeCategory', 'AddController@changeCategory');
+
+Route::post('addCustCategories', 'AddController@addCustCategories');
+Route::get('displayCustomerCategory','DisplayController@displayCustomerCategory');
+Route::get('edtCustCategories/{id}','DisplayController@edtCustCategories');
+Route::post('updateCustCategories', 'AddController@updateCustCategories');
+Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
+
+
+
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');
@@ -180,15 +206,17 @@ Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
 Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
-Route::post('deletePrescription', 'AddController@deletePrescription');
-Route::post('displayPharmInvoice/{id}','DisplayController@displayPharmInvoice');
+Route::post('deletePrescription/{id}', 'AddController@deletePrescription');
+Route::post('displayPharmInvoice/{id}/{vid}','DisplayController@displayPharmInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
 Route::post('displayRefillPrescriptions/{id}','DisplayController@displayRefillPrescriptions');
+Route::post('pres_refill_id/{id}','DisplayController@pres_refill_id');
 Route::post('refillInStock','DisplayController@refillInStock');
 Route::post('saveRefill','AddController@saveRefill');
 Route::get('displayPharmPrescription/{id}','DisplayController@displayPharmPrescription');
-
+Route::post('checkRefill/{id}','AddController@checkRefill');
+// Route::post('deletePrescription/{id}', 'AddController@deletePrescription');  
 
 //Invoices
 Route::get('edtInvoice/{id}','DisplayController@edtInvoice');
@@ -242,6 +270,11 @@ Route::post('updatetransferItem', 'AddController@updatetransferItem');
 Route::get('editTrans/{id}', 'AddController@editTrans');
 Route::post('deleteTrans', 'AddController@deleteTrans');
 
+Route::get('editVariance/{id}', 'AddController@editVariance');
+Route::post('deleteVariance', 'AddController@deleteVariance');
+Route::post('updateVarianceItem', 'AddController@updateVarianceItem');
+
+
 //Stock Report
 Route::post('stockReport','DisplayController@stockReport');
 Route::post('searchReport','DisplayController@searchReport');
@@ -252,15 +285,13 @@ Route::get('displayRole','DisplayController@displayRole');
 
 
 Route::get('general_setting','DisplayController@general_setting');
+Route::post('updateGeneralset', 'AddController@updateGeneralSet');
+Route::post('addGeneralset', 'AddController@GeneralSet');
 });
 
 
-//  Route::get('test',function(){rolecate
-//      return response()->json([
-//          'user'=>['fname'=>'tawa',
-//          'lname'=>'adio']
-//      ]); 
-//  });
-// spiral
-// waterfall model
-// SDLC SCRUM
+
+// DOctor Module
+Route::get('patient-data/{id}', 'DoctorModule@patientData');
+Route::get('displayAppointment','DoctorModule@displayAppointment');
+

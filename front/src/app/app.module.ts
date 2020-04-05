@@ -97,7 +97,12 @@ import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guar
 import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
 import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
 import { UserRoleGuardService } from './service/guards/user-role-guard.service';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ExportAsModule } from 'ngx-export-as';
+import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
+import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
+import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -227,7 +232,13 @@ import { UserRoleGuardService } from './service/guards/user-role-guard.service';
   
     ForgotPasswordEmailComponent,
   
-    ForgotPasswordResetComponent
+    ForgotPasswordResetComponent,
+  
+    CustomerCategoryComponent,
+  
+    DoctorAdminComponent,
+  
+    PatDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -245,6 +256,9 @@ import { UserRoleGuardService } from './service/guards/user-role-guard.service';
     NgxPrintModule,
     NgxPaginationModule,
     MatAutocompleteModule,
+    ScrollingModule,
+    InfiniteScrollModule,
+    ExportAsModule,
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),

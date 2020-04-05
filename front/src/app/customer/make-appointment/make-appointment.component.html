@@ -21,8 +21,23 @@
   
         <div class="row clearfix">
             <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table header-border table-hover table-custom spacing5">
+                <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
+                <div
+                class="search-results"
+                infiniteScroll
+                [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"
+              >
+
+              <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="appointEmpty">
+                    <div class="card-header text-center">
+                        <h5 class="text-primary">No appointment entries yet</h5>
+                    </div>
+                </div>
+
+                <div class="">
+                    <table class="table header-border table-hover  spacing5">
                         <thead>
                             <tr>
                                 <!-- <th>S/N</th> -->
@@ -37,15 +52,15 @@
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th>Progress</th>
+                                <!-- <th>Progress</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let a of appoints | paginate: {itemsPerPage:10, currentPage: p}; let r = index; let r = index">
-                                <!-- <td> {{r+1}} </td> -->
+                            <tr *ngFor="let a of appoint ; let r = index">
+                                <!-- <td> {{r+1}} </td>| paginate: {itemsPerPage:10, currentPage: p} -->
                                 <td class="w60">
-                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{a.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{a.card_number}}</a>
@@ -96,15 +111,28 @@
                                 </td>                                
                                 <td>{{a.date}}</td> 
                                 <td>{{a.time}}</td>                                
-                                <td><span class="badge badge-warning">20%</span>
-                                </td>
+                                <!-- <td>
+                                    <span class="badge badge-warning">20%</span>
+                                </td> -->
                                 <td>                
                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(a.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
+                            <div *ngIf="!appoint">
+                                <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+                              </div>  
                         </tbody>
                     </table>
-                    <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>  
+                    <!-- <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>   -->
+                </div>
                 </div>
             </div>
         </div>

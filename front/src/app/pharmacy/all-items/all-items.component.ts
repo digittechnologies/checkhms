@@ -74,7 +74,32 @@ export class AllItemsComponent implements OnInit {
   total_remain_To: any;
   img: any;
   imgLink: any;
+  itemsitem: any;
+  itemsi: any;
+  filterString = "";
+  disabled = false;
+  itm: any;
+  price_2:any;
+  price_3:any;
+  onScroll:any;
+  
 
+  soldItem: any;
+  transferredItem: any;
+  physBal: any;
+  openBal: any;
+  varianced: any;
+  totala: any;
+  itemAmount: any;
+  name: any;
+  addedItem: any
+
+  varId: any;
+  varRes: any;
+  varName: any;
+  varQuantity: any;
+  varDetails: any;
+  varId2: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -113,6 +138,17 @@ export class AllItemsComponent implements OnInit {
       data=>{
       this.response = data;      
       this.items = this.response;
+      this.itemsitem=this.items.item;
+      this.name=this.items.bran.name
+      this.soldItem=this.items.soldItem
+    this.transferredItem=this.items.transferredItem
+    this.varianced=this.items.varianced
+    this.openBal=this.items.openBal
+    this.totala=this.items.total
+    this.physBal=this.items.physBal
+  this.itemAmount=this.items.itemAmount
+        this.addedItem=this.items.addedItem
+
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -187,6 +223,40 @@ export class AllItemsComponent implements OnInit {
       this.itemTransferred = this.response       
 
     })
+    this.onFilterChange()
+}
+onFilterChange() {
+  // console.log(event)
+  // const filterValue=(event.target as HTMLInputElement).value;
+  // console.log(filterValue)
+  // this.itemsitem.filter=filterValue.trim().toLowerCase()
+  console.log(this.itemsitem)
+  this.Jarwis.displayItem(this.uBranch).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+    this.soldItem=this.items.soldItem
+    this.transferredItem=this.items.transferredItem
+    this.varianced=this.items.varianced
+    this.openBal=this.items.openBal
+    this.totala=this.items.total
+    this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
+    this.itemsi =this.items.item;
+  this.itemsitem = this.itemsi.filter((cate) => this.isMatch(cate));
+  
+  })
+ 
+
+}
+  
+
+isMatch(item) {
+  if (item instanceof Object) {
+    return Object.keys(item).some((k) => this.isMatch(item[k]));
+  } else {
+    return item.toString().indexOf(this.filterString) > -1
+  }
 }
 
 get(){
@@ -198,7 +268,7 @@ get(){
   }
   sellPrice2(e){
     this.markup_p = e.target.value;
-    this.selling_price = this.purchasing_p * this.markup_p;
+    this.selling_price = Math.round(this.purchasing_p * this.markup_p);
   }
 
 onSelectItem(id) {
@@ -219,6 +289,18 @@ allItem(aa) {
     data=>{
     this.response = data;      
     this.items = this.response;
+    this.itemsitem=this.items.item;
+    // this.itemsitem=this.items.item;
+    this.name=this.items.bran.name
+    this.soldItem=this.items.soldItem
+  this.transferredItem=this.items.transferredItem
+  this.varianced=this.items.varianced
+  this.openBal=this.items.openBal
+  this.totala=this.items.total
+  this.physBal=this.items.physBal
+this.itemAmount=this.items.itemAmount
+      this.addedItem=this.items.addedItem
+
   })
 }
 
@@ -239,6 +321,13 @@ restrict(r) {
   if(r.target.value > this.totalFrom.total_remain){
     alert('Quantity greater than quantity in stock')
     r.target.value = ''
+  }
+}
+
+restrictVariance(rv){
+  if(rv.target.value > this.totalFrom.total_remain){
+    alert('Quantity greater than quantity in stock')
+    rv.target.value = ''
   }
 }
 
@@ -274,6 +363,7 @@ onDelete(id: string) {
 }
 
   onClickSubmit(form: NgForm) {
+    this.disabled = true;
     form.value.image = this.image
     form.value.selling_price = this.selling_price
     this.Jarwis.addItemDetails(form.value).subscribe(
@@ -292,6 +382,7 @@ onDelete(id: string) {
     reader.readAsDataURL(files);
   }
   onSubmitAdd(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.addToStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -299,6 +390,7 @@ onDelete(id: string) {
   }
 
   onSaveAdd() {
+    this.disabled = true;
     this.Jarwis.saveAdd().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -306,6 +398,7 @@ onDelete(id: string) {
   }
 
   onSubmitTrans(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.transToStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -313,6 +406,7 @@ onDelete(id: string) {
   }
 
   onSubmitVariance(form: NgForm) {
+    this.disabled = true;
     this.Jarwis.varianceStock(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -320,6 +414,7 @@ onDelete(id: string) {
   }
 
   onSaveTrans() {
+    this.disabled = true;
     this.Jarwis.saveTransfer().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -327,6 +422,7 @@ onDelete(id: string) {
   }
 
   onSaveVariance() {
+    this.disabled = true;
     this.Jarwis.saveVariance().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),    
@@ -355,6 +451,7 @@ onDelete(id: string) {
     }
   }
   onUpdateAdd(form: NgForm) {
+    this.disabled = true;
     form.value.id=this.addId
     this.Jarwis.updateAddItem(form.value).subscribe(        
       data => this.handleResponse(data),
@@ -385,12 +482,42 @@ onDelete(id: string) {
   }
 
   onUpdate(form: NgForm) {
-
+    this.disabled = true;
     form.value.id=this.transId
     this.Jarwis.updatetransferItem(form.value).subscribe(        
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );   
+  }
+
+  editVariance(id: string){
+    this.Jarwis.editVariance(id).subscribe(
+      data=>{   
+        this.varRes = data;
+        this.varId= id;
+        this.varName= this.varRes[0].generic_name;
+        this.varQuantity= this.varRes[0].quantity;
+        this.varDetails= this.varRes[0].detail;
+        this.varId2 = this.varRes[0].id;
+      })
+  }
+
+  deleteVariance(id: string){
+    if(confirm('This can\'t be revert after deleted')){
+      this.Jarwis.deleteVariance(id).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),
+      )
+    }
+  }
+
+  onUpdateVariance(form: NgForm){
+    this.disabled = true;
+    form.value.id=this.varId
+    this.Jarwis.updateVarianceItem(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
   }
 
   onSelect(id: string){
@@ -407,6 +534,7 @@ onDelete(id: string) {
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
+    this.disabled = false;
     
   }
 
@@ -416,7 +544,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
 }

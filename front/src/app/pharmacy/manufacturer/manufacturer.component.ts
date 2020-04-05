@@ -30,6 +30,7 @@ export class ManufacturerComponent implements OnInit {
   manufNum: any;
   manufDetail: any;
   p:any;
+  disabled = false;
 
 
   constructor( 
@@ -64,7 +65,7 @@ editdept(id: string) {
 
 onUpdate(form: NgForm) {
 
-  
+  this.disabled = true;
   form.value.id=this.manufid
   // this.image= form.value.image
   //  console.log(form)
@@ -90,7 +91,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addManufacturer(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -106,7 +107,7 @@ onDelete(id: string) {
     })   
     this.router.navigateByUrl('/Admin/(side:manufacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -115,7 +116,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   councle(){}

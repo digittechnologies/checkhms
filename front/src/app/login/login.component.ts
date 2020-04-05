@@ -69,10 +69,7 @@ export class LoginComponent implements OnInit {
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
-      
       );
-      
-
     
   }
 
@@ -85,13 +82,14 @@ export class LoginComponent implements OnInit {
       duration: 2000
     })   
 
+    
+
     this.Token.handle(data.token.original.access_token);
    
     this.Auth.changeAuthStatus(true);  
 
     this.ngOnInit() 
-  
-      this.router.navigateByUrl('/Admin/(side:'+pos+')');      
+    this.router.navigateByUrl('/Admin/(side:'+pos+')');      
    
    this.disabled= false;
    this.sav= 'Submited'

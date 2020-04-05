@@ -44,6 +44,17 @@ export class PatientDetailsComponent implements OnInit {
   image: any;
   error: any;
   appointment: any;
+  prescription: any;
+  n_h_i_s: any;
+  age: any;
+  type: any;
+  occupation: any;
+  marital_status: any;
+  religion: any;
+  next_of_kin_name: any;
+  kin_relationship: any;
+  next_of_kin_mobile: any;
+  next_of_kin_address: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -79,38 +90,55 @@ export class PatientDetailsComponent implements OnInit {
           id:[''],
           d_o_b:[''],
           country:[''],
+          n_h_i_s:[''],
+          age:[''],
+          religion:[''],
+          next_of_kin_name:[''],
+          kin_relationship:[''],
+          next_of_kin_mobile:[''],
+          next_of_kin_address:[''],
+          marital_status:[''],
+          occupation:[''],
+          type:[''],
+
      },
    )
     this.actRoute.paramMap.subscribe((params => {
       let id = params.get('id');
       
     this.Jarwis.patientbyappointment(id).subscribe(
-      data=>{
-      this.response = data;  
-      // this.firstname=this.response.firstname    
-      // this.lastname=this.response.lastname
-      // this.mobile_number=this.response.mobile_number
-      // this.remail=this.response.email
-      // this.addres=this.response.address
-      // this.about=this.response.about
-      this.appointment=this.response.app;
-      this.pat = this.response.pat;
-      this.name=this.pat[0].name
-      this.othername=this.pat[0].othername
-      this.card_number=this.pat[0].card_number
-      this.address=this.pat[0].address
-      this.city=this.pat[0].city
-      this.mobile_no=this.pat[0].mobile_number
-      this.state=this.pat[0].state
-      this.country=this.pat[0].country
-      // this.status=this.pat[0].status
-     this.patient_image= this.pat[0].patient_image
-     this.blood_group=this.pat[0].blood_group
-     this.email=this.pat[0].email
-     this.d_o_b=this.pat[0].d_o_b
-     this.gender=this.pat[0].gender
-    this.genotype= this.pat[0].genotype
-      // console.log(this.name); 
+        data=>{
+        this.response = data; 
+        this.appointment=this.response.app;
+        this.prescription=this.response.pres;
+        this.pat = this.response.pat;
+        this.name=this.pat[0].name;
+        this.othername=this.pat[0].othername;
+        this.card_number=this.pat[0].card_number;
+        this.address=this.pat[0].address;
+        this.city=this.pat[0].city;
+        this.mobile_no=this.pat[0].mobile_number;
+        this.state=this.pat[0].state;
+        this.country=this.pat[0].country;
+        // this.status=this.pat[0].status
+        this.patient_image= this.pat[0].patient_image;
+        this.blood_group=this.pat[0].blood_group;
+        this.email=this.pat[0].email;
+        this.d_o_b=this.pat[0].d_o_b;
+        this.gender=this.pat[0].gender;
+        this.genotype= this.pat[0].genotype;
+        this.n_h_i_s = this.pat[0].n_h_i_s;
+        this.age = this.pat[0].age;
+        this.type = this.pat[0].type;
+        this.occupation = this.pat[0].occupation;
+        this.marital_status = this.pat[0].marital_status;
+        this.religion = this.pat[0].religion;
+        this.next_of_kin_name = this.pat[0].next_of_kin_name;
+        this.kin_relationship = this.pat[0].kin_relationship;
+        this.next_of_kin_mobile = this.pat[0].next_of_kin_mobile;
+        this.next_of_kin_address = this.pat[0].next_of_kin_address;
+
+
       this.submissionForm = this.formBuilder.group(
     
         {
@@ -128,6 +156,16 @@ export class PatientDetailsComponent implements OnInit {
           id:[this.pat[0].id],
           d_o_b:[this.pat[0].d_o_b],
           country:[this.pat[0].country],
+          n_h_i_s:[this.pat[0].n_h_i_s],
+          age:[this.pat[0].age],
+          type:[this.pat[0].type],
+          occupation:[this.pat[0].occupation],
+          marital_status:[this.pat[0].marital_status],
+          religion:[this.pat[0].religion],
+          next_of_kin_name:[this.pat[0].next_of_kin_name],
+          kin_relationship:[this.pat[0].kin_relationship],
+          next_of_kin_mobile:[this.pat[0].next_of_kin_mobile],
+          next_of_kin_address:[this.pat[0].next_of_kin_address],
         },
       )
       this.image=this.pat[0].patient_image

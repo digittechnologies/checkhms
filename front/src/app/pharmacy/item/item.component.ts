@@ -34,9 +34,15 @@ export class ItemComponent implements OnInit {
   typeimg: any;
   resitem: any;
   type:any;
+  typ:any;
+  manuf:any;
+  cat:any;
   // image: any;
   public submissionForm: FormGroup;
   imgLink: any;
+  manufacturer_id: any;
+  item_category_id: any;
+  item_type_id: any;
   constructor(
     private formBuilder: FormBuilder, 
     private Jarwis: JarwisService,
@@ -53,6 +59,23 @@ export class ItemComponent implements OnInit {
       this.imgLink = this.response[0].app_url;
     })
     
+    this.Jarwis.displayType().subscribe(
+      data=>{
+      this.response = data;      
+      this.typ = this.response 
+    })
+
+    this.Jarwis.displayCategories().subscribe(
+      data=>{
+      this.response = data;      
+      this.cat = this.response  
+    })
+
+    this.Jarwis.displayManufacturer().subscribe(
+      data=>{
+      this.response = data;      
+      this.manuf = this.response   
+    })
     this.submissionForm = this.formBuilder.group(
      
       {
@@ -63,24 +86,29 @@ export class ItemComponent implements OnInit {
        manufacture_date:[''],
        expiring_date:[''],
        item_img:[''],
+       price_2:[''],
+       price_3:[''],
       //  unit_name:[''],
       //  box_size:[''],
       //  value:[''],
-      //  type_name:[''],
+       type_name:[''],
       id:[''],
-      // cat_name:[''],
-      // manuf_name:[''],
+      cat_name:[''],
+      manuf_name:[''],
+      manufacturer_id:[''],
+      item_category_id:[''],
+      item_type_id:[''],
       // address:[''],
       // contact_number:[''],
       // details:[''],
      },
    )
-    this.Jarwis.displayItemDetails().subscribe(
-      data=>{
-      this.response = data;
+    // this.Jarwis.displayItemDetails().subscribe(
+    //   data=>{
+    //   this.response = data;
       
-      this.branch = this.response
-      })
+    //   this.branch = this.response
+    //   })
 
       this.actRoute.paramMap.subscribe((params => {
         let id = params.get('id');
@@ -99,18 +127,23 @@ export class ItemComponent implements OnInit {
      
             {
               generic_name: [this.resitem.generic_name],
-             selling_price: [this.resitem.selling_price],
+             selling_price: [this.resitem.purchasing_price*this.resitem.markup_price],
              purchasing_price:[this.resitem.purchasing_price],
              markup_price:[this.resitem.markup_price],
              manufacture_date:[this.resitem.manufacture_date],
              expiring_date:[this.resitem.expiring_date],
             item_img:[this.resitem.item_img],
+            price_2:[this.resitem.price_2],
+            price_3:[this.resitem.price_3],
             //  box_size:[this.resitem.box_size],
             //  value:[this.resitem.value],
-            //  type_name:[this.resitem.type_name],
+             type_name:[this.resitem.type_name],
             id:[this.resitem.id],
-            // cat_name:[this.resitem.cat_name],
-            // manuf_name:[this.resitem.manuf_name],
+            cat_name:[this.resitem.cat_name],
+            manuf_name:[this.resitem.manuf_name],
+            manufacturer_id:[this.manufacturer_id],
+            item_category_id:[this.item_category_id],
+            item_type_id:[this.item_type_id],
             // address:[this.resitem.address],
             // contact_number:[this.resitem.contact_number],
             // details:[this.resitem.details],
@@ -121,11 +154,11 @@ export class ItemComponent implements OnInit {
       
           }));
 
-    this.Jarwis.displayItem('branch_main').subscribe(
-      data=>{
-      this.response = data;      
-      this.items = this.response   
-    })
+    // this.Jarwis.displayItem('branch_main').subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.items = this.response   
+    // })
   
 }
 uploadFile(event){
@@ -148,7 +181,6 @@ onSubmitItem(){
  
 }
 editdept(id: string) {
-  console.log(id)
   this.Jarwis.edtCategories(id).subscribe(
     data=>{      
       this.itemres = data; 
@@ -194,7 +226,7 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Added successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:itemacturer');
+    // this.router.navigateByUrl('/Admin/(side:items)');
     this.ngOnInit();
     
   }

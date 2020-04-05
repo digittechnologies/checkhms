@@ -54,7 +54,18 @@
                                   <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                               </td>
-                          </tr>                                                   
+                          </tr>
+                          <div *ngIf="!bran">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+                          </div>                                                     
                       </tbody>
                   </table>
               </div>
@@ -124,7 +135,7 @@
           </div>
       </div>      
       <div class="modal-footer">
-          <button type="submit" class="btn btn-round btn-primary">Add</button>
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
           <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
       </div>
       </form>

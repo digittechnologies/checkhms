@@ -7,3 +7,7 @@
     background: green;
 
 } */
+.search-results {
+    height: 42rem;
+    overflow: scroll;
+  }

@@ -53,7 +53,18 @@
                                   <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                               </td>
-                          </tr>                                                   
+                          </tr> 
+                          <div *ngIf="!manuf">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+                          </div>                                                  
                       </tbody>
                   </table>
               </div>
@@ -136,7 +147,7 @@
           </div>
       </div>      
       <div class="modal-footer">
-          <button type="submit" class="btn btn-round btn-primary">Add</button>
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
           <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
       </div>
       </form>
@@ -219,7 +230,7 @@
               </div>
           </div>      
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Update</button>
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
               <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
           </form>

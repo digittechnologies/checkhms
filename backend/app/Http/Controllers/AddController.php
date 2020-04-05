@@ -28,11 +28,91 @@ use App\Lab_depts;
 use App\Lab_test_types;
 use App\Duration;
 use App\Daily_supply;
+use App\Customer_category;
+use App\Http\Requests\PatientRequest;
 
 
 class AddController extends Controller
 {
+//General Setting
+public function addGeneralSet(Request $request)
+{
+    do{
+        $license_key= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 15);
+    }while(DB::table('general_settings')->where('license_key','=',$license_key)->exists());
 
+       $datas=$request->formdata;
+       
+        if ($request->image){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            
+        }    
+ 
+
+$update = DB::table('general_settings')->insert([
+        'company_name'=>$datas['company_name'],
+        'app' => $datas['app'],
+        'short_name' =>$datas['short_name'],
+        'address' =>$datas['address'],
+        'contact_number' =>$datas['contact_number'],
+        'web_url' =>$datas['web_url'],
+        'email' =>$datas['email'],
+        'module' =>$datas['module'],
+        'logo'=> $filename,
+        'status'=>'registerd',
+        'license_key'=>$license_key
+    ]);
+    if($update){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
+public function updateGeneralSet(Request $request)
+{
+   
+       $datas=$request->formdata;
+       $id=$datas['id'];
+  
+    $currentfile= $datas['logo'];
+        if ($request->image != $currentfile){
+            $file=$request->image;
+            $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
+            Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
+            $update =DB::table('general_settings')->where('id','=',$id)->update([ 'logo'=>$filename]);
+        }    
+ 
+// return $update;
+$update = DB::table('general_settings')->where('id','=',$id)->update([
+        'company_name'=>$datas['company_name'],
+        'app' => $datas['app'],
+        'short_name' =>$datas['short_name'],
+        'address' =>$datas['address'],
+        'contact_number' =>$datas['contact_number'],
+        'web_url' =>$datas['web_url'],
+        'email' =>$datas['email'],
+        'module' =>$datas['module'],
+    ]);
+    if($update){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
 //Set Depertment Component
 
     public function addDept(Request $request)
@@ -565,6 +645,7 @@ class AddController extends Controller
     // Item Details
     public function addItemDetails(Request $request)
     {
+        // return $request;       
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -630,6 +711,8 @@ class AddController extends Controller
         $expiring_date = $datas['expiring_date'];
         $markup_price=$datas['markup_price'];
         $currentfile=$datas['item_img'];
+        $price2 = $datas['price_2'];
+        $price3 = $datas['price_3'];
         // $status= $request->status;
         // $item_unit_id= $request->item_unit_id;
         // $item_category_id= $request->item_category_id;
@@ -641,7 +724,7 @@ class AddController extends Controller
         // $discount_id= $request->discount_id;
         // return $request->image;
         
-        if ($request->image != $currentfile){
+        if ($request->image != $currentfile && !empty($request->image)){
             $file=$request->image;
             $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
             Image::make($file)->resize(300, 300)->save(public_path('upload/uploads/'.$filename));
@@ -657,7 +740,8 @@ class AddController extends Controller
             'manufacture_date' => $manufacture_date,
             'expiring_date' => $expiring_date,
             'markup_price' => $markup_price,
-            
+            'price_2' => $price2,
+            'price_3' => $price3,
             // 'status' => $status,
             // 'item_unit_id' => $item_unit_id,
             // 'item_category_id' => $item_category_id,
@@ -711,6 +795,9 @@ class AddController extends Controller
     public function createBranch(Request $request)
     {
         $req_name=$request->bran_name;
+        $dt = Carbon::now();
+        $item_date = $dt->toFormattedDateString();
+        $item_time = $dt->format('h:i:s A');
         $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         Schema::create($table_name, function (Blueprint $table) {
             $table->increments('id');
@@ -738,6 +825,8 @@ class AddController extends Controller
             $insert = DB::table($table_name)->insertGetId(
                 [
                     'item_detail_id' => $rowID->id,
+                    'c_date' => $item_date,
+                    'c_time' => $item_time,
                 ]
                 );
         }
@@ -821,8 +910,9 @@ class AddController extends Controller
             }';
         }
     }
+
     // Customers / Patients
-    public function addCustomer(Request $request)
+    public function addCustomer(PatientRequest $request)
     {
         // $dt = Carbon::now();
         // $request->date = $dt->toFormattedDateString();
@@ -840,13 +930,102 @@ class AddController extends Controller
                 "message":"Failed"
             }';
         }
+    } 
+
+    public function changeCategory(Request $request)
+    {
+    //    return $request->all();
+        $customer= Customers::find($request->cust_id);
+
+        $customer->cust_category_id= $request->category_name;
+
+        $customer->save();
+       
+        if($customer->save()){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 
+    public function addCustCategories(Request $request)
+    {
+        $cust_id = auth()->user()->id;
+        $request->merge(["created_by" => $cust_id]);
+        $request->merge(["update_by" => $cust_id]);
+        $customerCategory = DB::table('customer_category')->insert($request->all());
+       
+        if($customerCategory){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function updateCustCategories(Request $request)
+    {   
+        $cust_id = auth()->user()->id;
+        $name = $request->category_name;
+        $desc = $request->description;
+        $percent = $request->pacentage_value;
+        $priceList = $request->price_list_column;
+        $id = $request->id;   
+        $update = DB::table('customer_category')->where('id','=',$id)
+            ->update([
+                'category_name'=> $name,
+                'description'=> $desc,
+                'pacentage_value'=> $percent,
+                'price_list_column'=> $priceList,
+                'update_by' => $cust_id,
+            ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteCustCategories(Request $request)
+    {
+        $id=$request[0];
+
+        $deletec=DB::table('customer_category')->where('id', $id)->delete();
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+    
     public function updateCustomer(Request $request)
     {
         $id=$request->formdata['id'];
         $user=Customers::find($id);
-      
         $currentfile= $user->patient_image;
         $datas=$request->formdata;
     //    return $currentfile;
@@ -857,19 +1036,31 @@ class AddController extends Controller
              $user->patient_image = $filename;
          }
         
-         $user->name = $datas['fname'];
-         $user->othername = $datas['oname'];
+         $user->name = $datas['name'];
+         $user->othername = $datas['othername'];
          $user->card_number = $datas['card_number'];
           $user->email =  $datas['email'];
           $user->city =  $datas['city'];
          $user->address =  $datas['address'];
          $user->mobile_number =  $datas['mobile_number'];
-         $user->gender =  $datas['gender'];
-         $user->genotype =  $datas['genotype'];
-         $user->blood_group =  $datas['blood_group'];
+        //  $user->gender =  $datas['gender'];
+        //  $user->genotype =  $datas['genotype'];
+        //  $user->blood_group =  $datas['blood_group'];
          $user->state =  $datas['state'];
          $user->d_o_b =  $datas['d_o_b'];
          $user->country=$datas['country'];
+         $user->religion = $datas['religion'];
+         $user->age = $datas['age'];
+         $user->occupation = $datas['occupation'];
+         $user->type = $datas['type'];
+         $user->marital_status = $datas['marital_status'];
+         $user->next_of_kin_name = $datas['next_of_kin_name'];
+         $user->kin_relationship = $datas['kin_relationship'];
+         $user->next_of_kin_mobile = $datas['next_of_kin_mobile'];
+         $user->next_of_kin_address = $datas['next_of_kin_address'];
+         $user->referral_name = $datas['referral_name'];
+         $user->referral_address = $datas['referral_address'];
+         $user->referral_mobile = $datas['referral_mobile'];
          $user->save();
          // $user->update($request->all());
          if($user){
@@ -949,6 +1140,33 @@ class AddController extends Controller
     
     }
 
+    public function searchPatient(Request $request)
+    {
+        // return $request->all();
+        $value=$request->customer;
+        $action=$request->action;
+
+        $search=DB::table('customers')->where( $action, $value)->first();
+
+        // return $search;
+        
+        if ( empty($search)) {
+            return response()->json(['status'=> 1, 'message' => "successfully", 'search'=> $search, 'show'=>"empty"]);
+        } else {
+            return response()->json([
+                'status'=> 1,
+                'message' => "successfully", 
+                'search'=> $search, 
+                'show'=>"show",
+                "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                ->where('appointments.customer_id','=',$search->id)->get(),
+                ]);
+        }
+    
+    }
+
     //Appointment
     public function makeAppointment(Request $request)
     {
@@ -1021,20 +1239,49 @@ class AddController extends Controller
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
+
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
+       
+
+        if ( empty ( $checkAppointment[0] )) {
+
+            $appointment= Vouchers::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'staff_id' => $dept_id,           
+                    'branch_id' => $bid
+                ]);    
+            
+          
+            $appointment= Appointments::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'department_id' => $dept_id, 
+                    'voucher_id'=> $appointment->id,
+                    'prescription' => 'open', 
+                    'invoice' => 'open', 
+                    'voucher' => 'open',
+                    'treatment' => 'open', 
+                    'status' => 'active',
+                    'date' => $date,
+                    'time' => $time,
+                    'branch_id' => $bid
+                ]);   
+             }
         
-         $appointment= Appointments::create(
-            [
-                'customer_id' => $cust_id, 
-                'department_id' => $dept_id, 
-                'prescription' => 'open', 
-                'invoice' => 'open', 
-                'voucher' => 'open',
-                'treatment' => 'open', 
-                'status' => 'active',
-                'date' => $date,
-                'time' => $time,
-                // 'branch_id' => $bid
-            ]);    
+        //  $appointment= Appointments::create(
+        //     [
+        //         'customer_id' => $cust_id, 
+        //         'department_id' => $dept_id, 
+        //         'prescription' => 'open', 
+        //         'invoice' => 'open', 
+        //         'voucher' => 'open',
+        //         'treatment' => 'open', 
+        //         'status' => 'active',
+        //         'date' => $date,
+        //         'time' => $time,
+        //         // 'branch_id' => $bid
+        //     ]);    
   
      if($appointment){
         return '{
@@ -1147,9 +1394,8 @@ class AddController extends Controller
         }
     }
 
-    public function deletePrescription(Request $request)
+    public function deletePrescription($id)
     {
-        $id=$request[0];
 
         $deletec=DB::table('doctor_prescriptions')->where('id', $id)->delete();
         if($deletec){
@@ -1612,25 +1858,28 @@ class AddController extends Controller
     {
         $dt = Carbon::now();
         $today = $dt->toFormattedDateString();
-        $all_item= DB::table('purchases')->select('purchases.item_detail_id', 'purchases.quantity')->where('status', '=', 'saved')->get();        
+        $all_item= DB::table('purchases')->select('purchases.item_detail_id', 'purchases.quantity', 'purchases.p_date')->where('status', '=', 'saved')->get();        
               
         foreach($all_item as $row){
             
             $item = $row->item_detail_id;
             $val = $row->quantity;
-
+            $p_date= $row->p_date;
+            
             $bitem2=DB::table('branch_main')
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $receive = $bitem2[0]->receive + $val;
-            $balance2 = $bitem2[0]->balance;
+            $balance2 = $bitem2[0]->transfer + $bitem2[0]->sales;
             $remain2 =  $bitem2[0]->open_stock + $receive - $balance2;
             $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table('branch_main')
              ->where('item_detail_id','=', $item)
-             ->where ('c_date', '=', $today)
+             ->where('c_date','=', $p_date)
              ->update([
                 'receive' => $receive,
+                'balance' => $balance2,
                 'total_remain' => $remain2,
                 'physical_balance' => $physical2,
                 'add_status' => 'added'
@@ -1650,7 +1899,7 @@ class AddController extends Controller
 
     public function saveTransfer()
     {
-        $all_item= DB::table('transfers')->select('transfers.item_detail_id', 'transfers.total_quantity', 'transfers.quantity_from', 'transfers.quantity_to')->where('status', '=', 'open')->get();        
+        $all_item= DB::table('transfers')->select('transfers.item_detail_id', 'transfers.total_quantity', 'transfers.quantity_from', 'transfers.quantity_to', 'transfers.t_date')->where('status', '=', 'open')->get();        
               
         foreach($all_item as $row){
             
@@ -1658,9 +1907,11 @@ class AddController extends Controller
             $val = $row->total_quantity;
             $from = $row->quantity_from;
             $to = $row->quantity_to;
+            $p_date= $row->t_date;            
 
             $bitem=DB::table($from)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $transfer = $bitem[0]->transfer + $val;
             $balance = $bitem[0]->sales + $transfer;
@@ -1668,6 +1919,7 @@ class AddController extends Controller
             $physical = $remain - $bitem[0]->variance;
             $transf=DB::table($from)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'transfer' => $transfer,
                 'balance' => $balance,
@@ -1678,6 +1930,7 @@ class AddController extends Controller
 
             $bitem2=DB::table($to)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $receive = $bitem2[0]->receive + $val;
             $balance2 = $bitem2[0]->balance;
@@ -1685,6 +1938,7 @@ class AddController extends Controller
             $physical2 = $remain2 - $bitem2[0]->variance;
             $add=DB::table($to)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'receive' => $receive,
                 'total_remain' => $remain2,
@@ -1705,22 +1959,25 @@ class AddController extends Controller
 
     public function saveVariance()
     {
-        $all_item= DB::table('variances')->select('variances.item_detail_id', 'variances.quantity', 'variances.branch_id')->where('status', '=', 'open')->get();        
+        $all_item= DB::table('variances')->select('variances.item_detail_id', 'variances.quantity', 'variances.branch_id', 'variances.v_date')->where('status', '=', 'open')->get();        
               
         foreach($all_item as $row){
             
             $item = $row->item_detail_id;
             $val = $row->quantity;
             $banch = $row->branch_id;
+            $p_date= $row->v_date; 
 
             $bitem2=DB::table($banch)
             ->where('item_detail_id','=', $item)
+            ->where('c_date','=', $p_date)
             ->get();
             $variance = $bitem2[0]->variance + $val;
             $remain2 =  $bitem2[0]->total_remain;
             $physical2 = $remain2 - $variance;
             $add=DB::table($banch)
              ->where('item_detail_id','=', $item)
+             ->where('c_date','=', $p_date)
              ->update([
                 'variance' => $variance,
                 'physical_balance' => $physical2,
@@ -1769,13 +2026,16 @@ class AddController extends Controller
 
     public function updateAddItem(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $pid=$request->id;
         // $item= $request->addName;
         $aQty= $request->addQuantity;
 
         $itemId = DB::table('purchases')->select('purchases.item_detail_id')->where('id', $pid)->get();
         $item= $itemId[0]->item_detail_id;
-        $select=DB::table('branch_main')->select('branch_main.total_remain')->where('item_detail_id','=', $item)->get();
+        $select=DB::table('branch_main')->select('branch_main.total_remain')->where(['item_detail_id' => $item, 'branch_main.c_date' => $cDate])->get();
         $nstock = $select[0]->total_remain + $aQty;
 
         $add=DB::table('purchases')
@@ -1800,6 +2060,9 @@ class AddController extends Controller
 
     public function updatetransferItem(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $pid=$request->id;
         $aQty= $request->transQuantity;
         $brFrom= $request->transFrom;
@@ -1807,7 +2070,7 @@ class AddController extends Controller
 
         $itemId = DB::table('transfers')->select('transfers.item_detail_id')->where('id', $pid)->get();
         $item= $itemId[0]->item_detail_id;
-        $select=DB::table($brTo)->select($brTo.'.total_remain')->where('item_detail_id','=', $item)->get();
+        $select=DB::table($brTo)->select($brTo.'.total_remain')->where(['item_detail_id' => $item, $brTo.'.c_date' => $cDate])->get();
         $nstock = $select[0]->total_remain + $aQty;
 
         $add=DB::table('transfers')
@@ -1858,7 +2121,74 @@ class AddController extends Controller
         
     }
 
+    public function editVariance($id)
+    {
+       return DB::table('variances')
+              ->select('variances.*', 'item_details.generic_name')
+              ->join ('item_details','variances.item_detail_id','=','item_details.id')
+              ->where('variances.id', $id)
+              ->get();
+    }
 
+    public function deleteVariance(Request $request)
+    {
+        $id = $request[0];
+        $del = DB::table('variances')->where('id', $id)->delete();
+
+         if($del){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+    }
+
+    public function updateVarianceItem(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
+        $branchId= Auth()->user()->branch_id;
+        $detail = $request->varDetails;
+        $qty = $request->varQuantity;
+        $vid = $request->id;
+
+        $itemId = DB::table('variances')->select('variances.item_detail_id')->where('id', $vid)->get();
+        $item= $itemId[0]->item_detail_id;
+
+        $branch = DB::table("branches")->select('branches.br_name')->where('id', $branchId)->first(); 
+
+        $vitem=DB::table($branch->br_name)
+            ->where(['item_detail_id' => $item, $branch->br_name.'.c_date' => $cDate])
+            ->get();
+
+            $total_from = $vitem[0]->total_remain;            
+        
+            $vari=DB::table('variances')->where('id','=', $vid)   
+            ->update([
+                'quantity' => $qty,
+                'newstock' => $total_from - $qty,
+                'detail' => $detail
+        ]);
+
+        if($vari){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
     // Pharmacy Prescription 
 
     public function pharmPriscription(Request $request)
@@ -1921,34 +2251,23 @@ class AddController extends Controller
 
     public function saveRefill(Request $request)
     {
-        $id = $request->id;
+        
+        $id = $request->rId;
         $getPres = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $id)->first();
-        $quantity = $getPres->refill_range * $request->refill;
-        $refill = $getPres->refill - $request->refill;
-        $remain = $getPres->remain - $quantity;
-        $amount_paid = $getPres->amount * $quantity;
-
-        $quantity += $getPres->quantity;
-        $remain += $getPres->remain;
-        $amount_paid += $getPres->amount_paid;
-
-        if($refill == 0){
-            $refill_status = 'non-refillable';
-        } else if($refill > 0){
-            $refill_status = 'refillable';
-        }
+        
+        $refill_input = $request->refil;       
 
         $updatePrescription = DB::table('doctor_prescriptions')
         ->where('doctor_prescriptions.id', '=', $id)
-        ->update([
-            'quantity' => $quantity,
-            'remain' => $remain,
-            'refill' => $refill,
-            'amount_paid' => $amount_paid,
-            'refill_status' => $refill_status
+        ->update([            
+            'refill_input' => $refill_input,
+            'refill_voucher_status' => 'saved'
         ]);
 
-        if($pharmP){
+        if($updatePrescription){
+
+            checkRefill($id);
+
             return '{
                 "success":true,
                 "message":"successful"
@@ -1960,6 +2279,58 @@ class AddController extends Controller
             }';
         }
     }
+
+    public function checkRefill($id)
+    {
+       
+        $get = DB::table('doctor_prescriptions')->where('doctor_prescriptions.voucher_id', '=', $id)->where('doctor_prescriptions.refill_voucher_status', '=', 'saved')->get();
+    
+        // $remain += $getPres->remain;
+        // $amount_paid += $getPres->amount_paid;
+
+        foreach($get as $getPres){
+            $quantity = $getPres->refill_range * $getPres->refill_input;
+            $refill = $getPres->refill - $getPres->refill_input;
+            $remain = $getPres->remain - $quantity;
+            $amount_paid = $getPres->amount * $quantity;
+
+            $quantity += $getPres->quantity;
+
+            if($refill == 0){
+                $refill_status = 'non-refillable';
+                $refill_voucher_status = 'checkout';
+            } else if($refill > 0){
+                $refill_status = 'refillable';
+                $refill_voucher_status = 'checkout';
+            }
+    
+            $updatePrescription = DB::table('doctor_prescriptions')
+            ->where('doctor_prescriptions.voucher_id', '=', $id)
+            ->where('doctor_prescriptions.refill_voucher_status', '=', 'saved')
+            ->update([
+                'quantity' => $quantity,
+                'remain' => $remain,
+                'refill' => $refill,
+                'amount_paid' => $amount_paid,
+                'refill_status' => $refill_status,
+                'refill_voucher_status' => $refill_voucher_status
+            ]);
+    
+        };
+
+        if($updatePrescription){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     public function saveTovoucher($cid)
     {
         $dt = Carbon::now();
@@ -2087,8 +2458,11 @@ class AddController extends Controller
 
         $insertInvoice = DB::table('invoices')->insertGetId([
             'amount' => $getV->amount,
-            'paid' => $getV->amount,
+            'paid' => $getV->amount + 50,
             'balance' => 0,
+            'discount' => 0,
+            'service_charge' => '50',
+            'other_charges' => 0,
             'status' => 'paid',
             'delivery_status' => 'delivered',
             'branch_id' => $branchId,
@@ -2126,6 +2500,7 @@ class AddController extends Controller
 
         //UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
+                                ->where('appointments.voucher_id', '=', $vid)
                                 ->update([
                                     'invoice' => 'paid',
                                     'voucher' => $success,
@@ -2178,18 +2553,21 @@ class AddController extends Controller
                                     ->where('appointments.branch_id', $branchId)
                                     ->where('appointments.prescription', '=', 'success')
                                     ->where('appointments.invoice', '=', 'paid')
+                                    ->where('appointments.voucher_id', '=', $vid)
                                     ->update([
                                         'status' => 'close',                                       
                                     ]); 
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
+        if($updateAppointment){
+             return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        }
     }
 
     public function terminateAppointment($vid)
     {
-        return $vid; 
+        // return $vid; 
         $branchId= auth()->user()->branch_id;
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $pid)
                                     ->where('appointments.branch_id', $branchId)

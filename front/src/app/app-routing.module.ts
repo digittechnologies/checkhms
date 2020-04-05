@@ -6,8 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
-
-// import { AccountComponent } from './user/account/account.component';
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
 
@@ -15,16 +13,9 @@ import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guar
 import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
 import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
 import { UserRoleGuardService } from './service/guards/user-role-guard.service';
-
-// import { DetailsComponent } from './user/details/details.component';
 import { ProfileComponent } from './admin/profile/profile.component';
-// import { PostComponent } from './user/post/post.component';
-// import { MypostComponent } from './user/mypost/mypost.component';
-// import { AddcategoryComponent } from './addcategory/addcategory.component';
-// import { AboutComponent } from './about/about.component';
-// import { ContactComponent } from './contact/contact.component';
-// import { UpdateComponent } from './user/update/update.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { SettingsComponent } from './admin/settings/settings.component';
 import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
@@ -58,6 +49,8 @@ import { PatientTaskboardComponent } from './customer/patient-taskboard/patient-
 import { PatientComponent } from './customer/patient/patient.component';
 import { PatientDetailsComponent } from './customer/patient-details/patient-details.component';
 import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
+import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
+import { AddPatientComponent } from './customer/add-patient/add-patient.component';
 
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
@@ -81,7 +74,7 @@ import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details
 import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
 import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
-
+import { RegisterComponent } from './setup/register/register.component';
 
 
 
@@ -89,6 +82,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
+  {path: 'setupregister', component: RegisterComponent},
   // {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
@@ -98,10 +92,16 @@ const routes: Routes = [
   children: [
     
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
+
+        //  {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
+        //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
          {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [AdminRoleGuardService]},
          {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // doctor
@@ -112,6 +112,8 @@ const routes: Routes = [
          {path: 'patient', component: PatientComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'patient_profile/:id', component: PatientDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [AfterLoginService] },
+         {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [AfterLoginService] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -131,8 +133,13 @@ const routes: Routes = [
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          // Dashboard
+
+        //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
          {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
          {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
+
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
@@ -157,6 +164,11 @@ const routes: Routes = [
          {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [AfterLoginService] },
+       
+       
+         //setting
+        {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+       
 
      ],
         }, 

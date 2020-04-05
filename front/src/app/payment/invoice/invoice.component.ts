@@ -47,6 +47,13 @@ setting:any;
   pres: any;
   ins: any;
   durat: Object;
+  disabled = false;
+  isEmpty: any;
+  icon: any;
+  schemePercent: any;
+  afterPercentCost: any;
+  schemeAmt: any;
+  schemePercentToView: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -73,6 +80,13 @@ setting:any;
 	    })
   }))
 
+  this.Jarwis.generalSettings().subscribe(
+    data=>{
+    this.response = data;      
+    this.imgLink = this.response[0].app_url;
+    this.icon = this.response[0].logo;
+  })
+
   this.Jarwis. generalSettings().subscribe(
     data=>{
     this.response = data;      
@@ -87,10 +101,11 @@ setting:any;
     this.invoice=this.appointments[0].invoice
   })
 
-  this.Jarwis.displayPharmInvoice(this.appointID,'').subscribe(
+  this.Jarwis.displayPharmInvoice(this.appointID, 'inv', '').subscribe(
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
+    this.isEmpty=this.inv.isE
     this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date
     this.name=this.inv.patient.name
@@ -103,11 +118,16 @@ setting:any;
     this.country=this.inv.patient.country
     this.amount=this.inv.totalAmount.amount
     this.status=this.inv.pres[0].status
-    this.pres=this.inv.pres  
+    this.pres=this.inv.pres 
+    this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
+    this.schemePercent = this.inv.patient.pacentage_value;
+    this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
+    this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
     })
   }
   
   saveToInvoice(){
+    this.disabled = true;
     this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
@@ -135,7 +155,7 @@ setting:any;
     })   
     // this.router.navigateByUrl('/Admin/(side:catacturer');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -144,7 +164,7 @@ setting:any;
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
   printComponent() {
     var divToPrint=document.getElementById("print-history");
@@ -183,49 +203,37 @@ openPrintDialogue(label){
         })
         .appendTo('body')
         .contents().find('body')
-        .append(`        
-                <table>
+        .append(`  
+                <table >
                 <thead>
-                    <th colspan="3">
-                        <img width="6%" src="http://localhost/buth-pharm/backend/public/upload/uploads/${this.setting.logo}" alt="Check Logo" class="center"><span style="font-size: 22px;">Check HMS</span>
-                    </th>
-                    <th colspan="3">
-                        <p class="m-b-0"><strong>${this.setting.address}</strong></p>
-                        <h5 class="m-b-0">${this.setting.contact_number}</h5> 
-                    </th>
+                    <th colspan="6" class="text-center">
+                        <p style="font-size: 8px">${this.setting.company_name}</p>
+                        <p style="margin-top: -5px; font-size: 7px; margin-bottom: -5px;">Pharmacy Department.</p>
+                        <hr>
+                    </th>             
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="6"> </td>
+                        <td colspan="6"> 
+                            <p style="font-size: 8px;  margin-top: -10px; text-align: center;"> <strong>${arr[0].generic_name} TAB</strong> : <small class="float-right">QTY:${arr[0].quantity}</small></p>
+                            <p style="font-size: 7px; margin-top: -7px; text-align: center;">USE ${arr[0].duration_name}, ${arr[0].daily_name}. FOR: ${arr[0].days} DAY(S).</p>
+                            <p style="font-size: 6px; margin-top: -2px; margin-bottom: -5px;"> <strong>Caution:</strong> <small class="float-right">${arr[0].caution}</small></p>
+                           
+                            <hr>
+                        </td>                        
                     </tr>
                     <tr >
-                        <td colspan="4">
-                            <p class="m-b-0"><strong>RX:</strong> ${arr[0].voucher_id}</p>                               
-                            <p class="m-b-0"><strong>Doctor: </strong> ${arr[0].doctor_id}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong>  ${arr[0].p_date}</p>  
+                        <td colspan="2"  style="text-align: center;">
+                            <p style="font-size: 8px; margin-top: -20px;" class="m-b-0"><strong>${arr[0].doctor_id}</strong></p>                               
+                            <p style="margin-top: -9px; font-size: 7px">Physician</p>                            
                         </td>
-                        <td  colspan="2" style="padding-top:20px;">
-                            <p class="m-b-0"><strong>Patient Name: </strong>${arr[0].fname+ ' ' +arr[0].othername}</p>
-                            <p class="m-b-0"><strong>Order Date: </strong> ${arr[0].p_date}</p>
-                            <p class="m-b-0"><strong>Refill: ${arr[0].refill}</strong></p>
+                        <td  colspan="2" style="padding-top:20px;">                            
                         </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" >                    
-                            <p class="h5">Medicine <small>${arr[0].generic_name}</small> <small class="float-right text-muted">QTY:${arr[0].quantity}</small></p>
-                           <p>instruction: ${arr[0].instruction}</p>
-                          <p>Duration: ${arr[0].day_supply}</p>
+                        <td colspan="2"  style="text-align: center;">
+                            <p style="font-size: 8px;  margin-top: -20px;" class="m-b-0"><strong>${arr[0].firstname} ${arr[0].lastname}</strong></p>                               
+                            <p style="font-size: 7px; margin-top: -9px; " >Pharmacist</p>                            
                         </td>
-                    </tr>        
-                    <tr >
-                        <td colspan="4" >
-                            <p class="m-b-0"><strong><u>Caution</u></strong></p> 
-                            <p>${arr[0].caution}</p>
-                        </td>
-                        <td  colspan="2">
-                            |||||||||||||||| BARCODE|||||||||||||||||         
-                        </td>
-                    </tr>   
+                    </tr>                       
                 </tbody>
                 </table>
         `);

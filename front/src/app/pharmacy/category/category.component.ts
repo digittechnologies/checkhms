@@ -32,6 +32,8 @@ export class CategoryComponent implements OnInit {
   filterString = "";
   cats;
   p:any;
+  disabled = false;
+  onScroll:any;
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -79,7 +81,7 @@ editdept(id: string) {
 }
 
 onUpdate(form: NgForm) {
-
+this.disabled = true;
   
   form.value.id=this.catid
   // this.image= form.value.image
@@ -106,7 +108,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addCategories(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -120,9 +122,9 @@ onDelete(id: string) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000
     })   
-    this.router.navigateByUrl('/Admin/(side:catacturer');
+    this.router.navigateByUrl('/Admin/(side:item_category)');
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -131,7 +133,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   councle(){}

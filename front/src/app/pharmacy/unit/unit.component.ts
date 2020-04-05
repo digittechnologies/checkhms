@@ -27,6 +27,7 @@ export class UnitComponent implements OnInit {
   unitName: any;
   unitDescrip: any;
   unitValue: any;
+  disabled = false;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -60,7 +61,7 @@ editdept(id: string) {
 
 onUpdate(form: NgForm) {
 
-  
+  this.disabled = true;
   form.value.id=this.unitid
   //  console.log(form)
    console.log(form.value)
@@ -86,7 +87,7 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
+   this.disabled = true;
     this.Jarwis.addUnit(form.value).subscribe(
      
       data => this.handleResponse(data),
@@ -103,7 +104,7 @@ onDelete(id: string) {
     // this.router.navigateByUrl('');
     this.councle() 
     this.ngOnInit();
-    
+    this.disabled = false;
   }
 
   handleError(error) {
@@ -112,7 +113,7 @@ onDelete(id: string) {
       duration: 2000
 
     })
-    
+    this.disabled = false;
   }
 
   councle(){}

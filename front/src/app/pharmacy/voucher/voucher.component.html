@@ -20,22 +20,84 @@
                   <div class="profile-header d-flex justify-content-between justify-content-center">
                       <div class="d-flex">
                           <div class="mr-3">
-                              <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                              <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
                           </div>
                          <div class="details">
-                                <h5 class="mb-0">{{pat[0].card_number}}</h5>
-                                <span class="text-light">{{pat[0].name + " " + pat[0].othername}}</span>
-                                <div>{{pat[0].mobile_number}}</div>
+                                <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
+                                <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
+                                <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
                           </div>                                 
+                      </div>
+                      <div class="col text-center">
+                        <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
+                        <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
+                        <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
+                        <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div>
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
-                          <div class="h4 m-0">RX#: {{voucherId}}</div>
+                          <div class="h4 m-0">PX#: {{voucherId}}</div>
                         </div>
                   </div>
               </div>                    
           </div>
       </div>
+
+
+      
+<!-- Default Size -->
+<div class="modal fade" id="category" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Customer Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit_cat(fm)" #fm="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <!-- <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Item Name" ngModel name="name" required>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Box size" ngModel name="box_size" required>
+                      </div>
+                  </div> -->
+                  <!-- <div class="col-lg-12">
+                      <input type="file" class="dropify">
+                  </div> -->
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                        <label><span class="hidden-xs">Customer Category</span> </label>
+                        <div class="form-inline">
+                            <select class="form-control" style="width:80%" ngModel name="category_name" >                               
+                                <option *ngFor="let c of cust_cat" value="{{c.id}}" >{{c.category_name}}</option>                                
+                            </select>                                                  
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-12">
+                      <button type="submit" class="btn btn-primary">Add</button>
+                      <button type="submit" class="btn btn-outline-secondary">Cancel</button>
+                  </div> -->
+              </div>
+              <!-- <input type="text" value="{{patID}}" ngModel name="cust_id" required>  -->
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Submit<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-dismiss="modal" data-toggle="modal">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
+    
 
     <div class="row clearfix">
         <div class="col-12">
@@ -54,7 +116,7 @@
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="form-group">
-                                        <label>Category</label>
+                                        <label>Class</label>
                                     <input type="text" class="form-control" value="{{cat_name}}" disabled>
                                 </div>
                             </div>
@@ -100,7 +162,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
-                                                <option  *ngFor="let dura of duration" value="{{dura.value}}">{{dura.duration_name}}</option>
+                                                <option  *ngFor="let dura of duration" value="{{dura.id}}">{{dura.duration_name}}</option>
                                             </select>
                                         </div>
                                     </div>                                            
@@ -109,7 +171,7 @@
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
                                                 <option value="">Select Daily Supply</option>
-                                                <option  *ngFor="let inst of instruct" value="{{inst.value}}">{{inst.name}}</option>
+                                                <option  *ngFor="let inst of instruct" value="{{inst.id}}">{{inst.name}}</option>
                                             </select>
                                         </div>
                                     </div> 
@@ -160,11 +222,11 @@
                                 </div>
                                 <label>Physician Name</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" ngModel name="doctor_id" placeholder="Inputt physician name here...">
+                                    <input type="text" class="form-control" ngModel name="doctor_id" placeholder="Input physician name here...">
                                 </div>                                        
                             </div>
                         </div>
-                        <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
+                        <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
                         <button type="button" disabled *ngIf = "prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                     </div>
@@ -213,7 +275,7 @@
                         <tr *ngFor="let r of prescriptionsList; let i =index">
                            <td>{{i+1}}</td>                                                                                     
                            <td class="w60">
-                            <img src="http://{{imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                         </td>
                         <td>
                             <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
@@ -228,30 +290,87 @@
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                         <td>
-                          <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTrans" (click)="editTrans(trans.tID)"><i class="fa fa-pencil"></i></button>
-                          <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(trans.tID)"><i class="fa fa-trash-o"></i></button>
-                      </td>
-                        </tr>                                                   
+                          <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button> -->
+                          <button type="button" *ngIf = "prescription == 'open' " class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                      </td>                     
+                        </tr>
+                        <div *ngIf="!prescriptionsList">
+                            
+                            <!-- <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+            </div> -->
+            <h5 class="text text-center text-primary">No Medications yet</h5>
+                          </div>                                                    
                     </tbody>
                     <tfoot>
+                        <tr>
+                            <th><strong>SUB TOTAL</strong></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>                                      
+                            <th></th>
+
+                            <th></th>
+                            <th></th>                                      
+                            <th></th>
+
+                            <!-- <th>{{tquant}}</th>
+                            <th>{{refill}}</th> 
+                            <th>{{remain}}</th>     -->
+                            <th></th>                             
+                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><strong>DISCOUNT %</strong></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>                                      
+                            <th></th>
+                            <th></th>
+                            <th></th> 
+                            <th></th>    
+                            <th></th>                             
+                            <th>{{schemePercentToView}}%</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><strong>Service Charge</strong></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>                                      
+                            <th></th>
+                            <th></th>
+                            <th></th> 
+                            <th></th>    
+                            <th></th>                             
+                            <th>{{'50' | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
+                        </tr>
                         <tr>
                             <th><strong>TOTAL</strong></th>
                             <th></th>
                             <th></th>
                             <th></th>                                      
                             <th></th>
-                            <th>{{tquant}}</th>
-                            <th>{{refill}}</th> 
-                            <th>{{remain}}</th>    
-                            <th></th>                             
-                            <!-- <th>{{prescriptions.eachcost | currency:'NGN':'symbol-narrow'}}</th></th>> -->
-                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
+                            <th></th> 
+                            <th></th>    
+                            <th></th>        
+                            <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
                 <div>
                     <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
-                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout</button> &nbsp;
+                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
                     <button type="button" *ngIf = "invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
                     <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>

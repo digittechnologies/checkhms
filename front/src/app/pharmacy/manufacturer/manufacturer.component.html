@@ -51,7 +51,18 @@
                                   <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(m.id)"><i class="fa fa-pencil"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(m.id)"><i class="fa fa-trash-o"></i></button>
                               </td>
-                          </tr>                                                   
+                          </tr>   
+                          <div *ngIf="!manuf">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+                          </div>                                                  
                       </tbody>
                   </table>
                   <pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
@@ -86,7 +97,7 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
-                      <textarea type="text" class="form-control" placeholder="Manufacturer" ngModel name="address" required></textarea>
+                      <textarea type="text" class="form-control" placeholder="Brand/Manufacturer Address" ngModel name="address" required></textarea>
                   </div>
               </div>             
           </div>
@@ -95,7 +106,7 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Manufacturer mobile contact" ngModel name="contact_number" required>
+                      <input type="text" class="form-control" placeholder="Brand/Manufacturer mobile contact" ngModel name="contact_number" required>
                   </div>
               </div>             
           </div>
@@ -114,6 +125,7 @@
               <div class="col-md-8">
                   <div class="form-group">
                       <select class="form-control show-tick" ngModel name="status">
+                          <option selected>...Select Status...</option>
                           <option value="active">Active</option>
                           <option value="suspend">Suspend</option>                                
                       </select>                  
@@ -122,7 +134,7 @@
           </div>
       </div>      
       <div class="modal-footer">
-          <button type="submit" class="btn btn-round btn-primary">Add</button>
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
           <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
       </div>
       </form>
@@ -147,7 +159,7 @@
                   <div class="row clearfix">
                       <div class="col-md-8">
                           <div class="form-group">
-                              <input type="text" class="form-control" [value]="manufName" placeholder="Manufacturer Name" ngModel name="name" required>
+                              <input type="text" class="form-control" [value]="manufName" placeholder="Brand/Manufacturer Name" ngModel name="name" required>
                               <input type="hidden" [value]="manufid" ngModel name="id">
                             </div>
                       </div>             
@@ -157,7 +169,7 @@
                   <div class="row clearfix">
                       <div class="col-md-8">
                           <div class="form-group">
-                              <textarea type="text" class="form-control" [value]="manufAdd" placeholder="Manufacturer Address" ngModel name="address" required></textarea>
+                              <textarea type="text" class="form-control" [value]="manufAdd" placeholder="Brand/Manufacturer Address" ngModel name="address" required></textarea>
                           </div>
                       </div>             
                   </div>
@@ -166,7 +178,7 @@
                   <div class="row clearfix">
                       <div class="col-md-8">
                           <div class="form-group">
-                              <input type="text" class="form-control" [value]="manufNum" placeholder="Manufacturer mobile contact" ngModel name="contact_number" required>
+                              <input type="text" class="form-control" [value]="manufNum" placeholder="Brand/Manufacturer Mobile Contact" ngModel name="contact_number" required>
                           </div>
                       </div>             
                   </div>
@@ -194,7 +206,7 @@
               </div>      
           </div>
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Update</button>
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
               <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
           </form>

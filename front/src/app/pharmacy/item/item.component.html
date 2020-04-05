@@ -12,9 +12,9 @@
                         </ol>
                     </nav>
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Item Profile</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row clearfix">
@@ -23,7 +23,7 @@
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{typeimg}}" class="rounded" alt="">
+                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{typeimg}}" class="rounded" alt="">
                             </div>
                             <div class="details">
                                 <h5 class="mb-0">Item Type:</h5>
@@ -32,7 +32,7 @@
                             </div>                                
                         </div>
                         <div>
-                            <button class="btn btn-primary btn-sm">Add to Cart</button>
+                            <!-- <button class="btn btn-primary btn-sm">Add to Cart</button> -->
                              <!-- <button class="btn btn-success btn-sm">Message</button> -->
                         </div> 
                     </div>
@@ -58,38 +58,38 @@
                     <div class="body">
                         <a class="card" href="javascript:void(0)">
                             <div class="body text-center">
-                                <img class="img-thumbnail rounded-circle" src="http://{{imgLink}}/backend/public/upload/uploads/{{itemimg}}" alt="">
+                                <img class="img-thumbnail rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{itemimg}}" alt="">
                                 <h6 class="mt-3">{{resitem.generic_name}}</h6>
                                 <div class="text-center text-muted">{{resitem.manuf_name}}</div>
                             </div>
                             <div class="card-footer text-center">
                                 <div class="row clearfix">
-                                    <div class="col-6">
-                                
+                                    <div class="col-md-6">
+                                        <label>Purchasing Price</label><br>
                                         <i class="fa fa-money text-danger font-22"></i>
                                         <div><span class="text-muted">{{resitem.purchasing_price}}</span></div>
                                     </div>
-                                    <div class="col-6">
-                                      
+                                    <div class="col-md-6">
+                                        <label>Selling Price</label><br>
                                         <i class="fa fa-money font-22"></i>
-                                        <div><span class="text-muted">{{resitem.selling_price}}</span></div>
+                                        <div><span class="text-muted">{{resitem.purchasing_price*resitem.markup_price}}</span></div>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                        <small class="text-muted">Category: </small>
+                        <small class="text-muted">Class: </small>
                         <p>{{resitem.cat_name}}</p>                            
                         <hr>
-                        <small class="text-muted">Unit: </small>
+                        <!-- <small class="text-muted">Unit: </small>
                         <p class="mb-0"><span>Name: <strong>{{resitem.unit_name}}</strong></span></p>
                         <p class="mb-0"><span>Box Size: <strong>{{resitem.box_size}}</strong></span></p>
                         <p class="mb-0"><span>Unit Value: <strong>{{resitem.value}}</strong></span></p>
-                        <hr>
-                        <!-- <small class="text-muted">Birth Date: </small>
-                        <p class="m-b-0">October 17th, 93</p>
                         <hr> -->
-                        <small class="text-muted">Manufacturer Details: </small>
-                        <p class="mb-0"><span>Manufacturer: <strong>{{resitem.manuf_name}}</strong></span></p>
+                        <small class="text-muted">Type: </small>
+                        <p class="m-b-0">{{resitem.type_name}}</p>
+                        <hr>
+                        <small class="text-muted">Brand/Manufacturer Details: </small>
+                        <p class="mb-0"><span>Brand Name: <strong>{{resitem.manuf_name}}</strong></span></p>
                         <p class="mb-0"><span>Address: <strong>{{resitem.address}}</strong></span></p>
                         <p class="mb-0"><span>Contact Number: <strong>{{resitem.contact_number}}</strong></span></p>      
                     </div>
@@ -115,34 +115,91 @@
                     <div class="body">
                         <form [formGroup]="submissionForm" >
                         <div class="row clearfix">
-                            <div class="col-lg-6 col-md-12">
-                                <label>Generic name</label>
+                            <div class="col-lg-12 col-md-12">
+                                <label>Generic Name</label>
                                 <div class="form-group">                                                
                                     <input type="text" class="form-control" formControlName="generic_name">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <label>Selling price</label>
-                                <div class="form-group">                                                
-                                    <input type="text" class="form-control"  formControlName="selling_price">
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Brand</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="manuf_name" readonly>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Change Brand</label>
+                                    <select class="form-control" formControlName="manufacturer_id">
+                                        <option value="">-- Choose Brand --</option>
+                                        <option *ngFor="let m of manuf" [value]="m.id">{{m.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Class</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="cat_name" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Change Class</label>
+                                    <select class="form-control" formControlName="item_category_id">
+                                        <option value="">-- Choose Class --</option>
+                                        <option  *ngFor="let c of cat" [value]="c.id">{{c.cat_name}}</option>                                      
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Type</label>
+                                    <div class="form-group">                                                
+                                        <input type="text" class="form-control" formControlName="type_name" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label>Change Type</label>
+                                    <select class="form-control"formControlName="item_type_id">
+                                        <option value="">-- Choose Type --</option>
+                                        <option *ngFor="let t of typ" [value]="t.id">{{t.type_name}}</option>                                      
+                                    </select>
+                                </div>
+                            <!-- </div> -->
                             <div class="col-lg-4 col-md-12">
-                                <label>Purchasing price</label>
+                                <label>Purchasing Price</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control"  formControlName="purchasing_price">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
+                                <label>Markup price</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" formControlName="markup_price" placeholder="Markup price">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <label>General Selling Price</label>
+                                <div class="form-group">                                                
+                                    <input type="text" class="form-control"  formControlName="selling_price">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <label>GORAH Price</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  formControlName="price_2">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <label>NHIS Price</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  formControlName="price_3">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
                                 <label>Manufacture date</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                
                                         <input type="date" class="form-control" formControlName="manufacture_date" placeholder="Manufacture date">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-12">
+                            <div class="col-lg-6 col-md-12">
                                 <label>Expiring date</label>
                                 <div class="form-group">
                                     <div class="input-group">
@@ -151,38 +208,12 @@
                                     </div>
                                 </div>
                             </div>                                
-                            <!-- <div class="col-lg-4 col-md-12">
-                                <div class="form-group">
-                                    <select class="form-control" *ngFor="let t of type">
-                                        <option value="">-- Select Country --</option>
-                                        <option value="AF">{{t.type_name}}</option>
-                                      
-                                    </select>
-                                </div>
-                            </div> -->
-                            <div class="col-lg-4 col-md-12">
-                                <label>Markup price</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" formControlName="markup_price" placeholder="Markup price">
-                                </div>
-                            </div>
                             <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
-                              <label>Change file</label><br>
+                              <label>Change Item Image</label><br>
                               <input type="file" name="file"  (change)="uploadFile($event)">
                               </div>
                               </div>
-                            <!-- <div class="col-lg-4 col-md-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="City">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">                                                
-                                    <textarea rows="4" type="text" class="form-control" placeholder="Address"></textarea>
-                                </div>
-                            </div> -->
-                            
                         </div>
                         <button type="button" (click)="onSubmitItem()" class="btn btn-round btn-primary">Update</button> &nbsp;&nbsp;
                         <button type="button" class="btn btn-round btn-default">Cancel</button>

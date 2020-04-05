@@ -31,6 +31,13 @@ export class PhamAdminComponent implements OnInit {
     json = JSON;
     imgLink: any;
     dashboardDataAppt: any;
+    onScroll:any;
+
+    filterString="";
+    item: any;
+    items: any;
+    p:any;
+
   
   constructor(
     private Jarwis: JarwisService,
@@ -105,6 +112,7 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;      
         this.stocks = this.response;
+        this.item=this.stocks.item
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -118,9 +126,29 @@ export class PhamAdminComponent implements OnInit {
         this.response = data;
         this.department = this.response
       })    
-      
+     this.onFilterChange()  
   }
-
+  onFilterChange() {
+    this.Jarwis.displayPharAdminDashStock().subscribe(
+        data=>{
+        this.response = data;      
+        this.stocks = this.response;
+        this.items=this.stocks.item
+        this.item= this.items.filter((cate) => this.isMatch(cate));
+    })
+    
+   
+  
+  }
+    
+  
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item.toString().indexOf(this.filterString) > -1
+    }
+  }
   onLoad(a, branc, pieData, staff, appt, earning){
       
     $('.chart').sparkline('html', {
@@ -316,7 +344,11 @@ export class PhamAdminComponent implements OnInit {
                 },
                 axisY: {
                     labelInterpolationFnc: function(value) {
-                        return Math.round(value / appt.countAll * 100) + '%';
+                        if(appt.countAll <= 0){
+                            return Math.round(value * 100) + '%';
+                        } else{
+                            return Math.round(value / appt.countAll * 100) + '%';
+                        }
                     }
                 },
                 plugins: [
@@ -324,7 +356,7 @@ export class PhamAdminComponent implements OnInit {
                         appendToBody: true
                     }),
                     Chartist.plugins.legend({
-                        legendNames: ['Active', 'Closed', 'Terminated']
+                        legendNames: ['Open', 'Closed', 'Terminated']
                     })
                 ]
             }).on('draw', function(data) {

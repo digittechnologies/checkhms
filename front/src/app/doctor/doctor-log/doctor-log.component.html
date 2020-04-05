@@ -3,12 +3,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Dashboard</h1>
+                    <h1>{{dept_name}} Dashboard</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="javascript:void(0)">Dashboard</a></li>
                         <!-- <li class="breadcrumb-item"><a href="index.html">Job</a></li> -->
-                        <li class="breadcrumb-item active" aria-current="page">Patient Log</li>
+                        <li class="breadcrumb-item active" aria-current="page">Surgeon Appointment Log</li>
                         </ol>
                     </nav>
                 </div>            
@@ -23,10 +23,10 @@
                 <div class="card">
                     <div class="body">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="col-lg-3 col-md-8 col-sm-8">
                                 <label>Search</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <input type="text" id="patient_data" class="form-control" placeholder="Search..." (keyup)="patient_search($event)">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-6">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" title="">Search</a>
+                                <a disabled style="cursor: not-allowed;" href="javascript:void(0);" class="btn btn-sm btn-primary btn-block" (click)="manual_search()">Search</a>
                             </div>
                         </div>
                     </div>
@@ -76,18 +76,18 @@
             </div>
         </div>
         <div class="row clearfix">
-            <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
+            <div class="col-lg-3 col-md-6" id="patient-log" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
                     <div class="body text-center p-4">
                         <div class="circle">
-                            <img class="rounded-circle" src="http://{{imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+                            <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
                         </div>
                         <h6 class="mt-3 mb-0">{{l.card_number}}</h6>
                         <span>{{l.pat_name+ ' ' +l.othername}}</span>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Lab</a></li>
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Terapy</a></li>
-                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Prescription</a></li>
+                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Treatment</a></li>
+                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]">Refer</a></li>
+                            <li><a class="p-3" href="#" [routerLink]="['/Admin', {outlets: {side: ['pat-detail', l.cust_id]}}]">Details</a></li>
                         </ul>
                         <hr>
                         <div class="d-flex justify-content-between">
