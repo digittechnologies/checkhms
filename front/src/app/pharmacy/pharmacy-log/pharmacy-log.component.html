@@ -16,6 +16,9 @@
                     <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a> -->
                     <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
+                <div class="col-12">
+                    <input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
+                </div>
             </div>
         </div>
         <div class="row clearfix">
@@ -48,6 +51,64 @@
                 </div>
             </div>
         </div>
+         
+         <div class="modal fade" id="endall" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">  
+                <div class="modal-header">
+                    <h4 class="modal-title">Note !</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                  <div class="modal-body">             
+                      <div class="row  justify-content-center">
+                             <h6>You are about to end all paid  appointmaent !</h6>     
+                      </div>
+                  </div>      
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                      <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="endAppointments()">Yes</button>
+                  </div>
+              </div>
+            </div>
+            </div>
+        <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">  
+                <div class="modal-header">
+                    <h4 class="modal-title">Note !</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                  <div class="modal-body">             
+                      <div class="row  justify-content-center">
+                             <h6>You are about to cansel this appointmaent !</h6>     
+                      </div>
+                  </div>      
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                      <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="del()">Yes</button>
+                  </div>
+              </div>
+            </div>
+            </div>
+            <div class="modal fade" id="endAppointment" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div  class="modal-content">  
+                    <div class="modal-header">
+                        <h4 class="modal-title">Note !</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                      <div class="modal-body">             
+                          <div class="row  justify-content-center">
+                                 <h6>You are about to end this appointmaent !</h6>     
+                          </div>
+                      </div>      
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                          <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="endAppointment()">Yes</button>
+                      </div>
+                  </div>
+                </div>
+                </div>
         <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
                     <div class="card-header text-center">
@@ -58,6 +119,11 @@
             <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
                     <div class="body text-center p-4">
+                        <div class="row">
+                            <div class="col-6"> <small class="float-left">Today,{{l.created_at.slice(10,13)%12}}{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                             <span *ngIf ="l.prescription ==='open'" class=" col-6"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                             <span *ngIf = "l.invoice == 'paid'" class=" col-6"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
+                            </div>
                         <div class="circle">
                             <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
                         </div>

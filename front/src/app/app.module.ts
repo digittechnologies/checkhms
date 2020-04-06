@@ -104,6 +104,21 @@ import { CustomerCategoryComponent } from './customer/customer-category/customer
 import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 import { RecordsComponent } from './dashboard/records/records.component';
+import { RecordChargeComponent } from './record/record-charge/record-charge.component';
+import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
+import { PharmacyComponent } from './admin/navs/pharmacy/pharmacy.component';
+import { ClinicComponent } from './admin/navs/clinic/clinic.component';
+import { AdminComponent } from './admin/navs/admin/admin.component';
+import { LabComponent } from './admin/navs/lab/lab.component';
+import { RadioComponent } from './admin/navs/radio/radio.component';
+import { TheaterComponent } from './admin/navs/theater/theater.component';
+import { RecordComponent } from './admin/navs/record/record.component';
+import { RevenueComponent } from './admin/navs/revenue/revenue.component';
+import { NurseComponent } from './admin/navs/nurse/nurse.component';
+import { WardComponent } from './admin/navs/ward/ward.component';
+import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
+import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -241,7 +256,35 @@ import { RecordsComponent } from './dashboard/records/records.component';
   
     PatDetailComponent,
   
-    RecordsComponent
+    RecordsComponent,
+    
+    RecordChargeComponent,
+  
+    ClinicServiceComponent,
+  
+    PharmacyComponent,
+  
+    ClinicComponent,
+  
+    AdminComponent,
+  
+    LabComponent,
+  
+    RadioComponent,
+  
+    TheaterComponent,
+  
+    RecordComponent,
+  
+    RevenueComponent,
+  
+    NurseComponent,
+  
+    WardComponent,
+  
+    RecordAdminComponent,
+  
+    RecordUserComponent,
   ],
   imports: [
     BrowserModule,

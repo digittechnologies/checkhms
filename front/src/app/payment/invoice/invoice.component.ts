@@ -105,6 +105,7 @@ setting:any;
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
+    console.log(this.inv)
     this.isEmpty=this.inv.isE
     this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date

@@ -37,6 +37,11 @@ export class PharmacyLogComponent implements OnInit {
   spin: string;
   disabled = false;
   logEmpty = false;
+  // disabled = false;
+  delete_id;
+  check="";
+  endAppoit_id;
+  endAppoit_vouccher
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -56,8 +61,10 @@ export class PharmacyLogComponent implements OnInit {
     
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
-      this.response = data;      
+      this.response = data; 
+      console.log(this.response)     
       this.log = this.response; 
+      console.log(this.log)
      if(this.log.length <= 0){
        this.logEmpty = true;
      }
@@ -88,6 +95,64 @@ export class PharmacyLogComponent implements OnInit {
   // get(){
   //   console.log(this.dat)
   // }
+  cancle(id){
+    this.check="cancel"
+    this.delete_id = id;
+    // .subscribe(
+      //   data=>{
+        //   this.handleRespons(data);console.log(data)
+        // })
+      }
+  del(){
+    // console.log(this.delete_id)
+    this.Jarwis.cncel_pharm_log(this.delete_id).subscribe(data=>{
+      this.handleRespons(data);
+      console.log(data)
+      this.Jarwis.displayDeptAppointment().subscribe(
+        data=>{
+        this.response = data;      
+        this.log = this.response; 
+      })
+    
+    },
+      err=>{this.handleError(err)}
+      )
+      }
+      end(id,voucher){
+        console.log(id,voucher);
+        // this.check="end";
+        this.endAppoit_id=id;
+        this.endAppoit_vouccher=voucher;
+      }
+      endAppointment(){
+        this.Jarwis.endappointment({id:this.endAppoit_id,voucher:this.endAppoit_vouccher}).subscribe(data=>{
+          this.handleRespons(data);
+          console.log(data)
+          this.Jarwis.displayDeptAppointment().subscribe(
+            data=>{
+            this.response = data;      
+            this.log = this.response; 
+          })
+        
+        },
+          err=>{this.handleError(err)}
+          )
+      }
+      endAppointments(){
+        alert('ju')
+        this.Jarwis.endappointments().subscribe(
+          data=>{
+          this.handleRespons(data);
+          this.Jarwis.displayDeptAppointment().subscribe(
+            data=>{
+            this.response = data;      
+            this.log = this.response; 
+          })
+        
+        },
+          err=>{this.handleError(err)}
+        )
+      }
   streets: string[] = this.newArr ;
   private _filter(value: string): string[] {
     // console.log(this.newArr)
