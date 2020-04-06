@@ -45,6 +45,8 @@ export class DashboardComponent implements OnInit {
   pstatus = 'active';
   roleD: Object;
   shorName: any;
+  records: any;
+  position: any;
   
 
   constructor(
@@ -69,6 +71,8 @@ export class DashboardComponent implements OnInit {
       this.fname= this.response.det[0].firstname
       this.lname= this.response.det[0].lastname 
       this.role= this.response.det[0].role_id
+      this.position= this.response.det[0].dept_id
+
       this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
     })
 
@@ -88,7 +92,8 @@ export class DashboardComponent implements OnInit {
       this.cashier=this.allPos[1].id
       this.physician=this.allPos[2].id
       this.admin=this.allPos[3].id
-      this.card=this.allPos[4].id
+      this.records=this.allPos[5].id
+
     })
 
     this.Jarwis.displayModule().subscribe(

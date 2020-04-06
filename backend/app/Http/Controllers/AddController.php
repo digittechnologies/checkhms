@@ -1176,15 +1176,16 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $dept_id= auth()->user()->dept_id;
         $bid= Auth()->user()->branch_id;
         // $dept_id = $request->form['dept_id'];
-       
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
-
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
-       
-
-        if ( empty ( $checkAppointment[0] )) {
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+            'appointments.customer_id' => $cust_id,
+            'appointments.prescription' =>'open',
+            'appointments.date' => $date
+            ])->get();
+        return  count($checkAppointment);
+        if (count($checkAppointment) == 0) {
 
             $appointment= Vouchers::create(
                 [
@@ -1193,7 +1194,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                     'branch_id' => $bid
                 ]);    
             
-          
             $appointment= Appointments::create(
                 [
                     'customer_id' => $cust_id, 
@@ -1221,9 +1221,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
         
-        }else {
+        }else if(count($checkAppointment) > 0){
 
-            return 'Alredy Loged';
+            return 'Already Loged';
 
         }
         

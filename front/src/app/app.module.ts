@@ -103,6 +103,7 @@ import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
+import { RecordsComponent } from './dashboard/records/records.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -238,7 +239,9 @@ import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
   
     DoctorAdminComponent,
   
-    PatDetailComponent
+    PatDetailComponent,
+  
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
