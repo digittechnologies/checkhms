@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.Jarwis.profile().subscribe(
-      data=>{       
+      data=>{    
+        console.log(data);
       this.response = data;     
       this.role= this.response.det[0].role_id
     })
@@ -72,18 +73,12 @@ export class LoginComponent implements OnInit {
       );
     
   }
-
-  
-
-  
   handleResponse(data) {
+    console.log(data)
     let pos =data.details[0].dept_name+'-'+ data.details[0].role_name ;
     let snackBarRef = this.snackBar.open("Login successfully", 'Dismiss', {
       duration: 2000
     })   
-
-    
-
     this.Token.handle(data.token.original.access_token);
    
     this.Auth.changeAuthStatus(true);  
