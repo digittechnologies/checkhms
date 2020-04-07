@@ -543,7 +543,7 @@ class DisplayController extends Controller
                 ->where('appointments.branch_id','=',$branchId)
                 ->where('appointments.status','!=','terminated')
                 ->where('appointments.status','!=','close')
-                ->where('appointments.date', '=', $cDate)
+                // ->where('appointments.date', '=', $cDate)
                 ->get();
     }
 

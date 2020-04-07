@@ -44,6 +44,17 @@ export class AddPatientComponent implements OnInit {
   eReferral_mobile: any;
   hostitalNum: any;
 
+  //EPS (External Paramedical Services)
+
+  eps_fname: any;
+  eps_othernames: any;
+  eps_email: any;
+  eps_contact: any;
+  eps_address: any;
+  eps_city: any;
+  eps_state: any;
+  eps_nationality: any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -89,6 +100,20 @@ export class AddPatientComponent implements OnInit {
      );
      
    }
+
+   onSubmitEps(form: NgForm) {
+      this.disabled = true;
+      this.Jarwis.addEpsCustomer(form.value).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),      
+      );
+   }
+
+   capsLock(argument){
+    let u = argument.target.value.toUpperCase()
+    argument.target.value = u
+  }
+
    handleResponse(data) {    // 
      this.disabled = false;
      let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
@@ -100,8 +125,8 @@ export class AddPatientComponent implements OnInit {
    }
  
    handleError(error) {
-     this.disabled = false;
-     this.error = error.error.errors;
+      this.disabled = false;
+      this.error = error.error.errors;
       this.eName = this.error.name;  
       this.eOthername = this.error.othername; 
       this.eGender  = this.error.gender;
@@ -125,10 +150,20 @@ export class AddPatientComponent implements OnInit {
       this.eReferral_name = this.error.referral_name;
       this.eReferral_address = this.error.referral_address;
       this.eReferral_mobile = this.error.referral_mobile;
-     let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
+      let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
        duration: 2000
- 
      })
+
+       //EPS (External Paramedical Services)
+
+      this.eps_fname = this.error.fname;
+      this.eps_othernames = this.error.othername;
+      this.eps_email = this.error.email;
+      this.eps_contact = this.error.contact;
+      this.eps_address = this.error.address;
+      this.eps_city = this.error.city;
+      this.eps_state = this.error.state;
+      this.eps_nationality = this.error.nationality;
      
    }
 }

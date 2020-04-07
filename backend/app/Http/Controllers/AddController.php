@@ -1028,7 +1028,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $user=Customers::find($id);
         $currentfile= $user->patient_image;
         $datas=$request->formdata;
-    //    return $currentfile;
          if ($request->image != $currentfile){
              $file=$request->image;
              $filename=time().'.' . explode('/', explode(':', substr($file, 0, strpos($file,';')))[1])[1];
@@ -1039,8 +1038,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->name = $datas['name'];
          $user->othername = $datas['othername'];
          $user->card_number = $datas['card_number'];
-          $user->email =  $datas['email'];
-          $user->city =  $datas['city'];
+         $user->email =  $datas['email'];
+         $user->city =  $datas['city'];
          $user->address =  $datas['address'];
          $user->mobile_number =  $datas['mobile_number'];
         //  $user->gender =  $datas['gender'];
@@ -1061,6 +1060,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
          $user->referral_name = $datas['referral_name'];
          $user->referral_address = $datas['referral_address'];
          $user->referral_mobile = $datas['referral_mobile'];
+        //  return $user;
          $user->save();
          // $user->update($request->all());
          if($user){
@@ -1142,28 +1142,37 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function searchPatient(Request $request)
     {
-        // return $request->all();
         $value=$request->customer;
         $action=$request->action;
 
-        $search=DB::table('customers')->where( $action, $value)->first();
-
-        // return $search;
-        
-        if ( empty($search)) {
-            return response()->json(['status'=> 1, 'message' => "successfully", 'search'=> $search, 'show'=>"empty"]);
-        } else {
+        if($action == 'name'){
+            $value = strtoupper($value);
+        }
+        $search=DB::table('customers')->where($action, $value)->get();
+        if (count($search) == 0) {
             return response()->json([
-                'status'=> 1,
+                'count'=> count($search),
                 'message' => "successfully", 
                 'search'=> $search, 
-                'show'=>"show",
-                "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                ->where('appointments.customer_id','=',$search->id)->get(),
-                ]);
+                'show'=>"empty"
+            ]);
         }
+        else {
+            foreach($search as $row){
+                    return response()->json([
+                        'count'=> count($search),
+                        'message' => "successfully", 
+                        'search'=> $search, 
+                        'show'=>"show",
+                        "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                        ->where('appointments.customer_id','=',$row->id)->get(),
+                    ]);
+            }
+        }
+
+        
     
     }
 
@@ -1183,7 +1192,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
        
-
+        
         if ( empty ( $checkAppointment[0] )) {
 
             $appointment= Vouchers::create(
