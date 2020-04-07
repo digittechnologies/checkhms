@@ -28,7 +28,7 @@ Route::get('gettitles/{id}','DisplayController@gettitles');
 Route::get('getUtitles','DisplayController@getUtitles');
 Route::get('getUcontent','DisplayController@getUContent');
 Route::post('comment','CommentController@store');
-Route::post('me','AuthController@updateprofile');
+Route::post('updateprofile','AuthController@updateprofile');
 Route::get('roleuser', 'RoleController@roleuser');
 Route::post('role','RoleController@store');
 Route::post('cate','CategoryController@store');
@@ -200,6 +200,8 @@ Route::get('countAppointment','DisplayController@countAppointment');
 Route::post('deleteAppointment', 'AddController@deleteAppointment');
 Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
 Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
+Route::post('endappointment','DisplayController@endAppointment');
+Route::get('endappointments','DisplayController@endAppointments');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
@@ -233,6 +235,8 @@ Route::get('displayVoucher','DisplayController@displayVoucher');
 Route::post('addVoucher', 'AddController@addVoucher');
 Route::post('updateVoucher', 'AddController@updateInvoice');
 Route::post('deleteVoucher', 'AddController@deleteVoucher');
+Route::post('cancelPharmLog','DisplayController@cancelPharmLog');
+
 
 //Laboratory Department
 Route::post('addLab', 'AddController@createLabDept');

@@ -542,8 +542,13 @@ class DisplayController extends Controller
                 // ->where('appointments.prescription','!=','close')
                 ->where('appointments.branch_id','=',$branchId)
                 ->where('appointments.status','!=','terminated')
+<<<<<<< HEAD
                 ->where('appointments.status','!=','close')
                 // ->where('appointments.date', '=', $cDate)
+=======
+                ->where('appointments.status','=','active')
+                ->where('appointments.date', '=', $cDate)
+>>>>>>> c95ff5087ab060bff30a7ede5dcc1014b7a92292
                 ->get();
     }
 
@@ -633,6 +638,54 @@ class DisplayController extends Controller
             ]);
         
      }
+     public function cancelPharmLog(Request $request){
+        $id = $request[0];
+        $cancel = DB::table("appointments")->where('id',$id)->update(['status'=>'terminated']);
+         if($cancel){
+             return response()->json("You have successfully calceled");
+         }
+    }
+   
+
+        public function endAppointment(Request $request)
+        {
+             $pid = $request->id;
+             $vid = $request->voucher;
+            // $pid,$vid;
+            $branchId= auth()->user()->branch_id;
+           return $updateAppointment = DB::table('appointments')->where('appointments.id', $pid)
+                                        ->where('appointments.branch_id', $branchId)
+                                        ->where('appointments.prescription','=' ,'success')
+                                        ->where('appointments.invoice', '=', 'paid')
+                                        ->where('appointments.voucher_id', $vid)
+                                        ->update([
+                                            'status' => 'closed',                                       
+                                        ]); 
+            if($updateAppointment){
+                 return '{
+                    "success":true,
+                    "message":"successful"
+                }' ;
+            }
+        }
+        public function  endAppointments()
+        {
+            $branchId= auth()->user()->branch_id;
+            $updateAppointment = DB::table('appointments')
+                                        ->where('appointments.branch_id', $branchId)
+                                        ->where('appointments.prescription','=' ,'success')
+                                        ->where('appointments.invoice', '=', 'paid')
+                                        ->update([
+                                            'status' => 'closed',                                       
+                                        ]); 
+            if($updateAppointment){
+                 return '{
+                    "success":true,
+                    "message":"successful"
+                }' ;
+            }
+        }
+  
 
      public function refillInStock($id)
      {

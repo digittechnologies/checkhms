@@ -97,7 +97,7 @@ export class JarwisService {
   }
   
   updateprofile(data) {
-    return this.http.post(`${this.baseUrl}/me`,data,{headers:{
+    return this.http.post(`${this.baseUrl}/updateprofile`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -848,4 +848,16 @@ updateGeneralSet(data) {
 addGeneralSet(data) {
   return this.http.post(`${this.baseUrl}/addGeneralset`, data)
 }
+cncel_pharm_log(data){
+  return this.http.post<any>(`${this.baseUrl}/cancelPharmLog`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
+ endappointment(data){
+  return this.http.post<any>(`${this.baseUrl}/endappointment`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
+ endappointments(){
+  return this.http.get<any>(`${this.baseUrl}/endappointments`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
 }
