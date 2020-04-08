@@ -285,6 +285,7 @@ import { RecordUserComponent } from './dashboard/record-user/record-user/record-
     RecordAdminComponent,
   
     RecordUserComponent,
+  
   ],
   imports: [
     BrowserModule,

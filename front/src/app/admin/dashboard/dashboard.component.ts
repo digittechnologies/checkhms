@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
       this.position= this.response.det[0].dept_id
 
       this.department=this.response.det[0].nameD;
+      // window.localStorage.department=JSON.stringify(this.department)
       this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
     })
 
