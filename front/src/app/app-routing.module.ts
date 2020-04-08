@@ -89,18 +89,18 @@ const routes: Routes = [
   // {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
-  {path: 'Admin', component: DashboardComponent,canActivate: [AfterLoginService],
+  {path: 'Admin', component: DashboardComponent, canActivate: [AfterLoginService],
  
 
   children: [
-    
+
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: [AfterLoginService]},
 
         //  {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
         //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [AdminRoleGuardService]},
+         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AfterLoginService]},
          {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
