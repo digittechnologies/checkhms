@@ -118,6 +118,18 @@ import { RecordAdminComponent } from './dashboard/record-admin/record-admin/reco
 import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
 import { ClinicAdminComponent } from './dashboard/clinic-admin/clinic-admin.component';
 import { ClinicUserComponent } from './dashboard/clinic-user/clinic-user.component';
+import { RevenueAdminComponent } from './dashboard/revenue-admin/revenue-admin.component';
+import { RevenueUserComponent } from './dashboard/revenue-user/revenue-user.component';
+import { RadioAdminComponent } from './dashboard/radio-admin/radio-admin.component';
+import { RadioUserComponent } from './dashboard/radio-user/radio-user.component';
+import { LabAdminComponent } from './dashboard/lab-admin/lab-admin.component';
+import { LabUserComponent } from './dashboard/lab-user/lab-user.component';
+import { TheaterAdminComponent } from './dashboard/theater-admin/theater-admin.component';
+import { TheaterUserComponent } from './dashboard/theater-user/theater-user.component';
+import { NurseAdminComponent } from './dashboard/nurse-admin/nurse-admin.component';
+import { NurseUserComponent } from './dashboard/nurse-user/nurse-user.component';
+import { WardAdminComponent } from './dashboard/ward-admin/ward-admin.component';
+import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
 
 @NgModule({
   declarations: [
@@ -285,6 +297,30 @@ import { ClinicUserComponent } from './dashboard/clinic-user/clinic-user.compone
     ClinicAdminComponent,
   
     ClinicUserComponent,
+  
+    RevenueAdminComponent,
+  
+    RevenueUserComponent,
+  
+    RadioAdminComponent,
+  
+    RadioUserComponent,
+  
+    LabAdminComponent,
+  
+    LabUserComponent,
+  
+    TheaterAdminComponent,
+  
+    TheaterUserComponent,
+  
+    NurseAdminComponent,
+  
+    NurseUserComponent,
+  
+    WardAdminComponent,
+  
+    WardUserComponent,
   
   ],
   imports: [
