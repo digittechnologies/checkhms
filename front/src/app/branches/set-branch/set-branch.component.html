@@ -555,9 +555,10 @@
           </button>
       </div>
       <div class="row justify-content-center">
-                <span class="mb-2">Select department</span>
+                <!-- <span class="mb-2">Select department</span> -->
           <div class="row col-12 justify-content-center mb-2">
               <select name="dept"  (change)="dept($event)"  id="dep">
+                  <option value="">Select Department</option>
                   <option  *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 "  value="clinic">Clinic</option>
                   <option  *ngIf="role=='3003' && department=='Pharmacy' || role=='1001' || role==5007 || role==5006 " value="pharmacy">pharmacy</option>
                   <option  *ngIf="role=='3003' && department=='Record' || role=='1001' || role==5007 || role==5006 "  value="record">Record</option>
@@ -567,7 +568,7 @@
                   <option  *ngIf="role=='3003' && department=='War' || role=='1001' || role==5007 || role==5006 "  value="ward">Ward</option>
                   <option  *ngIf="role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 "  value="nurse">Nurse</option>
                   <option  *ngIf="role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 "  value="lab">Lab</option>
-                  <option  *ngIf=" || role=='1001' || role==5006 "  value="admin">Admin</option>
+                  <option  *ngIf="role=='1001' || role==5006 "  value="admin">Admin</option>
               </select>
           </div>
           <div class="co-12">

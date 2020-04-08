@@ -18,7 +18,7 @@ export class SetBranchComponent implements OnInit {
   manufid:any;
   onUpdate:any;
   disabled = false;
-  dept_name="clinic";
+  dept_name;
   deptlists:any;
    pharmacy:any;
    record:any;
