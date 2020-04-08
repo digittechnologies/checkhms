@@ -98,8 +98,10 @@ Route::get('disItemDet','DisplayController@disItemDet');
 //Branch
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
+Route::get('displaybranchs','DisplayController@displayBranchs');
 Route::get('displaysetBranch','DisplayController@displaysetBranch');
 Route::post('addBranch', 'AddController@createBranch');
+Route::post('addBranchs', 'AddController@createBranchs');
 Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
 
@@ -202,6 +204,8 @@ Route::post('terminateAppointment/{id}', 'AddController@terminateAppointment');
 Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
 Route::post('endappointment','DisplayController@endAppointment');
 Route::get('endappointments','DisplayController@endAppointments');
+Route::post('deptlist','DisplayController@deptList');
+
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');

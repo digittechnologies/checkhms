@@ -101,7 +101,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
-import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 import { RecordChargeComponent } from './record/record-charge/record-charge.component';
 import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
@@ -117,6 +116,8 @@ import { NurseComponent } from './admin/navs/nurse/nurse.component';
 import { WardComponent } from './admin/navs/ward/ward.component';
 import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
+import { ClinicAdminComponent } from './dashboard/clinic-admin/clinic-admin.component';
+import { ClinicUserComponent } from './dashboard/clinic-user/clinic-user.component';
 
 @NgModule({
   declarations: [
@@ -251,8 +252,6 @@ import { RecordUserComponent } from './dashboard/record-user/record-user/record-
   
     CustomerCategoryComponent,
   
-    DoctorAdminComponent,
-  
     PatDetailComponent,
   
     RecordChargeComponent,
@@ -282,6 +281,10 @@ import { RecordUserComponent } from './dashboard/record-user/record-user/record-
     RecordAdminComponent,
   
     RecordUserComponent,
+  
+    ClinicAdminComponent,
+  
+    ClinicUserComponent,
   
   ],
   imports: [

@@ -18,11 +18,97 @@
               </div>
           </div>
       </div>
-
+      <!-- <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+            <table class="table table-hover table-custom spacing8" style="cursor: pointer;">
+            <thead>
+                <tr>
+                    <th ><input type="button" class="btn btn-default" value=""> </th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value=""></th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value=""></th>                                
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Theater"></th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Ward"></th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Pharmacy"></th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Nurse"></th>
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Lab"></th> 
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Clinic"></th>  
+                    <th (click)="branch($event)"><input type="button" class="btn btn-default" value="Admin"></th>  
+                </tr>
+            </thead>
+        </table>
+        </div>
+        </div>
+      </div>
+      <hr> -->
       <div class="row clearfix">
           <div class="col-sm-12">
-              <div class="table-responsive">
-                  <table class="table table-hover table-custom spacing8">
+              <div class="card">
+                <ul class="nav nav-tabs">
+                    <li *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#clinic" (click)="branch('clinic')" value="clinic">Clinic</a></li>
+                    <!-- <ng-container *ngIf ="4004 > uPos"> -->
+                        <li *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#pharmacy" (click)="branch('pharmacy')" >Pharmacy</a></li>
+                        <li *ngIf="  role=='3003' && department=='Record' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#record" (click)="branch('record')">Record</a></li>
+                        <li *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#revenue" (click)="branch('revenue')">Revenue</a></li>
+                    <!-- </ng-container> -->
+                    <li *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#theater" (click)="branch('theater')">Theater</a></li>
+                    <li *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li>
+                    <li *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#nurse" (click)="branch('nurse')">Nurse</a></li>
+                    <li *ngIf=" role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#lab" (click)="branch('lab')">Lab</a></li>
+                    <li  *ngIf="role=='1001' || role==5006" class="nav-item"><a class="nav-link " data-toggle="tab" href="#admin" (click)="branch('admin')">Admin</a></li>
+                    <li *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#radio" (click)="branch('radio')">Radiology</a></li>
+                </ul>
+                <div  class="tab-content mt-0">
+                  <div *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 " class="tab-pane active show" id="clinic">
+                    <table class="table table-hover table-custom spacing8">
+                        <thead>
+                            <tr> 
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Address</th>                                
+                                <!-- <th>Contact</th> -->
+                                <!-- <th>Sales Rep</th> -->
+                                <th>Created Timestamp</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let b of clinic; let r = index">
+                                <td>
+                                    {{r+1}}
+                                </td>                              
+                                <td style="color: #17C2D7;">{{b.name}}</td>     
+                                <td style="color: #17C2D7;">{{b.address}}</td>
+                                <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                                <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                                <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                      <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                                </td>                          
+                                <td>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                </td>
+                            </tr>
+                            <div *ngIf="!clinic">
+                              <div class="spinner-grow text-primary" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                      <div class="spinner-grow text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-success" role="status">
+                  <span class="sr-only">Loading...</span>
+                  </div>
+                            </div>                                                     
+                        </tbody>
+                    </table>
+                  
+            </div>
+              <div *ngIf=" role=='3003' && department=='Pharmacy' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="pharmacy">
+                      <table class="table table-hover table-custom spacing8">
                       <thead>
                           <tr> 
                               <th>#</th>
@@ -36,7 +122,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let b of bran; let r = index">
+                          <tr *ngFor="let b of pharmacy; let r = index">
                               <td>
                                   {{r+1}}
                               </td>                              
@@ -50,28 +136,413 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
                               </td>                          
                               <td>
-                                  <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button> -->
                                   <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                               </td>
                           </tr>
-                          <div *ngIf="!bran">
+                          <div *ngIf="!pharmacy">
                             <div class="spinner-grow text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     <div class="spinner-grow text-secondary" role="status">
-        <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-success" role="status">
-        <span class="sr-only">Loading...</span>
-        </div>
+                <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                <span class="sr-only">Loading...</span>
+                </div>
                           </div>                                                     
                       </tbody>
                   </table>
+            </div>
+            <div *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="radio">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of radio; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!radio">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
               </div>
-          </div>
-      </div>
-  </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+            </div>
+            <div *ngIf="  role=='3003' && department=='Record' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="record">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of record; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!record">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+            </div>
+            <div *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==5006 " class="tab-pane" id="revenue">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of revenue; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!revenue">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+             <div *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="theater">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of theater; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!theater">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+             <div *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="nurse">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of nurse; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!nurse">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+             <div *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="ward">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of ward; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!ward">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+             <div *ngIf=" role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 " class="tab-pane" id="lab">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of lab; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div *ngIf="!Lab">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+             <div *ngIf="role=='1001' || role==5006" class="tab-pane" id="admin">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>                                
+                            <!-- <th>Contact</th> -->
+                            <!-- <th>Sales Rep</th> -->
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of admin; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.address}}</td>
+                            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
+                            <!-- <td style="color: #17C2D7;">{{b.sales_rep}}</td>  -->
+                            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
+                            </td>                          
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <div  *ngIf="!admin">
+                          <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+              </div>
+                        </div>                                                     
+                    </tbody>
+                </table>
+              
+             </div>
+            </div> 
+            </div>
+        </div>
+    </div>
+</div>
 </div> 
 <!-- Default Size -->
 <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
@@ -83,7 +554,27 @@
           <span aria-hidden="true">×</span>
           </button>
       </div>
-      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+      <div class="row justify-content-center">
+                <span class="mb-2">Select department</span>
+          <div class="row col-12 justify-content-center mb-2">
+              <select name="dept"  (change)="dept($event)"  id="dep">
+                  <option  *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==5007 || role==5006 "  value="clinic">Clinic</option>
+                  <option  *ngIf="role=='3003' && department=='Pharmacy' || role=='1001' || role==5007 || role==5006 " value="pharmacy">pharmacy</option>
+                  <option  *ngIf="role=='3003' && department=='Record' || role=='1001' || role==5007 || role==5006 "  value="record">Record</option>
+                  <option  *ngIf="role=='3003' && department=='Revenue' || role=='1001' || role==5007 || role==5006"  value="revenue">Revenue</option>
+                  <option  *ngIf="role=='3003' && department=='Radiology' || role=='1001' || role==5007 || role==5006 "  value="radio">Radio</option>
+                  <option  *ngIf="role=='3003' && department=='Theater' || role=='1001' || role==5007 || role==5006 "  value="theater">Theater</option>
+                  <option  *ngIf="role=='3003' && department=='War' || role=='1001' || role==5007 || role==5006 "  value="ward">Ward</option>
+                  <option  *ngIf="role=='3003' && department=='Nurse' || role=='1001' || role==5007 || role==5006 "  value="nurse">Nurse</option>
+                  <option  *ngIf="role=='3003' && department=='Lab' || role=='1001' || role==5007 || role==5006 "  value="lab">Lab</option>
+                  <option  *ngIf=" || role=='1001' || role==5006 "  value="admin">Admin</option>
+              </select>
+          </div>
+          <div class="co-12">
+              <strong >{{dept_name}} department</strong>
+          </div>
+      </div>
+      <form  class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
       <div class="modal-body">             
           <div class="row clearfix">
               <div class="col-md-8">
@@ -102,7 +593,7 @@
             </div>             
         </div>
     </div>
-    <div class="modal-body">             
+    <!-- <div class="modal-body">             
       <div class="row clearfix">
           <div class="col-md-8">
               <div class="form-group">
@@ -110,12 +601,16 @@
               </div>
           </div>             
       </div>
-  </div>
+  </div> -->
   <div class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required>
+                <select name="sales_rep" id="" required ngModel>
+                    <option value="">Select HOD</option>
+                    <option *ngFor="let dpt of deptlists" value="{{dpt.id}}">{{dpt.firstname}}</option>
+                </select>
+                <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
             </div>
         </div>             
     </div>
@@ -135,8 +630,8 @@
           </div>
       </div>      
       <div class="modal-footer">
-          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-          <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-round btn-default" data-toggle="modal" aria-hidden="true" (click)="close()">Close</button>
       </div>
       </form>
   </div>
@@ -181,7 +676,7 @@
               </div>      
           </div>
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Update</button>
+              <button type="submit" class="btn btn-round btn-primary" class="close" data-dismiss="modal"  aria-label="Close">Update</button>
               <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
           </form>

@@ -77,6 +77,8 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { RegisterComponent } from './setup/register/register.component';
 import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
+import { ClinicAdminComponent } from './dashboard/clinic-admin/clinic-admin.component';
+import { ClinicUserComponent } from './dashboard/clinic-user/clinic-user.component';
 
 
 
@@ -143,6 +145,8 @@ const routes: Routes = [
          {path: 'Pharmacy-staff', component:PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
          {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
          {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
+         {path: 'Clinic-department_admin', component: ClinicAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
+         {path: 'Clinic-staff', component:ClinicUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
 
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 

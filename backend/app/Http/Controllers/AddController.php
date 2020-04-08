@@ -9,6 +9,7 @@ use App\Positions;
 use App\Departments;
 use App\User;
 use Image;
+use Validator;
 use App\Item_types;
 use App\Item_units;
 use App\Item_categories;
@@ -791,6 +792,129 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     }
 
     // Branch
+    public function createBranchs(Request $request){
+    //    $form = $request->form;
+    // return $form;
+       $user = Auth()->user();
+       $dept= $request->dept;
+       if ($dept=="clinic") {
+        $form = $request->form;
+        $branch = DB::table('clinic_centers')->insert([
+            'name'=>$form['bran_name'],
+            'address' => $form['address'],
+            'status' =>$form['status'],
+            'key_access'=>'Null',
+            'created_by'=>$user->id,
+            'updated_by'=>$user->id,
+            'admin_id'=>$form['sales_rep'],
+        ]);
+        if($branch){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+             }
+             if ($dept=="lab") {
+                $form = $request->form;
+                $branch = DB::table('lab_centers')->insert([
+                    'name'=>$form['bran_name'],
+                    'address' => $form['address'],
+                    'status' =>$form['status'],
+                    'admin_id' =>$form['sales_rep'],
+                    'key_access'=>'Null',
+                    'created_by'=>$user->id,
+                    'updated_by'=>$user->id,
+                ]);
+                if($branch){
+                    return '{
+                        "success":true,
+                        "message":"successful"
+                    }' ;
+                } else {
+                    return '{
+                        "success":false,
+                        "message":"Failed"
+                    }';
+                }
+             }
+
+             if ($dept=="radio") {
+                $form = $request->form;
+                $branch = DB::table('radiology_center')->insert([
+                    'name'=>$form['bran_name'],
+                    'address' => $form['address'],
+                    'status' =>$form['status'],
+                    'admin_id' =>$form['sales_rep'],
+                    'key_access'=>'Null',
+                    'created_by'=>$user->id,
+                    'updated_by'=>$user->id,
+                ]);
+                if($branch){
+                    return '{
+                        "success":true,
+                        "message":"successful"
+                    }' ;
+                } else {
+                    return '{
+                        "success":false,
+                        "message":"Failed"
+                    }';
+                }
+             }
+             if ($dept=="theater") {
+                $form = $request->form;
+                $branch = DB::table('theater_centers')->insert([
+                    'name'=>$form['bran_name'],
+                    'address' => $form['address'],
+                    'status' =>$form['status'],
+                    'admin_id' =>$form['sales_rep'],
+                    'key_access'=>'Null',
+                    'created_by'=>$user->id,
+                    'updated_by'=>$user->id,
+                ]);
+                if($branch){
+                    return '{
+                        "success":true,
+                        "message":"successful"
+                    }' ;
+                } else {
+                    return '{
+                        "success":false,
+                        "message":"Failed"
+                    }';
+                }
+             }
+             if ($dept=="record") {
+                $form = $request->form;
+                $branch = DB::table('center_record')->insert([
+                    'name'=>$form['bran_name'],
+                    'address' => $form['address'],
+                    'status' =>$form['status'],
+                    'admin_id' =>$form['sales_rep'],
+                    'key_access'=>'Null',
+                    'created_by'=>$user->id,
+                    'updated_by'=>$user->id,
+                ]);
+                if($branch){
+                    return '{
+                        "success":true,
+                        "message":"successful"
+                    }' ;
+                } else {
+                    return '{
+                        "success":false,
+                        "message":"Failed"
+                    }';
+                }
+             }
+
+       }
 
     public function createBranch(Request $request)
     {
