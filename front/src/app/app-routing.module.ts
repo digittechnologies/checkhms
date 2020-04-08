@@ -99,7 +99,7 @@ const routes: Routes = [
         //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
         //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side'},
+         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AfterLoginService]},
          {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },

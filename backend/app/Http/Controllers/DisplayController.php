@@ -542,13 +542,8 @@ class DisplayController extends Controller
                 // ->where('appointments.prescription','!=','close')
                 ->where('appointments.branch_id','=',$branchId)
                 ->where('appointments.status','!=','terminated')
-<<<<<<< HEAD
-                ->where('appointments.status','!=','close')
-                // ->where('appointments.date', '=', $cDate)
-=======
                 ->where('appointments.status','=','active')
                 ->where('appointments.date', '=', $cDate)
->>>>>>> c95ff5087ab060bff30a7ede5dcc1014b7a92292
                 ->get();
     }
 

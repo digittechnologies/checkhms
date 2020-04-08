@@ -30,6 +30,7 @@ use App\Duration;
 use App\Daily_supply;
 use App\Customer_category;
 use App\Http\Requests\PatientRequest;
+use App\Http\Requests\EpsRequest;
 
 
 class AddController extends Controller
@@ -932,6 +933,35 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }
     } 
 
+    public function addEpsCustomer(EpsRequest $request)
+    {
+        $dt = Carbon::now();
+        $request->date = $dt->toFormattedDateString();
+        $time= $dt->format('h:i:s A');
+
+        $cust_id = auth()->user()->id;
+        $request->merge(["created_by" => $cust_id]);
+        $request->merge(["updated_by" => $cust_id]);
+
+        $request->merge(["created_at" => 0]);
+        $request->merge(["updated_at" => $dt]);
+
+        $epsPatient = DB::table('eps')->insert($request->all());
+
+        if($epsPatient){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+
     public function changeCategory(Request $request)
     {
     //    return $request->all();
@@ -1144,6 +1174,26 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     {
         $value=$request->customer;
         $action=$request->action;
+
+        //EPS
+        if($action == 'eps'){
+            $search=DB::table('eps')->where('eps_name', $value)->get();
+            if (count($search) == 0) {
+                return response()->json([
+                    'count'=> count($search),
+                    'message' => "successfully", 
+                    'search'=> $search, 
+                    'show'=>"empty"
+                ]);
+            } else {
+                return response()->json([
+                    'count'=> count($search),
+                    'message' => "successfully", 
+                    'search'=> $search, 
+                    'show'=>"show"
+                ]); 
+            }
+        }
 
         if($action == 'name'){
             $value = strtoupper($value);

@@ -46,14 +46,11 @@ export class AddPatientComponent implements OnInit {
 
   //EPS (External Paramedical Services)
 
-  eps_fname: any;
-  eps_othernames: any;
+  eps_fullname: any;
   eps_email: any;
   eps_contact: any;
   eps_address: any;
-  eps_city: any;
-  eps_state: any;
-  eps_nationality: any;
+  eps_status: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -105,7 +102,7 @@ export class AddPatientComponent implements OnInit {
       this.disabled = true;
       this.Jarwis.addEpsCustomer(form.value).subscribe(
         data => this.handleResponse(data),
-        error => this.handleError(error),      
+        error => this.handleEpsError(error),      
       );
    }
 
@@ -119,7 +116,7 @@ export class AddPatientComponent implements OnInit {
      let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
        duration: 2000
      })   
-     this.router.navigateByUrl('/Admin/(side:patient)');
+     this.router.navigateByUrl('/Admin/(side:add_patient)');
      this.ngOnInit();
      
    }
@@ -153,17 +150,20 @@ export class AddPatientComponent implements OnInit {
       let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
        duration: 2000
      })
-
-       //EPS (External Paramedical Services)
-
-      this.eps_fname = this.error.fname;
-      this.eps_othernames = this.error.othername;
-      this.eps_email = this.error.email;
-      this.eps_contact = this.error.contact;
-      this.eps_address = this.error.address;
-      this.eps_city = this.error.city;
-      this.eps_state = this.error.state;
-      this.eps_nationality = this.error.nationality;
-     
    }
+
+
+  //EPS (External Paramedical Services)
+   handleEpsError(error) {
+    this.disabled = false;
+    this.error = error.error.errors;
+    this.eps_fullname = this.error.eps_fullname;
+    this.eps_contact = this.error.phone;
+    this.eps_address = this.error.eps_address;
+    this.eps_status = this.error.status;
+    let snackBarRef = this.snackBar.open("An error occured, try again later", 'Dismiss', {
+     duration: 2000
+   })
+
+ }
 }

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'http://localhost/buth_pharm/backend/public/api',
-  login: 'http://localhost/buth_pharm/backend/public/api/login',
-  signup: 'http://localhost/buth_pharm/backend/public/api/signup',
+  baseUrl : 'http://localhost/buth-pharm/backend/public/api',
+  login: 'http://localhost/buth-pharm/backend/public/api/login',
+  signup: 'http://localhost/buth-pharm/backend/public/api/signup',
 };
 
 /*
