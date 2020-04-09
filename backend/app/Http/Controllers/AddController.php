@@ -1174,10 +1174,27 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     {
         $value=$request->customer;
         $action=$request->action;
+        $category = $request->category;
 
-        //EPS
-        if($action == 'eps'){
-            $search=DB::table('eps')->where('eps_name', $value)->get();
+
+        //EPS PATIENTS
+        if($category == 'eps'){
+
+            if($action == 'name'){
+                $value = strtoupper($value);
+            }
+            switch ($action) {
+                case 'name':
+                    $action = 'eps_name';
+                    break;  
+                case 'card_number':
+                    $action = 'id';
+                    break;
+                case 'mobile_number':
+                    $action = 'phone';
+                    break;
+            }
+            $search=DB::table('eps')->where($action, $value)->get();
             if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
@@ -1185,44 +1202,54 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                     'search'=> $search, 
                     'show'=>"empty"
                 ]);
-            } else {
+            }
+            else {
+                foreach($search as $row){
+                        return response()->json([
+                            'count'=> count($search),
+                            'message' => "successfully", 
+                            'search'=> $search, 
+                            'show'=>"show",
+                            'category' => $category,
+                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                            ->join('customers','appointments.customer_id','=','customers.id')
+                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments.customer_id','=',$row->id)->get(),
+                        ]);
+                }
+            }
+        }
+
+        //REGULAR PATIENTS
+        if($category == 'regular'){
+            if($action == 'name'){
+                $value = strtoupper($value);
+            }
+            $search=DB::table('customers')->where($action, $value)->get();
+            if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
                     'message' => "successfully", 
                     'search'=> $search, 
-                    'show'=>"show"
-                ]); 
+                    'show'=>"empty"
+                ]);
+            }
+            else {
+                foreach($search as $row){
+                        return response()->json([
+                            'count'=> count($search),
+                            'message' => "successfully", 
+                            'search'=> $search, 
+                            'show'=>"show",
+                            'category' => $category,
+                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                            ->join('customers','appointments.customer_id','=','customers.id')
+                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments.customer_id','=',$row->id)->get(),
+                        ]);
+                }
             }
         }
-
-        if($action == 'name'){
-            $value = strtoupper($value);
-        }
-        $search=DB::table('customers')->where($action, $value)->get();
-        if (count($search) == 0) {
-            return response()->json([
-                'count'=> count($search),
-                'message' => "successfully", 
-                'search'=> $search, 
-                'show'=>"empty"
-            ]);
-        }
-        else {
-            foreach($search as $row){
-                    return response()->json([
-                        'count'=> count($search),
-                        'message' => "successfully", 
-                        'search'=> $search, 
-                        'show'=>"show",
-                        "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                        ->join('customers','appointments.customer_id','=','customers.id')
-                        ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                        ->where('appointments.customer_id','=',$row->id)->get(),
-                    ]);
-            }
-        }
-
-        
     
     }
 
