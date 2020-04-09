@@ -9,14 +9,14 @@ import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgo
 import { BeforeLoginService } from './service/before-login.service';
 import { AfterLoginService } from './service/after-login.service';
 
-import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guard.service';
-import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
-import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
-import { UserRoleGuardService } from './service/guards/user-role-guard.service';
+// import { DeptAdminRoleGuardService } from './service/guards/dept-admin-role-guard.service';
+// import { AdminRoleGuardService } from './service/guards/admin-role-guard.service';
+// import { StaffRoleGuardService } from './service/guards/staff-role-guard.service';
+// import { UserRoleGuardService } from './service/guards/user-role-guard.service';
+
 import { ProfileComponent } from './admin/profile/profile.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SettingsComponent } from './admin/settings/settings.component';
-import { HomeComponent } from './admin/home/home.component';
 import { StaffComponent } from './admin/staff/staff.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
 import { SetdepartmentComponent } from './admin/setdepartment/setdepartment.component';
@@ -62,24 +62,30 @@ import { ShelfComponent } from './pharmacy/shelf/shelf.component';
 import { ItemComponent } from './pharmacy/item/item.component';
 import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
 import { VoucherComponent } from './pharmacy/voucher/voucher.component';
-import {SetBranchComponent } from './branches/set-branch/set-branch.component';
+import { SetBranchComponent } from './branches/set-branch/set-branch.component';
 import { HistoryComponent } from './pharmacy/history/history.component';
-import {TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
+import { TransHistoryComponent} from './pharmacy/trans-history/trans-history.component';
 import { DurationComponent } from './pharmacy/duration/duration.component';
 import { DailySupplyComponent } from './pharmacy/daily-supply/daily-supply.component';
 import { RefillComponent } from './pharmacy/refill/refill.component';
 import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details.component';
 
-// Dashboards
-import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
-import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { RegisterComponent } from './setup/register/register.component';
-// import { RecordsComponent } from './dashboard/records/records.component';
-import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
-import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
 
+//DEPARTMENTS Dashboards
+//PHARMACY
+import { PhamAdminComponent } from './dashboard/pharmacy_dept/pham-admin/pham-admin.component';
+import { PhamUserComponent } from './dashboard/pharmacy_dept/pham-user/pham-user.component';
 
+//RECORDS
+import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
+import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
+
+//ADMINISTRATION
+import { HomeComponent } from './admin/home/home.component';
+
+//REVENUE
 
 
 const routes: Routes = [
@@ -100,14 +106,30 @@ const routes: Routes = [
         //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
         //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AfterLoginService]},
-         {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+                                                                            // DASHBOARDS
+        
+        //PHARMARCY DEPARTMENT START
+        //{path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //{path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        {path: 'Pharmacy-staff', component:PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //PHARMARCY DEPARTMENT END
+
+        //ADMINISTRATION DEPERTMENT START
+        {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AfterLoginService]},
+        {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //ADMINISTRATIPON DEPARTMENT ENDS
+
+        //RECORDS DEPARTMENT START
+        {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //RECORDS DEPARTMENTS END
+
+
          {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
-
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
-         // doctor
 
          // Patient
          {path: 'card_home', component: PatientHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -135,18 +157,8 @@ const routes: Routes = [
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         // Dashboard
-
-        //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },RegisterComponent
         
-        {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
-         {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
-        //  {path: 'Records-department_admin', component: RecordsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'Pharmacy-staff', component:PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
-         {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [DeptAdminRoleGuardService] },
-         {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [AfterLoginService], canActivateChild: [StaffRoleGuardService] },
-
+        
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff

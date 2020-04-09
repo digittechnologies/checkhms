@@ -85,8 +85,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { KeyComponent } from './setup/key/key.component';
 import { LockComponent } from './setup/lock/lock.component';
 import { RegisterComponent } from './setup/register/register.component';
-import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
-import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
+import { PhamAdminComponent } from './dashboard/pharmacy_dept/pham-admin/pham-admin.component';
+import { PhamUserComponent } from './dashboard/pharmacy_dept/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
@@ -116,8 +116,8 @@ import { RecordComponent } from './admin/navs/record/record.component';
 import { RevenueComponent } from './admin/navs/revenue/revenue.component';
 import { NurseComponent } from './admin/navs/nurse/nurse.component';
 import { WardComponent } from './admin/navs/ward/ward.component';
-import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
-import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
+import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
+import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
 
 @NgModule({
   declarations: [
@@ -257,7 +257,7 @@ import { RecordUserComponent } from './dashboard/record-user/record-user/record-
     PatDetailComponent,
   
     RecordsComponent,
-    
+
     RecordChargeComponent,
   
     ClinicServiceComponent,

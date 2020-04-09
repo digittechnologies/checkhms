@@ -48,7 +48,7 @@
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="fancy-radio custom-color-green">Email Address</label> 
-                                                                    <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="email" placeholder="Patient Email Address">
+                                                                    <input type="text" class="form-control" ngModel name="email" placeholder="Patient Email Address">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 col-md-12">
@@ -76,7 +76,7 @@
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">      
                                                                     <label class="fancy-radio custom-color-green">Residential Address</label>                                          
-                                                                    <textarea rows="2" type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="eps_address" placeholder="Patient Residential Address"></textarea>
+                                                                    <textarea rows="2" type="text" class="form-control" ngModel name="eps_address" placeholder="Patient Residential Address"></textarea>
                                                                     <div class="text-danger" [hidden]="!eps_address">
                                                                         {{eps_address}}
                                                                     </div>
@@ -84,7 +84,6 @@
                                                             </div>
                                                             <div class="col-sm-12">
                                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                                    <!-- <button type="submit" class="btn btn-outline-secondary">Cancel</button> -->
                                                                 </div>
                                                     </div>
                                                 </div>
