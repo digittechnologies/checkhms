@@ -101,7 +101,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
-import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 import { RecordsComponent } from './dashboard/records/records.component';
 import { RecordChargeComponent } from './record/record-charge/record-charge.component';
@@ -118,6 +117,22 @@ import { NurseComponent } from './admin/navs/nurse/nurse.component';
 import { WardComponent } from './admin/navs/ward/ward.component';
 import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
+
+import { ClinicAdminComponent } from './dashboard/clinic_module/clinic-admin/clinic-admin.component';
+import { ClinicUserComponent } from './dashboard/clinic_module/clinic-user/clinic-user.component';
+import { RevenueAdminComponent } from './dashboard/revenue_module/revenue-admin/revenue-admin.component';
+import { RevenueUserComponent } from './dashboard/revenue_module/revenue-user/revenue-user.component';
+import { RadioAdminComponent } from './dashboard/radiology_module/radio-admin/radio-admin.component';
+import { RadioUserComponent } from './dashboard/radiology_module/radio-user/radio-user.component';
+import { LabAdminComponent } from './dashboard/laboratory_module/lab-admin/lab-admin.component';
+import { LabUserComponent } from './dashboard/laboratory_module/lab-user/lab-user.component';
+import { TheaterAdminComponent } from './dashboard/theater_module/theater-admin/theater-admin.component';
+import { TheaterUserComponent } from './dashboard/theater_module/theater-user/theater-user.component';
+import { NurseAdminComponent } from './dashboard/nurse_module/nurse-admin/nurse-admin.component';
+import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-user.component';
+import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
+import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+import { RecordLogComponent } from './record/record-log/record-log.component';
 
 @NgModule({
   declarations: [
@@ -252,8 +267,6 @@ import { RecordUserComponent } from './dashboard/records_dept/record-user/record
   
     CustomerCategoryComponent,
   
-    DoctorAdminComponent,
-  
     PatDetailComponent,
   
     RecordsComponent,
@@ -285,6 +298,36 @@ import { RecordUserComponent } from './dashboard/records_dept/record-user/record
     RecordAdminComponent,
   
     RecordUserComponent,
+  
+    ClinicAdminComponent,
+  
+    ClinicUserComponent,
+  
+    RevenueAdminComponent,
+  
+    RevenueUserComponent,
+  
+    RadioAdminComponent,
+  
+    RadioUserComponent,
+  
+    LabAdminComponent,
+  
+    LabUserComponent,
+  
+    TheaterAdminComponent,
+  
+    TheaterUserComponent,
+  
+    NurseAdminComponent,
+  
+    NurseUserComponent,
+  
+    WardAdminComponent,
+  
+    WardUserComponent,
+  
+    RecordLogComponent,
   
   ],
   imports: [

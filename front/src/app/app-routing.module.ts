@@ -72,6 +72,24 @@ import { RefillDetailsComponent } from './pharmacy/refill-details/refill-details
 
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { RegisterComponent } from './setup/register/register.component';
+// import { RecordsComponent } from './dashboard/records/records.component';
+// import { RecordAdminComponent } from './dashboard/record-admin/record-admin/record-admin.component';
+// import { RecordUserComponent } from './dashboard/record-user/record-user/record-user.component';
+import { ClinicAdminComponent } from './dashboard/clinic_module/clinic-admin/clinic-admin.component';
+import { ClinicUserComponent } from './dashboard/clinic_module/clinic-user/clinic-user.component';
+import { RevenueAdminComponent } from './dashboard/revenue_module/revenue-admin/revenue-admin.component';
+import { RevenueUserComponent } from './dashboard/revenue_module/revenue-user/revenue-user.component';
+import { RadioAdminComponent } from './dashboard/radiology_module/radio-admin/radio-admin.component';
+import { RadioUserComponent } from './dashboard/radiology_module/radio-user/radio-user.component';
+import { LabAdminComponent } from './dashboard/laboratory_module/lab-admin/lab-admin.component';
+import { LabUserComponent } from './dashboard/laboratory_module/lab-user/lab-user.component';
+import { TheaterAdminComponent } from './dashboard/theater_module/theater-admin/theater-admin.component';
+import { TheaterUserComponent } from './dashboard/theater_module/theater-user/theater-user.component';
+import { NurseAdminComponent } from './dashboard/nurse_module/nurse-admin/nurse-admin.component';
+import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-user.component';
+import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
+import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+import { RecordLogComponent } from './record/record-log/record-log.component';
 
 //DEPARTMENTS Dashboards
 //PHARMACY
@@ -159,6 +177,35 @@ const routes: Routes = [
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
         
         
+         // Dashboard
+         //Record
+         {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+
+        //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
+        //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Pharmacy-department_admin', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Pharmacy-staff', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+        //  {path: 'Records-department_admin', component: RecordsComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'Pharmacy-staff', component:PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Clinic-department_admin', component: ClinicAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Clinic-staff', component:ClinicUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Revenue-department_admin', component: RevenueAdminComponent, outlet: 'side',canActivate: [AfterLoginService], },
+         {path: 'Revenue-staff', component:RevenueUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Radiology-department_admin', component: RadioAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Radiology-staff', component:RadioUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Laboratory-department_admin', component: LabAdminComponent, outlet: 'side',canActivate: [AfterLoginService], },
+         {path: 'Laboratory-staff', component:LabUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Theater-department_admin', component: TheaterAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Theater-staff', component:TheaterUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Nurse-department_admin', component:NurseAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Nurse-staff', component:NurseUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Ward-department_admin', component:WardAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Ward-staff', component:WardUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Clinic-department_admin', component: ClinicAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+         {path: 'Clinic-staff', component:ClinicUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
+
          {path: 'admin-profile', component: AdminProfileComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
          // Staff
