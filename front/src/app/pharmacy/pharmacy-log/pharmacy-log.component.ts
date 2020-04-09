@@ -227,14 +227,14 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
     this.spin="disable";
     this.disabled = true;
-    if(!this.form.customer){
-      alert('Invalid input')
-      this.disabled = false;
+    console.log(this.form.customer)
+    if(this.form.customer == null){ 
+      alert('Serch Box Empty')
     }else{
-      this.Jarwis.makeAppointment(this.form).subscribe(
-        data => this.handleRespons(data),
-          error => this.handleErro(error)
-     );
+          this.Jarwis.makeAppointment(this.form).subscribe(
+            data => this.handleRespons(data),
+              error => this.handleErro(error)
+         );
     }
   }  
   handleRespons(data) {

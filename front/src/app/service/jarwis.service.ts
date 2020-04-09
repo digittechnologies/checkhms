@@ -143,6 +143,9 @@ export class JarwisService {
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }
+  displayBranchs(data) {
+    return this.http.get(`${this.baseUrl}/displaybranchs`,data,)
+  }
   displaysetBranch() {
     return this.http.get(`${this.baseUrl}/displaysetBranch`,)
   }
@@ -419,6 +422,17 @@ export class JarwisService {
     Authorization:`Bearer ${localStorage.token}`
   }})
   }
+  createBranchs(data) {
+    return this.http.post(`${this.baseUrl}/addBranchs`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+    }
+    deptList(data) {
+      return this.http.post(`${this.baseUrl}/deptlist`, data,{headers:{
+        Authorization:`Bearer ${localStorage.token}`
+      }})
+      }
+     
 // updateCategories(data) {
 //   return this.http.post(`${this.baseUrl}/updateCategories`, data)
 // }
@@ -455,6 +469,7 @@ patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
+  console.log(data)
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})

@@ -413,13 +413,26 @@ class DisplayController extends Controller
     // Branch
 
     public function displaysetBranch()
-    {
-        return Branches::all();
+    { 
+        return response()->json([
+        'pharm'=>DB::table('branches')->where('status', '=', 'active')->select('branches.*')->get(),  
+        'radio'=>DB::table('radiology_center')->where('status', '=', 'active')->select('radiology_center.*')->get(),
+        'record'=>DB::table('center_record')->where('status', '=', 'active')->select('center_record.*')->get(),
+        'clinic'=>DB::table('clinic_centers')->where('status', '=', 'active')->select('clinic_centers.*')->get(),
+        'theater'=>DB::table('theater_centers')->where('status', '=', 'active')->select('theater_centers.*')->get(), 
+    ]);
+        
+        // return Branches::all();
+        
     }
 
     public function displayBranch()
     {
         return Branches::where('status', '=', 'active')->orderBy('id')->get();
+    }
+    public function displayBranchs(Request $request)
+    {
+       return response()->json($request->dept);
     }
 
     public function edtBranch($id)
@@ -1493,6 +1506,39 @@ class DisplayController extends Controller
     public function displayCustomerCategory()
     {
         return DB::table("customer_category")->get(); 
+    }
+    public function deptList(Request $request){
+              $dept = $request->dept;
+            //   return response()->json($request->dept) ;
+              $list;
+              if ($dept=="pharmacy") {
+                  $list = DB::table('users')->where('dept_id',1)->get();
+              }
+              if ($dept=="clinic") {
+                $list = DB::table('users')->where('dept_id',2)->get();
+            }
+            if ($dept=="revenue") {
+                $list = DB::table('users')->where('dept_id',11)->get();
+            }
+            if ($dept=="radio") {
+                $list = DB::table('users')->where('dept_id',12)->get();
+            }
+            if ($dept=="lab") {
+                $list = DB::table('users')->where('dept_id',15)->get();
+            }
+            if ($dept=="record") {
+                $list = DB::table('users')->where('dept_id',16)->get();
+            }
+            if ($dept=="theater") {
+                $list = DB::table('users')->where('dept_id',17)->get();
+            }
+            if ($dept=="ward") {
+                $list = DB::table('users')->where('dept_id',19)->get();
+            }
+            if ($dept=="nurse") {
+                $list = DB::table('users')->where('dept_id',18)->get();
+            }
+              return $list;
     }
     // public function search($searchTerm)
     // {
