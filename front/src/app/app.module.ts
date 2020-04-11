@@ -132,6 +132,9 @@ import { NurseUserComponent } from './dashboard/nurse-user/nurse-user.component'
 import { WardAdminComponent } from './dashboard/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
 import { RecordLogComponent } from './record/record-log/record-log.component';
+import { ReportComponent } from './record/report/report.component';
+import { RecordHistoryComponent } from './record/record-history/record-history.component';
+import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 
 @NgModule({
   declarations: [
@@ -327,6 +330,12 @@ import { RecordLogComponent } from './record/record-log/record-log.component';
     WardUserComponent,
   
     RecordLogComponent,
+  
+    ReportComponent,
+  
+    RecordHistoryComponent,
+  
+    RevenueLogComponent,
   
   ],
   imports: [

@@ -701,13 +701,13 @@
                     <ul> -->
                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
+                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
                         <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]"><i class="fa fa-refresh"></i><span>Refills</span></a></li>                                         -->
                         <!-- <li class="header">Inventory</li> -->
                         <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['items']}}]"><i class="fa fa-table"></i><span>All Items</span></a></li>                                         -->
                         <li class="header">Audit Trail</li>
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
                     <!-- </ul>
                 </li> -->
                 <li>
@@ -772,21 +772,21 @@
                             <!-- <li class="header">Inventory</li> -->
                             <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['items']}}]"><i class="fa fa-table"></i><span>All Items</span></a></li>                                         -->
                             <li class="header">Audit Trail</li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
                         <!-- </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <a class="has-arrow"><i class="fa fa-wrench"></i><span>Configurations</span></a>
                         <ul>
                             <li class="header">Item Settings</li>                                 
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_category']}}]">Class</a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_category']}record_history}]">Class</a></li>
                             <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['unit']}}]">Unit</a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['item_type']}}]">Type</a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['manufacturer']}}]">Brand</a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>                              
                         </ul>
-                    </li>                   
+                    </li>                    -->
                     <li>
 
                         <a class="has-arrow"><i class="icon-settings"></i><span>Settings</span></a>
@@ -832,16 +832,16 @@
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['add_patient']}}]"><i class="icon-user"></i><span>Add Patient</span></a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
                             <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]"><i class="fa fa-refresh"></i><span>Refills</span></a></li>                                         -->
                             <!-- <li class="header">Inventory</li> -->
                             <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['items']}}]"><i class="fa fa-table"></i><span>All Items</span></a></li>                                         -->
                             <li class="header">Audit Trail</li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
                         <!-- </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <a class="has-arrow"><i class="fa fa-wrench"></i><span>Configurations</span></a>
                         <ul>
                             <li class="header">Item Settings</li>                                 
@@ -851,7 +851,7 @@
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['manufacturer']}}]">Brand</a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['shelves']}}]">Shelf</a></li>                              
                         </ul>
-                    </li>                   
+                    </li>                    -->
                     <li>
 
                         <a class="has-arrow"><i class="icon-settings"></i><span>Settings</span></a>
@@ -863,8 +863,8 @@
                             <!-- <li><a [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]"><i class="icon-grid"></i><span>Set Departments</span></a></li>  -->
                             <li><a [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><span>Our Centers</span></a></li>                                
                             <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]"><span>Set Prescription Qty</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]"><span>Set Daily Supply</span></a></li>       
+                            <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]"><span>Set Prescription Qty</span></a></li> -->
+                            <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]"><span>Set Daily Supply</span></a></li>        -->
                             <!-- <li><a><i class="icon-settings"></i><span>General Settings</span></a></li> -->
                         </ul>
                     </li>                    
@@ -885,6 +885,7 @@
                     <li class="header">Admin</li>
                     <li class="active has-arrow"><a [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>                        
                     <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>Staff</span></a></li>    
+                    <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]"><i class="fa fa-sitemap"></i><span>Appointment</span></a></li>      
                     <li class="header">Module</li>
                     <!-- <li>
                         <a href="#Doctors" class="has-arrow"><i class="icon-user-follow"></i><span>Pharmacy</span></a>
@@ -892,14 +893,13 @@
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['add_patient']}}]"><i class="icon-user"></i><span>Add Patient</span></a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
                             <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['appointment']}}]"><i class="fa fa-sitemap"></i><span>Appointment</span></a></li>      
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['log']}}]"><i class="icon-user-follow"></i><span>Record Log</span></a></li>                             
                             <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]"><i class="fa fa-refresh"></i><span>Refills</span></a></li>                                         -->
                             <!-- <li class="header">Inventory</li> -->
                             <!-- <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['items']}}]"><i class="fa fa-table"></i><span>All Items</span></a></li>                                         -->
                             <li class="header">Audit Trail</li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
                         <!-- </ul>
                     </li> -->                                
                 </ul>

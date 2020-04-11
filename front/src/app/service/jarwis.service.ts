@@ -524,6 +524,9 @@ addCustCategories(data) {
 displayAllappointment() {
   return this.http.get(`${this.baseUrl}/displayAllappointment`,)
 }
+getdept() {
+  return this.http.get(`${this.baseUrl}/getdept`,)
+}
 
 displayDeptAppointment() {
   return this.http.get(`${this.baseUrl}/displayDeptAppointment`,{headers:{

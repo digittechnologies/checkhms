@@ -93,6 +93,10 @@ import { NurseUserComponent } from './dashboard/nurse-user/nurse-user.component'
 import { WardAdminComponent } from './dashboard/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward-user/ward-user.component';
 import { RecordLogComponent } from './record/record-log/record-log.component';
+import { ReportComponent } from './record/report/report.component';
+import { RecordHistoryComponent } from './record/record-history/record-history.component';
+import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+
 
 
 
@@ -150,9 +154,14 @@ const routes: Routes = [
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         // Dashboard
          //Record
          {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'record_report', component:ReportComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         
+           //REvenue
+         {path: 'revenue_log', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         // Dashboard
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },
