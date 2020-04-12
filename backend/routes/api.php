@@ -73,7 +73,7 @@ Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
 Route::get('displaysetBranch','DisplayController@displaysetBranch');
-Route::get('getdept','DisplayController@getdept');
+Route::get('getDepertment','DisplayController@getDepertment');
 Route::post('addBranch', 'AddController@createBranch');
 Route::post('addBranchs', 'AddController@createBranchs');
 Route::post('updateBranch', 'AddController@updateBranch');

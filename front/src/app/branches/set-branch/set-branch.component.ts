@@ -54,31 +54,32 @@ export class SetBranchComponent implements OnInit {
       this.res = data;  
       this.role= this.res.det[0].role_id;
       this.department=this.res.det[0].nameD;
-    })
-    this.Jarwis.getdept().subscribe(
+    });
+
+    this.Jarwis.getDepertment().subscribe(
       data=>{ 
-        this.depts=data;
-        this.depts.map(d=>{
-          if (d.name=="Clinic" || d.name=="Radiology" || d.name=="Laboratory" || d.name=="Theater " || d.name=="Nurse " || d.name=="Ward") {
-            this.clinic_dept.push(d);
-          }
-          else if (d.name=="Revenue" || d.name=="Records" || d.name=="Pharmacy") {
-            this.oppration_dept.push(d);
-          }
-        })
-        console.log(this.clinic_dept)
-        console.log(this.oppration_dept)
+    //     this.depts=data;
+    //     this.depts.map(d=>{
+    //       if (d.name=="Clinic" || d.name=="Radiology" || d.name=="Laboratory" || d.name=="Theater " || d.name=="Nurse " || d.name=="Ward") {
+    //         this.clinic_dept.push(d);
+    //       }
+    //       else if (d.name=="Revenue" || d.name=="Records" || d.name=="Pharmacy") {
+    //         this.oppration_dept.push(d);
+    //       }
+    //     })
+    //     console.log(this.clinic_dept)
+    //     console.log(this.oppration_dept)
         
-    setTimeout(() => {
-      let de = this.department
-      let index = this.depts.filter(function(card) {
-        return card.name == de;
-        //  console.log(this.department)
-      })
-      this.center_dept=index;
-    },5000);
+    // setTimeout(() => {
+    //   let de = this.department
+    //   let index = this.depts.filter(function(card) {
+    //     return card.name == de;
+    //     //  console.log(this.department)
+    //   })
+    //   this.center_dept=index;
+    // },5000);
         
-      }
+       }
     )
     this.Jarwis.displaysetBranch().subscribe(
       data=>{

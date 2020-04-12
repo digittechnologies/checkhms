@@ -1525,7 +1525,7 @@ class DisplayController extends Controller
     {
         return DB::table("customer_category")->get(); 
     }
-     public function getdept(){
+     public function getDepertment(){
          return DB::table("departments")->orderBy('id')->get();
      }
     public function deptList(Request $request){
