@@ -227,10 +227,10 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
     this.spin="disable";
     this.disabled = true;
-    console.log(this.form.customer)
     if(this.form.customer == null){ 
       alert('Serch Box Empty')
     }else{
+      console.log(this.form.customer)
           this.Jarwis.makeAppointment(this.form).subscribe(
             data => this.handleRespons(data),
               error => this.handleErro(error)

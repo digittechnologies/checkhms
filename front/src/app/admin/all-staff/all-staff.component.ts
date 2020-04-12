@@ -77,7 +77,9 @@ export class AllStaffComponent implements OnInit {
   }
   onChange1(b){
     this.givenDept = b.target.value;
+    console.info(this.givenDept);
     this.ngOnInit() 
+  
   }
   
   onSelectRole(r){
