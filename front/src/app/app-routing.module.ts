@@ -116,6 +116,15 @@ import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-us
 //WARD
 import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+import { ReportComponent } from './record/report/report.component';
+import { RecordHistoryComponent } from './record/record-history/record-history.component';
+import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+
+
+//DEPARTMENTS Dashboards
+
+//REVENUE
+
 
 const routes: Routes = [
   // {path: 'home', component: HomeComponent },
@@ -223,11 +232,17 @@ const routes: Routes = [
          {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },
-        
+         {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [AfterLoginService] },        
         
          // Dashboard
+
          //Record
+         {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'record_report', component:ReportComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         
+           //REvenue
+         {path: 'revenue_log', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },

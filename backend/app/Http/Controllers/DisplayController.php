@@ -415,11 +415,17 @@ class DisplayController extends Controller
     public function displaysetBranch()
     { 
         return response()->json([
-        'pharm'=>DB::table('branches')->where('status', '=', 'active')->select('branches.*')->get(),  
-        'radio'=>DB::table('radiology_center')->where('status', '=', 'active')->select('radiology_center.*')->get(),
-        'record'=>DB::table('center_record')->where('status', '=', 'active')->select('center_record.*')->get(),
-        'clinic'=>DB::table('clinic_centers')->where('status', '=', 'active')->select('clinic_centers.*')->get(),
-        'theater'=>DB::table('theater_centers')->where('status', '=', 'active')->select('theater_centers.*')->get(), 
+        'pharm'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',1)->select('branches.*')->get(),  
+        'clinic'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',2)->select('branches.*')->get(),
+        'admin'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',10)->select('branches.*')->get(),
+        'revenue'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',11)->select('branches.*')->get(),
+        'radio'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',12)->select('branches.*')->get(),
+        'lab'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',15)->select('branches.*')->get(),
+        'record'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',16)->select('branches.*')->get(),
+        'theater'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',17)->select('branches.*')->get(), 
+        'nurse'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',18)->select('branches.*')->get(), 
+        'ward'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',19)->select('branches.*')->get(),
+        'patient'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',20)->select('branches.*')->get()
     ]);
         
         // return Branches::all();
@@ -542,9 +548,9 @@ class DisplayController extends Controller
     }
     public function displayDeptAppointment()
     {
-        $dt = Carbon::now();
-        $cDate = $dt->toFormattedDateString();
-        $cTime = $dt->format('h:i:s A');
+        // $dt = Carbon::now();
+        // $cDate = $dt->toFormattedDateString();
+        // $cTime = $dt->format('h:i:s A');
 
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
@@ -554,9 +560,21 @@ class DisplayController extends Controller
                 ->where('appointments.department_id','=',$deptId)
                 // ->where('appointments.prescription','!=','close')
                 ->where('appointments.branch_id','=',$branchId)
+                // ->where('appointments.status','!=','terminated')
+                ->where('appointments.status','=','active')
+                // ->where('appointments.date', '=', $cDate)
+                ->get();
+    }
+    public function displayRevenueAppointment()
+    {
+        // $deptId= Auth()->user()->dept_id;
+        // $branchId= Auth()->user()->branch_id;
+        return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
                 ->where('appointments.status','!=','terminated')
                 ->where('appointments.status','=','active')
-                ->where('appointments.date', '=', $cDate)
+                // ->where('appointments.date', '=', $cDate)
                 ->get();
     }
 
@@ -583,7 +601,7 @@ class DisplayController extends Controller
         return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
-                ->where('appointments.id','=',$id)               
+                // ->where('appointments.id','=',$id)               
                 ->get();
     }
 
@@ -1507,39 +1525,15 @@ class DisplayController extends Controller
     {
         return DB::table("customer_category")->get(); 
     }
+     public function getdept(){
+         return DB::table("departments")->orderBy('id')->get();
+     }
     public function deptList(Request $request){
+        // return $request->all();
               $dept = $request->dept;
             //   return response()->json($request->dept) ;
-              $list;
-              if ($dept=="pharmacy") {
-                  $list = DB::table('users')->where('dept_id',1)->get();
-              }
-              if ($dept=="clinic") {
-                $list = DB::table('users')->where('dept_id',2)->get();
-            }
-            if ($dept=="revenue") {
-                $list = DB::table('users')->where('dept_id',11)->get();
-            }
-            if ($dept=="radio") {
-                $list = DB::table('users')->where('dept_id',12)->get();
-            }
-            if ($dept=="lab") {
-                $list = DB::table('users')->where('dept_id',15)->get();
-            }
-            if ($dept=="record") {
-                $list = DB::table('users')->where('dept_id',16)->get();
-            }
-            if ($dept=="theater") {
-                $list = DB::table('users')->where('dept_id',17)->get();
-            }
-            if ($dept=="ward") {
-                $list = DB::table('users')->where('dept_id',19)->get();
-            }
-            if ($dept=="nurse") {
-                $list = DB::table('users')->where('dept_id',18)->get();
-            }
-              return $list;
-    }
+              return $list =  DB::table('users')->where('dept_id', $dept)->get();;
+          }
     // public function search($searchTerm)
     // {
     //     return response()->json(

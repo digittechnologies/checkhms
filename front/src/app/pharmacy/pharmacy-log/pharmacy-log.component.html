@@ -3,12 +3,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Phamarcy Log</h1>
+                    <h1>Patient Log</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]">Refill</a></li>                        
-                        <li class="breadcrumb-item active" aria-current="page">Phamarcy Log</li>
+                        <li *ngIf="dept=='Phamarcy'" class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]">Refill</a></li>                        
+                        <li class="breadcrumb-item active" aria-current="page">Patient Log</li>
                         </ol>
                     </nav>
                 </div>            
@@ -16,7 +16,7 @@
                     <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a> -->
                     <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
-                <div class="col-12">
+                <div *ngIf="dept=='Phamarcy'" class="col-12">
                     <input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
                 </div>
             </div>
@@ -25,13 +25,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
-                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onClickSubmit()" #filter="ngForm" >
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
+                                    <input type="text" class="form-control" placeholder="Search..." (keyup)="filt()" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
                                     <!-- name="customer2" -->
+                                     <!-- <span class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
                                     <mat-autocomplete #auto="matAutocomplete" >
                                         <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
@@ -42,7 +43,7 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
 
                             </div>
                         </div>
@@ -110,11 +111,11 @@
                 </div>
                 </div>
         <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
                     <div class="card-header text-center">
                         <h5 class="text-primary">No log entries yet</h5>
                     </div>
-                </div>
+                </div> -->
 
             <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
@@ -130,9 +131,9 @@
                         <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
                         <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></li>
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></li>
-                            <li><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></li>
+                            <li > <button class="btn bnt-default" [hidden]="dept!='Phamarcy'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
+                            <li><button class="btn bnt-default" [hidden]="dept!='Phamarcy'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]="dept!='Phamarcy'"><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
                         </ul>
                         <hr>Status<hr>
                         <div class="d-flex justify-content-between">
