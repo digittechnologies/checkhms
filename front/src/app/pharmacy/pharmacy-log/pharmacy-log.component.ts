@@ -45,7 +45,7 @@ export class PharmacyLogComponent implements OnInit {
   endAppoit_vouccher;
   res:any;
   role:any
-  dept;
+  dept:any;
   filres:any;
   constructor(
     private Jarwis: JarwisService,
@@ -61,7 +61,7 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
         this.res = data;
         this.role= this.res.det[0].role_id
-        this.dept = this.res.det[0].nameD
+        this.dept = this.res.det[0].dept_id;
         console.log(this.res)
     })
     this.Jarwis. generalSettings().subscribe(
@@ -107,7 +107,7 @@ export class PharmacyLogComponent implements OnInit {
   filt(){
     // console.log(this.form.customer)
     let f =this.form.customer
-    this.log=this.logs="";
+    // this.log=this.logs="";
     var index = this.log.filter(function(card) {
       return card.customer_id == f;
     });

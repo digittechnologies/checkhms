@@ -224,7 +224,7 @@ const routes: Routes = [
          {path: 'items', component: AllItemsComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'shelves', component: ShelfComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'item_profile/:id', component: ItemComponent, outlet: 'side',canActivate: [AfterLoginService] },
-         {path: 'pharmacy_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'patient_log', component: PharmacyLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'pharmacy_home', component: PharmHomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'voucher/:id', component: VoucherComponent, outlet: 'side',canActivate: [AfterLoginService] },
          {path: 'history', component: HistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
