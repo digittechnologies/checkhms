@@ -965,6 +965,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $branch= Branches::create($request-> all());
     }
     else{
+        $request->merge(['name' => $req_name]);
         $branch= Branches::create($request-> all());
     }
         if($branch){

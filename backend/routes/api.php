@@ -69,6 +69,7 @@ Route::post('updateItemDetails', 'AddController@updateItemDetails');
 Route::post('deleteItemDetails', 'AddController@deleteItemDetails');
 Route::get('disItemDet','DisplayController@disItemDet');
 //Branch
+Route::get('displayStaffBranch/{id}','DisplayController@displayStaffBranch');
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');

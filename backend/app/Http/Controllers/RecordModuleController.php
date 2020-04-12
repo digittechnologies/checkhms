@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Hospital_charges;
 use App\Center_record;
+use App\Branches;
+use App\Appointment_type;
 
 class RecordModuleController extends Controller
 {
@@ -59,14 +61,16 @@ class RecordModuleController extends Controller
     {
         $id= auth('api')->user()->branch_id;
         
-        return $id;
-        return response()->json(           
-           
-            Center_record::orderBy('id')
-            ->select('center_record.*')     
+        return response()->json([          
+           'branch'=> Branches::orderBy('id')
+            ->select('branches.*')     
             ->where('id','=',$id)          
-            ->get() 
-        );
+            ->get(),
+
+            'appointment_type'=> Appointment_type::orderBy('id')
+            ->select('appointment_type.*')     
+            ->get()
+         ]);
     }
 
     public function updateCharge(Request $request)

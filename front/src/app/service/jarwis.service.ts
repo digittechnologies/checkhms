@@ -136,10 +136,10 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/deleteType`, data)
   }
 
-
-
-
   // Branch
+  displayStaffBranch(id: any) {
+    return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
+  }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }

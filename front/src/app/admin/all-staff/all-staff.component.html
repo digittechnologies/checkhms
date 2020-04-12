@@ -247,7 +247,7 @@
                                 </div> 
                                 <select class="custom-select" ngModel name="branch_id"> 
                                     <option value="">Select Center...</option>   
-                                    <ng-container *ngFor="let b of branch">
+                                    <ng-container *ngFor="let b of sbranch">
                                         <ng-container *ngIf="roleID != '4004' || profile.dept_id == '10'">                                     
                                             <option value="{{b.id}}" [value]="b.id">{{b.name}}</option>  
                                         </ng-container>

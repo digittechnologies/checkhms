@@ -409,114 +409,78 @@
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label class="fancy-radio custom-color-green">Residential Address</label>  
-                                                    <input type="text" class="form-control" placeholder="Phone Number">
+                                                    <label class="fancy-radio custom-color-green">Record Center</label>  
+                                                    <input type="text" disabled class="form-control" value="{{center.name}}" >
                                                 </div>
                                                 <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Appointment Type</label>  
                                                     <select class="form-control">
                                                         <option>--TimeZone--</option>
                                                         <optgroup label="Africa">
                                                             <option value="Africa/Abidjan">Abidjan</option>
                                                             <option value="Africa/Accra">Accra</option>
                                                             <option value="Africa/Addis_Ababa">Addis Ababa</option>
-                                                        <option value="Africa/Tripoli">Tripoli</option>
+                                                            <option value="Africa/Tripoli">Tripoli</option>
                                                             <option value="Africa/Tunis">Tunis</option>
                                                             <option value="Africa/Windhoek">Windhoek</option>
-                                                        </optgroup>
-                                                        <optgroup label="America">
-                                                            <option value="America/Adak">Adak</option>
-                                                         <option value="America/Argentina/Mendoza">Argentina - Mendoza</option>
-                                                            <option value="America/Argentina/Rio_Gallegos">Argentina - Rio Gallegos</option>
-                                                           
-                                                        </optgroup>
-                                                        <optgroup label="Antarctica">
-                                                            <option value="Antarctica/Casey">Casey</option>
-                                                            <option value="Antarctica/Davis">Davis</option>
-                                                            <option value="Antarctica/DumontDUrville">DumontDUrville</option>
-                                                         
-                                                        </optgroup>
-                                                        <optgroup label="Arctic">
-                                                            <option value="Arctic/Longyearbyen">Longyearbyen</option>
-                                                        </optgroup>
-                                                        <optgroup label="Asia">
-                                                            <option value="Asia/Aden">Aden</option>
-                                                            <option value="Asia/Almaty">Almaty</option>
-                                                            <option value="Asia/Amman">Amman</option>
-                                                            <option value="Asia/Anadyr">Anadyr</option>
-                                                           
-                                                        </optgroup>
-                                                        <optgroup label="Atlantic">
-                                                            <option value="Atlantic/Azores">Azores</option>
-                                                            <option value="Atlantic/Bermuda">Bermuda</option>
-                                                            <option value="Atlantic/Canary">Canary</option>
-                                                          
-                                                        </optgroup>
-                                                        <optgroup label="Australia">
-                                                            <option value="Australia/Adelaide">Adelaide</option>
-                                                            <option value="Australia/Brisbane">Brisbane</option>
-                                                            <option value="Australia/Broken_Hill">Broken Hill</option>
-                                                         
-                                                        </optgroup>
-                                                        <optgroup label="Europe">
-                                                            <option value="Europe/Amsterdam">Amsterdam</option>
-                                                            <option value="Europe/Andorra">Andorra</option>
-                                                            <option value="Europe/Athens">Athens</option>
-                                                    
-                                                        </optgroup>
-                                                        <optgroup label="Indian">
-                                                            <option value="Indian/Antananarivo">Antananarivo</option>
-                                                            <option value="Indian/Chagos">Chagos</option>
-                                                            <option value="Indian/Christmas">Christmas</option>
-                                                         
-                                                        </optgroup>
-                                                        <optgroup label="Pacific">
-                                                            <option value="Pacific/Apia">Apia</option>
-                                                            <option value="Pacific/Auckland">Auckland</option>
-                                                            <option value="Pacific/Chatham">Chatham</option>
-                                                            
-                                                        </optgroup>
-                                                        <optgroup label="UTC">
-                                                            <option value="UTC">UTC</option>
-                                                        </optgroup>
-                                                        <optgroup label="Manual Offsets">
-                                                            <option value="UTC-12">UTC-12</option>
-                                                      
-                                                        </optgroup>
+                                                        </optgroup>                                                        
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Date Format</label>
-                                                    <div class="fancy-radio">
-                                                        <label><input name="dateFormat" value="" type="radio"><span><i></i>May 18, 2018</span></label>&nbsp;&nbsp;
-                                                        <label><input name="dateFormat" value="" type="radio"><span><i></i>2018, May, 18</span></label>&nbsp;&nbsp;
-                                                        <label><input name="dateFormat" value="" type="radio" checked><span><i></i>2018-03-10</span></label>&nbsp;&nbsp;
-                                                        <label><input name="dateFormat" value="" type="radio"><span><i></i>02/09/2018</span></label>&nbsp;&nbsp;
-                                                        <label><input name="dateFormat" value="" type="radio"><span><i></i>10/05/2018</span></label>
-                                                    </div>
+                                                    <label class="fancy-radio custom-color-green">Center</label>  
+                                                    <select class="form-control">
+                                                        <option>--TimeZone--</option>
+                                                        <optgroup label="Africa">
+                                                            <option value="Africa/Abidjan">Abidjan</option>
+                                                            <option value="Africa/Accra">Accra</option>
+                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
+                                                            <option value="Africa/Tripoli">Tripoli</option>
+                                                            <option value="Africa/Tunis">Tunis</option>
+                                                            <option value="Africa/Windhoek">Windhoek</option>
+                                                        </optgroup>                                                        
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
-                                                <h6>Email from Lucid</h6>
-                                                <p>I'd like to receive the following emails:</p>
+                                                <h6>Special Consult</h6>
+                                                <p>I'd like to see special doctor:</p>
                                                 <ul class="list-unstyled list-email-received">
                                                     <li>
                                                         <label class="fancy-checkbox">
                                                             <input type="checkbox" checked><span>Weekly account summary</span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="fancy-checkbox">
-                                                            <input type="checkbox"><span>Campaign reports</span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="fancy-checkbox">
-                                                            <input type="checkbox" checked><span>Promotional news such as offers or discounts</span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="fancy-checkbox">
-                                                            <input type="checkbox" checked><span>Tips for campaign setup, growth and client success stories</span></label>
-                                                    </li>
+                                                    </li>                                                    
                                                 </ul>
-                                            </div>
+
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Doctor</label>  
+                                                    <select class="form-control">
+                                                        <option>--TimeZone--</option>
+                                                        <optgroup label="Africa">
+                                                            <option value="Africa/Abidjan">Abidjan</option>
+                                                            <option value="Africa/Accra">Accra</option>
+                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
+                                                            <option value="Africa/Tripoli">Tripoli</option>
+                                                            <option value="Africa/Tunis">Tunis</option>
+                                                            <option value="Africa/Windhoek">Windhoek</option>
+                                                        </optgroup>                                                        
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Charges</label>  
+                                                    <select class="form-control">
+                                                        <option>--TimeZone--</option>
+                                                        <optgroup label="Africa">
+                                                            <option value="Africa/Abidjan">Abidjan</option>
+                                                            <option value="Africa/Accra">Accra</option>
+                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
+                                                            <option value="Africa/Tripoli">Tripoli</option>
+                                                            <option value="Africa/Tunis">Tunis</option>
+                                                            <option value="Africa/Windhoek">Windhoek</option>
+                                                        </optgroup>                                                        
+                                                    </select>
+                                                </div>
+                                            </div>                                           
                                         </div>
                                         <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
                                         <button class="btn btn-default">Cancel</button>

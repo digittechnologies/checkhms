@@ -87,7 +87,7 @@
                                                 </div>
                                               </div>
                                               <span  *ngIf = "givenRole > 2003">
-                                              <div class="modal-body" *ngIf= "givenDept == '1' || givenDept == '11'">             
+                                              <div class="modal-body" *ngIf= "givenDept == '1' || givenDept == '11' || givenDept == '16'">             
                                                 <div class="row clearfix">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
@@ -97,7 +97,7 @@
                                                                 </div> 
                                                                 <select class="custom-select" ngModel name="branch_id"> 
                                                                     <option value="">Select Branch...</option>   
-                                                                    <ng-container *ngFor="let b of branch">
+                                                                    <ng-container *ngFor="let b of sbranch">
                                                                         <ng-container *ngIf="roleID != '4004' || profile.dept_id == '10'">                                     
                                                                             <option value="{{b.id}}" [value]="b.id">{{b.name}}</option>  
                                                                         </ng-container>

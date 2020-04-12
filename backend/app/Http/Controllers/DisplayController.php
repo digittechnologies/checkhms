@@ -434,8 +434,14 @@ class DisplayController extends Controller
 
     public function displayBranch()
     {
-        return Branches::where('status', '=', 'active')->orderBy('id')->get();
+        return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', '1')->orderBy('id')->get();
     }
+
+    public function displayStaffBranch($id)
+    {
+        return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
+    }
+
     public function displayBranchs(Request $request)
     {
        return response()->json($request->dept);
@@ -1529,7 +1535,6 @@ class DisplayController extends Controller
          return DB::table("departments")->orderBy('id')->get();
      }
     public function deptList(Request $request){
-        // return $request->all();
               $dept = $request->dept;
             //   return response()->json($request->dept) ;
               return $list =  DB::table('users')->where('dept_id', $dept)->get();;

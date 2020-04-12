@@ -129,10 +129,8 @@ export class PatientComponent implements OnInit {
 
     this.JarwisRecord.displayUser().subscribe(
       data=>{
-      console.log(data);   
       this.responseRec = data;
-      this.center = this.responseRec   
-   
+      this.center = this.responseRec[0];  
     })
   }
 
