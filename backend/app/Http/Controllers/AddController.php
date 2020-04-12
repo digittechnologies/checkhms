@@ -793,133 +793,135 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
     }
 
     // Branch
-    public function createBranchs(Request $request){
-    //    $form = $request->form;
-    // return $form;
-       $user = Auth()->user();
-       $dept= $request->dept;
-       if ($dept=="clinic") {
-        $form = $request->form;
-        $branch = DB::table('clinic_centers')->insert([
-            'name'=>$form['bran_name'],
-            'address' => $form['address'],
-            'status' =>$form['status'],
-            'key_access'=>'Null',
-            'created_by'=>$user->id,
-            'updated_by'=>$user->id,
-            'admin_id'=>$form['sales_rep'],
-        ]);
-        if($branch){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
-             }
-             if ($dept=="lab") {
-                $form = $request->form;
-                $branch = DB::table('lab_centers')->insert([
-                    'name'=>$form['bran_name'],
-                    'address' => $form['address'],
-                    'status' =>$form['status'],
-                    'admin_id' =>$form['sales_rep'],
-                    'key_access'=>'Null',
-                    'created_by'=>$user->id,
-                    'updated_by'=>$user->id,
-                ]);
-                if($branch){
-                    return '{
-                        "success":true,
-                        "message":"successful"
-                    }' ;
-                } else {
-                    return '{
-                        "success":false,
-                        "message":"Failed"
-                    }';
-                }
-             }
+    // public function createBranchs(Request $request){
+    //    $user = Auth()->user();
+    //    $dept= $request->dept;
+    //    if ($dept=="clinic") {
+    //     $form = $request->form;
+    //     $branch = DB::table('clinic_centers')->insert([
+    //         'name'=>$form['bran_name'],
+    //         'address' => $form['address'],
+    //         'status' =>$form['status'],
+    //         'key_access'=>'Null',
+    //         'created_by'=>$user->id,
+    //         'updated_by'=>$user->id,
+    //         'admin_id'=>$form['sales_rep'],
+    //     ]);
+    //     if($branch){
+    //         return '{
+    //             "success":true,
+    //             "message":"successful"
+    //         }' ;
+    //     } else {
+    //         return '{
+    //             "success":false,
+    //             "message":"Failed"
+    //         }';
+    //     }
+    //          }
+    //          if ($dept=="lab") {
+    //             $form = $request->form;
+    //             $branch = DB::table('lab_centers')->insert([
+    //                 'name'=>$form['bran_name'],
+    //                 'address' => $form['address'],
+    //                 'status' =>$form['status'],
+    //                 'admin_id' =>$form['sales_rep'],
+    //                 'key_access'=>'Null',
+    //                 'created_by'=>$user->id,
+    //                 'updated_by'=>$user->id,
+    //             ]);
+    //             if($branch){
+    //                 return '{
+    //                     "success":true,
+    //                     "message":"successful"
+    //                 }' ;
+    //             } else {
+    //                 return '{
+    //                     "success":false,
+    //                     "message":"Failed"
+    //                 }';
+    //             }
+    //          }
 
-             if ($dept=="radio") {
-                $form = $request->form;
-                $branch = DB::table('radiology_center')->insert([
-                    'name'=>$form['bran_name'],
-                    'address' => $form['address'],
-                    'status' =>$form['status'],
-                    'admin_id' =>$form['sales_rep'],
-                    'key_access'=>'Null',
-                    'created_by'=>$user->id,
-                    'updated_by'=>$user->id,
-                ]);
-                if($branch){
-                    return '{
-                        "success":true,
-                        "message":"successful"
-                    }' ;
-                } else {
-                    return '{
-                        "success":false,
-                        "message":"Failed"
-                    }';
-                }
-             }
-             if ($dept=="theater") {
-                $form = $request->form;
-                $branch = DB::table('theater_centers')->insert([
-                    'name'=>$form['bran_name'],
-                    'address' => $form['address'],
-                    'status' =>$form['status'],
-                    'admin_id' =>$form['sales_rep'],
-                    'key_access'=>'Null',
-                    'created_by'=>$user->id,
-                    'updated_by'=>$user->id,
-                ]);
-                if($branch){
-                    return '{
-                        "success":true,
-                        "message":"successful"
-                    }' ;
-                } else {
-                    return '{
-                        "success":false,
-                        "message":"Failed"
-                    }';
-                }
-             }
-             if ($dept=="record") {
-                $form = $request->form;
-                $branch = DB::table('center_record')->insert([
-                    'name'=>$form['bran_name'],
-                    'address' => $form['address'],
-                    'status' =>$form['status'],
-                    'admin_id' =>$form['sales_rep'],
-                    'key_access'=>'Null',
-                    'created_by'=>$user->id,
-                    'updated_by'=>$user->id,
-                ]);
-                if($branch){
-                    return '{
-                        "success":true,
-                        "message":"successful"
-                    }' ;
-                } else {
-                    return '{
-                        "success":false,
-                        "message":"Failed"
-                    }';
-                }
-             }
+    //          if ($dept=="radio") {
+    //             $form = $request->form;
+    //             $branch = DB::table('radiology_center')->insert([
+    //                 'name'=>$form['bran_name'],
+    //                 'address' => $form['address'],
+    //                 'status' =>$form['status'],
+    //                 'admin_id' =>$form['sales_rep'],
+    //                 'key_access'=>'Null',
+    //                 'created_by'=>$user->id,
+    //                 'updated_by'=>$user->id,
+    //             ]);
+    //             if($branch){
+    //                 return '{
+    //                     "success":true,
+    //                     "message":"successful"
+    //                 }' ;
+    //             } else {
+    //                 return '{
+    //                     "success":false,
+    //                     "message":"Failed"
+    //                 }';
+    //             }
+    //          }
+    //          if ($dept=="theater") {
+    //             $form = $request->form;
+    //             $branch = DB::table('theater_centers')->insert([
+    //                 'name'=>$form['bran_name'],
+    //                 'address' => $form['address'],
+    //                 'status' =>$form['status'],
+    //                 'admin_id' =>$form['sales_rep'],
+    //                 'key_access'=>'Null',
+    //                 'created_by'=>$user->id,
+    //                 'updated_by'=>$user->id,
+    //             ]);
+    //             if($branch){
+    //                 return '{
+    //                     "success":true,
+    //                     "message":"successful"
+    //                 }' ;
+    //             } else {
+    //                 return '{
+    //                     "success":false,
+    //                     "message":"Failed"
+    //                 }';
+    //             }
+    //          }
+    //          if ($dept=="record") {
+    //             $form = $request->form;
+    //             $branch = DB::table('center_record')->insert([
+    //                 'name'=>$form['bran_name'],
+    //                 'address' => $form['address'],
+    //                 'status' =>$form['status'],
+    //                 'admin_id' =>$form['sales_rep'],
+    //                 'key_access'=>'Null',
+    //                 'created_by'=>$user->id,
+    //                 'updated_by'=>$user->id,
+    //             ]);
+    //             if($branch){
+    //                 return '{
+    //                     "success":true,
+    //                     "message":"successful"
+    //                 }' ;
+    //             } else {
+    //                 return '{
+    //                     "success":false,
+    //                     "message":"Failed"
+    //                 }';
+    //             }
+    //          }
 
-       }
+    //    }
 
     public function createBranch(Request $request)
     {
+        // return $request;
         $req_name=$request->bran_name;
+        $depts=$request->dept_id;
+        $branch;
+        if ($depts==1){
         $dt = Carbon::now();
         $item_date = $dt->toFormattedDateString();
         $item_time = $dt->format('h:i:s A');
@@ -944,8 +946,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             $table->string('item_detail_id')->index();
             $table->string('staff_id')->index()->default(0);
         });
-
-        $itemD = DB::table("item_details")->get();   
+        $itemD = DB::table("item_details")->get(); 
         foreach($itemD as $rowID){
             $insert = DB::table($table_name)->insertGetId(
                 [
@@ -962,6 +963,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
         $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
+    }
+    else{
+        $branch= Branches::create($request-> all());
+    }
         if($branch){
             return '{
                 "success":true,
@@ -1042,9 +1047,14 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         // $dt = Carbon::now();
         // $request->date = $dt->toFormattedDateString();
         // $request->time = $dt->format('h:i:s A');
+        $form=$request;
         $customer= Customers::create($request-> all());
        
         if($customer){
+           $wallet = DB::table('wallets')->insert([
+                'name'=>$customer->name,
+                'user_id'=>$customer->id, 
+            ]);
             return '{
                 "success":true,
                 "message":"successful"

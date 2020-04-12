@@ -554,28 +554,33 @@
           <span aria-hidden="true">×</span>
           </button>
       </div>
-      <div class="row justify-content-center">
-                <!-- <span class="mb-2">Select department</span> -->
-          <div class="row col-12 justify-content-center mb-2">
-              <select name="dept"  (change)="dept($event)"  id="dep">
-                  <option value="">Select Department</option>
-                  <option  *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role=='2001' || role=='1002' "  value="clinic">Clinic</option>
-                  <option  *ngIf="role=='3003' && department=='Pharmacy' || role=='1001' || role=='2002'  || role==1002 " value="pharmacy">pharmacy</option>
-                  <option  *ngIf="role=='3003' && department=='Records' || role=='1001'   || role=='2002'  || role=='1002' "  value="record">Record</option>
-                  <option  *ngIf="role=='3003' && department=='Revenue' || role=='1001'  || role=='2002'  || role==1002"  value="revenue">Revenue</option>
-                  <option  *ngIf="role=='3003' && department=='Radiology' || role=='1001' || role==2001 || role==1002 "  value="radio">Radio</option>
-                  <option  *ngIf="role=='3003' && department=='Theater' || role=='1001' || role==2001 || role==1002 "  value="theater">Theater</option>
-                  <option  *ngIf="role=='3003' && department=='War' || role=='1001' || role==2001 || role==1002 "  value="ward">Ward</option>
-                  <option  *ngIf="role=='3003' && department=='Nurse' || role=='1001' || role==2001 || role==1002 "  value="nurse">Nurse</option>
-                  <option  *ngIf="role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 "  value="lab">Lab</option>
-                  <option  *ngIf="role=='1001' || role==1002 "  value="admin">Admin</option>
-              </select>
-          </div>
-          <div class="co-12">
-              <strong *ngIf="dept_name">{{dept_name}} department</strong>
-          </div>
-      </div>
-      <form  class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+ <form  class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+    <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <select *ngIf="role=='1001' || role=='1002'" class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
+                        <option value="">Select department</option>
+                        <option *ngFor="let dep of depts" value="{{dep.id}}">{{dep.name}}</option>
+                    </select>  
+                    <select *ngIf="role=='2001'"  class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
+                        <option value="">Select department</option>
+                        <option *ngFor="let dep of clinic_dept" value="{{dep.id}}">{{dep.name}}</option>
+                    </select>  
+                    <select *ngIf="role=='2002'"  class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
+                        <option value="">Select department</option>
+                        <option *ngFor="let dep of oppration_dept" value="{{dep.id}}">{{dep.name}}</option>
+                    </select>
+                    <select *ngIf="role=='3003'"  class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
+                        <option value="">Select department</option>
+                        <option *ngFor="let dep of center_dept" value="{{dep.id}}">{{dep.name}}</option>
+                        
+                    </select>                        
+                  </div>
+            </div>             
+        </div>
+    </div>  
+
       <div class="modal-body">             
           <div class="row clearfix">
               <div class="col-md-8">

@@ -100,11 +100,11 @@ Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
 Route::get('displaysetBranch','DisplayController@displaysetBranch');
+Route::get('getdept','DisplayController@getdept');
 Route::post('addBranch', 'AddController@createBranch');
 Route::post('addBranchs', 'AddController@createBranchs');
 Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
-
 Route::post('suspendBranch', 'AddController@suspendBranch');
 Route::post('activateBranch', 'AddController@activateBranch');
 
@@ -197,6 +197,7 @@ Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
+Route::get('displayRevenueAppointment','DisplayController@displayRevenueAppointment');
 Route::get('displayPharmStaffDashAppointment','DisplayController@displayPharmStaffDashAppointment');
 Route::get('displayDeptAppoint/{id}','DisplayController@displayDeptAppoint');
 Route::get('countAppointment','DisplayController@countAppointment');
