@@ -240,7 +240,14 @@ Route::post('searchReport','DisplayController@searchReport');
 Route::post('stockHistory','DisplayController@stockHistory');
 
  //RECORD MODULE APIS  
- Route::get('displayUser', 'RecordModuleController@displayUser');
+ Route::get('displayApptType', 'RecordModuleController@displayApptType');
+Route::post('addApptType', 'RecordModuleController@addApptType');
+Route::get('displayRecordCharges','RecordModuleController@displayRecordCharges');
+Route::get('editApptType/{id}', 'RecordModuleController@editApptType');
+Route::post('deleteApptType', 'RecordModuleController@deleteApptType');
+Route::post('updateApptType', 'RecordModuleController@updateApptType');
+
+Route::get('displayUser', 'RecordModuleController@displayUser');
 Route::post('addHospitalCharge', 'RecordModuleController@addHospitalCharge');
 Route::get('displayRecordCharges','RecordModuleController@displayRecordCharges');
 Route::get('editCharge/{id}', 'RecordModuleController@editCharge');

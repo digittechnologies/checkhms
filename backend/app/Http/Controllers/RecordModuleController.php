@@ -119,4 +119,90 @@ class RecordModuleController extends Controller
         }
         
     }
+
+    //APointment Types
+    public function addApptType(Request $request)
+    {
+        // $staffId= Auth()->user()->id;
+        // $carbon = Carbon::now();
+        // $date = $carbon->toFormattedDateString();
+        // $time = $carbon->format('h:i:s A');
+        // $request->merge(['created_date' => $date]);
+        $request->merge(['table_name' => 'null']);
+        $request->merge(['key_access' => 'null']);
+
+        $aptType= DB::table('appontment_type')->insertGetId($request-> all());
+       
+        if($aptType){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function displayApptType(){
+        return DB::table("appontment_type")->get();
+    }
+
+    public function deleteApptType(Request $request)
+    {
+        $id=$request[0];
+
+        $delete=DB::table('appontment_type')->where('id', $id)->delete();
+       
+        if($delete){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+    }
+
+    public function updateApptType(Request $request)
+    {   
+        $name = $request->name;
+        $description = $request->description;
+        $status = $request->status;
+        $id = $request->id;   
+        $update = DB::table('appontment_type')->where('id','=',$id)
+            ->update([
+                'name'=> $name,
+                'description'=> $description,
+                'status'=> $status,
+            ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    
+    public function editApptType($id)
+    {
+        return response()->json(
+            DB::table('appontment_type')->orderBy('id')
+            ->select('appontment_type.*')     
+            ->where('id','=',$id)          
+            ->get() 
+        );
+    }
+
 }
