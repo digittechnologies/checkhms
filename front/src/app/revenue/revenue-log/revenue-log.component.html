@@ -3,25 +3,25 @@
       <div class="block-header">
           <div class="row clearfix">
               <div class="col-md-6 col-sm-12">
-                  <h1>Record Log</h1>
+                  <h1>Revenue Log</h1>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
-                      <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]">Refill</a></li>                        
-                      <li class="breadcrumb-item active" aria-current="page">Phamarcy Log</li>
+                      <!-- <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['refill']}}]">Refill</a></li>                         -->
+                      <li class="breadcrumb-item active" aria-current="page">Record Log</li>
                       </ol>
                   </nav>
-              </div>            
+              <!-- </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                  <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a> -->
-                  <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
-              </div>
-              <div class="col-12">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a>
+                  <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+              </div> -->
+              <!-- <div class="col-12">
                   <input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
-              </div>
+              </div> -->
           </div>
       </div>
-      <div class="row clearfix">
+      <!-- <div class="row clearfix">
           <div class="col-12">
               <div class="card">
                   <div class="body">
@@ -31,7 +31,7 @@
                               <label>Search User</label>
                               <div class="input-group">
                                   <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
-                                  <!-- name="customer2" -->
+                                  name="customer2"
                                   <mat-autocomplete #auto="matAutocomplete" >
                                       <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                        {{street}} 
@@ -51,8 +51,8 @@
               </div>
           </div>
       </div>
-       
-       <div class="modal fade" id="endall" tabindex="-1" role="dialog">
+        -->
+       <!-- <div class="modal fade" id="endall" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">  
               <div class="modal-header">
@@ -70,8 +70,8 @@
                 </div>
             </div>
           </div>
-          </div>
-      <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+          </div> -->
+      <!-- <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">  
               <div class="modal-header">
@@ -89,8 +89,8 @@
                 </div>
             </div>
           </div>
-          </div>
-          <div class="modal fade" id="endAppointment" tabindex="-1" role="dialog">
+          </div> -->
+          <!-- <div class="modal fade" id="endAppointment" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div  class="modal-content">  
                   <div class="modal-header">
@@ -114,8 +114,9 @@
                   <div class="card-header text-center">
                       <h5 class="text-primary">No log entries yet</h5>
                   </div>
-              </div>
-
+              </div> -->
+           <div class="row">
+               <input type="text" (keyup)="filt($event)" class="col-12 mb-3 " style="background-color: inherit;outline: none; border: solid 1px grey;">
           <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
               <div class="card c_grid c_yellow">
                   <div class="body text-center p-2">
@@ -147,23 +148,24 @@
                   </div>                        
               </div>
           </div> 
-          <div *ngIf="!log">
-              <div class="spinner-grow text-primary" role="status">
-              <span class="sr-only">Loading...</span>
-          </div>
-      <div class="spinner-grow text-secondary" role="status">
+        </div>
+    <!-- <div *ngIf="!log">
+    <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+<div class="spinner-grow text-secondary" role="status">
 <span class="sr-only">Loading...</span>
 </div>
 <div class="spinner-grow text-success" role="status">
 <span class="sr-only">Loading...</span>
 </div>
-            </div>    
+</div>     -->
       </div>
   </div>
 </div>
 
 <!-- Default Size -->
-<div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
+<!-- <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -320,5 +322,6 @@
         </form>
     </div>
   </div>
-  </div>
+  </div> -->
+
 

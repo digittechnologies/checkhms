@@ -32,6 +32,10 @@ export class SetBranchComponent implements OnInit {
    role:any;
    res:any;
    department:any;
+   depts:any;
+   clinic_dept=[];
+   oppration_dept=[];
+   center_dept:any;
    
   
 
@@ -41,27 +45,46 @@ export class SetBranchComponent implements OnInit {
     private router: Router,
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.Jarwis.profile().subscribe(
       data=>{
         console.log(data)    
-      this.res = data;
-      // this.pos= this.response.det[0].position_id
-      // this.image= this.response.det[0].image
-      // this.fname= this.response.det[0].firstname
-      // this.lname= this.response.det[0].lastname   
+      this.res = data;  
       this.role= this.res.det[0].role_id;
       this.department=this.res.det[0].nameD;
-      console.log(this.department)
-      // window.localStorage.department=JSON.stringify(this.department)
-      // this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
-    })
+    });
+
+    this.Jarwis.getDepertment().subscribe(
+      data=>{ 
+        this.depts=data;
+        this.depts.map(d=>{
+          if (d.name=="Clinic" || d.name=="Radiology" || d.name=="Laboratory" || d.name=="Theater " || d.name=="Nurse " || d.name=="Ward") {
+            this.clinic_dept.push(d);
+          }
+          else if (d.name=="Revenue" || d.name=="Records" || d.name=="Pharmacy") {
+            this.oppration_dept.push(d);
+          }
+        })
+        console.log(this.clinic_dept)
+        console.log(this.oppration_dept)
+        
+    setTimeout(() => {
+      let de = this.department
+      let index = this.depts.filter(function(card) {
+        return card.name == de;
+        //  console.log(this.department)
+      })
+      this.center_dept=index;
+    },5000);
+        
+       }
+    )
     this.Jarwis.displaysetBranch().subscribe(
       data=>{
       this.response = data; 
-      console.log(this.response.pharm)        
+      console.log(this.response)        
       this.pharmacy = this.response.pharm
       this.clinic = this.response.clinic; 
       this.radio = this.response.radio;
@@ -73,13 +96,13 @@ export class SetBranchComponent implements OnInit {
     },
     err=>{console.log(err)}
     )
+
   }
 
 
   onSubmit(form: NgForm) {
    this.disabled = true;
    if (form) {
-   if (this.dept_name=="pharmacy") {
      this.Jarwis.createBranch(form.value).subscribe(
        data => {
          this.disabled = false;
@@ -91,20 +114,19 @@ export class SetBranchComponent implements OnInit {
        error => this.handleError(error), 
             
      ); 
-   }
-   else if(this.dept_name!="pharmacy" && this.dept_name!=" "){
-    this.Jarwis.createBranchs({form:form.value,dept:this.dept_name}).subscribe(
-      data => {
-        this.disabled = false;
-        this.handleResponse(data)
-        form=null;
-        this.close();
-         console.log(data)
-        },
-      error => this.handleError(error), 
+  //  else if(this.dept_name!="pharmacy" && this.dept_name!=" "){
+  //   this.Jarwis.createBranchs({form:form.value,dept:this.dept_name}).subscribe(
+  //     data => {
+  //       this.disabled = false;
+  //       this.handleResponse(data)
+  //       form=null;
+  //       this.close();
+  //        console.log(data)
+  //       },
+  //     error => this.handleError(error), 
            
-    ); 
-   }
+  //   ); 
+  //  }
   }
   }
 

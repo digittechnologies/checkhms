@@ -29,6 +29,8 @@ export class AllStaffComponent implements OnInit {
 
   disabled = false;
   roleID: any;
+  sbranch: any;
+  sResponse: Object;
 
 
   constructor( private Jarwis: JarwisService,
@@ -77,7 +79,15 @@ export class AllStaffComponent implements OnInit {
   }
   onChange1(b){
     this.givenDept = b.target.value;
+    console.info(this.givenDept);
     this.ngOnInit() 
+
+    this.Jarwis.displayStaffBranch(this.givenDept).subscribe(
+      data=>{
+      this.sResponse = data;      
+      this.sbranch = this.sResponse
+      })
+  
   }
   
   onSelectRole(r){
