@@ -56,25 +56,6 @@
     </div>
     </div>
     </div>
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">  
-        <div class="modal-header">
-        <h4 class="modal-title">Note !</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">             
-            <div class="row  justify-content-center">
-                    <h6>You are about to reactivate this branch!</h6>     
-            </div>
-        </div>      
-        <div class="modal-footer">
-            <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
-            <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="activate()">Update</button>
-        </div>
-        </div>
-        </div>
-        </div>
     <div class="row clearfix">
     <div class="col-sm-12">
     <div class="card">
@@ -118,7 +99,7 @@
                 <td style="color: #17C2D7;">{{b.firstname}}</td> 
                 <td style="color: #17C2D7;">{{b.created_at}}</td> 
                 <td>
-                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#edit" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                 </td>                          
                 <td>
                     <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -702,8 +683,10 @@
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <input type="text" class="form-control" [value]="catName" placeholder="Manufacturer Name" ngModel name="name" required>
+                <label for="">Name</label>
+                <input type="text" class="form-control" [value]="catName" placeholder="Name" ngModel name="name" required>
                 <input type="hidden" [value]="manufid" ngModel name="id">
+                {{branch_details[0].name}}
             </div>
         </div>             
     </div>

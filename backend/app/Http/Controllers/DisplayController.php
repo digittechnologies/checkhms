@@ -956,6 +956,7 @@ class DisplayController extends Controller
          }
          return $array;
     }
+    
 
     public function disItemDet()
     {
@@ -1042,6 +1043,10 @@ class DisplayController extends Controller
         ->get();
         return $itemr;
     }
+    public function onEditBranch(Request $request){
+         $id=$request->id;
+        return DB::table('branches')->where('id',$id)->get();
+     }
 
     // Report
 

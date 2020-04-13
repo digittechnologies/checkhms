@@ -38,7 +38,7 @@ export class SetBranchComponent implements OnInit {
    center_dept:any;
    suspend_id:any;
    activate_id:any;
-   
+   branch_details:any;
   
 
   constructor( 
@@ -116,19 +116,6 @@ export class SetBranchComponent implements OnInit {
        error => this.handleError(error), 
             
      ); 
-  //  else if(this.dept_name!="pharmacy" && this.dept_name!=" "){
-  //   this.Jarwis.createBranchs({form:form.value,dept:this.dept_name}).subscribe(
-  //     data => {
-  //       this.disabled = false;
-  //       this.handleResponse(data)
-  //       form=null;
-  //       this.close();
-  //        console.log(data)
-  //       },
-  //     error => this.handleError(error), 
-           
-  //   ); 
-  //  }
   }
   }
 
@@ -153,6 +140,15 @@ export class SetBranchComponent implements OnInit {
       error => this.handleError(error), 
       
     );
+  }
+  onEdit(id:any){
+    // console.log(id)
+    this.Jarwis.onEditBranch({id:id}).subscribe(
+      data=>{
+        this.branch_details = data;
+        console.log(this.branch_details[0].name)
+      }
+    )
   }
 
   handleResponse(data) {    // 

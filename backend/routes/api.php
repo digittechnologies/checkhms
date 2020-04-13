@@ -75,6 +75,7 @@ Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
 Route::get('displaysetBranch','DisplayController@displaysetBranch');
 Route::get('getDepertment','DisplayController@getDepertment');
+Route::post('onEditBranch','DisplayController@onEditBranch');
 Route::post('addBranch', 'AddController@createBranch');
 Route::post('addBranchs', 'AddController@createBranchs');
 Route::post('updateBranch', 'AddController@updateBranch');

@@ -519,6 +519,9 @@ addCustCategories(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+onEditBranch(data){
+  return this.http.post(`${this.baseUrl}/onEditBranch`,data)
+}
 
 //Appointment 
 displayAllappointment() {
