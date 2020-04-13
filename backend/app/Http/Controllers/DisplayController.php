@@ -415,17 +415,17 @@ class DisplayController extends Controller
     public function displaysetBranch()
     { 
         return response()->json([
-        'pharm'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',1)->select('branches.*')->get(),  
-        'clinic'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',2)->select('branches.*')->get(),
-        'admin'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',10)->select('branches.*')->get(),
-        'revenue'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',11)->select('branches.*')->get(),
-        'radio'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',12)->select('branches.*')->get(),
-        'lab'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',15)->select('branches.*')->get(),
-        'record'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',16)->select('branches.*')->get(),
-        'theater'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',17)->select('branches.*')->get(), 
-        'nurse'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',18)->select('branches.*')->get(), 
-        'ward'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',19)->select('branches.*')->get(),
-        'patient'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',20)->select('branches.*')->get()
+        'pharm'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',1)->get(), 
+        'clinic'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',2)->get(),
+        'admin'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',10)->get(),
+        'revenue'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',11) ->get(),
+        'radio'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id') ->select('branches.*','users.firstname') ->where('branches.dept_id',12) ->get(),
+        'lab'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',15)->get(),
+        'record'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',16)->get(),
+        'theater'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',17)->get(),
+        'nurse'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',18)->get(),
+        'ward'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',19)->get(),
+        'patient'=>DB::table('branches')->join('users','branches.sales_rep','=','users.id')->select('branches.*','users.firstname')->where('branches.dept_id',20)->get(),
     ]);
         
         // return Branches::all();
@@ -434,14 +434,8 @@ class DisplayController extends Controller
 
     public function displayBranch()
     {
-        return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', '1')->orderBy('id')->get();
+        return Branches::where('status', '=', 'active')->orderBy('id')->get();
     }
-
-    public function displayStaffBranch($id)
-    {
-        return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
-    }
-
     public function displayBranchs(Request $request)
     {
        return response()->json($request->dept);
@@ -962,6 +956,7 @@ class DisplayController extends Controller
          }
          return $array;
     }
+    
 
     public function disItemDet()
     {
@@ -1048,6 +1043,10 @@ class DisplayController extends Controller
         ->get();
         return $itemr;
     }
+    public function onEditBranch(Request $request){
+         $id=$request->id;
+        return DB::table('branches')->where('id',$id)->get();
+     }
 
     // Report
 
