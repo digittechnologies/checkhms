@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
+import { RecordJarwisService } from 'src/app/service/record-jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
@@ -76,9 +77,12 @@ export class PatientComponent implements OnInit {
   epsContact: any;
   epsAddress: any;
   epsStatus: any;
+  responseRec: Object;
+  center: Object;
 
   constructor( 
     private Jarwis: JarwisService,
+    private JarwisRecord: RecordJarwisService,
     private Token: TokenService,
     private router: Router,
     private Auth: AuthService,
@@ -119,9 +123,14 @@ export class PatientComponent implements OnInit {
       data=>{
       console.log(data);   
       this.response = data;
-      this.department = this.response
-     
+      this.department = this.response     
    
+    })
+
+    this.JarwisRecord.displayUser().subscribe(
+      data=>{
+      this.responseRec = data;
+      this.center = this.responseRec[0];  
     })
   }
 
@@ -139,12 +148,15 @@ export class PatientComponent implements OnInit {
 
   onClickSubmit(form: NgForm) {
 
-    this.disabled = true;  
+    this.disabled = true; 
 
     if(form.value.customer == '' || form.value.action == ''){
       alert('Serch Box Empty')
-    }else{
-      this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+    }
+    else{
+      if (form.value.category == 'regular') {
+        
+           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
         this.spin="disable";
         this.disabled= false;
        
@@ -158,7 +170,7 @@ export class PatientComponent implements OnInit {
         
         if(this.count == 0){
           alert('Invalid refrence ID, patient not found. Try again!')
-        } else if(this.category == 'regular'){
+        } else{
           this.eId = this.patient.id;
           this.eName = this.patient.name;  
           this.eOthername = this.patient.othername; 
@@ -217,7 +229,25 @@ export class PatientComponent implements OnInit {
             },
           )
           this.image=this.ePatient_image
-        } else if(this.category == 'eps'){
+        }
+      })
+      }else if (form.value.category == 'eps') {
+           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+        this.spin="disable";
+        this.disabled= false;
+       
+        this.searchResponse = data;
+        this.show= this.searchResponse.show;
+        this.patient = this.searchResponse.search[0]; 
+        this.patientAll = this.searchResponse.search; 
+        this.pAppointment = this.searchResponse.app;
+        this.count = this.searchResponse.count;
+       
+        
+        if(this.count == 0){
+          alert('Invalid refrence ID, patient not found. Try again!')
+        }  else {
+            this.category = this.searchResponse.category;
             this.epsId = this.patient.id;
             this.epsName = this.patient.eps_name;
             this.epsEmail = this.patient.email;
@@ -236,7 +266,10 @@ export class PatientComponent implements OnInit {
             )
         }
       })
-    }
+      }
+
+   
+     }
   }
 
   onSubmitApp(form: NgForm) {
@@ -367,8 +400,6 @@ export class PatientComponent implements OnInit {
     reader.readAsDataURL(files);
   }
   onSubmitprofile() {
-    console.log(this.submissionForm.value)
-    console.log(this.image)
     this.Jarwis.updateCustomer({formdata:this.submissionForm.value,image:this.image}).subscribe(
       data => this.handleResponse(data),
     error => this.handleError(error)

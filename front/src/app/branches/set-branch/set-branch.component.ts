@@ -56,8 +56,9 @@ export class SetBranchComponent implements OnInit {
       this.res = data;  
       this.role= this.res.det[0].role_id;
       this.department=this.res.det[0].nameD;
-    })
-    this.Jarwis.getdept().subscribe(
+    });
+
+    this.Jarwis.getDepertment().subscribe(
       data=>{ 
         this.depts=data;
         this.depts.map(d=>{
@@ -80,7 +81,7 @@ export class SetBranchComponent implements OnInit {
       this.center_dept=index;
     },5000);
         
-      }
+       }
     )
     this.Jarwis.displaysetBranch().subscribe(
       data=>{

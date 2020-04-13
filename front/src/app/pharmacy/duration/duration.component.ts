@@ -109,7 +109,7 @@ onDelete(id: string) {
     
   }
 
-  handleResponse(data) {    // 
+  handleResponse(data) {    
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000
     })   
@@ -126,8 +126,5 @@ onDelete(id: string) {
     })
     this.disabled = false;
   }
-
-  councle(){}
-
   
 }

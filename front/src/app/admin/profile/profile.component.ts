@@ -41,6 +41,8 @@ export class ProfileComponent implements OnInit {
   imgLink: any;
   roleID: any;
   IMG: any;
+  sbranch: any;
+  sResponse: any;
   constructor( 
      private http: HttpClient,
      public actRoute: ActivatedRoute, 
@@ -163,6 +165,12 @@ get(){
 }
 onChange1(b){
   this.givenDept = b.target.value;
+
+  this.Jarwis.displayStaffBranch(this.givenDept).subscribe(
+    data=>{
+    this.sResponse = data;      
+    this.sbranch = this.sResponse
+    })
 }
 
 onSelectRole(r){
