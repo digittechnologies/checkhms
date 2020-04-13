@@ -415,17 +415,19 @@ class DisplayController extends Controller
     public function displaysetBranch()
     { 
         return response()->json([
-        'pharm'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',1)->select('branches.*')->get(),  
-        'clinic'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',2)->select('branches.*')->get(),
-        'admin'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',10)->select('branches.*')->get(),
-        'revenue'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',11)->select('branches.*')->get(),
-        'radio'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',12)->select('branches.*')->get(),
-        'lab'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',15)->select('branches.*')->get(),
-        'record'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',16)->select('branches.*')->get(),
-        'theater'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',17)->select('branches.*')->get(), 
-        'nurse'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',18)->select('branches.*')->get(), 
-        'ward'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',19)->select('branches.*')->get(),
-        'patient'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',20)->select('branches.*')->get()
+            // ->join ('item_types','item_details.item_type_id','=','item_types.id')
+            // ->join('users','users.id','=','branches.dept_id')
+        'pharm'=>DB::table('branches')->where('dept_id',1)->select('branches.*')->get(),  
+        'clinic'=>DB::table('branches')->where('dept_id',2)->select('branches.*')->get(),
+        'admin'=>DB::table('branches')->where('dept_id',10)->select('branches.*')->get(),
+        'revenue'=>DB::table('branches')->where('dept_id',11)->select('branches.*')->get(),
+        'radio'=>DB::table('branches')->where('dept_id',12)->select('branches.*')->get(),
+        'lab'=>DB::table('branches')->where('dept_id',15)->select('branches.*')->get(),
+        'record'=>DB::table('branches')->where('dept_id',16)->select('branches.*')->get(),
+        'theater'=>DB::table('branches')->where('dept_id',17)->select('branches.*')->get(), 
+        'nurse'=>DB::table('branches')->where('dept_id',18)->select('branches.*')->get(), 
+        'ward'=>DB::table('branches')->where('dept_id',19)->select('branches.*')->get(),
+        'patient'=>DB::table('branches')->where('dept_id',20)->select('branches.*')->get()
     ]);
         
         // return Branches::all();

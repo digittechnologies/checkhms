@@ -36,6 +36,8 @@ export class SetBranchComponent implements OnInit {
    clinic_dept=[];
    oppration_dept=[];
    center_dept:any;
+   suspend_id:any;
+   activate_id:any;
    
   
 
@@ -59,10 +61,10 @@ export class SetBranchComponent implements OnInit {
       data=>{ 
         this.depts=data;
         this.depts.map(d=>{
-          if (d.name=="Clinic" || d.name=="Radiology" || d.name=="Laboratory" || d.name=="Theater " || d.name=="Nurse " || d.name=="Ward") {
+          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="i5" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
             this.clinic_dept.push(d);
           }
-          else if (d.name=="Revenue" || d.name=="Records" || d.name=="Pharmacy") {
+          else if (d.dept_id=="11" || d.dept_id=="16" || d.dept_id=="1") {
             this.oppration_dept.push(d);
           }
         })
@@ -130,9 +132,10 @@ export class SetBranchComponent implements OnInit {
   }
 
   onSuspend(id: string) {
-
-    this.Jarwis.suspendBranch(id).subscribe(  
-        
+    this.suspend_id=id;
+  }
+  suspend(){
+    this.Jarwis.suspendBranch(this.suspend_id).subscribe(  
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
@@ -140,8 +143,10 @@ export class SetBranchComponent implements OnInit {
   }
 
   onActivate(id: string) {
-
-    this.Jarwis.activateBranch(id).subscribe(  
+  this.activate_id=id
+  }
+  activate(){
+    this.Jarwis.activateBranch(this.activate_id).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -167,12 +172,7 @@ export class SetBranchComponent implements OnInit {
     this.disabled = false;
   }
   branch(e){
-    // this.Jarwis. displayBranchs({dept:e}).subscribe(
-    //   data=>{
-    //   this.response = data;      
-    //   this.bran = this.response   
-    // })
-    console.log(e)
+   this.ngOnInit
   }
   dept(e){
     this.dept_name=e.target.value;

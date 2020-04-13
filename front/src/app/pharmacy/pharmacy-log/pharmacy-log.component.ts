@@ -105,9 +105,8 @@ export class PharmacyLogComponent implements OnInit {
     // this.get()
   }
   filt(){
-    // console.log(this.form.customer)
     let f =this.form.customer
-    // this.log=this.logs="";
+    this.filres="";
     var index = this.log.filter(function(card) {
       return card.customer_id == f;
     });
@@ -210,10 +209,8 @@ export class PharmacyLogComponent implements OnInit {
   onSubmit(form: NgForm) {
    this.disabled = true;
     this.Jarwis.addCustomer(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),     
     );
      this.Jarwis.displayDepartments().subscribe(
       data=>{
