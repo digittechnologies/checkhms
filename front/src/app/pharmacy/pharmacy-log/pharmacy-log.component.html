@@ -121,8 +121,8 @@
                     <div class="body text-center p-2">
                         <div class="row mb-3">
                             <div class="col-7"> <small class="float-left">Today,<small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
-                             <span *ngIf ="l.prescription ==='open'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
-                             <span *ngIf = "l.invoice == 'paid'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
+                             <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                             <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
                             </div>
                         <div class="circle">
                             <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
