@@ -407,41 +407,32 @@
                                     </div>
                                     <div class="body">
                                         <div class="row">
+                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Record Center</label>  
                                                     <input type="text" disabled class="form-control" value="{{center.name}}" >
                                                 </div>
                                                 <div class="form-group">
+                                                  
                                                     <label class="fancy-radio custom-color-green">Appointment Type</label>  
-                                                    <select class="form-control">
-                                                        <option>--TimeZone--</option>
-                                                        <optgroup label="Africa">
-                                                            <option value="Africa/Abidjan">Abidjan</option>
-                                                            <option value="Africa/Accra">Accra</option>
-                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
-                                                            <option value="Africa/Tripoli">Tripoli</option>
-                                                            <option value="Africa/Tunis">Tunis</option>
-                                                            <option value="Africa/Windhoek">Windhoek</option>
-                                                        </optgroup>                                                        
+                                                    <select class="form-control" (change)="onChange1($event)">
+                                                        <option>--Appointment_type--</option>
+                                                    
+                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                          
+                                                                                                             
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group"> 
                                                     <label class="fancy-radio custom-color-green">Center</label>  
                                                     <select class="form-control">
-                                                        <option>--TimeZone--</option>
-                                                        <optgroup label="Africa">
-                                                            <option value="Africa/Abidjan">Abidjan</option>
-                                                            <option value="Africa/Accra">Accra</option>
-                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
-                                                            <option value="Africa/Tripoli">Tripoli</option>
-                                                            <option value="Africa/Tunis">Tunis</option>
-                                                            <option value="Africa/Windhoek">Windhoek</option>
-                                                        </optgroup>                                                        
+                                                        <option>--Department Center(s)--</option>                                                      
+                                                            <option *ngFor="let cent of sbranch" value="{{cent.id}}">{{cent.name}}</option>                                    
+                                                                                                              
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-md-12">
+                                            <div class="col-lg-12 col-md-12" *ngIf="givenDept <= '2'">
                                                 <h6>Special Consult</h6>
                                                 <p>I'd like to see special doctor:</p>
                                                 <ul class="list-unstyled list-email-received">
@@ -454,36 +445,29 @@
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Doctor</label>  
                                                     <select class="form-control">
-                                                        <option>--TimeZone--</option>
+                                                        <option>--Select Physician--</option>
                                                         <optgroup label="Africa">
-                                                            <option value="Africa/Abidjan">Abidjan</option>
-                                                            <option value="Africa/Accra">Accra</option>
-                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
-                                                            <option value="Africa/Tripoli">Tripoli</option>
-                                                            <option value="Africa/Tunis">Tunis</option>
-                                                            <option value="Africa/Windhoek">Windhoek</option>
+                                                            <option value="Africa/Abidjan">Dr Durodola</option>                                                            
                                                         </optgroup>                                                        
                                                     </select>
-                                                </div>
-
+                                                </div>                                                
+                                            </div>        
+                                            
+                                            <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Charges</label>  
                                                     <select class="form-control">
-                                                        <option>--TimeZone--</option>
-                                                        <optgroup label="Africa">
-                                                            <option value="Africa/Abidjan">Abidjan</option>
-                                                            <option value="Africa/Accra">Accra</option>
-                                                            <option value="Africa/Addis_Ababa">Addis Ababa</option>
-                                                            <option value="Africa/Tripoli">Tripoli</option>
-                                                            <option value="Africa/Tunis">Tunis</option>
-                                                            <option value="Africa/Windhoek">Windhoek</option>
-                                                        </optgroup>                                                        
+                                                        <option>--Select Charges--</option>
+                                                            <option value="0">None</option>  
+                                                            <option *ngFor="let asmt of appt" value="{{asmt.id}}">{{asmt.charge_name}}</option>
+                                                                                                              
                                                     </select>
                                                 </div>
-                                            </div>                                           
-                                        </div>
-                                        <button type="button" class="btn btn-primary">Update</button> &nbsp;&nbsp;
-                                        <button class="btn btn-default">Cancel</button>
+                                            </div>
+                                            <button type="button" class="btn btn-primary">Submit</button> &nbsp;&nbsp;
+                                            <button class="btn btn-default">Cancel</button>
+                                        </form>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>                       

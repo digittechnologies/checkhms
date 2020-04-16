@@ -67,9 +67,10 @@ Route::get('displayItemDetails','DisplayController@displayItemDetails');
 Route::post('addItemDetails', 'AddController@addItemDetails');
 Route::post('updateItemDetails', 'AddController@updateItemDetails');
 Route::post('deleteItemDetails', 'AddController@deleteItemDetails');
-Route::get('disItemDet','DisplayController@disItemDet');
+Route::get('disItemDet','DisplayController@disItemDet');   
 //Branch
 Route::get('displayStaffBranch/{id}','DisplayController@displayStaffBranch');
+Route::get('displayAppointmentBranch/{id}','DisplayController@displayAppointmentBranch');
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
@@ -143,7 +144,7 @@ Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
-Route::post('makeAppointment','AddController@makeAppointment');
+// Route::post('makeAppointment','AddController@makeAppointment');
 Route::post('searchPatient','AddController@searchPatient');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
 Route::get('customer_category','DisplayController@customer_category');
@@ -241,12 +242,21 @@ Route::post('searchReport','DisplayController@searchReport');
 Route::post('stockHistory','DisplayController@stockHistory');
 
  //RECORD MODULE APIS  
- Route::get('displayUser', 'RecordModuleController@displayUser');
+ Route::get('displayApptType', 'RecordModuleController@displayApptType');
+Route::post('addApptType', 'RecordModuleController@addApptType');
+Route::get('displayRecordCharges','RecordModuleController@displayRecordCharges');
+Route::get('editApptType/{id}', 'RecordModuleController@editApptType');
+Route::post('deleteApptType', 'RecordModuleController@deleteApptType');
+Route::post('updateApptType', 'RecordModuleController@updateApptType');
+
+Route::get('displayUser', 'RecordModuleController@displayUser');
 Route::post('addHospitalCharge', 'RecordModuleController@addHospitalCharge');
 Route::get('displayRecordCharges','RecordModuleController@displayRecordCharges');
 Route::get('editCharge/{id}', 'RecordModuleController@editCharge');
 Route::post('deleteCharge', 'RecordModuleController@deleteCharge');
 Route::post('updateCharge', 'RecordModuleController@updateCharge');  
+
+Route::post('makeAppointment','RecordModuleController@makeAppointment');
 });
 
 // DOctor Module

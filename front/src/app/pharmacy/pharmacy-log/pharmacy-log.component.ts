@@ -124,14 +124,10 @@ export class PharmacyLogComponent implements OnInit {
   cancle(id){
     this.check="cancel"
     this.delete_id = id;
-    // .subscribe(
-      //   data=>{
-        //   this.handleRespons(data);console.log(data)
-        // })
       }
   del(){
     // console.log(this.delete_id)
-    this.Jarwis.cncel_pharm_log(this.delete_id).subscribe(data=>{
+    this.Jarwis.cancel_pharm_log(this.delete_id).subscribe(data=>{
       this.handleRespons(data);
       this.Jarwis.displayDeptAppointment().subscribe(
         data=>{

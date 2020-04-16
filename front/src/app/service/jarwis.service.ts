@@ -134,11 +134,15 @@ export class JarwisService {
   }
   deleteType(data) {
     return this.http.post(`${this.baseUrl}/deleteType`, data)
-  }
+  }  
 
   // Branch
   displayStaffBranch(id: any) {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
+  }
+
+  displayAppointmentBranch(id: any) {
+    return this.http.get(`${this.baseUrl}/displayAppointmentBranch/${id}`,)
   }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
@@ -872,7 +876,7 @@ updateGeneralSet(data) {
 addGeneralSet(data) {
   return this.http.post(`${this.baseUrl}/addGeneralset`, data)
 }
-cncel_pharm_log(data){
+cancel_pharm_log(data){
   return this.http.post<any>(`${this.baseUrl}/cancelPharmLog`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
  )
  }

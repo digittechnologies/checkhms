@@ -77,8 +77,13 @@ export class PatientComponent implements OnInit {
   epsContact: any;
   epsAddress: any;
   epsStatus: any;
-  responseRec: Object;
-  center: Object;
+  responseRec: any;
+  center: any;
+  appointment_ty: any;
+  givenDept: any;
+  sResponse: any;
+  sbranch: any;
+  appt: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -121,22 +126,45 @@ export class PatientComponent implements OnInit {
     
     this.Jarwis.displayDepartments().subscribe(
       data=>{
-      console.log(data);   
       this.response = data;
       this.department = this.response     
    
     })
 
-    this.JarwisRecord.displayUser().subscribe(
+    this.JarwisRecord.displayUser().subscribe( 
       data=>{
       this.responseRec = data;
-      this.center = this.responseRec[0];  
+      this.center = this.responseRec.branch[0]; 
+      this.appointment_ty = this.responseRec.appointment_type; 
+      // console.info(this.appointment_ty);
     })
   }
 
-  // next(){
+  onChange1(b){
 
-  // }
+    this.givenDept = b.target.value;
+ 
+    this.Jarwis.displayAppointmentBranch(this.givenDept).subscribe(
+      data=>{
+      this.sResponse = data;      
+      this.sbranch = this.sResponse.branch
+      this.appt = this.sResponse.appt
+
+      console.info(this.appt);
+
+      })
+  
+  }
+
+
+  onSubmitApp(form: NgForm) {
+    this.disabled = true;
+     this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+       data => this.handleResponse(data),
+         error => this.handleError(error)
+    );
+    
+   }
 
   appointment(id){
 
@@ -270,15 +298,6 @@ export class PatientComponent implements OnInit {
 
    
      }
-  }
-
-  onSubmitApp(form: NgForm) {
-    this.disabled = true;
-    this.Jarwis.makeAppointment2({aid:this.appontId, form:form.value }).subscribe(
-      data => this.handleResponse(data),
-        error => this.handleError(error)
-   );
-   
   }
 
  view(id){

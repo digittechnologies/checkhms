@@ -136,6 +136,7 @@ import { RecordLogComponent } from './record/record-log/record-log.component';
 import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 
 @NgModule({
   declarations: [
@@ -337,6 +338,8 @@ import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component
     RecordHistoryComponent,
   
     RevenueLogComponent,
+  
+    AppointmentTypeComponent,
   
   ],
   imports: [

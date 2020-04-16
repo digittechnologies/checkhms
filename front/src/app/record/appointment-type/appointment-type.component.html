@@ -1,0 +1,196 @@
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h1>Hospital Charges Settings</h1>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                      <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+                      <li class="breadcrumb-item active" aria-current="page">Appointment Types Settings</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <div class="col-md-6 col-sm-12 text-right">
+                  <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddApt">Add</button>
+                  <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
+              </div>
+          </div>
+      </div>
+      <div class="row clearfix">
+          <div class="col-sm-12">
+              <div class="table-responsive">
+                  <table class="table table-hover table-custom spacing8">
+                      <thead>
+                          <tr> 
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>Status</th>
+                              <!-- <th>Created Date</th>
+                              <th>Created Time</th>
+                              <th>Staff</th>
+                              <th>Last Updated Timestamp</th> -->
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let apt of appType; let i = index">
+                              <td>
+                                  {{i+1}}
+                              </td>                              
+                              <td style="color: #17C2D7;">{{apt.name}}</td>
+                              <td>{{apt.description}}</td>                            
+                              <td>
+                                  <span class="badge badge-success" *ngIf ="apt.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="apt.status=== 'suspend'">Suspend</span>                                   
+                              </td>  
+                              <!-- <td>{{c.created_date}}</td> 
+                              <td>{{c.created_time}}</td> 
+                              <td>{{c.firstname}} {{c.lastname}}</td>    
+                              <td>{{c.updated_at}}</td>                      -->
+                              <td>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditApt" (click)="editApptType(apt.id)"><i class="fa fa-pencil"></i></button>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(apt.id)"><i class="fa fa-trash-o"></i></button>
+                              </td>
+                          </tr> 
+                          <div *ngIf="!appType">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+                          </div>                                                  
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Default Size -->
+<div class="modal fade" id="AddApt" tabindex="1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title h4" id="myLargeModalLabel">Add Appointment Types</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(typ)" #typ="ngForm"> 
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Appointment Type Name" ngModel name="name" required>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                    <textarea rows="4" type="text" class="form-control" placeholder="Appointment Type Description" ngModel name="description" required></textarea>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">                      
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Status</label>
+                        </div> 
+                        <select class="custom-select" ngModel name="status"> 
+                            <option value="">Select Status...</option>   
+                            <ng-container>
+                                <ng-container>
+                                  <option value="active">Active</option>
+                                  <option value="suspend">Suspend</option>  
+                                </ng-container>
+                            </ng-container>                                                                           
+                        </select>        
+                    </div>                  
+                    </div>
+              </div>             
+          </div>
+      </div>      
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+          <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+      </div>
+      </form>
+  </div>
+  </div>
+  </div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="EditApt" tabindex="1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Update Appointment Type</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+            <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" [value]="aptyName" ngModel name="name" required>
+                      </div>
+                  </div>             
+              </div>
+          </div>
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <textarea rows="4" type="text" class="form-control" placeholder="Appointment Type Description"  [value]="aptyDes" ngModel name="description" required></textarea>
+                      </div>
+                  </div>             
+              </div>
+          </div>
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">                      
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Status</label>
+                            </div> 
+                            <select class="custom-select" ngModel name="status"> 
+                                <option value="">Select Status...</option>   
+                                <ng-container>
+                                    <ng-container>
+                                      <option value="active">Active</option>
+                                      <option value="suspend">Suspend</option>  
+                                    </ng-container>
+                                </ng-container>                                                                           
+                            </select>        
+                        </div>                  
+                        </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+          </form>
+      </div>
+  </div>
+  </div>
