@@ -37,6 +37,9 @@ export class PhamAdminComponent implements OnInit {
     item: any;
     items: any;
     p:any;
+    male: any;
+    female: any;
+    patient: any;
 
   
   constructor(
@@ -64,7 +67,10 @@ export class PhamAdminComponent implements OnInit {
     this.Jarwis.countCustomer().subscribe(
       data=>{
       this.response = data;      
-      this.pat = this.response[0]    
+      this.pat = this.response[0]  
+      this.male = this.pat.male;
+      this.female = this.pat.female;  
+      this.patient = this.pat.patient
       
       this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
@@ -72,6 +78,7 @@ export class PhamAdminComponent implements OnInit {
         data=>{
         this.response = data;      
         this.branches = this.response
+        console.log(this.branches)
 
         this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
@@ -165,7 +172,9 @@ export class PhamAdminComponent implements OnInit {
     var defaultApptCount = 0
     var apptValueActive = []
     var apptValueTerminated = []
-    var apptValueClose = []    
+    var apptValueClose = [] 
+    console.info(branc)
+
     branc.forEach(e => {
         sites.push([e.br_name, pieData[count]])
         data[e.br_name] = e.name

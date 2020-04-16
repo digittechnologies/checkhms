@@ -39,6 +39,16 @@ export class SetBranchComponent implements OnInit {
    suspend_id:any;
    activate_id:any;
    branch_details:any;
+   staffs:any;
+   branch_name:any;
+   branch_adress:any;
+   branch_hod:any;
+   branch_status:any;
+  deptli: Object;
+  apppoint_type: Object;
+  dd: Object;
+  staff: any;
+  app_type: any;
   
 
   constructor( 
@@ -91,10 +101,14 @@ export class SetBranchComponent implements OnInit {
       this.clinic = this.response.clinic; 
       this.radio = this.response.radio;
       this.record = this.response.record;
+      this.revenue=this.response.revenue;
+      console.info(this.revenue)
     })
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
-      this.deptlists = data;
-      console.log(data)
+      let deptli = data;
+      this.deptlists = deptli;
+      this.apppoint_type = deptli
+      console.log(data[0].list)
     },
     err=>{console.log(err)}
     )
@@ -146,11 +160,20 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.onEditBranch({id:id}).subscribe(
       data=>{
         this.branch_details = data;
-        console.log(this.branch_details[0].name)
+        this.branch_name   = this.branch_details.branche[0].name;
+        this.branch_adress = this.branch_details.branche[0].address;
+        this.branch_hod    = this.branch_details.branche[0].firstname;
+        this.branch_status = this.branch_details.branche[0].status;
+        this.staffs = this.branch_details.staffs;
+        console.log(this.branch_details.branche[0].name)
       }
     )
   }
-
+  onUpdateBranch(form:NgForm){
+    this.Jarwis.updateBranch(form).subscribe(
+      res=>console.log(res)
+    )
+  }
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
@@ -175,7 +198,9 @@ export class SetBranchComponent implements OnInit {
     this.dept_name=e.target.value;
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
       this.deptlists = data;
-      console.log(data)
+       this.staff = this.deptlists.list;
+       this.app_type = this.deptlists.appointment_type;
+       console.log(this.app_type)
     },
     err=>{console.log(err)}
     )

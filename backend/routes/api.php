@@ -263,3 +263,5 @@ Route::post('makeAppointment','RecordModuleController@makeAppointment');
 Route::get('patient-data/{id}', 'DoctorModule@patientData');
 Route::get('displayAppointment','DoctorModule@displayAppointment');
 
+//REVENUE RECORD APIS
+Route::get('patientvouchers/{id}','RevenueModuleController@patientVouchers');

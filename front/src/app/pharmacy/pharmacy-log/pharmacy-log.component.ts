@@ -187,20 +187,21 @@ export class PharmacyLogComponent implements OnInit {
   }
 // End Autocomplete
   appointment(id){
-    this.appontId = id;
- 
+    this.appontId = id.target.value;
+    this.form.customer=this.appontId
+    console.log(this.appontId)
    // console.log(id);
      
    }
  
-   onSubmitApp(form: NgForm) {
-    this.disabled = true;
-     this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
-       data => this.handleResponse(data),
-         error => this.handleError(error)
-    );
+  //  onSubmitApp(form: NgForm) {
+  //   this.disabled = true;
+  //    this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+  //      data => this.handleResponse(data),
+  //        error => this.handleError(error)
+  //   );
     
-   }
+  //  }
 
   onSubmit(form: NgForm) {
    this.disabled = true;
@@ -241,19 +242,19 @@ export class PharmacyLogComponent implements OnInit {
     })
   }
 
-  // onClickSubmit() {
-  //   this.spin="disable";
-  //   this.disabled = true;
-  //   console.log(this.form.customer)
-  //   if(this.form.customer == null){ 
-  //     alert('Serch Box Empty')
-  //   }else{
-  //         this.Jarwis.makeAppointment(this.form).subscribe(
-  //           data => this.handleRespons(data),
-  //             error => this.handleErro(error)
-  //        );
-  //   }
-  // }  
+  onClickSubmit() {
+    this.spin="disable";
+    this.disabled = true;
+    console.log(this.form.customer)
+    if(this.form.customer == null){ 
+      alert('Serch Box Empty')
+    }else{
+          this.Jarwis.makeAppointment(this.form).subscribe(
+            data => this.handleRespons(data),
+              error => this.handleErro(error)
+         );
+    }
+  }  
   handleRespons(data) {
     this.disabled = false;
     this.spin="";    
