@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { RevenueJarwisService } from 'src/app/service/revenue-jarwis.service';
 
 @Component({
   selector: 'app-revenue-log',
@@ -14,35 +16,21 @@ logs:any;
 res:any;
 role:any;
 dept:any;
+vouchId:any;
 
-  constructor(private Jarwis:JarwisService) { }
+  constructor(
+   private Jarwis:RevenueJarwisService,
+    private actRoute:ActivatedRoute
+
+    ) { }
 
   ngOnInit() {
-    this.Jarwis.profile().subscribe(
-      data=>{
-        this.res = data;
-        this.role= this.res.det[0].role_id
-        this.dept = this.res.det[0].nameD
-        console.log(this.res)
-    })
-    this.Jarwis.displayDeptAppointment().subscribe(
-      data=>{
-      this.response = data;      
-      this.logs = this.response;
-      this.log=this.logs 
-      console.log(this.log)
-    })
-  }
-  filt(e){
-var index = this.log.filter(function(card) {
-	return card.card_number == e.target.value;
-});
-this.log=index;
-if (index=='') {
-  this.log=this.logs;
-}
-console.log(this.log)
-    
-  }
+      this.actRoute.paramMap.subscribe((params => {
+	    let id = params.get('id');
+      this.vouchId= id;
+      console.log(this.vouchId)
+      this.Jarwis.patientVouchers(this.vouchId).subscribe(data=>console.log(data))
+     }))
+     }
 
 }

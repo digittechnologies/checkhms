@@ -526,6 +526,9 @@ addCustCategories(data) {
 onEditBranch(data){
   return this.http.post(`${this.baseUrl}/onEditBranch`,data)
 }
+// updateBranch(data){
+//   this.http.post(`${this.baseUrl}/updateBranch`,data)
+// }
 
 //Appointment 
 displayAllappointment() {

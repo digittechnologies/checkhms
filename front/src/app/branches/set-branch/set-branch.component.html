@@ -636,13 +636,26 @@
     <div class="form-group">
     <select name="sales_rep" id="" required ngModel class="form-control">
     <option value="">Select HOD</option>
-    <option *ngFor="let dpt of deptlists" value="{{dpt.id}}">{{dpt.firstname}}</option>
+    <option *ngFor="let dpt of staff" value="{{dpt.id}}">{{dpt.firstname}}</option>
     </select>
     <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
     </div>
     </div>             
     </div>
     </div>
+    <div class="modal-body">             
+        <div class="row clearfix">
+        <div class="col-md-8">
+        <div class="form-group">
+        <select name="clinic_type" id="" required ngModel class="form-control">
+        <option value="">Appointment type</option>
+        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
+        </select>
+        <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
+        </div>
+        </div>             
+        </div>
+        </div>
 
     <div class="modal-body">             
     <div class="row clearfix">
@@ -672,31 +685,64 @@
     <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header">
-    <h5 class="modal-title h4" id="myLargeModalLabel">Update Item Category</h5>
+    <h5 class="modal-title h4" id="myLargeModalLabel">Update Branch</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">×</span>
     </button>
     </div>
-    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+    <form class="form-auth-small m-t-20" role="form" (ngSubmit)=" onUpdateBranch(ed)" #ed="ngForm"> 
     <div class="modal-body">             
     <div class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="">Name</label>
-                <input type="text" class="form-control" [value]="catName" placeholder="Name" ngModel name="name" required>
+                <label for="">Branch Name</label>
+                <input type="text" class="form-control" [value]="catName" placeholder="{{branch_name}}"  ngModel name="name" required>
                 <input type="hidden" [value]="manufid" ngModel name="id">
-                {{branch_details[0].name}}
+
+                
             </div>
         </div>             
     </div>
     </div>
+    <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="">Branch Adress</label>
+                    <input type="text" class="form-control" [value]="catName" placeholder="{{branch_adress}}"  ngModel name="adress" required>
+                    <input type="hidden" [value]="manufid" ngModel name="id">
+    
+                    
+                </div>
+            </div>             
+        </div>
+        </div>
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="">HOD</label>
+                        <!-- <input type="text" > -->
+                       <select name="" id="" class="form-control"   ngModel name="sales_rep" required>
+                           <option value="">{{branch_hod}}</option>
+                           <option *ngFor="let staff of staffs" value="{{staff.id}}">{{staff.firstname}}</option>
+
+                       </select>
+                        <input type="hidden" [value]="manufid" ngModel name="id">
+                    </div>
+                </div>             
+            </div>
+            </div>
 
     <div class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
+                <label for="">Status</label>
+
                 <select class="form-control show-tick" ngModel name="status">
+                    <option value="">{{ branch_status}}</option>
                     <option active value="active">Active</option>
                     <option value="suspend">Suspend</option>                                
                 </select>                  
@@ -706,8 +752,8 @@
     </div>      
     </div>
     <div class="modal-footer">
-    <button type="submit" class="btn btn-round btn-primary" class="close" data-dismiss="modal"  aria-label="Close">Update</button>
-    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+    <button type="button" class="btn btn-round btn-primary" class="close" data-dismiss="modal" >Close</button>
+    <button type="submit" class="btn btn-round btn-success" class="close" data-dismiss="modal"  >Update</button>
     </div>
     </form>
     </div>

@@ -244,7 +244,7 @@ const routes: Routes = [
          {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [AfterLoginService] },
          
            //REvenue
-         {path: 'revenue_log', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
+         {path: 'revenue_log/:id', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },

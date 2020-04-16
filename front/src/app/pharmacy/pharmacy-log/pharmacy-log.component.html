@@ -25,12 +25,32 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
-                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
+                        <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
+                            <div class="row">
+                                <div class="col-lg-10 col-md-10 col-sm-6">
+                                    <label>Search User</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search..." (keyup)="filt()" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
+                                        <mat-autocomplete #auto="matAutocomplete" >
+                                            <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
+                                             {{street}} 
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        
+                                    </div>
+                                </div>                           
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <label>&nbsp;</label>
+                                    <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                </div>
+                            </div>
+                        </form> -->
+                        <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm">
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." (keyup)="filt()" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
+                                    <input type="text" class="form-control" placeholder="Search..." (keyup)="appointment($event)" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
                                     <!-- name="customer2" -->
                                      <!-- <span *ngIf="filres" class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
                                     <mat-autocomplete #auto="matAutocomplete" >
@@ -43,7 +63,7 @@
                             </div>                           
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                <button type="button" (click)="onClickSubmit()" class="btn btn-sm btn-primary btn-block" title="">log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                             </div>
                         </div>
                     </form>
@@ -120,7 +140,8 @@
                 <div class="card c_grid c_yellow">
                     <div class="body text-center p-2">
                         <div class="row mb-3">
-                            <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                            <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                            <!-- <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> -->
                              <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
                              <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
                             </div>
@@ -132,7 +153,9 @@
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
                             <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
                             <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]="dept!='1'"><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
+                            
                         </ul>
                         <hr>Status<hr>
                         <div class="d-flex justify-content-between">

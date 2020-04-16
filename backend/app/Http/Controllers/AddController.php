@@ -795,7 +795,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
   
     public function createBranch(Request $request)
     {
-        // return $request;
+        $creator = Auth()->user()->id;
         $req_name=$request->bran_name;
         $depts=$request->dept_id;
         $branch;
@@ -835,15 +835,14 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 );
         }
         $request->merge(['name' => $req_name]);
-
-        $staffId= Auth()->user()->id;
-        $request->merge(['staff_id' => $staffId]);
-
+        $request->merge(['created_by' => $creator]);
         $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
     else{
         $request->merge(['name' => $req_name]);
+        $request->merge(['created_by' => $creator]);
+        $request->merge(['br_name' => 'branch_'.$req_name]);
         $branch= Branches::create($request-> all());
     }
         if($branch){
@@ -857,6 +856,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 "message":"Failed"
             }';
         }
+    }
+    public function updateBranch(){
+        return $request;
     }
 
     public function deleteBranch(Request $request)
