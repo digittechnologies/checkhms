@@ -36,7 +36,9 @@ export class SetBranchComponent implements OnInit {
    clinic_dept=[];
    oppration_dept=[];
    center_dept:any;
-   
+   suspend_id:any;
+   activate_id:any;
+   branch_details:any;
   
 
   constructor( 
@@ -60,10 +62,10 @@ export class SetBranchComponent implements OnInit {
       data=>{ 
         this.depts=data;
         this.depts.map(d=>{
-          if (d.name=="Clinic" || d.name=="Radiology" || d.name=="Laboratory" || d.name=="Theater " || d.name=="Nurse " || d.name=="Ward") {
+          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="i5" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
             this.clinic_dept.push(d);
           }
-          else if (d.name=="Revenue" || d.name=="Records" || d.name=="Pharmacy") {
+          else if (d.dept_id=="11" || d.dept_id=="16" || d.dept_id=="1") {
             this.oppration_dept.push(d);
           }
         })
@@ -114,26 +116,14 @@ export class SetBranchComponent implements OnInit {
        error => this.handleError(error), 
             
      ); 
-  //  else if(this.dept_name!="pharmacy" && this.dept_name!=" "){
-  //   this.Jarwis.createBranchs({form:form.value,dept:this.dept_name}).subscribe(
-  //     data => {
-  //       this.disabled = false;
-  //       this.handleResponse(data)
-  //       form=null;
-  //       this.close();
-  //        console.log(data)
-  //       },
-  //     error => this.handleError(error), 
-           
-  //   ); 
-  //  }
   }
   }
 
   onSuspend(id: string) {
-
-    this.Jarwis.suspendBranch(id).subscribe(  
-        
+    this.suspend_id=id;
+  }
+  suspend(){
+    this.Jarwis.suspendBranch(this.suspend_id).subscribe(  
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
@@ -141,13 +131,24 @@ export class SetBranchComponent implements OnInit {
   }
 
   onActivate(id: string) {
-
-    this.Jarwis.activateBranch(id).subscribe(  
+  this.activate_id=id
+  }
+  activate(){
+    this.Jarwis.activateBranch(this.activate_id).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
     );
+  }
+  onEdit(id:any){
+    // console.log(id)
+    this.Jarwis.onEditBranch({id:id}).subscribe(
+      data=>{
+        this.branch_details = data;
+        console.log(this.branch_details[0].name)
+      }
+    )
   }
 
   handleResponse(data) {    // 
@@ -168,12 +169,7 @@ export class SetBranchComponent implements OnInit {
     this.disabled = false;
   }
   branch(e){
-    // this.Jarwis. displayBranchs({dept:e}).subscribe(
-    //   data=>{
-    //   this.response = data;      
-    //   this.bran = this.response   
-    // })
-    console.log(e)
+   this.ngOnInit
   }
   dept(e){
     this.dept_name=e.target.value;

@@ -12,34 +12,55 @@ export class RecordJarwisService {
   constructor(
     public http: HttpClient,
   ) { }
-
+  
+  //Hospital Charges starts
   addHospitalCharge(data) {
     return this.http.post(`${this.baseUrl}/addHospitalCharge`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
-
   displayRecordCharges() {
     return this.http.get(`${this.baseUrl}/displayRecordCharges`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
-
-  displayUser() {
-    return this.http.get(`${this.baseUrl}/displayUser`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
-
   editCharge(id:string) {
     return this.http.get<any>(`${this.baseUrl}/editCharge/${id}`)
   }
-
   updateCharge(data) {
     return this.http.post(`${this.baseUrl}/updateCharge`, data)
   }
-
   deleteCharge(data) {
     return this.http.post(`${this.baseUrl}/deleteCharge`, data)
   }
+//Hospital Charges ends
+
+displayUser() {
+  return this.http.get(`${this.baseUrl}/displayUser`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+//Appointment Type starts
+  addApptType(data) {
+    return this.http.post(`${this.baseUrl}/addApptType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  displayApptType() {
+    return this.http.get(`${this.baseUrl}/displayApptType`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editApptType(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/editApptType/${id}`)
+  }
+  updateApptType(data) {
+    return this.http.post(`${this.baseUrl}/updateApptType`, data)
+  }
+  deleteApptType(data) {
+    return this.http.post(`${this.baseUrl}/deleteApptType`, data)
+  }
+//Appointment type ends
+
 }

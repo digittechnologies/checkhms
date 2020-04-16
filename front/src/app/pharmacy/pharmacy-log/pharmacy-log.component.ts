@@ -105,9 +105,8 @@ export class PharmacyLogComponent implements OnInit {
     // this.get()
   }
   filt(){
-    // console.log(this.form.customer)
     let f =this.form.customer
-    // this.log=this.logs="";
+    this.filres="";
     var index = this.log.filter(function(card) {
       return card.customer_id == f;
     });
@@ -125,14 +124,10 @@ export class PharmacyLogComponent implements OnInit {
   cancle(id){
     this.check="cancel"
     this.delete_id = id;
-    // .subscribe(
-      //   data=>{
-        //   this.handleRespons(data);console.log(data)
-        // })
       }
   del(){
     // console.log(this.delete_id)
-    this.Jarwis.cncel_pharm_log(this.delete_id).subscribe(data=>{
+    this.Jarwis.cancel_pharm_log(this.delete_id).subscribe(data=>{
       this.handleRespons(data);
       this.Jarwis.displayDeptAppointment().subscribe(
         data=>{
@@ -210,10 +205,8 @@ export class PharmacyLogComponent implements OnInit {
   onSubmit(form: NgForm) {
    this.disabled = true;
     this.Jarwis.addCustomer(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),     
     );
      this.Jarwis.displayDepartments().subscribe(
       data=>{

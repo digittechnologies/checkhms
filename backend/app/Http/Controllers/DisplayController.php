@@ -26,6 +26,7 @@ use App\Lab_test_types;
 use Carbon\Carbon;
 use App\Role;
 use App\Duration;
+use App\Hospital_charges;
 
 // Today's date working with displayItem,
 
@@ -435,11 +436,24 @@ class DisplayController extends Controller
     public function displayBranch()
     {
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', '1')->orderBy('id')->get();
-    }
+    }  
 
     public function displayStaffBranch($id)
     {
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
+    }
+
+    public function displayAppointmentBranch($id)
+    {
+        return response()->json(['branch'=> Branches::where('status', '=', 'active')
+                                        ->where ('branches.clinic_type', '=', $id)
+                                        ->orderBy('id')->get(),
+
+                                'appt'=> Hospital_charges::where('status', '=', 'active')
+                                        ->where ('hospital_charges.appointment_type', '=', $id)
+                                        ->orderBy('id')->get()
+                                        
+                                ]);
     }
 
     public function displayBranchs(Request $request)

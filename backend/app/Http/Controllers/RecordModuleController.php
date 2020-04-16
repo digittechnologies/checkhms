@@ -68,7 +68,7 @@ class RecordModuleController extends Controller
             ->get(),
 
             'appointment_type'=> Appointment_type::orderBy('id')
-            ->select('appointment_type.*')     
+            ->select('appontment_type.*')     
             ->get()
          ]);
     }
@@ -119,4 +119,153 @@ class RecordModuleController extends Controller
         }
         
     }
+
+    //APointment Types
+    public function addApptType(Request $request)
+    {
+        // $staffId= Auth()->user()->id;
+        // $carbon = Carbon::now();
+        // $date = $carbon->toFormattedDateString();
+        // $time = $carbon->format('h:i:s A');
+        // $request->merge(['created_date' => $date]);
+        $request->merge(['table_name' => 'null']);
+        $request->merge(['key_access' => 'null']);
+
+        $aptType= DB::table('appontment_type')->insertGetId($request-> all());
+       
+        if($aptType){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    // public function 
+
+    public function displayApptType(){
+        return DB::table("appontment_type")->get();
+    }
+
+    public function deleteApptType(Request $request)
+    {
+        $id=$request[0];
+
+        $delete=DB::table('appontment_type')->where('id', $id)->delete();
+       
+        if($delete){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+    }
+
+    public function updateApptType(Request $request)
+    {   
+        $name = $request->name;
+        $description = $request->description;
+        $status = $request->status;
+        $id = $request->id;   
+        $update = DB::table('appontment_type')->where('id','=',$id)
+            ->update([
+                'name'=> $name,
+                'description'=> $description,
+                'status'=> $status,
+            ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    
+    public function editApptType($id)
+    {
+        return response()->json(
+            DB::table('appontment_type')->orderBy('id')
+            ->select('appontment_type.*')     
+            ->where('id','=',$id)          
+            ->get() 
+        );
+    }
+
+
+    //Appointment
+    public function makeAppointment(Request $request)
+    {
+        $id = $request->customer;
+        $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
+        $cust_id=$cus->id;
+        $dept_id= auth()->user()->dept_id;
+        $bid= Auth()->user()->branch_id;
+        // $dept_id = $request->form['dept_id'];
+        $dt = Carbon::now();
+        $date = $dt->toFormattedDateString();
+        $time = $dt->format('h:i:s A');
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+            'appointments.customer_id' => $cust_id,
+            'appointments.prescription' =>'open',
+            'appointments.date' => $date
+            ])->get();
+        if (count($checkAppointment) == 0) {
+
+            $appointment= Vouchers::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'staff_id' => $dept_id,           
+                    'branch_id' => $bid
+                ]);    
+            
+            $appointment= Appointments::create(
+                [
+                    'customer_id' => $cust_id, 
+                    'department_id' => $dept_id, 
+                    'voucher_id'=> $appointment->id,
+                    'prescription' => 'open', 
+                    'invoice' => 'open', 
+                    'voucher' => 'open',
+                    'treatment' => 'open', 
+                    'status' => 'active',
+                    'date' => $date,
+                    'time' => $time,
+                    'branch_id' => $bid
+                ]);    
+      
+         if($appointment){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+        
+        }else if(count($checkAppointment) > 0){
+
+            return 'Already Loged';
+
+        }
+        
+    }
+
 }
