@@ -31,6 +31,10 @@ export class AllStaffComponent implements OnInit {
   roleID: any;
   sbranch: any;
   sResponse: Object;
+  gender: any;
+  firstname: any;
+  lastname: any;
+  email: any;
 
 
   constructor( private Jarwis: JarwisService,
@@ -141,6 +145,10 @@ export class AllStaffComponent implements OnInit {
 
   handleError(error) {
     this.error = error.error.errors;
+    this.gender=this.error.gender
+    this.firstname=this.error.firstname;
+    this.lastname=this.error.lastname;
+    this.email = this.error.email
     let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
       duration: 2000
 

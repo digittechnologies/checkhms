@@ -557,7 +557,7 @@ class DisplayController extends Controller
         return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-                ->where('appointments.department_id','=',$deptId)
+                // ->where('appointments.department_id','=',$deptId)
                 // ->where('appointments.prescription','!=','close')
                 ->where('appointments.branch_id','=',$branchId)
                 // ->where('appointments.status','!=','terminated')
@@ -1045,7 +1045,15 @@ class DisplayController extends Controller
     }
     public function onEditBranch(Request $request){
          $id=$request->id;
-        return DB::table('branches')->where('id',$id)->get();
+        return
+        [
+      'branche'=>DB::table('branches')
+            ->join('users','users.id','=','branches.sales_rep')
+            ->where('branches.id',$id)->select('branches.*','users.firstname')->get(),
+      'staffs'=> DB::table('branches')
+            ->join('users','users.dept_id','=','branches.dept_id')
+            ->where('branches.id',$id)->select('users.*')->get(),
+        ]; 
      }
 
     // Report
@@ -1535,8 +1543,10 @@ class DisplayController extends Controller
      }
     public function deptList(Request $request){
               $dept = $request->dept;
-            //   return response()->json($request->dept) ;
-              return $list =  DB::table('users')->where('dept_id', $dept)->get();;
+           return response()->json([
+            'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
+            'appointment_type' =>  DB::table('appontment_type')->get()
+           ]);
           }
     // public function search($searchTerm)
     // {
