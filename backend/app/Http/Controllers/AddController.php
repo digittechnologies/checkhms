@@ -1224,10 +1224,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
-                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
+                            "app" => DB::table('appointments2')->orderBy('id')->join('departments','appointments2.department_id','=','departments.id')
+                            ->join('customers','appointments2.customer_id','=','customers.id')
+                            ->select('appointments2.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments2.customer_id','=',$row->id)->get(),
                         ]);
                 }
             }
@@ -1255,10 +1255,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
-                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
+                            "app" => DB::table('appointments2')->orderBy('id')->join('departments','appointments2.department_id','=','departments.id')
+                            ->join('customers','appointments2.customer_id','=','customers.id')
+                            ->select('appointments2.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments2.customer_id','=',$row->id)->get(),
                         ]);
                 }
             }

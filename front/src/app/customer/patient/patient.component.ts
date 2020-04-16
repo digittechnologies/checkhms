@@ -159,7 +159,8 @@ export class PatientComponent implements OnInit {
 
   onSubmitApp(form: NgForm) {
     this.disabled = true;
-     this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+    form.value.customer_id = this.eId;
+     this.Jarwis.makeAppointment(form.value).subscribe(
        data => this.handleResponse(data),
          error => this.handleError(error)
     );
@@ -278,6 +279,7 @@ export class PatientComponent implements OnInit {
             this.category = this.searchResponse.category;
             this.epsId = this.patient.id;
             this.epsName = this.patient.eps_name;
+            this.eId =  this.patient.id;
             this.epsEmail = this.patient.email;
             this.epsContact = this.patient.phone;
             this.epsAddress = this.patient.eps_address;
