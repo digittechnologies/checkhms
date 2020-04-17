@@ -406,8 +406,9 @@
                                         <h2>New Appointment</h2>
                                     </div>
                                     <div class="body">
+                                        <form role="form" (ngSubmit)="onSubmitApp(apt)" #apt="ngForm"> 
                                         <div class="row">
-                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+                                            
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Record Center</label>  
@@ -416,7 +417,7 @@
                                                 <div class="form-group">
                                                   
                                                     <label class="fancy-radio custom-color-green">Appointment Type</label>  
-                                                    <select class="form-control" (change)="onChange1($event)">
+                                                    <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
                                                         <option>--Appointment_type--</option>
                                                     
                                                             <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                          
@@ -425,7 +426,7 @@
                                                 </div>
                                                 <div class="form-group"> 
                                                     <label class="fancy-radio custom-color-green">Center</label>  
-                                                    <select class="form-control">
+                                                    <select class="form-control" ngModel name="center_id">
                                                         <option>--Department Center(s)--</option>                                                      
                                                             <option *ngFor="let cent of sbranch" value="{{cent.id}}">{{cent.name}}</option>                                    
                                                                                                               
@@ -434,21 +435,14 @@
                                             </div>
                                             <div class="col-lg-12 col-md-12" *ngIf="givenDept <= '2'">
                                                 <h6>Special Consult</h6>
-                                                <p>I'd like to see special doctor:</p>
-                                                <ul class="list-unstyled list-email-received">
-                                                    <li>
-                                                        <label class="fancy-checkbox">
-                                                            <input type="checkbox" checked><span>Weekly account summary</span></label>
-                                                    </li>                                                    
-                                                </ul>
-
+                                                <p>I'd like to see special doctor:</p>                                               
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Doctor</label>  
                                                     <select class="form-control">
                                                         <option>--Select Physician--</option>
-                                                        <optgroup label="Africa">
+                                                        <option value="0">None</option>
                                                             <option value="Africa/Abidjan">Dr Durodola</option>                                                            
-                                                        </optgroup>                                                        
+                                                                                              
                                                     </select>
                                                 </div>                                                
                                             </div>        
@@ -456,18 +450,23 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Charges</label>  
-                                                    <select class="form-control">
+                                                    <select class="form-control" ngModel name="charges">
                                                         <option>--Select Charges--</option>
                                                             <option value="0">None</option>  
                                                             <option *ngFor="let asmt of appt" value="{{asmt.id}}">{{asmt.charge_name}}</option>
                                                                                                               
                                                     </select>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Note</label>  
+                                                    <textarea ngModel name="note" type="text" style="text-decoration: none;" class="form-control" value="" ></textarea>
+                                                </div>
                                             </div>
-                                            <button type="button" class="btn btn-primary">Submit</button> &nbsp;&nbsp;
-                                            <button class="btn btn-default">Cancel</button>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button> &nbsp;&nbsp;
+                                        <!-- <button class="btn btn-default">Cancel</button> -->
                                         </form>
-                                        </div>                                        
                                     </div>
                                 </div>
                             </div>                       

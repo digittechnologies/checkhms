@@ -48,6 +48,8 @@ export class PharmacyLogComponent implements OnInit {
   dept:any;
   filres:any;
   transe_log:any
+  uBranch: any;
+  uBranchName: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -58,13 +60,29 @@ export class PharmacyLogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.Jarwis.profile().subscribe(
+    //   data=>{
+    //     this.res = data;
+    //     this.role= this.res.det[0].role_id
+    //     this.dept = this.res.det[0].dept_id;
+    //     console.log(this.res)
+    // })
+
     this.Jarwis.profile().subscribe(
       data=>{
-        this.res = data;
-        this.role= this.res.det[0].role_id
-        this.dept = this.res.det[0].dept_id;
-        console.log(this.res)
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uBranchName= this.response.det[0].br_name
+      this.role= this.response.det[0].role_id
+      this.dept = this.response.det[0].dept_id;
     })
+
+    this.Jarwis.displayBranch().subscribe(
+      data=>{
+      this.response = data;      
+      this.bran = this.response   
+    })
+
     this.Jarwis. generalSettings().subscribe(
       data=>{
       this.response = data;      
