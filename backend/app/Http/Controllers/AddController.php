@@ -840,9 +840,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $branch= Branches::create($request-> all());
     }
     else{
+        $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         $request->merge(['name' => $req_name]);
         $request->merge(['created_by' => $creator]);
-        $request->merge(['br_name' => 'branch_'.$req_name]);
+        $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
         if($branch){

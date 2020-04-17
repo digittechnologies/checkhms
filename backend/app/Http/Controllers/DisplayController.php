@@ -448,8 +448,7 @@ class DisplayController extends Controller
         return response()->json(['branch'=> Branches::where('status', '=', 'active')
                                         ->where ('branches.clinic_type', '=', $id)
                                         ->orderBy('id')->get(),
-
-                                'appt'=> Hospital_charges::where('status', '=', 'active')
+                                 'appt'=> Hospital_charges::where('status', '=', 'active')
                                         ->where ('hospital_charges.appointment_type', '=', $id)
                                         ->orderBy('id')->get()
                                         
@@ -573,7 +572,7 @@ class DisplayController extends Controller
         // $cTime = $dt->format('h:i:s A');
 
         $deptId= Auth()->user()->dept_id;
-        $branchId= Auth()->user()->branch_id;
+       $branchId= Auth()->user()->branch_id;
         return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
@@ -831,7 +830,7 @@ class DisplayController extends Controller
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name asdaily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
                 // ->where('doctor_prescriptions.status', '=', 'close')
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
                 ->where('doctor_prescriptions.branch_id', '=', $bId)

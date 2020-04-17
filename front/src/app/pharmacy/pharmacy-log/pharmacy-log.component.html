@@ -16,174 +16,256 @@
                     <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddPatients">Create Account</a> -->
                     <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
-                <div *ngIf="dept=='Phamarcy'" class="col-12">
-                    <input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
-                </div>
             </div>
         </div>
         <div class="row clearfix">
             <div class="col-12">
                 <div class="card">
-                    <div class="body">
-                        <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-6">
-                                    <label>Search User</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search..." (keyup)="filt()" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
-                                        <mat-autocomplete #auto="matAutocomplete" >
-                                            <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
-                                             {{street}} 
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                        
-                                    </div>
-                                </div>                           
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <label>&nbsp;</label>
-                                    <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                                </div>
-                            </div>
-                        </form> -->
-                        <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm">
-                        <div class="row">
-                            <div class="col-lg-10 col-md-10 col-sm-6">
-                                <label>Search User</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." (keyup)="appointment($event)" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
-                                    <!-- name="customer2" -->
-                                     <!-- <span *ngIf="filres" class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
-                                    <mat-autocomplete #auto="matAutocomplete" >
-                                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
-                                         {{street}} 
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                    
-                                </div>
-                            </div>                           
-                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                <label>&nbsp;</label>
-                                <button type="button" (click)="onClickSubmit()" class="btn btn-sm btn-primary btn-block" title="">log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                    </div>
+                    <ul class="nav nav-tabs">
+                        <li  class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#appointment" (click)="branch('clinic')" value="clinic">Appointment</a></li>
+                        <li  class="nav-item"><a class="nav-link " data-toggle="tab" href="#transfer" (click)="branch('pharmacy')" >Transfered</a></li>
+                            </ul>
+         <div  class="tab-content mt-0">
+    <div  class="tab-pane active show" id="appointment">
+    <div *ngIf="dept=='Phamarcy'" class="col-12 mb-3" >
+    <input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
+    </div>
+    <div class="body mb-4">
+        <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-6">
+                <label>Search User</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." (keyup)="filt($event)" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
+                    <!-- name="customer2" -->
+                        <!-- <span *ngIf="filres" class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
+                            {{street}} 
+                        </mat-option>
+                    </mat-autocomplete>
+                    
                 </div>
+            </div>                           
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <label>&nbsp;</label>
+                <button type="button" (click)="filt()" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
             </div>
         </div>
-         
-         <div class="modal fade" id="endall" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">  
-                <div class="modal-header">
-                    <h4 class="modal-title">Note !</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                  <div class="modal-body">             
-                      <div class="row  justify-content-center">
-                             <h6>You are about to end all paid  appointmaent !</h6>     
-                      </div>
-                  </div>      
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
-                      <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="endAppointments()">Yes</button>
-                  </div>
-              </div>
-            </div>
-            </div>
-        <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">  
-                <div class="modal-header">
-                    <h4 class="modal-title">Note !</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                  <div class="modal-body">             
-                      <div class="row  justify-content-center">
-                             <h6>You are about to cansel this appointmaent !</h6>     
-                      </div>
-                  </div>      
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
-                      <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="del()">Yes</button>
-                  </div>
-              </div>
-            </div>
-            </div>
-            <div class="modal fade" id="endAppointment" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div  class="modal-content">  
-                    <div class="modal-header">
-                        <h4 class="modal-title">Note !</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                      <div class="modal-body">             
-                          <div class="row  justify-content-center">
-                                 <h6>You are about to end this appointmaent !</h6>     
-                          </div>
-                      </div>      
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
-                          <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="endAppointment()">Yes</button>
-                      </div>
-                  </div>
-                </div>
-                </div>
-        <div class="row clearfix">
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
-                    <div class="card-header text-center">
-                        <h5 class="text-primary">No log entries yet</h5>
-                    </div>
-                </div> -->
-
-            <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
-                <div class="card c_grid c_yellow">
-                    <div class="body text-center p-2">
-                        <div class="row mb-3">
-                            <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
-                            <!-- <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> -->
-                             <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
-                             <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
-                            </div>
-                        <div class="circle">
-                            <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+    </form>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
+            <div class="card c_grid c_yellow">
+                <div class="body text-center p-2">
+                    <div class="row mb-3">
+                        <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                        <!-- <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> -->
+                            <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                            <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
                         </div>
-                        <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
-                        <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
-                        <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
-                            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
-                            
-                        </ul>
-                        <hr>Status<hr>
-                        <div class="d-flex justify-content-between">
-                            <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
-                            <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
-                            <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
-                            <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
-                            <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
-                            <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
-                            <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>
-                        </div>
-                    </div>                        
-                </div>
-            </div> 
-            <div *ngIf="!log">
-                <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
+                    <div class="circle">
+                        <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+                    </div>
+                    <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
+                    <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+                    <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
+                        <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
+                        <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
+                        <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
+                        <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
+                        
+                    </ul>
+                    <hr>Status<hr>
+                    <div class="d-flex justify-content-between">
+                        <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
+                        <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
+                        <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
+                        <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
+                        <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
+                        <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
+                        <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>
+                    </div>
+                </div>                        
             </div>
-        <div class="spinner-grow text-secondary" role="status">
+        </div> 
+        <div *ngIf="!log">
+            <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    <div class="spinner-grow text-secondary" role="status">
 <span class="sr-only">Loading...</span>
 </div>
 <div class="spinner-grow text-success" role="status">
 <span class="sr-only">Loading...</span>
 </div>
-              </div>    
+</div>    
+</div>
+</div>
+<div class="tab-pane" id="transfer">
+<div *ngIf="dept=='Phamarcy'" class="col-12 mb-3">
+<input type="button" class="btn btn-success float-right text-light" data-toggle="modal" data-target="#endall" value="End all paid appointmaent">
+</div>
+<div class="body mb-4">
+<form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm">
+<div class="row">
+<div class="col-lg-10 col-md-10 col-sm-6">
+    <label>Search User</label>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..." (keyup)="filt($event)" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
+        <!-- name="customer2" -->
+            <!-- <span *ngIf="filres" class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
+        <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
+                {{street}} 
+            </mat-option>
+        </mat-autocomplete>
+        
+    </div>
+</div>                           
+<div class="col-lg-2 col-md-4 col-sm-6">
+    <label>&nbsp;</label>
+    <button type="button" (click)="filt()" class="btn btn-sm btn-primary btn-block" title="">log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+</div>
+</div>
+</form>
+</div>
+<div class="row clearfix">
+<div class="col-lg-3 col-md-6" *ngFor= "let l of transe_log">
+<div class="card c_grid c_yellow">
+    <div class="body text-center p-2">
+        <div class="row mb-3">
+            <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+            <!-- <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> -->
+                <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
+            </div>
+        <div class="circle">
+            <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+        </div>
+        <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
+        <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+        <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
+            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
+            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
+            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
+            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
+            
+        </ul>
+        <hr>Status<hr>
+        <div class="d-flex justify-content-between">
+            <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
+            <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
+            <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
+            <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
+            <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
+            <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
+            <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>
+        </div>
+    </div>                        
+</div>
+</div> 
+<div *ngIf="!log">
+<div class="spinner-grow text-primary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+</div>    
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="endall" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">  
+<div class="modal-header">
+    <h4 class="modal-title">Note !</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+    <div class="modal-body">             
+        <div class="row  justify-content-center">
+                <h6>You are about to end all paid  appointmaent !</h6>     
+        </div>
+    </div>      
+    <div class="modal-footer">
+        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+        <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="endAppointments()">Yes</button>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">  
+<div class="modal-header">
+    <h4 class="modal-title">Note !</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+    <div class="modal-body">             
+        <div class="row  justify-content-center">
+                <h6>You are about to cansel this appointmaent !</h6>     
+        </div>
+    </div>      
+    <div class="modal-footer">
+        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+        <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="del()">Yes</button>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="endAppointment" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div  class="modal-content">  
+    <div class="modal-header">
+        <h4 class="modal-title">Note !</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+        <div class="modal-body">             
+            <div class="row  justify-content-center">
+                    <h6>You are about to end this appointmaent !</h6>     
+            </div>
+        </div>      
+        <div class="modal-footer">
+            <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+            <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true" (click)="endAppointment()">Yes</button>
         </div>
     </div>
 </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Default Size -->
 <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">

@@ -47,6 +47,7 @@ export class PharmacyLogComponent implements OnInit {
   role:any
   dept:any;
   filres:any;
+  transe_log:any
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
