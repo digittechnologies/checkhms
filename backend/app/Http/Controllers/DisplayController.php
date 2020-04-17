@@ -20,7 +20,7 @@ use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
-use App\Appointments;
+use App\Appointment;
 use App\Lab_depts;
 use App\Lab_test_types;
 use Carbon\Carbon;
@@ -435,7 +435,7 @@ class DisplayController extends Controller
 
     public function displayBranch()
     {
-        return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', '1')->orderBy('id')->get();
+        return Branches::where('status', '=', 'active')->orderBy('id')->get();
     }  
 
     public function displayStaffBranch($id)
@@ -568,22 +568,36 @@ class DisplayController extends Controller
     }
     public function displayDeptAppointment()
     {
-        // $dt = Carbon::now();
-        // $cDate = $dt->toFormattedDateString();
-        // $cTime = $dt->format('h:i:s A');
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+
+        if (Auth()->user()->dept_id == '1') {
+           $center = 'pharm_id';
+           $center_status = 'pharm_status';
+        }
 
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
-        return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
-                ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-                // ->where('appointments.department_id','=',$deptId)
-                // ->where('appointments.prescription','!=','close')
-                ->where('appointments.branch_id','=',$branchId)
-                // ->where('appointments.status','!=','terminated')
-                ->where('appointments.status','=','active')
+        return Appointment::orderBy('id', 'DESC')
+                ->join('customers','appointment.customer_id','=','customers.id')
+                ->select('appointment.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+                ->where('appointment.'.$center,'=',$branchId)          
+                ->where('appointment.'.$center_status,'!=','close')
+                ->where('appointment.status','=','open')
                 // ->where('appointments.date', '=', $cDate)
                 ->get();
+
+                // return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
+                // ->join('customers','appointments.customer_id','=','customers.id')
+                // ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+                // // ->where('appointments.department_id','=',$deptId)
+                // // ->where('appointments.prescription','!=','close')
+                // ->where('appointments.branch_id','=',$branchId)
+                // // ->where('appointments.status','!=','terminated')
+                // ->where('appointments.status','=','active')
+                // // ->where('appointments.date', '=', $cDate)
+                // ->get();
     }
     public function displayRevenueAppointment()
     {
