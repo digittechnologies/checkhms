@@ -28,22 +28,37 @@ use App\Duration;
 class RevenueModuleController extends Controller
 {
 public function patientVouchers(Request $request){
-     $vouchid = $request->id;
+    $vouchid = $request->id;
     //  return  $user =  Auth()->user();
    $deptId= Auth()->user()->dept_id;
   $branchId= Auth()->user()->branch_id;
 
-// return response()->json([
-   return DB::table('vouchers')
-    ->where('customer_id',$vouchid)
+return response()->json([
+    'pharm'=> DB::table('appointments')
+    ->join('departments','appointments.department_id','=','departments.id')
+    ->select('appointments.*','departments.*')
+    ->where('appointments.customer_id',$vouchid)
     // ->where('prescription','=','success')
-    ->where('paid_status','=','open')
+    // ->where('status','=','active')
     // ->where('branch_id',  $branchId)
     // ->where('invoice','=','open')
     // ->where('voucher','=','success')
-    ->get();
+    ->where('appointments.department_id',1)
+    ->get(),
+
+    'record'=> DB::table('appointments')
+    ->join('departments','appointments.department_id','=','departments.id')
+    ->select('appointments.*','departments.*')
+    ->where('appointments.customer_id',$vouchid)
+    // ->where('prescription','=','success')
+    // ->where('status','=','active')
+    // ->where('branch_id',  $branchId)
+    // ->where('invoice','=','open')
+    // ->where('voucher','=','success')
+    ->where('department_id',16)
+    ->get()
     //  'pharm'=>DB::table('vouchers')->where('customer_id','=',$vouchid)->where('paid')->get()
-// ]);
+]);
 
 }
 }

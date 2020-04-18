@@ -1,0 +1,42 @@
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+               
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/home']">Dashboard</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="index.html" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]">Patient</a></li> -->
+                        <li class="breadcrumb-item active" aria-current="page">Vouchers</li>
+                        </ol>
+                    </nav>
+                    <hr>
+                </div>            
+            </div>
+        </div>
+  
+        <!-- <div class="row clearfix"> -->
+            <div class="row">
+                 <div *ngIf="pharm_priscript" class="col-lg-3 col-md-5 col-6">
+                     <div class="row" *ngFor="let paharm of pharm_priscript">
+                         <button class="btn btn-default" ><span class="mr-4">{{paharm.name}}</span><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', paharm.id]}}]">Invoice</a></button>
+                     </div>
+                 </div>
+                 <div *ngIf="record_priscript" class="col-lg-3 col-md-5 col-6">
+                    <div class="row "  *ngFor="let record of record_priscript">
+                    <button class="btn btn-default" > <span class="mr-4">{{record.name}}</span> <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', record.id]}}]">Invoice</a></button>
+                 </div>
+                </div>
+                <div *ngIf="!response">
+               No available voucher
+                   </div>
+               </div>
+        <!-- </div> -->
+    </div>
+  </div> 
+  
+  
+
+
