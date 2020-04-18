@@ -520,7 +520,7 @@ class DisplayController extends Controller
 
     public function patientdetails($id)
     {
-        $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->get();
+        $customeId= Appointment::orderBy('id')->where('id','=',$id)->select('appointment.customer_id')->get();
         $cId= $customeId[0]->customer_id;
         return response()->json(
             Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
@@ -576,6 +576,21 @@ class DisplayController extends Controller
            $center = 'pharm_id';
            $center_status = 'pharm_status';
         }
+        if (Auth()->user()->dept_id == '2' || Auth()->user()->dept_id == '18') {
+            $center = 'clinic_id';
+            $center_status = 'clinic_status';
+         }
+
+         if (Auth()->user()->dept_id == '16') {
+            $center = 'created_branch';
+            $center_status = 'created_status';
+         }
+
+         if (Auth()->user()->dept_id == '11') {
+            $center = 'revenue_id';
+            $center_status = 'revenue_status';
+         }
+         
 
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;

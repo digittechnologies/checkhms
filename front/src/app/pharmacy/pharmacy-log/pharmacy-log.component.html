@@ -167,10 +167,10 @@
                         </ul>
                         <hr>Status<hr>
                         <div class="d-flex justify-content-between">
-                            <div class="text text-primary" *ngIf ="l.invoice=== 'open'">{{l.invoice}}</div>
+                            <div class="text text-primary" *ngIf ="l.pharm_status=== 'open'">Open</div>
                             <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
                             <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
-                            <div class="text text-primary" *ngIf ="l.voucher=== 'open'">{{l.voucher}}</div>
+                            <div class="text text-primary" *ngIf ="l.created_status=== 'open'">Open</div>
                             <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
                             <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
                             <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>

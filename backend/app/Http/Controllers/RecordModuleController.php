@@ -218,23 +218,32 @@ class RecordModuleController extends Controller
         $staff_id= auth()->user()->id;
         $bid= Auth()->user()->branch_id;
 
-        $request->merge(['created_by' => $staff_id]);
-        $request->merge(['created_branch' => $bid]);
-        $request->merge(['a_date' => $date]);
-        $request->merge(['a_time' => $time]);
+        $checkAppointment= Appointment::orderBy('id')->select('appointment.id')->where([
+            'appointment.customer_id' => $request->customer_id,
+            'appointment.status' =>'open'
+            // 'appointment.date' => $date
+            ])->get();
+
+        if (count($checkAppointment) == 0) {
+     
+
+            $request->merge(['created_by' => $staff_id]);
+            $request->merge(['created_branch' => $bid]);
+            $request->merge(['a_date' => $date]);
+            $request->merge(['a_time' => $time]);
 
 
-        if($request->appointment_type == "4"){
-            $request->merge(['pharm_id' => $request->center_id]);
-            $request->merge(['pharm_status' => 'open']);
-        }
+            if($request->appointment_type == "4"){
+                $request->merge(['pharm_id' => $request->center_id]);
+                $request->merge(['pharm_status' => 'open']);
+            }
 
-        if($request->hospital_charges != "0"){
-            $request->merge(['revenue_id' => $request->charges]);
-            $request->merge(['revenue_status' => 'open']);
-        }
+            if($request->hospital_charges != "0"){
+                $request->merge(['revenue_id' => $request->charges]);
+                $request->merge(['revenue_status' => 'open']);
+            }
 
-        $insert =  Appointment::create($request->all());
+            $insert =  Appointment::create($request->all());
         
          if($insert){
             return '{
@@ -247,6 +256,13 @@ class RecordModuleController extends Controller
                 "message":"Failed"
             }';
         }
+
+        }else if(count($checkAppointment) > 0){
+
+            return 'Already Loged';
+
+        }
+        
 
         // $dt = Carbon::now();
         // $date = $dt->toFormattedDateString();
