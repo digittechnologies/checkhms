@@ -36,7 +36,7 @@ export class VoucherComponent implements OnInit {
   math = Math;
   useFor: any;
   quant: any;
-  tQuantity: any;
+  tQuantity = 0;
   patientResponse: any;
   PharmPreresponse: any;
   ItemDetresponse: any;
@@ -281,7 +281,7 @@ export class VoucherComponent implements OnInit {
         alert('Quantity greater than quantity in stock')
         d.target.value = ''
         this.quantity = ''
-        this.tQuantity = ''
+        this.tQuantity = 0
         this.days = ''        
       }
       this.useFor = this.days

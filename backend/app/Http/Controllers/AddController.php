@@ -2537,8 +2537,7 @@ public function addCenter(Request $request)
         $branchName = $getBranchName->br_name;
 
         //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
-        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status')->where('id', '=', $vid)->first();
-
+        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
         $refill= $getV->refill_status;
 
         if($refill == 'refillable'){
@@ -2547,26 +2546,7 @@ public function addCenter(Request $request)
         } else {
        
             $success = 'success';
-        }
-
-
-
-        $insertInvoice = DB::table('invoices')->insertGetId([
-            'amount' => $getV->amount,
-            'paid' => $getV->amount + 50,
-            'balance' => 0,
-            'discount' => 0,
-            'service_charge' => '50',
-            'other_charges' => 0,
-            'status' => 'paid',
-            'delivery_status' => 'delivered',
-            'branch_id' => $branchId,
-            'staff_id' => $pharmacistId,
-            'voucher_id' => $vid,
-            'i_date' => $cDate,
-            'i_time' => $cTime,
-            'graph_date' => date("Y-m"),
-        ]);      
+        }      
 
         //GET PRESCRIPTIONS DATA
         $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
@@ -2583,11 +2563,36 @@ public function addCenter(Request $request)
             ]);
         }
 
+        //INSERT INTO INVOICE
+        foreach($get as $row2){
+            $dpid = $row2->id;
+
+            $insertInvoice = DB::table('invoices')->insertGetId([
+                'amount' => $getV->amount,
+                'paid' => $getV->amount + 50,
+                'balance' => 0,
+                'discount' => 0,
+                'service_charge' => '50',
+                'other_charges' => 0,
+                'status' => 'paid',
+                'delivery_status' => 'delivered',
+                'branch_id' => $branchId,
+                'staff_id' => $pharmacistId,
+                'voucher_id' => $vid,
+                'i_date' => $cDate,
+                'i_time' => $cTime,
+                'graph_date' => date("Y-m"),
+                'doctor_prescription_id' => $dpid,
+                'charges_id' => null,
+                'payment_method' => null,
+                'payment_id' => null,
+            ]);
+        }
         //UPDATE VOUCHER AND ADD THE INVOICE ID OF THE OBJECT TO THE RETURNED INVOICE ID ABOVE
         $updateVoucher = DB::table('vouchers')->where('id', $vid)
                             ->update([
                                 'paid_status' => 'paid',
-                                'invoice_id' => $insertInvoice,
+                                'invoice_id' => null,
                             ]);
         
         //GET BACK THE PATIENT ID FROM THE PRESCRIPTIONS TABLE 
@@ -2595,13 +2600,14 @@ public function addCenter(Request $request)
 
         //UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
         $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
-                                ->where('appointments.voucher_id', '=', $vid)
+                                ->where('appointments.id', '=', $getV->appointment_id)
                                 ->update([
-                                    'invoice' => 'paid',
-                                    'voucher' => $success,
-                                    'prescription' => 'success',
-                                    'treatment' => 'success',
+                                    // 'invoice' => 'paid',
+                                    // 'voucher' => $success,
+                                    // 'prescription' => 'success',
+                                    // 'treatment' => 'success',
                                     // 'status' => 'close',
+                                    'pharm_status' => 'paid'
                                 ]);
         
         //GET THE PAID PRESCRIPTIONS 
@@ -2611,30 +2617,30 @@ public function addCenter(Request $request)
                                 ->get();    
               
             //UPDTE THE BRANCH SLAES WITH THE QUANTITY OUTPUT
-            foreach($all_item as $row){
+            // foreach($all_item as $row){
                 
-                $item = $row->item_id;
-                $val = $row->quantity;
-                $p_date= $row->p_date;
+            //     $item = $row->item_id;
+            //     $val = $row->quantity;
+            //     $p_date= $row->p_date;
 
-                $bitem=DB::table($branchName)
-                ->where('item_detail_id','=', $item)
-                ->where('c_date','=', $p_date)
-                ->first();
+            //     $bitem=DB::table($branchName)
+            //     ->where('item_detail_id','=', $item)
+            //     ->where('c_date','=', $p_date)
+            //     ->first();
 
-                $sales = $bitem->sales + $val;
-                $balance = $bitem->transfer + $sales;
-                $remain =  $bitem->open_stock + $bitem->receive - $balance;
-                $physical = $remain - $bitem->variance;
-                $add=DB::table($branchName)
-                ->where('item_detail_id','=', $item)
-                ->update([
-                    'sales' => $sales,
-                    'total_remain' => $remain,
-                    'balance' => $balance,
-                    'physical_balance' => $physical,
-                ]);   
-            }
+            //     $sales = $bitem->sales + $val;
+            //     $balance = $bitem->transfer + $sales;
+            //     $remain =  $bitem->open_stock + $bitem->receive - $balance;
+            //     $physical = $remain - $bitem->variance;
+            //     $add=DB::table($branchName)
+            //     ->where('item_detail_id','=', $item)
+            //     ->update([
+            //         'sales' => $sales,
+            //         'total_remain' => $remain,
+            //         'balance' => $balance,
+            //         'physical_balance' => $physical,
+            //     ]);   
+            // }
         return '{
             "success":true,
             "message":"successful"
