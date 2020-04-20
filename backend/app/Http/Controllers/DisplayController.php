@@ -648,7 +648,6 @@ class DisplayController extends Controller
         
 
      if (Auth()->user()->dept_id != '10') {
-         return 'dv';
         return response()->json([
             'data' => Appointments::orderBy('id', 'DESC')
         ->join('customers','appointments.customer_id','=','customers.id')

@@ -189,17 +189,19 @@ export class SetBranchComponent implements OnInit {
         this.center= this.branch_details.center;
         this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;
-        console.log(this.branch_details.branch)
+        // console.log(this.branch_details.branch)
       }
     )
   }
   onUpdateBranch(form:NgForm){
-    this.Jarwis.updateBranch(form).subscribe(
-      res=>console.log(res)
+    // console.log(form)
+    this.Jarwis.updateBranch(form.value).subscribe(
+      data=>{console.log(data)
+        this.handleResponse(data[0].message)}
     )
   }
   handleResponse(data) {    // 
-    let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
+    let snackBarRef = this.snackBar.open(data, 'Dismiss', {
       duration: 2000
     })   
     // this.router.navigateByUrl('/Admin/(side:set_branch');
