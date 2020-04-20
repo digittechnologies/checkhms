@@ -59,7 +59,7 @@ export class DailySupplyComponent implements OnInit {
 
   
   editdept(id: string) {
-    console.log(id)
+    // console.log(id)
     this.Jarwis.edtinstruction(id).subscribe(
       data=>{      
         this.manufres = data; 
@@ -74,7 +74,7 @@ export class DailySupplyComponent implements OnInit {
 onUpdate(form: NgForm) {
   this.disabled = true;
   form.value.id=this.duraid; 
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateInstruction(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

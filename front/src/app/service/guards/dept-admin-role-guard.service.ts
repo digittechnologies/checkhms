@@ -7,25 +7,29 @@ import { JarwisService } from '../jarwis.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DeptAdminRoleGuardService implements CanActivateChild {
+export class DeptAdminRoleGuardService implements CanActivate {
   response: any;
   profile: any;
+  dashboardLink:any;
 
   constructor(private Token: TokenService, private router: Router, private Jarwis: JarwisService) { }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any | Observable<any> | Promise<any> {
     if(this.Token.get()){
       this.Jarwis.profile().subscribe(
         data=>{       
         this.response = data;     
         this.profile = this.response.det[0].role_id;
+        this.dashboardLink = this.response.det[0].nameD+'-'+this.response.det[0].role_name;
+        if(this.profile == 1001 || this.profile == 2002 || this.profile == 1002 || this.profile == 2001|| this.profile == 3003 ){
+          console.info(this.dashboardLink);
+          return true;
+        } else {
+          alert('Permission Denied');
+          console.info(this.dashboardLink);
+          this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
+        }
       })
-      if(this.profile == 3003){
-        return true;
-      } else {
-        alert('Permission Denied');
-        return false;
-      }
     }
   }
 }

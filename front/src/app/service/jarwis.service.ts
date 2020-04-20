@@ -141,11 +141,16 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
   }
 
-  displayAppointmentBranch(id: any) {
-    return this.http.get(`${this.baseUrl}/displayAppointmentBranch/${id}`,)
+  displayAppointmentBranch(data) {
+    return this.http.post<any>(`${this.baseUrl}/displayAppointmentBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
+  }
+  displayPharmacyBranch() {
+    return this.http.get(`${this.baseUrl}/displayPharmacyBranch`,)
   }
   displayBranchs(data) {
     return this.http.get(`${this.baseUrl}/displaybranchs`,data,)
@@ -281,10 +286,14 @@ export class JarwisService {
   }
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
-  }
+  }  
 
   idDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/idDurationForV/${id}`,)
+  }
+
+  updatePrecription(id: any) {
+    return this.http.get(`${this.baseUrl}/updatePrecription/${id}`,)
   }
 
   updateDuration(data) {
@@ -362,6 +371,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/displayModule`,)
   }
 
+  showBranches() {
+    return this.http.get(`${this.baseUrl}/showBranches`,)
+  }
+
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
@@ -420,7 +433,13 @@ export class JarwisService {
 // }
 // edtCategories(id:string) {
 //   return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
-// }
+// } 
+
+addCenter(data) {
+  return this.http.post(`${this.baseUrl}/addCenter`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
   createBranch(data) {
   return this.http.post(`${this.baseUrl}/addBranch`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -473,7 +492,6 @@ patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
-  console.log(data)
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
@@ -538,8 +556,8 @@ getDepertment() {
   return this.http.get(`${this.baseUrl}/getDepertment`,)
 }
 
-displayDeptAppointment() {
-  return this.http.get(`${this.baseUrl}/displayDeptAppointment`,{headers:{
+displayDeptAppointment(id: any) {
+  return this.http.get(`${this.baseUrl}/displayDeptAppointment/${id}`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
@@ -752,10 +770,17 @@ deleteAppointment(data) {
     return this.http.post<any>(`${this.baseUrl}/deletePrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  }
+  } 
 
   saveTovoucher(id: any, data) {
-    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
+    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+
+  updatePrescription(data) {
+    return this.http.post(`${this.baseUrl}/updatePrescription`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

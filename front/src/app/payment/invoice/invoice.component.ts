@@ -68,7 +68,7 @@ setting:any;
       data=>{
       this.setting = data;  
       this.logo= this.setting.logo;   
-       console.log(this.logo)
+      //  console.log(this.logo)
       })
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
@@ -105,7 +105,7 @@ setting:any;
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
-    console.log(this.inv)
+    // console.log(this.inv)
     this.isEmpty=this.inv.isE
     this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date

@@ -84,6 +84,8 @@ export class PatientComponent implements OnInit {
   sResponse: any;
   sbranch: any;
   appt: any;
+  braches: any;
+  givenBranch: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -136,22 +138,33 @@ export class PatientComponent implements OnInit {
       this.responseRec = data;
       this.center = this.responseRec.branch[0]; 
       this.appointment_ty = this.responseRec.appointment_type; 
+      this.braches = this.responseRec.branches; 
       // console.info(this.appointment_ty);
     })
   }
 
   onChange1(b){
 
-    this.givenDept = b.target.value;
- 
-    this.Jarwis.displayAppointmentBranch(this.givenDept).subscribe(
+    this.givenDept = b.target.value; 
+  
+    this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
       data=>{
       this.sResponse = data;      
       this.sbranch = this.sResponse.branch
       this.appt = this.sResponse.appt
+      })
+  
+  }
 
-      console.info(this.appt);
+  onChange2(bch){
 
+    this.givenBranch = bch.target.value;
+ 
+    this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
+      data=>{
+      this.sResponse = data;      
+      this.sbranch = this.sResponse.branch
+      this.appt = this.sResponse.appt
       })
   
   }

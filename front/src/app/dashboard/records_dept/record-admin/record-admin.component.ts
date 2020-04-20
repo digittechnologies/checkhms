@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./record-admin.component.css']
 })
 export class RecordAdminComponent implements OnInit {
+pat={
+  male:0,
+female:0
+}
+
+position_id:any;
 
   constructor() { }
 

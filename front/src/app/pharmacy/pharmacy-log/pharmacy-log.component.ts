@@ -47,9 +47,12 @@ export class PharmacyLogComponent implements OnInit {
   role:any
   dept:any;
   filres:any;
-  transe_log:any
+  transe_log:any;
   uBranch: any;
   uBranchName: any;
+  pharmCenter:any;
+  status: any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -77,28 +80,29 @@ export class PharmacyLogComponent implements OnInit {
       this.dept = this.response.det[0].dept_id;
     })
 
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
       data=>{
       this.response = data;      
       this.bran = this.response   
     })
-
+  
     this.Jarwis. generalSettings().subscribe(
       data=>{
       this.response = data;      
       this.imgLink = this.response[0].app_url;
     })
     
-    this.Jarwis.displayDeptAppointment().subscribe(
+    this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
       data=>{
       this.response = data; 
-      console.log(this.response)     
       this.logs= this.response; 
-      this.log=this.logs;
-      console.log(this.log)
-     if(this.log.length <= 0){
-       this.logEmpty = true;
-     }
+      // this.pharmCenter = this.response.centerName.name;
+      this.pharmCenter = this.uBranch
+      this.log=this.logs.data;
+      this.status= this.log.center_status
+      if(this.log.length <= 0){
+        this.logEmpty = true;
+      }
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -123,6 +127,22 @@ export class PharmacyLogComponent implements OnInit {
     );
     // this.get()
   }
+
+
+  allItem(argument){
+    // this.log = false;
+    // this.Jarwis.displayDeptAppointment(argument.target.innerHTML).subscribe(
+    //   data=>{
+    //   this.response = data; 
+    //   this.logs= this.response; 
+    //   // this.pharmCenter = this.response.centerName.name; 
+    //   this.pharmCenter = this.uBranch
+    //   this.log=this.logs;
+    //  if(this.log.length <= 0){
+    //    this.logEmpty = true;
+    //  }
+    // })
+  }
   filt(){
     let f =this.form.customer
     this.filres="";
@@ -134,7 +154,7 @@ export class PharmacyLogComponent implements OnInit {
       this.log=this.logs;
       this.filres="No appointment for this patient";
     }
-    console.log(this.log)
+    // console.log(this.log)
         
       }
   // get(){
@@ -148,7 +168,7 @@ export class PharmacyLogComponent implements OnInit {
     // console.log(this.delete_id)
     this.Jarwis.cancel_pharm_log(this.delete_id).subscribe(data=>{
       this.handleRespons(data);
-      this.Jarwis.displayDeptAppointment().subscribe(
+      this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
         data=>{
         this.response = data;      
         this.log = this.response; 
@@ -159,7 +179,7 @@ export class PharmacyLogComponent implements OnInit {
       )
       }
       end(id,voucher){
-        console.log(id,voucher);
+        // console.log(id,voucher);
         // this.check="end";
         this.endAppoit_id=id;
         this.endAppoit_vouccher=voucher;
@@ -167,8 +187,8 @@ export class PharmacyLogComponent implements OnInit {
       endAppointment(){
         this.Jarwis.endappointment({id:this.endAppoit_id,voucher:this.endAppoit_vouccher}).subscribe(data=>{
           this.handleRespons(data);
-          console.log(data)
-          this.Jarwis.displayDeptAppointment().subscribe(
+          // console.log(data)
+          this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
             data=>{
             this.response = data;      
             this.log = this.response; 
@@ -182,7 +202,7 @@ export class PharmacyLogComponent implements OnInit {
         this.Jarwis.endappointments().subscribe(
           data=>{
           this.handleRespons(data);
-          this.Jarwis.displayDeptAppointment().subscribe(
+          this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
             data=>{
             this.response = data;      
             this.log = this.response; 
@@ -264,7 +284,7 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
     this.spin="disable";
     this.disabled = true;
-    console.log(this.form.customer)
+    // console.log(this.form.customer)
     if(this.form.customer == null){ 
       alert('Serch Box Empty')
     }else{

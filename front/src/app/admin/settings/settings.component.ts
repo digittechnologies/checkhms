@@ -81,7 +81,6 @@ export class SettingsComponent implements OnInit {
       )
       this.image=this.setting.logo
       })
-      console.log(this.submissionForm)
   }
   uploadFile(event){
     let files =event.target.files[0];

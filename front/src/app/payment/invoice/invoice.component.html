@@ -129,8 +129,8 @@
 
                           <!-- <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "inv.pres[0].status == 'invoice'"><i class="icon-printer"></i>Payment</button>
                           <button class="btn btn-success ml-2" *ngIf = "inv.pres[0].status == 'paid'" disabled><i class="icon-printer"></i>Payment</button> -->
-                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" *ngIf = "invoice == 'unpaid'"><i class="icon-printer fa fa-spin fa-spinner" *ngIf="disabled"></i>Payment</button>
-                          <button class="btn btn-success ml-2" *ngIf = "invoice == 'paid'" disabled><i class="icon-printer"></i>Payment</button>
+                          <button class="btn btn-success ml-2" (click)="saveToInvoice()" ><i class="icon-printer fa fa-spin fa-spinner" *ngIf="disabled"></i>Payment</button>
+                          <button class="btn btn-success ml-2" disabled><i class="icon-printer"></i>Payment</button>
 
                           <!-- Terminate -->
                           <!-- <button class="btn btn-danger ml-2" (click)="terminateAppointment(inv.pres[0].voucher_id)" *ngIf = "inv.pres[0].status == 'invoice'" title="Terminate Appointment"><i class="fa fa-times-circle"></i>Terminate Transaction</button>

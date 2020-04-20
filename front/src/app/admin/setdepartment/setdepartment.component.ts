@@ -69,7 +69,6 @@ export class SetdepartmentComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
   this.Jarwis.edtDept(id).subscribe(
     data=>{      
       this.deptres = data; 
@@ -86,7 +85,6 @@ onUpdate(form: NgForm) {
   
   form.value.id=this.deptid
   //  console.log(form)
-   console.log(form.value)
   this.Jarwis.updateDept(form.value).subscribe(  
       
     data => this.handleResponse(data),

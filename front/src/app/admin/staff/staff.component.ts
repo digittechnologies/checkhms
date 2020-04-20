@@ -79,7 +79,6 @@ export class StaffComponent implements OnInit {
    
    
    handleResponse(data) { 
-     console.log(data) 
     let snackBarRef = this.snackBar.open("Operation Successfull", 'Dismiss', {
      duration: 2000
    })  

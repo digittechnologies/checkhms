@@ -60,7 +60,7 @@ export class DurationComponent implements OnInit {
 
   
   editdept(id: string) {
-    console.log(id)
+    // console.log(id)
     this.Jarwis.edtduration(id).subscribe(
       data=>{      
         this.durares = data; 

@@ -28,6 +28,7 @@ use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
 use App\Duration;
+use App\Centers;
 use App\Daily_supply;
 use App\Customer_category;
 use App\Http\Requests\PatientRequest;
@@ -115,7 +116,27 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }';
     }
 }
-//Set Depertment Component
+//Set Depertment Component  
+
+public function addCenter(Request $request)
+{
+
+    $staffId= Auth()->user()->id;
+    $request->merge(['created_by' => $staffId]);
+    $dept= Centers::create($request-> all());
+   
+    if($dept){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+          return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
 
     public function addDept(Request $request)
     {
@@ -133,19 +154,24 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
     }
+    public function updateBranch(Request $request){
+        return $request;
+
+    }
 
     public function updateDept(Request $request)
     {
+        return $request;
         $id=$request->id;
         $name= $request->name;
-        $descrip= $request->description;
-        $pos= $request->position_id;
+        $address= $request->description;
+        $status= $request->position_id;
 
-        $update = DB::table('departments')->where('id','=',$id)
+        $update = DB::table('centers')->where('id','=',$id)
         ->update([
             'name'=> $name,
-            'description' => $descrip,
-            'position_id' => $pos
+            'address' => $address,
+            'status' => $status
         ]);
         if($update){
             return '{
@@ -795,6 +821,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
   
     public function createBranch(Request $request)
     {
+        // return $request;
         $creator = Auth()->user()->id;
         $req_name=$request->bran_name;
         $depts=$request->dept_id;
@@ -835,15 +862,15 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 );
         }
         $request->merge(['name' => $req_name]);
-        $request->merge(['created_by' => $creator]);
+
+        $staffId= Auth()->user()->id;
+        $request->merge(['staff_id' => $staffId]);
+
         $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
     else{
-        $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         $request->merge(['name' => $req_name]);
-        $request->merge(['created_by' => $creator]);
-        $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
         if($branch){
@@ -857,9 +884,6 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 "message":"Failed"
             }';
         }
-    }
-    public function updateBranch(){
-        return $request;
     }
 
     public function deleteBranch(Request $request)
@@ -1441,46 +1465,24 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function updatePrescription(Request $request)
     {
-        $id=$request->id;
-        $customer= $request->customer_id;
-        $item= $request->item_id;
+        $id=$request->p_id;       
         $quantity= $request->quantity;
-        $instuction= $request->instruction;   
-        $daysupply= $request->day_supply;
-        $days= $request->days;    
-        $status= $request->status;
-        $supply_quantity= $request->supply_quantity;
-        $refillment_status= $request->refillment_status;
-        $refillment_quantity= $request->refillment_quantity;
-        $cost= $request->cost;
-        $paid= $request->paid;
-        $to_balance= $request->to_balance;
-        $voucher= $request->voucher_id;
-        $payment= $request->payment_id;
-        $doctor= $request->doctor_id;
-        $pharmacist= $request->pharmacist_id;
-        $branch= $request->branch_id;
+        // $instuction= $request->instruction;   
+        // $daysupply= $request->day_supply;
+        // $days= $request->days;    
+        // $status= $request->refill_status;
+        $refill_amount= $request->refill_amount_quantity;
+        $refill_status= $request->refill_status;
+        $refill_quantity= $request->refill_quantity;
+        $paid= $request->amount;
 
         $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id','=',$id)
-        ->update([
-            'customer_id' => $customer,
-            'item_id' => $item, 
+        ->update([        
             'quantity' => $quantity, 
-            'instruction' => $instuction, 
-            'day_supply' => $daysupply, 
-            'days' => $days,
-            'status' => $status, 
-            'supply_quantity' => $supply_quantity,
-            'refillment_status' => $refill_status,
-            'refillment_quantity' => $refill_quanity,
-            'cost' => $cost,
-            'paid' => $paid, 
-            'to_balance' => $to_balance, 
-            'voucher_id' => $voucher,
-            'payment_id' => $payment, 
-            'doctor_id' => $doctor, 
-            'pharmacist_id' => $pharmacist, 
-            'branch_id' => $branch
+            'refill_status' => $refill_status,
+            'refill_input' => $refill_quantity,       
+            'refill_amount' => $refill_amount,       
+            'amount_paid' => $paid,             
         ]);
         if($update){
             return '{
@@ -2294,6 +2296,8 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
 
     public function pharmPriscription(Request $request)
     {
+
+        // return $request->all();
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -2304,29 +2308,12 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $request->merge(["p_date" => $cDate]);
         $request->merge(["p_time" => $cTime]);
 
-           
-        //refill
-        if($request->dispense == '1' || $request->dispense == '0'){
-            $request->merge(["refill" => '0']);
-            $request->merge(["refill_status" => 'non-refillable']);
-        } else if($request->dispense > '1') {
-            $request->merge(["refill" => $request->dispense - 1]);
-            $request->merge(["refill_status" => 'refillable']);
-        }
         
         //dispense
-
-        if($request->dispense == '0'){
-            $request->merge(["dispense" => '1']);
-        }
-        //remain
-        if($request->original_qty == $request->quantity || $request->quantity > $request->original_qty){
-            $request->merge(["remain" => '0']);
-        } else if($request->original_qty > $request->quantity) {
-            $request->merge(["remain" => $request->original_qty - $request->quantity]);
-        }
-
-        $request->merge(["refill_range" => $request->quantity]);
+       
+        $request->merge(["dispense" => '1']);
+        $request->merge(["refill_status" => 'non-refillable']);
+      
         $request->merge(["status" => 'save']);
         
         $request->merge(["pharmacist_id" => $pharmacistId]);
@@ -2445,71 +2432,56 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         $refill = 0;
         $remain = 0;
 
+        // FROM DOCTOR PRESCRIPTION        
+        $v_qty = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('quantity');
+        $r_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('amount');
+        $v_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('amount_paid');
+        $refill_qty = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('refill_input');
+        $refill_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('refill_amount');
+        $r_status = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->first();
+
+        // CREATE VOUCHER
+        $create_voucher= Vouchers::insertGetId(
+            [
+                'quantity' => $v_qty,
+                'amount' => $v_amount,
+                'paid' => $v_amount,
+                'balance' => 0,
+                'refill_qty' => $refill_qty,
+                'refill_amount' => $refill_amount,
+                'delivery_status' => 'delivered',
+                'refill_status' => $r_status->refill_status,
+                'appointment_id' =>  $cid,
+                'staff_id' => $pharmacistId,
+                'branch_id' => $branchId,
+                'v_date' => $cDate,
+                'v_time' => $cTime
+            ]);    
         $get =  Doctor_prescriptions::orderBy('id') 
                         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
                         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
                         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                         ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                         ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.voucher_id', '=', $cid)
+                        ->where('doctor_prescriptions.appointment_id', '=', $cid)
                         ->where('doctor_prescriptions.branch_id', '=', $branchId)
                         ->get();
        
-        foreach($get as $row){
-            $quantity += $row->quantity;
-            $amount += $row->amount_paid;
-            $refill += $row->refill;
-            $remain += $row->refill;
-        };
-        if($refill == 0){
-            $refill_status = 'non-refillable';
-            $checkout = 'checkout';
-        } else if($refill > 0){
-            $refill_status = 'refillable';
-            $checkout = 'refill';
-        }
-
-        //customer_id
-        $checkCustomer_id= Appointments::where('appointments.voucher_id', $cid)->get();
-
-        $cust_id= $checkCustomer_id[0]->customer_id;
-
-        // return  $cust_id;
 
         //  return $get;
-        $insert = DB::table('vouchers')->where('vouchers.id',$cid)->update([
-                'quantity' => $quantity,
-                'amount' => $amount,
-                'paid' => $amount,
-                'balance' => 0,
-                'total_refill' => $refill,
-                'refill_remain' => $remain,
-                'paid_status' => 'un-paid',
-                'delivery_status' => 'delivered',
-                'refill_status' => $refill_status,
-                'customer_id' =>  $cust_id,
-                'staff_id' => $pharmacistId,
-                'branch_id' => $branchId,
-                'v_date' => $cDate,
-                'v_time' => $cTime
-            ]);
         foreach($get as $row2){
             $getId = $row2->id;
             $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
             ->update([
                 'status' => 'close',
-                // 'voucher_id' => $insert,
+                'voucher_id' => $create_voucher,
             ]);
         }
-        $updateAppointment = DB::table('appointments')->where('appointments.prescription', '=', 'open')
-                                    ->where('appointments.prescription', '=', 'open')
-                                    ->where('appointments.voucher_id', '=', $cid)
-                                    ->where('appointments.branch_id', '=', $branchId)
-                                    ->update([
-                                        'prescription' => 'checkout',
-                                        'voucher' => $checkout,
-                                        'invoice' => 'unpaid',
-                                        'treatment' => 'success',
+        $updateAppointment = DB::table('appointments')
+                                    ->where('appointments.id', '=', $cid)
+                                    ->where('appointments.pharm_id','=', $branchId)
+                                    ->update([                                       
+                                        'status' => 'checkout',
                                     ]);
 
         if ($updateAppointment) {

@@ -45,7 +45,7 @@ export class SetLabTestComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtLabTestType(id).subscribe(
     data=>{      
       this.testtyperes = data; 
@@ -61,7 +61,7 @@ onUpdate(form: NgForm) {
   form.value.id=this.testtypeid
   // this.image= form.value.image
   //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateLabTestType(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

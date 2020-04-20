@@ -41,11 +41,11 @@ export class DoctorHomeComponent implements OnInit {
       this.imgLink = this.response[0].app_url;
     })
     
-    this.Jarwis.displayDeptAppointment().subscribe(
-      data=>{
-      this.response = data;      
-      this.appoints = this.response;
-    })
+    // this.Jarwis.displayDeptAppointment().subscribe(
+    //   data=>{
+    //   this.response = data;      
+    //   this.appoints = this.response;
+    // })
 
     // this.Jarwis.displayDepartments().subscribe(
     //   data=>{

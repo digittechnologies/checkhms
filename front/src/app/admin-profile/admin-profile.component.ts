@@ -123,7 +123,6 @@ export class AdminProfileComponent implements OnInit {
   handleErrorp(error) {
    
     this.error = error.error.errors;
-    console.log(this.error);
     
   }
   handleResponsep(data) {  
