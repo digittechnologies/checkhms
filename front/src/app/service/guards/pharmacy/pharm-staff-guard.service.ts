@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenService } from '../token.service';
-import { JarwisService } from '../jarwis.service';
+import { TokenService } from '../../token.service';
+import { JarwisService } from '../../jarwis.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DeptAdminRoleGuardService implements CanActivate {
+export class PharmStaffGuardService {
   response: any;
   profile: any;
   dashboardLink:any;
+  dept: any;
 
   constructor(private Token: TokenService, private router: Router, private Jarwis: JarwisService) { }
 
@@ -21,12 +22,20 @@ export class DeptAdminRoleGuardService implements CanActivate {
         this.response = data;     
         this.profile = this.response.det[0].role_id;
         this.dashboardLink = this.response.det[0].nameD+'-'+this.response.det[0].role_name;
-        if(this.profile == 1001 || this.profile == 2002 || this.profile == 1002 || this.profile == 2001|| this.profile == 3003 ){
-          console.info(this.dashboardLink);
-          return true;
-        } else {
-          alert('Permission Denied');
-          console.info(this.dashboardLink);
+        this.dept = this.response.det[0].dept_id;
+        console.info(this.dashboardLink)
+        if(this.dept == 1){
+          if(this.profile == 4004){
+            return true;
+          } else {
+            alert('Permission Denied');
+            console.info(this.dashboardLink)
+            this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
+          }
+        }
+        else {
+          alert('Un-authorize');
+          console.info(this.dashboardLink)
           this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
         }
       })
