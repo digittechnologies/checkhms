@@ -183,7 +183,10 @@
             <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
             <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
             <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
-            
+            <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
+            <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+           
+          
         </ul>
         <hr>Created by<hr>
         <div class="d-flex justify-content-between">
@@ -196,14 +199,6 @@
         <!-- </div> -->
     <!-- </div>
 </div> -->
-
-
-
-
-
-
-
-
             <!-- <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
                     <div class="body text-center">
@@ -249,7 +244,39 @@
               </div>    
         </div>
     </div>
+<!-- Default Size -->
 
+<div class="modal fade" id="transfer" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Relocate Appointment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)=" relocate(locate)" #locate="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <select class="form-control show-tick"  ngModel name="editapp">
+                            <option value="">{{editapp}}</option>
+                            <option *ngFor="let center of editapp_center" value="{{center.id}}">{{center.name}}</option>                               
+                        </select> 
+                        <input type="hidden" [(ngModel)]="relocate_id" name="relocate_id">
+                      </div>
+                  </div>             
+              </div>
+          </div>     
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Relocate<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
 <!-- Default Size -->
 <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

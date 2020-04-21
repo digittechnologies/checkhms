@@ -52,6 +52,10 @@ export class PharmacyLogComponent implements OnInit {
   uBranchName: any;
   pharmCenter:any;
   status: any;
+  editapp: any;
+  editapp_center: any;
+  editapp_id: any;
+  relocate_id: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -156,9 +160,33 @@ export class PharmacyLogComponent implements OnInit {
     // console.log(this.log)
         
       }
-  // get(){
-  //   console.log(this.dat)
-  // }
+      editappoint(e,branch_id){
+        this.relocate_id = e;
+        console.log(e)
+       this.Jarwis.relocateAppoint({id:e,branch:branch_id}).subscribe(
+      data=>{
+        let response:any=data;
+        this.editapp =response.appointment[0].name;
+        this.editapp_id =response.appointment[0].branch_id;
+        this.editapp_center =response.centers
+        console.log(this.editapp_center)
+      }
+       )
+      }
+   relocate(form:NgForm){
+     if (form.value.editapp=='') {
+       form.value.editapp=this.editapp_id
+     }
+    this.Jarwis.relocateAppointment(form.value).subscribe(
+    )
+  }
+  reloc(){
+    console.log( this.editapp_id)
+    // if (this.relocate_id=="") {
+    //   this.relocate_id =  this.editapp_id
+    //   console.log( this.relocate_id)
+    // }
+  }
   cancle(id){
     this.check="cancel"
     this.delete_id = id;

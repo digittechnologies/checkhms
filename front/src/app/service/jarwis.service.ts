@@ -913,4 +913,12 @@ cancel_pharm_log(data){
   return this.http.get<any>(`${this.baseUrl}/endappointments`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
  )
  }
+ relocateAppoint(data){
+   return this.http.post<any>(`${this.baseUrl}/editapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+   )
+ }
+ relocateAppointment(data){
+  return this.http.post<any>(`${this.baseUrl}/relocateapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
+}
 }
