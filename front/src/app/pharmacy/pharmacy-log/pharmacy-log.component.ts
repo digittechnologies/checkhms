@@ -178,6 +178,7 @@ export class PharmacyLogComponent implements OnInit {
        form.value.editapp=this.editapp_id
      }
     this.Jarwis.relocateAppointment(form.value).subscribe(
+      data=>{this.handleResponse(data.message)}
     )
   }
   reloc(){
