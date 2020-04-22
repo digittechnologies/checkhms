@@ -61,6 +61,12 @@ displayUser() {
   deleteApptType(data) {
     return this.http.post(`${this.baseUrl}/deleteApptType`, data)
   }
+
+  displayAppointmentType() {
+    return this.http.get(`${this.baseUrl}/displayAppointmentType`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 //Appointment type ends
 
 }

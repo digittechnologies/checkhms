@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordJarwisService } from 'src/app/service/record-jarwis.service';
+import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
@@ -22,9 +23,13 @@ export class RecordChargeComponent implements OnInit {
   chrgName: any;
   chrgAmount: any;
   chrgStatus: any;
+  responseRec: any;
+  appointment_ty: any;
+  dept: any;
 
   constructor(
     private recordJarwis: RecordJarwisService,
+    private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
     private Auth: AuthService,
@@ -37,6 +42,18 @@ export class RecordChargeComponent implements OnInit {
       this.response = data;      
       this.charges = this.response   
     })
+
+    this.recordJarwis.displayAppointmentType().subscribe( 
+      data=>{
+      this.responseRec = data;     
+      this.appointment_ty = this.responseRec.appointment_type;      
+    })
+
+    this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      this.response = data;      
+      this.dept = this.response  
+    })  
   }
 
 

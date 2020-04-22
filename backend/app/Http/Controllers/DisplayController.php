@@ -732,11 +732,29 @@ class DisplayController extends Controller
        }
     }
 
-    // Prescriptions
+    // Prescriptions  
 
     public function displayPrescription()
     {
         return DB::table("doctor_prescriptions")->get();
+    }
+
+    public function displayCharges()
+    {
+        return response()->json([ 
+        'charges'=> Hospital_charges::orderBy('id')
+                ->join('departments','hospital_charges.dept_id','=','departments.id')
+                ->where('dept_id', 1)
+                ->where('status', 'active')
+                ->select('hospital_charges.*')               
+                ->get(),
+        'chargeSum'=> Hospital_charges::orderBy('id')
+                ->join('departments','hospital_charges.dept_id','=','departments.id')
+                ->where('dept_id', 1)
+                ->where('status', 'active')
+                ->select('hospital_charges.*')               
+                ->sum('charge_amount')
+        ]);
     }
 
     public function pres_refill_id($id)
@@ -957,6 +975,7 @@ class DisplayController extends Controller
                 // ->where('doctor_prescriptions.branch_id', '=', $bId)
                 ->get(),
                 "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
                 "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
                 ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')

@@ -127,13 +127,13 @@ setting:any;
     })
   }
   
-  saveToInvoice(){
-    this.disabled = true;
-    this.Jarwis.saveToInvoice(this.voucher_Id, '').subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),  
-    );
-  }
+  // saveToInvoice(){
+  //   this.disabled = true;
+  //   this.Jarwis.saveToInvoice(this.voucher_Id, '').subscribe(
+  //     data => this.handleResponse(data),
+  //     error => this.handleError(error),  
+  //   );
+  // }
   closeAppointment(){
     if(confirm('Click OK to end the process')){
       this.Jarwis.closeAppointment(this.inv.patient.id,this.inv.pres[0].voucher_id, '').subscribe(

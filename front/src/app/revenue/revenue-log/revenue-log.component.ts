@@ -3,6 +3,9 @@ import { JarwisService } from 'src/app/service/jarwis.service';
 import { filter } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { RevenueJarwisService } from 'src/app/service/revenue-jarwis.service';
+import { MatSnackBar } from '@angular/material';
+import {FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-revenue-log',
@@ -53,17 +56,35 @@ record_empty:null;
   userResponse: any;
   uBranch: any;
   uBranchName: any;
+  disabled: boolean;
+  error: any;
+  v_status: any;
+  unavailable: boolean;
+  chargesResponse: any;
+  charges: any;
+  charge_amount: any;
+  public paymentForm: FormGroup;
+  amountPaid: any;
+  balanceAmount: any;
+  charge_id: any;
 
 
   constructor(
+    private formBuilder: FormBuilder, 
    private Jarwis:JarwisService,
    private JarwisRev:RevenueJarwisService,
-    private actRoute:ActivatedRoute
-
+    private actRoute:ActivatedRoute,
+    public snackBar: MatSnackBar
     ) { }
 
   ngOnInit() {
 
+    this.paymentForm = this.formBuilder.group(     
+      {
+        amount_paid: [''],
+      })
+
+      this.balanceAmount= 0;
     this.Jarwis.profile().subscribe(
       data=>{
       this.userResponse = data;
@@ -97,9 +118,25 @@ record_empty:null;
         this.schemePriceList = this.pat[0].price_list_column;
         })
      }))
+
+     this.Jarwis.displayCharges().subscribe(
+      data=>{
+      this.chargesResponse = data;      
+      this.charges = this.chargesResponse.charges;
+      this.charge_amount = this.chargesResponse.chargeSum;
+      this.charge_id = this.chargesResponse.charges[0].id;
+    })
+    
      }
 
-     onPay(pay){
+     cancelPay(cId){
+      this.Jarwis.councelVoucher(cId).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),  
+      );
+     }
+
+     onPay(pay, param){
       this.Jarwis.displayPharmInvoice(pay, 'inv', '').subscribe(
         data=>{
         this.PharmPreresponse = data;    
@@ -117,6 +154,8 @@ record_empty:null;
         this.state=this.inv.patient.state
         this.country=this.inv.patient.country
         this.amount=this.inv.totalAmount.amount
+        this.v_status=this.inv.voucher_status.paid_status
+        this.amountPaid=this.inv.voucher_status.paid
         this.status=this.inv.pres[0].status
         this.pres=this.inv.pres 
         this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
@@ -124,7 +163,34 @@ record_empty:null;
         this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
         this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
         })
+
+        this.paymentForm = this.formBuilder.group(     
+          {
+            amount_paid: [this.amountPaid],
+          })
+
+          document.getElementById('vouch').classList.remove('active');
+          document.getElementById('slip').classList.remove('active');
+          document.getElementById('label').classList.remove('active');
+          document.getElementById(param).classList.add('active');
       }
+
+      apartTablet(n){
+        if(parseInt(n.target.value) > parseInt(this.amountPaid)){
+          alert('Invalid')
+          n.target.value = this.amountPaid
+          this.amountPaid = n.target.value      
+
+        }
+        if(parseInt(n.target.value) <= 0 || n.target.value == '' ){
+          alert('Invalid')
+          n.target.value = '0';
+          this.amountPaid = n.target.value      
+
+        }    
+          this.balanceAmount = this.amountPaid - n.target.value 
+      }
+      
       
 
       printComponent() {
@@ -146,4 +212,45 @@ record_empty:null;
        
     }
 
+    onPaid(form:NgForm){
+      this.disabled = true;
+
+      form.value.voucher_Id = this.voucher_Id;  
+      form.value.bal = this.balanceAmount;  
+      form.value.chargeID = this.charge_id; 
+      form.value.charge_amt = this.charge_amount;
+      form.value.discount = this.schemePercentToView;
+      if(form.value.topay == '') form.value.topay = this.amountPaid;
+      console.log(form.value)
+      this.Jarwis.saveToInvoice(form.value).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error),  
+      ); 
+    }
+
+    handleResponse(data) {   
+
+      if (data.message == 'unavailable') {
+        let snackBarRef = this.snackBar.open(data.message, 'Dismiss', {
+          duration: 2000
+        })
+      } else {
+        let snackBarRef = this.snackBar.open("Payment Successfull Successfull", 'Dismiss', {
+          duration: 2000
+        })        
+      }
+        
+      // this.router.navigateByUrl('/Admin/(side:catacturer');
+      this.ngOnInit();
+      this.disabled = false;
+    }
+  
+    handleError(error) {
+      this.error = error.error.errors;
+      let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+        duration: 2000
+  
+      })
+      this.disabled = false;
+    }
 }

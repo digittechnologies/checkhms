@@ -216,7 +216,7 @@ export class JarwisService {
   }
   disItemDet() {
     return this.http.get(`${this.baseUrl}/disItemDet`,)
-  }   
+  }
 
   // Item
   displayItem(id: any) {
@@ -224,6 +224,13 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  councelVoucher(id: any) {
+    return this.http.get<any>(`${this.baseUrl}/councelVoucher/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   edtItem(id:string) {
     return this.http.get<any>(`${this.baseUrl}/edtItem/${id}`)
   }
@@ -467,6 +474,9 @@ addCenter(data) {
 // Customer
 displayCustomer() {
   return this.http.get(`${this.baseUrl}/displayCustomer`,)
+}
+displayCharges() {
+  return this.http.get(`${this.baseUrl}/displayCharges`,)
 }
 displayHospitalNum(){
   return this.http.get(`${this.baseUrl}/displayHospitalNum`,)
@@ -785,8 +795,8 @@ deleteAppointment(data) {
     }})
   }
 
-  saveToInvoice(id: any, data) {
-    return this.http.post(`${this.baseUrl}/saveToInvoice/${id}`, data,{headers:{
+  saveToInvoice(data) {
+    return this.http.post(`${this.baseUrl}/saveToInvoice`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

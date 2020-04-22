@@ -148,7 +148,7 @@ Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
-// Route::post('makeAppointment','AddController@makeAppointment');
+Route::get('displayCharges','DisplayController@displayCharges');
 Route::post('searchPatient','AddController@searchPatient');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
 Route::get('customer_category','DisplayController@customer_category');
@@ -159,6 +159,7 @@ Route::get('displayCustomerCategory','DisplayController@displayCustomerCategory'
 Route::get('edtCustCategories/{id}','DisplayController@edtCustCategories');
 Route::post('updateCustCategories', 'AddController@updateCustCategories');
 Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
+Route::get('displayAppointmentType','RecordModuleController@displayAppointmentType');
 //EPS Patients
 Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
 // Appointments 
@@ -201,7 +202,7 @@ Route::get('displayInvoice','DisplayController@displayInvoice');
 Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
-Route::post('saveToInvoice/{id}', 'AddController@saveToInvoice');
+Route::post('saveToInvoice', 'AddController@saveToInvoice');
 //Vouchers
 Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
 Route::get('displayVoucher','DisplayController@displayVoucher');
@@ -273,3 +274,4 @@ Route::get('displayAppointment','DoctorModule@displayAppointment');
 
 //REVENUE RECORD APIS
 Route::get('patientvouchers/{id}','RevenueModuleController@patientVouchers');
+Route::get('councelVoucher/{id}','RecordModuleController@councelVoucher');
