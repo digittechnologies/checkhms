@@ -89,7 +89,6 @@ export class VoucherComponent implements OnInit {
   ) { }
 
   ngOnInit() { 
-
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.appId= id;

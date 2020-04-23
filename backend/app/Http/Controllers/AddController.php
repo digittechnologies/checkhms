@@ -792,132 +792,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         
     }
 
-    // Branch
-    // public function createBranchs(Request $request){
-    //    $user = Auth()->user();
-    //    $dept= $request->dept;
-    //    if ($dept=="clinic") {
-    //     $form = $request->form;
-    //     $branch = DB::table('clinic_centers')->insert([
-    //         'name'=>$form['bran_name'],
-    //         'address' => $form['address'],
-    //         'status' =>$form['status'],
-    //         'key_access'=>'Null',
-    //         'created_by'=>$user->id,
-    //         'updated_by'=>$user->id,
-    //         'admin_id'=>$form['sales_rep'],
-    //     ]);
-    //     if($branch){
-    //         return '{
-    //             "success":true,
-    //             "message":"successful"
-    //         }' ;
-    //     } else {
-    //         return '{
-    //             "success":false,
-    //             "message":"Failed"
-    //         }';
-    //     }
-    //          }
-    //          if ($dept=="lab") {
-    //             $form = $request->form;
-    //             $branch = DB::table('lab_centers')->insert([
-    //                 'name'=>$form['bran_name'],
-    //                 'address' => $form['address'],
-    //                 'status' =>$form['status'],
-    //                 'admin_id' =>$form['sales_rep'],
-    //                 'key_access'=>'Null',
-    //                 'created_by'=>$user->id,
-    //                 'updated_by'=>$user->id,
-    //             ]);
-    //             if($branch){
-    //                 return '{
-    //                     "success":true,
-    //                     "message":"successful"
-    //                 }' ;
-    //             } else {
-    //                 return '{
-    //                     "success":false,
-    //                     "message":"Failed"
-    //                 }';
-    //             }
-    //          }
-
-    //          if ($dept=="radio") {
-    //             $form = $request->form;
-    //             $branch = DB::table('radiology_center')->insert([
-    //                 'name'=>$form['bran_name'],
-    //                 'address' => $form['address'],
-    //                 'status' =>$form['status'],
-    //                 'admin_id' =>$form['sales_rep'],
-    //                 'key_access'=>'Null',
-    //                 'created_by'=>$user->id,
-    //                 'updated_by'=>$user->id,
-    //             ]);
-    //             if($branch){
-    //                 return '{
-    //                     "success":true,
-    //                     "message":"successful"
-    //                 }' ;
-    //             } else {
-    //                 return '{
-    //                     "success":false,
-    //                     "message":"Failed"
-    //                 }';
-    //             }
-    //          }
-    //          if ($dept=="theater") {
-    //             $form = $request->form;
-    //             $branch = DB::table('theater_centers')->insert([
-    //                 'name'=>$form['bran_name'],
-    //                 'address' => $form['address'],
-    //                 'status' =>$form['status'],
-    //                 'admin_id' =>$form['sales_rep'],
-    //                 'key_access'=>'Null',
-    //                 'created_by'=>$user->id,
-    //                 'updated_by'=>$user->id,
-    //             ]);
-    //             if($branch){
-    //                 return '{
-    //                     "success":true,
-    //                     "message":"successful"
-    //                 }' ;
-    //             } else {
-    //                 return '{
-    //                     "success":false,
-    //                     "message":"Failed"
-    //                 }';
-    //             }
-    //          }
-    //          if ($dept=="record") {
-    //             $form = $request->form;
-    //             $branch = DB::table('center_record')->insert([
-    //                 'name'=>$form['bran_name'],
-    //                 'address' => $form['address'],
-    //                 'status' =>$form['status'],
-    //                 'admin_id' =>$form['sales_rep'],
-    //                 'key_access'=>'Null',
-    //                 'created_by'=>$user->id,
-    //                 'updated_by'=>$user->id,
-    //             ]);
-    //             if($branch){
-    //                 return '{
-    //                     "success":true,
-    //                     "message":"successful"
-    //                 }' ;
-    //             } else {
-    //                 return '{
-    //                     "success":false,
-    //                     "message":"Failed"
-    //                 }';
-    //             }
-    //          }
-
-    //    }
-
+  
     public function createBranch(Request $request)
     {
-        // return $request;
+        $creator = Auth()->user()->id;
         $req_name=$request->bran_name;
         $depts=$request->dept_id;
         $branch;
@@ -957,15 +835,15 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 );
         }
         $request->merge(['name' => $req_name]);
-
-        $staffId= Auth()->user()->id;
-        $request->merge(['staff_id' => $staffId]);
-
+        $request->merge(['created_by' => $creator]);
         $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
     else{
+        $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $req_name)));
         $request->merge(['name' => $req_name]);
+        $request->merge(['created_by' => $creator]);
+        $request->merge(['br_name' => $table_name]);
         $branch= Branches::create($request-> all());
     }
         if($branch){
@@ -979,6 +857,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 "message":"Failed"
             }';
         }
+    }
+    public function updateBranch(){
+        return $request;
     }
 
     public function deleteBranch(Request $request)
@@ -1346,10 +1227,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
-                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
+                            "app" => DB::table('appointments2')->orderBy('id')->join('departments','appointments2.department_id','=','departments.id')
+                            ->join('customers','appointments2.customer_id','=','customers.id')
+                            ->select('appointments2.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments2.customer_id','=',$row->id)->get(),
                         ]);
                 }
             }
@@ -1377,10 +1258,10 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
-                            "app" => Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
+                            "app" => DB::table('appointments2')->orderBy('id')->join('departments','appointments2.department_id','=','departments.id')
+                            ->join('customers','appointments2.customer_id','=','customers.id')
+                            ->select('appointments2.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->where('appointments2.customer_id','=',$row->id)->get(),
                         ]);
                 }
             }

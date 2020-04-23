@@ -23,21 +23,28 @@ export class PharmStaffGuardService {
         this.profile = this.response.det[0].role_id;
         this.dashboardLink = this.response.det[0].nameD+'-'+this.response.det[0].role_name;
         this.dept = this.response.det[0].dept_id;
-        console.info(this.dashboardLink)
-        if(this.dept == 1){
-          if(this.profile == 4004){
-            return true;
-          } else {
-            alert('Permission Denied');
-            console.info(this.dashboardLink)
-            this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
-          }
-        }
-        else {
-          alert('Un-authorize');
-          console.info(this.dashboardLink)
+        console.info(this.profile)
+        if(this.dept == 1 && this.profile == 4004){
+          return true;
+        } else {
+          alert('Permission Denied');
           this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
         }
+        // if(this.dept == 1){
+          // if(this.profile == 4004){
+          //   return true;
+          // } else {
+          //   alert('Permission Denied');
+          //   console.info(this.dashboardLink)
+          //   this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
+          // }
+          return true;
+        // }
+        // else {
+        //   alert('Un-authorize');
+        //   console.info(this.dashboardLink)
+        //   this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
+        // }mn
       })
     }
   }

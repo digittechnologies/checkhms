@@ -150,8 +150,8 @@ const routes: Routes = [
 
                                                                             // DASHBOARDS
         //ADMINISTRATION START
-        {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
-        {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [] },
+        {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AdminRoleGuardService]},
+        {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AdminRoleGuardService] },
         //ADMINISTRATIPON  END
 
         //PHARMARCY START
@@ -247,7 +247,7 @@ const routes: Routes = [
          {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [] },
          
            //REvenue
-         {path: 'revenue_log', component:RevenueLogComponent, outlet: 'side',canActivate: [] },
+         {path: 'revenue_log/:id', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
 
         //  {path: 'phamarcy-admin-dashboard', component: PhamAdminComponent, outlet: 'side',canActivate: [AfterLoginService] },
         //  {path: 'phamarcy-user-dashboard', component: PhamUserComponent, outlet: 'side',canActivate: [AfterLoginService] },

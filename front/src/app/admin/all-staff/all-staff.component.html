@@ -143,8 +143,8 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <input type="text" class="form-control round" placeholder="Input staff Firstname here" ngModel name="firstname" required>
-                            <div class="text-danger" [hidden]="!error.firstname">
-                                {{error.firstname}}
+                            <div class="text-danger" [hidden]="!firstname">
+                                {{firstname}}
                             </div>
                         </div>
                     </div>
@@ -155,8 +155,8 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <input type="text" class="form-control round" placeholder="Input staff Othername here" ngModel name="lastname" required>
-                            <div class="text-danger" [hidden]="!error.lastname">
-                                {{error.lastname}}
+                            <div class="text-danger" [hidden]="!lastname">
+                                {{lastname}}
                             </div>
                         </div>
                     </div>
@@ -168,8 +168,8 @@
                         <div class="form-group">                            
                                 <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="male" type="radio" checked><span><i></i>Male</span></label>
                                 <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="female" type="radio"><span><i></i>Female</span></label>
-                            <div class="text-danger" [hidden]="!error.gender">
-                                {{error.gender}}
+                            <div class="text-danger" [hidden]="!gender">
+                                {{gender}}
                             </div>
                         </div>
                     </div>
@@ -180,8 +180,8 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <input type="email" class="form-control round" placeholder="Input staff email address here" ngModel name="email" required>
-                            <div class="text-danger" [hidden]="!error.email">
-                                {{error.email}}
+                            <div class="text-danger" [hidden]="!email">
+                                {{email}}
                             </div>
                         </div>
                     </div>
