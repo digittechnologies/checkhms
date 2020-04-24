@@ -124,7 +124,7 @@ class DisplayController extends Controller
     public function displayDepartments()
     {
         return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-                ->select('departments.*','positions.position_name')               
+                ->select('departments.*','positions.position_name')              
                 ->get();
     }
 
@@ -223,6 +223,13 @@ class DisplayController extends Controller
     public function idDurationForV($id)
     {
         return DB::table("durations")->select('durations.*')  
+                ->where('id', '=', $id)             
+                ->get();
+    }
+
+    public function updatePrecription($id) 
+    {
+        return DB::table("doctor_prescriptions")->select('doctor_prescriptions.*')  
                 ->where('id', '=', $id)             
                 ->get();
     }
@@ -448,8 +455,7 @@ class DisplayController extends Controller
         return response()->json(['branch'=> Branches::where('status', '=', 'active')
                                         ->where ('branches.clinic_type', '=', $id)
                                         ->orderBy('id')->get(),
-
-                                'appt'=> Hospital_charges::where('status', '=', 'active')
+                                 'appt'=> Hospital_charges::where('status', '=', 'active')
                                         ->where ('hospital_charges.appointment_type', '=', $id)
                                         ->orderBy('id')->get()
                                         
@@ -556,7 +562,8 @@ class DisplayController extends Controller
     }
     //Appointment
     public function displayAllappointment()
-    {   $dt = Carbon::now();
+    {  
+         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
 
@@ -794,16 +801,16 @@ class DisplayController extends Controller
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
                         ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.quantity'),
-            "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        // ->where('doctor_prescriptions.status', '!=', 'close')
-                        ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
-                        ->sum('doctor_prescriptions.refill'),
-            "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        // ->where('doctor_prescriptions.status', '!=', 'close')
-                        ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
-                        ->sum('doctor_prescriptions.remain'),
+            // "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
+            //             // ->where('doctor_prescriptions.status', '!=', 'close')
+            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //             ->sum('doctor_prescriptions.refill'),
+            // "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
+            //             // ->where('doctor_prescriptions.status', '!=', 'close')
+            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //             ->sum('doctor_prescriptions.remain'),
             "eachcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
                         //  ->where('doctor_prescriptions.status', '!=', 'close')
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
@@ -860,7 +867,7 @@ class DisplayController extends Controller
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name asdaily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
                 // ->where('doctor_prescriptions.status', '=', 'close')
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
                 ->where('doctor_prescriptions.branch_id', '=', $bId)

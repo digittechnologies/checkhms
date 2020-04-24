@@ -9,11 +9,11 @@
                             <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
                             <span *ngIf ="3003 >= role" > 
                                 
-                                <li *ngFor="let br of bran" (click) ="allItem($event)"> / <a *ngIf ="br.dept_id == dept" href="#" [routerLink]=""> {{br.name}} </a> </li>
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]=""> {{br.name}} </a> </li>
                                 
                             </span>
                             <span *ngIf ="role == '4004'">
-                                / <li *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
+                                <li  *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
                                 
                             </span>
                             
@@ -159,9 +159,9 @@
                         <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
                         <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Refill</a></button></li>
-                            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Invoice</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Voucher</a></button></li>
+                            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
+                            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
                             <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
                             
                         </ul>
