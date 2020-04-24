@@ -281,10 +281,14 @@ export class JarwisService {
   }
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
-  }
+  }  
 
   idDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/idDurationForV/${id}`,)
+  }
+
+  updatePrecription(id: any) {
+    return this.http.get(`${this.baseUrl}/updatePrecription/${id}`,)
   }
 
   updateDuration(data) {
@@ -752,10 +756,17 @@ deleteAppointment(data) {
     return this.http.post<any>(`${this.baseUrl}/deletePrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  }
+  } 
 
   saveTovoucher(id: any, data) {
-    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
+    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+
+  updatePrescription(data) {
+    return this.http.post(`${this.baseUrl}/updatePrescription`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
