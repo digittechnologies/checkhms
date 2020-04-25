@@ -20,7 +20,7 @@ use App\Customers;
 use App\Doctor_prescriptions;
 use App\Invoices;
 use App\Vouchers;
-use App\Appointment;
+use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
 use Carbon\Carbon;
@@ -526,7 +526,8 @@ class DisplayController extends Controller
 
     public function patientdetails($id)
     {
-        $customeId= Appointment::orderBy('id')->where('id','=',$id)->select('appointment.customer_id')->get();
+        $vId= Vouchers::find($id);
+        $customeId= Appointments::orderBy('id')->where('id','=',$vId->appointment_id)->select('appointments.customer_id')->get();
         $cId= $customeId[0]->customer_id;
         return response()->json(
             Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
@@ -601,12 +602,12 @@ class DisplayController extends Controller
 
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
-        return Appointment::orderBy('id', 'DESC')
-                ->join('customers','appointment.customer_id','=','customers.id')
-                ->select('appointment.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-                ->where('appointment.'.$center,'=',$branchId)          
-                ->where('appointment.'.$center_status,'!=','close')
-                ->where('appointment.status','=','open')
+        return Appointments::orderBy('id', 'DESC')
+                ->join('customers','appointments.customer_id','=','customers.id')
+                ->select('appointments.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+                ->where('appointments.'.$center,'=',$branchId)          
+                ->where('appointments.'.$center_status,'!=','close')
+                ->where('appointments.status','=','open')
                 // ->where('appointments.date', '=', $cDate)
                 ->get();
 
@@ -654,8 +655,8 @@ class DisplayController extends Controller
     {
         // $deptId= Auth()->user()->dept_id;
         // $branchId= Auth()->user()->branch_id;
-        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                ->join('customers','appointments.customer_id','=','customers.id')
+        return Appointment::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointment.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
                 // ->where('appointments.id','=',$id)               
                 ->get();
@@ -842,9 +843,11 @@ class DisplayController extends Controller
         return DB::table("invoices")->get();
     }
 
-    public function displayPharmInvoice($id, $vid)
+    public function displayPharmInvoice($Vid, $vid)
     {
-                                                                                                                                                      
+        $voucher_id= Vouchers::find($Vid);
+        $id= $voucher_id->appointment_id;
+        $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
         $pc =  Doctor_prescriptions::orderBy('id') 
         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
@@ -888,12 +891,12 @@ class DisplayController extends Controller
                 ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
                 ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                 ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                // ->where('doctor_prescriptions.status', '=', 'close')
+                ->where('doctor_prescriptions.voucher_id', '=', $Vid)
                 ->where('doctor_prescriptions.appointment_id', '=', $id)
-                ->where('doctor_prescriptions.branch_id', '=', $bId)
+                // ->where('doctor_prescriptions.branch_id', '=', $bId)
                 ->get(),
-                "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
-                "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
+                "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
                 ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
