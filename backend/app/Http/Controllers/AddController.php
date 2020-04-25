@@ -2451,9 +2451,9 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                 'voucher_id' => $create_voucher,
             ]);
         }
-        $updateAppointment = DB::table('appointment')
-                                    ->where('appointment.id', '=', $cid)
-                                    ->where('appointment.pharm_id','=', $branchId)
+        $updateAppointment = DB::table('appointments')
+                                    ->where('appointments.id', '=', $cid)
+                                    ->where('appointments.pharm_id','=', $branchId)
                                     ->update([                                       
                                         'pharm_status' => 'checkout',
                                     ]);

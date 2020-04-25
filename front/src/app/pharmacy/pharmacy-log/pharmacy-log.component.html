@@ -160,7 +160,8 @@
                         <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
                             <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
-                            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li>
+                            <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
+                            <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
                             <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
                             <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
                             

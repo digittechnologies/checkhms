@@ -27,37 +27,22 @@ use App\Role;
 use App\Duration;
 class RevenueModuleController extends Controller
 {
-public function patientVouchers(Request $request){
-    $vouchid = $request->id;
-    //  return  $user =  Auth()->user();
+public function patientVouchers($id){
+  
    $deptId= Auth()->user()->dept_id;
   $branchId= Auth()->user()->branch_id;
+  $customeId= appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->first();
+  $cId= $customeId->customer_id;
+return response()->json([    
+      'customer'=> Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+        ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+        ->where('customers.id','=',$cId)          
+        ->get(),
 
-return response()->json([
-    'pharm'=> DB::table('appointments')
-    ->join('departments','appointments.department_id','=','departments.id')
-    ->select('appointments.*','departments.*')
-    ->where('appointments.customer_id',$vouchid)
-    // ->where('prescription','=','success')
-    // ->where('status','=','active')
-    // ->where('branch_id',  $branchId)
-    // ->where('invoice','=','open')
-    // ->where('voucher','=','success')
-    ->where('appointments.department_id',1)
-    ->get(),
-
-    'record'=> DB::table('appointments')
-    ->join('departments','appointments.department_id','=','departments.id')
-    ->select('appointments.*','departments.*')
-    ->where('appointments.customer_id',$vouchid)
-    // ->where('prescription','=','success')
-    // ->where('status','=','active')
-    // ->where('branch_id',  $branchId)
-    // ->where('invoice','=','open')
-    // ->where('voucher','=','success')
-    ->where('department_id',16)
-    ->get()
-    //  'pharm'=>DB::table('vouchers')->where('customer_id','=',$vouchid)->where('paid')->get()
+        'voucher'=> Vouchers::orderBy('id')->join('branches', 'vouchers.branch_id', '=', 'branches.id')
+                                        ->join('departments', 'branches.dept_id', '=', 'departments.id')
+                                        ->where('appointment_id','=',$id)
+                                        ->select('vouchers.*', 'departments.name as d_name', 'branches.name as br_name')->get()
 ]);
 
 }
