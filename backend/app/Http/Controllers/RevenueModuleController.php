@@ -35,7 +35,7 @@ public function patientVouchers($id){
   $cId= $customeId->customer_id;
 return response()->json([    
       'customer'=> Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-        ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+        ->select('customers.*', 'customer_category.*')
         ->where('customers.id','=',$cId)          
         ->get(),
 

@@ -9,11 +9,11 @@
                         <li ><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;/ </a></li>
                         <span *ngIf ="4004 > uPos" > 
                             <span *ngIf = "uDept == '1' || uDept == '10'">
-                                / <li *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == uDept" href="#" [routerLink]="">{{br.name}}</a></li>
+                                 <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == uDept" href="#" [routerLink]="">{{br.name}}</a></li>
                             </span>
                         </span>
                         <span *ngIf ="uPos > '3003' && uDept == '1'">
-                            / <li *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch" href="#" [routerLink]="">{{br.name}}</a></li>
+                             <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch" href="#" [routerLink]="">{{br.name}}</a></li>
                         </span>
                         <li class="breadcrumb-item active" aria-current="page">&nbsp;/ All Items</li>
                         </ol>

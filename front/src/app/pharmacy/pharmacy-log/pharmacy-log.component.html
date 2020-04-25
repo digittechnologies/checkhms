@@ -33,7 +33,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
-                        <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" >
                             <div class="row">
                                 <div class="col-lg-10 col-md-10 col-sm-6">
                                     <label>Search User</label>
@@ -52,16 +52,14 @@
                                     <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                                 </div>
                             </div>
-                        </form> -->
-                        <!-- <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> -->
+                        </form> 
+                         <!-- <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> 
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search..." (keyup)="appointment($event)" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
-                                    <!-- name="customer2" -->
-                                     <!-- <span *ngIf="filres" class="row justify-content-center "><small class="text-danger">{{filres}}</small></span>  -->
-                                    <mat-autocomplete #auto="matAutocomplete" >
+                                   <mat-autocomplete #auto="matAutocomplete" >
                                         <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                          {{street}} 
                                         </mat-option>
@@ -74,7 +72,7 @@
                                 <button type="button" (click)="onClickSubmit()" class="btn btn-sm btn-primary btn-block" title="">log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                             </div>
                         </div>
-                    <!-- </form> -->
+                    </form> -->
                     </div>
                 </div>
             </div>

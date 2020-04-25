@@ -575,16 +575,16 @@ class DisplayController extends Controller
     }
     public function displayDeptAppointment($branchId)
     {
+
+        $loggedUserDept = Auth()->user()->dept_id;
         if($branchId == 'undefined'){
             $branchId = Auth()->user()->branch_id;
         }
-
-        $branch = Branches::select('branches.br_name', 'branches.id')
-        ->where('name', '=', $branchId)
-        ->orWhere('id', '=', $branchId)
+        $branch = Branches::select('branches.id')
+        ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
+        ->where('id', $branchId)
+        ->orWhere('name', $branchId)
         ->first();  
-        $branchId = $branch->id;
-
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -610,8 +610,19 @@ class DisplayController extends Controller
          
 
         $deptId= Auth()->user()->dept_id;
-        $branchId= Auth()->user()->branch_id;
-        return Appointments::orderBy('id', 'DESC')
+// <<<<<<< HEAD
+//         // $branchId= Auth()->user()->branch_id;
+//         return response()->json([
+//             'data' => Appointment::orderBy('id', 'DESC')
+//                 ->join('customers','appointment.customer_id','=','customers.id')
+//                 ->select('appointment.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+//                 ->where('appointment.'.$center,'=',$branchId)          
+//                 ->where('appointment.'.$center_status,'!=','close')
+//                 ->where('appointment.status','=','open')
+// =======
+        // $branchId= Auth()->user()->branch_id;
+        return response()->json([
+            'data' => Appointments::orderBy('id', 'DESC')
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
                 ->where('appointments.'.$center,'=',$branchId)          
@@ -1363,7 +1374,7 @@ class DisplayController extends Controller
 
     public function displayPharAdminDash()
     {
-        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 
         $array = array();
         foreach($branch as $row){
             $name = $row->br_name;
@@ -1477,7 +1488,7 @@ class DisplayController extends Controller
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
 
-        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 
         $itemD = DB::table("item_details")->select('id')->orderBy('id')->get(); 
         $tempArray = array();
         $array = array();
@@ -1505,7 +1516,7 @@ class DisplayController extends Controller
         $cDate = $dt->toFormattedDateString();
 
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.br_name')->where('id', $id)->first();
+        $get = DB::table("branches")->select('branches.br_name')->where(['status' => 'active', 'branches.dept_id' => '1'])->first();
         $branch = $get->br_name;
         $itemD = DB::table("item_details")->select('id')->orderBy('id')->get();
         $array = array(); 
@@ -1526,27 +1537,27 @@ class DisplayController extends Controller
 
     public function displayPharAdminDashAppointment()
     {
-        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 
         $activeArray = array();
         $terminatedArray = array();
         $closeArray = array();
         foreach($branch as $row){
             //Active appointments
-            $getActive = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'active'])->count('status');
+            $getActive = DB::table('appointments')->where(['pharm_id' => $row->id, 'status' => 'active'])->count('status');
             if(empty($getActive)){
                 array_push($activeArray, 0);
             }else {
                 array_push($activeArray, $getActive);
             }
             //Terminated appointments
-            $getTerminated = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'terminated'])->count('status');
+            $getTerminated = DB::table('appointments')->where(['pharm_id' => $row->id, 'status' => 'terminated'])->count('status');
             if(empty($getTerminated)){
                 array_push($terminatedArray, 0);
             }else {
                 array_push($terminatedArray, $getTerminated);
             }
             //Closed appointments
-            $getClosed = DB::table('appointments')->where(['branch_id' => $row->id, 'status' => 'close'])->count('status');
+            $getClosed = DB::table('appointments')->where(['pharm_id' => $row->id, 'status' => 'close'])->count('status');
             if(empty($getClosed)){
                 array_push($closeArray, 0);
             }else {
@@ -1573,21 +1584,21 @@ class DisplayController extends Controller
         $closeArray = array();
 
         //Active appointments
-        $getActive = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'active', 'date' => $cDate])->count('status');
+        $getActive = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'active', 'date' => $cDate])->count('status');
         if(empty($getActive)){
             array_push($activeArray, 0);
         }else {
             array_push($activeArray, $getActive);
         }
         //Terminated appointments
-        $getTerminated = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'terminated', 'date' => $cDate])->count('status');
+        $getTerminated = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'terminated', 'date' => $cDate])->count('status');
         if(empty($getTerminated)){
             array_push($terminatedArray, 0);
         }else {
             array_push($terminatedArray, $getTerminated);
         }
         //Closed appointments
-        $getClosed = DB::table('appointments')->where(['branch_id' => $id, 'status' => 'close', 'date' => $cDate])->count('status');
+        $getClosed = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'close', 'date' => $cDate])->count('status');
         if(empty($getClosed)){
             array_push($closeArray, 0);
         }else {
@@ -1598,8 +1609,8 @@ class DisplayController extends Controller
             "active" => $activeArray,
             "terminated" => $terminatedArray,
             "closed" => $closeArray,
-            "countAll" => DB::table('appointments')->where('branch_id', $id)->count(),
-            "countToday" => DB::table('appointments')->where(['branch_id'=> $id, 'date' => $cDate])->count()
+            "countAll" => DB::table('appointments')->where('pharm_id', $id)->count(),
+            "countToday" => DB::table('appointments')->where(['pharm_id'=> $id, 'date' => $cDate])->count()
         ]);
     }
 
