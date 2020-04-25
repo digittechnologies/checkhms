@@ -529,11 +529,11 @@ class DisplayController extends Controller
         $customeId= Appointment::orderBy('id')->where('id','=',$id)->select('appointment.customer_id')->get();
         $cId= $customeId[0]->customer_id;
         return response()->json(
-            Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-            ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
-            ->where('customers.id','=',$cId)          
-            ->get()   
-        );
+                Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                ->select('customers.*', 'customer_category.*')
+                ->where('customers.id','=',$cId)          
+                ->get()   
+            );
     }
 
     public function customer_category()
@@ -573,8 +573,18 @@ class DisplayController extends Controller
                 ->where('appointments.date', $cDate)
                 ->get();
     }
-    public function displayDeptAppointment()
+    public function displayDeptAppointment($branchId)
     {
+        if($branchId == 'undefined'){
+            $branchId = Auth()->user()->branch_id;
+        }
+
+        $branch = Branches::select('branches.br_name', 'branches.id')
+        ->where('name', '=', $branchId)
+        ->orWhere('id', '=', $branchId)
+        ->first();  
+        $branchId = $branch->id;
+
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -600,15 +610,18 @@ class DisplayController extends Controller
          
 
         $deptId= Auth()->user()->dept_id;
-        $branchId= Auth()->user()->branch_id;
-        return Appointment::orderBy('id', 'DESC')
+        // $branchId= Auth()->user()->branch_id;
+        return response()->json([
+            'data' => Appointment::orderBy('id', 'DESC')
                 ->join('customers','appointment.customer_id','=','customers.id')
                 ->select('appointment.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
                 ->where('appointment.'.$center,'=',$branchId)          
                 ->where('appointment.'.$center_status,'!=','close')
                 ->where('appointment.status','=','open')
                 // ->where('appointments.date', '=', $cDate)
-                ->get();
+                ->get(),
+            'centerName' => DB::table('branches')->select('branches.name')->where('id', '=', $branchId)->first()
+        ]);
 
                 // return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 // ->join('customers','appointments.customer_id','=','customers.id')

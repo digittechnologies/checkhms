@@ -161,7 +161,7 @@ Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
 // Appointments 
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
 Route::post('makeAppointment2','AddController@makeAppointment2');
-Route::get('displayDeptAppointment','DisplayController@displayDeptAppointment');
+Route::get('displayDeptAppointment/{id}','DisplayController@displayDeptAppointment');
 Route::get('displayRevenueAppointment','DisplayController@displayRevenueAppointment');
 Route::get('displayPharmStaffDashAppointment','DisplayController@displayPharmStaffDashAppointment');
 Route::get('displayDeptAppoint/{id}','DisplayController@displayDeptAppoint');
