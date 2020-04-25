@@ -97,7 +97,7 @@ export class JarwisService {
   }
   
   updateprofile(data) {
-    return this.http.post(`${this.baseUrl}/me`,data,{headers:{
+    return this.http.post(`${this.baseUrl}/updateprofile`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -134,14 +134,21 @@ export class JarwisService {
   }
   deleteType(data) {
     return this.http.post(`${this.baseUrl}/deleteType`, data)
-  }
-
-
-
+  }  
 
   // Branch
+  displayStaffBranch(id: any) {
+    return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
+  }
+
+  displayAppointmentBranch(id: any) {
+    return this.http.get(`${this.baseUrl}/displayAppointmentBranch/${id}`,)
+  }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
+  }
+  displayBranchs(data) {
+    return this.http.get(`${this.baseUrl}/displaybranchs`,data,)
   }
   displaysetBranch() {
     return this.http.get(`${this.baseUrl}/displaysetBranch`,)
@@ -274,10 +281,14 @@ export class JarwisService {
   }
   displayDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/displayDurationForV/${id}`,)
-  }
+  }  
 
   idDurationForV(id: any) {
     return this.http.get(`${this.baseUrl}/idDurationForV/${id}`,)
+  }
+
+  updatePrecription(id: any) {
+    return this.http.get(`${this.baseUrl}/updatePrecription/${id}`,)
   }
 
   updateDuration(data) {
@@ -419,6 +430,17 @@ export class JarwisService {
     Authorization:`Bearer ${localStorage.token}`
   }})
   }
+  createBranchs(data) {
+    return this.http.post(`${this.baseUrl}/addBranchs`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+    }
+    deptList(data) {
+      return this.http.post(`${this.baseUrl}/deptlist`, data,{headers:{
+        Authorization:`Bearer ${localStorage.token}`
+      }})
+      }
+     
 // updateCategories(data) {
 //   return this.http.post(`${this.baseUrl}/updateCategories`, data)
 // }
@@ -434,11 +456,6 @@ displayCustomer() {
 displayHospitalNum(){
   return this.http.get(`${this.baseUrl}/displayHospitalNum`,)
 }
-
-// nextDisplayCustomer(PageNo: string) {
-//   const params = new HttpParams().set('page', PageNo);
-//   return this.http.get(`${this.baseUrl}/displayCustomer`,)
-// }
 
 countCustomer() {
   return this.http.get(`${this.baseUrl}/countCustomer`,)
@@ -460,22 +477,29 @@ patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
+  console.log(data)
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 } 
-
 searchPatient(data) {
   return this.http.post<any>(`${this.baseUrl}/searchPatient`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 } 
-
 makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+//EPS Patients
+addEpsCustomer(data) {
+  return this.http.post(`${this.baseUrl}/addEpsCustomer`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 
 //Category (PATIENTS)
 
@@ -503,10 +527,19 @@ addCustCategories(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+onEditBranch(data){
+  return this.http.post(`${this.baseUrl}/onEditBranch`,data)
+}
+// updateBranch(data){
+//   this.http.post(`${this.baseUrl}/updateBranch`,data)
+// }
 
 //Appointment 
 displayAllappointment() {
   return this.http.get(`${this.baseUrl}/displayAllappointment`,)
+}
+getDepertment() {
+  return this.http.get(`${this.baseUrl}/getDepertment`,)
 }
 
 displayDeptAppointment() {
@@ -723,10 +756,17 @@ deleteAppointment(data) {
     return this.http.post<any>(`${this.baseUrl}/deletePrescription/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  }
+  } 
 
   saveTovoucher(id: any, data) {
-    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data,{headers:{
+    return this.http.post(`${this.baseUrl}/saveTovoucher/${id}`, data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+
+  updatePrescription(data) {
+    return this.http.post(`${this.baseUrl}/updatePrescription`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -847,4 +887,16 @@ updateGeneralSet(data) {
 addGeneralSet(data) {
   return this.http.post(`${this.baseUrl}/addGeneralset`, data)
 }
+cancel_pharm_log(data){
+  return this.http.post<any>(`${this.baseUrl}/cancelPharmLog`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
+ endappointment(data){
+  return this.http.post<any>(`${this.baseUrl}/endappointment`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
+ endappointments(){
+  return this.http.get<any>(`${this.baseUrl}/endappointments`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+ )
+ }
 }

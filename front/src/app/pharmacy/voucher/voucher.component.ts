@@ -78,6 +78,14 @@ export class VoucherComponent implements OnInit {
   Instructionresponse_id: any;
   amt_value: any;
   sup_id: any;
+  presResponds: Object;
+  original_qty: any;
+  refill_qty: any;
+  total_quantity: any;
+  total_amount: any;
+  instock: any;
+  amnt_v: any;
+  amount_p: number;
 
   constructor(
     private Jarwis: JarwisService,
@@ -89,7 +97,6 @@ export class VoucherComponent implements OnInit {
   ) { }
 
   ngOnInit() { 
-
 	this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.appId= id;
@@ -166,6 +173,7 @@ export class VoucherComponent implements OnInit {
   onSelectItem(Itemid) {
     this.Jarwis.voucherAllStock(Itemid.target.value, '').subscribe(  
       data=>{
+        console.log(data)
         this.AllStockresponse = data;
         this.total =this.AllStockresponse[0];
         this.generic_name= this.total.generic_name
@@ -206,15 +214,40 @@ export class VoucherComponent implements OnInit {
      
   }
 
-  editTrans(hh){
-    // this.amt_value = a.target.value;
-    // this.Jarwis.idDurationForV(this.amt_value).subscribe(
-    //   data=>{
-    //   this.DurationForVresponse_id = data;      
-    //   this.amt = this.DurationForVresponse_id[0].value   
+  editTrans(hh){  
 
-    // })
+    this.amt_value = hh;
+    this.Jarwis.updatePrecription(this.amt_value).subscribe(
+      data=>{
+      this.presResponds = data;      
+      this.original_qty = this.presResponds[0].original_qty;
+      this.refill_qty = this.presResponds[0].refill_input;
+      this.total_quantity = this.presResponds[0].quantity;
+      this.total_amount = this.presResponds[0].amount_paid;
+      this.instock = this.presResponds[0].instock; 
+      this.amnt_v = this.presResponds[0].amount;
+    })
      
+  }
+
+  onUpdate(form: NgForm) {
+
+    form.value.p_id= this.amt_value;
+    form.value.refill_quantity= this.total_quantity -  form.value.quantity;
+    form.value.refill_amount_quantity= form.value.refill_quantity * this.amnt_v;
+    form.value.amount= this.amount_p;
+
+    if (form.value.refill_quantity > 0) {
+      form.value.refill_status= 'refillable';
+    } else {
+      form.value.refill_status= 'non-refillable';
+    }
+       
+      this.Jarwis.updatePrescription(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+    
   }
 
   deleteTrans(dd){
@@ -249,12 +282,14 @@ export class VoucherComponent implements OnInit {
         d.target.value = ''
         this.quantity = ''
         this.tQuantity = ''
-        this.days = ''
+        this.days = ''        
       }
       this.useFor = this.days
+      this.quant = this.quantity
     }
     if(this.getInst != '7'){
       this.useFor = d.target.value
+      this.quant = this.quantity
     }
   }
 
@@ -267,20 +302,20 @@ export class VoucherComponent implements OnInit {
       );
   }
 
-  onRefill(r){
-    if(this.getInst == '7'){
-      if(r.target.value > 0){
-        this.count = parseInt(r.target.value) 
-        this.quantity = this.amt * this.sup * this.days / this.count
-        this.useFor = parseInt(this.days) / parseInt(this.count)
-        this.quant = this.quantity
-      }else{
-        this.quantity = this.amt * this.sup * this.days / this.defaultCount
-        this.useFor = this.days
-        this.quant = this.quantity
-      }
-    }
-  }
+  // onRefill(r){
+  //   if(this.getInst == '7'){
+  //     if(r.target.value > 0){
+  //       this.count = parseInt(r.target.value) 
+  //       this.quantity = this.amt * this.sup * this.days / this.count
+  //       this.useFor = parseInt(this.days) / parseInt(this.count)
+  //       this.quant = this.quantity
+  //     }else{
+  //       this.quantity = this.amt * this.sup * this.days / this.defaultCount
+  //       this.useFor = this.days
+  //       this.quant = this.quantity
+  //     }
+  //   }
+  // }
 
   apartTablet(n){
     if(parseInt(n.target.value) > parseInt(this.total.total_remain)){
@@ -290,11 +325,21 @@ export class VoucherComponent implements OnInit {
     if(parseInt(n.target.value) <= 0){
       alert('Quantity minimum is 1')
       n.target.value = ''
-    }
-    if(this.getInst != '7'){
+    }    
       this.tQuantity = n.target.value
-    }
     this.quant = n.target.value
+  }
+
+  apartTablet2(nn){
+    if(parseInt(nn.target.value) > parseInt(this.total_quantity)){
+      alert('Quantity greater than quantity in stock')
+      nn.target.value = ''
+    }
+    if(parseInt(nn.target.value) <= 0){
+      alert('Quantity minimum is 1')
+      nn.target.value = ''
+    }    
+      this.amount_p = this.amnt_v * nn.target.value;
   }
 
   onSubmitAdd(form: NgForm) {
@@ -302,7 +347,7 @@ export class VoucherComponent implements OnInit {
     form.value.appointment_id=this.appId
     form.value.customer_id=this.patID
     form.value.quantity = this.quant
-    form.value.voucher_id = this.voucherId
+    // form.value.voucher_id = this.voucherId
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
     if(this.schemePriceList == 'price_2'){
@@ -333,7 +378,7 @@ export class VoucherComponent implements OnInit {
       return;
     } else { 
       this.disabled = true;
-      this.Jarwis.saveTovoucher(this.voucherId,'').subscribe(
+      this.Jarwis.saveTovoucher(this.appId, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

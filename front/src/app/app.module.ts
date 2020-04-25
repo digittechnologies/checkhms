@@ -85,8 +85,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { KeyComponent } from './setup/key/key.component';
 import { LockComponent } from './setup/lock/lock.component';
 import { RegisterComponent } from './setup/register/register.component';
-import { PhamAdminComponent } from './dashboard/pham-admin/pham-admin.component';
-import { PhamUserComponent } from './dashboard/pham-user/pham-user.component';
+import { PhamAdminComponent } from './dashboard/pharmacy_dept/pham-admin/pham-admin.component';
+import { PhamUserComponent } from './dashboard/pharmacy_dept/pham-user/pham-user.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ForgotPasswordEmailComponent } from './auth/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordResetComponent } from './auth/forgot-password-reset/forgot-password-reset.component';
@@ -101,8 +101,43 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
-import { DoctorAdminComponent } from './dashboard/doctor-admin/doctor-admin.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
+import { RecordsComponent } from './dashboard/records/records.component';
+import { RecordChargeComponent } from './record/record-charge/record-charge.component';
+import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
+import { PharmacyComponent } from './admin/navs/pharmacy/pharmacy.component';
+import { ClinicComponent } from './admin/navs/clinic/clinic.component';
+import { AdminComponent } from './admin/navs/admin/admin.component';
+import { LabComponent } from './admin/navs/lab/lab.component';
+import { RadioComponent } from './admin/navs/radio/radio.component';
+import { TheaterComponent } from './admin/navs/theater/theater.component';
+import { RecordComponent } from './admin/navs/record/record.component';
+import { RevenueComponent } from './admin/navs/revenue/revenue.component';
+import { NurseComponent } from './admin/navs/nurse/nurse.component';
+import { WardComponent } from './admin/navs/ward/ward.component';
+import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
+import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
+
+import { ClinicAdminComponent } from './dashboard/clinic_module/clinic-admin/clinic-admin.component';
+import { ClinicUserComponent } from './dashboard/clinic_module/clinic-user/clinic-user.component';
+import { RevenueAdminComponent } from './dashboard/revenue_module/revenue-admin/revenue-admin.component';
+import { RevenueUserComponent } from './dashboard/revenue_module/revenue-user/revenue-user.component';
+import { RadioAdminComponent } from './dashboard/radiology_module/radio-admin/radio-admin.component';
+import { RadioUserComponent } from './dashboard/radiology_module/radio-user/radio-user.component';
+import { LabAdminComponent } from './dashboard/laboratory_module/lab-admin/lab-admin.component';
+import { LabUserComponent } from './dashboard/laboratory_module/lab-user/lab-user.component';
+import { TheaterAdminComponent } from './dashboard/theater_module/theater-admin/theater-admin.component';
+import { TheaterUserComponent } from './dashboard/theater_module/theater-user/theater-user.component';
+import { NurseAdminComponent } from './dashboard/nurse_module/nurse-admin/nurse-admin.component';
+import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-user.component';
+import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
+import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+import { RecordLogComponent } from './record/record-log/record-log.component';
+import { ReportComponent } from './record/report/report.component';
+import { RecordHistoryComponent } from './record/record-history/record-history.component';
+import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -236,9 +271,76 @@ import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
   
     CustomerCategoryComponent,
   
-    DoctorAdminComponent,
+    PatDetailComponent,
   
-    PatDetailComponent
+    RecordsComponent,
+
+    RecordChargeComponent,
+  
+    ClinicServiceComponent,
+  
+    PharmacyComponent,
+  
+    ClinicComponent,
+  
+    AdminComponent,
+  
+    LabComponent,
+  
+    RadioComponent,
+  
+    TheaterComponent,
+  
+    RecordComponent,
+  
+    RevenueComponent,
+  
+    NurseComponent,
+  
+    WardComponent,
+  
+    RecordAdminComponent,
+  
+    RecordUserComponent,
+  
+    ClinicAdminComponent,
+  
+    ClinicUserComponent,
+  
+    RevenueAdminComponent,
+  
+    RevenueUserComponent,
+  
+    RadioAdminComponent,
+  
+    RadioUserComponent,
+  
+    LabAdminComponent,
+  
+    LabUserComponent,
+  
+    TheaterAdminComponent,
+  
+    TheaterUserComponent,
+  
+    NurseAdminComponent,
+  
+    NurseUserComponent,
+  
+    WardAdminComponent,
+  
+    WardUserComponent,
+  
+    RecordLogComponent,
+  
+    ReportComponent,
+  
+    RecordHistoryComponent,
+  
+    RevenueLogComponent,
+  
+    AppointmentTypeComponent,
+  
   ],
   imports: [
     BrowserModule,

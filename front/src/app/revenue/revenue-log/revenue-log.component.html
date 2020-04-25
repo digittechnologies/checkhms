@@ -1,0 +1,210 @@
+
+<div id="main-content">
+
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h1>Voucher</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Voucher</li>
+                        </ol>
+                    </nav>
+                </div>            
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
+                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card social">
+                    <div class="profile-header d-flex justify-content-between justify-content-center">
+                        <div class="d-flex">
+                            <div class="mr-3">
+                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                            </div>
+                           <div class="details">
+                                  <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
+                                  <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
+                                  <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
+                            </div>                                 
+                        </div>
+                        <div class="col text-center">
+                          <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
+                          <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
+                          <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
+                          <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div>
+                        </div>
+                         <div class="col text-right">
+                            <div class="small text-light">Prescription Number</div>
+                            <div class="h4 m-0">PX#: {{vouchId}}</div>
+                          </div>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+        
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <ul class="nav nav-tabs2">
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Employee Salary</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Payslip">Payslip</a></li>                
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="EmployeeSalary">
+                            <div class="table-responsive invoice_list mb-4">
+                                <table class="table table-hover table-custom spacing8">
+                                    <thead>
+                                        <tr> 
+                                            <th style="width: 20px;">#</th>
+                                            <th>Depertment</th>
+                                            <th class="w100">Date/Time</th>
+                                            <th class="w60">Total Ammount</th>
+                                            <th class="w60">Status</th>
+                                            <th class="w60">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let v of roll; let r = index ">
+                                            <td>
+                                                <span>{{r+1}} </span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div>
+                                                    <div class="ml-3">
+                                                        <a href="" title="">{{v.d_name}}</a>
+                                                        <p class="mb-0">{{v.br_name}}</p>
+                                                    </div>
+                                                </div>                                        
+                                            </td>
+                                            <td>{{v.created_at}}</td>
+                                            <td>{{v.paid | currency:'NGN':'symbol-narrow'}}</td>
+                                            <td><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
+                                            <td>
+                                                <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" [routerLink]="['/Admin', {outlets: {side: ['invoice',v.id]}}]" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i> Invoice</button>
+                                                <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash text-danger"></i></button> -->
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="Payslip">
+                            <div class="card">
+                                <article class="media body mb-0">
+                                    <div class="mr-3">
+                                        <img class="rounded" src="../assets/images/xs/avatar4.jpg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="content">
+                                            <span><strong>Order ID: </strong> C09</span>
+                                            <p class="h5">John Smith <small class="float-right badge badge-primary">AUG 15, 2018</small></p>
+                                            <p>795 Folsom Ave, Suite 546 San Francisco, CA 54656</p>
+                                        </div>
+                                        <nav class="d-flex text-muted">
+                                            <a href="javascript:void(0);" class="icon mr-3"><i class="icon-envelope text-info"></i></a>
+                                            <a href="javascript:void(0);" class="icon mr-3"><i class="icon-printer"></i></a>
+                                        </nav>
+                                    </div>
+                                </article>
+                                <div class="row clearfix">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-custom spacing5">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="w60">#</th>
+                                                        <th></th>
+                                                        <th class="w100">Earnings</th>
+                                                        <th class="w100">Deductions</th>
+                                                        <th class="w100 text-right">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>01</td>
+                                                        <td>
+                                                            <span>Basic Salary</span>
+                                                        </td>                                                    
+                                                        <td>$1,500</td>
+                                                        <td>-</td>
+                                                        <td class="text-right">$380</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>02</td>
+                                                        <td>
+                                                            <span>House Rent Allowance (H.R.A.)</span>
+                                                        </td>
+                                                        <td>$62</td>
+                                                        <td>-</td>
+                                                        <td class="text-right">$250</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>03</td>
+                                                        <td>
+                                                            <span>Tax Deducted at Source (T.D.S.)</span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>$80</td>
+                                                        <td class="text-right">$120</td>
+                                                    </tr>                                                
+                                                    <tr>
+                                                        <td>04</td>
+                                                        <td>
+                                                            <span>C/Bank Loan</span>
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>$120</td>
+                                                        <td class="text-right">$120</td>
+                                                    </tr>                                                
+                                                    <tr>
+                                                        <td>05</td>
+                                                        <td>
+                                                            <span>Other Allowance</span>
+                                                        </td>
+                                                        <td>$121</td>
+                                                        <td>-</td>
+                                                        <td class="text-right">$120</td>
+                                                    </tr>                                                
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="2"><span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span></td>
+                                                        <td>$1683</td>
+                                                        <td>$200</td>
+                                                        <td class="text-right">
+                                                            <strong class="text-success">$1483.00</strong>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-md-12 text-right">
+                                        <button class="btn btn-info"><i class="icon-printer"></i> Print</button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div> 
+  
+  
+
+

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
+import { RecordJarwisService } from 'src/app/service/record-jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
@@ -63,9 +64,30 @@ export class PatientComponent implements OnInit {
   image: string | ArrayBuffer;
   ePatient_image: any;
   eId: any;
+  count: any;
+  patientAll: any;
+  showPatient = false;
+  eAge: any;
+  category: any;
+
+  //EPS
+  epsId: any;
+  epsName: any;
+  epsEmail: any;
+  epsContact: any;
+  epsAddress: any;
+  epsStatus: any;
+  responseRec: any;
+  center: any;
+  appointment_ty: any;
+  givenDept: any;
+  sResponse: any;
+  sbranch: any;
+  appt: any;
 
   constructor( 
     private Jarwis: JarwisService,
+    private JarwisRecord: RecordJarwisService,
     private Token: TokenService,
     private router: Router,
     private Auth: AuthService,
@@ -104,17 +126,46 @@ export class PatientComponent implements OnInit {
     
     this.Jarwis.displayDepartments().subscribe(
       data=>{
-      console.log(data);   
       this.response = data;
-      this.department = this.response
-     
+      this.department = this.response     
    
+    })
+
+    this.JarwisRecord.displayUser().subscribe( 
+      data=>{
+      this.responseRec = data;
+      this.center = this.responseRec.branch[0]; 
+      this.appointment_ty = this.responseRec.appointment_type; 
+      // console.info(this.appointment_ty);
     })
   }
 
-  // next(){
+  onChange1(b){
 
-  // }
+    this.givenDept = b.target.value;
+ 
+    this.Jarwis.displayAppointmentBranch(this.givenDept).subscribe(
+      data=>{
+      this.sResponse = data;      
+      this.sbranch = this.sResponse.branch
+      this.appt = this.sResponse.appt
+
+      console.info(this.appt);
+
+      })
+  
+  }
+
+
+  onSubmitApp(form: NgForm) {
+    this.disabled = true;
+    form.value.customer_id = this.eId;
+     this.Jarwis.makeAppointment(form.value).subscribe(
+       data => this.handleResponse(data),
+         error => this.handleError(error)
+    );
+    
+   }
 
   appointment(id){
 
@@ -126,97 +177,234 @@ export class PatientComponent implements OnInit {
 
   onClickSubmit(form: NgForm) {
 
-    this.disabled = true;  
+    this.disabled = true; 
 
     if(form.value.customer == '' || form.value.action == ''){
       alert('Serch Box Empty')
-    }else{
-      this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+    }
+    else{
+      if (form.value.category == 'regular') {
+        
+           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
         this.spin="disable";
         this.disabled= false;
        
         this.searchResponse = data;
         this.show= this.searchResponse.show;
-        this.patient = this.searchResponse.search; 
-        this.pAppointment=this.searchResponse.app;
+        this.patient = this.searchResponse.search[0]; 
+        this.patientAll = this.searchResponse.search; 
+        this.pAppointment = this.searchResponse.app;
+        this.count = this.searchResponse.count;
+        this.category = this.searchResponse.category;
+        
+        if(this.count == 0){
+          alert('Invalid refrence ID, patient not found. Try again!')
+        } else{
+          this.eId = this.patient.id;
+          this.eName = this.patient.name;  
+          this.eOthername = this.patient.othername; 
+          this.eGender = this.patient.gender;
+          this.eMobile_number  = this.patient.mobile_number;
+          this.eAddress = this.patient.address; 
+          this.eCity = this.patient.city; 
+          this.eState = this.patient.state; 
+          this.eCountry = this.patient.country; 
+          this.eD_o_b = this.patient.d_o_b;
+          this.eCard_number = this.patient.card_number;
+          this.eStatus = this.patient.status;
+          this.eType = this.patient.type;
+          this.eOccupation = this.patient.occupation;
+          this.eMarital_status = this.patient.marital_status;
+          this.eReligion = this.patient.religion;
+          this.eNext_of_kin_name = this.patient.next_of_kin_name;
+          this.eKin_relationship = this.patient.kin_relationship;
+          this.eNext_of_kin_mobile = this.patient.next_of_kin_mobile;
+          this.eNext_of_kin_address = this.patient.next_of_kin_address;
+          this.eX_ray_number = this.patient.x_ray_number;
+          this.eReferral_name = this.patient.referral_name;
+          this.eReferral_address = this.patient.referral_address;
+          this.eReferral_mobile = this.patient.referral_mobile;
+          this.ePatient_image = this.patient.patient_image;
+          this.eAge =  this.patient.age;
 
-        this.eId = this.patient.id;
-        this.eName = this.patient.name;  
-        this.eOthername = this.patient.othername; 
-        this.eGender = this.patient.gender;
-        this.eMobile_number  = this.patient.mobile_number;
-        this.eAddress = this.patient.address; 
-        this.eCity = this.patient.city; 
-        this.eState = this.patient.state; 
-        this.eCountry = this.patient.country; 
-        this.eD_o_b = this.patient.d_o_b;
-        this.eCard_number = this.patient.card_number;
-        this.eStatus = this.patient.status;
-        this.eType = this.patient.type;
-        this.eOccupation = this.patient.occupation;
-        this.eMarital_status = this.patient.marital_status;
-        this.eReligion = this.patient.religion;
-        this.eNext_of_kin_name = this.patient.next_of_kin_name;
-        this.eKin_relationship = this.patient.kin_relationship;
-        this.eNext_of_kin_mobile = this.patient.next_of_kin_mobile;
-        this.eNext_of_kin_address = this.patient.next_of_kin_address;
-        this.eX_ray_number = this.patient.x_ray_number;
-        this.eReferral_name = this.patient.referral_name;
-        this.eReferral_address = this.patient.referral_address;
-        this.eReferral_mobile = this.patient.referral_mobile;
-        this.ePatient_image = this.patient.patient_image;
-
-        this.submissionForm = this.formBuilder.group(
-          {
-            name:[this.eName],
-            othername:[this.eOthername],
-            email:[this.eEmail],
-            card_number:[this.eCard_number],
-            mobile_number:[this.eMobile_number],
-            state:[ this.eState],
-            city:[this.eCity],
-            gender:[this.eGender],
-            address:[this.eAddress],
-            id:[this.eId],
-            d_o_b:[this.eD_o_b],
-            country:[this.eCountry],
-            // n_h_i_s:[this.pat[0].n_h_i_s],
-            age:[this.pat[0].age],
-            type:[ this.eType],
-            occupation:[this.eOccupation],
-            marital_status:[this.eMarital_status],
-            status:[this.eStatus],
-            religion:[this.eReligion],
-            next_of_kin_name:[this.eNext_of_kin_name],
-            kin_relationship:[this.eKin_relationship],
-            next_of_kin_mobile:[this.eNext_of_kin_mobile],
-            next_of_kin_address:[this.eNext_of_kin_address],
-            referral_name:[this.eReferral_name],
-            referral_address:[this.eReferral_address],
-            referral_mobile:[this.eReferral_mobile],
-          },
-        )
-        this.image=this.ePatient_image
+          this.submissionForm = this.formBuilder.group(
+            {
+              name:[this.eName],
+              othername:[this.eOthername],
+              email:[this.eEmail],
+              card_number:[this.eCard_number],
+              mobile_number:[this.eMobile_number],
+              state:[ this.eState],
+              city:[this.eCity],
+              gender:[this.eGender],
+              address:[this.eAddress],
+              id:[this.eId],
+              d_o_b:[this.eD_o_b],
+              country:[this.eCountry],
+              // n_h_i_s:[this.pat[0].n_h_i_s],
+              age:[this.eAge],
+              type:[ this.eType],
+              occupation:[this.eOccupation],
+              marital_status:[this.eMarital_status],
+              status:[this.eStatus],
+              religion:[this.eReligion],
+              next_of_kin_name:[this.eNext_of_kin_name],
+              kin_relationship:[this.eKin_relationship],
+              next_of_kin_mobile:[this.eNext_of_kin_mobile],
+              next_of_kin_address:[this.eNext_of_kin_address],
+              referral_name:[this.eReferral_name],
+              referral_address:[this.eReferral_address],
+              referral_mobile:[this.eReferral_mobile],
+            },
+          )
+          this.image=this.ePatient_image
+        }
       })
+      }else if (form.value.category == 'eps') {
+           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+        this.spin="disable";
+        this.disabled= false;
+       
+        this.searchResponse = data;
+        this.show= this.searchResponse.show;
+        this.patient = this.searchResponse.search[0]; 
+        this.patientAll = this.searchResponse.search; 
+        this.pAppointment = this.searchResponse.app;
+        this.count = this.searchResponse.count;
+       
+        
+        if(this.count == 0){
+          alert('Invalid refrence ID, patient not found. Try again!')
+        }  else {
+            this.category = this.searchResponse.category;
+            this.epsId = this.patient.id;
+            this.epsName = this.patient.eps_name;
+            this.eId =  this.patient.id;
+            this.epsEmail = this.patient.email;
+            this.epsContact = this.patient.phone;
+            this.epsAddress = this.patient.eps_address;
+            this.epsStatus = this.patient.status;
+
+            this.submissionForm = this.formBuilder.group(
+              {
+                eps_name:[this.epsName],
+                eps_address:[this.epsAddress],
+                email:[this.epsEmail],
+                phone:[this.epsContact],
+                status:[this.epsStatus]
+              },
+            )
+        }
+      })
+      }
+
+   
+     }
+  }
+
+ view(id){
+   if(this.category == 'regular'){
+    for(let i in this.patientAll){
+        if(this.patientAll[i].id == id){
+          this.patient = '';
+          this.patient = this.patientAll[i];
+          this.eId = this.patient.id;
+          this.eName = this.patient.name;  
+          this.eOthername = this.patient.othername; 
+          this.eGender = this.patient.gender;
+          this.eMobile_number  = this.patient.mobile_number;
+          this.eAddress = this.patient.address; 
+          this.eCity = this.patient.city; 
+          this.eState = this.patient.state; 
+          this.eCountry = this.patient.country; 
+          this.eD_o_b = this.patient.d_o_b;
+          this.eCard_number = this.patient.card_number;
+          this.eStatus = this.patient.status;
+          this.eType = this.patient.type;
+          this.eOccupation = this.patient.occupation;
+          this.eMarital_status = this.patient.marital_status;
+          this.eReligion = this.patient.religion;
+          this.eNext_of_kin_name = this.patient.next_of_kin_name;
+          this.eKin_relationship = this.patient.kin_relationship;
+          this.eNext_of_kin_mobile = this.patient.next_of_kin_mobile;
+          this.eNext_of_kin_address = this.patient.next_of_kin_address;
+          this.eX_ray_number = this.patient.x_ray_number;
+          this.eReferral_name = this.patient.referral_name;
+          this.eReferral_address = this.patient.referral_address;
+          this.eReferral_mobile = this.patient.referral_mobile;
+          this.ePatient_image = this.patient.patient_image;
+          this.eAge =  this.patient.age;
+
+          this.submissionForm = this.formBuilder.group(
+            {
+              name:[this.eName],
+              othername:[this.eOthername],
+              email:[this.eEmail],
+              card_number:[this.eCard_number],
+              mobile_number:[this.eMobile_number],
+              state:[ this.eState],
+              city:[this.eCity],
+              gender:[this.eGender],
+              address:[this.eAddress],
+              id:[this.eId],
+              d_o_b:[this.eD_o_b],
+              country:[this.eCountry],
+              // n_h_i_s:[this.pat[0].n_h_i_s],
+              age:[this.eAge],
+              type:[ this.eType],
+              occupation:[this.eOccupation],
+              marital_status:[this.eMarital_status],
+              status:[this.eStatus],
+              religion:[this.eReligion],
+              next_of_kin_name:[this.eNext_of_kin_name],
+              kin_relationship:[this.eKin_relationship],
+              next_of_kin_mobile:[this.eNext_of_kin_mobile],
+              next_of_kin_address:[this.eNext_of_kin_address],
+              referral_name:[this.eReferral_name],
+              referral_address:[this.eReferral_address],
+              referral_mobile:[this.eReferral_mobile],
+            },
+          )
+          this.image=this.ePatient_image
+          this.showPatient = true;
+        }
     }
   }
 
-  onSubmitApp(form: NgForm) {
-    this.disabled = true;
-    this.Jarwis.makeAppointment2({aid:this.appontId, form:form.value }).subscribe(
-      data => this.handleResponse(data),
-        error => this.handleError(error)
-   );
-   
-  }
+  //EPS PATIENTS
+  if(this.category == 'eps'){
+    for(let i in this.patientAll){
+      if(this.patientAll[i].id == id){
+        this.patient = '';
+        this.patient = this.patientAll[i];
+        this.epsId = this.patient.id;
+        this.epsName = this.patient.eps_name;
+        this.epsEmail = this.patient.email;
+        this.epsContact = this.patient.phone;
+        this.epsAddress = this.patient.eps_address;
+        this.epsStatus = this.patient.status;
 
- 
+        this.submissionForm = this.formBuilder.group(
+          {
+            eps_name:[this.epsName],
+            eps_address:[this.epsAddress],
+            email:[this.epsEmail],
+            phone:[this.epsContact],
+            status:[this.epsStatus]
+          },
+        )
+        this.showPatient = true;
+      }
+    }
+  }
+ }
+
   onSubmit(form: NgForm) {
    this.disabled = true;
     this.Jarwis.addCustomer(form.value).subscribe(
      
       data => this.handleResponse(data),
-      error => this.handleError(error), 
+      error => this.handleError(error),   
            
     );
     
@@ -233,8 +421,6 @@ export class PatientComponent implements OnInit {
     reader.readAsDataURL(files);
   }
   onSubmitprofile() {
-    console.log(this.submissionForm.value)
-    console.log(this.image)
     this.Jarwis.updateCustomer({formdata:this.submissionForm.value,image:this.image}).subscribe(
       data => this.handleResponse(data),
     error => this.handleError(error)
@@ -253,7 +439,7 @@ export class PatientComponent implements OnInit {
   handleError(error) {
     this.disabled = false;
     this.error = error.error.errors;
-    let snackBarRef = this.snackBar.open("This patient is already appointed", 'Dismiss', {
+    let snackBarRef = this.snackBar.open("Operation failed. Try again", 'Dismiss', {
       duration: 2000
 
     })

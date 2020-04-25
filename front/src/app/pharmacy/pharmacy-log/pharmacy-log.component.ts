@@ -24,6 +24,7 @@ export class PharmacyLogComponent implements OnInit {
   filteredStreets: Observable<string[]>;
   response: any;
   log: any;
+  logs:any;
   bran: any;
   error: any;
   pat: any;
@@ -37,6 +38,18 @@ export class PharmacyLogComponent implements OnInit {
   spin: string;
   disabled = false;
   logEmpty = false;
+  // disabled = false;
+  delete_id;
+  check="";
+  endAppoit_id;
+  endAppoit_vouccher;
+  res:any;
+  role:any
+  dept:any;
+  filres:any;
+  transe_log:any;
+  uBranch: any;
+  uBranchName: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -47,6 +60,28 @@ export class PharmacyLogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.Jarwis.profile().subscribe(
+    //   data=>{
+    //     this.res = data;
+    //     this.role= this.res.det[0].role_id
+    //     this.dept = this.res.det[0].dept_id;
+    //     console.log(this.res)
+    // })
+
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uBranchName= this.response.det[0].br_name
+      this.role= this.response.det[0].role_id
+      this.dept = this.response.det[0].dept_id;
+    })
+
+    this.Jarwis.displayBranch().subscribe(
+      data=>{
+      this.response = data;      
+      this.bran = this.response   
+    })
 
     this.Jarwis. generalSettings().subscribe(
       data=>{
@@ -56,8 +91,11 @@ export class PharmacyLogComponent implements OnInit {
     
     this.Jarwis.displayDeptAppointment().subscribe(
       data=>{
-      this.response = data;      
-      this.log = this.response; 
+      this.response = data; 
+      console.log(this.response)     
+      this.logs= this.response; 
+      this.log=this.logs;
+      console.log(this.log)
      if(this.log.length <= 0){
        this.logEmpty = true;
      }
@@ -85,9 +123,75 @@ export class PharmacyLogComponent implements OnInit {
     );
     // this.get()
   }
+  filt(){
+    let f =this.form.customer
+    this.filres="";
+    var index = this.log.filter(function(card) {
+      return card.customer_id == f;
+    });
+    this.log=index;
+    if (index=='') {
+      this.log=this.logs;
+      this.filres="No appointment for this patient";
+    }
+    console.log(this.log)
+        
+      }
   // get(){
   //   console.log(this.dat)
   // }
+  cancle(id){
+    this.check="cancel"
+    this.delete_id = id;
+      }
+  del(){
+    // console.log(this.delete_id)
+    this.Jarwis.cancel_pharm_log(this.delete_id).subscribe(data=>{
+      this.handleRespons(data);
+      this.Jarwis.displayDeptAppointment().subscribe(
+        data=>{
+        this.response = data;      
+        this.log = this.response; 
+      })
+    
+    },
+      err=>{this.handleError(err)}
+      )
+      }
+      end(id,voucher){
+        console.log(id,voucher);
+        // this.check="end";
+        this.endAppoit_id=id;
+        this.endAppoit_vouccher=voucher;
+      }
+      endAppointment(){
+        this.Jarwis.endappointment({id:this.endAppoit_id,voucher:this.endAppoit_vouccher}).subscribe(data=>{
+          this.handleRespons(data);
+          console.log(data)
+          this.Jarwis.displayDeptAppointment().subscribe(
+            data=>{
+            this.response = data;      
+            this.log = this.response; 
+          })
+        
+        },
+          err=>{this.handleError(err)}
+          )
+      }
+      endAppointments(){
+        this.Jarwis.endappointments().subscribe(
+          data=>{
+          this.handleRespons(data);
+          this.Jarwis.displayDeptAppointment().subscribe(
+            data=>{
+            this.response = data;      
+            this.log = this.response; 
+          })
+        
+        },
+          err=>{this.handleError(err)}
+        )
+      }
   streets: string[] = this.newArr ;
   private _filter(value: string): string[] {
     // console.log(this.newArr)
@@ -102,29 +206,27 @@ export class PharmacyLogComponent implements OnInit {
   }
 // End Autocomplete
   appointment(id){
-
-    this.appontId = id;
- 
+    this.appontId = id.target.value;
+    this.form.customer=this.appontId
+    console.log(this.appontId)
    // console.log(id);
      
    }
  
-   onSubmitApp(form: NgForm) {
-    this.disabled = true;
-     this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
-       data => this.handleResponse(data),
-         error => this.handleError(error)
-    );
+  //  onSubmitApp(form: NgForm) {
+  //   this.disabled = true;
+  //    this.Jarwis.makeAppointment({aid:this.appontId, form:form.value }).subscribe(
+  //      data => this.handleResponse(data),
+  //        error => this.handleError(error)
+  //   );
     
-   }
+  //  }
 
   onSubmit(form: NgForm) {
    this.disabled = true;
     this.Jarwis.addCustomer(form.value).subscribe(
-     
       data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
+      error => this.handleError(error),     
     );
      this.Jarwis.displayDepartments().subscribe(
       data=>{
@@ -162,14 +264,14 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
     this.spin="disable";
     this.disabled = true;
-    console.log(this.form)
-    if(this.form.customer = ''){
+    console.log(this.form.customer)
+    if(this.form.customer == null){ 
       alert('Serch Box Empty')
     }else{
-      this.Jarwis.makeAppointment(this.form).subscribe(
-        data => this.handleRespons(data),
-          error => this.handleErro(error)
-     );
+          this.Jarwis.makeAppointment(this.form).subscribe(
+            data => this.handleRespons(data),
+              error => this.handleErro(error)
+         );
     }
   }  
   handleRespons(data) {
@@ -197,6 +299,4 @@ export class PharmacyLogComponent implements OnInit {
   getInput(i){
     this.logUser = i.target.value
   }
-
-
 }

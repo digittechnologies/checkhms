@@ -64,11 +64,11 @@ class AuthController extends Controller
         $request->merge(['password' => $cot]);
 
         $GLOBALS['email']=$request->email;
-        $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
-        $sendMail = Mail::send('password', $data, function($message) {
-        $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
-        $message->from('no-reply@jtcheck.com','noreply');
-        });
+        // $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);
+        // $sendMail = Mail::send('password', $data, function($message) {
+        // $message->to($GLOBALS['email'], 'new user')->subject('New account created on Check HMS');
+        // $message->from('no-reply@jtcheck.com','noreply');
+        // });
         $user= User::create($request->all());
         if($user){
             return '{
@@ -88,17 +88,17 @@ class AuthController extends Controller
     {
         $a = auth()->user();
         $e = auth()->user()->email;
+        $m = auth()->user()->id;
         $p = auth()->user()->password;
         return response()->json(
             [
                 'aut'=> auth()->user(),
                 'det'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                ->join('branches','users.branch_id','=','branches.id')
+                // ->join('branches','users.branch_id','=','branches.id')
                 ->join('roles','users.role_id','=','roles.id')
-                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name', 'departments.position_id', 'branches.br_name' )    
-                ->where('email','=',$e)   
-                // ->where('password','=',$psw)         
-                ->get()
+                ->join('branches','users.branch_id','=','branches.id')
+                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name', 'departments.position_id','branches.name AS branch_name')    
+                ->where('email','=',$e)->get(),            
             ]
         );
     }

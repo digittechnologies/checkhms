@@ -195,7 +195,7 @@
                 <div class="card">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items" (click)="get()">All Items</a></li>
-                        <ng-container *ngIf ="4004 > uPos">
+                        <ng-container *ngIf ="4004> uPos">
                             <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
                             <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
                             <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
@@ -229,10 +229,10 @@
                                             <th>Closeing Balance</th>
                                             <th>Variance</th>
                                             <th>Physical Balance</th>
-                                            <th>General Price</th>
+                                            <th>General Rate Price</th>
                                             <th>GORAH Price</th>
                                             <th>NHIS Price</th>
-                                            <th>Total Price in Sumation</th>
+                                            <th>Sales Amount</th>
                                             <th>% Remaining</th>
                                             <!-- <th>Role</th>
                                             <th class="w100">Action</th> -->
@@ -269,18 +269,22 @@
                                                         <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;">{{100 | currency:'NGN'}}</div>
                                                     </div> -->
                                                     <td>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>    
+                                                        <span class="badge badge-warning" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <span class="badge badge-warning" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>    
                                                     </td>
                                                     <td>
-                                                        <span class="badge badge-success">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <span class="badge badge-info">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="badge badge-success">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <span class="badge badge-primary">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                         <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                                    </td> -->
+                                                    <td>
+                                                        <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
                                                     </td>
                                                 <td>
                                                     <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>

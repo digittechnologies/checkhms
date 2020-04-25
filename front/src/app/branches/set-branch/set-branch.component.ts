@@ -12,13 +12,44 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./set-branch.component.css']
 })
 export class SetBranchComponent implements OnInit {
-  response: Object;
-  bran: Object;
+  response: any;
   error: any;
   catName:any;
   manufid:any;
   onUpdate:any;
   disabled = false;
+  dept_name;
+  deptlists:any;
+   pharmacy:any;
+   record:any;
+   radio:any;
+   revenue:any;
+   theater:any;
+   ward:any;
+   nurse:any;
+   lab:any;
+   clinic:any
+   role:any;
+   res:any;
+   department:any;
+   depts:any;
+   clinic_dept=[];
+   oppration_dept=[];
+   center_dept:any;
+   suspend_id:any;
+   activate_id:any;
+   branch_details:any;
+   staffs:any;
+   branch_name:any;
+   branch_adress:any;
+   branch_hod:any;
+   branch_status:any;
+  deptli: Object;
+  apppoint_type: Object;
+  dd: Object;
+  staff: any;
+  app_type: any;
+  
 
   constructor( 
     private Jarwis: JarwisService,
@@ -26,32 +57,87 @@ export class SetBranchComponent implements OnInit {
     private router: Router,
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.Jarwis.profile().subscribe(
+      data=>{
+        console.log(data)    
+      this.res = data;  
+      this.role= this.res.det[0].role_id;
+      this.department=this.res.det[0].nameD;
+    });
+
+    this.Jarwis.getDepertment().subscribe(
+      data=>{ 
+        this.depts=data;
+        this.depts.map(d=>{
+          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="i5" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
+            this.clinic_dept.push(d);
+          }
+          else if (d.dept_id=="11" || d.dept_id=="16" || d.dept_id=="1") {
+            this.oppration_dept.push(d);
+          }
+        })
+        console.log(this.clinic_dept)
+        console.log(this.oppration_dept)
+        
+    setTimeout(() => {
+      let de = this.department
+      let index = this.depts.filter(function(card) {
+        return card.name == de;
+        //  console.log(this.department)
+      })
+      this.center_dept=index;
+    },5000);
+        
+       }
+    )
     this.Jarwis.displaysetBranch().subscribe(
       data=>{
-      this.response = data;      
-      this.bran = this.response   
+      this.response = data; 
+      console.log(this.response)        
+      this.pharmacy = this.response.pharm
+      this.clinic = this.response.clinic; 
+      this.radio = this.response.radio;
+      this.record = this.response.record;
+      this.revenue=this.response.revenue;
+      console.info(this.revenue)
     })
+    this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
+      let deptli = data;
+      this.deptlists = deptli;
+      this.apppoint_type = deptli
+      console.log(data[0].list)
+    },
+    err=>{console.log(err)}
+    )
+
   }
 
 
   onSubmit(form: NgForm) {
    this.disabled = true;
-    this.Jarwis.createBranch(form.value).subscribe(
-     
-      data => this.handleResponse(data),
-      error => this.handleError(error), 
-           
-    );
-    
+   if (form) {
+     this.Jarwis.createBranch(form.value).subscribe(
+       data => {
+         this.disabled = false;
+         this.handleResponse(data)
+         form=null;
+          console.log(data)
+          this.close();
+         },
+       error => this.handleError(error), 
+            
+     ); 
+  }
   }
 
   onSuspend(id: string) {
-
-    this.Jarwis.suspendBranch(id).subscribe(  
-        
+    this.suspend_id=id;
+  }
+  suspend(){
+    this.Jarwis.suspendBranch(this.suspend_id).subscribe(  
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
@@ -59,15 +145,35 @@ export class SetBranchComponent implements OnInit {
   }
 
   onActivate(id: string) {
-
-    this.Jarwis.activateBranch(id).subscribe(  
+  this.activate_id=id
+  }
+  activate(){
+    this.Jarwis.activateBranch(this.activate_id).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 
       
     );
   }
-
+  onEdit(id:any){
+    // console.log(id)
+    this.Jarwis.onEditBranch({id:id}).subscribe(
+      data=>{
+        this.branch_details = data;
+        this.branch_name   = this.branch_details.branche[0].name;
+        this.branch_adress = this.branch_details.branche[0].address;
+        this.branch_hod    = this.branch_details.branche[0].firstname;
+        this.branch_status = this.branch_details.branche[0].status;
+        this.staffs = this.branch_details.staffs;
+        console.log(this.branch_details.branche[0].name)
+      }
+    )
+  }
+  onUpdateBranch(form:NgForm){
+    this.Jarwis.updateBranch(form).subscribe(
+      res=>console.log(res)
+    )
+  }
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {
       duration: 2000
@@ -85,4 +191,24 @@ export class SetBranchComponent implements OnInit {
     })
     this.disabled = false;
   }
+  branch(e){
+   this.ngOnInit
+  }
+  dept(e){
+    this.dept_name=e.target.value;
+    this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
+      this.deptlists = data;
+       this.staff = this.deptlists.list;
+       this.app_type = this.deptlists.appointment_type;
+       console.log(this.app_type)
+    },
+    err=>{console.log(err)}
+    )
+  }
+  close(){
+
+  }
+  // added(){
+  //   this.close();
+  // }
 }

@@ -105,6 +105,7 @@ setting:any;
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 
+    console.log(this.inv)
     this.isEmpty=this.inv.isE
     this.voucher_Id=this.inv.pres[0].voucher_id;
     this.p_date=this.inv.pres[0].p_date
@@ -215,8 +216,8 @@ openPrintDialogue(label){
                 <tbody>
                     <tr>
                         <td colspan="6"> 
-                            <p style="font-size: 8px;  margin-top: -10px; text-align: center;"> <strong>${arr[0].generic_name} TAB</strong> : <small class="float-right">QTY:${arr[0].quantity}</small></p>
-                            <p style="font-size: 7px; margin-top: -7px; text-align: center;">USE ${arr[0].duration_name}, ${arr[0].daily_name}. FOR: ${arr[0].days} DAY(S).</p>
+                            <p style="font-size: 10px;  margin-top: -10px; text-align: center;"> <strong>${arr[0].generic_name} TAB</strong> : <small class="float-right">QTY:${arr[0].quantity}</small></p>
+                            <p style="font-size: 9px; margin-top: -7px; text-align: center;">USE ${arr[0].duration_name}, ${arr[0].daily_name}. FOR: ${arr[0].days} DAY(S).</p>
                             <p style="font-size: 6px; margin-top: -2px; margin-bottom: -5px;"> <strong>Caution:</strong> <small class="float-right">${arr[0].caution}</small></p>
                            
                             <hr>

@@ -36,7 +36,7 @@
                       </div>
                        <div class="col text-right">
                           <div class="small text-light">Prescription Number</div>
-                          <div class="h4 m-0">PX#: {{voucherId}}</div>
+                          <div class="h4 m-0">PX#: {{appId}}</div>
                         </div>
                   </div>
               </div>                    
@@ -108,47 +108,60 @@
                     </div>
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-lg-3 col-md-12">                                            
+
+                            <div class="col-lg-12 col-md-12"> 
+                                <div class="row">
+                            <div class="col-lg-4 col-md-12">                                            
                                 <div class="form-group">   
                                         <label>Item</label>                                             
                                     <input type="text" class="form-control" value="{{generic_name}} {{total_name}}" disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-12">
+                            <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
                                         <label>Class</label>
                                     <input type="text" class="form-control" value="{{cat_name}}" disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-12">
+                            <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
                                         <label>Type</label> 
                                     <input type="text" class="form-control" value="{{type_name}}" disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-12">
-                                <div class="form-group">
-                                        <label>Total Remain</label>
-                                    <input type="text" disabled class="form-control" value="{{total_remain}}">
-                                </div>
+
                             </div>
-                            <div class="col-lg-2 col-md-12">
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">     
+                            <div class="row">
+                            <div class="col-lg-4 col-md-12">
                                 <div class="form-group">
                                     <label>Shelf</label>
                                     <input type="text" class="form-control" value="{{shelve_name}} {{shelve_point}}" disabled>
                                 </div>
                             </div> 
-                            <div class="col-lg-1 col-md-12">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                        <label>Total Remain</label>
+                                    <input type="text" disabled class="form-control" value="{{total_remain}}">
+                                </div>
+                            </div>                           
+                            <div class="col-lg-4 col-md-12">
                                     <div class="form-group">
                                             <label>Price</label>
                                         <input type="text" class="form-control" value="{{selling_price | currency:'NGN':'symbol-narrow'}}" disabled>
                                     </div>
-                                </div>                               
+                                </div>    
+                        
+                            </div>
+                            </div>
+
                             <div class="col-lg-12 col-md-12">
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
                                         <label>Item</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectItem($event)" ngModel name="item_id">
@@ -157,8 +170,8 @@
                                             </select>
                                         </div>
                                     </div>                                             
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>{{type_name}} Number</label>
+                                    <div class="col-lg-3 col-md-2 col-sm-6">
+                                        <label>{{type_name}}</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
                                                 <option value="">Select Instruction</option>
@@ -166,7 +179,7 @@
                                             </select>
                                         </div>
                                     </div>                                            
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                    <div class="col-lg-3 col-md-2 col-sm-6">
                                         <label>Daily Supply</label>
                                         <div class="form-group">
                                             <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
@@ -175,18 +188,12 @@
                                             </select>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                    <div class="col-lg-3 col-md-2 col-sm-6">
                                         <label>Day(s)</label>
                                         <div class="form-group">
                                             <input type="number" class="form-control" (keyup)="putQty($event)" placeholder="Input Number of Day(s)">
                                         </div>
-                                    </div> 
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
-                                        <label>Dispensable Period</label>
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" (keyup)="onRefill($event)" placeholder="0" ngModel name="dispense">
-                                        </div>
-                                    </div> 
+                                    </div>                                     
                                 </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -196,26 +203,34 @@
                                         </div>  
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <label>Total Quantity</label>
+                                            <label></label>
                                             <div class="form-group">
-                                                <input type="number" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
+                                                <input type="hidden" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
+                                                <h5>Total Quantity: 
+                                                    <small class="badge badge-warning" *ngIf = "quant == 'undefined'">0</small>
+                                                    <small class="badge badge-warning">{{math.round(tQuantity)}}</small>
+                                                </h5>
                                             </div>  
                                         </div>
                                 <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <label>Use for Day(s)</label>
-                                    <div class="form-group">
+                                    <label></label>
+                                    <!-- <div class="form-group">
                                         <input type="number" class="form-control" value="{{math.round(useFor)}}" ngModel name="days" disabled placeholder="Days">
-                                    </div>  
+                                    </div>   -->
+                                    <h5>Total Cost: 
+                                        <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0 | currency:'NGN':'symbol-narrow'}}</small>
+                                        <small class="badge badge-success">{{math.round(quant)*selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                    </h5>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <h5>Total Cost: 
                                         <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0*selling_price | currency:'NGN':'symbol-narrow'}}</small>
                                         <small class="badge badge-success">{{math.round(quant)*selling_price | currency:'NGN':'symbol-narrow'}}</small>
                                     </h5>
                                 </div>
-                            </div>
+                            </div> -->
                                 <label>Pre Caution</label>
                                 <div class="form-group">
                                     <textarea rows="4" class="form-control" ngModel name="caution" placeholder="Input pre-cautions here (if any)..."></textarea>
@@ -226,6 +241,7 @@
                                 </div>                                        
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
                         <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
                         <button type="button" disabled *ngIf = "prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
@@ -245,9 +261,9 @@
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                             <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another Action</a></li>
-                                <li><a href="javascript:void(0);">Something else</a></li>
+                                <li><a href="javascript:void(0);" data-toggle="modal" data-target="#category">Discount</a></li>
+                                <li><a href="javascript:void(0);">Charges</a></li>
+                                <li><a href="javascript:void(0);">Settings</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -263,11 +279,11 @@
                             <th>Category</th>
                             <th>Original Quantity</th>
                             <th>Quantity</th>                                                                            
-                            <th>Refill</th>  
-                            <th>Remain</th>                           
-                         
+                            <!-- <th>Refill</th>  
+                            <th>Remain</th>                            -->                         
                             <th>Cost</th>
                             <th>Amount</th>
+                            <th>Refill Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -284,91 +300,171 @@
                         <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
                         <td>{{r.original_qty}}</td>
                         <td>{{r.quantity}}</td>                                                                          
-                        <td>{{r.refill}}</td>
-                        <td>{{r.remain}}</td>
-                     
+                        <!-- <td>{{r.refill}}</td>
+                        <td>{{r.remain}}</td> -->                     
                         <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                         <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                         <td>
-                          <!-- <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button> -->
-                          <button type="button" *ngIf = "prescription == 'open' " class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
-                      </td>                     
+                            <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
+                                Refill
+                            </span>
+                            <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
+                               Close
+                            </span>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
+                          <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                      </td> 
+                      
+                      <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div  class="modal-content">  
+                            <div class="modal-header">
+                                <h4 class="modal-title">Make Refill</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                              <div class="modal-body">             
+                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                                     
+                                  <div class="modal-body">             
+                                      <div class="row clearfix"> 
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>Instock</label>
+                                                <input type="text" class="form-control" value="{{instock}}" disabled>
+                                            </div>
+                                        </div>                                    
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label>General Quantity</label>
+                                                    <input type="text" class="form-control" value="{{original_qty}}" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                        <label>Refill Quatity</label>
+                                                    <input type="text" disabled class="form-control" value="{{refill_qty}}">
+                                                </div>
+                                            </div>                                                 
+                                        </div>
+                                        <div class="row clearfix">                                    
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label>Total Quantity</label>
+                                                    <input type="text" class="form-control" value="{{total_quantity}}" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                        <label>Amount</label>
+                                                    <input type="text" disabled class="form-control" value="{{total_amount}}">
+                                                </div>
+                                            </div>                                                 
+                                        </div>
+
+                                        <div class="row clearfix">                                    
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label>Change Total Quantity</label>
+                                                    <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
+                                                </div>
+                                            </div> 
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                        <label>Amount</label>
+                                                    <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
+                                                </div>
+                                            </div>                                                 
+                                        </div>
+                                    </div>                                     
+                                  <div class="modal-footer">
+                                      <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                      <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                  </div>
+                                  </form>
+                              </div>     
+                            
+                          </div>
+                        </div>
+                        </div>
                         </tr>
                         <div *ngIf="!prescriptionsList">
                             
-                            <!-- <div class="spinner-grow text-primary" role="status">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary" role="status">
                             <span class="sr-only">Loading...</span>
-                        </div>
-                    <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-            </div> -->
-            <h5 class="text text-center text-primary">No Medications yet</h5>
+                            </div>
+                            <div class="spinner-grow text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                            </div>
+                            <h5 class="text text-center text-primary">No Medications yet</h5>
                           </div>                                                    
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th><strong>SUB TOTAL</strong></th>
                             <th></th>
                             <th></th>
-                            <th></th>                                      
+                            <th></th> 
                             <th></th>
-
-                            <th></th>
-                            <th></th>                                      
-                            <th></th>
-
-                            <!-- <th>{{tquant}}</th>
-                            <th>{{refill}}</th> 
-                            <th>{{remain}}</th>     -->
-                            <th></th>                             
+                            <th></th> 
+                            <th></th>                         
+                            <th><strong>SUB TOTAL</strong></th>                             
+                                                                               
                             <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
                             <th></th>
+                            <th></th>
+                            <th></th> 
                         </tr>
                         <tr>
-                            <th><strong>DISCOUNT %</strong></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>                                      
                             <th></th>
                             <th></th>
                             <th></th> 
-                            <th></th>    
-                            <th></th>                             
+                            <th></th>
+                            <th></th>
+                            <th></th>   
+                            <th><strong>DISCOUNT %</strong></th>                                                                
+                                                                                             
                             <th>{{schemePercentToView}}%</th>
                             <th></th>
+                            <th></th> 
+                            <th></th>     
                         </tr>
                         <tr>
-                            <th><strong>Service Charge</strong></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>                                      
                             <th></th>
                             <th></th>
                             <th></th> 
+                            <th></th>
+                            <th></th>
                             <th></th>    
-                            <th></th>                             
+                            <th><strong>Service Charge</strong></th>                                                                
+                                                                            
                             <th>{{'50' | currency:'NGN':'symbol-narrow'}}</th>
                             <th></th>
+                            <th></th> 
+                            <th></th>   
                         </tr>
                         <tr>
-                            <th><strong>TOTAL</strong></th>
                             <th></th>
                             <th></th>
-                            <th></th>                                      
-                            <th></th>
-                            <th></th>
-                            <th></th> 
                             <th></th>    
-                            <th></th>        
+                            <th></th>
+                            <th></th>
+                            <th></th>                
+                            <th><strong>TOTAL</strong></th>                            
+                          
                             <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
                             <th></th>
+                            <th></th>    
+                            <th></th>   
                         </tr>
                     </tfoot>
                 </table>
                 <div>
+                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
+
                     <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                     <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
                     <button type="button" *ngIf = "invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
