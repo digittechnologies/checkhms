@@ -655,8 +655,8 @@ class DisplayController extends Controller
     {
         // $deptId= Auth()->user()->dept_id;
         // $branchId= Auth()->user()->branch_id;
-        return Appointment::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
-                ->join('customers','appointment.customer_id','=','customers.id')
+        return Appointments::orderBy('id')->join('departments','appointments.department_id','=','departments.id')
+                ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')               
                 // ->where('appointments.id','=',$id)               
                 ->get();
