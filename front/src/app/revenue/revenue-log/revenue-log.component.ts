@@ -21,6 +21,15 @@ pharm_priscript:any;
 record_priscript:any;
 pharm_empty:null;
 record_empty:null;
+  voucherResponse: any;
+  pat: any;
+  patID: any;
+  schemeCat: any;
+  schemeId: any;
+  schemePercent: any;
+  schemePercentToView: number;
+  schemePriceList: any;
+  roll: any;
 
 
   constructor(
@@ -35,13 +44,16 @@ record_empty:null;
       this.vouchId= id;
       console.log(this.vouchId)
       this.Jarwis.patientVouchers(this.vouchId).subscribe(
-        data=>{console.log(data)
-          this.response=data;
-          this.pharm_priscript=this.response.pharm;
-          this.record_priscript = this.response.record;
-          //  this.pharm_empty = this.response.pharm[0]
-          //  this.record_empty = this.response.record[0]
-          console.log(this.response)
+        data=>{          
+          this.voucherResponse = data;      
+        this.pat = this.voucherResponse.customer;
+        this.roll = this.voucherResponse.voucher;
+        this.patID = this.pat[0].id;
+        this.schemeCat = this.pat[0].category_name;
+        this.schemeId = this.pat[0].n_h_i_s;
+        this.schemePercent = this.pat[0].pacentage_value;
+        this.schemePercentToView = 100 -this.pat[0].pacentage_value;
+        this.schemePriceList = this.pat[0].price_list_column;
         })
      }))
      }
