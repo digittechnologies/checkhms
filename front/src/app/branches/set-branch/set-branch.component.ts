@@ -62,7 +62,7 @@ export class SetBranchComponent implements OnInit {
   ngOnInit() {
     this.Jarwis.profile().subscribe(
       data=>{
-        console.log(data)    
+        // console.log(data)    
       this.res = data;  
       this.role= this.res.det[0].role_id;
       this.department=this.res.det[0].nameD;
@@ -79,8 +79,8 @@ export class SetBranchComponent implements OnInit {
             this.oppration_dept.push(d);
           }
         })
-        console.log(this.clinic_dept)
-        console.log(this.oppration_dept)
+        // console.log(this.clinic_dept)
+        // console.log(this.oppration_dept)
         
     setTimeout(() => {
       let de = this.department
@@ -96,7 +96,7 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.displaysetBranch().subscribe(
       data=>{
       this.response = data; 
-      console.log(this.response)        
+      // console.log(this.response)        
       this.pharmacy = this.response.pharm
       this.clinic = this.response.clinic; 
       this.radio = this.response.radio;
@@ -108,7 +108,7 @@ export class SetBranchComponent implements OnInit {
       let deptli = data;
       this.deptlists = deptli;
       this.apppoint_type = deptli
-      console.log(data[0].list)
+      // console.log(data[0].list)
     },
     err=>{console.log(err)}
     )
@@ -124,7 +124,7 @@ export class SetBranchComponent implements OnInit {
          this.disabled = false;
          this.handleResponse(data)
          form=null;
-          console.log(data)
+          // (datconsole.loga)
           this.close();
          },
        error => this.handleError(error), 
@@ -165,7 +165,7 @@ export class SetBranchComponent implements OnInit {
         this.branch_hod    = this.branch_details.branche[0].firstname;
         this.branch_status = this.branch_details.branche[0].status;
         this.staffs = this.branch_details.staffs;
-        console.log(this.branch_details.branche[0].name)
+        // console.log(this.branch_details.branche[0].name)
       }
     )
   }
@@ -200,7 +200,7 @@ export class SetBranchComponent implements OnInit {
       this.deptlists = data;
        this.staff = this.deptlists.list;
        this.app_type = this.deptlists.appointment_type;
-       console.log(this.app_type)
+      //  console.log(this.app_type)
     },
     err=>{console.log(err)}
     )

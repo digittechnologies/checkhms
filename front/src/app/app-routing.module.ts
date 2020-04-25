@@ -150,8 +150,8 @@ const routes: Routes = [
 
                                                                             // DASHBOARDS
         //ADMINISTRATION START
-        {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: [AdminRoleGuardService]},
-        {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [AdminRoleGuardService] },
+        {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
+        {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [] },
         //ADMINISTRATIPON  END
 
         //PHARMARCY START

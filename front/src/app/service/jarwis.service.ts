@@ -542,8 +542,8 @@ getDepertment() {
   return this.http.get(`${this.baseUrl}/getDepertment`,)
 }
 
-displayDeptAppointment() {
-  return this.http.get(`${this.baseUrl}/displayDeptAppointment`,{headers:{
+displayDeptAppointment(id: any) {
+  return this.http.get(`${this.baseUrl}/displayDeptAppointment/${id}`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }

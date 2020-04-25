@@ -190,7 +190,6 @@ onSubmit(form: NgForm) {
 handleError(error) {
   this.disabled=false; 
   this.error = error.error.errors;
-  console.log(this.error);
   this.disabled=false;
   this.sav= 'Update';
 }

@@ -50,6 +50,8 @@ export class PharmacyLogComponent implements OnInit {
   transe_log:any;
   uBranch: any;
   uBranchName: any;
+  pharmCenter:any;
+
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -82,23 +84,22 @@ export class PharmacyLogComponent implements OnInit {
       this.response = data;      
       this.bran = this.response   
     })
-
+  
     this.Jarwis. generalSettings().subscribe(
       data=>{
       this.response = data;      
       this.imgLink = this.response[0].app_url;
     })
     
-    this.Jarwis.displayDeptAppointment().subscribe(
+    this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
       data=>{
       this.response = data; 
-      console.log(this.response)     
-      this.logs= this.response; 
+      this.logs= this.response.data; 
+      this.pharmCenter = this.response.centerName.name;
       this.log=this.logs;
-      console.log(this.log)
-     if(this.log.length <= 0){
-       this.logEmpty = true;
-     }
+      if(this.log.length <= 0){
+        this.logEmpty = true;
+      }
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -122,6 +123,21 @@ export class PharmacyLogComponent implements OnInit {
       
     );
     // this.get()
+  }
+
+
+  allItem(argument){
+    this.log = false;
+    this.Jarwis.displayDeptAppointment(argument.target.innerHTML).subscribe(
+      data=>{
+      this.response = data; 
+      this.logs= this.response.data; 
+      this.pharmCenter = this.response.centerName.name; 
+      this.log=this.logs;
+     if(this.log.length <= 0){
+       this.logEmpty = true;
+     }
+    })
   }
   filt(){
     let f =this.form.customer
@@ -148,7 +164,7 @@ export class PharmacyLogComponent implements OnInit {
     // console.log(this.delete_id)
     this.Jarwis.cancel_pharm_log(this.delete_id).subscribe(data=>{
       this.handleRespons(data);
-      this.Jarwis.displayDeptAppointment().subscribe(
+      this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
         data=>{
         this.response = data;      
         this.log = this.response; 
@@ -168,7 +184,7 @@ export class PharmacyLogComponent implements OnInit {
         this.Jarwis.endappointment({id:this.endAppoit_id,voucher:this.endAppoit_vouccher}).subscribe(data=>{
           this.handleRespons(data);
           console.log(data)
-          this.Jarwis.displayDeptAppointment().subscribe(
+          this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
             data=>{
             this.response = data;      
             this.log = this.response; 
@@ -182,7 +198,7 @@ export class PharmacyLogComponent implements OnInit {
         this.Jarwis.endappointments().subscribe(
           data=>{
           this.handleRespons(data);
-          this.Jarwis.displayDeptAppointment().subscribe(
+          this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
             data=>{
             this.response = data;      
             this.log = this.response; 

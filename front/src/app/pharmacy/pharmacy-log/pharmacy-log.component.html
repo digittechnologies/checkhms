@@ -3,17 +3,17 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Patient Log</h1>
+                    <h1>Patient Log of {{pharmCenter}}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
                             <span *ngIf ="3003 >= role" > 
                                 
-                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]=""> {{br.name}} </a> </li>
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]="">{{br.name}}</a></li>
                                 
                             </span>
                             <span *ngIf ="role == '4004'">
-                                <li  *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
                                 
                             </span>
                             
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </form> -->
-                        <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm">
+                        <!-- <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> -->
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
@@ -74,7 +74,7 @@
                                 <button type="button" (click)="onClickSubmit()" class="btn btn-sm btn-primary btn-block" title="">log<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                             </div>
                         </div>
-                    </form>
+                    <!-- </form> -->
                     </div>
                 </div>
             </div>

@@ -6,10 +6,10 @@
                     <h2>Item List of {{name}}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
+                        <li ><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;/ </a></li>
                         <span *ngIf ="4004 > uPos" > 
                             <span *ngIf = "uDept == '1' || uDept == '10'">
-                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li>
+                                / <li *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == uDept" href="#" [routerLink]="">{{br.name}}</a></li>
                             </span>
                         </span>
                         <span *ngIf ="uPos > '3003' && uDept == '1'">
@@ -212,7 +212,7 @@
                             [infiniteScrollThrottle]="50"
                             (scrolled)="onScroll()"
                           >
-                            <div class="table-responsiv">
+                            <div class="table-responsive">
 
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
@@ -239,59 +239,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                  <tr *ngFor="let item of itemsitem;  let r = index">
+                                        <div *ngIf="itemsitem">
+                                            <tr *ngFor="let item of itemsitem;  let r = index">
 
-                                   <td>{{r+1}}</td>
-                                            <td class="width45">
-                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
-                                                <span>{{item.name}}</span>
-                                            </td>                                            
-                                            <td><span class="badge badge-warning">{{item.cat_name}}</span></td>
-                                            <td class="text text-success">{{item.open_stock}}</td>
-                                            <td class="text text-primary">{{item.receive}}</td>
-                                            <td class="text text-warning">{{item.transfer}}</td>
-                                            <td class="text text-danger">{{item.sales}}</td>
-                                            <td class="text text-info">{{item.balance}}</td>
-                                            <td>
-                                                    <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.total_remain}}</span></div>
-                                            </td>
-                                            <td>
-                                                <div class="avtar-pic w35 bg-secondary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
-                                            </td>
-                                            <td>
-                                                <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
-                                            </td>
-                                           <!--  <td> --> 
-                                                    <!-- <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">  
-                                                        <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;">{{100 | currency:'NGN'}}</div>
-                                                    </div> -->
-                                                    <td>
-                                                        <span class="badge badge-warning" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <span class="badge badge-warning" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>    
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-info">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-primary">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
-                                                    </td>
-                                                    <!-- <td>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
-                                                    </td> -->
-                                                    <td>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
-                                                        <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
-                                                    </td>
-                                                <td>
-                                                    <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
-                                                    <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
+                                                <td>{{r+1}}</td>
+                                                <td class="width45">
+                                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{item.item_img}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 h35 rounded" data-original-title="Avatar Name">
                                                 </td>
+                                                <td>
+                                                    <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['item_profile', item.item_id]}}]" title=""><h6 class="mb-0">{{item.generic_name}}</h6></a>
+                                                    <span>{{item.name}}</span>
+                                                </td>                                            
+                                                <td><span class="badge badge-warning">{{item.cat_name}}</span></td>
+                                                <td class="text text-success">{{item.open_stock}}</td>
+                                                <td class="text text-primary">{{item.receive}}</td>
+                                                <td class="text text-warning">{{item.transfer}}</td>
+                                                <td class="text text-danger">{{item.sales}}</td>
+                                                <td class="text text-info">{{item.balance}}</td>
+                                                <td>
+                                                        <div class="avtar-pic w35 bg-success" data-toggle="tooltip" data-placement="top" title="Current in Stock" data-original-title="Avatar Name"><span>{{item.total_remain}}</span></div>
+                                                </td>
+                                                <td>
+                                                    <div class="avtar-pic w35 bg-secondary" data-toggle="tooltip" data-placement="top" title="Damaged, Expire" data-original-title="Avatar Name"><span>{{item.variance}}</span></div>
+                                                </td>
+                                                <td>
+                                                    <div class="avtar-pic w35 bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{item.physical_balance}}</span></div>
+                                                </td>
+                                            <!--  <td> --> 
+                                                        <!-- <div class="progress progress-xxs progress-transparent custom-color-green mb-0 mt-0">  
+                                                            <div class="progress-bar" data-transitiongoal="88" aria-valuenow="88" style="width: 0%;">{{100 | currency:'NGN'}}</div>
+                                                        </div> -->
+                                                        <td>
+                                                            <span class="badge badge-warning" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
+                                                            <span class="badge badge-warning" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>    
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-info">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-primary">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
+                                                        </td>
+                                                        <!-- <td>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                                        </td> -->
+                                                        <td>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                                        </td>
+                                                    <td>
+                                                        <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
+                                                        <span class="badge badge-success"  *ngIf ="item.total_remain == '0'">{{0}}%</span>
+                                                    </td>
 
-                                        </tr> 
+                                                </tr> 
+                                        </div>
                                          <div *ngIf="!itemsitem">
                                             <div class="spinner-grow text-primary" role="status">
                                             <span class="sr-only">Loading...</span>

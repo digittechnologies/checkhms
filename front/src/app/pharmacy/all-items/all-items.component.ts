@@ -149,6 +149,8 @@ export class AllItemsComponent implements OnInit {
   this.itemAmount=this.items.itemAmount
         this.addedItem=this.items.addedItem
 
+
+
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -230,7 +232,6 @@ onFilterChange() {
   // const filterValue=(event.target as HTMLInputElement).value;
   // console.log(filterValue)
   // this.itemsitem.filter=filterValue.trim().toLowerCase()
-  console.log(this.itemsitem)
   this.Jarwis.displayItem(this.uBranch).subscribe(
     data=>{
     this.response = data;      
@@ -285,6 +286,8 @@ onSelectItem2(id) {
 }
 
 allItem(aa) {
+  this.items = false;
+  this.itemsitem = false;
   this.Jarwis.displayItem(aa.target.innerHTML).subscribe(
     data=>{
     this.response = data;      
@@ -343,7 +346,6 @@ onSelectTo(to){
 }
 
 editdept(id: string) {
-  console.log(id)
   this.Jarwis.edtCategories(id).subscribe(
     data=>{      
       this.catres = data; 
@@ -459,7 +461,6 @@ onDelete(id: string) {
     );  
   }
   editTrans(id: string) {
-    console.log(id)
     this.Jarwis.editTrans(id).subscribe(
       data=>{   
         this.transres = data;
@@ -473,7 +474,6 @@ onDelete(id: string) {
   deleteTrans(id: string) {
     if(confirm('This can\'t be revert after deleted')){
 
-      console.log(id)
       this.Jarwis.deleteTrans(id).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),
@@ -525,7 +525,6 @@ onDelete(id: string) {
     //   onlySelf: true
     // })
     // alert(id)
-    console.log(id);
   }
 
   handleResponse(data) {    // 
