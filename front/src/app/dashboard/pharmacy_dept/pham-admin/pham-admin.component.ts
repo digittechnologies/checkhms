@@ -74,11 +74,11 @@ export class PhamAdminComponent implements OnInit {
       
       this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
         data=>{
         this.response = data;      
         this.branches = this.response
-        console.log(this.branches)
+        // console.log(this.branches)
 
         this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
     })
@@ -122,7 +122,7 @@ export class PhamAdminComponent implements OnInit {
         this.item=this.stocks.item
     })
 
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
         data=>{
         this.response = data;      
         this.bran = this.response   
@@ -157,7 +157,6 @@ export class PhamAdminComponent implements OnInit {
     }
   }
   onLoad(a, branc, pieData, staff, appt, earning){
-      
     $('.chart').sparkline('html', {
         type: 'pie',
         height: '60px',        
@@ -173,7 +172,7 @@ export class PhamAdminComponent implements OnInit {
     var apptValueActive = []
     var apptValueTerminated = []
     var apptValueClose = [] 
-    console.info(branc)
+    // console.info(branc)
 
     branc.forEach(e => {
         sites.push([e.br_name, pieData[count]])
@@ -181,6 +180,8 @@ export class PhamAdminComponent implements OnInit {
         apptName.push(e.name)
         count++
     });
+    // console.info('sites', sites)
+
     $(function() {
         "use strict";
         var chart = c3.generate({

@@ -64,11 +64,11 @@ export class PhamUserComponent implements OnInit {
         this.imgLink = this.response[0].app_url;
       })
 
-    this.Jarwis.displayPharmStaffDashAppointment().subscribe(
-        data=>{
-        this.response = data;      
-        this.appointments = this.response; 
-      })
+    // this.Jarwis.displayPharmStaffDashAppointment().subscribe(
+    //     data=>{
+    //     this.response = data;      
+    //     this.appointments = this.response; 
+    //   })
 
     this.Jarwis.displayPharStaffDashStock('').subscribe(
         data=>{

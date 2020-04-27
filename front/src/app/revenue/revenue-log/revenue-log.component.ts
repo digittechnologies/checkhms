@@ -42,7 +42,7 @@ record_empty:null;
       this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
       this.vouchId= id;
-      console.log(this.vouchId)
+      // console.log(this.vouchId)
       this.Jarwis.patientVouchers(this.vouchId).subscribe(
         data=>{          
           this.voucherResponse = data;      

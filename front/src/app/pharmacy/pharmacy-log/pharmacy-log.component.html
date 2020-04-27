@@ -6,18 +6,14 @@
                     <h1>Patient Log of {{pharmCenter}}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
+                            <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard /&nbsp;</a></li>
                             <span *ngIf ="3003 >= role" > 
-                                
                                 <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]="">{{br.name}}</a></li>
-                                
                             </span>
                             <span *ngIf ="role == '4004'">
-                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
-                                
+                                <li *ngFor="let br of bran" (click) ="allItem($event)"><a class="breadcrumb-item" *ngIf ="br.id == uBranch">{{br.name}}</a></li>    
                             </span>
-                            
-                            </ol>
+                        </ol>
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">

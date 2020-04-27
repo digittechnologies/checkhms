@@ -56,7 +56,7 @@ export class TypeComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtType(id).subscribe(
     data=>{      
       this.typeres = data; 
@@ -73,7 +73,7 @@ this.disabled = true;
   form.value.id=this.typeid
   // this.image= form.value.image
   //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateType({data:form.value, image2:this.image}).subscribe(  
       
     data => this.handleResponse(data),

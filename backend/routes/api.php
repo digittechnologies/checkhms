@@ -73,6 +73,7 @@ Route::get('displayStaffBranch/{id}','DisplayController@displayStaffBranch');
 Route::get('displayAppointmentBranch/{id}','DisplayController@displayAppointmentBranch');
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
 Route::get('displayBranch','DisplayController@displayBranch');
+Route::get('displayPharmacyBranch','DisplayController@displayPharmacyBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
 Route::get('displaysetBranch','DisplayController@displaysetBranch');
 Route::get('getDepertment','DisplayController@getDepertment');

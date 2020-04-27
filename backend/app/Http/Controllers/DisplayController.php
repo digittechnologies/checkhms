@@ -445,6 +445,11 @@ class DisplayController extends Controller
         return Branches::where('status', '=', 'active')->orderBy('id')->get();
     }  
 
+    public function displayPharmacyBranch()
+    {
+        return Branches::where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get();
+    } 
+
     public function displayStaffBranch($id)
     {
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
@@ -610,17 +615,6 @@ class DisplayController extends Controller
          
 
         $deptId= Auth()->user()->dept_id;
-// <<<<<<< HEAD
-//         // $branchId= Auth()->user()->branch_id;
-//         return response()->json([
-//             'data' => Appointment::orderBy('id', 'DESC')
-//                 ->join('customers','appointment.customer_id','=','customers.id')
-//                 ->select('appointment.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-//                 ->where('appointment.'.$center,'=',$branchId)          
-//                 ->where('appointment.'.$center_status,'!=','close')
-//                 ->where('appointment.status','=','open')
-// =======
-        // $branchId= Auth()->user()->branch_id;
         return response()->json([
             'data' => Appointments::orderBy('id', 'DESC')
                 ->join('customers','appointments.customer_id','=','customers.id')
@@ -632,17 +626,6 @@ class DisplayController extends Controller
                 ->get(),
             'centerName' => DB::table('branches')->select('branches.name')->where('id', '=', $branchId)->first()
         ]);
-
-                // return Appointments::orderBy('id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
-                // ->join('customers','appointments.customer_id','=','customers.id')
-                // ->select('appointments.*','departments.name as dept_name', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-                // // ->where('appointments.department_id','=',$deptId)
-                // // ->where('appointments.prescription','!=','close')
-                // ->where('appointments.branch_id','=',$branchId)
-                // // ->where('appointments.status','!=','terminated')
-                // ->where('appointments.status','=','active')
-                // // ->where('appointments.date', '=', $cDate)
-                // ->get();
     }
     public function displayRevenueAppointment()
     {
@@ -1390,7 +1373,7 @@ class DisplayController extends Controller
         $cDate = $dt->toFormattedDateString();
 
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.br_name')->where('id', $id)->first();
+        $get = DB::table("branches")->select('branches.br_name')->where(['status' => 'active', 'branches.dept_id' => '1', 'id' => $id])->first();
         $branch = $get->br_name;
 
         return response()->json([
@@ -1408,7 +1391,7 @@ class DisplayController extends Controller
 
     public function displayPharAdminDashInvoice()
     {
-        $branch = DB::table("branches")->where('status', '=', 'active')->orderBy('id')->get(); 
+        $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 
         $array = array();
         foreach($branch as $row){
             $name = $row->br_name;
@@ -1446,7 +1429,7 @@ class DisplayController extends Controller
     public function displayPharStaffDashInvoice()
     {
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.name')->where('id', $id)->first();
+        $get = DB::table("branches")->select('branches.name')->where(['status' => 'active', 'branches.dept_id' => '1', 'id' => $id])->first();
         $branch = $get->name;
 
         $array = array();
@@ -1516,12 +1499,12 @@ class DisplayController extends Controller
         $cDate = $dt->toFormattedDateString();
 
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.br_name')->where(['status' => 'active', 'branches.dept_id' => '1'])->first();
+        $get = DB::table("branches")->select('branches.br_name')->where(['status' => 'active', 'branches.dept_id' => '1', 'id' => $id])->first();
         $branch = $get->br_name;
         $itemD = DB::table("item_details")->select('id')->orderBy('id')->get();
         $array = array(); 
         foreach($itemD as $row){
-            $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where([$branch.'.item_detail_id'=> $row->id, $branch.'c_date' => $cDate])->sum($branch.'.total_remain');
+            $itemFromBranch = DB::table($branch)->orderBy($branch.'.id')->select($branch.'.total_remain')->where([$branch.'.item_detail_id'=> $row->id, $branch.'.c_date' => $cDate])->sum($branch.'.total_remain');
             array_push($array, (int)$itemFromBranch);
         }
         return response()->json([
@@ -1584,21 +1567,21 @@ class DisplayController extends Controller
         $closeArray = array();
 
         //Active appointments
-        $getActive = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'active', 'date' => $cDate])->count('status');
+        $getActive = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'active', 'a_date' => $cDate])->count('status');
         if(empty($getActive)){
             array_push($activeArray, 0);
         }else {
             array_push($activeArray, $getActive);
         }
         //Terminated appointments
-        $getTerminated = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'terminated', 'date' => $cDate])->count('status');
+        $getTerminated = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'terminated', 'a_date' => $cDate])->count('status');
         if(empty($getTerminated)){
             array_push($terminatedArray, 0);
         }else {
             array_push($terminatedArray, $getTerminated);
         }
         //Closed appointments
-        $getClosed = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'close', 'date' => $cDate])->count('status');
+        $getClosed = DB::table('appointments')->where(['pharm_id' => $id, 'status' => 'close', 'a_date' => $cDate])->count('status');
         if(empty($getClosed)){
             array_push($closeArray, 0);
         }else {
@@ -1610,7 +1593,7 @@ class DisplayController extends Controller
             "terminated" => $terminatedArray,
             "closed" => $closeArray,
             "countAll" => DB::table('appointments')->where('pharm_id', $id)->count(),
-            "countToday" => DB::table('appointments')->where(['pharm_id'=> $id, 'date' => $cDate])->count()
+            "countToday" => DB::table('appointments')->where(['pharm_id'=> $id, 'a_date' => $cDate])->count()
         ]);
     }
 

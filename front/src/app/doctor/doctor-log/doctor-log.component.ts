@@ -44,7 +44,7 @@ export class DoctorLogComponent implements OnInit {
       this.response = data;
       this.dept_name = data[0].dept_name;     
       this.log = this.response;
-      console.log(this.log)
+      // console.log(this.log)
     })
 
     //onkeyUp search

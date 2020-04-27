@@ -147,6 +147,9 @@ export class JarwisService {
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }
+  displayPharmacyBranch() {
+    return this.http.get(`${this.baseUrl}/displayPharmacyBranch`,)
+  }
   displayBranchs(data) {
     return this.http.get(`${this.baseUrl}/displaybranchs`,data,)
   }
@@ -477,7 +480,6 @@ patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
-  console.log(data)
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})

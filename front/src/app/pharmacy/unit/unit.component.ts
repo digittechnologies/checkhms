@@ -47,7 +47,7 @@ export class UnitComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtUnit(id).subscribe(
     data=>{      
       this.unitres = data; 
@@ -64,7 +64,7 @@ onUpdate(form: NgForm) {
   this.disabled = true;
   form.value.id=this.unitid
   //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateUnit(form.value).subscribe(  
       
     data => this.handleResponse(data),

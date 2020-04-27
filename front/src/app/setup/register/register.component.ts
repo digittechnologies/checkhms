@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
     reader.readAsDataURL(files);
   }
   onSubmitsetting() {
-    console.log(this.submissionForm)
+    // console.log(this.submissionForm)
     this.Jarwis.addGeneralSet({formdata:this.submissionForm.value,image:this.image}).subscribe(
       data => this.handleResponsep(data),
      error => this.handleErrorp(error)
