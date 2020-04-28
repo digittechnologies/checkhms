@@ -145,7 +145,6 @@ export class PharmacyLogComponent implements OnInit {
   }
   filt(){
     let f =this.form.customer
-    this.filres="";
     var index = this.log.filter(function(card) {
       return card.customer_id == f;
     });
