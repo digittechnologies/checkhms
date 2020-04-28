@@ -123,6 +123,7 @@ import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.c
 import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+import { BrancesComponent } from './branches/brances/brances.component';
 
 
 //DEPARTMENTS Dashboards
@@ -282,6 +283,7 @@ const routes: Routes = [
          {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [] },
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [] },
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [] },
+         {path: 'branches', component: BrancesComponent, outlet: 'side',canActivate: [] },
        
        
          //setting

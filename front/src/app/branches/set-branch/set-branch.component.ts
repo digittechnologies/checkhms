@@ -49,6 +49,18 @@ export class SetBranchComponent implements OnInit {
   dd: Object;
   staff: any;
   app_type: any;
+  depart: any;
+  center: any;
+  branch_rep_id: any;
+  branches: Object;
+  departments: any;
+  branche_id: any;
+  department_id: any;
+  depart_name: any;
+  center_name: any;
+  depart_id: any;
+  center_id: any;
+  branch_id: any;
   
 
   constructor( 
@@ -160,12 +172,24 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.onEditBranch({id:id}).subscribe(
       data=>{
         this.branch_details = data;
-        this.branch_name   = this.branch_details.branche[0].name;
-        this.branch_adress = this.branch_details.branche[0].address;
-        this.branch_hod    = this.branch_details.branche[0].firstname;
-        this.branch_status = this.branch_details.branche[0].status;
+        this.branch_name   = this.branch_details.branch[0].name;
+        this.branch_adress = this.branch_details.branch[0].address;
+        this.branch_hod    = this.branch_details.branch[0].firstname;
+        this.branch_status = this.branch_details.branch[0].status;
+        this.branch_rep_id = this.branch_details.branch[0].sales_rep;
+        this.branche_id    = this.branch_details.branch[0].branch_id;
+        this.department_id = this.branch_details.branch[0].dept_id;
+        this.depart_name   =  this.branch_details.branch[0].dept_name;
+        this.depart_id   =  this.branch_details.branch[0].dept_id;
+        this.center_name   =  this.branch_details.branch[0].branch_name;
+        this.center_id   =  this.branch_details.branch[0].branch_id;
+        this.branch_id =this.branch_details.branch[0].id;
+
+        
+        this.center= this.branch_details.center;
+        this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;
-        // console.log(this.branch_details.branche[0].name)
+        console.log(this.branch_details.branch)
       }
     )
   }
@@ -199,7 +223,10 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
       this.deptlists = data;
        this.staff = this.deptlists.list;
-       this.app_type = this.deptlists.appointment_type;
+      //  this.app_type = this.deptlists.appointment_type;
+       this.branches = this.deptlists.center;
+      //  this.departments = this.deptlists.department;
+
       //  console.log(this.app_type)
     },
     err=>{console.log(err)}

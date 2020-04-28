@@ -141,8 +141,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
   }
 
-  displayAppointmentBranch(id: any) {
-    return this.http.get(`${this.baseUrl}/displayAppointmentBranch/${id}`,)
+  displayAppointmentBranch(data) {
+    return this.http.post<any>(`${this.baseUrl}/displayAppointmentBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
@@ -366,6 +368,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/displayModule`,)
   }
 
+  showBranches() {
+    return this.http.get(`${this.baseUrl}/showBranches`,)
+  }
+
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
@@ -424,7 +430,13 @@ export class JarwisService {
 // }
 // edtCategories(id:string) {
 //   return this.http.get<any>(`${this.baseUrl}/edtCategories/${id}`)
-// }
+// } 
+
+addCenter(data) {
+  return this.http.post(`${this.baseUrl}/addCenter`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
   createBranch(data) {
   return this.http.post(`${this.baseUrl}/addBranch`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -477,7 +489,6 @@ patientbyappointment(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientbyappointment/${id}`)
 }
 makeAppointment(data) {
-  console.log(data)
   return this.http.post<any>(`${this.baseUrl}/makeAppointment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})

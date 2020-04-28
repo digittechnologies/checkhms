@@ -12,6 +12,7 @@ class Appointments extends Model
         
         'customer_id', 
         'appointment_type',
+        'branch_id',
         'clinic_id',
         'clinic_status',
         'pharm_id',

@@ -51,6 +51,7 @@ export class PharmacyLogComponent implements OnInit {
   uBranch: any;
   uBranchName: any;
   pharmCenter:any;
+  status: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -94,9 +95,11 @@ export class PharmacyLogComponent implements OnInit {
     this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
       data=>{
       this.response = data; 
-      this.logs= this.response.data; 
-      this.pharmCenter = this.response.centerName.name;
-      this.log=this.logs;
+      this.logs= this.response; 
+      // this.pharmCenter = this.response.centerName.name;
+      this.pharmCenter = this.uBranch
+      this.log=this.logs.data;
+      this.status= this.log.center_status
       if(this.log.length <= 0){
         this.logEmpty = true;
       }
@@ -127,17 +130,18 @@ export class PharmacyLogComponent implements OnInit {
 
 
   allItem(argument){
-    this.log = false;
-    this.Jarwis.displayDeptAppointment(argument.target.innerHTML).subscribe(
-      data=>{
-      this.response = data; 
-      this.logs= this.response.data; 
-      this.pharmCenter = this.response.centerName.name; 
-      this.log=this.logs;
-     if(this.log.length <= 0){
-       this.logEmpty = true;
-     }
-    })
+    // this.log = false;
+    // this.Jarwis.displayDeptAppointment(argument.target.innerHTML).subscribe(
+    //   data=>{
+    //   this.response = data; 
+    //   this.logs= this.response; 
+    //   // this.pharmCenter = this.response.centerName.name; 
+    //   this.pharmCenter = this.uBranch
+    //   this.log=this.logs;
+    //  if(this.log.length <= 0){
+    //    this.logEmpty = true;
+    //  }
+    // })
   }
   filt(){
     let f =this.form.customer

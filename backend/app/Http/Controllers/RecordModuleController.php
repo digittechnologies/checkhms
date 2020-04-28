@@ -12,7 +12,8 @@ use App\Hospital_charges;
 use App\Center_record;
 use App\Branches;
 use App\Appointment_type;
-use App\Appointment;
+use App\Appointments;
+use App\Centers;
 
 class RecordModuleController extends Controller
 {
@@ -70,6 +71,10 @@ class RecordModuleController extends Controller
 
             'appointment_type'=> Appointment_type::orderBy('id')
             ->select('appontment_type.*')     
+            ->get(),
+
+            'branches'=> Centers::orderBy('id')
+            ->select('centers.*')     
             ->get()
          ]);
     }
@@ -218,10 +223,10 @@ class RecordModuleController extends Controller
         $staff_id= auth()->user()->id;
         $bid= Auth()->user()->branch_id;
 
-        $checkAppointment= Appointment::orderBy('id')->select('appointment.id')->where([
-            'appointment.customer_id' => $request->customer_id,
-            'appointment.status' =>'open'
-            // 'appointment.date' => $date
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+            'appointments.customer_id' => $request->customer_id,
+            'appointments.status' =>'open'
+            // 'appointments.date' => $date
             ])->get();
 
         if (count($checkAppointment) == 0) {
@@ -243,7 +248,7 @@ class RecordModuleController extends Controller
                 $request->merge(['revenue_status' => 'open']);
             }
 
-            $insert =  Appointment::create($request->all());
+            $insert =  Appointments::create($request->all());
         
          if($insert){
             return '{

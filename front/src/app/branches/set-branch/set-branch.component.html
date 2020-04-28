@@ -3,12 +3,12 @@
     <div class="block-header">
     <div class="row clearfix">
     <div class="col-md-6 col-sm-12">
-    <h1>Branches List</h1>
+    <h1>Center List</h1>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-        <li class="breadcrumb-item active" aria-current="page">Branches</li>
+        <li class="breadcrumb-item active" aria-current="page">Branch</li>
         </ol>
     </nav>
     </div>            
@@ -27,7 +27,7 @@
     </div>
     <div class="modal-body">             
     <div class="row  justify-content-center">
-            <h6>You are about to suspend this branch!</h6>     
+            <h6>You are about to suspend this Center!</h6>     
     </div>
     </div>      
     <div class="modal-footer">
@@ -46,7 +46,7 @@
     </div>
     <div class="modal-body">             
         <div class="row  justify-content-center">
-                <h6>You are about to reactivate this branch!</h6>     
+                <h6>You are about to reactivate this Center!</h6>     
         </div>
     </div>      
     <div class="modal-footer">
@@ -81,9 +81,9 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Address</th>                                
-                <th>Sales Rep</th>
-                <th>Created Timestamp</th>
-                <th>Edit</th>
+                <th>Branch</th>
+                <th>Department</th>
+                <th>Created Timestamp</th>      
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -95,17 +95,16 @@
                 </td>                              
                 <td style="color: #17C2D7;">{{b.name}}</td>     
                 <td style="color: #17C2D7;">{{b.address}}</td>
-                <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-                <td style="color: #17C2D7;">{{b.firstname}}</td> 
-                <td style="color: #17C2D7;">{{b.created_at}}</td> 
-                <td>
-                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                </td>                          
+                <td style="color: #17C2D7;">{{b.branch_name}}</td>
+                <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                <td style="color: #17C2D7;">{{b.created_at}}</td>                                         
                 <td>
                     <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                         <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
                 </td>
                 <td>
+                    <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(b.id)"><i class="fa fa-pencil"></i></button>
+                    <!-- <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button> -->
                     <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                     <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;"  title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                 </td>
@@ -132,10 +131,9 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Address</th>                                
-                <th>Contact</th>
-                <th>Sales Rep</th>
-                <th>Created Timestamp</th>
-                <th>Edit</th>
+                <th>Branch</th>
+                <th>Department</th>
+                <th>Created Timestamp</th>              
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -147,17 +145,16 @@
                 </td>                              
                 <td style="color: #17C2D7;">{{b.name}}</td>     
                 <td style="color: #17C2D7;">{{b.address}}</td>
-                <td style="color: #17C2D7;">{{b.contact_number}}</td>
-                <td style="color: #17C2D7;">{{b.firstname}}</td> 
+                <td style="color: #17C2D7;">{{b.branch_name}}</td>
+                <td style="color: #17C2D7;">{{b.dept_name}}</td> 
                 <td style="color: #17C2D7;">{{b.created_at}}</td> 
-                <td>
-                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#edit" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                </td>    
+           
                 <td>
                     <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
                 </td>                          
                 <td>
+                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                     <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                 </td>
@@ -183,7 +180,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
+            <th>Branch</th>
+            <th>Department</th>                
             <th>Sales Rep</th>
             <th>Created Timestamp</th>
             <th>Status</th>
@@ -197,8 +195,8 @@
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
             <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -231,8 +229,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>            
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -244,9 +242,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>            
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td>            
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -279,8 +277,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>               
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -292,9 +290,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>           
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -327,8 +325,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>                
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -340,9 +338,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>           
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -375,8 +373,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>               
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -388,9 +386,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>            
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -423,8 +421,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>               
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -436,9 +434,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>           
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -471,8 +469,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>                
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -484,9 +482,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>           
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -519,8 +517,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Address</th>                                
-            <!-- <th>Contact</th> -->
-            <th>Sales Rep</th>
+            <th>Branch</th>
+            <th>Department</th>               
             <th>Created Timestamp</th>
             <th>Status</th>
             <th>Action</th>
@@ -532,9 +530,9 @@
                 {{r+1}}
             </td>                              
             <td style="color: #17C2D7;">{{b.name}}</td>     
-            <td style="color: #17C2D7;">{{b.address}}</td>
-            <!-- <td style="color: #17C2D7;">{{b.contact_number}}</td> -->
-            <td style="color: #17C2D7;">{{b.firstname}}</td> 
+            <td style="color: #17C2D7;">{{b.address}}</td>            
+            <td style="color: #17C2D7;">{{b.branch_name}}</td>
+            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
             <td style="color: #17C2D7;">{{b.created_at}}</td> 
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -647,15 +645,27 @@
         <div class="row clearfix">
         <div class="col-md-8">
         <div class="form-group">
-        <select name="clinic_type" id="" required ngModel class="form-control">
-        <option value="">Appointment type</option>
-        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
+        <select name="branch_id" id="" required ngModel class="form-control">
+        <option value="">Branche</option>
+        <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
         </select>
         <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
         </div>
         </div>             
         </div>
         </div>
+    <!-- <div class="modal-body">             
+        <div class="row clearfix">
+        <div class="col-md-8">
+        <div class="form-group">
+        <select name="clinic_type" id="" required ngModel class="form-control">
+        <option value="">Department</option>
+        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
+        </select>
+        </div>
+        </div>             
+        </div>
+        </div> -->
 
     <div class="modal-body">             
     <div class="row clearfix">
@@ -690,17 +700,16 @@
     <span aria-hidden="true">×</span>
     </button>
     </div>
-    <form class="form-auth-small m-t-20" role="form" (ngSubmit)=" onUpdateBranch(ed)" #ed="ngForm"> 
+    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateBranch(form)" #form="ngForm"> 
     <div class="modal-body">             
     <div class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
                 <label for="">Branch Name</label>
-                <input type="text" class="form-control" [value]="catName" placeholder="{{branch_name}}"  ngModel name="name" required>
-                <input type="hidden" [value]="manufid" ngModel name="id">
+                <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_name"  ngModel name="name" required>
+                <input type="hidden" [value]="manufid" [(ngModel)]="branch_id" name="id">
 
-                
             </div>
         </div>             
     </div>
@@ -710,7 +719,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="">Branch Adress</label>
-                    <input type="text" class="form-control" [value]="catName" placeholder="{{branch_adress}}"  ngModel name="adress" required>
+                    <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_adress"  ngModel name="adress" required>
                     <input type="hidden" [value]="manufid" ngModel name="id">
     
                     
@@ -718,18 +727,48 @@
             </div>             
         </div>
         </div>
+
         <div class="modal-body">             
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
                         <label for="">HOD</label>
                         <!-- <input type="text" > -->
-                       <select name="" id="" class="form-control"   ngModel name="sales_rep" required>
-                           <option value="">{{branch_hod}}</option>
+                       <select name="" id="" class="form-control"  [(ngModel)]="branch_rep_id" name="sales_rep" required>
+                        <option value="">{{branch_hod}}</option> 
                            <option *ngFor="let staff of staffs" value="{{staff.id}}">{{staff.firstname}}</option>
-
                        </select>
                         <input type="hidden" [value]="manufid" ngModel name="id">
+                    </div>
+                </div>             
+            </div>
+            </div>
+
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">Branch</label>
+                            <!-- <input type="text" > -->
+                           <select class="form-control"  [(ngModel)]="center_id" name="branch_id" required>   
+                               <option value="">{{center_name}}</option>                           
+                               <option *ngFor="let cent of center" value="{{cent.id}}">{{cent.name}}</option>    
+                           </select>                          
+                        </div>
+                    </div>             
+                </div>
+                </div>
+        
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="">Depertment</label>
+                        <!-- <input type="text" > -->
+                       <select class="form-control"   [(ngModel)]="depart_id" name="dept_id" required>    
+                           <option value="">{{depart_name}}</option>                      
+                           <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
+                       </select>                       
                     </div>
                 </div>             
             </div>
@@ -740,8 +779,7 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label for="">Status</label>
-
-                <select class="form-control show-tick" ngModel name="status">
+                <select class="form-control show-tick" [(ngModel)]="branch_status" name="status">
                     <option value="">{{ branch_status}}</option>
                     <option active value="active">Active</option>
                     <option value="suspend">Suspend</option>                                
@@ -752,10 +790,58 @@
     </div>      
     </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-round btn-primary" class="close" data-dismiss="modal" >Close</button>
-    <button type="submit" class="btn btn-round btn-success" class="close" data-dismiss="modal"  >Update</button>
+        <button type="submit" class="btn btn-round btn-success">Update</button>
+    <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" >Close</button>
     </div>
     </form>
     </div>
     </div>
     </div>
+
+
+    <div class="modal fade" id="EditDepartments2" tabindex="1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="myLargeModalLabel">Edit Branch Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                <div class="modal-body">             
+                    <div class="row clearfix">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                           
+                                <input type="text" class="form-control" [value]="deptName" ngModel name="name" >
+                                <input hidden="true" [value]="deptid" ngModel name="id">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                               
+                                <select class="form-control show-tick" ngModel name="position_id">
+                                  <option value="">- Status -</option>
+                                <option Value="active">Active</option> 
+                                <option value="inactive">Inactive</option>  
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <div class="col-sm-12">
+                            <div class="form-group mt-3">                            
+                                <textarea rows="6" class="form-control no-resize" placeholder="Edit about the depertment..." [value]="deptDescrip" ngModel name="description"></textarea>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-round btn-primary">Update</button>
+                    <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        </div>

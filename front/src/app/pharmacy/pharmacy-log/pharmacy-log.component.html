@@ -7,14 +7,15 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
-                            <span *ngIf ="3003 >= role" > 
-                                
-                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]="">{{br.name}}</a></li>
-                                
+                            <span *ngIf ="role <= 2002" >                                 
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a href="#" [routerLink]="">{{br.name}}</a></li> 
+                            </span>
+                            
+                            <span *ngIf ="3003 >= role" >                                 
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.dept_id == dept" href="#" [routerLink]="">{{br.name}}</a></li> 
                             </span>
                             <span *ngIf ="role == '4004'">
-                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>
-                                
+                                <li class="breadcrumb-item" *ngFor="let br of bran" (click) ="allItem($event)"><a *ngIf ="br.id == uBranch">{{br.name}}</a></li>                                
                             </span>
                             
                             </ol>
@@ -53,7 +54,7 @@
                                 </div>
                             </div>
                         </form> 
-                         <!-- <form  class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> 
+                         <!-- <form class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> 
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
                                 <label>Search User</label>
@@ -147,9 +148,8 @@
                     <div class="body text-center p-2">
                         <div class="row mb-3">
                             <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
-                            <!-- <div class="col-7"> <small class="float-left"><small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small>{{l.created_at.slice(13,16)}} <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> -->
-                             <span  *ngIf ="l.prescription ==='open' && dept =='16'" class=" col-5"><i class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
-                             <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
+                             <span class=" col-5">&nbsp; <i  *ngIf ="l.status !='close' && dept =='16'" class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i> &nbsp;  <small class="float-right"> |</small> &nbsp; <small *ngIf ="l.status ==='open'" class="badge badge-info float-right"> {{l.status}}</small> &nbsp; <small  *ngIf ="l.status ==='checkout'" class="badge badge-warning float-right"> {{l.status}}</small> <small  *ngIf ="l.status ==='success'" class="badge badge-success float-right"> {{l.status}}</small></span>
+                            <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
                             </div>
                         <div class="circle">
                             <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
@@ -161,18 +161,13 @@
                             <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
                             <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
                             <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.card_number]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
                             
                         </ul>
-                        <hr>Status<hr>
+                        <hr>Created by<hr>
                         <div class="d-flex justify-content-between">
-                            <div class="text text-primary" *ngIf ="l.pharm_status=== 'open'">Open</div>
-                            <div class="text text-warning" *ngIf ="l.invoice=== 'unpaid'">{{l.invoice}}</div>
-                            <div class="text text-success" *ngIf ="l.invoice=== 'paid'">{{l.invoice}}</div>
-                            <div class="text text-primary" *ngIf ="l.created_status=== 'open'">Open</div>
-                            <div class="text text-success" *ngIf ="l.voucher=== 'checkout'">{{l.voucher}}</div>
-                            <div class="text text-success" *ngIf ="l.voucher=== 'success'">{{l.voucher}}</div>
-                            <div class="text text-secondary" *ngIf ="l.voucher=== 'refill'">{{l.voucher}}</div>
+                            <div class="text text-primary">{{l.firstname}} {{l.lastname}}</div>
+                            <div class="text text-warning">{{l.br_name}}</div>                       
                         </div>
                     </div>                        
                 </div>
