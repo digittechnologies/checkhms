@@ -84,7 +84,7 @@ export class SigninComponent implements OnInit {
 
     this.Jarwis.displayDepartments().subscribe(
       data=>{
-      console.log(data);   
+      // console.log(data);   
       this.response = data;
       this.department = this.response
      

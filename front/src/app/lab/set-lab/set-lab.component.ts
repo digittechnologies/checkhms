@@ -45,7 +45,7 @@ export class SetLabComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtLabDept(id).subscribe(
     data=>{      
       this.labres = data; 
@@ -61,7 +61,7 @@ onUpdate(form: NgForm) {
   form.value.id=this.labid
   // this.image= form.value.image
   //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateLabDept(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

@@ -149,6 +149,9 @@ export class JarwisService {
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
   }
+  displayPharmacyBranch() {
+    return this.http.get(`${this.baseUrl}/displayPharmacyBranch`,)
+  }
   displayBranchs(data) {
     return this.http.get(`${this.baseUrl}/displaybranchs`,data,)
   }

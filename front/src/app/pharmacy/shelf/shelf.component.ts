@@ -58,7 +58,7 @@ export class ShelfComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtShelve(id).subscribe(
     data=>{      
       this.shelvres = data; 
@@ -75,7 +75,7 @@ this.disabled = true;
   form.value.id=this.shelvid
   // this.image= form.value.image
   //  console.log(form)
-   console.log(form.value)
+  //  console.log(form.value)
   this.Jarwis.updateShelve(form.value).subscribe(        
     data => this.handleResponse(data),
     error => this.handleError(error), 

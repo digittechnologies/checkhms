@@ -128,7 +128,7 @@ export class AllItemsComponent implements OnInit {
       this.imgLink = this.response[0].app_url;
     })
 
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
       data=>{
       this.response = data;      
       this.branch = this.response
@@ -153,7 +153,7 @@ export class AllItemsComponent implements OnInit {
 
     })
 
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
       data=>{
       this.response = data;      
       this.bran = this.response   

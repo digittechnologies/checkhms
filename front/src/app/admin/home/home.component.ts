@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
       this.response = data;
      
       this.allPos= this.response;
-      console.log(this.allPos)
+    //   console.log(this.allPos)
     
     })
    
