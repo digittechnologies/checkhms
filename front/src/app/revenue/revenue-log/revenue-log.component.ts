@@ -30,20 +30,29 @@ record_empty:null;
   schemePercentToView: number;
   schemePriceList: any;
   roll: any;
+  imgLink: any;
 
 
   constructor(
-   private Jarwis:RevenueJarwisService,
+   private Jarwis:JarwisService,
+   private JarwisRev:RevenueJarwisService,
     private actRoute:ActivatedRoute
 
     ) { }
 
   ngOnInit() {
+
+    this.Jarwis.generalSettings().subscribe(
+      data=>{
+      this.response = data;      
+      this.imgLink = this.response[0].app_url;
+    })
+
       this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
       this.vouchId= id;
       // console.log(this.vouchId)
-      this.Jarwis.patientVouchers(this.vouchId).subscribe(
+      this.JarwisRev.patientVouchers(this.vouchId).subscribe(
         data=>{          
           this.voucherResponse = data;      
         this.pat = this.voucherResponse.customer;

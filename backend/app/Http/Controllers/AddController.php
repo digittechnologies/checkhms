@@ -28,6 +28,7 @@ use App\Appointments;
 use App\Lab_depts;
 use App\Lab_test_types;
 use App\Duration;
+use App\Centers;
 use App\Daily_supply;
 use App\Customer_category;
 use App\Http\Requests\PatientRequest;
@@ -115,7 +116,27 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
         }';
     }
 }
-//Set Depertment Component
+//Set Depertment Component  
+
+public function addCenter(Request $request)
+{
+
+    $staffId= Auth()->user()->id;
+    $request->merge(['created_by' => $staffId]);
+    $dept= Centers::create($request-> all());
+   
+    if($dept){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+          return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+}
 
     public function addDept(Request $request)
     {
@@ -133,19 +154,24 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
             }';
         }
     }
+    public function updateBranch(Request $request){
+        return $request;
+
+    }
 
     public function updateDept(Request $request)
     {
+        return $request;
         $id=$request->id;
         $name= $request->name;
-        $descrip= $request->description;
-        $pos= $request->position_id;
+        $address= $request->description;
+        $status= $request->position_id;
 
-        $update = DB::table('departments')->where('id','=',$id)
+        $update = DB::table('centers')->where('id','=',$id)
         ->update([
             'name'=> $name,
-            'description' => $descrip,
-            'position_id' => $pos
+            'address' => $address,
+            'status' => $status
         ]);
         if($update){
             return '{
@@ -2455,7 +2481,7 @@ $update = DB::table('general_settings')->where('id','=',$id)->update([
                                     ->where('appointments.id', '=', $cid)
                                     ->where('appointments.pharm_id','=', $branchId)
                                     ->update([                                       
-                                        'pharm_status' => 'checkout',
+                                        'status' => 'checkout',
                                     ]);
 
         if ($updateAppointment) {

@@ -418,16 +418,23 @@
                                                   
                                                     <label class="fancy-radio custom-color-green">Appointment Type</label>  
                                                     <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
-                                                        <option>--Appointment_type--</option>
-                                                    
-                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                          
+                                                        <option>--Appointment_type--</option>                                                    
+                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                      
                                                                                                              
+                                                    </select>
+                                                </div>
+                                                <div class="form-group"> 
+                                                    <label class="fancy-radio custom-color-green">Branch</label>  
+                                                    <select class="form-control" (change)="onChange2($event)" ngModel name="branch_id">
+                                                        <option>--Select Branch--</option>                                                      
+                                                            <option *ngFor="let br of braches" value="{{br.id}}">{{br.name}}</option>                     
+                                                                                                              
                                                     </select>
                                                 </div>
                                                 <div class="form-group"> 
                                                     <label class="fancy-radio custom-color-green">Center</label>  
                                                     <select class="form-control" ngModel name="center_id">
-                                                        <option>--Department Center(s)--</option>                                                      
+                                                        <option>--Select Center--</option>                                                      
                                                             <option *ngFor="let cent of sbranch" value="{{cent.id}}">{{cent.name}}</option>                                    
                                                                                                               
                                                     </select>

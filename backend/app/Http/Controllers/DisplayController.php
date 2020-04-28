@@ -27,6 +27,7 @@ use Carbon\Carbon;
 use App\Role;
 use App\Duration;
 use App\Hospital_charges;
+use App\Centers;
 
 // Today's date working with displayItem,
 
@@ -121,6 +122,12 @@ class DisplayController extends Controller
 
     //Depertment
 
+    public function showBranches()
+    {
+        return Centers::orderBy('id')->select('centers.*')              
+                ->get();
+    }
+
     public function displayDepartments()
     {
         return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
@@ -131,9 +138,8 @@ class DisplayController extends Controller
     public function edtDept($id)
     {
         return response()->json(
-            Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-            ->select('departments.*','positions.position_name')     
-            ->where('departments.id','=',$id)          
+            Centers::orderBy('id')->select('centers.*')     
+            ->where('centers.id','=',$id)          
             ->get()      
         );
     }
@@ -423,17 +429,17 @@ class DisplayController extends Controller
     public function displaysetBranch()
     { 
         return response()->json([
-        'pharm'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',1)->select('branches.*')->get(),  
-        'clinic'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',2)->select('branches.*')->get(),
-        'admin'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',10)->select('branches.*')->get(),
-        'revenue'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',11)->select('branches.*')->get(),
-        'radio'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',12)->select('branches.*')->get(),
-        'lab'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',15)->select('branches.*')->get(),
-        'record'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',16)->select('branches.*')->get(),
-        'theater'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',17)->select('branches.*')->get(), 
-        'nurse'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',18)->select('branches.*')->get(), 
-        'ward'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',19)->select('branches.*')->get(),
-        'patient'=>DB::table('branches')->where('status', '=', 'active')->where('dept_id',20)->select('branches.*')->get()
+        'pharm'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',1)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),  
+        'clinic'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',2)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'admin'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',10)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'revenue'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',11)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'radio'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',12)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'lab'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',15)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'record'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',16)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'theater'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',17)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(), 
+        'nurse'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',18)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(), 
+        'ward'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',19)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get(),
+        'patient'=>DB::table('branches')->join('centers', 'branches.branch_id', '=', 'centers.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '=', 'active')->where('branches.dept_id',20)->select('branches.*', 'centers.name as branch_name', 'departments.name as dept_name')->get()
     ]);
         
         // return Branches::all();
@@ -455,13 +461,15 @@ class DisplayController extends Controller
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
     }
 
-    public function displayAppointmentBranch($id)
+    public function displayAppointmentBranch(Request $request)
     {
+    
         return response()->json(['branch'=> Branches::where('status', '=', 'active')
-                                        ->where ('branches.clinic_type', '=', $id)
+                                        ->where ('branches.clinic_type', '=', $request->dept)
+                                        ->where ('branches.branch_id', '=', $request->branch)
                                         ->orderBy('id')->get(),
                                  'appt'=> Hospital_charges::where('status', '=', 'active')
-                                        ->where ('hospital_charges.appointment_type', '=', $id)
+                                        ->where ('hospital_charges.appointment_type', '=', $request->dept)
                                         ->orderBy('id')->get()
                                         
                                 ]);
@@ -581,12 +589,12 @@ class DisplayController extends Controller
     public function displayDeptAppointment($branchId)
     {
 
-        $loggedUserDept = Auth()->user()->dept_id;
+        // $loggedUserDept = Auth()->user()->dept_id;
         if($branchId == 'undefined'){
             $branchId = Auth()->user()->branch_id;
         }
         $branch = Branches::select('branches.id')
-        ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
+        // ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
         ->where('id', $branchId)
         ->orWhere('name', $branchId)
         ->first();  
@@ -603,29 +611,61 @@ class DisplayController extends Controller
             $center_status = 'clinic_status';
          }
 
-         if (Auth()->user()->dept_id == '16') {
-            $center = 'created_branch';
-            $center_status = 'created_status';
-         }
-
-         if (Auth()->user()->dept_id == '11') {
-            $center = 'revenue_id';
-            $center_status = 'revenue_status';
-         }
+        //  if (Auth()->user()->dept_id == '16') {
+        //     $center = 'created_branch';
+        //     $center_status = 'created_status';
+        //  }         
          
 
         $deptId= Auth()->user()->dept_id;
+
+        if (Auth()->user()->dept_id == '11') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+            ->join('customers','appointments.customer_id','=','customers.id')
+            ->join('users','appointments.created_by','=','users.id')
+            ->join('branches','appointments.created_branch','=','branches.id')
+            ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+            ->where('appointments.status','!=','close')
+            ->where('appointments.revenue_status','!=','close')
+            // ->where('appointments.date', '=', $cDate)
+            ->get(),
+            ]);
+         }
+
+    
+        if (Auth()->user()->dept_id == '10' || Auth()->user()->dept_id == '16') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+            ->join('customers','appointments.customer_id','=','customers.id')
+            ->join('users','appointments.created_by','=','users.id')
+            ->join('branches','appointments.created_branch','=','branches.id')
+            ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+            ->where('appointments.status','!=','close')
+            // ->where('appointments.date', '=', $cDate)
+            ->get(),
+            ]);
+             }
+        
+
+     if (Auth()->user()->dept_id != '10') {
+         return 'dv';
         return response()->json([
             'data' => Appointments::orderBy('id', 'DESC')
-                ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.*', 'customers.name as pat_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+        ->join('customers','appointments.customer_id','=','customers.id')
+        ->join('users','appointments.created_by','=','users.id')
+        ->join('branches','appointments.created_branch','=','branches.id')
+        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+        ->where('appointments.'.$center,'=',$branchId)          
                 ->where('appointments.'.$center,'=',$branchId)          
-                ->where('appointments.'.$center_status,'!=','close')
-                ->where('appointments.status','=','open')
-                // ->where('appointments.date', '=', $cDate)
-                ->get(),
-            'centerName' => DB::table('branches')->select('branches.name')->where('id', '=', $branchId)->first()
+        ->where('appointments.'.$center,'=',$branchId)          
+        ->where('appointments.'.$center_status,'=','open')
+        ->where('appointments.status','!=','close')
+        // ->where('appointments.date', '=', $cDate)
+        ->get(),
         ]);
+         }
+
     }
     public function displayRevenueAppointment()
     {
@@ -862,7 +902,7 @@ class DisplayController extends Controller
         ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
         // ->where('doctor_prescriptions.status', '=', 'close')
         ->where('doctor_prescriptions.appointment_id', '=', $id)
-        ->where('doctor_prescriptions.branch_id', '=', $bId)
+        // ->where('doctor_prescriptions.branch_id', '=', $bId)
         ->count();
         if($pc=='0'){
             return response()->json([
@@ -1110,13 +1150,19 @@ class DisplayController extends Controller
          $id=$request->id;
         return
         [
-      'branche'=>DB::table('branches')
-            ->join('users','users.id','=','branches.sales_rep')
-            ->where('branches.id',$id)->select('branches.*','users.firstname')->get(),
+      'branch'=>DB::table('branches')
+            ->join('users','branches.sales_rep','=','users.id')
+            ->join('centers','branches.branch_id','=','centers.id')
+            ->join('departments','branches.dept_id','=','departments.id')
+            ->where('branches.id',$id)->select('branches.*','users.firstname','centers.name as branch_name','departments.name as dept_name')->get(),
       'staffs'=> DB::table('branches')
             ->join('users','users.dept_id','=','branches.dept_id')
+            ->where('branches.sales_rep','!=','users.id')
             ->where('branches.id',$id)->select('users.*')->get(),
-        ]; 
+    
+        'center'=> DB::table('centers')->select('centers.*')->get(), 
+        'department'=> DB::table('departments')->select('departments.*')->get()
+]; 
      }
 
     // Report
@@ -1608,7 +1654,9 @@ class DisplayController extends Controller
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
-            'appointment_type' =>  DB::table('appontment_type')->get()
+            // 'appointment_type' =>  DB::table('appontment_type')->get()
+            'center'=> DB::table('centers')->select('centers.*')->get(), 
+            // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);
           }
     // public function search($searchTerm)
