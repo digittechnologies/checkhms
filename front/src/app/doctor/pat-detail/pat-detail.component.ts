@@ -33,7 +33,7 @@ export class PatDetailComponent implements OnInit {
       this.id = params.get('id');      
       this.DocJarwis.getPatientData(this.id).subscribe(data=>{
         this.patient = data[0];
-        console.log(this.patient)
+        // console.log(this.patient)
       })
     }))
   }

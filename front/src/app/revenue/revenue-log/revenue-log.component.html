@@ -12,11 +12,8 @@
                         <li class="breadcrumb-item active" aria-current="page">Voucher</li>
                         </ol>
                     </nav>
-                </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-                </div>
+                </div>          
+                
             </div>
         </div>
 
@@ -42,7 +39,7 @@
                         </div>
                          <div class="col text-right">
                             <div class="small text-light">Prescription Number</div>
-                            <div class="h4 m-0">PX#: {{vouchId}}</div>
+                            <div class="h4 m-0">Appointment No: {{vouchId}}</div>
                           </div>
                     </div>
                 </div>                    
@@ -53,8 +50,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <ul class="nav nav-tabs2">
-                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Employee Salary</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Payslip">Payslip</a></li>                
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Voucher</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Payslip">Payment Slipt</a></li>       
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#label">Label</a></li>                
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="EmployeeSalary">
@@ -62,8 +60,9 @@
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr> 
-                                            <th style="width: 20px;">#</th>
+                                            <th style="width: 20px;">#</th>                                           
                                             <th>Depertment</th>
+                                            <th>Voucher No</th>
                                             <th class="w100">Date/Time</th>
                                             <th class="w60">Total Ammount</th>
                                             <th class="w60">Status</th>
@@ -74,7 +73,7 @@
                                         <tr *ngFor="let v of roll; let r = index ">
                                             <td>
                                                 <span>{{r+1}} </span>
-                                            </td>
+                                            </td>                                           
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div>
@@ -84,13 +83,14 @@
                                                     </div>
                                                 </div>                                        
                                             </td>
+                                            <td>{{v.id}}</td>
                                             <td>{{v.created_at}}</td>
                                             <td>{{v.paid | currency:'NGN':'symbol-narrow'}}</td>
                                             <td><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
                                             <td>
                                                 <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" [routerLink]="['/Admin', {outlets: {side: ['invoice',v.id]}}]" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i> Invoice</button>
-                                                <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash text-danger"></i></button> -->
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button>
+                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#label">Label</a></button>
                                             </td>
                                         </tr>
                                        
@@ -98,21 +98,34 @@
                                 </table>
                             </div>
                         </div>
+
+
+
+
+
+
                         <div class="tab-pane" id="Payslip">
                             <div class="card">
+                            <div id="print-history">
+                                <div class="col-md-12 col-sm-12 body">
+                                    <div style="margin-left:33% ;" class="col-md-6 col-sm-6">
+                                    <img width="70%" src="http://{{imgLink}}/backend/public/upload/icons/{{icon}}" alt="Check Logo" class="center"><span id="cin"></span>                                
+                                    </div>                                
+                                </div>                            
                                 <article class="media body mb-0">
                                     <div class="mr-3">
                                         <img class="rounded" src="../assets/images/xs/avatar4.jpg" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="content">
-                                            <span><strong>Order ID: </strong> C09</span>
-                                            <p class="h5">John Smith <small class="float-right badge badge-primary">AUG 15, 2018</small></p>
-                                            <p>795 Folsom Ave, Suite 546 San Francisco, CA 54656</p>
+                                            <span><strong>RX#: </strong> {{voucher_Id}}</span>
+                                            <p class="h5">{{name}} {{othername}}: {{card_number}} <small class="float-right badge badge-primary">{{p_date}}</small></p>
+                                            <p>{{address}}, {{city}}, {{state}}, {{country}}</p>
+                                            <p>{{mobile_no}}</p>
                                         </div>
                                         <nav class="d-flex text-muted">
-                                            <a href="javascript:void(0);" class="icon mr-3"><i class="icon-envelope text-info"></i></a>
-                                            <a href="javascript:void(0);" class="icon mr-3"><i class="icon-printer"></i></a>
+                                            <a href="javascript:void(0);" class="badge badge-primary">Status</a>
+                                           
                                         </nav>
                                     </div>
                                 </article>
@@ -123,80 +136,207 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="w60">#</th>
-                                                        <th></th>
+                                                        <!-- <th>Prescription Code</th> -->
+                                                        <th>Item</th>
                                                         <th class="w100">Earnings</th>
                                                         <th class="w100">Deductions</th>
                                                         <th class="w100 text-right">Total</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody *ngIf="isEmpty !='0'">
+                                                    <tr *ngFor="let i of pres; let n =index">
+                                                    
+                                                            <!-- <ng-container *ngIf = "i.status == 'invoice'" > -->
+                                                                <td>{{n+1}}</td>
+                                                                <td>
+                                                                    <span>{{i.generic_name}}</span>
+                                                                    <p class="hidden-sm-down mb-0 text-muted"> {{i.name}}</p>
+                                                                </td>                                                    
+                                                                <td>{{i.quantity}}</td>
+                                                                <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                                                                <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
+                                                            <!-- </ng-container> -->
+                                                        </tr>
+                                                     
+                                                  </tbody>
+                                                  <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+                                                    No Invoice
+                                                </div>
+                                             
+                                                <div *ngIf="!inv">
+                                                    
+                                                    <div class="spinner-grow text-primary" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            <div class="spinner-grow text-secondary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-success" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                    </div>
+                                                  </div> 
+                                                  <tfoot>
                                                     <tr>
-                                                        <td>01</td>
+                                                        <td colspan="3"><span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span></td>
+                                                        
                                                         <td>
-                                                            <span>Basic Salary</span>
-                                                        </td>                                                    
-                                                        <td>$1,500</td>
-                                                        <td>-</td>
-                                                        <td class="text-right">$380</td>
+                                                          Sub Total: <br>
+                                                          Discount %:<br>
+                                                          Service Charge: <br>
+                                                          Total: <br>
+                                                      </td>
+                                                      <td>
+                                                          <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-warning">{{schemePercentToView}}%</strong><br>
+                                                          <strong class="text-success">{{'50'  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                      </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td>
-                                                            <span>House Rent Allowance (H.R.A.)</span>
-                                                        </td>
-                                                        <td>$62</td>
-                                                        <td>-</td>
-                                                        <td class="text-right">$250</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td>
-                                                            <span>Tax Deducted at Source (T.D.S.)</span>
-                                                        </td>
-                                                        <td>-</td>
-                                                        <td>$80</td>
-                                                        <td class="text-right">$120</td>
-                                                    </tr>                                                
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td>
-                                                            <span>C/Bank Loan</span>
-                                                        </td>
-                                                        <td>-</td>
-                                                        <td>$120</td>
-                                                        <td class="text-right">$120</td>
-                                                    </tr>                                                
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td>
-                                                            <span>Other Allowance</span>
-                                                        </td>
-                                                        <td>$121</td>
-                                                        <td>-</td>
-                                                        <td class="text-right">$120</td>
-                                                    </tr>                                                
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="2"><span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span></td>
-                                                        <td>$1683</td>
-                                                        <td>$200</td>
-                                                        <td class="text-right">
-                                                            <strong class="text-success">$1483.00</strong>
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                    
+                                                  </tfoot>
+                                              </table>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                                 <div class="row clearfix">
                                     <div class="col-md-12 text-right">
-                                        <button class="btn btn-info"><i class="icon-printer"></i> Print</button>
+                                        <button class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Payment</button> &nbsp;
+                                        <button class="btn btn-info" (click)="printComponent()"><i class="icon-printer"></i> Print</button> &nbsp;
+                                        <button class="btn btn-success" [hidden]="dept!='11'"  [routerLink]="['/Admin', {outlets: {side: ['invoice',voucher_Id]}}]"><i class="icon-printer"></i> Reciept</button>
                                     </div>
                                 </div> 
+
+
+                                 <!-- Default Size -->
+                                <div class="modal fade" id="payment" tabindex="1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h4" id="myLargeModalLabel">Select Payment Method</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                <div class="modal-body">             
+                                                    <div class="row clearfix">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <select class="form-control show-tick" ngModel name="method">
+                                                                    <option>--Select Status--</option>
+                                                                    <option value="active">Cash Payment</option>
+                                                                    <option value="suspend">Pay with POS</option>  
+                                                                    <option value="suspend">Pay From Wallet</option> 
+                                                                </select>                  
+                                                            </div>
+                                                        </div>                                                               
+                                                    </div>
+                                                </div>                                                
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-round btn-primary">Pay<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                                <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+
+
+
                             </div>
                         </div>
+
+
+                        <div class="tab-pane" id="label">
+                            <div class="card">
+
+
+                                <div class="container-fluid">
+                                    <div class="block-header">
+                                        <div class="row clearfix">
+                                            <div class="col-md-6 col-sm-12">
+                                                <!-- <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "invoice == 'unpaid'" class="badge badge-danger">{{invoice}}</span> <span *ngIf = "invoice == 'paid'" class="badge badge-success">{{invoice}}</span> -->
+                                                <nav aria-label="breadcrumb">
+                                                    <ol class="breadcrumb">                    
+                                                    <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be printable immediatle Payment have been made</li>
+                                                    </ol>
+                                                </nav>
+                                            </div>            
+                                            <div class="col-md-6 col-sm-12 text-right">
+                                                <button class="btn btn-sm btn-primary btn-round" title="End process after label is printed" *ngIf = "status == 'invoice'" disabled><i class="fa fa-hourglass-end fa fa-spin fa-spinner"></i>End Process</button>
+                                                <button class="btn btn-sm btn-primary btn-round"  (click)="closeAppointment()" title="End process after label is printed"*ngIf = "status == 'paid'"><i class="icon-printer"></i>End Process</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive invoice_list mb-4">
+                                                <table class="table table-hover table-custom spacing8">
+                                                    <thead>
+                                                        <tr> 
+                                                            <th style="width: 20px;">#</th>
+                                                            <th>Client</th>
+                                                            <th style="width: 50px;">Amount</th>
+                                                            <!-- <th style="width: 50px;">Status</th> -->
+                                                            <th style="width: 110px;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="isEmpty !='0'">
+                                                        <tr *ngFor="let i of pres; let n =index">
+                                                            <!-- <ng-container *ngIf = "i.status == 'paid'" > -->
+                                                                <td>
+                                                                        <span>{{n+1}}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                                <img src="https://{{imgLink}}/backend/public/upload/uploads/{{i.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
+                                                                                <div class="ml-3">
+                                                                                <a href="javascript:void(0);" title="{{i.generic_name}} ">{{i.generic_name}}</a>
+                                                                                <p class="mb-0">{{i.name}}</p>
+                                                                            </div>
+                                                                        </div>                                        
+                                                                    </td>
+                                                                    <td>{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                                                                    <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
+                                                                    <td>
+                                                                        <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
+                                                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
+                                                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                                                        <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
+                                                                    </td>
+                                                            <!-- </ng-container> -->
+                                                        </tr>
+                                                       
+                                                    </tbody>
+                                                    <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+                                                        No Label
+                                                    </div>
+                                                 
+                                                    <div *ngIf="!inv">
+                                                        
+                                                        <div class="spinner-grow text-primary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                <div class="spinner-grow text-secondary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="spinner-grow text-success" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                        </div>
+                                                      </div> 
+                                                </table>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
                     </div>            
                 </div>
             </div>

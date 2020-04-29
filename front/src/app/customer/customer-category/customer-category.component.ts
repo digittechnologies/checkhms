@@ -60,7 +60,7 @@ export class CustomerCategoryComponent implements OnInit {
 // }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtCustCategories(id).subscribe(
     data=>{      
       this.custCatsRes = data; 

@@ -51,7 +51,7 @@ export class ManufacturerComponent implements OnInit {
 }
 
 editdept(id: string) {
-  console.log(id)
+  // console.log(id)
   this.Jarwis.edtManufacturer(id).subscribe(
     data=>{      
       this.manufres = data; 

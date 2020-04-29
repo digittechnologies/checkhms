@@ -195,7 +195,7 @@ onSubmitprofile() {
 handleErrorp(error) {
  
   this.error = error.error.errors;
-  console.log(this.error);
+  // console.log(this.error);
   
 }
 handleResponsep(data) {  

@@ -80,7 +80,7 @@ export class PharmacyLogComponent implements OnInit {
       this.dept = this.response.det[0].dept_id;
     })
 
-    this.Jarwis.displayBranch().subscribe(
+    this.Jarwis.displayPharmacyBranch().subscribe(
       data=>{
       this.response = data;      
       this.bran = this.response   
@@ -153,7 +153,7 @@ export class PharmacyLogComponent implements OnInit {
       this.log=this.logs;
       this.filres="No appointment for this patient";
     }
-    console.log(this.log)
+    // console.log(this.log)
         
       }
   // get(){
@@ -178,7 +178,7 @@ export class PharmacyLogComponent implements OnInit {
       )
       }
       end(id,voucher){
-        console.log(id,voucher);
+        // console.log(id,voucher);
         // this.check="end";
         this.endAppoit_id=id;
         this.endAppoit_vouccher=voucher;
@@ -186,7 +186,7 @@ export class PharmacyLogComponent implements OnInit {
       endAppointment(){
         this.Jarwis.endappointment({id:this.endAppoit_id,voucher:this.endAppoit_vouccher}).subscribe(data=>{
           this.handleRespons(data);
-          console.log(data)
+          // console.log(data)
           this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
             data=>{
             this.response = data;      
@@ -283,7 +283,7 @@ export class PharmacyLogComponent implements OnInit {
   onClickSubmit() {
     this.spin="disable";
     this.disabled = true;
-    console.log(this.form.customer)
+    // console.log(this.form.customer)
     if(this.form.customer == null){ 
       alert('Serch Box Empty')
     }else{

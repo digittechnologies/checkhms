@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
 
     this.Jarwis.profile().subscribe(
       data=>{
-        console.log(data)    
+        // console.log(data)    
       this.response = data;
       this.pos= this.response.det[0].position_id
       this.image= this.response.det[0].image
