@@ -129,7 +129,7 @@ setting:any;
   
   saveToInvoice(){
     this.disabled = true;
-    this.Jarwis.saveToInvoice(this.voucherId, '').subscribe(
+    this.Jarwis.saveToInvoice(this.voucher_Id, '').subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
