@@ -115,6 +115,7 @@
                                 <th>Rate</th>
                                 <!-- <th>Price 2 (GORAH)</th>
                                 <th>Price 3 (NHIS)</th> -->
+                                <th>Sales Amount</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
@@ -156,6 +157,10 @@
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remaim | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                             </ng-container>
 
