@@ -77,7 +77,19 @@
                 </div>
             </div>
         </div>
-         
+    </div>
+    <!-- <div class="row clearfix">
+        <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
+            <div class="card c_grid c_yellow">
+                <div class="body text-center p-2">
+                    <div class="row mb-3">
+                        <div class="col-8"> <small class="float-left"><small class="mr-1">{{l.created_at.slice(0,10)}},</small> <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}} </small><small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                            <span  *ngIf ="l.prescription ==='open'" class=" col-3 btn btn-default text-center float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"><i class="fa fa-remove text-danger" ></i></span>
+                            <span  *ngIf = "l.invoice == 'paid'" class=" col-3 btn btn-default text-center float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"><i class=" text-success" >End</i></span>
+                        </div> -->
+                    <!-- <div class="circle">
+                        <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+          -->
          <div class="modal fade" id="endall" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">  
@@ -136,19 +148,72 @@
                 </div>
                 </div>
         <div class="row clearfix">
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
-                    <div class="card-header text-center">
-                        <h5 class="text-primary">No log entries yet</h5>
-                    </div>
-                </div> -->
 
-            <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
+<div class="col-lg-3 col-md-4 col-sm-6" *ngFor= "let l of log">
+    <div class="card c_grid c_yellow">
+        <div class="body text-center p-1">
+            <div class="row mb-5 p-3">
+                <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
+                <div class="col-5">
+                   <span class="row float-right" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                   <span class="row float-right" *ngIf = "l.status == 'checkout'  && dept =='16'"><i class="row fa fa-exclamation text-warning" style="border: grey solid 1px;border-radius: 100%;padding:2px;"></i></span>
+                   <span class="row float-right" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
+                </div>
+                <div class="ribbon col-12">
+            <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
+             <small  class="text-light"> {{l.status}}</small> 
+            </div>
+            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
+                <small  class="text-light"> {{l.status}}</small> 
+               </div>
+               <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
+                <small  class="text-light"> {{l.status}}</small> 
+               </div>
+                </div>
+                </div>
+            <div class="circle">
+                <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
+            </div>
+            <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
+            <!-- <span>jason-porter@info.com</span> -->
+            <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+        <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
+            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
+            <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
+            <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
+            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
+            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+            
+        </ul>
+        <hr>Created by<hr>
+        <div class="d-flex justify-content-between">
+            <div class="text text-primary">{{l.firstname}} {{l.lastname}}</div>
+            <div class="text text-warning">{{l.br_name}}</div>                       
+        </div>
+    </div>  
+</div>                      
+</div>
+        <!-- </div> -->
+    <!-- </div>
+</div> -->
+
+
+
+
+
+
+
+
+            <!-- <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
-                    <div class="body text-center p-2">
-                        <div class="row mb-3">
-                            <div class="col-7"> <small class="float-left"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
-                             <span class=" col-5">&nbsp; <i  *ngIf ="l.status !='close' && dept =='16'" class="fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i> &nbsp;  <small class="float-right"> |</small> &nbsp; <small *ngIf ="l.status ==='open'" class="badge badge-info float-right"> {{l.status}}</small> &nbsp; <small  *ngIf ="l.status ==='checkout'" class="badge badge-warning float-right"> {{l.status}}</small> <small  *ngIf ="l.status ==='success'" class="badge badge-success float-right"> {{l.status}}</small></span>
-                            <span  *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class=" text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
+                    <div class="body text-center">
+                        <div class="row mb-3 bg-success">
+                            <div class="col-6 "><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
+                            <div class="col-4">
+                                   &nbsp; <small  *ngIf ="l.status ==='open'" class="row badge badge-info float-right"> {{l.status}}</small> &nbsp; <small   *ngIf ="l.status ==='checkout'" class="row badge badge-warning float-right"> {{l.status}}</small> <small   *ngIf ="l.status ==='success'" class="row badge badge-success float-right"> {{l.status}}</small>
+                                </div> 
+                                   |<span class="col-1" *ngIf ="l.status !='close' && dept =='16'">&nbsp; <i class="row fa fa-remove text-danger float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                                   <span class="col-1" *ngIf = "l.invoice == 'paid'  && dept =='16'" class=" col-5"><i class="row fa fa-check text-success float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment">End</i></span>
                             </div>
                         <div class="circle">
                             <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
@@ -156,11 +221,11 @@
                         <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
                         <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
                         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-                            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a  class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
-                            <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
-                            <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
-                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+                            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
+                            <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
+                            <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
                             
                         </ul>
                         <hr>Created by<hr>
@@ -170,7 +235,7 @@
                         </div>
                     </div>                        
                 </div>
-            </div> 
+            </div>  -->
             <div *ngIf="!log">
                 <div class="spinner-grow text-primary" role="status">
                 <span class="sr-only">Loading...</span>
@@ -184,7 +249,6 @@
               </div>    
         </div>
     </div>
-</div>
 
 <!-- Default Size -->
 <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
