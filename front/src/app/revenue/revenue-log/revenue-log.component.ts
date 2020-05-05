@@ -66,6 +66,7 @@ record_empty:null;
   public paymentForm: FormGroup;
   amountPaid: any;
   balanceAmount: any;
+  charge_id: any;
 
 
   constructor(
@@ -123,6 +124,7 @@ record_empty:null;
       this.chargesResponse = data;      
       this.charges = this.chargesResponse.charges;
       this.charge_amount = this.chargesResponse.chargeSum;
+      this.charge_id = this.chargesResponse.charges[0].id;
     })
     
      }
@@ -134,7 +136,7 @@ record_empty:null;
       );
      }
 
-     onPay(pay){
+     onPay(pay, param){
       this.Jarwis.displayPharmInvoice(pay, 'inv', '').subscribe(
         data=>{
         this.PharmPreresponse = data;    
@@ -166,18 +168,27 @@ record_empty:null;
           {
             amount_paid: [this.amountPaid],
           })
+
+          document.getElementById('vouch').classList.remove('active');
+          document.getElementById('slip').classList.remove('active');
+          document.getElementById('label').classList.remove('active');
+          document.getElementById(param).classList.add('active');
       }
 
       apartTablet(n){
         if(parseInt(n.target.value) > parseInt(this.amountPaid)){
           alert('Invalid')
           n.target.value = this.amountPaid
+          this.amountPaid = n.target.value      
+
         }
         if(parseInt(n.target.value) <= 0 || n.target.value == '' ){
           alert('Invalid')
           n.target.value = '0';
+          this.amountPaid = n.target.value      
+
         }    
-          this.balanceAmount = this.amountPaid - n.target.value       
+          this.balanceAmount = this.amountPaid - n.target.value 
       }
       
       
@@ -204,15 +215,17 @@ record_empty:null;
     onPaid(form:NgForm){
       this.disabled = true;
 
-      form.value.voucher_Id= this.voucher_Id;  
-      form.value.bal= this.balanceAmount;   
-
+      form.value.voucher_Id = this.voucher_Id;  
+      form.value.bal = this.balanceAmount;  
+      form.value.chargeID = this.charge_id; 
+      form.value.charge_amt = this.charge_amount;
+      form.value.discount = this.schemePercentToView;
+      if(form.value.topay == '') form.value.topay = this.amountPaid;
+      console.log(form.value)
       this.Jarwis.saveToInvoice(form.value).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),  
-      );
-
-      
+      ); 
     }
 
     handleResponse(data) {   
@@ -240,5 +253,4 @@ record_empty:null;
       })
       this.disabled = false;
     }
-
 }

@@ -51,9 +51,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <ul class="nav nav-tabs2">
-                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Voucher</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Payslip">Payment Slipt</a></li>       
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#label">Label</a></li>                
+                        <li class="nav-item"><a id="vouch" class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Voucher</a></li>
+                        <li class="nav-item"><a id="slip" class="nav-link" disabled="true" data-toggle="tab" href="#Payslip">Payment Slip</a></li>       
+                        <li class="nav-item"><a id="label" class="nav-link" disabled="true" data-toggle="tab" href="#label">Label</a></li>                
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="EmployeeSalary">
@@ -63,7 +63,7 @@
                                         <tr> 
                                             <th style="width: 20px;">#</th>
                                             <th style="width: 20px;">Voucher No</th>                                           
-                                            <th >Depertment</th>                                            
+                                            <th >Department</th>                                            
                                             <th class="w100">Date/Time</th>                                            
                                             <th class="w60">Amount</th>
                                             <th class="w60">Charges</th>
@@ -100,8 +100,8 @@
                                             <td *ngIf="v.paid_status == 'terminate'"><span class="badge badge-danger ml-0 mr-0">Terminated</span></td>
                                             <td>
                                                 <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
-                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id)"><a class="text text-success" data-toggle="tab"  href="#label"><i class="icon-printer"></i> Label</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id, 'slip', '#Payslip')"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#label"><i class="icon-printer"></i> Label</a></button> &nbsp;
                                                 <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top"><a class="text text-danger" data-toggle="modal" data-target="#cancelPay"  href="#label"><i class="icon-trash"></i> Cancel</a></button>
                                             </td>
 
