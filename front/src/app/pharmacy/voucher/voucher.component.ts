@@ -86,6 +86,9 @@ export class VoucherComponent implements OnInit {
   instock: any;
   amnt_v: any;
   amount_p: number;
+  chargesResponse: any;
+  charges: any;
+  charge_amount: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -118,6 +121,13 @@ export class VoucherComponent implements OnInit {
     this.response = data;      
     this.imgLink = this.response[0].app_url;
   })
+
+  this.Jarwis.displayCharges().subscribe(
+    data=>{
+    this.chargesResponse = data;      
+    this.charges = this.chargesResponse.charges;
+    this.charge_amount = this.chargesResponse.chargeSum;
+  })
   
   // this.Jarwis.displayPharmPre(this.patID, '').subscribe(
   //   data=>{
@@ -127,12 +137,12 @@ export class VoucherComponent implements OnInit {
 
   this.Jarwis.displayDeptAppoint(this.appId).subscribe(
     data=>{
-    this.appointResponse = data;      
-    this.voucherId = this.appointResponse[0].voucher_id;
-    this.appointments = this.appointResponse[0];
-    this.prescription= this.appointments.prescription;
-    this.voucher= this.appointments.voucher;
-    this.invoice= this.appointments.invoice;
+    // this.appointResponse = data;      
+    // this.voucherId = this.appointResponse[0].voucher_id;
+    // this.appointments = this.appointResponse[0];
+    // this.prescription= this.appointments.prescription;
+    // this.voucher= this.appointments.voucher;
+    // this.invoice= this.appointments.invoice;
   })
 
   this.Jarwis.displayPharmPre2(this.appId).subscribe(
@@ -173,6 +183,7 @@ export class VoucherComponent implements OnInit {
   onSelectItem(Itemid) {
     this.Jarwis.voucherAllStock(Itemid.target.value, '').subscribe(  
       data=>{
+
         // console.log(data)
         this.AllStockresponse = data;
         this.total =this.AllStockresponse[0];
@@ -184,6 +195,8 @@ export class VoucherComponent implements OnInit {
         this.shelve_name= this.total.shelve_name;
         this.shelve_point= this.total.shelve_point;
         this.getInst = this.total.type_id;
+        this.quantity = 0;
+        this.tQuantity = 0;
         if(this.schemePriceList == 'price_2'){
           this.selling_price = this.total.price_2;
         }

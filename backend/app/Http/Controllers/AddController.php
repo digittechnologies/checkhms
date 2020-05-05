@@ -31,6 +31,7 @@ use App\Duration;
 use App\Centers;
 use App\Daily_supply;
 use App\Customer_category;
+use App\Hospital_charges;
 use App\Http\Requests\PatientRequest;
 use App\Http\Requests\EpsRequest;
 
@@ -2454,6 +2455,24 @@ public function addCenter(Request $request)
         $refill = 0;
         $remain = 0;
 
+        // GET DISCOUT VALUE;
+        
+        $discoutValue = DB::table('appointments')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                        ->where('appointments.id', '=', $cid)
+                        ->select('customer_category.*')
+                        ->get();
+        $discout_value= $discoutValue[0]->pacentage_value;
+
+        // Get Charges Value
+        $chargeSum= Hospital_charges::orderBy('id')
+                    ->join('departments','hospital_charges.dept_id','=','departments.id')
+                    ->where('dept_id', 1)
+                    ->where('status', 'active')
+                    ->select('hospital_charges.*')               
+                    ->sum('charge_amount');
+
         // FROM DOCTOR PRESCRIPTION        
         $v_qty = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('quantity');
         $r_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('amount');
@@ -2462,15 +2481,27 @@ public function addCenter(Request $request)
         $refill_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('refill_amount');
         $r_status = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->first();
 
+        //GET DISCOUNT AMOUNT VALUE;
+            $getDv= 100 - $discout_value;
+            $discountAmount= (100 - $getDv) / 100 * $v_amount;
+
+        // GET AMOUNT PAID;
+        
+        $amountPaid= $discountAmount + $chargeSum;
+
         // CREATE VOUCHER
         $create_voucher= Vouchers::insertGetId(
             [
                 'quantity' => $v_qty,
                 'amount' => $v_amount,
-                'paid' => $v_amount,
-                'balance' => 0,
+                'discount_id'=> $getDv,
+                'discount_amount'=>  $discountAmount,
+                'charges'=>  $chargeSum,
+                'paid' => $amountPaid,
+                'balance' => $amountPaid,
                 'refill_qty' => $refill_qty,
                 'refill_amount' => $refill_amount,
+                'price_list'=> $discoutValue[0]->price_list_column,
                 'delivery_status' => 'delivered',
                 'refill_status' => $r_status->refill_status,
                 'appointment_id' =>  $cid,
@@ -2521,8 +2552,13 @@ public function addCenter(Request $request)
        
     }
 
-    public function saveToInvoice($vid)
+    public function saveToInvoice(Request $request)
     {
+        return $request->all();
+
+        $vid= $request->voucher_Id;
+        $v_method= $request->method;
+
         //GET DATE AND TIME
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
@@ -2532,38 +2568,76 @@ public function addCenter(Request $request)
         $pharmacistId= auth()->user()->id;
         $branchId= auth()->user()->branch_id;
 
-        //GET BRANCH NAME TO BE USE IN UPDATING IT TABLExamp
-        $getBranchName = DB::table('branches')->select('branches.br_name')->where('id', $branchId)->first();
-        $branchName = $getBranchName->br_name;
+         //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
+         $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
+         $refill= $getV->refill_status;
 
-        //GET VOUCHER DATA OF THE PATIENT IN THE STAFF BRANCH AND INSERT WITH IT'S VOUCHER ID INTO THE INVOICE TABLE AND RETURN BACK THE INSERTED OBJECT ID
-        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
-        $refill= $getV->refill_status;
+         if($refill == 'refillable'){
 
-        if($refill == 'refillable'){
+             $success = 'refill';
+         } else {
+     
+             $success = 'success';
+         } 
 
-            $success = 'refill';
+        if ( $v_method == 'cash') {
+
+            $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
+            ->where('doctor_prescriptions.voucher_id', '=', $vid)
+            // ->where('doctor_prescriptions.branch_id', '=', $branchId)
+            ->get();
+    
+            //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
+            foreach($get as $row){
+                $getId = $row->id;
+                $getamount= $row->amount;
+                $getorgQ= $row->original_qty;
+                $quaty= $row->quantity;
+                $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                ->update([
+                    'status' => 'paid',
+                ]);
+            if ($update) {
+                $insertInvoice = DB::table('invoices')->insertGetId([
+                    'amount' => $get->amount,
+                    'paid' => $get->amount_paid + 50,
+                    'balance' => 0,
+                    'discount' => 0,
+                    'service_charge' => '50',
+                    'other_charges' => 0,
+                    'status' => 'paid',
+                    'delivery_status' => 'delivered',
+                    'branch_id' => $branchId,
+                    'staff_id' => $pharmacistId,
+                    'voucher_id' => $vid,
+                    'i_date' => $cDate,
+                    'i_time' => $cTime,
+                    'graph_date' => date("Y-m"),
+                    'doctor_prescription_id' => $dpid,
+                    'charges_id' => null,
+                    'payment_method' => null,
+                    'payment_id' => null,
+                ]);
+            } else {
+                return '{"message":"Payment alredy made"}';
+            }
+            
+               
+            }   
+    
+             
+            return 'Transaction Successfull';
         } else {
+            return '{"message":"unavailable"}';
+        }
+              
+
        
-            $success = 'success';
-        }      
+
+        
 
         //GET PRESCRIPTIONS DATA
-        $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
-        ->where('doctor_prescriptions.voucher_id', '=', $vid)
-        ->where('doctor_prescriptions.branch_id', '=', $branchId)
-        ->get();
-
-        //LOOP THROUGH THE PRESCRIPTIONS RETURNED AND UPDATE THEIR STATUS TO PAID
-        foreach($get as $row){
-            $getId = $row->id;
-            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-            ->update([
-                'status' => 'paid',
-            ]);
-        }
-
-        //INSERT INTO INVOICE
+               //INSERT INTO INVOICE
         foreach($get as $row2){
             $dpid = $row2->id;
 

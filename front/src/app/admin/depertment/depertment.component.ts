@@ -32,10 +32,8 @@ export class DepertmentComponent implements OnInit {
   ngOnInit() {
     this.Jarwis.displayDepartments().subscribe(
       data=>{
-      this.response = data;
-      
-      this.dept = this.response
-     
+      this.response = data;      
+      this.dept = this.response  
    
     })
 

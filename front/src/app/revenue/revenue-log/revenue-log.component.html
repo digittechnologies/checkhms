@@ -8,7 +8,8 @@
                     <h1>Voucher</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/Admin', {outlets: {side: ['ngModel=home']}}]">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#"   [routerLink]="['/Admin', {outlets: {side: ['patient_log']}}]">Phamarcy Log</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Voucher</li>
                         </ol>
                     </nav>
@@ -35,7 +36,7 @@
                           <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
                           <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
                           <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
-                          <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div>
+                          <!-- <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div> -->
                         </div>
                          <div class="col text-right">
                             <div class="small text-light">Prescription Number</div>
@@ -60,11 +61,15 @@
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr> 
-                                            <th style="width: 20px;">#</th>                                           
-                                            <th>Depertment</th>
-                                            <th>Voucher No</th>
-                                            <th class="w100">Date/Time</th>
+                                            <th style="width: 20px;">#</th>
+                                            <th style="width: 20px;">Voucher No</th>                                           
+                                            <th >Depertment</th>                                            
+                                            <th class="w100">Date/Time</th>                                            
+                                            <th class="w60">Amount</th>
+                                            <th class="w60">Charges</th>
+                                            <th class="w60">Discount</th>
                                             <th class="w60">Total Ammount</th>
+                                            <th class="w60">Balance</th>
                                             <th class="w60">Status</th>
                                             <th class="w60">Action</th>
                                         </tr>
@@ -73,7 +78,8 @@
                                         <tr *ngFor="let v of roll; let r = index ">
                                             <td>
                                                 <span>{{r+1}} </span>
-                                            </td>                                           
+                                            </td>  
+                                            <td>{{v.id}}</td>                                         
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div>
@@ -82,27 +88,50 @@
                                                         <p class="mb-0">{{v.br_name}}</p>
                                                     </div>
                                                 </div>                                        
-                                            </td>
-                                            <td>{{v.id}}</td>
+                                            </td>                                            
                                             <td>{{v.created_at}}</td>
+                                            <td>{{v.amount}}</td>
+                                            <td>{{v.charges}}</td>
+                                            <td>{{v.discount_id}}</td>
                                             <td>{{v.paid | currency:'NGN':'symbol-narrow'}}</td>
-                                            <td><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
+                                            <td>{{v.balance | currency:'NGN':'symbol-narrow'}}</td>
+                                            <td *ngIf="v.paid_status == 'open'"><span class="badge badge-warning ml-0 mr-0">{{v.paid_status}}</span></td>
+                                            <td *ngIf="v.paid_status == 'paid'"><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
+                                            <td *ngIf="v.paid_status == 'terminate'"><span class="badge badge-danger ml-0 mr-0">Terminated</span></td>
                                             <td>
                                                 <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button>
-                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#label">Label</a></button>
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id)"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id)"><a class="text text-success" data-toggle="tab"  href="#label"><i class="icon-printer"></i> Label</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top"><a class="text text-danger" data-toggle="modal" data-target="#cancelPay"  href="#label"><i class="icon-trash"></i> Cancel</a></button>
                                             </td>
+
+                                            <div class="modal fade" id="cancelPay" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">  
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Note !</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">             
+                                                            <div class="row  justify-content-center">
+                                                                    <h6>You are about to terminate this voucher! Click on Continue Button to Proceed  </h6>     
+                                                                    <small>Please Note: This action wounld delect the prescribed items in this voucher</small>
+                                                            </div>
+                                                        </div>      
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">Cancel</button>
+                                                            <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="cancelPay(v.id)">Continue</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </tr>
                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-
-
-
-
 
                         <div class="tab-pane" id="Payslip">
                             <div class="card">
@@ -124,8 +153,8 @@
                                             <p>{{mobile_no}}</p>
                                         </div>
                                         <nav class="d-flex text-muted">
-                                            <a href="javascript:void(0);" class="badge badge-primary">Status</a>
-                                           
+                                            <a href="javascript:void(0);" *ngIf="v_status == 'open'" class="badge badge-warning">UNPAID</a>
+                                            <a href="javascript:void(0);" *ngIf="v_status == 'paid'" class="badge badge-success">{{v_status}}</a>
                                         </nav>
                                     </div>
                                 </article>
@@ -138,9 +167,9 @@
                                                         <th class="w60">#</th>
                                                         <!-- <th>Prescription Code</th> -->
                                                         <th>Item</th>
-                                                        <th class="w100">Earnings</th>
-                                                        <th class="w100">Deductions</th>
-                                                        <th class="w100 text-right">Total</th>
+                                                        <th class="w100">Rate</th>
+                                                        <th class="w100">Amount</th>
+                                                        <th class="w100 text-right">Total Amount</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody *ngIf="isEmpty !='0'">
@@ -188,7 +217,7 @@
                                                       <td>
                                                           <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                           <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-                                                          <strong class="text-success">{{'50'  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-success">{{charge_amount  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                           <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                       </td>
                                                     </tr>
@@ -218,18 +247,27 @@
                                                 <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                            <form class="form-auth-small m-t-20"  role="form" (ngSubmit)="onPaid(ed)" #ed="ngForm"> 
                                                 <div class="modal-body">             
                                                     <div class="row clearfix">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
+                                                                <label>Payment Method</label>
                                                                 <select class="form-control show-tick" ngModel name="method">
                                                                     <option>--Select Status--</option>
-                                                                    <option value="active">Cash Payment</option>
-                                                                    <option value="suspend">Pay with POS</option>  
-                                                                    <option value="suspend">Pay From Wallet</option> 
-                                                                </select>                  
+                                                                    <option value="cash">Cash Payment</option>
+                                                                    <option value="pos">Pay with POS</option>  
+                                                                    <option value="wallet">Pay From Wallet</option> 
+                                                                </select>                                                         
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label>To Pay</label>
+                                                                  <input type="text" class="form-control" placeholder="Payment" (keyup)="apartTablet($event)" value="{{amountPaid}}" ngModel name="topay" required>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                <label>Balance</label>
+                                                                  <input type="text" disabled class="form-control" placeholder="0" value="{{balanceAmount | currency:'NGN':'symbol-narrow'}}" ngModel required>
+                                                              </div>
                                                         </div>                                                               
                                                     </div>
                                                 </div>                                                

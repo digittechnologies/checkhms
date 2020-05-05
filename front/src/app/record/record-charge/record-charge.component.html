@@ -27,6 +27,8 @@
                               <th>#</th>
                               <th>Item</th>
                               <th>Price</th>
+                              <th>Appointment</th>
+                              <th>Department</th>
                               <th>Status</th>
                               <th>Created Date</th>
                               <th>Created Time</th>
@@ -41,7 +43,9 @@
                                   {{i+1}}
                               </td>                              
                               <td style="color: #17C2D7;">{{c.charge_name}}</td>
-                              <td>{{c.charge_amount  | currency:'NGN':'symbol-narrow'}}</td>                            
+                              <td>{{c.charge_amount  | currency:'NGN':'symbol-narrow'}}</td>  
+                              <td>{{c.appoint_name}}</td> 
+                              <td>{{c.dept_name}}</td>                           
                               <td>
                                   <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
                                   <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
@@ -89,6 +93,7 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
+                    <label>Charge Name</label>
                       <input type="text" class="form-control" placeholder="Charge Name" ngModel name="charge_name" required>
                   </div>
               </div>             
@@ -98,11 +103,47 @@
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">
+                      <label>Charge amount</label>
                       <input type="number" class="form-control" placeholder="Charge Amount" min="1" ngModel name="charge_amount" required>
                   </div>
               </div>             
           </div>
       </div>
+      <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Appointment Type</label>
+                        </div> 
+                        <select class="form-control" ngModel name="appointment_type">
+                            <option>--Appointment_type--</option>                                                    
+                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                
+                                                                                 
+                        </select>
+                    </div>    
+                </div>
+            </div>             
+        </div>
+    </div>
+    <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Department Type</label>
+                        </div> 
+                        <select class="form-control" ngModel name="dept_id">
+                            <option>--Department--</option>                                                    
+                            <option *ngFor="let dp of dept" value="{{dp.id}}">{{dp.name}}</option>                                                                                  
+                        </select>      
+                    </div>    
+                </div>
+            </div>             
+        </div>
+    </div>
       <div class="modal-body">             
           <div class="row clearfix">
               <div class="col-md-8">
@@ -127,7 +168,7 @@
       </div>      
       <div class="modal-footer">
           <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-          <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+          <button type="button" class="btn btn-round btn-default close" data-toggle="modal"  aria-label="Close">Close</button>
       </div>
       </form>
   </div>

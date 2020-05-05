@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Hospital_charges;
 use App\Center_record;
+use App\Departments;
 use App\Branches;
 use App\Appointment_type;
 use App\Appointments;
@@ -20,7 +21,9 @@ class RecordModuleController extends Controller
     public function displayRecordCharges()
     {
         return Hospital_charges::orderBy('id')->join('users','hospital_charges.staff_id','=','users.id')
-                ->select('hospital_charges.*','users.firstname', 'users.lastname')               
+                ->join('appontment_type','hospital_charges.appointment_type','=','appontment_type.id')
+                ->join('departments','hospital_charges.dept_id','=','departments.id')
+                ->select('hospital_charges.*','users.firstname', 'users.lastname', 'departments.name as dept_name', 'appontment_type.name as appoint_name')               
                 ->get();
     }
 
@@ -76,6 +79,19 @@ class RecordModuleController extends Controller
             'branches'=> Centers::orderBy('id')
             ->select('centers.*')     
             ->get()
+         ]);
+    }
+
+    public function displayAppointmentType()
+    {
+        $id= auth('api')->user()->branch_id;
+        
+        return response()->json([          
+           
+            'appointment_type'=> Appointment_type::orderBy('id')
+            ->select('appontment_type.*')     
+            ->get(),
+
          ]);
     }
 
@@ -211,6 +227,30 @@ class RecordModuleController extends Controller
             ->get() 
         );
     }
+
+    public function councelVoucher($cId){
+         
+        $deletec=DB::table('doctor_prescriptions')->where('voucher_id', $cId)->delete();
+        if($deletec){
+
+            $update = DB::table('vouchers')->where('id','=',$cId)->update([
+                'paid_status'=> 'terminate',   
+                'delivery_status'=> 'terminate',
+                'refill_status'=> 'terminate'                  
+            ]);
+
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+
+        }
 
 
     //Appointment
