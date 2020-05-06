@@ -57,20 +57,7 @@
           </div>
           <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit_cat(fm)" #fm="ngForm"> 
           <div class="modal-body">             
-              <div class="row clearfix">
-                  <!-- <div class="col-md-8">
-                      <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Item Name" ngModel name="name" required>
-                      </div>
-                  </div>
-                  <div class="col-md-4">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Box size" ngModel name="box_size" required>
-                      </div>
-                  </div> -->
-                  <!-- <div class="col-lg-12">
-                      <input type="file" class="dropify">
-                  </div> -->
+              <div class="row clearfix">                
                   <div class="col-sm-12">
                     <div class="form-group">
                         <label><span class="hidden-xs">Customer Category</span> </label>
@@ -81,11 +68,7 @@
                         </div>
                         
                     </div>
-                  </div>
-                  <!-- <div class="col-sm-12">
-                      <button type="submit" class="btn btn-primary">Add</button>
-                      <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                  </div> -->
+                  </div>                  
               </div>
               <!-- <input type="text" value="{{patID}}" ngModel name="cust_id" required>  -->
           </div>
@@ -253,7 +236,6 @@
                         </div>
                         <button type="submit" class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
                         <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
-                        <button type="button" disabled *ngIf = "prescription != 'open' " class="btn btn-round btn-primary">Save</button> &nbsp;&nbsp;
                         <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                     </div>
                     </form>
@@ -450,8 +432,9 @@
                             <th></th>    
                             <th><strong>{{cg.charge_name}}</strong></th>                                                                
                                                                             
-                            <th>{{cg.charge_amount | currency:'NGN':'symbol-narrow'}}</th>
-                            <th></th>
+                            <th *ngIf="schemePriceList == 'price_1'">{{cg.charge_amount | currency:'NGN':'symbol-narrow'}}</th>
+                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.charge_amount | currency:'NGN':'symbol-narrow'}}</del></th>
+                            <th></th> 
                             <th></th> 
                             <th></th>   
                         </tr>
@@ -476,7 +459,7 @@
 
                     <!-- <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                     <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp; -->
-                    <button type="button" *ngIf = "invoice == 'unpaid'" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]">Invoice</a></button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp;
                     <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                 </div><br>              

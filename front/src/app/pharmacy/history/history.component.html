@@ -76,7 +76,8 @@
         </div>
     </div>
       <div class="col-lg-12" *ngIf="payloads">
-        <div class="card">
+        <div class="card">         
+
             <div class="header">
                 <h2>{{sBranch}} Center<small>History Table</small></h2>
                 <ul class="header-dropdown dropdown">
@@ -85,9 +86,9 @@
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0);">Action</a></li>
-                            <li><a href="javascript:void(0);">Another Action</a></li>
-                            <li><a href="javascript:void(0);">Something else</a></li>
+                            <li><a (click)="printComponent()">Print</a></li>
+                            <!-- <li><a href="javascript:void(0);">Copy</a></li> -->
+                            <li><a (click)="exportAsXLSX()">Export</a></li>
                         </ul>
                     </li>
                 </ul>

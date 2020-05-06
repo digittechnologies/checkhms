@@ -67,6 +67,8 @@ record_empty:null;
   amountPaid: any;
   balanceAmount: any;
   charge_id: any;
+  v_charges_amount: any;
+  v_discount: any;
 
 
   constructor(
@@ -114,7 +116,7 @@ record_empty:null;
         this.schemeCat = this.pat[0].category_name;
         this.schemeId = this.pat[0].n_h_i_s;
         this.schemePercent = this.pat[0].pacentage_value;
-        this.schemePercentToView = 100 -this.pat[0].pacentage_value;
+        this.schemePercentToView = 100 - this.pat[0].pacentage_value;
         this.schemePriceList = this.pat[0].price_list_column;
         })
      }))
@@ -155,6 +157,8 @@ record_empty:null;
         this.country=this.inv.patient.country
         this.amount=this.inv.totalAmount.amount
         this.v_status=this.inv.voucher_status.paid_status
+        this.v_charges_amount = this.inv.voucher_status.charges
+        this.v_discount = this.inv.voucher_status.discount_id
         this.amountPaid=this.inv.voucher_status.paid
         this.status=this.inv.pres[0].status
         this.pres=this.inv.pres 
@@ -184,11 +188,12 @@ record_empty:null;
         }
         if(parseInt(n.target.value) <= 0 || n.target.value == '' ){
           alert('Invalid')
-          n.target.value = '0';
+          n.target.value = 0;
           this.amountPaid = n.target.value      
 
         }    
           this.balanceAmount = this.amountPaid - n.target.value 
+          this.amountPaid = n.target.value      
       }
       
       
@@ -217,9 +222,9 @@ record_empty:null;
 
       form.value.voucher_Id = this.voucher_Id;  
       form.value.bal = this.balanceAmount;  
-      form.value.chargeID = this.charge_id; 
-      form.value.charge_amt = this.charge_amount;
-      form.value.discount = this.schemePercentToView;
+      // form.value.chargeID = this.charge_id; 
+      form.value.charge_amt = this.v_charges_amount;
+      form.value.discount = this.v_discount;
       if(form.value.topay == '') form.value.topay = this.amountPaid;
       console.log(form.value)
       this.Jarwis.saveToInvoice(form.value).subscribe(

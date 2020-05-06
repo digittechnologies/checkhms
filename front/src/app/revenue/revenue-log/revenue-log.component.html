@@ -53,7 +53,7 @@
                     <ul class="nav nav-tabs2">
                         <li class="nav-item"><a id="vouch" class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Voucher</a></li>
                         <li class="nav-item"><a id="slip" class="nav-link" disabled="true" data-toggle="tab" href="#Payslip">Payment Slip</a></li>       
-                        <li class="nav-item"><a id="label" class="nav-link" disabled="true" data-toggle="tab" href="#label">Label</a></li>                
+                        <li class="nav-item"><a id="label" class="nav-link" disabled="true" data-toggle="tab" href="#plabel">Label</a></li>                
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="EmployeeSalary">
@@ -101,8 +101,8 @@
                                             <td>
                                                 <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
                                                 <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id, 'slip', '#Payslip')"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
-                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#label"><i class="icon-printer"></i> Label</a></button> &nbsp;
-                                                <button type="button" class="btn btn-sm btn-default" title="Label"data-placement="top"><a class="text text-danger" data-toggle="modal" data-target="#cancelPay"  href="#label"><i class="icon-trash"></i> Cancel</a></button>
+                                                <button type="button" class="btn btn-sm btn-default" title="Label" data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#plabel"><i class="icon-printer"></i> Label</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default" title="councle" data-placement="top"><a class="text text-danger" data-toggle="modal" data-target="#cancelPay"  href="#"><i class="icon-trash"></i> Cancel</a></button>
                                             </td>
 
                                             <div class="modal fade" id="cancelPay" tabindex="-1" role="dialog">
@@ -148,13 +148,12 @@
                                     <div class="media-body">
                                         <div class="content">
                                             <span><strong>RX#: </strong> {{voucher_Id}}</span>
-                                            <p class="h5">{{name}} {{othername}}: {{card_number}} <small class="float-right badge badge-primary">{{p_date}}</small></p>
+                                            <p class="h5">{{name}} {{othername}}: {{card_number}} <strong *ngIf="v_status == 'open'" class="float-right badge badge-warning">UNPAID</strong>  <strong *ngIf="v_status == 'paid'" class="float-right badge badge-warning">PAID</strong></p>
                                             <p>{{address}}, {{city}}, {{state}}, {{country}}</p>
                                             <p>{{mobile_no}}</p>
                                         </div>
                                         <nav class="d-flex text-muted">
-                                            <a href="javascript:void(0);" *ngIf="v_status == 'open'" class="badge badge-warning">UNPAID</a>
-                                            <a href="javascript:void(0);" *ngIf="v_status == 'paid'" class="badge badge-success">{{v_status}}</a>
+                                            <a href="javascript:void(0);" class="badge badge-primary">{{p_date}}</a>                                            
                                         </nav>
                                     </div>
                                 </article>
@@ -286,7 +285,7 @@
                         </div>
 
 
-                        <div class="tab-pane" id="label">
+                        <div class="tab-pane" id="plabel">
                             <div class="card">
 
 
