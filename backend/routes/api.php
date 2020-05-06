@@ -176,6 +176,9 @@ Route::post('closeAppointment/{id}/{vid}', 'AddController@closeAppointment');
 Route::post('endappointment','DisplayController@endAppointment');
 Route::get('endappointments','DisplayController@endAppointments');
 Route::post('deptlist','DisplayController@deptList');
+Route::post('editapp','DisplayController@editAppoint');
+Route::post('relocateapp','DisplayController@relocateApp');
+
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
 Route::get('displayPrescription','DisplayController@displayPrescription');

@@ -713,6 +713,24 @@ class DisplayController extends Controller
         ->get();
       return $post;
     }
+    public function editAppoint(Request $request){
+        // return $request->id;
+         return response()->json([
+             'appointment'=> Appointments::join('branches','branches.id', '=', 'appointments.branch_id')->where('appointments.id',$request->id)->select('appointments.*','branches.name')->get(),
+             'centers'    => Appointments::join('branches','appointments.appointment_type','=','branches.clinic_type')->where('appointments.id',$request->id)->where('branches.id','!=',$request->branch)->select('branches.*')->get()
+         ]);
+    }
+    public function relocateApp(Request $request)
+    {
+        // return $request;
+       $relocate = Appointments::where('id',$request->relocate_id)->update(['branch_id'=>$request->editapp]);
+       if ($relocate) {
+         return '{
+                    "success":true,
+                    "message":"successful"
+                }' ;
+       }
+    }
 
     // Prescriptions  
 
