@@ -1,38 +1,38 @@
 <div id="wrapper">
     <div *ngIf = "hms == 'active'">
-        <div *ngIf="department=='Pharmacy'">
+        <div *ngIf="department=='1'">
         <app-pharmacy></app-pharmacy>
         </div>
-    <div *ngIf="department=='Records'">
+    <div *ngIf="department=='16'">
          <app-record></app-record>
         </div>
         <div *ngIf="role=='1001' || role=='2002' || role=='5006' || role=='5007'">
         <app-admin></app-admin>
         </div>
-        <div *ngIf="department=='Clinic'">
+        <div *ngIf="department=='2'">
         <app-clinic></app-clinic>
         </div>   
-        <div *ngIf="department=='Nurse'">
+        <div *ngIf="department=='18'">
         <app-nurse></app-nurse>
         </div>  
-        <div *ngIf="department=='Revenue'">
+        <div *ngIf="department=='11'">
         <app-revenue></app-revenue>
         </div>  
-        <div *ngIf="department=='Radiology'">
+        <div *ngIf="department=='12'">
         <app-radio></app-radio>
         </div>  
-        <div *ngIf="department=='Laboratory'">
+        <div *ngIf="department=='15'">
         <app-lab></app-lab>
         </div>  
-        <div *ngIf="department=='Theater'">
+        <div *ngIf="department=='17'">
         <app-theater></app-theater>
         </div> 
-        <div *ngIf="department=='Ward'">
+        <div *ngIf="department=='19'">
         <app-ward></app-ward>
         </div>   
     </div>
 
-    <div >
+    <div *ngIf="response" >
         <router-outlet name="side"></router-outlet>
   </div>
     

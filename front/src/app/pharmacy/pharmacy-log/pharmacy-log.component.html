@@ -152,18 +152,18 @@
 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor= "let l of log">
     <div class="card c_grid c_yellow">
         <div class="body text-center p-1">
-            <div class="row mb-5 p-3">
+            <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
                 <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
                 <div class="col-5">
-                   <span class="row float-right" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
-                   <span class="row float-right" *ngIf = "l.status == 'checkout'  && dept =='16'"><i class="row fa fa-exclamation text-warning" style="border: grey solid 1px;border-radius: 100%;padding:2px;"></i></span>
-                   <span class="row float-right" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
+                   <span class="row float-right" style="padding-right:5px" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
+                   <span class="row float-right"  *ngIf = "l.status == 'checkout'  && dept =='16'"><i class="row fa fa-exclamation text-warning" style="border: grey solid 1px;border-radius: 100%;padding:2px;"></i></span>
+                   <span class="row float-right" style="padding-right:8px" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
                 </div>
                 <div class="ribbon col-12">
-            <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-             <small  class="text-light"> {{l.status}}</small> 
-            </div>
-            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
+                <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
+                 <small  class="text-light"> {{l.status}}</small> 
+               </div>
+               <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
                 <small  class="text-light"> {{l.status}}</small> 
                </div>
                <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
@@ -183,7 +183,8 @@
             <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
             <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
             <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
-            
+            <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
+            <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
         </ul>
         <hr>Created by<hr>
         <div class="d-flex justify-content-between">
@@ -196,14 +197,6 @@
         <!-- </div> -->
     <!-- </div>
 </div> -->
-
-
-
-
-
-
-
-
             <!-- <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
                 <div class="card c_grid c_yellow">
                     <div class="body text-center">
@@ -249,7 +242,39 @@
               </div>    
         </div>
     </div>
+<!-- Default Size -->
 
+<div class="modal fade" id="transfer" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Relocate Appointment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)=" relocate(locate)" #locate="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <select class="form-control show-tick"  ngModel name="editapp">
+                            <option value="">{{editapp}}</option>
+                            <option *ngFor="let center of editapp_center" value="{{center.id}}">{{center.name}}</option>                               
+                        </select> 
+                        <input type="hidden" [(ngModel)]="relocate_id" name="relocate_id">
+                      </div>
+                  </div>             
+              </div>
+          </div>     
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Relocate<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
 <!-- Default Size -->
 <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
