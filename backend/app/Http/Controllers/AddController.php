@@ -1027,7 +1027,6 @@ public function addCenter(Request $request)
 
     public function changeCategory(Request $request)
     {
-    //    return $request->all();
         $customer= Customers::find($request->cust_id);
 
         $customer->cust_category_id= $request->category_name;
@@ -2473,6 +2472,14 @@ public function addCenter(Request $request)
                     ->select('hospital_charges.*')               
                     ->sum('charge_amount');
 
+        $customeId= Appointments::orderBy('id')->where('id','=',$cid)->select('appointments.customer_id')->get();
+                    $cId= $customeId[0]->customer_id;                   
+        $cust_cat=  Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                            ->select('customer_category.price_list_column')
+                            ->where('customers.id','=',$cId)          
+                            ->first();      
+                       
+
         // FROM DOCTOR PRESCRIPTION        
         $v_qty = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('quantity');
         $r_amount = DB::table('doctor_prescriptions')->where('doctor_prescriptions.appointment_id', '=', $cid)->where('doctor_prescriptions.status', '=', 'save')->where('doctor_prescriptions.branch_id', '=', $branchId)->sum('amount');
@@ -2486,8 +2493,14 @@ public function addCenter(Request $request)
             $discountAmount= (100 - $getDv) / 100 * $v_amount;
 
         // GET AMOUNT PAID;
+
+        if ( $cust_cat->price_list_column == 'price_1') {
+            $amountPaid= $discountAmount + $chargeSum;
+        } else {
+            $amountPaid= $discountAmount;
+            $chargeSum= '0';
+        } 
         
-        $amountPaid= $discountAmount + $chargeSum;
 
         // CREATE VOUCHER
         $create_voucher= Vouchers::insertGetId(

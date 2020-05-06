@@ -129,8 +129,7 @@ export class PatientComponent implements OnInit {
     this.Jarwis.displayDepartments().subscribe(
       data=>{
       this.response = data;
-      this.department = this.response     
-   
+      this.department = this.response        
     })
 
     this.JarwisRecord.displayUser().subscribe( 
