@@ -69,4 +69,14 @@ displayUser() {
   }
 //Appointment type ends
 
+//RECORDS DASHBORAD BEGINS
+  displayRecordData() {
+    return this.http.get(`${this.baseUrl}/displayRecordData`)
+  }
+
+  displayRecordStaffData() {
+    return this.http.get(`${this.baseUrl}/displayRecordStaffData`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 }

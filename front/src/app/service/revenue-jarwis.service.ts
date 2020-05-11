@@ -24,4 +24,15 @@ export class RevenueJarwisService {
   customer_category() {
     return this.http.get<any>(`${this.baseUrl}/customer_category`)
   }
+
+  //REVENUE DASHBOARD
+  displayRevenueData() {
+    return this.http.get(`${this.baseUrl}/displayRevenueData`)
+  }
+
+  displayRevenueStaffData() {
+    return this.http.get(`${this.baseUrl}/displayRevenueStaffData`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 }

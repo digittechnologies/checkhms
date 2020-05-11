@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
-
+declare var $:any;
 @Component({
   selector: 'app-all-staff',
   templateUrl: './all-staff.component.html',
@@ -35,6 +35,7 @@ export class AllStaffComponent implements OnInit {
   lastname: any;
   gender: any;
   email: any;
+  staff_countAll: any;
 
 
   constructor( private Jarwis: JarwisService,
@@ -47,6 +48,7 @@ export class AllStaffComponent implements OnInit {
       data=>{
       this.response = data;
       this.staff = this.response
+     this.staff_countAll = this.staff.countAll
       this.allstaff=this.staff.all
     })
     
@@ -80,6 +82,24 @@ export class AllStaffComponent implements OnInit {
       this.response = data;      
       this.branch = this.response
       })
+      $("#search_staff").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#staff_sea .card").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+      $("#patient").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#search_branch span").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+
+       
+      });
+  }
+  patient(){
+    console.log("hello")
+      
   }
   onChange1(b){
     this.givenDept = b.target.value;

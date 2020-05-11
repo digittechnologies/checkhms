@@ -5,6 +5,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('setupStatus', 'SetupController@setupStatus');
 
 Route::group([
     'middleware' => 'api',
@@ -266,7 +267,6 @@ Route::post('deleteCharge', 'RecordModuleController@deleteCharge');
 Route::post('updateCharge', 'RecordModuleController@updateCharge');  
 
 Route::post('makeAppointment','RecordModuleController@makeAppointment');
-});
 
 // DOctor Module
 Route::get('patient-data/{id}', 'DoctorModule@patientData');
@@ -275,3 +275,15 @@ Route::get('displayAppointment','DoctorModule@displayAppointment');
 //REVENUE RECORD APIS
 Route::get('patientvouchers/{id}','RevenueModuleController@patientVouchers');
 Route::get('councelVoucher/{id}','RecordModuleController@councelVoucher');
+
+//RECORD DASHBOARD
+Route::get('displayRecordData','RecordModuleController@displayRecordData');
+Route::get('displayRecordStaffData','RecordModuleController@displayRecordStaffData');
+
+//REVENUE DASHBOARD 
+Route::get('displayRevenueData','RevenueModuleController@displayRevenueData');
+Route::get('displayRevenueStaffData','RevenueModuleController@displayRevenueStaffData');
+
+});
+
+

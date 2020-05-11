@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
+declare var $:any;
 
 @Component({
   selector: 'app-pharmacy-log',
@@ -55,7 +56,10 @@ export class PharmacyLogComponent implements OnInit {
   editapp: any;
   editapp_center: any;
   editapp_id: any;
+  filterString="";
   relocate_id: any;
+  cat: any;
+  cats: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -99,10 +103,10 @@ export class PharmacyLogComponent implements OnInit {
     this.Jarwis.displayDeptAppointment(this.uBranch).subscribe(
       data=>{
       this.response = data; 
-      this.logs= this.response; 
+      // this.logs= this.response; 
+      this.log=this.response.data;
       // this.pharmCenter = this.response.centerName.name;
       this.pharmCenter = this.uBranch
-      this.log=this.logs.data;
       this.status= this.log.center_status
       if(this.log.length <= 0){
         this.logEmpty = true;
@@ -129,37 +133,52 @@ export class PharmacyLogComponent implements OnInit {
       map(value => this._filter(value))
       
     );
-    // this.get()
+    $("#patient_info").on("keyup", function() {
+     var value = $(this).val().toLowerCase();
+     $("#patient-log .card").filter(function() {
+       $(this).toggle($(this).text().toLowerCase().indexOf   (value) > -1)
+     });
+   });
+    
   }
 
 
   allItem(argument){
     // this.log = false;
-    // this.Jarwis.displayDeptAppointment(argument.target.innerHTML).subscribe(
-    //   data=>{
-    //   this.response = data; 
-    //   this.logs= this.response; 
-    //   // this.pharmCenter = this.response.centerName.name; 
-    //   this.pharmCenter = this.uBranch
-    //   this.log=this.logs;
-    //  if(this.log.length <= 0){
-    //    this.logEmpty = true;
-    //  }
-    // })
+    this.Jarwis.displayDeptAppointment(argument.target.text).subscribe(
+      data=>{
+        this.response = data; 
+        this.logs= this.response; 
+        // this.pharmCenter = this.response.centerName.name;
+        this.pharmCenter = this.uBranch
+        this.log=this.logs.data;
+        this.status= this.log.center_status
+        if(this.log.length <= 0){
+          this.logEmpty = true;
+        }
+    })
   }
-  filt(){
-    let f =this.form.customer
-    var index = this.log.filter(function(card) {
-      return card.customer_id == f;
-    });
-    this.log=index;
-    if (index=='') {
-      this.log=this.logs;
-      this.filres="No appointment for this patient";
-    }
-    // console.log(this.log)
+  // filt(){
+     //onkeyUp search
+   
+   
+   
+  //   let f =this.form.customer
+  //   var index =[];
+
+  //   var index = this.log.filter(function(card) {
+  //     return card.customer_id == f;
+  //   });
+  //   console.log(index)
+  //   this.log=index;
+  //   if (index) {
+  //     this.log=this.logs;
+  //     console.log(this.logs)
+  //     this.filres="No appointment for this patient";
+  //   }
+  //   console.log(this.logs)
         
-      }
+      // }
       editappoint(e,branch_id){
         this.relocate_id = e;
         console.log(e)

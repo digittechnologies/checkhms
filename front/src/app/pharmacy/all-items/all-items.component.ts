@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+declare var $:any
 
 @Component({
   selector: 'app-all-items',
@@ -226,6 +227,12 @@ export class AllItemsComponent implements OnInit {
 
     })
     this.onFilterChange()
+    $("#item_search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#item tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
 }
 onFilterChange() {
   // console.log(event)
