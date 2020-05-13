@@ -162,7 +162,6 @@ public function addCenter(Request $request)
         $branch_id  = $request->branch_id;
         $dept_id = $request->dept_id;
         $status = $request->status;
-        $clinic_type = $request->clinic_type;
         $id = $request->id;
 
         $update = Branches::where('id','=',$id)
@@ -172,7 +171,6 @@ public function addCenter(Request $request)
             'sales_rep'=>$sales_rep,
             'branch_id'=>$branch_id,
             'dept_id'=>$dept_id,
-            'clinic_type'=>$clinic_type,
             'status'=>$status
             ]);
         if($update){
@@ -2742,7 +2740,6 @@ public function addCenter(Request $request)
         // return $request->all();
         $substituteItemFromCenter = true;
         $keepLogAfterSubstitution = true;
-        $itemQuantityStatus = false;
 
         $vid= $request->voucher_Id;
         $v_method= $request->method;
@@ -2750,6 +2747,7 @@ public function addCenter(Request $request)
         $discount = $request->discount;
         $tobalance = $request->bal;
         $paying = $request->topay;
+        $getV2 = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
         //GET DATE AND TIME
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
@@ -2764,186 +2762,164 @@ public function addCenter(Request $request)
         // ->where('doctor_prescriptions.branch_id', '=', $branchId)
         ->get();    
 
-        if($v_method == 'cash') {
-            // <----------UPDTE THE BRANCH SLAES WITH THE QUANTITY OUTPUT START ---------->
-            if($all_item && $substituteItemFromCenter){
-                // Begin Transaction
-                DB::beginTransaction();
+// <----------UPDTE THE BRANCH SLAES WITH THE QUANTITY OUTPUT START ---------->
+        if($all_item && $substituteItemFromCenter){
+            // Begin Transaction
+            DB::beginTransaction();
 
-                //CHECK AND VERIFY QUANTITY OF EACH  ITEMS BEFORE PROCEEDING 
-                foreach($all_item as $row){
-                    $itemQuantityStatus = false;
-                    $item = $row->item_id;
-                    $val = $row->quantity;
-                    $p_date = $row->p_date;
-                    $branchToRemoveItemId = $row->branch_id;
-        
-                    $getBranch = Branches::select('branches.br_name')->where('id', '=', $branchToRemoveItemId)->first();  
-                    $branchName = $getBranch->br_name;
-        
-                    $bitem=DB::table($branchName)
-                    ->select($branchName.'.*', 'item_details.generic_name')
-                    ->join('item_details',$branchName.'.item_detail_id','=','item_details.id')
-                    ->where('item_detail_id','=', $item)
-                    ->where('c_date','=', $p_date)
-                    ->first();
-                    $sales = $bitem->sales + $val;
-                    $balance = $bitem->transfer + $sales;
-                    $remain =  $bitem->open_stock + $bitem->receive - $balance;
-                    $physical = $remain - $bitem->variance;
-                    $checkQuotation = $bitem->total_remain - $val;
-                    if($checkQuotation < 0){
-                        return response()->json(
-                            [    
-                                "success" => "false",
-                                "message" =>"Insufficient item quantity of ".strtoupper($bitem->generic_name),
-                            ]);
-                    } else {
-                        $itemQuantityStatus = true;        
-                    }
-                }
-                //IF ALL ITEM QUANTITY IS VERIFIED PROCEED TO UPDATE CENTER INVENTORY
-                if($itemQuantityStatus){
-                    foreach($all_item as $row){
-                        $item = $row->item_id;
-                        $val = $row->quantity;
-                        $p_date = $row->p_date;
-                        $branchToRemoveItemId = $row->branch_id;
-            
-                        $getBranch = Branches::select('branches.br_name')->where('id', '=', $branchToRemoveItemId)->first();  
-                        $branchName = $getBranch->br_name;
-            
-                        $bitem=DB::table($branchName)
-                        ->select($branchName.'.*', 'item_details.generic_name')
-                        ->join('item_details',$branchName.'.item_detail_id','=','item_details.id')
-                        ->where('item_detail_id','=', $item)
-                        ->where('c_date','=', $p_date)
-                        ->first();
-                        $sales = $bitem->sales + $val;
-                        $balance = $bitem->transfer + $sales;
-                        $remain =  $bitem->open_stock + $bitem->receive - $balance;
-                        $physical = $remain - $bitem->variance;
-                        $updateItemInCenter=DB::table($branchName)
+            foreach($all_item as $row){
+                $item = $row->item_id;
+                $val = $row->quantity;
+                $p_date = $row->p_date;
+                $branchToRemoveItemId = $row->branch_id;
+                $amountToPaid = $row->amount_paid;
+    
+                $getBranch = Branches::select('branches.br_name')->where('id', '=', $branchToRemoveItemId)->first();  
+                $branchName = $getBranch->br_name;
+    
+                $bitem=DB::table($branchName)
+                ->select($branchName.'.*', 'item_details.generic_name')
+                ->join('item_details',$branchName.'.item_detail_id','=','item_details.id')
+                ->where('item_detail_id','=', $item)
+                ->where('c_date','=', $p_date)
+                ->first();
+                $sales = $bitem->sales + $val;
+                $balance = $bitem->transfer + $sales;
+                $remain =  $bitem->open_stock + $bitem->receive - $balance;
+                $physical = $remain - $bitem->variance;
+                $amount_v = $bitem->amount + $amountToPaid;
+                
+                $checkQuotation = $bitem->total_remain - $val;
+                if($checkQuotation < 0){
+                    return '{
+                        "success":false,
+                        "message":'.$bitem->generic_name.'" Insufficient item quantity"
+                    }' ;    
+                } else {
+                    $updateItemInCenter=DB::table($branchName)
                         ->where([
                             'item_detail_id' => $item,
                             'c_date' => $cDate,
                             ])
+                    
                         ->update([
                         'sales' => $sales,
                         'total_remain' => $remain,
                         'balance' => $balance,
                         'physical_balance' => $physical,
-                        ]);
+                        'amount'=> $amount_v,
+                        ]);  
+
+                        
                     }
-                    return '{
-                        "success":true,
-                        "message":"Testing"
-                    }' ;
+
                 }
+            // Commit Transaction
+            DB::commit();
+            $substituteItemFromCenter = false;
+        } else if($substituteItemFromCenter) {
+            // Rollback Transaction ON ANY ERROR
+            DB::rollBack();
+            return '{
+                "success":false,
+                "message":"An error ocuur please try again!"
+            }' ;
+        }
+// <----------UPDTE THE BRANCH SALES WITH THE QUANTITY OUTPUT END ---------->
+
+
+// <----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN START---------->
+        if($updateItemInCenter && $keepLogAfterSubstitution){
+            // Begin Transaction
+            DB::beginTransaction();
+
+            //GET VOUCHER DATA OF THE PATIENT AND GENERATE INVOICE FROM IT WITH THE PAYLOADS GET FROM REQUEST HEADER
+            $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
+            $refill= $getV->refill_status;
+            if($refill == 'refillable'){
+                $success = 'refill';
+            } else {
+                $success = 'success';
+            }
+            if($v_method == 'cash') {
+                $insertInvoice = DB::table('invoices')->insertGetId([
+                    'amount' => $getV->amount,
+                    'paid' => $paying,
+                    'balance' => $tobalance,
+                    'discount' => $discount,
+                    'service_charge' => $charge_amount,
+                    'other_charges' => 0,
+                    'status' => 'paid',
+                    'delivery_status' => 'delivered',
+                    // 'pharm_branch_id' => $getV2->branch_id,
+                    'branch_id' => $branchId,
+                    'staff_id' => $pharmacistId,
+                    'voucher_id' => $vid,
+                    'i_date' => $cDate,
+                    'i_time' => $cTime,
+                    'graph_date' => date("Y-m"),
+                    'payment_method' => $v_method,
+                ]);   
+                
+                //UPDATE VOUCHER AND ADD THE INVOICE ID OF THE OBJECT TO THE RETURNED INVOICE ID ABOVE
+                $updateVoucher = DB::table('vouchers')->where('id', $vid)
+                ->update([
+                    'paid_status' => 'paid',
+                    'invoice_id' => $insertInvoice,
+                    'balance' => $tobalance,
+                ]);
+                
+                //GET PRESCRIPTIONS DATA AND UPDATE THEM 
+                $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
+                        ->where('doctor_prescriptions.voucher_id', '=', $vid)
+                        // ->where('doctor_prescriptions.branch_id', '=', $branchId)
+                        ->get();
+                        foreach($get as $row){
+                            $getId = $row->id;
+                            $updateDoctorPrescription = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                            ->update([
+                                'status' => 'paid',
+                            ]);
+                        }
+
+                        //GET BACK THE PATIENT ID FROM THE PRESCRIPTIONS TABLE UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
+                        $voucherPaid = DB::table('vouchers')->where('appointment_id', $getV->appointment_id)->where('paid_status', '=', 'open')->count();
+
+                        if ($voucherPaid == 0) {
+                            
+                            $getPres = DB::table('doctor_prescriptions')->select('doctor_prescriptions.customer_id')->where('voucher_id', $vid)->first();
+                             $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
+                                        ->where('appointments.id', '=', $getV->appointment_id)
+                                        ->update([                                           
+                                            'pharm_status' => 'full-payment',
+                                        ]);
+                        } else {
+                            $getPres = DB::table('doctor_prescriptions')->select('doctor_prescriptions.customer_id')->where('voucher_id', $vid)->first();
+                            $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
+                                       ->where('appointments.id', '=', $getV->appointment_id)
+                                       ->update([                                           
+                                           'pharm_status' => 'part-payment',
+                                       ]);
+                        }                       
+
+                
                 // Commit Transaction
                 DB::commit();
-                $substituteItemFromCenter = false;
-            } else if($substituteItemFromCenter) {
-                // Rollback Transaction ON ANY ERROR
-                DB::rollBack();
                 return '{
-                    "success":"false",
-                    "message":"An error ocuur please try again!"
+                    "success":true,
+                    "message":"successful"
                 }' ;
-            }
-            //<----------UPDATE THE BRANCH SALES WITH THE QUANTITY OUTPUT END ---------->
-
-
-            //<----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN START---------->
-            if($keepLogAfterSubstitution){
-                // Begin Transaction
-                DB::beginTransaction();
-
-                //GET VOUCHER DATA OF THE PATIENT AND GENERATE INVOICE FROM IT WITH THE PAYLOADS GET FROM REQUEST HEADER
-                $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
-                $refill= $getV->refill_status;
-                if($refill == 'refillable'){
-                    $success = 'refill';
-                } else {
-                    $success = 'success';
-                }
-                if($v_method == 'cash') {
-                    $insertInvoice = DB::table('invoices')->insertGetId([
-                        'amount' => $getV->amount,
-                        'paid' => $paying,
-                        'balance' => $tobalance,
-                        'discount' => $discount,
-                        'service_charge' => $charge_amount,
-                        'other_charges' => 0,
-                        'status' => 'paid',
-                        'delivery_status' => 'delivered',
-                        'branch_id' => $branchId,
-                        'staff_id' => $pharmacistId,
-                        'voucher_id' => $vid,
-                        'i_date' => $cDate,
-                        'i_time' => $cTime,
-                        'graph_date' => date("Y-m"),
-                        'payment_method' => $v_method,
-                    ]);   
-                    
-                    //UPDATE VOUCHER AND ADD THE INVOICE ID OF THE OBJECT TO THE RETURNED INVOICE ID ABOVE
-                    $updateVoucher = DB::table('vouchers')->where('id', $vid)
-                    ->update([
-                        'paid_status' => 'paid',
-                        'invoice_id' => $insertInvoice,
-                        'balance' => $tobalance,
-                    ]);
-                    
-                    //GET PRESCRIPTIONS DATA AND UPDATE THEM 
-                    $get =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
-                            ->where('doctor_prescriptions.voucher_id', '=', $vid)
-                            // ->where('doctor_prescriptions.branch_id', '=', $branchId)
-                            ->get();
-                            foreach($get as $row){
-                                $getId = $row->id;
-                                $updateDoctorPrescription = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-                                ->update([
-                                    'status' => 'paid',
-                                ]);
-                            }
-
-                    //GET BACK THE PATIENT ID FROM THE PRESCRIPTIONS TABLE UPDATE THE APPOINTMENT TABLE OF THAT PATIENT AND CHANGE IT INVOICE TO PAID
-                    $getPres = DB::table('doctor_prescriptions')->select('doctor_prescriptions.customer_id')->where('voucher_id', $vid)->first();
-                    $updateAppointment = DB::table('appointments')->where('appointments.customer_id', $getPres->customer_id)
-                                            ->where('appointments.id', '=', $getV->appointment_id)
-                                            ->update([
-                                                // 'invoice' => 'paid',
-                                                // 'voucher' => $success,
-                                                // 'prescription' => 'success',
-                                                // 'treatment' => 'success',
-                                                // 'status' => 'close',
-                                                'pharm_status' => 'paid',
-                                            ]);
-                    // Commit Transaction
-                    DB::commit();
-                    return '{
-                        "success":true,
-                        "message":"Transaction Completed"
-                    }' ;
-                    $keepLogAfterSubstitution = false;
-                } else if($keepLogAfterSubstitution) {
-                    // Rollback Transaction
-                    DB::rollBack();
-                    return '{
-                        "success":"false",
-                        "message":"An error ocuur please try again!"
-                    }' ;
-                }
-            }
-        //<----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN END---------->
-        } else {
+                $keepLogAfterSubstitution = false;
+            } else if($keepLogAfterSubstitution) {
                 // Rollback Transaction
                 DB::rollBack();
                 return '{
-                    "success": "false",
-                    "message":"Payment Method is Unavailable"
-                }';
+                    "success":false,
+                    "message":"An error ocuur please try again!"
+                }' ;
             }
+        }
+//<----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN END---------->
     }
 
     public function closeAppointment($pid,$vid)

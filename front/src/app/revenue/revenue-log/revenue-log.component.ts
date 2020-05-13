@@ -6,7 +6,7 @@ import { RevenueJarwisService } from 'src/app/service/revenue-jarwis.service';
 import { MatSnackBar } from '@angular/material';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
 
-
+declare let $ : any;
 @Component({
   selector: 'app-revenue-log',
   templateUrl: './revenue-log.component.html',
@@ -69,6 +69,9 @@ record_empty:null;
   charge_id: any;
   v_charges_amount: any;
   v_discount: any;
+  setting: any;
+  logo: any;
+  result: any;
 
 
   constructor(
@@ -80,6 +83,12 @@ record_empty:null;
     ) { }
 
   ngOnInit() {
+    this.Jarwis.general_setting().subscribe(
+      data=>{
+      this.setting = data;  
+      this.logo= this.setting.logo;   
+      //  console.log(this.logo)
+      })
 
     this.paymentForm = this.formBuilder.group(     
       {
@@ -231,6 +240,64 @@ record_empty:null;
         error => this.handleError(error),  
       ); 
     }
+
+    openPrintDialogue(label){
+  
+      let arr = [];
+        let obj = this.inv.pres;
+        for(const key of obj){
+          if(key.id == label){
+            this.result = key
+            break;
+          }
+        }
+       
+        arr.push(this.result)
+            $('<iframe>', {
+              name: 'myiframe',
+              class: 'printFrame'
+            })
+            .appendTo('body')
+            .contents().find('body')
+            .append(`  
+                    <table >
+                    <thead>
+                        <th colspan="6" class="text-center">
+                            <p style="font-size: 8px">${this.setting.company_name}</p>
+                            <p style="margin-top: -5px; font-size: 7px; margin-bottom: -5px;">Pharmacy Department.</p>
+                            <hr>
+                        </th>             
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6"> 
+                                <p style="font-size: 10px;  margin-top: -10px; text-align: center;"> <strong>${arr[0].generic_name} TAB</strong> : <small class="float-right">QTY:${arr[0].quantity}</small></p>
+                                <p style="font-size: 9px; margin-top: -7px; text-align: center;">USE ${arr[0].duration_name}, ${arr[0].daily_name}. FOR: ${arr[0].days} DAY(S).</p>
+                                <p style="font-size: 6px; margin-top: -2px; margin-bottom: -5px;"> <strong>Caution:</strong> <small class="float-right">${arr[0].caution}</small></p>
+                               
+                                <hr>
+                            </td>                        
+                        </tr>
+                        <tr >
+                            <td colspan="2"  style="text-align: center;">
+                                <p style="font-size: 8px; margin-top: -20px;" class="m-b-0"><strong>${arr[0].doctor_id}</strong></p>                               
+                                <p style="margin-top: -9px; font-size: 7px">Physician</p>                            
+                            </td>
+                            <td  colspan="2" style="padding-top:20px;">                            
+                            </td>
+                            <td colspan="2"  style="text-align: center;">
+                                <p style="font-size: 8px;  margin-top: -20px;" class="m-b-0"><strong>${arr[0].firstname} ${arr[0].lastname}</strong></p>                               
+                                <p style="font-size: 7px; margin-top: -9px; " >Pharmacist</p>                            
+                            </td>
+                        </tr>                       
+                    </tbody>
+                    </table>
+            `);
+            window.frames['myiframe'].focus();
+            window.frames['myiframe'].print();
+            arr=[];
+            setTimeout(() => { $(".printFrame").remove(); }, 10);
+      };
 
     handleResponse(data) {   
       console.log(data)

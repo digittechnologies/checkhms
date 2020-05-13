@@ -407,8 +407,9 @@ class DisplayController extends Controller
            ->first(), 
            'itemAmount'=>DB::table('invoices')->select('paid')
            ->where ('i_date', '=', $cDate)
-           ->where('branch_id', '=', $bid)
+           ->where('pharm_branch_id', '=', $bid)
             ->sum('paid'),
+
            
         ]);
     }
@@ -597,10 +598,10 @@ class DisplayController extends Controller
         ->where('id', $branchId)
         ->orWhere('name', $branchId)
         ->first();  
-        $branchId = $branch->id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
-        $cTime = $dt->format('h:i:s A'); 
+        $cTime = $dt->format('h:i:s A');
+
         if (Auth()->user()->dept_id == '1') {
            $center = 'pharm_id';
            $center_status = 'pharm_status';
@@ -1196,8 +1197,7 @@ class DisplayController extends Controller
             ->where('branches.id',$id)->select('users.*')->get(),
     
         'center'=> DB::table('centers')->select('centers.*')->get(), 
-        'department'=> DB::table('departments')->select('departments.*')->get(),
-        'clinic_type'=>DB::table('appontment_type')->select('id','name')->get()
+        'department'=> DB::table('departments')->select('departments.*')->get()
 ]; 
      }
 
@@ -1511,7 +1511,7 @@ class DisplayController extends Controller
     public function displayPharStaffDashInvoice()
     {
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.name')->where(['status' => 'active', 'id' => $id])->first();
+        $get = DB::table("branches")->select('branches.name')->where(['status' => 'active', 'branches.dept_id' => '1', 'id' => $id])->first();
         $branch = $get->name;
 
         $array = array();
@@ -1690,7 +1690,7 @@ class DisplayController extends Controller
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
-            'appointment_type' =>  DB::table('appontment_type')->get(),
+            // 'appointment_type' =>  DB::table('appontment_type')->get()
             'center'=> DB::table('centers')->select('centers.*')->get(), 
             // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);
