@@ -1,4 +1,4 @@
-<div id="main-content">
+<!-- <div id="main-content">
   <div class="container-fluid">
       <div class="block-header">
           <div class="row clearfix">
@@ -53,11 +53,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-6 m-t-30">
+                            <div class="col-lg-2 col-md-2 col-sm-6 m-t-30"> -->
                                 <!-- <button class="buttonload" *ngIf="spin=='disable'" type="submit" class="btn btn-primary">
                                     <i class="fa fa-spinner fa-spin"></i>Search
                                   </button> -->
-                                <button type="submit" class="btn btn-primary">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                <!-- <button type="submit" class="btn btn-primary">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                             
                             </div>
                         </div>
@@ -83,16 +83,16 @@
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                         <ul class="dropdown-menu">
-                            <li><a (click)="printComponent()">Print</a></li>
+                            <li><a (click)="printComponent()">Print</a></li> -->
                             <!-- <li><a href="javascript:void(0);">Copy</a></li> -->
-                            <li><a (click)="exportAsXLSX()">Export</a></li>
+                            <!-- <li><a (click)="exportAsXLSX()">Export</a></li>
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div> -->
             
             <!-- Sales -->
-            <div class="body">
+            <!-- <div class="body">
                 <div class="table-responsive" id="print-history">
                     <div>
                         <h5 class="text-center">Bowen University Teaching Hospital Ogbomoso</h5>
@@ -112,10 +112,10 @@
                                 <th>Close Balance</th>
                                 <th>Variance</th>
                                 <th>Physical Balance</th>
-                                <th>Rate</th>
+                                <th>Rate</th> -->
                                 <!-- <th>Price 2 (GORAH)</th>
                                 <th>Price 3 (NHIS)</th> -->
-                                <th>Amount</th>
+                                <!-- <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,14 +146,14 @@
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price | currency:'NGN':'symbol-narrow'}}</span>                                                    
-                                </td>
+                                </td> -->
                                 <!-- <td>
                                     <span class="badge badge-warning">{{item.price_2 | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                                 <td>
                                         <span class="badge badge-info">{{item.price_3 | currency:'NGN':'symbol-narrow'}}</span>
                                     </td> -->
-                                <td>
+                                <!-- <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
                                     <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.sales | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
@@ -173,9 +173,9 @@
                             </div>                            
                         </tbody>
                     </table>
-                </div>
+                </div> -->
                 <!-- <button (click)="printComponent()">Print</button> -->
-            </div>            
+            <!-- </div>            
         </div>
     </div>
 
@@ -190,15 +190,15 @@
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                             <ul class="dropdown-menu">
                                 <li><a (click)="printComponent()">Print</a></li>
-                                <!-- <li><a href="javascript:void(0);">Copy</a></li> -->
+                                <li><a href="javascript:void(0);">Copy</a></li> 
                                 <li><a (click)="exportAsXLSX()">Export</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 
-                <!-- Sales -->
-                <div class="body">
+                 Sales -->
+                <!-- <div class="body">
                     <div class="table-responsive" id="print-history">
                         <div>
                             <h5 class="text-center">Bowen University Teaching Hospital Ogbomoso</h5>
@@ -230,4 +230,4 @@
         </div>
         
   </div>
-</div>
+</div> -->

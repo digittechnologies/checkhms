@@ -66,7 +66,9 @@ export class SetBranchComponent implements OnInit {
   clinic_tpes: any;
   clinic_types: any;
   br_search: string;
-  
+  deptName:any;
+  deptid:any;
+  deptDescrip:any;
 
   constructor( 
     private Jarwis: JarwisService,

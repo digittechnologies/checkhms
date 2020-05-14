@@ -422,6 +422,14 @@ onDelete(id: string) {
     );
   }
 
+  onSubmitReturns(form: NgForm) {
+    // this.disabled = true;
+    // this.Jarwis.transToStock(form.value).subscribe(
+    //   data => this.handleResponse(data),
+    //   error => this.handleError(error),  
+    // );
+  }
+
   onSaveTrans() {
     this.disabled = true;
     this.Jarwis.saveTransfer().subscribe(

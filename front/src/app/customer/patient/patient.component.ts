@@ -35,7 +35,7 @@ export class PatientComponent implements OnInit {
   spin: string;
   searchResponse: any;
   patient: any;
-  show: boolean;
+  show: any;
   pAppointment: any;
   eName: any;
   eOthername: any;
