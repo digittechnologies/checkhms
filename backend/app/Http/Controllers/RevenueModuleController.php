@@ -52,6 +52,7 @@ return response()->json([
         return response()->json([
             'allPatients'=> Customers::count(),
             "income" => DB::table('invoices')->sum('paid'),
+            "balance" => DB::table('invoices')->sum('balance'),
             // "databaseSize" => DB::select(DB::statement(
             //     'SELECT table_schema "database", sum(data_length + index_length)/1024/1024/1024 "size in GB" FROM information_schema.TABLES WHERE table_schema="buth_pharmacy" GROUP BY table_schema'
             //     // 'SELECT table_schema "database", sum(data_length + index_length)/1024/1024 "size in MB" FROM information_schema.TABLES GROUP BY table_schema'
@@ -66,6 +67,7 @@ return response()->json([
         return response()->json([
             'allPatients'=> Customers::count(),
             "income" => DB::table('invoices')->where('branch_id', '=', $id)->sum('paid'),
+            "balance" => DB::table('invoices')->where('branch_id', '=', $id)->sum('balance'),
         ]);
     }
 }

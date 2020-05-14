@@ -35,6 +35,10 @@ export class HistoryComponent implements OnInit {
   hAction: any;
   adds: any;
   appt: any;
+  profile: any;
+  roleID: any;
+  deptID: any;
+  vouch: any;
   constructor( 
     private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -58,6 +62,13 @@ export class HistoryComponent implements OnInit {
       this.branch = this.response
       })  
       
+      this.Jarwis.profile().subscribe(
+        data=>{
+        this.response = data;
+        this.profile = this.response.det[0];
+        this.roleID = this.profile.role_id
+        this.deptID = this.profile.dept_id
+      })
   }
 
   onClickSubmit(form: NgForm) {
@@ -73,6 +84,7 @@ export class HistoryComponent implements OnInit {
         this.transTo = this.payloads.transTo;
         this.vari = this.payloads.vari;
         this.appt = this.payloads.appt;
+        this.vouch = this.payloads.voucher;
         this.sBranch = this.payloads.bran.toUpperCase();
         this.sDate = this.payloads.date[0];
         this.eDate = this.payloads.date[1];

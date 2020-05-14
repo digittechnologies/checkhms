@@ -908,9 +908,9 @@
                                                                 <table class="table header-border table-hover table-custom spacing5">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Depertment</th>
-                                                                            <th>Lab</th>
-                                                                            <th>Treatment</th>
+                                                                            <th>Branch</th>
+                                                                            <th>Pharmacy</th>
+                                                                            <th>Clinic</th>                                                                           
                                                                             <th>Prescription</th>
                                                                             <th>Invoice</th>
                                                                             <th>Voucher</th>
@@ -925,19 +925,21 @@
                                                             <tr *ngFor="let a of pAppointment; let n =index">
                                                                 <td>{{a.dept_name}}</td>
                                                                 <td>
-                                            
-                                                                    <span class="badge badge-danger" *ngIf ="a.lab=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.lab=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'invoice'">Invoice</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.lab=== 'open'">Open</span>  
-                                                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'close'">close</span>                                                                               
-                                                                </td>
+                                                                    <span class="badge badge-danger" *ngIf ="a.phar_status=== 'to-balance'">Balance</span>
+                                                                    <span class="badge badge-danger" *ngIf ="a.phar_status=== 'part-payment'">Terminated</span>
+                                                                    <span class="badge badge-success" *ngIf ="a.phar_status=== 'full-paymant'">Success</span>
+                                                                    <span class="badge badge-primary" *ngIf ="a.phar_status=== 'open'">Open</span> 
+                                                                    <span class="badge badge-warning" *ngIf ="a.phar_status=== 'close'">close</span>                                                                           
+                                                            </td>
                                                                 <td>
-                                                                        <span class="badge badge-danger" *ngIf ="a.treatment=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.treatment=== 'success'">Success</span>
-                                                                        <span class="badge badge-primary" *ngIf ="a.treatment=== 'open'">Open</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.treatment=== 'close'">close</span>                                                                           
+                                            
+                                                                    <!-- <span class="badge badge-danger" *ngIf ="a.clinic_status=== 'terminated'">Terminated</span>
+                                                                        <span class="badge badge-success" *ngIf ="a.clinic_status=== 'success'">Success</span> 
+                                                                        <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'invoice'">Invoice</span>  -->
+                                                                        <span class="badge badge-primary" *ngIf ="a.clinic_status=== 'open'">Open</span>  
+                                                                        <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'close'">close</span>                                                                               
                                                                 </td>
+                                                               
                                                                 <td>                                      
                                                                         <span class="badge badge-danger" *ngIf ="a.prescription=== 'terminated'">Terminated</span>
                                                                         <span class="badge badge-success" *ngIf ="a.prescription=== 'success'">Success</span> 

@@ -79,4 +79,10 @@ displayUser() {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  displayRecordPieData() {
+    return this.http.get(`${this.baseUrl}/displayRecordPieData`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 }

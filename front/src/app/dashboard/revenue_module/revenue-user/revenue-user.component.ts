@@ -23,6 +23,7 @@ export class RevenueUserComponent implements OnInit {
   patients: any;
   total_income: any;
   dashboardDataInv: any;
+  total_balance: any;
 
   constructor(
     private RevenueJarwis: RevenueJarwisService,
@@ -52,6 +53,7 @@ export class RevenueUserComponent implements OnInit {
       this.recordData = this.response;
       this.patients = this.recordData.allPatients;
       this.total_income = this.recordData.income;
+      this.total_balance = this.recordData.balance;
     })
 
     this.Jarwis.displayPharStaffDashInvoice('').subscribe (

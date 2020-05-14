@@ -582,8 +582,8 @@ class DisplayController extends Controller
         $cTime = $dt->format('h:i:s A');
         return Appointments::orderBy('appointments.id', 'DESC')->join('departments','appointments.department_id','=','departments.id')
                 ->join('customers','appointments.customer_id','=','customers.id')
-                ->select('appointments.treatment','customers.name as pat_name', 'customers.othername','customers.card_number','appointments.lab','appointments.prescription','appointments.invoice','appointments.voucher','appointments.status','appointments.updated_at','appointments.created_at','appointments.date','appointments.time','appointments.customer_id','appointments.department_id','appointments.voucher_id','appointments.branch_id','departments.name as dept_name','customers.patient_image')               
-                ->where('appointments.date', $cDate)
+                ->select('appointments.treatment','customers.name as pat_name', 'customers.othername','customers.card_number','appointments.lab','appointments.prescription','appointments.invoice','appointments.voucher','appointments.status','appointments.updated_at','appointments.created_at','appointments.a_date','appointments.time','appointments.customer_id','appointments.department_id','appointments.voucher_id','appointments.branch_id','departments.name as dept_name','customers.patient_image')               
+                ->where('appointments.a_date', $cDate)
                 ->get();
     }
     public function displayDeptAppointment($branchId)
@@ -1412,7 +1412,20 @@ class DisplayController extends Controller
                 ->join('customers','appointments.customer_id','=','customers.id')
                 ->select('appointments.treatment','customers.name as pat_name', 'customers.othername','customers.card_number','appointments.lab','appointments.prescription','appointments.invoice','appointments.voucher','appointments.status','appointments.updated_at','appointments.created_at','appointments.date','appointments.time','appointments.customer_id','appointments.department_id','appointments.voucher_id','appointments.branch_id','departments.name as dept_name','customers.patient_image')               
                 ->where('appointments.branch_id','=',$branch->id)
-                ->whereIn('appointments.date', $dateRange)
+                ->whereIn('appointments.a_date', $dateRange)
+                ->get(),
+                'bran'=> $branch->name,
+                'action' => $action,
+                'date'=> [$sDate, $eDate] 
+            ]);
+        }
+        if($action == 'vouchers'){
+                return response()->json([
+                'voucher'=> Vouchers::orderBy('id')->join('branches', 'vouchers.branch_id', '=', 'branches.id')
+                ->join('departments', 'branches.dept_id', '=', 'departments.id')
+                ->select('vouchers.*', 'departments.name as d_name', 'branches.name as br_name')
+                ->where('vouchers.revenue_branch_id','=',$branch->id)
+                ->whereIn('vouchers.v_date', $dateRange)
                 ->get(),
                 'bran'=> $branch->name,
                 'action' => $action,

@@ -195,14 +195,14 @@ record_empty:null;
           this.amountPaid = n.target.value      
 
         }
-        if(parseInt(n.target.value) <= 0 || n.target.value == '' ){
+        if(parseInt(n.target.value) < 0 ){
           alert('Invalid')
           n.target.value = 0;
-          this.amountPaid = n.target.value      
+          // this.amountPaid = n.target.value      
 
         }    
           this.balanceAmount = this.amountPaid - n.target.value 
-          this.amountPaid = n.target.value      
+          // this.amountPaid = n.target.value      
       }
       
       
@@ -301,19 +301,21 @@ record_empty:null;
 
     handleResponse(data) {   
       console.log(data)
-      if (data.success == 'false') {
+      if (data.success == false) {
         let snackBarRef = this.snackBar.open(data.message, 'Dismiss', {
           duration: 5000
         })
+        this.ngOnInit();
       } 
       if(data.success == true) {
         let snackBarRef = this.snackBar.open("Payment Successfull ", 'Dismiss', {
           duration: 5000
-        })        
+        }) 
+        this.ngOnInit();       
       }
         
       // this.router.navigateByUrl('/Admin/(side:catacturer');
-      this.ngOnInit();
+      // this.ngOnInit();
       this.disabled = false;
     }
   

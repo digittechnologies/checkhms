@@ -279,6 +279,7 @@ Route::get('councelVoucher/{id}','RecordModuleController@councelVoucher');
 //RECORD DASHBOARD
 Route::get('displayRecordData','RecordModuleController@displayRecordData');
 Route::get('displayRecordStaffData','RecordModuleController@displayRecordStaffData');
+Route::get('displayRecordPieData','RecordModuleController@displayRecordPieData');
 
 //REVENUE DASHBOARD 
 Route::get('displayRevenueData','RevenueModuleController@displayRevenueData');
