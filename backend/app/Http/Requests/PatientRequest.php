@@ -38,7 +38,7 @@ class PatientRequest extends FormRequest
             // 'allergy', 
             // 'cust_category_id',
             // 'n_h_i_s', 
-            'card_number' => 'required', 
+            'card_number',
             'status' => 'required', 
             // 'age',
             'type' => 'required', 

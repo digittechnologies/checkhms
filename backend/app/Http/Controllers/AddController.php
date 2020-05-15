@@ -980,10 +980,10 @@ public function addCenter(Request $request)
         $customer= Customers::create($request-> all());
        
         if($customer){
-           $wallet = DB::table('wallets')->insert([
-                'name'=>$customer->name,
-                'user_id'=>$customer->id, 
-            ]);
+        //    $wallet = DB::table('wallets')->insert([
+        //         'name'=>$customer->name,
+        //         'user_id'=>$customer->id, 
+        //     ]);
             return '{
                 "success":true,
                 "message":"successful"

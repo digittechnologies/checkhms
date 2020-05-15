@@ -91,6 +91,7 @@ export class AddPatientComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     form.value.age = this.age;
+    form.value.card_number = this.hostitalNum
     this.disabled = true;
      this.Jarwis.addCustomer(form.value).subscribe(
        data => this.handleResponse(data),

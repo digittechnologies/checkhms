@@ -142,7 +142,8 @@
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="form-group">
                                                             <label class="fancy-radio custom-color-green">Hospital Number</label>
-                                                            <input type="number" min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                            <input type="number" readonly min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                            <input type="hidden" min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
                                                             <div class="text-danger" [hidden]="!eCard_number">
                                                                 {{eCard_number}}
                                                             </div>
