@@ -33,6 +33,9 @@ exportAsConfig: ExportAsConfig = {
   sDate: any;
   eDate: any;
   itemType: any;
+  profile: any;
+  roleID: any;
+  deptID: any;
 constructor( 
   private exportAsService: ExportAsService,
     private Jarwis: JarwisService,
@@ -54,6 +57,14 @@ constructor(
       this.response = data;      
       this.bran = this.response   
     }) 
+    
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.profile = this.response.det[0];
+      this.roleID = this.profile.role_id
+      this.deptID = this.profile.dept_id
+    })
   }
 
   get(){

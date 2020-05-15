@@ -105,8 +105,7 @@ export class PharmacyLogComponent implements OnInit {
       this.response = data; 
       // this.logs= this.response; 
       this.log=this.response.data;
-      // this.pharmCenter = this.response.centerName.name;
-      this.pharmCenter = this.uBranch
+      this.pharmCenter = this.response.bName;
       this.status= this.log.center_status
       if(this.log.length <= 0){
         this.logEmpty = true;
@@ -149,8 +148,7 @@ export class PharmacyLogComponent implements OnInit {
       data=>{
         this.response = data; 
         this.logs= this.response; 
-        // this.pharmCenter = this.response.centerName.name;
-        this.pharmCenter = this.uBranch
+        this.pharmCenter = this.response.bName;
         this.log=this.logs.data;
         this.status= this.log.center_status
         if(this.log.length <= 0){

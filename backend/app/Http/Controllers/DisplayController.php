@@ -550,6 +550,27 @@ class DisplayController extends Controller
             );
     }
 
+    public function getpatientdetails($id)
+    {
+        return response()->json(Customers::where('id','=',$id)->get());
+    }
+
+    public function verifyInvoice($id)
+    {
+        $checkInvoice = DB::table('invoices')->where('id', '=', $id)->get();
+        if($checkInvoice->isEmpty()){
+            return '{
+                "success":false,
+                "message":"failed"
+            }';
+        } else{
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        }
+    }
+
     public function customer_category()
     {
         return DB::table("customer_category")->get();
@@ -593,7 +614,7 @@ class DisplayController extends Controller
         if($branchId == 'undefined'){
             $branchId = Auth()->user()->branch_id;
         }
-        $branch = Branches::select('branches.id')
+        $branch = Branches::select('branches.id', 'branches.name')
         // ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
         ->where('id', $branchId)
         ->orWhere('name', $branchId)
@@ -601,7 +622,8 @@ class DisplayController extends Controller
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
-
+        $branchId = $branch->id;
+        $branName = $branch->name;
         if (Auth()->user()->dept_id == '1') {
            $center = 'pharm_id';
            $center_status = 'pharm_status';
@@ -616,7 +638,6 @@ class DisplayController extends Controller
         //     $center_status = 'created_status';
         //  }         
          
-
         $deptId= Auth()->user()->dept_id;
 
         if (Auth()->user()->dept_id == '11') {
@@ -651,17 +672,16 @@ class DisplayController extends Controller
      if (Auth()->user()->dept_id != '10') {
         return response()->json([
             'data' => Appointments::orderBy('id', 'DESC')
-        ->join('customers','appointments.customer_id','=','customers.id')
-        ->join('users','appointments.created_by','=','users.id')
-        ->join('branches','appointments.created_branch','=','branches.id')
-        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
-        ->where('appointments.'.$center,'=',$branchId)          
-                ->where('appointments.'.$center,'=',$branchId)          
-        ->where('appointments.'.$center,'=',$branchId)          
-        ->where('appointments.'.$center_status,'=','open')
-        ->where('appointments.status','!=','close')
-        // ->where('appointments.date', '=', $cDate)
-        ->get(),
+            ->join('customers','appointments.customer_id','=','customers.id')
+            ->join('users','appointments.created_by','=','users.id')
+            ->join('branches','appointments.created_branch','=','branches.id')
+            ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
+            ->where('appointments.'.$center,'=',$branchId)         
+            ->where('appointments.'.$center_status,'=','open')
+            ->where('appointments.status','!=','close')
+            // ->where('appointments.date', '=', $cDate)
+            ->get(),
+            'bName' => $branName
         ]);
          }
 
@@ -1155,8 +1175,9 @@ class DisplayController extends Controller
         $item = $request[0];
         $branch= $request[1];
         return DB::table($branch)
+        ->join('item_details', $branch.'.item_detail_id', '=', 'item_details.id')
         ->where(['item_detail_id' => $item, $branch.'.c_date'=> $cDate])
-        ->select($branch.'.total_remain')
+        ->select($branch.'.total_remain', 'item_details.purchasing_price', 'item_details.markup_price')
         ->get();
     }
 
@@ -1248,14 +1269,20 @@ class DisplayController extends Controller
         }
 
         if($action == 'type'){
-            $result = 0;
+            $salesAmt = 0;
+            $remainAmt = 0;
             $array = array();
             $getType = DB::table("item_types")->select('id', 'type_name')->get();
             foreach($getType as $row){
-               $getitemqty = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+               $getSalesQty = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
                 ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
                 ->where('item_details.item_type_id', $row->id)
                 ->whereIn($id.'.c_date', $dateRange)->sum($id.'.sales');
+
+                $getRemainQty = DB::table($id)->select($id.'.item_detail_id', $id.'.total_remain', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+                ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+                ->where('item_details.item_type_id', $row->id)
+                ->whereIn($id.'.c_date', $dateRange)->sum($id.'.total_remain');
 
                 $getitemamount = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
                 ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
@@ -1263,17 +1290,31 @@ class DisplayController extends Controller
                 ->whereIn($id.'.c_date', $dateRange)->get();
                 foreach($getitemamount as $row2){
                     if($row2->markup_price != 0){
-                        $result += $row2->purchasing_price * $row2->markup_price * $row2->sales;
+                        $salesAmt += $row2->purchasing_price * $row2->markup_price * $row2->sales;
                     } else {
-                        $result += $row2->purchasing_price * $row2->sales;
+                        $salesAmt += $row2->purchasing_price * $row2->sales;
                     }
                 }
+
+                $getitemamount2 = DB::table($id)->select($id.'.item_detail_id', $id.'.total_remain', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
+                ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
+                ->where('item_details.item_type_id', $row->id)
+                ->whereIn($id.'.c_date', $dateRange)->get();
+                foreach($getitemamount2 as $row2){
+                    if($row2->markup_price != 0){
+                        $remainAmt += $row2->purchasing_price * $row2->markup_price * $row2->total_remain;
+                    } else {
+                        $remainAmt += $row2->purchasing_price * $row2->total_remain;
+                    }
+                }
+
                 $getitemamount = DB::table($id)->select($id.'.item_detail_id', $id.'.sales', 'item_details.item_type_id', 'item_details.purchasing_price', 'item_details.markup_price')
                 ->join('item_details', $id.'.item_detail_id', '=', 'item_details.id')
                 ->where('item_details.item_type_id', $row->id)
                 ->whereIn($id.'.c_date', $dateRange)->get();
-                array_push($array, [$row->type_name, $getitemqty, $result]);
-                $result = 0;
+                array_push($array, [$row->type_name, $getSalesQty, $salesAmt, $getRemainQty, $remainAmt]);
+                $salesAmt = 0;
+                $remainAmt = 0;
             }
            return response()->json([   
             'payloads' => $array,            

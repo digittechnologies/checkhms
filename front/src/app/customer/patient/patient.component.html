@@ -224,9 +224,9 @@
                                 <div class="col-lg-4 col-md-12">
                                     <div class="body">
                                         <div class="form-group">
-                                            <label class="d-block">OPD <span class="float-right">77%</span></label>
+                                            <label class="d-block">Total Appointments <span class="float-right">{{count1}}</span></label>
                                             <div class="progress progress-xxs">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -234,9 +234,9 @@
                                 <div class="col-lg-4 col-md-12">
                                     <div class="body">
                                         <div class="form-group">
-                                            <label class="d-block">Operations <span class="float-right">50%</span></label>
+                                            <label class="d-block">Booked Appointments<span class="float-right">0</span></label>
                                             <div class="progress progress-xxs">
-                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -244,9 +244,9 @@
                                 <div class="col-lg-4 col-md-12">
                                     <div class="body">
                                         <div class="form-group">
-                                            <label class="d-block">Patient visit <span class="float-right">23%</span></label>
+                                            <label class="d-block">Total Balance<span class="float-right">{{count3  | currency:'NGN':'symbol-narrow'}}</span></label>
                                             <div class="progress progress-xxs">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +257,7 @@
 
                         <div class="tab-content padding-0">
                             <div class="tab-pane active" id="Basic">
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="header">
                                         <h2>Appointment Informations</h2>
                                     </div>
@@ -299,7 +299,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row clearfix">
                                     <div class="col-lg-12">
                                         <div class="card">
@@ -317,13 +317,15 @@
                                                                             <!-- <th>S/N</th> -->
                                                                             <!-- <th>Image</th> -->
                                                                             <!-- <th>Patient ID</th> -->
-                                                                            <th>Depertment</th>
-                                                                            <th>Lab</th>
-                                                                            <th>Treatment</th>
-                                                                            <th>Prescription</th>
-                                                                            <th>Invoice</th>
-                                                                            <th>Voucher</th>
-                                                                           
+                                                                            <th>Branch</th>
+                                                                            <th>Clinic</th>
+                                                                            <th>Nurse</th>
+                                                                            <th>Laboratory</th>
+                                                                            <th>Radiology</th>
+                                                                            <th>Theater</th>
+                                                                            <th>Ward</th>
+                                                                            <th>Pharmacy</th>
+                                                                            <th>Revenue</th>
                                                                             <th>Status</th>
                                                                             <th>Date</th>
                                                                             <th>Time</th>
@@ -333,59 +335,61 @@
                                                                     </thead>
                                                         <tbody>
                                                             <tr *ngFor="let a of pAppointment; let n =index">
-                                                                <td>{{a.dept_name}}</td>
-                                                                <td>
-                                            
-                                                                    <span class="badge badge-danger" *ngIf ="a.lab=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.lab=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'invoice'">Invoice</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.lab=== 'open'">Open</span>  
-                                                                        <span class="badge badge-warning" *ngIf ="a.lab=== 'close'">close</span>                                                                               
+                                                                <td>{{a.dept_name}}</td>                                                                
+                                                                <td>                                                               
+                                                                        <span class="badge badge-primary" *ngIf ="a.clinic_status=== 'open'">Open</span>  
+                                                                        <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'close'">close</span>                                                                               
                                                                 </td>
                                                                 <td>
-                                                                        <span class="badge badge-danger" *ngIf ="a.treatment=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.treatment=== 'success'">Success</span> 
-                                                                        <!-- <span class="badge badge-warning" *ngIf ="a.treatment=== 'invoice'">Invoice</span>  -->
-                                                                        <span class="badge badge-primary" *ngIf ="a.treatment=== 'open'">Open</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.treatment=== 'close'">close</span>                                                                           
-                                                                </td>
-                                                                <td>                                      
-                                                                        <span class="badge badge-danger" *ngIf ="a.prescription=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.prescription=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'checkout'">Checkout</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.prescription=== 'open'">Open</span>     
-                                                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'close'">close</span>                                                                         
-                                                                </td>
-                                                                <td>
-                                                                    <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
-                                                                    <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">Paid</span> 
-                                                                    <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
-                                                                    <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
-                                                                    <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
+                                                                    <span class="badge badge-danger" *ngIf ="a.nurse_status=== 'terminated'">Terminated</span>                                                            
+                                                                    <span class="badge badge-primary" *ngIf ="a.nurse_status=== 'open'">Open</span>    
+                                                                    <span class="badge badge-warning" *ngIf ="a.nurse_status=== 'close'">close</span>                                                                            
                                                             </td>
-                                                                <td>                                        
-                                                                        <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
-                                                                        <span class="badge badge-secondary" *ngIf ="a.voucher=== 'refill'">Refill</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
-                                                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               
+                                                               
+                                                                <td>                                      
+                                                                        <span class="badge badge-danger" *ngIf ="a.lab_status=== 'terminated'">Terminated</span>                                                                
+                                                                        <span class="badge badge-primary" *ngIf ="a.lab_status=== 'open'">Open</span>     
+                                                                        <span class="badge badge-warning" *ngIf ="a.lab_status=== 'close'">close</span>                                                                         
                                                                 </td>
-                                                                <td>
-                                                                        <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
-                                                                        <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
-                                                                </td>                            
-                                                                <!-- <td>{{i.lab}}</td>
-                                                                <td>{{i.treatment}}</td>                                  
-                                                                <td>{{i.prescription}}</td>
-                                                                <td>{{i.invoice}}</td>
-                                                                <td>{{i.voucher}}</td>
-                                                                <td>{{i.status}}</td> -->
-                                                                <td>{{a.date}}</td>
-                                                                <td>{{a.time}}</td>
+                                                               
+                                                                <td>                                        
+                                                                        <span class="badge badge-danger" *ngIf ="a.radio_status=== 'terminated'">Terminated</span>                                                  
+                                                                        <span class="badge badge-primary" *ngIf ="a.radio_status=== 'open'">Open</span>
+                                                                        <span class="badge badge-warning" *ngIf ="a.radio_status=== 'close'">close</span>                                                                               
+                                                                </td>
+                                                               
+                                                              
+                                                            <td>
+                                                                <span class="badge badge-success" *ngIf ="a.theater_status=== 'open'">Active</span>
+                                                                <span class="badge badge-danger" *ngIf ="a.theater_status=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.theater_status=== 'close'">Close</span>                                                                               
+                                                        </td> 
+                                                        <td>
+                                                            <span class="badge badge-success" *ngIf ="a.ward_status=== 'active'">Active</span>
+                                                            <span class="badge badge-danger" *ngIf ="a.ward_status=== 'terminated'">Terminated</span>
+                                                            <span class="badge badge-success" *ngIf ="a.ward_status=== 'close'">Close</span>                                                                               
+                                                    </td>  
+                                                        <td>
+                                                            <span class="badge badge-success" *ngIf ="a.pharm_status=== 'full-payment'">Full Payment</span>
+                                                            <span class="badge badge-warning" *ngIf ="a.pharm_status=== 'part-payment'">Part Payment</span>
+                                                            <span class="badge badge-primary" *ngIf ="a.pharm_status=== 'open'">Open</span> 
+                                                            <span class="badge badge-warning" *ngIf ="a.pharm_status=== 'close'">close</span>                                                                           
+                                                    </td> 
+                                                    <td>
+                                                        <span class="badge badge-success" *ngIf ="a.revenue_status=== 'full-payment'">Full Payment</span>
+                                                        <span class="badge badge-warning" *ngIf ="a.revenue_status=== 'part-payment'">Part Payment</span>
+                                                        <span class="badge badge-info" *ngIf ="a.revenue_status=== 'open'">Open</span>  
+                                                        <span class="badge badge-warning" *ngIf ="a.revenue_status=== 'close'">Close</span>                                                                               
+                                                </td>  
+                                                        <td>
+                                                            <span class="badge badge-info" *ngIf ="a.status=== 'open'">Open</span>
+                                                            <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
+                                                            <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
+                                                    </td>  
+                                                                <td>{{a.a_date}}</td>
+                                                                <td>{{a.a_time}}</td>
                                                                 
-                                                                <td><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', a.id]}}]">Invoice</a></td>
+                                                                <td><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', a.id]}}]">Voucher</a></td>
                                                             </tr>
                                                            
                                                         </tbody>
@@ -908,13 +912,13 @@
                                                                 <table class="table header-border table-hover table-custom spacing5">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Branch</th>
+                                                                            <th>Branch</th>                                                                          
+                                                                            <th>Clinic</th>   
+                                                                            <th>Nurse</th>                                                                        
+                                                                            <th>Laboratory</th>
+                                                                            <th>Radiology</th>
+                                                                            <th></th>
                                                                             <th>Pharmacy</th>
-                                                                            <th>Clinic</th>                                                                           
-                                                                            <th>Prescription</th>
-                                                                            <th>Invoice</th>
-                                                                            <th>Voucher</th>
-                                                                           
                                                                             <th>Status</th>
                                                                             <th>Date</th>
                                                                             <th>Time</th>
@@ -925,11 +929,9 @@
                                                             <tr *ngFor="let a of pAppointment; let n =index">
                                                                 <td>{{a.dept_name}}</td>
                                                                 <td>
-                                                                    <span class="badge badge-danger" *ngIf ="a.phar_status=== 'to-balance'">Balance</span>
-                                                                    <span class="badge badge-danger" *ngIf ="a.phar_status=== 'part-payment'">Terminated</span>
-                                                                    <span class="badge badge-success" *ngIf ="a.phar_status=== 'full-paymant'">Success</span>
-                                                                    <span class="badge badge-primary" *ngIf ="a.phar_status=== 'open'">Open</span> 
-                                                                    <span class="badge badge-warning" *ngIf ="a.phar_status=== 'close'">close</span>                                                                           
+                                                                    <span class="badge badge-danger" *ngIf ="a.pharm_status=== 'to-balance'">prescriptions</span>
+                                                                    <span class="badge badge-primary" *ngIf ="a.pharm_status=== 'open'">Open</span> 
+                                                                    <span class="badge badge-warning" *ngIf ="a.pharm_status=== 'close'">close</span>                                                                           
                                                             </td>
                                                                 <td>
                                             
@@ -941,32 +943,40 @@
                                                                 </td>
                                                                
                                                                 <td>                                      
-                                                                        <span class="badge badge-danger" *ngIf ="a.prescription=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.prescription=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'checkout'">Checkout</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.prescription=== 'open'">Open</span>     
-                                                                        <span class="badge badge-warning" *ngIf ="a.prescription=== 'close'">close</span>                                                                         
+                                                                        <span class="badge badge-danger" *ngIf ="a.lab_status=== 'terminated'">Terminated</span>                                                                
+                                                                        <span class="badge badge-primary" *ngIf ="a.lab_status=== 'open'">Open</span>     
+                                                                        <span class="badge badge-warning" *ngIf ="a.lab_status=== 'close'">close</span>                                                                         
                                                                 </td>
                                                                 <td>
-                                                                    <span class="badge badge-danger" *ngIf ="a.invoice=== 'terminated'">Terminated</span>
-                                                                    <span class="badge badge-success" *ngIf ="a.invoice=== 'paid'">Paid</span> 
-                                                                    <span class="badge badge-warning" *ngIf ="a.invoice=== 'unpaid'">Unpaid</span> 
-                                                                    <span class="badge badge-primary" *ngIf ="a.invoice=== 'open'">Open</span>    
-                                                                    <span class="badge badge-warning" *ngIf ="a.invoice=== 'close'">close</span>                                                                            
+                                                                    <span class="badge badge-danger" *ngIf ="a.nurse_status=== 'terminated'">Terminated</span>                                                            
+                                                                    <span class="badge badge-primary" *ngIf ="a.nurse_status=== 'open'">Open</span>    
+                                                                    <span class="badge badge-warning" *ngIf ="a.nurse_status=== 'close'">close</span>                                                                            
                                                             </td>
                                                                 <td>                                        
-                                                                        <span class="badge badge-danger" *ngIf ="a.voucher=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.voucher=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'checkout'">Checkout</span> 
-                                                                        <span class="badge badge-secondary" *ngIf ="a.voucher=== 'refill'">Refill</span> 
-                                                                        <span class="badge badge-primary" *ngIf ="a.voucher=== 'open'">Open</span>
-                                                                        <span class="badge badge-warning" *ngIf ="a.voucher=== 'close'">close</span>                                                                               
+                                                                        <span class="badge badge-danger" *ngIf ="a.radio_status=== 'terminated'">Terminated</span>                                                  
+                                                                        <span class="badge badge-primary" *ngIf ="a.radio_status=== 'open'">Open</span>
+                                                                        <span class="badge badge-warning" *ngIf ="a.radio_status=== 'close'">close</span>                                                                               
                                                                 </td>
                                                                 <td>
-                                                                        <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
-                                                                        <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
-                                                                        <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
+                                                                        <span class="badge badge-success" *ngIf ="a.revenue_status=== 'active'">Active</span>
+                                                                        <span class="badge badge-danger" *ngIf ="a.revenue_status=== 'terminated'">Terminated</span>
+                                                                        <span class="badge badge-success" *ngIf ="a.revenue_status=== 'close'">Close</span>                                                                               
                                                                 </td>  
+                                                                <td>
+                                                                    <span class="badge badge-success" *ngIf ="a.ward_status=== 'active'">Active</span>
+                                                                    <span class="badge badge-danger" *ngIf ="a.ward_status=== 'terminated'">Terminated</span>
+                                                                    <span class="badge badge-success" *ngIf ="a.ward_status=== 'close'">Close</span>                                                                               
+                                                            </td>  
+                                                            <td>
+                                                                <span class="badge badge-success" *ngIf ="a.theater_status=== 'open'">Active</span>
+                                                                <span class="badge badge-danger" *ngIf ="a.theater_status=== 'terminated'">Terminated</span>
+                                                                <span class="badge badge-success" *ngIf ="a.theater_status=== 'close'">Close</span>                                                                               
+                                                        </td>  
+                                                        <td>
+                                                            <span class="badge badge-success" *ngIf ="a.status=== 'active'">Active</span>
+                                                            <span class="badge badge-danger" *ngIf ="a.status=== 'terminated'">Terminated</span>
+                                                            <span class="badge badge-success" *ngIf ="a.status=== 'close'">Close</span>                                                                               
+                                                    </td>  
                                                                 <td>{{a.date}}</td>
                                                                 <td>{{a.time}}</td>
                                                                 

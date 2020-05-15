@@ -86,6 +86,8 @@ export class PatientComponent implements OnInit {
   appt: any;
   braches: any;
   givenBranch: any;
+  count1: any;
+  count3: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -207,6 +209,8 @@ export class PatientComponent implements OnInit {
         this.patientAll = this.searchResponse.search; 
         this.pAppointment = this.searchResponse.app;
         this.count = this.searchResponse.count;
+        this.count1 = this.searchResponse.count1;
+        this.count3 = this.searchResponse.count3;
         this.category = this.searchResponse.category;
         
         if(this.count == 0){
