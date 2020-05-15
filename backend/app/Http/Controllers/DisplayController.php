@@ -823,7 +823,7 @@ class DisplayController extends Controller
      }
      public function cancelPharmLog(Request $request){
         $id = $request[0];
-        $cancel = DB::table("appointments")->where('id',$id)->update(['status'=>'terminated']);
+        $cancel = DB::table("appointments")->where('id',$id)->update(['status'=>'close']);
          if($cancel){
              return response()->json("You have successfully calceled");
          }
@@ -842,7 +842,7 @@ class DisplayController extends Controller
                                         ->where('appointments.invoice', '=', 'paid')
                                         ->where('appointments.voucher_id', $vid)
                                         ->update([
-                                            'status' => 'closed',                                       
+                                            'status' => 'close',                                       
                                         ]); 
             if($updateAppointment){
                  return '{

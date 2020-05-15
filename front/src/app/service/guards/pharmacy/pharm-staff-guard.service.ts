@@ -27,24 +27,10 @@ export class PharmStaffGuardService {
         if(this.dept == 1 && this.profile == 4004){
           return true;
         } else {
+          console.log(this.dashboardLink)
           alert('Permission Denied');
           this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
         }
-        // if(this.dept == 1){
-          // if(this.profile == 4004){
-          //   return true;
-          // } else {
-          //   alert('Permission Denied');
-          //   console.info(this.dashboardLink)
-          //   this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
-          // }
-          return true;
-        // }
-        // else {
-        //   alert('Un-authorize');
-        //   console.info(this.dashboardLink)
-        //   this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
-        // }mn
       })
     }
   }
