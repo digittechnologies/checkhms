@@ -26,7 +26,8 @@ export class PharmAdminGuardService implements CanActivate {
 
         if(this.dept == 10 || this.dept == 1){
           if(this.profile == 1001 || this.profile == 2002 || this.profile == 1002 || this.profile == 2001 || this.profile == 3003 ){
-            console.log(this.dashboardLink)
+            console.log(this.dashboardLink) 
+            // this.router.navigateByUrl('/Admin/(side:'+this.dashboardLink+')');
             return true;
           } else {
             alert('Permission Denied');

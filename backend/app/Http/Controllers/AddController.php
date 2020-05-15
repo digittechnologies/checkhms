@@ -1137,6 +1137,7 @@ public function addCenter(Request $request)
         //  $user->gender =  $datas['gender'];
         //  $user->genotype =  $datas['genotype'];
         //  $user->blood_group =  $datas['blood_group'];
+        $user->cust_category_id = $datas['cust_category_id'];
          $user->state =  $datas['state'];
          $user->d_o_b =  $datas['d_o_b'];
          $user->country=$datas['country'];
@@ -1256,7 +1257,11 @@ public function addCenter(Request $request)
                     $action = 'phone';
                     break;
             }
-            $search=DB::table('eps')->where($action, $value)->get();
+            $search=DB::table('eps')
+            ->join('customer_category','eps.cust_category_id','=','customer_category.id')
+            ->where('eps.'.$action, $value)
+            ->select('eps.*','customer_category.category_name as cate_name')
+            ->get();
             if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
@@ -1273,9 +1278,10 @@ public function addCenter(Request $request)
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
+                            'cate'=>DB::table('customer_category')->get(),
                             "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
                             ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                            ->select('appointments.*','customer_category.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
                             ->where('appointments.customer_id','=',$row->id)->get(),
                         ]);
                 }
@@ -1287,7 +1293,11 @@ public function addCenter(Request $request)
             if($action == 'name'){
                 $value = strtoupper($value);
             }
-            $search=DB::table('customers')->where($action, $value)->get();
+            $search=DB::table('customers')
+            ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+            ->where('customers.'.$action, $value)
+            ->select('customers.*','customer_category.category_name as cate_name')
+            ->get();
             if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
@@ -1304,6 +1314,7 @@ public function addCenter(Request $request)
                             'search'=> $search, 
                             'show'=>"show",
                             'category' => $category,
+                            'cate'=>DB::table('customer_category')->get(),
                             "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
                             ->join('customers','appointments.customer_id','=','customers.id')
                             ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   

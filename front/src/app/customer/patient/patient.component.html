@@ -212,7 +212,7 @@
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Appointment</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">New Appointment</a></li>
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li> -->
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Settings</a></li>
+                                    <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Settings</a></li>
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#invoice">Invoices</a></li> -->
                                 </ul>
@@ -493,11 +493,20 @@
                                                 <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
                                                 <div class="col-lg-10 col-md-10 col-sm-8">
                                                     <div class="row clearfix">
-              
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group"> 
+                                                                <label class="fancy-radio custom-color-green">Customer Category</label>
+                                                                <div class="col-4 float-right">{{ini_cate_name}}</div>  
+                                                                 <select (change)="selectcate()"  formControlName="cust_category_id"  class="form-control">
+                                                                    <!-- <option value="">change category</option> -->
+                                                                    <option *ngFor="let cate of change_cate" value="{{cate.id}}">{{cate.category_name}}</option>
+                                                                 </select>                                          
+                                                            </div>
+                                                        </div>
                                                           <div class="col-lg-12 col-md-12">
                                                                   <div class="form-group"> 
                                                                       <label class="fancy-radio custom-color-green">First Name</label>  
-                                                                      <input type="text" class="form-control" formControlName="name">                                           
+                                                                      <input type="text" class="form-control" formControlName="name">                                          
                                                                   </div>
                                                               </div>
                                                               <div class="col-lg-12 col-md-12">
@@ -509,8 +518,8 @@
                                                               <div class="col-lg-12 col-md-12">
                                                                   <div class="form-group">
                                                                       <label class="fancy-radio custom-color-green">Sex</label><br>
-                                                                      <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Male" type="radio" checked><span><i></i>Male</span></label>
-                                                                      <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Female" type="radio"><span><i></i>Female</span></label>
+                                                                      <label class="fancy-radio custom-color-green"><input  ngModel name="gender" value="Male" type="radio" checked><span><i></i>Male</span></label>
+                                                                      <label class="fancy-radio custom-color-green"><input  ngModel name="gender" value="Female" type="radio"><span><i></i>Female</span></label>
                                                                   </div>
                                                               </div>
                                                               <div class="col-lg-12 col-md-12">
