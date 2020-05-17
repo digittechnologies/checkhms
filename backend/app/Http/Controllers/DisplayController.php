@@ -677,7 +677,7 @@ class DisplayController extends Controller
             ->join('branches','appointments.created_branch','=','branches.id')
             ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
             ->where('appointments.'.$center,'=',$branchId)         
-            ->where('appointments.'.$center_status,'=','open')
+            ->where('appointments.'.$center_status,'!=','close')
             ->where('appointments.status','!=','close')
             // ->where('appointments.date', '=', $cDate)
             ->get(),
