@@ -202,18 +202,19 @@
                         
                     </div>
     
-                    <div class="col-xl-8 col-lg-8 col-md-7">
-                    <div *ngIf = "count == 1">
+                    <div class="col-xl-8 col-lg-8 col-md-7" *ngIf = "count == 1">
+
                         <div class="card">
                             <div class="header">
                                 <h2>Header</h2>
                             </div>
                             <div class="body">
                                 <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Appointment</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">New Appointment</a></li>
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Basic">Appointments</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Make Consultation</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Book">Book Appointment</a></li>
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#test">Lab Tests</a></li> -->
-                                    <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Settings</a></li>
+                                    <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Patient Profile</a></li>
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#voucher">Vouchers</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#invoice">Invoices</a></li> -->
                                 </ul>
@@ -235,7 +236,7 @@
                                 <div class="col-lg-4 col-md-12">
                                     <div class="body">
                                         <div class="form-group">
-                                            <label class="d-block">Booked Appointments<span class="float-right">0</span></label>
+                                            <label class="d-block">Booked Appointments <span class="float-right">{{countBooked}}</span></label>
                                             <div class="progress progress-xxs">
                                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                             </div>
@@ -408,7 +409,7 @@
                             <div class="tab-pane" id="Account">
                                 <div class="card">
                                     <div class="header">
-                                        <h2>New Appointment</h2>
+                                        <h2>Make Consultation</h2>
                                     </div>
                                     <div class="body">
                                         <form role="form" (ngSubmit)="onSubmitApp(apt)" #apt="ngForm"> 
@@ -416,7 +417,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Record Center</label>  
-                                                    <input type="text" disabled class="form-control" value="{{center.name}}" >
+                                                    <input type="text" disabled class="form-control" value="{{centerName}}" >
                                                 </div>
                                                 <div class="form-group">
                                                   
@@ -480,9 +481,98 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>                       
+                            </div>
+                            
+                            
+                            <div class="tab-pane" id="Book">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>Book Appointment</h2>
+                                    </div>
+                                    <div class="body">
+                                        <form role="form" (ngSubmit)="onSubmitBookApp(bookapt)" #bookapt="ngForm"> 
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Record Center</label>  
+                                                    <input type="text" disabled class="form-control" value="{{centerName}}" >
+                                                </div>
+                                                <div class="form-group">
+                                                  
+                                                    <label class="fancy-radio custom-color-green">Appointment Type</label>  
+                                                    <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
+                                                        <option>--Appointment_type--</option>                                                    
+                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                      
+                                                                                                             
+                                                    </select>
+                                                </div>
+                                                <div class="form-group"> 
+                                                    <label class="fancy-radio custom-color-green">Branch</label>  
+                                                    <select class="form-control" (change)="onChange2($event)" ngModel name="branch_id">
+                                                        <option>--Select Branch--</option>                                                      
+                                                            <option *ngFor="let br of braches" value="{{br.id}}">{{br.name}}</option>                     
+                                                                                                              
+                                                    </select>
+                                                </div>
+                                                <div class="form-group"> 
+                                                    <label class="fancy-radio custom-color-green">Center</label>  
+                                                    <select class="form-control" ngModel name="center_id">
+                                                        <option>--Select Center--</option>                                                      
+                                                            <option *ngFor="let cent of sbranch" value="{{cent.id}}">{{cent.name}}</option>                                    
+                                                                                                              
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Appointment Date</label>  
+                                                    <input type="date" class="form-control" ngModel name = "a_date">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Appointment Date</label>  
+                                                    <input type="time" class="form-control" ngModel name = "a_time">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12" *ngIf="givenDept <= '2'">
+                                                <h6>Special Consult</h6>
+                                                <p>I'd like to see special doctor:</p>                                               
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Doctor</label>  
+                                                    <select class="form-control" ngModel name = "special_doctor_id">
+                                                        <option>--Select Physician--</option>
+                                                        <option value="0">None</option>
+                                                            <option value="doctor_id">Dr Durodola</option>                                                                                                         
+                                                    </select>
+                                                </div>                                                
+                                            </div> 
 
-                        </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Charges</label>  
+                                                    <select class="form-control" ngModel name="charges">
+                                                        <option>--Select Charges--</option>
+                                                            <option value="0">None</option>  
+                                                            <option *ngFor="let asmt of appt" value="{{asmt.id}}">{{asmt.charge_name}}</option>
+                                                                                                              
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="fancy-radio custom-color-green">Note</label>  
+                                                    <textarea ngModel name="note" type="text" style="text-decoration: none;" class="form-control" value="" ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button> &nbsp;&nbsp;
+                                        <!-- <button class="btn btn-default">Cancel</button> -->
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                
 
                         <div class="tab-pane" id="settings">
                         <div class="row clearfix">

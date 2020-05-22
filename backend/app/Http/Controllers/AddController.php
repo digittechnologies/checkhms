@@ -1235,61 +1235,13 @@ public function addCenter(Request $request)
 
     public function searchPatient(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $value=$request->customer;
         $action=$request->action;
         $category = $request->category;
 
-
-        // //EPS PATIENTS
-        // if($category == 'eps'){
-
-        //     if($action == 'name'){
-        //         $value = strtoupper($value);
-        //     }
-        //     switch ($action) {
-        //         case 'name':
-        //             $action = 'eps_name';
-        //             break;  
-        //         case 'card_number':
-        //             $action = 'id';
-        //             break;
-        //         case 'mobile_number':
-        //             $action = 'phone';
-        //             break;
-        //     }
-        //     $search=DB::table('eps')
-        //     ->join('customer_category','eps.cust_category_id','=','customer_category.id')
-        //     ->where('eps.'.$action, $value)
-        //     ->select('eps.*','customer_category.category_name as cate_name')
-        //     ->get();
-        //     if (count($search) == 0) {
-        //         return response()->json([
-        //             'count'=> count($search),
-        //             'message' => "successfully", 
-        //             'search'=> $search, 
-        //             'show'=>"empty"
-        //         ]);
-        //     }
-        //     else {
-        //         foreach($search as $row){
-        //                 return response()->json([
-        //                     'count'=> count($search),
-        //                     'message' => "successfully", 
-        //                     'search'=> $search, 
-        //                     'show'=>"show",
-        //                     'category' => $category,
-        //                     'cate'=>DB::table('customer_category')->get(),
-        //                     "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
-        //                     ->join('customers','appointments.customer_id','=','customers.id')
-        //                     ->select('appointments.*','customer_category.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-        //                     ->where('appointments.customer_id','=',$row->id)->get(),
-        //                 ]);
-        //         }
-        //     }
-        // }
-
-        //REGULAR PATIENTS
-        // if($category == 'regular'){
             if($action == 'name'){
                 $value = strtoupper($value);
 
@@ -1331,6 +1283,9 @@ public function addCenter(Request $request)
 
                             "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
                             ->where('appointments.customer_id','=',$row->id)->count(),
+                            
+                            "countBooked" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
+                            ->where('appointments.customer_id','=',$row->id)->where( 'appointments.a_date', '!=', $cDate)->where('appointments.status', '=', 'open')->count(),
 
                             "count3" => DB::table('invoices')->orderBy('id')->join('vouchers','invoices.voucher_id','=','vouchers.id')
                             ->join('appointments','vouchers.appointment_id','=','appointments.id')
@@ -1339,9 +1294,7 @@ public function addCenter(Request $request)
                             ->where('customers.id','=',$row->id)->sum('invoices.balance'),
                         ]);
                 }
-            }
-        // }
-    
+            }    
     }
 
     //Appointment

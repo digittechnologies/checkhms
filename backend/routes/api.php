@@ -270,6 +270,7 @@ Route::post('deleteCharge', 'RecordModuleController@deleteCharge');
 Route::post('updateCharge', 'RecordModuleController@updateCharge');  
 
 Route::post('makeAppointment','RecordModuleController@makeAppointment');
+Route::post('bookAppointment','RecordModuleController@bookAppointment');
 
 // DOctor Module
 Route::get('patient-data/{id}', 'DoctorModule@patientData');
