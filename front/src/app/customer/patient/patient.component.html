@@ -35,7 +35,7 @@
                                     
                                 </div>
                             </div>  
-                            <div class="col-lg-3 col-md-3 col-sm-4">
+                            <!-- <div class="col-lg-3 col-md-3 col-sm-4">
                                 <label>Patient Category</label>
                                 <div class="input-group">
                                     <select class="form-control" ngModel name="category">
@@ -44,7 +44,7 @@
                                         <option value="eps">EPS Patient</option>                                                    
                                     </select>
                                 </div>
-                            </div>    
+                            </div>     -->
                             <div class="col-lg-3 col-md-3 col-sm-4">
                                 <label>Reference Type</label>
                                 <div class="input-group">
@@ -71,12 +71,12 @@
             <div class="row clearfix" *ngIf="show == 'empty'"> 
                 <div class="col-lg-12 col-md-12 col-sm-12 card">
                     <div class="card-header text-center">
-                        <h5 class="text-primary">No log entries yet</h5>
+                        <h5 class="text-primary">Invalid Refrence ID, Patient Not Found. Try Again!</h5>
                     </div>
                 </div>
             </div>
 
-                <div class="row clearfix" *ngIf="category == 'regular' && show == 'show'">
+                <div class="row clearfix" *ngIf="show == 'show'">
 
                     <div class="table-responsive" *ngIf="count > 1">
                         <table class="table table-hover js-basic-example dataTable table-custom spacing5">
@@ -109,7 +109,7 @@
                         </table>
                     </div> 
                     
-                    <div class="col-xl-4 col-lg-4 col-md-5" *ngIf = "count == 1 || showPatient">
+                    <div class="col-xl-4 col-lg-4 col-md-5" *ngIf = "count == 1">
 
                         <div class="card profile-header">
 
@@ -199,10 +199,11 @@
                                 <p><i class="fa fa-instagram m-r-5"></i>{{patient.next_of_kin_address}}</p>
                             </div>
                         </div>
+                        
                     </div>
     
                     <div class="col-xl-8 col-lg-8 col-md-7">
-
+                    <div *ngIf = "count == 1">
                         <div class="card">
                             <div class="header">
                                 <h2>Header</h2>
@@ -481,7 +482,7 @@
                                 </div>
                             </div>                       
 
-                
+                        </div>
 
                         <div class="tab-pane" id="settings">
                         <div class="row clearfix">
@@ -722,7 +723,7 @@
         </div>
 
                 <!-- EPS PATIENTS TEMPLATE -->
-                <div class="row clearfix" *ngIf="category == 'eps' && show == 'show'">                  
+                <!-- <div class="row clearfix" *ngIf="category == 'eps' && show == 'show'">                  
                     <div class="table-responsive" *ngIf="count > 1">
                         <table class="table table-hover js-basic-example dataTable table-custom spacing5">
                             <thead>
@@ -944,9 +945,9 @@
                                                             </td>
                                                                 <td>
                                             
-                                                                    <!-- <span class="badge badge-danger" *ngIf ="a.clinic_status=== 'terminated'">Terminated</span>
+                                                                    <span class="badge badge-danger" *ngIf ="a.clinic_status=== 'terminated'">Terminated</span>
                                                                         <span class="badge badge-success" *ngIf ="a.clinic_status=== 'success'">Success</span> 
-                                                                        <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'invoice'">Invoice</span>  -->
+                                                                        <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'invoice'">Invoice</span>
                                                                         <span class="badge badge-primary" *ngIf ="a.clinic_status=== 'open'">Open</span>  
                                                                         <span class="badge badge-warning" *ngIf ="a.clinic_status=== 'close'">close</span>                                                                               
                                                                 </td>
@@ -1257,7 +1258,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
                 <!-- EPS PATIENT END -->
         
 

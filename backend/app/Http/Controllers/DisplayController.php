@@ -517,8 +517,8 @@ class DisplayController extends Controller
     }
     public function displayHospitalNum()
     {
-        $getLast = Customers::orderBy('id', 'desc')->select('id')->first();
-        return $getLast->id + 1;
+        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->first();
+        return $getLast->card_number + 1;
     }
     public function edtCustomer($id)
     {
@@ -628,7 +628,7 @@ class DisplayController extends Controller
            $center = 'pharm_id';
            $center_status = 'pharm_status';
         }
-        if (Auth()->user()->dept_id == '2' || Auth()->user()->dept_id == '18') {
+        if (Auth()->user()->dept_id == '2') {
             $center = 'clinic_id';
             $center_status = 'clinic_status';
          }
@@ -655,7 +655,7 @@ class DisplayController extends Controller
          }
 
     
-        if (Auth()->user()->dept_id == '10' || Auth()->user()->dept_id == '16') {
+        if (Auth()->user()->dept_id == '10' || Auth()->user()->dept_id == '16' || Auth()->user()->dept_id == '18') {
             return response()->json([
                 'data' => Appointments::orderBy('id', 'DESC')
             ->join('customers','appointments.customer_id','=','customers.id')

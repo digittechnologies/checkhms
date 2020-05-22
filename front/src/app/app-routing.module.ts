@@ -54,6 +54,9 @@ import { PatientDetailsComponent } from './customer/patient-details/patient-deta
 import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { AddPatientComponent } from './customer/add-patient/add-patient.component';
+import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
+import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
+import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
 
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
@@ -221,6 +224,9 @@ const routes: Routes = [
          {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [] },
          {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [] },
          {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [] },
+         {path: 'patient_history/:id', component: PatientHistoryComponent, outlet: 'side', canActivate: [] },
+         {path: 'patient_review/:id', component: PatientReviewComponent, outlet: 'side', canActivate: [] },
+         {path: 'clinic_process/:id', component: PatientProcessComponent, outlet: 'side', canActivate: [] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [] },

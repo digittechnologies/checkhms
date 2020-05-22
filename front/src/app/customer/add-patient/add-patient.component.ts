@@ -83,7 +83,7 @@ export class AddPatientComponent implements OnInit {
     let age = new Date().getFullYear() - getYear;
     if(age<0){
       alert('Invalid Dat of Birth');
-      dob.focus()
+      dob.focus();
     }else{
       this.age = age;
     }

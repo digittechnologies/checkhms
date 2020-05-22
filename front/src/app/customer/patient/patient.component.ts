@@ -94,6 +94,8 @@ export class PatientComponent implements OnInit {
   cate_id: any;
   count1: any;
   count3: any;
+  pdob: any;
+  patient_age: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -197,15 +199,17 @@ export class PatientComponent implements OnInit {
 
   onClickSubmit(form: NgForm) {
 
+    this.patient_age = '';
     this.disabled = true; 
 
     if(form.value.customer == '' || form.value.action == ''){
-      alert('Serch Box Empty')
+      alert('Serch Box Parameters Empty')
+      this.disabled = false
     }
-    else{
-      if (form.value.category == 'regular') {
+    else if(form.value.customer != '' || form.value.action != ''){
+      // if (form.value.category == 'regular') {
         
-           this.Jarwis.searchPatient(form.value).subscribe(data=>{
+        this.Jarwis.searchPatient(form.value).subscribe(data=>{
         this.spin="disable";
         this.disabled= false;
         this.searchResponse = data;
@@ -220,9 +224,11 @@ export class PatientComponent implements OnInit {
         this.ini_cate_id = this.patient.cust_category_id;
         this.ini_cate_name = this.patient.cate_name;
         this.change_cate  = this.searchResponse.cate;
-        if(this.count == 0){
-          alert('Invalid refrence ID, patient not found. Try again!')
-        } else{
+        this.pdob = this.patient.d_o_b;
+        let dobIndex = this.pdob.indexOf("-");
+        let getYear = this.pdob.slice(0, dobIndex)
+        this.patient_age = new Date().getFullYear() - getYear;
+
           this.eId = this.patient.id;
           this.eName = this.patient.name;  
           this.eOthername = this.patient.othername; 
@@ -283,56 +289,57 @@ export class PatientComponent implements OnInit {
             },
           )
           this.image=this.ePatient_image
-        }
       })
-      }else if (form.value.category == 'eps') {
-           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
-        this.spin="disable";
-        this.disabled= false;
+    //   }else if (form.value.category == 'eps') {
+    //        this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+    //     this.spin="disable";
+    //     this.disabled= false;
        
-        this.searchResponse = data;
-        this.show= this.searchResponse.show;
-        this.patient = this.searchResponse.search[0]; 
-        this.patientAll = this.searchResponse.search; 
-        this.pAppointment = this.searchResponse.app;
-        this.count = this.searchResponse.count;
+    //     this.searchResponse = data;
+    //     this.show= this.searchResponse.show;
+    //     this.patient = this.searchResponse.search[0]; 
+    //     this.patientAll = this.searchResponse.search; 
+    //     this.pAppointment = this.searchResponse.app;
+    //     this.count = this.searchResponse.count;
        
         
-        if(this.count == 0){
-          alert('Invalid refrence ID, patient not found. Try again!')
-        }  else {
-            this.category = this.searchResponse.category;
-            this.epsId = this.patient.id;
-            this.epsName = this.patient.eps_name;
-            this.eId =  this.patient.id;
-            this.epsEmail = this.patient.email;
-            this.epsContact = this.patient.phone;
-            this.epsAddress = this.patient.eps_address;
-            this.epsStatus = this.patient.status;
+    //     if(this.count == 0){
+    //       alert('Invalid refrence ID, patient not found. Try again!')
+    //     }  else {
+    //         this.category = this.searchResponse.category;
+    //         this.epsId = this.patient.id;
+    //         this.epsName = this.patient.eps_name;
+    //         this.eId =  this.patient.id;
+    //         this.epsEmail = this.patient.email;
+    //         this.epsContact = this.patient.phone;
+    //         this.epsAddress = this.patient.eps_address;
+    //         this.epsStatus = this.patient.status;
 
-            this.submissionForm = this.formBuilder.group(
-              {
-                eps_name:[this.epsName],
-                eps_address:[this.epsAddress],
-                email:[this.epsEmail],
-                phone:[this.epsContact],
-                status:[this.epsStatus]
-              },
-            )
-        }
-      })
-      }
+    //         this.submissionForm = this.formBuilder.group(
+    //           {
+    //             eps_name:[this.epsName],
+    //             eps_address:[this.epsAddress],
+    //             email:[this.epsEmail],
+    //             phone:[this.epsContact],
+    //             status:[this.epsStatus]
+    //           },
+    //         )
+    //     }
+    //   })
+    //   }
 
    
      }
   }
 
  view(id){
-   if(this.category == 'regular'){
+  //  if(this.category == 'regular'){
     for(let i in this.patientAll){
         if(this.patientAll[i].id == id){
           this.patient = '';
           this.patient = this.patientAll[i];
+          this.show = 'show';
+          this.count = 1;
           this.eId = this.patient.id;
           this.eName = this.patient.name;  
           this.eOthername = this.patient.othername; 
@@ -359,6 +366,10 @@ export class PatientComponent implements OnInit {
           this.eReferral_mobile = this.patient.referral_mobile;
           this.ePatient_image = this.patient.patient_image;
           this.eAge =  this.patient.age;
+          this.pdob = this.patient.d_o_b;
+          let dobIndex = this.pdob.indexOf("-");
+          let getYear = this.pdob.slice(0, dobIndex)
+          this.patient_age = new Date().getFullYear() - getYear;
 
           this.submissionForm = this.formBuilder.group(
             {
@@ -394,34 +405,34 @@ export class PatientComponent implements OnInit {
           this.showPatient = true;
         }
     }
-  }
+  // }
 
   //EPS PATIENTS
-  if(this.category == 'eps'){
-    for(let i in this.patientAll){
-      if(this.patientAll[i].id == id){
-        this.patient = '';
-        this.patient = this.patientAll[i];
-        this.epsId = this.patient.id;
-        this.epsName = this.patient.eps_name;
-        this.epsEmail = this.patient.email;
-        this.epsContact = this.patient.phone;
-        this.epsAddress = this.patient.eps_address;
-        this.epsStatus = this.patient.status;
+  // if(this.category == 'eps'){
+  //   for(let i in this.patientAll){
+  //     if(this.patientAll[i].id == id){
+  //       this.patient = '';
+  //       this.patient = this.patientAll[i];
+  //       this.epsId = this.patient.id;
+  //       this.epsName = this.patient.eps_name;
+  //       this.epsEmail = this.patient.email;
+  //       this.epsContact = this.patient.phone;
+  //       this.epsAddress = this.patient.eps_address;
+  //       this.epsStatus = this.patient.status;
 
-        this.submissionForm = this.formBuilder.group(
-          {
-            eps_name:[this.epsName],
-            eps_address:[this.epsAddress],
-            email:[this.epsEmail],
-            phone:[this.epsContact],
-            status:[this.epsStatus]
-          },
-        )
-        this.showPatient = true;
-      }
-    }
-  }
+  //       this.submissionForm = this.formBuilder.group(
+  //         {
+  //           eps_name:[this.epsName],
+  //           eps_address:[this.epsAddress],
+  //           email:[this.epsEmail],
+  //           phone:[this.epsContact],
+  //           status:[this.epsStatus]
+  //         },
+  //       )
+  //       this.showPatient = true;
+  //     }
+  //   }
+  // }
  }
 
   onSubmit(form: NgForm) {

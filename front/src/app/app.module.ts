@@ -64,7 +64,6 @@ import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
 import { PaymentHomeComponent } from './payment/payment-home/payment-home.component';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
-import { AddDepartmentComponent } from './admin/add-department/add-department.component';
 import { ItemComponent } from './pharmacy/item/item.component';
 import { SetBranchComponent } from './branches/set-branch/set-branch.component';
 import { TestComponent } from './lab/test/test.component';
@@ -138,6 +137,9 @@ import { RecordHistoryComponent } from './record/record-history/record-history.c
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 import { BrancesComponent } from './branches/brances/brances.component';
+import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
+import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
+import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
 
 @NgModule({
   declarations: [
@@ -221,9 +223,7 @@ import { BrancesComponent } from './branches/brances/brances.component';
     DoctorHomeComponent,
   
     PatientHomeComponent,
-  
-    AddDepartmentComponent,
-  
+    
     ItemComponent,
   
     SetBranchComponent,
@@ -343,6 +343,12 @@ import { BrancesComponent } from './branches/brances/brances.component';
     AppointmentTypeComponent,
   
     BrancesComponent,
+  
+    PatientHistoryComponent,
+  
+    PatientReviewComponent,
+  
+    PatientProcessComponent,
   
   ],
   imports: [

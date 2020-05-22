@@ -1,0 +1,464 @@
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h2>Social</h2>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Oculux</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Social</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
+              </div>
+          </div>
+      </div>
+
+      <div class="row clearfix">
+          <div class="col-md-12">
+              <div class="card social">
+                <div class="profile-header d-flex justify-content-between justify-content-center">
+                  <div class="d-flex">
+                      <div class="mr-3">
+                          <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                      </div>
+                     <div class="details">
+                            <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
+                            <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
+                            <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
+                      </div>                                 
+                  </div>
+                  <div class="col text-center">
+                    <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
+                    <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
+                    <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
+                    <!-- <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div> -->
+                  </div>
+                   <div class="col text-right">
+                      <div class="small text-light">Prescription Number</div>
+                      <div class="h4 m-0">Appointment No: {{appId}}</div>
+                    </div>
+              </div>
+                  <ul class="nav nav-tabs3 mt-2">
+                      <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Feed">Feeds</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Activity">Activity</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Friends">Friends</a></li>
+                  </ul>
+              </div>                    
+          </div>
+          <div class="tab-content col-md-12">
+              <div class="tab-pane vivify fadeIn delay-100 active show" id="Feed">
+                  <div class="row clearfix">
+                      <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                          <div class="header">
+                            <h2>History</h2>
+                            <!-- <ul class="header-dropdown dropdown">
+                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another Action</a></li>
+                                        <li><a href="javascript:void(0);">Something else</a></li>
+                                    </ul>
+                                </li>
+                            </ul> -->
+                        </div>
+                          <div class="body">
+                            <div class="row clearfix">
+                              <div class="col-md-12">
+                                  <div class="card">
+                                      <div class="body">
+                                          <div class="input-group mb-3">
+                                              <input type="text" class="form-control" placeholder="Search here...">
+                                              <div class="input-group-append">
+                                                  <button class="btn btn-outline-secondary" type="button">Search</button>
+                                              </div>
+                                          </div>
+                                          <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row clearfix">
+                              <div class="col-xl-8 col-lg-7 col-md-12">
+                                  <div class="card">
+                                      <div class="body">
+                                          <div>
+                                              <a class="text-info" href="#">Oculux - Bootstrap 4x Admin Template with HR Module</a>
+                                              <br>
+                                              <div>
+                                                  <a class="text-success" href="#">https://themeforest.net/user/puffintheme/portfolio</a>
+                                                  <span class="divider-dot mx-2"></span>
+                                                  <div class="rating rating-xs rating-static rating-yellow" data-has-rate="false">
+                                                      <label class="fa fa-star active"></label>
+                                                      <label class="fa fa-star active"></label>
+                                                      <label class="fa fa-star active"></label>
+                                                      <label class="fa fa-star active"></label>
+                                                      <label class="fa fa-star active"></label>
+                                                  </div>
+                                                  <small>5 Star</small>
+                                                  <span class="divider-dot mx-2"></span>
+                                                  <small>12,500 vote</small>
+                                              </div>            
+                                              <p class="mt-2">It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                              <div class="row">
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Download</a>
+                                                      <p class="mt-1">Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+                                                  </div>                
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Pricing</a>
+                                                      <p class="mt-1">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...</p>
+                                                  </div>                
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Comments</a>
+                                                      <p class="mt-1">Collaboratively disseminate B2C networks after stand-alone synergy. Continually promote...</p>
+                                                  </div>                
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Reviews</a>
+                                                      <p class="mt-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered...</p>
+                                                  </div>                
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Support</a>
+                                                      <p class="mt-1">Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
+                                                  </div>                
+                                                  <div class="col-md-6 mt-2">
+                                                      <a class="text-info" href="#">Updates</a>
+                                                      <p class="mt-1">The standard chunk of Lorem Ipsum used since the 1500s is reproduced...</p>
+                                                  </div>
+                                              </div>
+                                              <hr>
+                                          </div>
+                                          <div>
+                                              <a class="text-info" href="#">TheJobs - Job borad template</a>
+                                              <br>
+                                              <a class="text-success" href="#">https://themeforest.net/user/puffintheme</a>
+                                              <p class="mt-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour...</p>
+                                              <hr>
+                                          </div>
+                                          <div>
+                                              <a class="text-info" href="#">TheDocs - Online documentation template</a>
+                                              <br>
+                                              <a class="text-success" href="#">https://themeforest.net/user/puffintheme</a>
+                                              <p class="mt-2">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum...</p>
+                                              <hr>
+                                          </div>
+                                          <div>
+                                              <a class="text-info" href="#">TheShots - Responsive image listing template</a>
+                                              <br>
+                                              <a class="text-success" href="#">https://themeforest.net/user/puffintheme</a>
+                                              <p class="mt-2">here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected...</p>
+                                              <hr>
+                                          </div>
+                                          <div>
+                                              <a class="text-info" href="#">TheGuide - Online documentation template</a>
+                                              <br>
+                                              <a class="text-success" href="#">https://themeforest.net/user/puffintheme</a>
+                                              <p class="mt-2">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature...</p>
+                                              <hr>
+                                          </div>
+                                          <div>
+                                              <h6>Related searches</h6>
+                                              <div class="row">
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#">Enhanced form <strong>components</strong></a>
+                                              </div>
+                          
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#">Dashboard <strong>templates</strong></a>
+                                              </div>
+                          
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#">Web application <strong>template</strong></a>
+                                              </div>
+                          
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#"><strong>Admin</strong> dashboards</a>
+                                              </div>
+                          
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#">Premium <strong>admin template</strong></a>
+                                              </div>
+                          
+                                              <div class="col-6 col-lg-4 mb-2">
+                                                  <a class="text-info" href="#">UI kit collection</a>
+                                              </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <nav aria-label="Page navigation">
+                                      <ul class="pagination">
+                                          <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                                          <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                          <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                          <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                          <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                                      </ul>
+                                  </nav>
+                              </div>
+                              <div class="col-xl-4 col-lg-5 col-md-12">
+                                  <div class="card">
+                                      <div class="body">
+                                          <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a>
+                                          <h5 class="mt-4">Oculux Admin dabshoard</h5>
+                                          <p>It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                          <div class="mt-3">
+                                              <div><strong class="d-inline-block w-70px">Author:</strong> PuffinTheme</div>
+                                              <div><strong class="d-inline-block w-70px">Support:</strong> All modern browsers</div>
+                                              <div><strong class="d-inline-block w-70px">Created on:</strong> 9 January 19</div>
+                                              <div><strong class="d-inline-block w-70px">Updated on:</strong> 13 March 19</div>
+                                          </div>
+                                          <p class="mt-5">Photos</p>
+                                          <div class="row">
+                                              <a class="col-4" href="#"><img class="img-fluid p-2" src="../assets/images/preview.png" alt="..."></a>
+                                              <a class="col-4" href="#"><img class="img-fluid p-2" src="../assets/images/preview01.png" alt="..."></a>
+                                              <a class="col-4" href="#"><img class="img-fluid p-2" src="../assets/images/preview02.png" alt="..."></a>
+                                              <a class="col-4" href="#"><img class="img-fluid p-2" src="../assets/images/preview03.png" alt="..."></a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>  
+                          </div>
+                      </div>
+                       
+                      </div> 
+                  </div>
+              </div>
+              <div class="tab-pane vivify fadeIn delay-100" id="Activity">
+                  <div class="card">
+                      <div class="body">
+                          <ul class="timeline">
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>March 12, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque.</p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>March 23, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item period">
+                                  <div class="timeline-info"></div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h2 class="timeline-title">April 2018</h2>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>April 02, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>April 28, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content pb-0">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane vivify fadeIn delay-100" id="Friends">
+                  <div class="table-responsive">
+                      <table class="table table-hover table-custom spacing5">
+                          <thead>
+                              <tr> 
+                                  <th>#</th>
+                                  <th></th>
+                                  <th>eMail</th>
+                                  <th>Address</th>                                        
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Jason Porter</a>
+                                      <p class="mb-0">+ 264-625-5858</p>
+                                  </td>
+                                  <td>
+                                      <span>jason-porter@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>123 6th St. Melbourne, FL 32904</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Denise Elliott</a>
+                                      <p class="mb-0">+ 264-625-4523</p>
+                                  </td>
+                                  <td>
+                                      <span>denise-elliott@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Rose Coke</a>
+                                      <p class="mb-0">+ 264-625-2583</p>
+                                  </td>
+                                  <td>
+                                      <span>rose-coke@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Grace Knight</a>
+                                      <p class="mb-0">+ 264-625-2583</p>
+                                  </td>
+                                  <td>
+                                      <span>grace-knight@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>70 Bowman St. South Windsor, CT 06074</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Elizabeth Martin</a>
+                                      <p class="mb-0">+ 264-625-2341</p>
+                                  </td>
+                                  <td>
+                                      <span>Elizabeth-Martin@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>123 6th St. Melbourne, FL 32904</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Sean Black</a>
+                                      <p class="mb-0">+ 264-625-7262</p>
+                                  </td>
+                                  <td>
+                                      <span>denise-Alvarado@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">David Wallace</a>
+                                      <p class="mb-0">+ 264-625-9283</p>
+                                  </td>
+                                  <td>
+                                      <span>Carol-coke@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar8.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Theresa Wright</a>
+                                      <p class="mb-0">+ 264-625-2233</p>
+                                  </td>
+                                  <td>
+                                      <span>Michelle-Schultz@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>70 Bowman St. South Windsor, CT 06074</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>         
+      </div>
+  </div>

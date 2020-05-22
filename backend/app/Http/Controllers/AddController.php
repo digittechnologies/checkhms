@@ -1240,64 +1240,73 @@ public function addCenter(Request $request)
         $category = $request->category;
 
 
-        //EPS PATIENTS
-        if($category == 'eps'){
+        // //EPS PATIENTS
+        // if($category == 'eps'){
 
-            if($action == 'name'){
-                $value = strtoupper($value);
-            }
-            switch ($action) {
-                case 'name':
-                    $action = 'eps_name';
-                    break;  
-                case 'card_number':
-                    $action = 'id';
-                    break;
-                case 'mobile_number':
-                    $action = 'phone';
-                    break;
-            }
-            $search=DB::table('eps')
-            ->join('customer_category','eps.cust_category_id','=','customer_category.id')
-            ->where('eps.'.$action, $value)
-            ->select('eps.*','customer_category.category_name as cate_name')
-            ->get();
-            if (count($search) == 0) {
-                return response()->json([
-                    'count'=> count($search),
-                    'message' => "successfully", 
-                    'search'=> $search, 
-                    'show'=>"empty"
-                ]);
-            }
-            else {
-                foreach($search as $row){
-                        return response()->json([
-                            'count'=> count($search),
-                            'message' => "successfully", 
-                            'search'=> $search, 
-                            'show'=>"show",
-                            'category' => $category,
-                            'cate'=>DB::table('customer_category')->get(),
-                            "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','customer_category.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
-                        ]);
-                }
-            }
-        }
+        //     if($action == 'name'){
+        //         $value = strtoupper($value);
+        //     }
+        //     switch ($action) {
+        //         case 'name':
+        //             $action = 'eps_name';
+        //             break;  
+        //         case 'card_number':
+        //             $action = 'id';
+        //             break;
+        //         case 'mobile_number':
+        //             $action = 'phone';
+        //             break;
+        //     }
+        //     $search=DB::table('eps')
+        //     ->join('customer_category','eps.cust_category_id','=','customer_category.id')
+        //     ->where('eps.'.$action, $value)
+        //     ->select('eps.*','customer_category.category_name as cate_name')
+        //     ->get();
+        //     if (count($search) == 0) {
+        //         return response()->json([
+        //             'count'=> count($search),
+        //             'message' => "successfully", 
+        //             'search'=> $search, 
+        //             'show'=>"empty"
+        //         ]);
+        //     }
+        //     else {
+        //         foreach($search as $row){
+        //                 return response()->json([
+        //                     'count'=> count($search),
+        //                     'message' => "successfully", 
+        //                     'search'=> $search, 
+        //                     'show'=>"show",
+        //                     'category' => $category,
+        //                     'cate'=>DB::table('customer_category')->get(),
+        //                     "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
+        //                     ->join('customers','appointments.customer_id','=','customers.id')
+        //                     ->select('appointments.*','customer_category.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+        //                     ->where('appointments.customer_id','=',$row->id)->get(),
+        //                 ]);
+        //         }
+        //     }
+        // }
 
         //REGULAR PATIENTS
-        if($category == 'regular'){
+        // if($category == 'regular'){
             if($action == 'name'){
                 $value = strtoupper($value);
+
+                $search=DB::table('customers')
+                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->where('customers.name', 'LIKE', "%{$value}%")
+                    ->orWhere('customers.othername', 'LIKE', "%{$value}%")
+                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->limit(1000)
+                    ->get();
+            } else {
+                $search=DB::table('customers')
+                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->where('customers.'.$action, $value)
+                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->get();
             }
-            $search=DB::table('customers')
-            ->join('customer_category','customers.cust_category_id','=','customer_category.id')
-            ->where('customers.'.$action, $value)
-            ->select('customers.*','customer_category.category_name as cate_name')
-            ->get();
             if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
@@ -1306,7 +1315,7 @@ public function addCenter(Request $request)
                     'show'=>"empty"
                 ]);
             }
-            else {
+            else if (count($search) > 0){
                 foreach($search as $row){
                         return response()->json([
                             'count'=> count($search),
@@ -1331,7 +1340,7 @@ public function addCenter(Request $request)
                         ]);
                 }
             }
-        }
+        // }
     
     }
 
