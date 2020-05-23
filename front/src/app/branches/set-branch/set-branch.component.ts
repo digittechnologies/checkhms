@@ -61,6 +61,9 @@ export class SetBranchComponent implements OnInit {
   depart_id: any;
   center_id: any;
   branch_id: any;
+  clinic_type: any;
+  clinic_tpes: any;
+  clinic_types: any;
   
 
   constructor( 
@@ -184,11 +187,13 @@ export class SetBranchComponent implements OnInit {
         this.center_name   =  this.branch_details.branch[0].branch_name;
         this.center_id   =  this.branch_details.branch[0].branch_id;
         this.branch_id =this.branch_details.branch[0].id;
+        this.clinic_type = this.branch_details.branch[0].clinic_type;
 
         
         this.center= this.branch_details.center;
         this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;
+        this.clinic_types = this.branch_details.clinic_type;
         // console.log(this.branch_details.branch)
       }
     )
@@ -225,7 +230,7 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
       this.deptlists = data;
        this.staff = this.deptlists.list;
-      //  this.app_type = this.deptlists.appointment_type;
+       this.app_type = this.deptlists.appointment_type;
        this.branches = this.deptlists.center;
       //  this.departments = this.deptlists.department;
 

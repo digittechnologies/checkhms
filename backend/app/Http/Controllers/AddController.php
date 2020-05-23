@@ -162,6 +162,7 @@ public function addCenter(Request $request)
         $branch_id  = $request->branch_id;
         $dept_id = $request->dept_id;
         $status = $request->status;
+        $clinic_type = $request->clinic_type;
         $id = $request->id;
 
         $update = Branches::where('id','=',$id)
@@ -171,6 +172,7 @@ public function addCenter(Request $request)
             'sales_rep'=>$sales_rep,
             'branch_id'=>$branch_id,
             'dept_id'=>$dept_id,
+            'clinic_type'=>$clinic_type,
             'status'=>$status
             ]);
         if($update){

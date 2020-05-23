@@ -654,7 +654,7 @@
         <div class="col-md-8">
         <div class="form-group">
         <select name="branch_id" id="" required ngModel class="form-control">
-        <option value="">Branche</option>
+        <option value="">Branch</option>
         <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
         </select>
         <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
@@ -662,7 +662,7 @@
         </div>             
         </div>
         </div>
-    <!-- <div class="modal-body">             
+    <div class="modal-body">             
         <div class="row clearfix">
         <div class="col-md-8">
         <div class="form-group">
@@ -673,7 +673,7 @@
         </div>
         </div>             
         </div>
-        </div> -->
+        </div>
 
     <div class="modal-body">             
     <div class="row clearfix">
@@ -751,6 +751,21 @@
                 </div>             
             </div>
             </div>
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">CLINIC TYPE</label>
+                            <!-- <input type="text" > -->
+                           <select name="" id="" class="form-control"  [(ngModel)]="clinic_type" name="clinic_type" required>
+                            <option value="">{{clinic_type}}</option> 
+                               <option *ngFor="let clinic of clinic_types" value="{{clinic.id}}">{{clinic.name}}</option>
+                           </select>
+                            <input type="hidden" [value]="manufid" ngModel name="id">
+                        </div>
+                    </div>             
+                </div>
+                </div>
 
             <div class="modal-body">             
                 <div class="row clearfix">

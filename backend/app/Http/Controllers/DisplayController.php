@@ -1196,7 +1196,8 @@ class DisplayController extends Controller
             ->where('branches.id',$id)->select('users.*')->get(),
     
         'center'=> DB::table('centers')->select('centers.*')->get(), 
-        'department'=> DB::table('departments')->select('departments.*')->get()
+        'department'=> DB::table('departments')->select('departments.*')->get(),
+        'clinic_type'=>DB::table('appontment_type')->select('id','name')->get()
 ]; 
      }
 
@@ -1689,7 +1690,7 @@ class DisplayController extends Controller
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
-            // 'appointment_type' =>  DB::table('appontment_type')->get()
+            'appointment_type' =>  DB::table('appontment_type')->get(),
             'center'=> DB::table('centers')->select('centers.*')->get(), 
             // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);
