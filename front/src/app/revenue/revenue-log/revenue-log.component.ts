@@ -226,7 +226,6 @@ record_empty:null;
       form.value.charge_amt = this.v_charges_amount;
       form.value.discount = this.v_discount;
       if(form.value.topay == '') form.value.topay = this.amountPaid;
-      console.log(form.value)
       this.Jarwis.saveToInvoice(form.value).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),  
@@ -234,14 +233,15 @@ record_empty:null;
     }
 
     handleResponse(data) {   
-
-      if (data.message == 'unavailable') {
+      console.log(data)
+      if (data.success == 'false') {
         let snackBarRef = this.snackBar.open(data.message, 'Dismiss', {
-          duration: 2000
+          duration: 5000
         })
-      } else {
-        let snackBarRef = this.snackBar.open("Payment Successfull Successfull", 'Dismiss', {
-          duration: 2000
+      } 
+      if(data.success) {
+        let snackBarRef = this.snackBar.open("Payment Successfull ", 'Dismiss', {
+          duration: 5000
         })        
       }
         
@@ -251,6 +251,7 @@ record_empty:null;
     }
   
     handleError(error) {
+      console.log(error)
       this.error = error.error.errors;
       let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
         duration: 2000
