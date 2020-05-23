@@ -543,7 +543,7 @@ class DisplayController extends Controller
         $cId= $customeId[0]->customer_id;
         return response()->json(
                 Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->select('customers.*', 'customer_category.*')
+                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customer_category.description')
                 ->where('customers.id','=',$cId)          
                 ->get()   
             );

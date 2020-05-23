@@ -153,7 +153,12 @@ export class VoucherComponent implements OnInit {
     this.refill = this.prescriptions.refill;
     this.remain = this.prescriptions.remain;
     this.tcost = this.prescriptions.tcost;
-    this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50; 
+    if (this.schemePriceList == 'price_1') {
+      this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50;
+    } else {
+      this.afterPercentCost = this.schemePercent / 100 * this.tcost;
+    }
+     
     this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost + 50;
     this.prescriptionsList= this.PharmPreresponse.pres; 
   })
