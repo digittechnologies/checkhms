@@ -204,7 +204,7 @@
                     </ul>
                     <div class="tab-content mt-0">
                         <div class="tab-pane active show" id="items">
-                            <input [(ngModel)]="filterString" placeholder="Search..." (ngModelChange)="onFilterChange()" class="form-control"/>
+                            <input type="text"  id="item_search" placeholder="Search..."  class="form-control"/>
                             <div
                             class="search-results"
                             infiniteScroll
@@ -238,8 +238,8 @@
                                             <th class="w100">Action</th> -->
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <ng-container *ngIf="itemsitem">
+                                    <tbody id="item">
+                                        <ng-container *ngIf="itemsitem" >
                                             <tr *ngFor="let item of itemsitem;  let r = index">
 
                                                 <td>{{r+1}}</td>

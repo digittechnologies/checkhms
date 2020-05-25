@@ -74,6 +74,7 @@
     <li *ngIf=" role=='3003' && department=='Radiology' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#radio" (click)="branch('radio')">Radiology</a></li>
     </ul>
     <div  class="tab-content mt-0">
+        <input type="text" class="form-control"  id="branch_search" placeholder="search......" [(ngModel)]="br_search">
     <div *ngIf="role=='3003' && department=='Clinic' || role=='1001' || role==2001 || role==1002 " class="tab-pane active show" id="clinic">
     <table class="table table-hover table-custom spacing8">
         <thead>
@@ -88,7 +89,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="branches">
             <tr *ngFor="let b of clinic; let r = index">
                 <td>
                     {{r+1}}
@@ -138,7 +139,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="branches">
             <tr *ngFor="let b of pharmacy; let r = index">
                 <td>
                     {{r+1}}
@@ -188,7 +189,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of radio; let r = index">
             <td>
                 {{r+1}}
@@ -237,7 +238,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of record; let r = index">
             <td>
                 {{r+1}}
@@ -286,7 +287,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of revenue; let r = index">
             <td>
                 {{r+1}}
@@ -335,7 +336,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of theater; let r = index">
             <td>
                 {{r+1}}
@@ -384,7 +385,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of nurse; let r = index">
             <td>
                 {{r+1}}
@@ -433,7 +434,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of ward; let r = index">
             <td>
                 {{r+1}}
@@ -482,7 +483,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of lab; let r = index">
             <td>
                 {{r+1}}
@@ -531,7 +532,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="branches">
         <tr *ngFor="let b of admin; let r = index">
             <td>
                 {{r+1}}

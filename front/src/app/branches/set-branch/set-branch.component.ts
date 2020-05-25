@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+declare var $:any;
 
 @Component({
   selector: 'app-set-branch',
@@ -64,6 +65,7 @@ export class SetBranchComponent implements OnInit {
   clinic_type: any;
   clinic_tpes: any;
   clinic_types: any;
+  br_search: string;
   
 
   constructor( 
@@ -127,8 +129,20 @@ export class SetBranchComponent implements OnInit {
     },
     err=>{console.log(err)}
     )
+    $("#branch_search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#branches tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
 
   }
+  branch(e){
+    this.ngOnInit
+    // $("#branch_search");
+    // this.br_search = ""
+   }
+
 
 
   onSubmit(form: NgForm) {
@@ -222,9 +236,7 @@ export class SetBranchComponent implements OnInit {
     })
     this.disabled = false;
   }
-  branch(e){
-   this.ngOnInit
-  }
+ 
   dept(e){
     this.dept_name=e.target.value;
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{

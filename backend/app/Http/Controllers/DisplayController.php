@@ -597,10 +597,10 @@ class DisplayController extends Controller
         ->where('id', $branchId)
         ->orWhere('name', $branchId)
         ->first();  
+        $branchId = $branch->id;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
-        $cTime = $dt->format('h:i:s A');
-
+        $cTime = $dt->format('h:i:s A'); 
         if (Auth()->user()->dept_id == '1') {
            $center = 'pharm_id';
            $center_status = 'pharm_status';

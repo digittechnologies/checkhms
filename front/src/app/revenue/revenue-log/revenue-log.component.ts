@@ -239,7 +239,7 @@ record_empty:null;
           duration: 5000
         })
       } 
-      if(data.success) {
+      if(data.success == true) {
         let snackBarRef = this.snackBar.open("Payment Successfull ", 'Dismiss', {
           duration: 5000
         })        

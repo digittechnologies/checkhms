@@ -2828,14 +2828,17 @@ public function addCenter(Request $request)
                             'item_detail_id' => $item,
                             'c_date' => $cDate,
                             ])
-                        ->get();
-                        // ->update([
-                        // 'sales' => $sales,
-                        // 'total_remain' => $remain,
-                        // 'balance' => $balance,
-                        // 'physical_balance' => $physical,
-                        // ]);  
+                        ->update([
+                        'sales' => $sales,
+                        'total_remain' => $remain,
+                        'balance' => $balance,
+                        'physical_balance' => $physical,
+                        ]);
                     }
+                    return '{
+                        "success":true,
+                        "message":"Testing"
+                    }' ;
                 }
                 // Commit Transaction
                 DB::commit();
@@ -2852,7 +2855,7 @@ public function addCenter(Request $request)
 
 
             //<----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN START---------->
-            if($updateItemInCenter && $keepLogAfterSubstitution){
+            if($keepLogAfterSubstitution){
                 // Begin Transaction
                 DB::beginTransaction();
 
@@ -2934,6 +2937,8 @@ public function addCenter(Request $request)
             }
         //<----------KEEP LOG OF TRANSACTION AND UPDATE NECCESARY TABLE THE TRNSCT INVOLVED IN END---------->
         } else {
+                // Rollback Transaction
+                DB::rollBack();
                 return '{
                     "success": "false",
                     "message":"Payment Method is Unavailable"
