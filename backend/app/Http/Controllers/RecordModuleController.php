@@ -15,6 +15,7 @@ use App\Branches;
 use App\Appointment_type;
 use App\Appointments;
 use App\Centers;
+use App\Customers;
 
 class RecordModuleController extends Controller
 {
@@ -306,117 +307,28 @@ class RecordModuleController extends Controller
 
             return 'Already Loged';
 
-        }
-        
-
-        // $dt = Carbon::now();
-        // $date = $dt->toFormattedDateString();
-        // $time = $dt->format('h:i:s A');
-        // $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
-        //     'appointments.customer_id' => $cust_id,
-        //     'appointments.prescription' =>'open',
-        //     'appointments.date' => $date
-        //     ])->get();
-        // if (count($checkAppointment) == 0) {
-
-        //     $appointment= Vouchers::create(
-        //         [
-        //             'customer_id' => $cust_id, 
-        //             'staff_id' => $dept_id,           
-        //             'branch_id' => $bid
-        //         ]);    
-            
-        //     $appointment= Appointments::create(
-        //         [
-        //             'customer_id' => $cust_id, 
-        //             'department_id' => $dept_id, 
-        //             'voucher_id'=> $appointment->id,
-        //             'prescription' => 'open', 
-        //             'invoice' => 'open', 
-        //             'voucher' => 'open',
-        //             'treatment' => 'open', 
-        //             'status' => 'active',
-        //             'date' => $date,
-        //             'time' => $time,
-        //             'branch_id' => $bid
-        //         ]);    
-      
-        //  if($appointment){
-        //     return '{
-        //         "success":true,
-        //         "message":"successful"
-        //     }' ;
-        // } else {
-        //       return '{
-        //         "success":false,
-        //         "message":"Failed"
-        //     }';
-        // }
-        
-        // }else if(count($checkAppointment) > 0){
-
-        //     return 'Already Loged';
-
-        // }
-
-
-
-        // $id = $request->customer;
-        // $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
-        // $cust_id=$cus->id;
-        // $dept_id= auth()->user()->dept_id;
-        // $bid= Auth()->user()->branch_id;
-        // // $dept_id = $request->form['dept_id'];
-        // $dt = Carbon::now();
-        // $date = $dt->toFormattedDateString();
-        // $time = $dt->format('h:i:s A');
-        // $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
-        //     'appointments.customer_id' => $cust_id,
-        //     'appointments.prescription' =>'open',
-        //     'appointments.date' => $date
-        //     ])->get();
-        // if (count($checkAppointment) == 0) {
-
-        //     $appointment= Vouchers::create(
-        //         [
-        //             'customer_id' => $cust_id, 
-        //             'staff_id' => $dept_id,           
-        //             'branch_id' => $bid
-        //         ]);    
-            
-        //     $appointment= Appointments::create(
-        //         [
-        //             'customer_id' => $cust_id, 
-        //             'department_id' => $dept_id, 
-        //             'voucher_id'=> $appointment->id,
-        //             'prescription' => 'open', 
-        //             'invoice' => 'open', 
-        //             'voucher' => 'open',
-        //             'treatment' => 'open', 
-        //             'status' => 'active',
-        //             'date' => $date,
-        //             'time' => $time,
-        //             'branch_id' => $bid
-        //         ]);    
-      
-        //  if($appointment){
-        //     return '{
-        //         "success":true,
-        //         "message":"successful"
-        //     }' ;
-        // } else {
-        //       return '{
-        //         "success":false,
-        //         "message":"Failed"
-        //     }';
-        // }
-        
-        // }else if(count($checkAppointment) > 0){
-
-        //     return 'Already Loged';
-
-        // }
-        
+        }        
     }
+
+    public function displayRecordData(Request $request)
+    {
+        $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 
+        $array = array();
+        foreach($branch as $row){
+            $getTotal = DB::table('appointments')->where('pharm_id' , $row->id)->count();
+            array_push($array, array($row->name, $getTotal));
+        }     
+        return response()->json([
+            "allAppointments" => Appointments::where('pharm_id', '!=', 0)->count(),
+            'allPatients'=> Customers::count(),
+            "pharmacyCenters" => $array,
+            // "databaseSize" => DB::select(DB::statement(
+            //     'SELECT table_schema "database", sum(data_length + index_length)/1024/1024/1024 "size in GB" FROM information_schema.TABLES WHERE table_schema="buth_pharmacy" GROUP BY table_schema'
+            //     // 'SELECT table_schema "database", sum(data_length + index_length)/1024/1024 "size in MB" FROM information_schema.TABLES GROUP BY table_schema'
+            //     // 'SELECT table_schema AS "database", ROUND(SUM(data_length + index_length)/1024/1024, 2) AS "size in MB" FROM information_schema.TABLES WHERE table_schema = "buth_pharmacy" GROUP BY table_schema'
+            // )),
+        ]);
+    }   
+
 
 }

@@ -1511,7 +1511,7 @@ class DisplayController extends Controller
     public function displayPharStaffDashInvoice()
     {
         $id= Auth()->user()->branch_id;
-        $get = DB::table("branches")->select('branches.name')->where(['status' => 'active', 'branches.dept_id' => '1', 'id' => $id])->first();
+        $get = DB::table("branches")->select('branches.name')->where(['status' => 'active', 'id' => $id])->first();
         $branch = $get->name;
 
         $array = array();
