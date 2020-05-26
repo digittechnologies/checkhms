@@ -1,3 +1,695 @@
-<p>
-  patient-process works!
-</p>
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h2>Social</h2>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Oculux</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Social</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
+              </div>
+          </div>
+      </div>
+
+      <div class="row clearfix">
+          <div class="col-md-12">
+              <div class="card social">
+                <div class="profile-header d-flex justify-content-between justify-content-center">
+                  <div class="d-flex">
+                      <div class="mr-3">
+                          <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                      </div>
+                     <div class="details">
+                            <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
+                            <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
+                            <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
+                      </div>                                 
+                  </div>
+                  <div class="col text-center">
+                    <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
+                    <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
+                    <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
+                    <!-- <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div> -->
+                  </div>
+                   <div class="col text-right">
+                      <div class="small text-light">Prescription Number</div>
+                      <div class="h4 m-0">Appointment No: {{appId}}</div>
+                    </div>
+              </div>
+                  <ul class="nav nav-tabs3 mt-2">
+                      <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Feed">Feeds</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Activity">Activity</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Friends">Friends</a></li>
+                  </ul>
+              </div>                    
+          </div>
+          <div class="tab-content col-md-12">
+              <div class="tab-pane vivify fadeIn delay-100 active show" id="Feed">
+                <!-- <div class="row clearfix">
+                  <div class="col-md-12">
+                      <div class="card">
+                          <div class="body">
+                              <div class="input-group mb-3">
+                                  <input type="text" class="form-control" placeholder="Search here...">
+                                  <div class="input-group-append">
+                                      <button class="btn btn-outline-secondary" type="button">Search</button>
+                                  </div>
+                              </div>
+                              <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
+                          </div>
+                      </div>
+                  </div>
+              </div> -->
+              <div class="row clearfix">
+                  <div class="col-xl-8 col-lg-7 col-md-12">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div class="tab-pane active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="row clearfix">                   
+                          <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Gallery</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                    <form id="advanced-form" data-parsley-validate novalidate>
+                                      <div class="form-group">
+                                          <label for="text-input1">Min. 8 Characters</label>
+                                          <input type="text" id="text-input1" class="form-control" required data-parsley-minlength="8">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input2">Between 5-10 Characters</label>
+                                          <input type="text" id="text-input2" class="form-control" required data-parsley-length="[5,10]">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input3">Min. Number ( >= 5 )</label>
+                                          <input type="text" id="text-input3" class="form-control" required data-parsley-min="5">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input4">Between 20-30</label>
+                                          <input type="text" id="text-input4" class="form-control" required data-parsley-range="[20,30]">
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="row clearfix">
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Select Min. 2 Options</label>
+                                                  <br />
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2" required data-parsley-mincheck="2" data-parsley-errors-container="#error-checkbox2">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox2"></p>
+                                              </div>
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Select Between 1-2 Options</label>
+                                                  <br />
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3" required data-parsley-check="[1,2]" data-parsley-errors-container="#error-checkbox3">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox3"></p>
+                                              </div>
+                                          </div>                                    
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Validate</button>
+                                  </form>                                   
+                                  </div>
+                              </div>
+                          </div>                      
+                    </div>                     
+                   </div>
+                      <div class="tab-pane" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="row clearfix">                   
+                          <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Gallery</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                    <form id="basic-form" method="post" novalidate>
+                                      <div class="form-group">
+                                          <label>Text Input</label>
+                                          <input type="text" class="form-control" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Email Input</label>
+                                          <input type="email" class="form-control" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Text Area</label>
+                                          <textarea class="form-control" rows="5" cols="30" required></textarea>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="row clearfix">
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Checkbox</label>
+                                                  <br/>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox" required data-parsley-errors-container="#error-checkbox">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox"></p>
+                                              </div>
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Radio Button</label>
+                                                  <br />
+                                                  <label class="fancy-radio">
+                                                      <input type="radio" name="gender" value="male" required data-parsley-errors-container="#error-radio">
+                                                      <span><i></i>Male</span>
+                                                  </label>
+                                                  <label class="fancy-radio">
+                                                      <input type="radio" name="gender" value="female">
+                                                      <span><i></i>Female</span>
+                                                  </label>
+                                                  <p id="error-radio"></p>
+                                              </div>
+                                          </div>                                    
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="food">Multiselect</label>
+                                          <br/>
+                                          <div class="form-group">
+                                              <select id="food" name="food[]" class="multiselect multiselect-custom" multiple="multiple" data-parsley-required data-parsley-trigger-after-failure="change" data-parsley-errors-container="#error-multiselect">
+                                                  <option value="cheese">Cheese</option>
+                                                  <option value="tomatoes">Tomatoes</option>
+                                                  <option value="mozarella">Mozzarella</option>
+                                                  <option value="mushrooms">Mushrooms</option>
+                                                  <option value="pepperoni">Pepperoni</option>
+                                                  <option value="onions">Onions</option>
+                                              </select>
+                                          </div>
+                                          <p id="error-multiselect"></p>
+                                      </div>
+                                      <br>
+                                      <button type="submit" class="btn btn-primary">Validate</button>
+                                  </form>                                   
+                                  </div>
+                              </div>
+                          </div>                      
+                    </div>                      
+                  </div>
+                      <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                        <div class="row clearfix">                   
+                          <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Gallery</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                    <form id="advanced-form" data-parsley-validate novalidate>
+                                      <div class="form-group">
+                                          <label for="text-input1">Min. 8 Characters</label>
+                                          <input type="text" id="text-input1" class="form-control" required data-parsley-minlength="8">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input2">Between 5-10 Characters</label>
+                                          <input type="text" id="text-input2" class="form-control" required data-parsley-length="[5,10]">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input3">Min. Number ( >= 5 )</label>
+                                          <input type="text" id="text-input3" class="form-control" required data-parsley-min="5">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="text-input4">Between 20-30</label>
+                                          <input type="text" id="text-input4" class="form-control" required data-parsley-range="[20,30]">
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="row clearfix">
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Select Min. 2 Options</label>
+                                                  <br />
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2" required data-parsley-mincheck="2" data-parsley-errors-container="#error-checkbox2">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox2">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox2"></p>
+                                              </div>
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Select Between 1-2 Options</label>
+                                                  <br />
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3" required data-parsley-check="[1,2]" data-parsley-errors-container="#error-checkbox3">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="control-inline fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox3">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox3"></p>
+                                              </div>
+                                          </div>                                    
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Validate</button>
+                                  </form>                                   
+                                  </div>
+                              </div>
+                          </div>                      
+                    </div>                      
+                  </div>
+                      <div class="tab-pane" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <div class="row clearfix">                   
+                          <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Gallery</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                    <form id="basic-form" method="post" novalidate>
+                                      <div class="form-group">
+                                          <label>Text Input</label>
+                                          <input type="text" class="form-control" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Email Input</label>
+                                          <input type="email" class="form-control" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Text Area</label>
+                                          <textarea class="form-control" rows="5" cols="30" required></textarea>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="row clearfix">
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Checkbox</label>
+                                                  <br/>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox" required data-parsley-errors-container="#error-checkbox">
+                                                      <span>Option 1</span>
+                                                  </label>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox">
+                                                      <span>Option 2</span>
+                                                  </label>
+                                                  <label class="fancy-checkbox">
+                                                      <input type="checkbox" name="checkbox">
+                                                      <span>Option 3</span>
+                                                  </label>
+                                                  <p id="error-checkbox"></p>
+                                              </div>
+                                              <div class="col-lg-6 col-md-12">
+                                                  <label>Radio Button</label>
+                                                  <br />
+                                                  <label class="fancy-radio">
+                                                      <input type="radio" name="gender" value="male" required data-parsley-errors-container="#error-radio">
+                                                      <span><i></i>Male</span>
+                                                  </label>
+                                                  <label class="fancy-radio">
+                                                      <input type="radio" name="gender" value="female">
+                                                      <span><i></i>Female</span>
+                                                  </label>
+                                                  <p id="error-radio"></p>
+                                              </div>
+                                          </div>                                    
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="food">Multiselect</label>
+                                          <br/>
+                                          <div class="form-group">
+                                              <select id="food" name="food[]" class="multiselect multiselect-custom" multiple="multiple" data-parsley-required data-parsley-trigger-after-failure="change" data-parsley-errors-container="#error-multiselect">
+                                                  <option value="cheese">Cheese</option>
+                                                  <option value="tomatoes">Tomatoes</option>
+                                                  <option value="mozarella">Mozzarella</option>
+                                                  <option value="mushrooms">Mushrooms</option>
+                                                  <option value="pepperoni">Pepperoni</option>
+                                                  <option value="onions">Onions</option>
+                                              </select>
+                                          </div>
+                                          <p id="error-multiselect"></p>
+                                      </div>
+                                      <br>
+                                      <button type="submit" class="btn btn-primary">Validate</button>
+                                  </form>                                   
+                                  </div>
+                              </div>
+                          </div>                      
+                    </div>                      
+                  </div>
+                  </div>
+                          
+                      <nav aria-label="Page navigation">
+                          <ul class="pagination">
+                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                              <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                              <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                              <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                          </ul>
+                      </nav>
+                  </div>
+                  <div class="col-xl-4 col-lg-5 col-md-12">
+                   
+                    <div class="card">
+                      <div class="header">
+                          <h2>Users</h2>
+                      </div>
+                      <!-- <div class="body">                     
+                          <div class="body text-center">
+                              <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar1.jpg" alt="">
+                              <h6 class="mt-3">Michelle Green</h6>
+                              <div class="text-center text-muted">Intranet Developer</div>
+                          </div>                         
+                  
+                          <div class="row text-center">
+                              <div class="col-6 border-right pb-4 pt-4">
+                                  <label class="mb-0">New Users</label>
+                                  <h4 class="font-30 font-weight-bold text-col-blue">2,025</h4>
+                              </div>
+                              <div class="col-6 pb-4 pt-4">
+                                  <label class="mb-0">Return Visitors</label>
+                                  <h4 class="font-30 font-weight-bold text-col-blue">1,254</h4>
+                              </div>
+                          </div>
+                      </div> -->
+                 
+                  </div>
+                      <div class="card">
+                          <div class="body">
+                              <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a>
+                              <h5 class="mt-4">Process</h5>                            
+                              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+                            </div>                             
+                          </div>
+                      </div>
+                  </div>
+              </div>  
+              </div>
+              <div class="tab-pane vivify fadeIn delay-100" id="Activity">
+                  <div class="card">
+                      <div class="body">
+                          <ul class="timeline">
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>March 12, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque.</p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>March 23, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item period">
+                                  <div class="timeline-info"></div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h2 class="timeline-title">April 2018</h2>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>April 02, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                              <li class="timeline-item">
+                                  <div class="timeline-info">
+                                      <span>April 28, 2018</span>
+                                  </div>
+                                  <div class="timeline-marker"></div>
+                                  <div class="timeline-content pb-0">
+                                      <h3 class="timeline-title">Event Title</h3>
+                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                          eu pede mollis pretium. Pellentesque ut neque. </p>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane vivify fadeIn delay-100" id="Friends">
+                  <div class="table-responsive">
+                      <table class="table table-hover table-custom spacing5">
+                          <thead>
+                              <tr> 
+                                  <th>#</th>
+                                  <th></th>
+                                  <th>eMail</th>
+                                  <th>Address</th>                                        
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Jason Porter</a>
+                                      <p class="mb-0">+ 264-625-5858</p>
+                                  </td>
+                                  <td>
+                                      <span>jason-porter@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>123 6th St. Melbourne, FL 32904</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Denise Elliott</a>
+                                      <p class="mb-0">+ 264-625-4523</p>
+                                  </td>
+                                  <td>
+                                      <span>denise-elliott@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Rose Coke</a>
+                                      <p class="mb-0">+ 264-625-2583</p>
+                                  </td>
+                                  <td>
+                                      <span>rose-coke@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Grace Knight</a>
+                                      <p class="mb-0">+ 264-625-2583</p>
+                                  </td>
+                                  <td>
+                                      <span>grace-knight@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>70 Bowman St. South Windsor, CT 06074</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Elizabeth Martin</a>
+                                      <p class="mb-0">+ 264-625-2341</p>
+                                  </td>
+                                  <td>
+                                      <span>Elizabeth-Martin@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>123 6th St. Melbourne, FL 32904</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Sean Black</a>
+                                      <p class="mb-0">+ 264-625-7262</p>
+                                  </td>
+                                  <td>
+                                      <span>denise-Alvarado@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">David Wallace</a>
+                                      <p class="mb-0">+ 264-625-9283</p>
+                                  </td>
+                                  <td>
+                                      <span>Carol-coke@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="w60">
+                                      <img src="../assets/images/xs/avatar8.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                  </td>
+                                  <td>
+                                      <a href="javascript:void(0);" title="">Theresa Wright</a>
+                                      <p class="mb-0">+ 264-625-2233</p>
+                                  </td>
+                                  <td>
+                                      <span>Michelle-Schultz@example.com</span>
+                                  </td>
+                                  <td>
+                                      <span>70 Bowman St. South Windsor, CT 06074</span>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-primary btn-sm">Follow</button>
+                                      <button class="btn btn-success btn-sm">Message</button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>         
+      </div>
+  </div>

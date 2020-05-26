@@ -108,6 +108,17 @@
 
 <script src="assets/html/assets/bundles/chartist.bundle.js"></script>
 
+<script>
+  $('.metismenu li').click(function(){
+      var $this = $(this);
+      if(!$this.is('active'))
+      {
+          $('.metismenu li').removeClass('active').removeData("top");
+          $this.addClass('active').data("top", $this.offset().top);
+      }
+  });
+  </script>
+
 <app-root></app-root>  
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
