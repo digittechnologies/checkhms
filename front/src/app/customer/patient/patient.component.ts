@@ -88,6 +88,10 @@ export class PatientComponent implements OnInit {
   givenBranch: any;
   role:any;
   rolId: any;
+  ini_cate_id: any;
+  ini_cate_name: any;
+  change_cate: any;
+  cate_id: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -148,11 +152,8 @@ export class PatientComponent implements OnInit {
       // console.info(this.appointment_ty);
     })
   }
-
   onChange1(b){
-
     this.givenDept = b.target.value; 
-  
     this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
       data=>{
       this.sResponse = data;      
@@ -163,9 +164,7 @@ export class PatientComponent implements OnInit {
   }
 
   onChange2(bch){
-
     this.givenBranch = bch.target.value;
- 
     this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
       data=>{
       this.sResponse = data;      
@@ -204,7 +203,7 @@ export class PatientComponent implements OnInit {
     else{
       if (form.value.category == 'regular') {
         
-           this.Jarwis.searchPatient(form.value).subscribe(  data=>{
+           this.Jarwis.searchPatient(form.value).subscribe(data=>{
         this.spin="disable";
         this.disabled= false;
         this.searchResponse = data;
@@ -214,7 +213,9 @@ export class PatientComponent implements OnInit {
         this.pAppointment = this.searchResponse.app;
         this.count = this.searchResponse.count;
         this.category = this.searchResponse.category;
-        
+        this.ini_cate_id = this.patient.cust_category_id;
+        this.ini_cate_name = this.patient.cate_name;
+        this.change_cate  = this.searchResponse.cate;
         if(this.count == 0){
           alert('Invalid refrence ID, patient not found. Try again!')
         } else{
@@ -244,9 +245,11 @@ export class PatientComponent implements OnInit {
           this.eReferral_mobile = this.patient.referral_mobile;
           this.ePatient_image = this.patient.patient_image;
           this.eAge =  this.patient.age;
+          this.cate_id = this.ini_cate_id;
 
           this.submissionForm = this.formBuilder.group(
             {
+              cust_category_id:[this.cate_id],
               name:[this.eName],
               othername:[this.eOthername],
               email:[this.eEmail],
