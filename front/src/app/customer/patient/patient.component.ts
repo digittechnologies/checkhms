@@ -86,6 +86,8 @@ export class PatientComponent implements OnInit {
   appt: any;
   braches: any;
   givenBranch: any;
+  role:any;
+  rolId: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -106,7 +108,12 @@ export class PatientComponent implements OnInit {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
-  // oneky up end
+ this.Jarwis.profile().subscribe(
+   data=>{
+     this.role=data;
+     this.rolId = this.role.aut.role_id
+   }
+ )
 
     this.Jarwis.displayCustomer().subscribe(
       data=>{
@@ -200,7 +207,6 @@ export class PatientComponent implements OnInit {
            this.Jarwis.searchPatient(form.value).subscribe(  data=>{
         this.spin="disable";
         this.disabled= false;
-       
         this.searchResponse = data;
         this.show= this.searchResponse.show;
         this.patient = this.searchResponse.search[0]; 
