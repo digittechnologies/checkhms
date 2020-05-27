@@ -234,6 +234,7 @@
                                             <th>GORAH Price</th>
                                             <th>NHIS Price</th>
                                             <th>Sales Amount</th>
+                                            <th>Remain Amount</th>
                                             <th>% Remaining</th>
                                             <!-- <th>Role</th>
                                             <th class="w100">Action</th> -->
@@ -287,6 +288,10 @@
                                                         <td>
                                                             <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
                                                             <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.sales | currency:'NGN':'symbol-narrow'}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
+                                                            <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*item.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                                         </td>
                                                     <td>
                                                         <span class="badge badge-success" *ngIf ="item.total_remain != '0'">{{math.round(100-(item.sales/item.total_remain*100))}}%</span>
@@ -863,7 +868,7 @@
 
                             <div class="tab-pane" id="returns">
                                 <div class="body mt-2"> 
-                                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitReturns(returns)" #trans="ngForm">            
+                                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitReturns(returns)" #returns="ngForm">            
                                         <div class="col-12">
                                             <h6>Add Return Items Here</h6>
                                             <div class="table-responsive">
@@ -895,34 +900,63 @@
                                                         <br>
                                                         <tr>
                                                             <td>
-                                                                <div class="form-group">
-                                                                    <select class="custom-select" id="inputGroupSelect02" >                            
-                                                                        <option ></option>                           
+                                                                <div class="form-group"> 
+                                                                    <label>Select Item</label>
+                                                                    <select class="form-control input-height" (change)="onSelectItemReturn($event)" ngModel name="r_item"> 
+                                                                        <option value="">Select Item...</option>     
+                                                                        <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}" [ngValue]="itdet.id">{{itdet.generic_name+ ' '+ itdet.manuf_name}}</option>
                                                                     </select> 
                                                                 </div>
-                                                            </td>
+                                                            </td>                                                  
                                                             <td>                                                            
                                                                 <div class="form-group">
-                                                                    <select class="custom-select" id="inputGroupSelect02">                            
-                                                                            <option  *ngFor="let br of bran"></option>                           
-                                                                        </select> 
+                                                                    <label>Select Center</label>
+                                                                    <select class="form-control" (change)="onSelectReturnFrom($event)" ngModel name="center">
+                                                                            <option value="">-- Center --</option>
+                                                                            <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                                       
+                                                                    </select> 
                                                                 </div>                                                            
-                                                            </td>                                                           
-                                                            <td><span class="badge badge-warning">290</span></td>
+                                                            </td>
+                                                            <td><span class="badge badge-warning">{{total_remain_from}}</span><input type="hidden" value="{{original_amount}}" ngModel name="original_amount"></td>   
                                                             <td>                                                           
                                                                 <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="First Name *">
+                                                                    <label>Item Quantity to Return</label>
+                                                                    <input type="text" class="form-control" ngModel name="r_quantity" placeholder="Quantity">        
+                                                                </div>                                                        
+                                                            </td>                                                 
+                                                            <td>                                                           
+                                                                <div class="form-group">
+                                                                    <label>Patient Hospital No</label>
+                                                                    <input type="text" class="form-control" (keyup)="getPatient($event)" ngModel name="patient_id" placeholder="Patient No">        
                                                                 </div>                                                        
                                                             </td>
-                                                            <td>                                                            
+                                                            <td> 
                                                                 <div class="form-group">
-                                                                    <select class="custom-select" id="inputGroupSelect02" >                            
-                                                                            <option ></option>                           
-                                                                        </select> 
-                                                                </div>                                                            
-                                                            </td>                                              
-                                                            <td><button class="btn btn-primary btn-block" type="button">Save</button></td>
-                                                        </tr>                                                    
+                                                                    <span *ngIf = "patient_name != 'Patient Not Found!'" class="badge badge-success">{{patient_name}}</span>
+                                                                    <span *ngIf = "patient_name == 'Patient Not Found!'" class="badge badge-warning">{{patient_name}}</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>                                                           
+                                                                <div class="form-group">
+                                                                    <label>Invoice No</label>
+                                                                    <input type="text" class="form-control" (keyup)="verifyInvoice($event)" ngModel name="invoice_id" placeholder="Patient No">        
+                                                                </div>                                                        
+                                                            </td>
+                                                            <td> 
+                                                                <span *ngIf = "isVerify"  class="badge badge-success"><i class="fa fa-check"></i></span>
+                                                                <span *ngIf = "!isVerify && isVerifyMsg == 'failed'" class="badge badge-danger"><i class="fa fa-times"></i></span>
+                                                            </td>
+                                                            <td>                                                           
+                                                                <div class="form-group">
+                                                                    <label>Purpose of Refund</label>
+                                                                    <textarea rows="4" cols="4" class="form-control" ngModel name="purpose" placeholder="Purpose of Refund"></textarea>
+                                                                </div>                                                        
+                                                            </td>
+                                                            <td>
+                                                                <button *ngIf = "isVerify" class="btn  btn-primary btn-block" type="submit">Save</button>
+                                                                <button *ngIf = "!isVerify" class="btn  btn-primary btn-block" disabled type="submit">Save</button>
+                                                            </td>
+                                                        </tr>                                                                    
                                                     </tbody>
                                                 </table>
                                             </div>

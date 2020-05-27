@@ -47,9 +47,11 @@
                             <div class="col-lg-2 col-md-2 col-sm-6">
                                 <label>Branch</label>
                                 <div class="form-group">
-                                    <select class="form-control" ngModel name="to" required>                           
+                                    <select class="form-control" ngModel name="to" required>  
                                         <option value="">Select Branch...</option>
-                                        <option  *ngFor="let br of bran" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
+                                        <ng-container *ngFor="let br of bran">
+                                            <option *ngIf="br.dept_id == deptID" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>  
+                                        </ng-container>                                                 
                                     </select>
                                 </div>
                             </div>
@@ -116,7 +118,7 @@
                                 <!-- <th>Price 2 (GORAH)</th>
                                 <th>Price 3 (NHIS)</th> -->
                                 <th>Sales Amount</th>
-                                <th>Amount</th>
+                                <th>Remains Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,7 +162,7 @@
                                 </td>
                                 <td>
                                     <span class="badge badge-success" *ngIf ="item.markup_price != '0'">{{item.purchasing_price*item.markup_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
-                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remaim | currency:'NGN':'symbol-narrow'}}</span>
+                                    <span class="badge badge-success" *ngIf ="item.markup_price == '0'">{{item.purchasing_price*det.total_remain | currency:'NGN':'symbol-narrow'}}</span>
                                 </td>
                             </ng-container>
 
@@ -214,17 +216,23 @@
                                 <tr>
                                     <th>S/N</th>
                                     <th>Item Type</th>
-                                    <th>Quantity</th>
-                                    <th>Amount</th>
+                                    <th>Sales Quantity</th>
+                                    <th>Sales Amount</th>
+                                    <th>Remain Quantity</th>
+                                    <th>Remain Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let typ of itemType; let r = index">
                                     <td>{{r+1}}</td>
                                     <td style="color: #17C2D7;">{{typ[0]}}</td>
-                                    <td class="text-success">{{typ[1]}}</td>
+                                    <td class="text-warning">{{typ[1]}}</td>
                                     <td>
-                                        <span class="badge badge-success">{{typ[2] | currency:'NGN':'symbol-narrow'}}</span>
+                                        <span class="badge badge-warning">{{typ[2] | currency:'NGN':'symbol-narrow'}}</span>
+                                    </td>
+                                    <td class="text-success">{{typ[3]}}</td>
+                                    <td>
+                                        <span class="badge badge-success">{{typ[4] | currency:'NGN':'symbol-narrow'}}</span>
                                     </td>
                                 </tr>
                             </tbody>

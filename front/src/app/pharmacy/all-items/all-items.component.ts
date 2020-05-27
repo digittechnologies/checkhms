@@ -101,6 +101,13 @@ export class AllItemsComponent implements OnInit {
   varQuantity: any;
   varDetails: any;
   varId2: any;
+  patient_name: any;
+  returnId: any;
+  totalReturnFrom: any;
+  total_remain_from: any;
+  isVerify: any;
+  isVerifyMsg: any;
+  original_amount: number;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -292,6 +299,10 @@ onSelectItem2(id) {
   this.id2 = id.target.value;
 }
 
+onSelectItemReturn(id) {
+  this.returnId = id.target.value;
+}
+
 allItem(aa) {
   this.items = false;
   this.itemsitem = false;
@@ -325,6 +336,18 @@ onSelectFrom(from){
   );
   // alert(this.totalFrom)
   // alert(this.totalFrom[0].total_remain)
+}
+
+onSelectReturnFrom(from){
+  this.from = from.target.value;
+  this.Jarwis.displayInstockT([this.returnId, this.from]).subscribe(  
+    data=>{
+      this.response = data;
+      this.totalReturnFrom =this.response[0];
+      this.total_remain_from= this.totalReturnFrom.total_remain;
+      this.original_amount = this.totalTo.purchasing_price * this.totalTo.markup_price;
+    }
+  );
 }
 
 restrict(r) {
@@ -417,6 +440,14 @@ onDelete(id: string) {
   onSubmitVariance(form: NgForm) {
     this.disabled = true;
     this.Jarwis.varianceStock(form.value).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );
+  }
+
+  onSubmitReturns(form: NgForm) {
+    this.disabled = true;
+    this.Jarwis.submitReturn(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
@@ -532,6 +563,32 @@ onDelete(id: string) {
     //   onlySelf: true
     // })
     // alert(id)
+  }
+
+  getPatient(id){
+    let param = id.target.value;
+    if(param == '') {this.patient_name = ''}
+    else {
+      this.Jarwis.getpatientdetails(param).subscribe(        
+        data =>{
+          this.response = data;
+          if(this.response.length <= 0) {this.patient_name = 'Patient Not Found!'}
+          else {this.patient_name = this.response[0].name;}
+        } 
+      );
+    }
+  }
+
+  verifyInvoice(id){
+    let param = id.target.value;
+    this.Jarwis.verifyInvoice(param).subscribe(        
+      data =>{
+        this.response = data;
+        console.log(this.response)
+        this.isVerify = this.response.success;
+        this.isVerifyMsg = this.response.message;
+      } 
+    );
   }
 
   handleResponse(data) {    // 

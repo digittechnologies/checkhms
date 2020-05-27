@@ -1319,6 +1319,15 @@ public function addCenter(Request $request)
                             ->join('customers','appointments.customer_id','=','customers.id')
                             ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
                             ->where('appointments.customer_id','=',$row->id)->get(),
+
+                            "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
+                            ->where('appointments.customer_id','=',$row->id)->count(),
+
+                            "count3" => DB::table('invoices')->orderBy('id')->join('vouchers','invoices.voucher_id','=','vouchers.id')
+                            ->join('appointments','vouchers.appointment_id','=','appointments.id')
+                            ->join('customers','appointments.customer_id','=','customers.id')
+                            ->select('invoices.*')   
+                            ->where('customers.id','=',$row->id)->sum('invoices.balance'),
                         ]);
                 }
             }
@@ -1988,6 +1997,9 @@ public function addCenter(Request $request)
     
     }
 
+    public function submitReturn(Request $request){
+        return $request->all();
+    }
     // Inventory
 
     public function saveAdd()

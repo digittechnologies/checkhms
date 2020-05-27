@@ -495,6 +495,9 @@ updateCustomer(data) {
 patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
+getpatientdetails(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/getpatientdetails/${id}`)
+}
 customer_category() {
   return this.http.get<any>(`${this.baseUrl}/customer_category`)
 }
@@ -515,6 +518,9 @@ makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
+}
+verifyInvoice(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/verifyInvoice/${id}`)
 }
 
 //EPS Patients
@@ -647,6 +653,12 @@ deleteAppointment(data) {
 
   varianceStock(data) {
     return this.http.post(`${this.baseUrl}/varianceStock`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  submitReturn(data) {
+    return this.http.post(`${this.baseUrl}/submitReturn`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

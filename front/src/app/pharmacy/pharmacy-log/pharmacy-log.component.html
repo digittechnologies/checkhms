@@ -3,7 +3,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Patient Log</h1>
+                    <h1>Patient Log <span *ngIf = "dept == '1'">{{pharmCenter}}</span></h1>
                     <nav aria-label="breadcrumb" *ngIf ="dept == '1'">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard &nbsp;</a></li>
@@ -33,14 +33,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="body">
-                        <form class="form-auth-small m-t-20" role="form"  #filter="ngForm" >
+                        <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="filt($event)" #filter="ngForm" > -->
                             <div class="row">
-                                <!-- (ngSubmit)="filt($event)" -->
                                 <div class="col-lg-10 col-md-10 col-sm-6">
                                     <label>Search User</label>
                                     <div class="input-group">
-                                        <input type="text"   id="patient_info" class="form-control" placeholder="Search...">
-                                        <!-- (keyup)="filt()" [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto" -->
+                                        <input type="text" class="form-control" placeholder="Search..."  [(ngModel)]="form.customer" name="customer" [formControl]="control"  [matAutocomplete]="auto">
                                         <mat-autocomplete #auto="matAutocomplete" >
                                             <mat-option *ngFor="let street of filteredStreets | async" [value]="street" >
                                              {{street}} 
@@ -49,12 +47,12 @@
                                         
                                     </div>
                                 </div>                           
-                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                <!-- <div class="col-lg-2 col-md-4 col-sm-6">
                                     <label>&nbsp;</label>
                                     <button type="submit" class="btn btn-sm btn-primary btn-block" (click)="filt()" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                                </div>
+                                </div> -->
                             </div>
-                        </form> 
+                        <!-- </form>  -->
                          <!-- <form class="form-auth-small m-t-20" role="form"  ngModel  #fm="ngForm"> 
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-6">
@@ -79,19 +77,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- <div class="row clearfix">
-        <div class="col-lg-3 col-md-6" *ngFor= "let l of log">
-            <div class="card c_grid c_yellow">
-                <div class="body text-center p-2">
-                    <div class="row mb-3">
-                        <div class="col-8"> <small class="float-left"><small class="mr-1">{{l.created_at.slice(0,10)}},</small> <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}} </small><small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div>
-                            <span  *ngIf ="l.prescription ==='open'" class=" col-3 btn btn-default text-center float-right" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"><i class="fa fa-remove text-danger" ></i></span>
-                            <span  *ngIf = "l.invoice == 'paid'" class=" col-3 btn btn-default text-center float-right" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"><i class=" text-success" >End</i></span>
-                        </div> -->
-                    <!-- <div class="circle">
-                        <img class="rounded-circle" src="http://{{ imgLink}}/backend/public/upload/uploads/{{l.patient_image}}" alt="">
-          -->
+         
          <div class="modal fade" id="endall" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">  
@@ -150,6 +136,11 @@
                 </div>
                 </div>
         <div class="row clearfix">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf ="logEmpty">
+                    <div class="card-header text-center">
+                        <h5 class="text-primary">No log entries yet</h5>
+                    </div>
+                </div> -->
 
 <div class="col-lg-3 col-md-4 col-sm-6" id="patient-log" *ngFor= "let l of log">
     <div *ngIf="l.pharm_status == 'open'" class="card c_grid c_blue">        
@@ -314,39 +305,8 @@
               </div>    
         </div>
     </div>
-<!-- Default Size -->
+</div>
 
-<div class="modal fade" id="transfer" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title h4" id="myLargeModalLabel">Relocate Appointment</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <form class="form-auth-small m-t-20" role="form" (ngSubmit)=" relocate(locate)" #locate="ngForm"> 
-          <div class="modal-body">             
-              <div class="row clearfix">
-                  <div class="col-md-8">
-                      <div class="form-group">
-                        <select class="form-control show-tick"  ngModel name="editapp">
-                            <option value="">{{editapp}}</option>
-                            <option *ngFor="let center of editapp_center" value="{{center.id}}">{{center.name}}</option>                               
-                        </select> 
-                        <input type="hidden" [(ngModel)]="relocate_id" name="relocate_id">
-                      </div>
-                  </div>             
-              </div>
-          </div>     
-          <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Relocate<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-              <button type="button" class="btn btn-round btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-          </div>
-          </form>
-      </div>
-    </div>
-    </div>
 <!-- Default Size -->
 <div class="modal fade" id="AddPatients" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

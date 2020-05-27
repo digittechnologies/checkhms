@@ -100,9 +100,9 @@
                                             <td *ngIf="v.paid_status == 'terminate'"><span class="badge badge-danger ml-0 mr-0">Terminated</span></td>
                                             <td>
                                                 <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top" (click)="onPay(v.id, 'slip', '#Payslip')"><a data-toggle="tab"  href="#Payslip"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPay(v.id, 'slip', '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
                                                 <button type="button" class="btn btn-sm btn-default" title="Label" data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#plabel"><i class="icon-printer"></i> Label</a></button> &nbsp;
-                                                <button type="button" class="btn btn-sm btn-default" title="councle" data-placement="top"><a class="text text-danger" data-toggle="modal" data-target="#cancelPay"  href="#"><i class="icon-trash"></i> Cancel</a></button>
+                                                <button type="button" class="btn btn-sm btn-default" title="councle" data-placement="top"><a class="text text-danger" data-toggle="tab" data-target="#cancelPay"  href="#EmployeeSalary"><i class="icon-trash"></i> Cancel</a></button>
                                             </td>
 
                                             <div class="modal fade" id="cancelPay" tabindex="-1" role="dialog">
@@ -115,7 +115,7 @@
                                                         <div class="modal-body">             
                                                             <div class="row  justify-content-center">
                                                                     <h6>You are about to terminate this voucher! Click on Continue Button to Proceed  </h6>     
-                                                                    <small>Please Note: This action wounld delect the prescribed items in this voucher</small>
+                                                                    <small>Please Note: This action would delete the prescribed items in this voucher</small>
                                                             </div>
                                                         </div>      
                                                         <div class="modal-footer">
@@ -205,7 +205,7 @@
                                                   </div> 
                                                   <tfoot>
                                                     <tr>
-                                                        <td colspan="3"><span><strong>Note:</strong> Ipsum is simply dummy text of the printing and typesetting industry.</span></td>
+                                                        <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
                                                         
                                                         <td>
                                                           Sub Total: <br>
@@ -297,7 +297,7 @@
                                                 <!-- <h2>Label Table</h2>  <strong>Invoice Status: </strong><span *ngIf = "invoice == 'unpaid'" class="badge badge-danger">{{invoice}}</span> <span *ngIf = "invoice == 'paid'" class="badge badge-success">{{invoice}}</span> -->
                                                 <nav aria-label="breadcrumb">
                                                     <ol class="breadcrumb">                    
-                                                    <li class="breadcrumb-item active" aria-current="page">The following lable description wounld be printable immediatle Payment have been made</li>
+                                                    <li class="breadcrumb-item active" aria-current="page">The following lable description would be printable immediately after payment</li>
                                                     </ol>
                                                 </nav>
                                             </div>            

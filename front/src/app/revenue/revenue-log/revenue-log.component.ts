@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RevenueJarwisService } from 'src/app/service/revenue-jarwis.service';
 import { MatSnackBar } from '@angular/material';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 declare let $ : any;
 @Component({
@@ -79,7 +80,8 @@ record_empty:null;
    private Jarwis:JarwisService,
    private JarwisRev:RevenueJarwisService,
     private actRoute:ActivatedRoute,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private router: Router,
     ) { }
 
   ngOnInit() {
@@ -314,7 +316,7 @@ record_empty:null;
         this.ngOnInit();       
       }
         
-      // this.router.navigateByUrl('/Admin/(side:catacturer');
+      this.router.navigateByUrl('/Admin/(side:patient_log');
       // this.ngOnInit();
       this.disabled = false;
     }

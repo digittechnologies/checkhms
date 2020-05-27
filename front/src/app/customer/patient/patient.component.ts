@@ -35,7 +35,7 @@ export class PatientComponent implements OnInit {
   spin: string;
   searchResponse: any;
   patient: any;
-  show: boolean;
+  show: any;
   pAppointment: any;
   eName: any;
   eOthername: any;
@@ -92,6 +92,8 @@ export class PatientComponent implements OnInit {
   ini_cate_name: any;
   change_cate: any;
   cate_id: any;
+  count1: any;
+  count3: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -212,6 +214,8 @@ export class PatientComponent implements OnInit {
         this.patientAll = this.searchResponse.search; 
         this.pAppointment = this.searchResponse.app;
         this.count = this.searchResponse.count;
+        this.count1 = this.searchResponse.count1;
+        this.count3 = this.searchResponse.count3;
         this.category = this.searchResponse.category;
         this.ini_cate_id = this.patient.cust_category_id;
         this.ini_cate_name = this.patient.cate_name;
