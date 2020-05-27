@@ -980,10 +980,10 @@ public function addCenter(Request $request)
         $customer= Customers::create($request-> all());
        
         if($customer){
-           $wallet = DB::table('wallets')->insert([
-                'name'=>$customer->name,
-                'user_id'=>$customer->id, 
-            ]);
+        //    $wallet = DB::table('wallets')->insert([
+        //         'name'=>$customer->name,
+        //         'user_id'=>$customer->id, 
+        //     ]);
             return '{
                 "success":true,
                 "message":"successful"
@@ -1137,6 +1137,7 @@ public function addCenter(Request $request)
         //  $user->gender =  $datas['gender'];
         //  $user->genotype =  $datas['genotype'];
         //  $user->blood_group =  $datas['blood_group'];
+        $user->cust_category_id = $datas['cust_category_id'];
          $user->state =  $datas['state'];
          $user->d_o_b =  $datas['d_o_b'];
          $user->country=$datas['country'];
