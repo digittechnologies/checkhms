@@ -331,4 +331,16 @@ class RecordModuleController extends Controller
     }   
 
 
+    public function displayRecordPieData()
+    {
+        $aptType = DB::table("appontment_type")->orderBy('id')->get(); 
+        $array = array();
+        foreach($aptType as $row){
+            $id = $row->id;
+            $return = DB::table('appointments')->where('appointment_type', $id)->count();
+            array_push($array, (int)$return);
+         }
+         return $array;
+    }
+
 }

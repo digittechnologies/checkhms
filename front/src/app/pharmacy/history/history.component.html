@@ -7,7 +7,7 @@
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Home</a></li>
-                      <li class="breadcrumb-item"><a href="ijavascript:void(0)">Inventory</a></li>
+                      <!-- <li class="breadcrumb-item"><a href="javascript:void(0)">Inventory</a></li> -->
                       <li class="breadcrumb-item active" aria-current="page">History</li>
                       </ol>
                   </nav>
@@ -36,17 +36,24 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-6">
                                 <label>Action</label>
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="deptID == '1'">
                                     <select class="custom-select" (change)="onSelectAction($event)" ngModel name="action" required>
                                         <option>Select Action...</option>
                                         <option value="prescriptions">Prescriptions</option>
-                                        <option value="adds">Add</option>
-                                        <option value="transfersFrom">Transfer From </option>
-                                        <option value="transfersTo">Transfer To </option>
-                                        <option value="variances">Variance</option>
+                                        <option value="adds">Adds</option>
+                                        <option value="transfersFrom">Transfers From </option>
+                                        <option value="transfersTo">Transfers To </option>
+                                        <option value="variances">Variances</option>
                                         <option value="appointments">Appointments</option>
                                         <!-- <option value="refills">Refill</option> -->
                                         <!-- <option value="requests">Stock Request</option> -->
+                                    </select>
+                                </div>
+                                <div class="form-group" *ngIf="deptID == '11'">
+                                    <select class="custom-select" (change)="onSelectAction($event)" ngModel name="action" required>
+                                        <option>Select Action...</option>
+                                        <option value="vouchers">Vouchers</option>
+                                        <!-- <option value="invoices">Invoices</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -55,7 +62,9 @@
                                 <div class="form-group">
                                     <select class="form-control" ngModel name="branch" required>                           
                                         <option value="">Select Branch...</option>
-                                        <option  *ngFor="let br of branch" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
+                                        <ng-container *ngFor="let br of branch">
+                                            <option *ngIf="br.dept_id == deptID" value="{{br.br_name}}" [ngValue]="br.br_name">{{br.name}}</option>                          
+                                        </ng-container>
                                     </select>
                                 </div>
                             </div>
@@ -399,6 +408,7 @@
                 </div>
             </div>
             
+            <!-- Appointments -->
             <div class="body" *ngIf = "action == 'appointments'">
                 <div id="print-history">
                     <div>
@@ -482,6 +492,99 @@
                 </div>
             </div>
 
+             <!-- Vouchers -->
+             <div class="body"  *ngIf = "action == 'vouchers'">
+                <div class="table-responsive" id="print-history">
+                    <div>
+                        <h5 class="text-center">Bowen University Teaching Hospital Pharmacy, Ogbomoso</h5>
+                        <h5 class="text-center">Revenue Vouchers List of {{sBranch}} Center From <b>{{sDate}}</b> To <b>{{eDate}}</b></h5>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th style="width: 20px;">Voucher No</th>                                           
+                                <th >Department</th>                                            
+                                <th class="w100">Date/Time</th>                                            
+                                <th class="w60">Amount</th>
+                                <th class="w60">Charges</th>
+                                <th class="w60">Discount</th>
+                                <th class="w60">Total Amount</th>
+                                <th class="w60">Balance</th>
+                                <th class="w60">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let v of vouch; let r = index ">
+                                <td>
+                                    <span>{{r+1}} </span>
+                                </td>  
+                                <td>{{v.id}}</td>                                         
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div>
+                                        <div class="ml-3">
+                                            <a href="javascript:void(0);"  title="">{{v.d_name}}</a>
+                                            <p class="mb-0">{{v.br_name}}</p>
+                                        </div>
+                                    </div>                                        
+                                </td>                                            
+                                <td>{{v.created_at}}</td>
+                                <td>{{v.amount}}</td>
+                                <td>{{v.charges}}</td>
+                                <td>{{v.discount_id}}</td>
+                                <td>{{v.paid | currency:'NGN':'symbol-narrow'}}</td>
+                                <td>{{v.balance | currency:'NGN':'symbol-narrow'}}</td>
+                                <td *ngIf="v.paid_status == 'open'"><span class="badge badge-warning ml-0 mr-0">{{v.paid_status}}</span></td>
+                                <td *ngIf="v.paid_status == 'paid'"><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
+                                <td *ngIf="v.paid_status == 'terminate'"><span class="badge badge-danger ml-0 mr-0">Terminated</span></td>
+
+                            </tr>                           
+                        </tbody>
+                    </table>
+                </div>
+                <button    (click)="printComponent()">Print</button>
+            </div>
+
+            <!-- Invoices -->
+            <div class="body"  *ngIf = "action == 'invoices'">
+            <div class="table-responsive" id="print-history">
+                <div>
+                    <h5 class="text-center">Bowen University Teaching Hospital Pharmacy, Ogbomoso</h5>
+                    <h5 class="text-center">Stock Variances List of {{sBranch}} Center From <b>{{sDate}}</b> To <b>{{eDate}}</b></h5>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Item</th>                                                            
+                            <th>Branch</th>                                                       
+                            <th>Instock</th>
+                            <th>Quantity</th> 
+                            <th>Physical</th>                                                             
+                            <th>Purpose</th>     
+                            <th>Details</th> 
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                        <tr  *ngFor="let vadded of vari; let v = index">
+                            <td>{{v+1}}</td>
+                            <td><img src="http://{{ imgLink}}/backend/public/upload/uploads/{{vadded.item_img}}" alt="Avatar" class="w30 rounded-circle mr-2"> <span>{{vadded.generic_name}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.manuf_name}}</span></td>   
+                            <td><span class="badge badge-warning">{{vadded.instock}}</span></td>                                                
+                            <td><span class="text-success">{{vadded.quantity}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.newstock}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.purpose}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.detail}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.v_date}}</span></td>
+                            <td><span class="badge badge-warning">{{vadded.v_time}}</span></td>
+                        </tr>                            
+                    </tbody>
+                </table>
+            </div>
+            <button    (click)="printComponent()">Print</button>
+        </div>
         </div>
     </div>
   </div>

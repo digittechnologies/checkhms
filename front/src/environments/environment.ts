@@ -4,6 +4,11 @@
 
 export const environment = {
   production: false,
+
+  // baseUrl: 'http://demo.checkhms.com/backend/public/api',
+  // login: 'http://demo.checkhms.com/backend/public/api/login',
+  // signup: 'http://demo.checkhms.com/backend/public/api/signup'
+
   baseUrl : 'http://localhost/buth-pharm/backend/public/api',
   login: 'http://localhost/buth-pharm/backend/public/api/login',
   signup: 'http://localhost/buth-pharm/backend/public/api/signup',

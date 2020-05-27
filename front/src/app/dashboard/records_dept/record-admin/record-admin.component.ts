@@ -24,6 +24,8 @@ export class RecordAdminComponent implements OnInit {
   appts: any;
   patients: any;
   pharmacyCenters: any;
+  appType: any;
+  pieData: any;
 
   constructor(
     private RecordJarwis: RecordJarwisService,
@@ -47,6 +49,20 @@ export class RecordAdminComponent implements OnInit {
       this.center = this.response   
     })
 
+    this.RecordJarwis.displayRecordPieData().subscribe(
+      data=>{
+      this.response = data;      
+      this.pieData = this.response
+      this.onLoad(this.appType, this.pieData)
+    })
+
+    this.RecordJarwis.displayAppointmentType().subscribe(
+      data=>{
+      this.response = data;      
+      this.appType = this.response.appointment_type 
+      this.onLoad(this.appType, this.pieData)
+    })
+
     this.RecordJarwis.displayRecordData().subscribe(
       data=>{
       this.response = data;
@@ -57,4 +73,36 @@ export class RecordAdminComponent implements OnInit {
     })
   }
 
+  onLoad(aptype, pieData){
+    let data = {};
+    let pieBox = [];
+    let count = 0;
+    aptype.forEach(e => {
+      pieBox.push([e.id, pieData[count]]);
+      data[e.id] = e.name;
+      count++;
+    });
+    console.log(data)
+    console.log(pieBox)
+    var chart = c3.generate({
+      bindto: '#chart-Events-Interest', // id of chart wrapper
+      data: {
+          // each columns data
+          columns: pieBox,
+          type: 'pie',
+          // name of each serie
+          names: data
+      },
+      axis: {
+      },
+      legend: {
+
+          show: true,  //hide legend
+      },
+      padding: {
+          bottom: 20,
+          top: 0
+      },
+  });
+  }
 }

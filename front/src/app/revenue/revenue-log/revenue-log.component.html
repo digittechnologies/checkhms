@@ -68,7 +68,7 @@
                                             <th class="w60">Amount</th>
                                             <th class="w60">Charges</th>
                                             <th class="w60">Discount</th>
-                                            <th class="w60">Total Ammount</th>
+                                            <th class="w60">Total Amount</th>
                                             <th class="w60">Balance</th>
                                             <th class="w60">Status</th>
                                             <th class="w60">Action</th>
@@ -148,7 +148,7 @@
                                     <div class="media-body">
                                         <div class="content">
                                             <span><strong>RX#: </strong> {{voucher_Id}}</span>
-                                            <p class="h5">{{name}} {{othername}}: {{card_number}} <strong *ngIf="v_status == 'open'" class="float-right badge badge-warning">UNPAID</strong>  <strong *ngIf="v_status == 'paid'" class="float-right badge badge-warning">PAID</strong></p>
+                                            <p class="h5">{{name}} {{othername}}: {{card_number}} <strong *ngIf="v_status == 'open'" class="float-right badge badge-warning">UNPAID</strong>  <strong *ngIf="v_status == 'paid'" class="float-right badge badge-success">PAID</strong></p>
                                             <p>{{address}}, {{city}}, {{state}}, {{country}}</p>
                                             <p>{{mobile_no}}</p>
                                         </div>
@@ -229,7 +229,8 @@
                             </div>
                                 <div class="row clearfix">
                                     <div class="col-md-12 text-right">
-                                        <button class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Payment</button> &nbsp;
+                                        <button *ngIf="v_status== 'open'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Payment</button> &nbsp;
+                                        <button *ngIf="v_status == 'paid' || v_status == 'terminate'" disabled class="btn btn-success" [hidden]="dept!='11'"><i class="icon-cash"></i> Payment</button> &nbsp;
                                         <button class="btn btn-info" (click)="printComponent()"><i class="icon-printer"></i> Print</button> &nbsp;
                                         <button class="btn btn-success" [hidden]="dept!='11'"  [routerLink]="['/Admin', {outlets: {side: ['invoice',voucher_Id]}}]"><i class="icon-printer"></i> Reciept</button>
                                     </div>
@@ -338,8 +339,8 @@
                                                                     <!-- <td><span class="badge badge-success ml-0 mr-0">{{appointments[0].invoice}}</span></td> -->
                                                                     <td>
                                                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button> -->
-                                                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "invoice != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
-                                                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "invoice == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                                                        <button type="button" class="btn btn-sm btn-danger" *ngIf = "v_status != 'paid'" disabled title="Print Label" ><i class="icon-printer"></i></button>
+                                                                        <button type="button" class="btn btn-sm btn-success" *ngIf = "v_status == 'paid'" (click)="openPrintDialogue(i.id)" title="Print Label" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
                                                                         <!-- <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button> -->
                                                                     </td>
                                                             <!-- </ng-container> -->
