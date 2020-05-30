@@ -138,6 +138,10 @@ import { RecordHistoryComponent } from './record/record-history/record-history.c
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 import { BrancesComponent } from './branches/brances/brances.component';
+import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+
 
 @NgModule({
   declarations: [
@@ -343,6 +347,8 @@ import { BrancesComponent } from './branches/brances/brances.component';
     AppointmentTypeComponent,
   
     BrancesComponent,
+    NavLazyLoadComponent
+  
   
   ],
   imports: [
@@ -371,6 +377,7 @@ import { BrancesComponent } from './branches/brances/brances.component';
     MatAutocompleteModule​,
     MatFormFieldModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forRoot(reducers, { metaReducers }),
   
   ],
   providers: [

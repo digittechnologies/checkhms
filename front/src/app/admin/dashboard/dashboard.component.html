@@ -1,4 +1,7 @@
 <div id="wrapper">
+    <div *ngIf="Jarwis.lazyload.load == 'loading'">
+        <app-nav-lazy-load></app-nav-lazy-load>
+    </div>
     <div *ngIf = "hms == 'active'">
         <div *ngIf="department=='1'">
         <app-pharmacy></app-pharmacy>

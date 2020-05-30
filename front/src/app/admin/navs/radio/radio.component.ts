@@ -49,11 +49,17 @@ export class RadioComponent implements OnInit {
     private Jarwis:JarwisService,
     private Token:TokenService,
     private elementRef:ElementRef
-  ) { }
+  ) {
+    this.Jarwis.profile().subscribe(
+      data=>{if (data) {
+        this.Jarwis.lazyLoader("loaded")
+      }
+    })
+   }
 
   ngOnInit() {
    // location.reload()
-
+   this.Jarwis.lazyLoader("loading")
    this.Jarwis.profile().subscribe(
     data=>{
      

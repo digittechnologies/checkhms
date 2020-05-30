@@ -4,6 +4,8 @@ import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from './service/token.service';
 import { MatSnackBar } from '@angular/material';
+import { ConnectionService } from 'ng-connection-service';
+declare var $:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,6 +16,8 @@ export class AppComponent {
   response: any;
   status: any;
   statu: any;
+  statuss = ' ';
+  isConnected:Boolean;
   // login = true;
   // home = false;
  
@@ -27,19 +31,31 @@ export class AppComponent {
     private router: Router,
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
-  ) { }
+    private connectionService: ConnectionService
+  ) {
+    this.connectionService.monitor().subscribe(isConnected => {
+      this.isConnected = isConnected;
+      if (this.isConnected) {
+        this.statuss = "ONLINE";
+        $('#myModal').modal('hide');
+
+      }
+      else {
+        this.statuss = "OFFLINE";
+        $('#myModal').modal('show');
+      }
+    })
+   }
   // public response:any;
   // public res:any;
   // ftitle: any;
   ngOnInit() {
-
     this.Jarwis.setupStatus().subscribe(
       data=>{
       this.response = data;      
       this.status = this.response[0];
       this.statu=this.status.status
     })
-  
   }
  
 

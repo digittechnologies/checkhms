@@ -43,7 +43,6 @@ export class AddPatientComponent implements OnInit {
   eReferral_address: any;
   eReferral_mobile: any;
   hostitalNum: any;
-  eps_name: any;
 
   //EPS (External Paramedical Services)
 
@@ -62,7 +61,6 @@ export class AddPatientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.Jarwis.displayCustomerCategory().subscribe(
         data=>{
         this.response = data;      

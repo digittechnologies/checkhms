@@ -124,6 +124,7 @@ import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { BrancesComponent } from './branches/brances/brances.component';
+import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 
 
 //DEPARTMENTS Dashboards
@@ -135,6 +136,7 @@ const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
   {path: 'setupregister', component: RegisterComponent},
+  {path:'lazyload',component:NavLazyLoadComponent},
   // {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },

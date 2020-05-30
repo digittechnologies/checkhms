@@ -47,11 +47,29 @@ export class JarwisService {
   // private baseUrl = 'https://hms.jtcheck.com/back/backend/public/api';
 
   private baseUrl = environment.baseUrl;
+  public imageUrl = environment.imageUrl;
+  lazyload={load:'loading'};
+
+
 
   
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,) { 
+  }
 
+  lazyLoader(data){
+    this.lazyload.load = data;
+  }
+  monitor(){
+    if(window.ononline){
+      console.log("online")
+    }
+    else if(window.onoffline){
+      console.log("you are off line")
+    }
+
+ 
+  }
   setupStatus() {
     return this.http.get(`${this.baseUrl}/setupStatus`)
   }
@@ -577,6 +595,17 @@ displayDeptAppointment(id: any) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+getnewappoint(id:any){
+  // console.log(data)
+  return this.http.get<any>(`${this.baseUrl}/getnewappoint/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+displayAllInvoice(id:any) {
+  return this.http.get<any>(`${this.baseUrl}/displayAllInvoice/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
 
 displayPharmStaffDashAppointment() {
   return this.http.get(`${this.baseUrl}/displayPharmStaffDashAppointment`,{headers:{
@@ -750,12 +779,15 @@ deleteAppointment(data) {
       Authorization:`Bearer ${localStorage.token}`
     }})
   } 
+ 
+ 
 
   displayRefillPrescriptions(id: any, data) {
     return this.http.post<any>(`${this.baseUrl}/displayRefillPrescriptions/${id}`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+ 
 
   pres_refill_id(id: any) {
     return this.http.post<any>(`${this.baseUrl}/pres_refill_id/${id}`,{headers:{

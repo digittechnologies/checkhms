@@ -17,19 +17,18 @@
                 
             </div>
         </div>
-
         <div class="row clearfix">
             <div class="col-md-12">
                 <div class="card social">
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{patient_image}}" class="rounded" alt="Patient_Photo">
                             </div>
                            <div class="details">
-                                  <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
-                                  <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
-                                  <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
+                                  <h4 class="mb-0">Card Number : {{card_number}}</h4>
+                                  <span class="text-light"><b>Name : </b>{{patient_name + " " + patient_othername}}</span>
+                                  <div><b>Mobile: </b>{{patient_mobile_number}}</div>
                             </div>                                 
                         </div>
                         <div class="col text-center">
@@ -58,6 +57,7 @@
                     <div class="tab-content">
                         <div class="tab-pane show active" id="EmployeeSalary">
                             <div class="table-responsive invoice_list mb-4">
+                                <button class="float-right btn btn-default text-success"><a data-toggle="tab" class="text-success"  href="#Payslip" (click)="onPayall()">pay all</a></button>
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr> 
