@@ -181,6 +181,7 @@ Route::get('endappointments','DisplayController@endAppointments');
 Route::post('deptlist','DisplayController@deptList');
 Route::post('editapp','DisplayController@editAppoint');
 Route::post('relocateapp','DisplayController@relocateApp');
+Route::get('getnewappoint/{id}','DisplayController@getNewappoint');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
@@ -189,6 +190,7 @@ Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription/{id}', 'AddController@deletePrescription');
 Route::post('displayPharmInvoice/{id}/{vid}','DisplayController@displayPharmInvoice');
+Route::get('displayAllInvoice/{id}','DisplayController@displayAllInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
 // Route::post('updateVoucher', 'AddController@updateVoucher');
