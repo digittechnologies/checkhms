@@ -34,6 +34,9 @@ use App\Customer_category;
 use App\Hospital_charges;
 use App\Http\Requests\PatientRequest;
 use App\Http\Requests\EpsRequest;
+use App\Process_tb;
+use App\Process_attribute_tb;
+use App\Process_module_tb;
 
 
 class AddController extends Controller
@@ -2802,6 +2805,49 @@ public function addCenter(Request $request)
                 'status' => 'close',
             ]);
         }
+    }
+
+    public function addToProcessTb()
+    {
+        $create_process = DB::table('process_tb')->insertGetId([
+                'department_id' => 1,
+                'process_module_id' => 1,
+                'property' => 'null',
+            ]);  
+        $this->addToProcessAttributeTb();
+        $this->addToProcessModuleTb();
+        if ($create_process) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        }
+    }
+
+    public function addToProcessAttributeTb()
+    {
+        $create_process_attribute = DB::table('process_attribute_tb')->insertGetId(
+            [
+                'process_id' => 1,
+                'attribute' => 'null',
+                'description' => 'null',
+                'status' => 'null'
+            ]);  
+    }
+
+    public function addToProcessModuleTb()
+    {
+        $create_process_module= DB::table('process_module_tb')->insertGetId(
+            [
+                'module_name' => 'null',
+                'description' => 'null',
+                'status' => 'null',
+            ]);  
     }
 }
 

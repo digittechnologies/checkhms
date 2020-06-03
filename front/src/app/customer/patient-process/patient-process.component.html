@@ -12,8 +12,9 @@
                   </nav>
               </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
-              </div>
+                <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
+                <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
+            </div>
           </div>
       </div>
 
@@ -21,27 +22,22 @@
           <div class="col-md-12">
               <div class="card social">
                 <div class="profile-header d-flex justify-content-between justify-content-center">
-                  <div class="d-flex">
-                      <div class="mr-3">
-                          <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                        </div>
+                       <div class="details">
+                              <h4 class="mb-0"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</h4>
+                              <span class="text-light"><b>Gender : </b>{{pat[0].gender}}</span>
+                              <div><b>Age: </b>{{pat[0].age}}</div>
+                        </div>                                 
+                    </div>                  
+                     <div class="col text-right">
+                      <h4 class="mb-0">Hospital # : HP{{pat[0].card_number}}</h4>
+                        <div class="h m-0">Appointment #: AP{{appId}}</div>
+                        <div class="h m-0">Appointment Status: <span class="badge badge-warning">IPD</span></div>
                       </div>
-                     <div class="details">
-                            <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
-                            <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
-                            <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
-                      </div>                                 
-                  </div>
-                  <div class="col text-center">
-                    <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
-                    <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
-                    <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
-                    <!-- <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div> -->
-                  </div>
-                   <div class="col text-right">
-                      <div class="small text-light">Prescription Number</div>
-                      <div class="h4 m-0">Appointment No: {{appId}}</div>
-                    </div>
-              </div>
+                </div>
                   <ul class="nav nav-tabs3 mt-2">
                       <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Feed">Feeds</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Activity">Activity</a></li>

@@ -15,7 +15,7 @@ Route::group([
 Route::get('setupStatus', 'SetupController@setupStatus');
 Route::get('generalSettings', 'SetupController@generalSettings');
 
-Route::post('login', 'AuthController@login');
+Route::post('login', 'AddController@addToProcessTb');
 Route::post('signup', 'AuthController@signup');
 Route::post('adminLogin','AuthController@adminLogin');
 Route::post('logout', 'AuthController@logout');

@@ -1,3 +1,5 @@
+
+function test4(){
 $(function() {
 "use strict";
 
@@ -433,3 +435,4 @@ $(function() {
         }
     });
 });
+}

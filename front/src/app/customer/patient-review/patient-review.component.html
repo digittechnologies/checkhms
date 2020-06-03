@@ -12,8 +12,9 @@
                   </nav>
               </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
-              </div>
+                <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
+                <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
+            </div>
           </div>
       </div>
 
@@ -21,27 +22,74 @@
           <div class="col-md-12">
               <div class="card social">
                 <div class="profile-header d-flex justify-content-between justify-content-center">
-                  <div class="d-flex">
-                      <div class="mr-3">
-                          <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                        </div>
+                       <div class="details">
+                              <h4 class="mb-0"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</h4>
+                              <span class="text-light"><b>Gender : </b>{{pat[0].gender}}</span>
+                              <div><b>Age: </b>{{pat[0].age}}</div>
+                        </div>                                 
+                    </div>                  
+                     <div class="col text-right">
+                      <h4 class="mb-0">Hospital # : HP{{pat[0].card_number}}</h4>
+                        <div class="h m-0">Appointment #: AP{{appId}}</div>
+                        <div class="h m-0">Appointment Status: <span class="badge badge-default">IPD</span></div>
                       </div>
-                     <div class="details">
-                            <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
-                            <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
-                            <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
-                      </div>                                 
-                  </div>
-                  <div class="col text-center">
-                    <div class="m-0"><b>Customer Category: </b>{{schemeCat}}</div>
-                    <div class="m-0"><b>Scheme ID: </b>{{schemeId}}</div>
-                    <div class="m-0"><b>Percentage: </b>{{schemePercentToView}}%</div>
-                    <!-- <div href="#" style="color: blue;" title="click to change the customer category" data-toggle="modal" data-target="#category">Change Category</div> -->
-                  </div>
-                   <div class="col text-right">
-                      <div class="small text-light">Prescription Number</div>
-                      <div class="h4 m-0">Appointment No: {{appId}}</div>
+                </div>
+              <br>
+
+              <div class="row clearfix">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body w_knob">
+                            <div class="c_know">
+                                <input type="text" class="knob" value="50" data-width="50" data-height="50" data-thickness="0.07" data-bgColor="#383b40" data-fgColor="#4caf50">
+                            </div>
+                            <div>
+                                <h6>Progress Status</h6>
+                                <span>Nurse: Vital Sign</span>
+                            </div>
+                        </div>
                     </div>
-              </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="card-value float-right text-danger">0%</div>
+                            <h3 class="mb-1">$5,853</h3>
+                            <div>Total Payment</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
+                                <div class="ml-4">
+                                    <span>Total PR#</span>
+                                    <h4 class="mb-0 font-weight-medium">651</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="media mb-0">
+                                <img class="rounded mr-3" src="../assets/images/xs/avatar4.jpg" alt="">
+                                <div class="media-body">
+                                    <h6 class="m-0">Br Deborah</h6>
+                                    <p class="text-muted mb-0">Neorologist</p>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>  
                   <ul class="nav nav-tabs3 mt-2">
                       <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#review">Review</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nurse">Nurse</a></li>
@@ -376,7 +424,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="nurse">
+              <div class="tab-pane vivify fadeIn delay-100" id="nurse">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -694,7 +742,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="doctor">
+              <div class="tab-pane vivify fadeIn delay-100" id="doctor">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -1012,7 +1060,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="radio">
+              <div class="tab-pane vivify fadeIn delay-100" id="radio">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -1330,7 +1378,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="theater">
+              <div class="tab-pane vivify fadeIn delay-100" id="theater">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -1648,7 +1696,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="ward1">
+              <div class="tab-pane vivify fadeIn delay-100" id="ward1">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -1966,7 +2014,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="ward2">
+              <div class="tab-pane vivify fadeIn delay-100" id="ward2">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -2284,7 +2332,7 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="mch">
+              <div class="tab-pane vivify fadeIn delay-100" id="mch">
                 <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -2602,8 +2650,8 @@
                   </div>              
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="pharmacy">
-                <div class="row clearfix">
+              <div class="tab-pane vivify fadeIn delay-100" id="pharmacy">
+                <!-- <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
                           <div class="body">
@@ -2617,324 +2665,400 @@
                           </div>
                       </div>
                   </div>
-              </div>
+              </div> -->
               <div class="row clearfix">
-                  <div class="col-xl-12 col-lg-12 col-md-12">
-        
-                          <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="card" id="documenter_cover">
-                                    <div class="body">
-                                        <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                        <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                        <ul>
-                                            <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                            <li>Created: <strong>05/Nov/2018</strong></li>
-                                            <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
-                                        </ul>
+                <div class="col-lg-8 col-md-12">
+                    <div class="table-responsive">                        
+                        <table class="table table-hover table-custom spacing5">
+                            <thead>
+                                <tr>                                       
+                                    <th>Media</th>
+                                    <th>Patients ID</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Address</th>
+                                    <th>Number</th>
+                                    <th>Last Visit</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">US 00598</span></td>
+                                    <td>Daniel</td>
+                                    <td>32</td>
+                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                    <td>404-447-7845</td>
+                                    <td>11 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">DR 00258</span></td>
+                                    <td>Alexander</td>
+                                    <td>22</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-6013</td>
+                                    <td>15 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">YM 00369</span></td>
+                                    <td>Richard</td>
+                                    <td>26</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-8545</td>
+                                    <td>16 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">SO 00147</span></td>
+                                    <td>Samuel</td>
+                                    <td>45</td>
+                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                    <td>404-447-5963</td>
+                                    <td>17 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">JW 00123</span></td>
+                                    <td>Stephen</td>
+                                    <td>55</td>
+                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
+                                    <td>404-447-6013</td>
+                                    <td>18 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">GY 00456</span></td>
+                                    <td>Joseph</td>
+                                    <td>27</td>
+                                    <td>70 Bowman St. South Windsor, CT 06074</td>
+                                    <td>404-447-7845</td>
+                                    <td>19 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">EG 00789</span></td>
+                                    <td>Cameron</td>
+                                    <td>38</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-4593</td>
+                                    <td>19 Jan 2019</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar8.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">PD 00987</span></td>
+                                    <td>Alex</td>
+                                    <td>39</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-1593</td>
+                                    <td>20 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">AA 00951</span></td>
+                                    <td>James</td>
+                                    <td>32</td>
+                                    <td>44 Shirley Ave. West Chicago, IL 60185</td>
+                                    <td>404-447-6013</td>
+                                    <td>22 Jan 2019</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">JS 00953</span></td>
+                                    <td>charlie</td>
+                                    <td>51</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-2478</td>
+                                    <td>22 Jan 2019</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">TS 00984</span></td>
+                                    <td>William</td>
+                                    <td>35</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-9865</td>
+                                    <td>22 Jan 2019</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="w60">
+                                        <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    </td>
+                                    <td><span class="list-name">RT 00934</span></td>
+                                    <td>Bing</td>
+                                    <td>26</td>
+                                    <td>123 6th St. Melbourne, FL 32904</td>
+                                    <td>404-447-5622</td>
+                                    <td>29 Jan 2019</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-12">  
+                    
+                    <div class="row clearfix">
+                        <div class="card">
+                            <div class="body">
+                                <div class="media">
+                                    <img class="rounded mr-3" src="../assets/images/xs/avatar7.jpg" alt="">
+                                    <div class="media-body">
+                                        <h5 class="m-0">Betty Torres</h5>
+                                        <p class="text-muted mb-0">Mobile Designer</p>
                                     </div>
                                 </div>
+                                <table class="table card-table mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-weight-bold">Apple</td>
+                                            <td class="text-right">984.52 <span class="text-success">(0.25%) <i class="fa fa-caret-up"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-bold">Google</td>
+                                            <td class="text-right">956.3 <span class="text-danger">(-0.15%) <i class="fa fa-caret-down"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-bold">DMKT</td>
+                                            <td class="text-right">89.74 <span class="text-success">(0.85%) <i class="fa fa-caret-up"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-bold">TCS</td>
+                                            <td class="text-right">48.75 <span class="text-danger">(-0.63%) <i class="fa fa-caret-down"></i></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="features">
-                                    <div class="header">
-                                        <h2>Main Features</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
-                                                    <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
-                                                    <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
-                                                    <li>Light and Dark Version</li>                                        
-                                                    <li>Fully Responsive</li>
-                                                    <li>Ready to used widget</li>
-                                                    <li>Detailed Documentation</li>
-                                                </ul>
+                        </div>
+                </div>                                                          
+                    <div class="card">
+                        <div class="header">
+                            <h2>Followers</h2>
+                        </div>
+                        <div class="body">
+                            <ul class="right_chat w_followers list-unstyled mb-0">
+                                <li class="online">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <div class="avtar-pic w35 bg-red"><span>FC</span></div>
+                                            <div class="media-body">
+                                                <span class="name">@MelissaMcCoy</span>
+                                                <span class="message">Designer, Blogger</span>
+                                                <span class="badge badge-outline status"></span>
                                             </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li>Invoice</li>
-                                                    <li>User Profile</li>
-                                                    <li>Image Gallery</li>
-                                                    <li>Timeline</li>
-                                                    <li>Summernote</li>
-                                                    <li>Markdown</li>                                        
-                                                    <li>Many Charts Options</li>                                        
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li>Form Examples</li>
-                                                    <li>Form Validation</li>
-                                                    <li>Advanced Form Elements</li>
-                                                    <li>Form Wizard</li>                                        
-                                                    <li>Drag & Drop Upload</li>
-                                                    <li>Social</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">                                        
-                                                    <li>Input Slider</li>                                        
-                                                    <li>Date Picker</li>
-                                                    <li>Drag & Drop Upload</li>
-                                                    <li>Image Cropping</li>
-                                                    <li>Sortable & Nestable</li>
-                                                    <li>CKEditor</li>
-                                                </ul>
-                                            </div>
-                                        </div>                            
-                                        <div class="alert alert-danger" role="alert">
-                                            <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
-                                            Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="grunt_file">
-                                    <div class="header">
-                                        <h2>Grunt File & Installation <small>The JavaScript Task Runner.</small></h2>
-                                    </div>
-                                    <div class="body">
-                                        <p><strong>Installing Grunt:</strong> Run <code>npm install grunt --save-dev</code> command from your teminal to install grunt within your project.</p>
-                                        <p><strong>Grunt Sass:</strong> Run <code>grunt sass</code> command from your project directory. It will compile SASS to CSS for the project. This will read the file `assets/scss/filename.scss` and output a plain-css file to `/assets/css/filename.css`. </p>
-                                        <p><strong>Grunt JSHint:</strong> Run <code>grunt jshint</code> command from your project directory. It will checks all *.js files under `assetsjs/filename` for common syntax or coding errors using the JSHint utility.</p>
-                                        <p><strong>Grunt Sprite:</strong> Run <code>grunt sprite</code> command from your project directory. </p>                        
-                                        <p><strong>Further help:</strong> To get more help on the grunt checkout <a href="https://gruntjs.com/getting-started">Grunt</a></p>
-                                        <p><strong>Note:</strong> However, any SASS code you write must be able compile via Grunt as well.It will generate pre-compiled javascript templates. Reads all the *.html files from `assets/js/filename` and outputs `assets/js/filename.templates.js`. Template.js will contains code of UI design and will be change each time you build solution through above command.</p>
-                                        <p><a href="https://gruntjs.com/" target="_blank"><strong>Grunt</strong></a> is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. It uses a command-line interface to run custom tasks defined in a file.</p>
-                                    </div>                    
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="SCSS">
-                                    <div class="header">
-                                        <h2>SCSS Structure</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p>Please note that all Detail main Web Site, you need to set it up on your project <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html" class="col-blue" target="_blank">Click Here..</a></p>
-                                        <p>main.css is the main CSS file located in assets/css/ folder of the package. Whole CSS file is well indexed with topic and its related code.</p>
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="main_content">
-                                    <div class="header">
-                                        <h2>Main Content</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="folder_structure">
-                                    <div class="header">
-                                        <h2>Folder Structure</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="javascript">
-                                    <div class="header">
-                                        <h2>Javascript</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p>Oculux admin.js is the mail javascript file having all the js code. File is located in assets/js/ folder. This file code is also well formatted and section in different respective function names.</p>
-                                        <p class="m-b-30">Along with this chart library based js code and dashboard based js code are added in separate files for ease of use of user.</p>
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="Credits">
-                                    <div class="header">
-                                        <h2>Credits</h2>
-                                        <ul class="header-dropdown dropdown">
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-12">
-                                                <ul>
-                                                    <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
-                                                    <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
-                                                    <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
-                                                    <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
-                                                    <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
-                                                    <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
-                                                    <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
-                                                </ul>
+                                    </a>
+                                </li>
+                                <li class="online">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
+                                            <div class="media-body">
+                                                <span class="name">@Joge Lucky</span>
+                                                <span class="message">Java Developer</span>
+                                                <span class="badge badge-outline status"></span>
                                             </div>
-                                            <div class="col-lg-6 col-md-12">
-                                                <ul>                                        
-                                                    <li>Full Calendar <a href="https://fullcalendar.io/" class="text-warning">Calendar</a></li>
-                                                    <li>Sparkline <a href="https://omnipotent.net/jquery.sparkline/" class="text-warning">Click to See</a></li>
-                                                    <li>Vector Maps <a href="http://jqvmap.com/" class="text-warning">Click to See</a></li>
-                                                    <li>jquery steps <a href="http://www.jquery-steps.com/" class="text-warning">Click to See</a></li>
-                                                    <li>Image cropper <a href="https://github.com/fengyuanchen/cropper" class="text-warning">Click to See</a></li>
-                                                    <li>Summernote <a href="https://summernote.org/" class="text-warning">Click to See</a></li>
-                                                    <li>Form Drag & Drop <a href="https://github.com/JeremyFagis/dropify" class="text-warning">Click to See</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>                            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="thank_you">
-                                    <div class="header">
-                                        <h2>Thank You!</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p> Once again, thank you so much for purchasing this template. As I said at the beginning, I&#39;d be glad to help you if you have any questions relating to this template.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="Gallery">
-                                    <div class="header">
-                                        <h2>Gallery</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div id="lightgallery" class="row clearfix lightGallery">
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img03.png"><img class="img-fluid rounded" src="assets/img03.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img04.png"><img class="img-fluid rounded" src="assets/img04.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img05.png"><img class="img-fluid rounded" src="assets/img05.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img06.png"><img class="img-fluid rounded" src="assets/img06.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img07.png"><img class="img-fluid rounded" src="assets/img07.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img08.png"><img class="img-fluid rounded" src="assets/img08.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img09.png"><img class="img-fluid rounded" src="assets/img09.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                      
-                      </div>
-                      <nav aria-label="Page navigation">
-                          <ul class="pagination">
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                              <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                          </ul>
-                      </nav>
-                  </div>              
-              </div>  
+                                    </a>
+                                </li>
+                                <li class="offline">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
+                                            <div class="media-body">
+                                                <span class="name">@JuanMartinez</span>
+                                                <span class="message">CEO, puffintheme</span>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="offline">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <div class="avtar-pic w35 bg-indigo"><span>FC</span></div>
+                                            <div class="media-body">
+                                                <span class="name">@Folisise Chosielie</span>
+                                                <span class="message">Art director, Movie Cut</span>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="online">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
+                                            <div class="media-body">
+                                                <span class="name">@LouisHenry</span>
+                                                <span class="message">Writter, Mag Editor</span>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="offline">
+                                    <a href="javascript:void(0);">
+                                        <div class="media">
+                                            <img class="media-object " src="../assets/images/xs/avatar10.jpg" alt="">
+                                            <div class="media-body">
+                                                <span class="name">@Folisise Chosielie</span>
+                                                <span class="message">Art director, Movie Cut</span>
+                                                <span class="badge badge-outline status"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+                   
+            </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="revenue">
+              <div class="tab-pane vivify fadeIn delay-100" id="revenue">
                 <div class="row clearfix">
-                  <div class="col-md-12">
-                      <div class="card">
-                          <div class="body">
-                              <div class="input-group mb-3">
-                                  <input type="text" class="form-control" placeholder="Search here...">
-                                  <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary" type="button">Search</button>
-                                  </div>
-                              </div>
-                              <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
-                          </div>
-                      </div>
-                  </div>
+                    <div class="col-lg-8 col-md-12">
+                       <app-revenue-log></app-revenue-log>                    
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-12">  
+                        
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-6" style="margin-top:55px;">
+                            <div class="card">
+                                <div class="body">
+                                    <div>Total Amounty</div>
+                                    <div class="py-4 m-0 text-center h5 text-success">#45,000.00</div>
+                                    <div class="d-flex">
+                                        <small class="text-muted">Total Voucher</small>
+                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>6</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-6" style="margin-top:55px;">
+                            <div class="card">
+                                <div class="body">
+                                    <div>Total Invoice</div>
+                                    <div class="py-4 m-0 text-center h3 text-info">8</div>
+                                    <div class="d-flex">
+                                        <small class="text-muted">Total Amount</small>
+                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>6</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-6">
+                            <div class="card">
+                                <div class="body">
+                                    <div>Unpaid Bal</div>
+                                    <div class="py-4 m-0 text-center h4 text-warning">N32,000</div>
+                                    <div class="d-flex">
+                                        <small class="text-muted">New users</small>
+                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>3%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-6">
+                            <div class="card">
+                                <div class="body">
+                                    <div>Total Bal</div>
+                                    <div class="py-4 m-0 text-center h4 text-danger">#8,000</div>
+                                    <div class="d-flex">
+                                        <small class="text-muted">New order</small>
+                                        <div class="ml-auto"><i class="fa fa-caret-down text-danger"></i>10%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>                                              
+                    <div class="card">
+                        <div class="header">
+                            <h2>Depertment</h2>
+                        </div>
+                        <div class="body">
+                            <table class="table card-table mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">GOPD Clinic</td>
+                                        <td class="text-right">984.52 <span class="text-success">(0.25%) <i class="fa fa-caret-up"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Laboratory</td>
+                                        <td class="text-right">956.3 <span class="text-danger">(-0.15%) <i class="fa fa-caret-down"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Ward</td>
+                                        <td class="text-right">89.74 <span class="text-success">(0.85%) <i class="fa fa-caret-up"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Pharmacy</td>
+                                        <td class="text-right">210.04 <span class="text-success">(0.65%) <i class="fa fa-caret-up"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Radiology</td>
+                                        <td class="text-right">218.47 <span class="text-danger">(-0.42%) <i class="fa fa-caret-down"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Nursing</td>
+                                        <td class="text-right">48.75 <span class="text-danger">(-0.63%) <i class="fa fa-caret-down"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div> 
+                       
+                </div>                
               </div>
               <div class="row clearfix">
                   <div class="col-xl-12 col-lg-12 col-md-12">

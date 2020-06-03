@@ -5,6 +5,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+declare let c3 : any;
+declare let jQuery: any;
+declare let $ : any;
+declare var test3: any;
+declare var test4: any;
 
 @Component({
   selector: 'app-patient-review',
@@ -34,6 +39,8 @@ export class PatientReviewComponent implements OnInit {
 
   ngOnInit() {
 
+    new test3();
+    new test4();
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.appId= id;
@@ -55,6 +62,7 @@ export class PatientReviewComponent implements OnInit {
     this.response = data;      
     this.imgLink = this.response[0].app_url;
   })
+  
   }
 
 }
