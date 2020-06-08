@@ -12,6 +12,7 @@
                   </nav>
               </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <a [routerLink]="['/Admin', {outlets: {side: ['patient_history', appId]}}]" class="btn btn-sm btn-success btn-round" title="">History</a>
                   <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
                   <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
               </div>
