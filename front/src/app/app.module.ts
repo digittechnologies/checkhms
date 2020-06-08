@@ -140,6 +140,8 @@ import { BrancesComponent } from './branches/brances/brances.component';
 import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
 import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
 import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
+import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
+import { ProccessValueComponent } from './proccess-value/proccess-value.component';
 
 @NgModule({
   declarations: [
@@ -349,6 +351,10 @@ import { PatientProcessComponent } from './customer/patient-process/patient-proc
     PatientReviewComponent,
   
     PatientProcessComponent,
+  
+    ProccessSettingsComponent,
+  
+    ProccessValueComponent,
   
   ],
   imports: [
