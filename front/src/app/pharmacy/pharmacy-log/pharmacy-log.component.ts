@@ -18,7 +18,6 @@ declare var $:any;
 export class PharmacyLogComponent implements OnInit {
   public form = {
     customer: null,
-    
   };
  public dat;
   control = new FormControl();

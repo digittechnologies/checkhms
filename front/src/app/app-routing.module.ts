@@ -127,6 +127,7 @@ import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { BrancesComponent } from './branches/brances/brances.component';
+import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 
 
 //DEPARTMENTS Dashboards
@@ -155,6 +156,7 @@ const routes: Routes = [
                                                                             // DASHBOARDS
         //ADMINISTRATION START
         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
+        {path: 'Admin-system_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
         {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [] },
         //ADMINISTRATIPON  END
 
@@ -243,6 +245,7 @@ const routes: Routes = [
          {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [] },
          {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [] },
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [] },
+         {path: 'process_settings', component: ProccessSettingsComponent, outlet: 'side',canActivate: [] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [] },        
         
