@@ -91,7 +91,7 @@ export class SetBranchComponent implements OnInit {
       data=>{ 
         this.depts=data;
         this.depts.map(d=>{
-          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="i5" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
+          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="15" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
             this.clinic_dept.push(d);
           }
           else if (d.dept_id=="11" || d.dept_id=="16" || d.dept_id=="1") {
@@ -244,7 +244,7 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
       this.deptlists = data;
        this.staff = this.deptlists.list;
-       this.app_type = this.deptlists.appointment_type;
+       this.app_type = this.deptlists.modules ;
        this.branches = this.deptlists.center;
       //  this.departments = this.deptlists.department;
 

@@ -2807,15 +2807,17 @@ public function addCenter(Request $request)
         }
     }
 
-    public function addToProcessTb()
+    public function addProcessProperties(Request $request)
     {
+        $created_by= Auth()->user()->id;
+
         $create_process = DB::table('process_tb')->insertGetId([
-                'department_id' => 1,
-                'process_module_id' => 1,
-                'property' => 'null',
-            ]);  
-        $this->addToProcessAttributeTb();
-        $this->addToProcessModuleTb();
+                'department_id' => $request->department_id,
+                'process_module_id' => $request->process_module_id,
+                'property' => $request->property,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]);
         if ($create_process) {
             return '{
                 "success":true,
@@ -2829,25 +2831,108 @@ public function addCenter(Request $request)
         }
     }
 
-    public function addToProcessAttributeTb()
+    public function addProcessAttributes(Request $request)
     {
+        $created_by= Auth()->user()->id;
+
         $create_process_attribute = DB::table('process_attribute_tb')->insertGetId(
             [
-                'process_id' => 1,
-                'attribute' => 'null',
-                'description' => 'null',
-                'status' => 'null'
-            ]);  
+                'process_id' => $request->process_id,
+                'attribute' => $request->attribute,
+                'description' => $request->description,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+        if ($create_process_attribute) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
     }
 
-    public function addToProcessModuleTb()
+    public function addProcessModules(Request $request)
     {
+        $created_by= Auth()->user()->id;
+
         $create_process_module= DB::table('process_module_tb')->insertGetId(
             [
-                'module_name' => 'null',
-                'description' => 'null',
-                'status' => 'null',
-            ]);  
+                'module_name' => $request->module_name,
+                'description' => $request->description,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+
+        if ($create_process_module) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function addProcessValues(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+
+        $create_process_value = DB::table('process_value_tb')->insertGetId(
+            [
+                'process_attribute_id' => $request->process_attribute_id,
+                'description' => $request->description,
+                'value' => $request->value,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+
+        if ($create_process_value) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function addValues(Request $request)
+    {
+        // return $request->id;
+        $created_by= Auth()->user()->id;
+
+        $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+            [
+                'suggestion' =>$request->form['sugestion'],
+                'value_type' =>$request->form['value_type'],
+                'normal_range' => $request->form['normal_range'],
+                'unit' => $request->form['unit'],
+                'value_option' => $request->form['value_option'],
+                'updated_by' => $created_by
+            ]); 
+
+        if ($create_process_value) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
     }
 }
 

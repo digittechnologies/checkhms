@@ -1,3 +1,5 @@
+function mutil_list(){
+
 (function ($) {
   "use strict";
 
@@ -45,7 +47,7 @@
     this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
     this.inputSize = Math.max(1, this.placeholderText.length);
 
-    this.$container = $('<div class="bootstrap-tagsinput form-control"></div>');
+    this.$container = $('<div class="bootstrap-tagsinput form-control"  formControlName="sugestions"></div>');
     this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
 
     this.$element.before(this.$container);
@@ -509,6 +511,7 @@
      */
     focus: function() {
       this.$input.focus();
+      
     },
 
     /**
@@ -572,6 +575,7 @@
       // Return the results from the invoked function calls
       return results.length > 1 ? results : results[0];
     } else {
+      console.log(results)
       return results;
     }
   };
@@ -661,3 +665,4 @@
     $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
   });
 })(window.jQuery);
+}

@@ -15,7 +15,7 @@ Route::group([
 Route::get('setupStatus', 'SetupController@setupStatus');
 Route::get('generalSettings', 'SetupController@generalSettings');
 
-Route::post('login', 'AddController@addToProcessTb');
+Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
 Route::post('adminLogin','AuthController@adminLogin');
 Route::post('logout', 'AuthController@logout');
@@ -288,6 +288,26 @@ Route::get('displayRecordPieData','RecordModuleController@displayRecordPieData')
 //REVENUE DASHBOARD 
 Route::get('displayRevenueData','RevenueModuleController@displayRevenueData');
 Route::get('displayRevenueStaffData','RevenueModuleController@displayRevenueStaffData');
+
+
+//Medical Processes
+Route::get('displayProcessProperties','DisplayController@displayProcessProperties');
+Route::get('displayProcessModules','DisplayController@displayProcessModules');
+Route::get('displayProcessAttributes','DisplayController@displayProcessAttributes');
+Route::get('displayProcessValues','DisplayController@displayProcessValues');
+Route::get('Value/{id}','DisplayController@Value');
+Route::get('formvalue/{id}','DisplayController@formvalue');
+Route::get('fetchForm','DisplayController@fetchForm');
+Route::post('addProcessProperties','AddController@addProcessProperties');
+Route::post('addProcessModules','AddController@addProcessModules');
+Route::post('addProcessAttributes','AddController@addProcessAttributes');
+Route::post('addProcessValues','AddController@addProcessValues');
+Route::post('addValues','AddController@addValues');
+
+
+
+
+
 
 });
 

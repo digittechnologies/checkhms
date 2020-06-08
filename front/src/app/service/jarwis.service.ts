@@ -948,4 +948,61 @@ cancel_pharm_log(data){
   return this.http.post<any>(`${this.baseUrl}/relocateapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
+
+displayProcessProperties() {
+  return this.http.get(`${this.baseUrl}/displayProcessProperties`)
+}
+
+displayProcessModules() {
+  return this.http.get(`${this.baseUrl}/displayProcessModules`)
+}
+
+displayProcessAttributes() {
+  return this.http.get(`${this.baseUrl}/displayProcessAttributes`)
+}
+
+displayProcessValues() {
+  return this.http.get(`${this.baseUrl}/displayProcessValues`)
+}
+Value(id) {
+  return this.http.get(`${this.baseUrl}/Value/${id}`)
+}
+formvalue(id) {
+  return this.http.get(`${this.baseUrl}/formvalue/${id}`)
+}
+fetchForm() {
+  return this.http.get<any>(`${this.baseUrl}/fetchForm`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
+}
+
+addProcessProperties(data) {
+  return this.http.post(`${this.baseUrl}/addProcessProperties`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+addProcessModules(data) {
+  return this.http.post(`${this.baseUrl}/addProcessModules`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+addProcessAttributes(data) {
+  return this.http.post(`${this.baseUrl}/addProcessAttributes`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
+addProcessValues(data) {
+  return this.http.post(`${this.baseUrl}/addProcessValues`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+ addValues(data) {
+   console.log(data)
+  return this.http.post(`${this.baseUrl}/addValues`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+
 }
