@@ -194,8 +194,8 @@ export class ProccessSettingsComponent implements OnInit {
    formValue(id){
      this.Jarwis.formvalue(id).subscribe(
        data=>{
-      //  let reses = data;
-      //  this.form_res = reses;
+       let reses = data;
+       this.form_res = reses;
        }
      )
    }

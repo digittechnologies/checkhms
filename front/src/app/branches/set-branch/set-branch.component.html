@@ -669,8 +669,8 @@
         <div class="col-md-8">
         <div class="form-group">
         <select name="clinic_type" id="" required ngModel class="form-control">
-        <option value="">Department</option>
-        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.module}}</option>
+        <option value="">Center type</option>
+        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
         </select>
         </div>
         </div>             
@@ -716,7 +716,7 @@
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="">Branch Name</label>
+                <label for="">Center Name</label>
                 <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_name"  ngModel name="name" required>
                 <input type="hidden" [value]="manufid" [(ngModel)]="branch_id" name="id">
 
@@ -728,7 +728,7 @@
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">
-                    <label for="">Branch Adress</label>
+                    <label for="">Center Adress</label>
                     <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_adress"  ngModel name="adress" required>
                     <input type="hidden" [value]="manufid" ngModel name="id">
     

@@ -130,8 +130,9 @@ class DisplayController extends Controller
 
     public function displayDepartments()
     {
-        return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-                ->select('departments.*','positions.position_name')              
+        return Departments::orderBy('id')
+        // ->join('positions','departments.position_id','=','positions.id')
+        //         ->select('departments.*','positions.position_name')              
                 ->get();
     }
 
@@ -1744,7 +1745,7 @@ class DisplayController extends Controller
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
-            'modules' =>  DB::table('module')->where('module.id','!=',1)->where('module.id','!=',5)->where('module.id','!=',6)->get(),
+            'modules' =>  DB::table('center_type')->where('dept_id',$dept)->get(),
             'center'=> DB::table('centers')->select('centers.*')->get(), 
             // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);

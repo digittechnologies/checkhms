@@ -204,8 +204,6 @@ export class SetBranchComponent implements OnInit {
         this.center_id   =  this.branch_details.branch[0].branch_id;
         this.branch_id =this.branch_details.branch[0].id;
         this.clinic_type = this.branch_details.branch[0].clinic_type;
-
-        
         this.center= this.branch_details.center;
         this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;

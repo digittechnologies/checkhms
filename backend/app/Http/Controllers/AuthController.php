@@ -48,7 +48,7 @@ class AuthController extends Controller
             [
                 'details' =>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
                 ->join('roles', 'users.role_id','=','roles.id')
-                ->select('users.*','departments.name as dept_name', 'departments.position_id', 'roles.name AS role_name')    
+                ->select('users.*','departments.name as dept_name',  'roles.name AS role_name')    
                 ->where('email','=',$email)   
                 // ->where('password','=',$psw)         
                 ->get(),
@@ -97,7 +97,7 @@ class AuthController extends Controller
                 // ->join('branches','users.branch_id','=','branches.id')
                 ->join('roles','users.role_id','=','roles.id')
                 ->join('branches','users.branch_id','=','branches.id')
-                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name', 'departments.position_id','branches.name AS branch_name')    
+                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
                 ->where('email','=',$e)->get(),            
             ]
         );

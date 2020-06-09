@@ -9,9 +9,9 @@ export const environment = {
   // login: 'http://demo.checkhms.com/backend/public/api/login',
   // signup: 'http://demo.checkhms.com/backend/public/api/signup'
 
-  baseUrl : 'http://localhost/hms/backend/public/api',
-  login: 'http://localhost/hms/backend/public/api/login',
-  signup: 'http://localhost/hms/backend/public/api/signup',
+  baseUrl : 'http://localhost/buth-pharm/backend/public/api',
+  login: 'http://localhost/buth-pharm/backend/public/api/login',
+  signup: 'http://localhost/buth-pharm/backend/public/api/signup',
 };
 
 /*
