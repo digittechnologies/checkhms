@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TokenService } from './service/token.service';
 import { MatSnackBar } from '@angular/material';
 import { ConnectionService } from 'ng-connection-service';
+import { ChatService } from './service/chat.service';
 declare var $:any;
 @Component({
   selector: 'app-root',
@@ -31,7 +32,8 @@ export class AppComponent {
     private router: Router,
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
-    private connectionService: ConnectionService
+    private connectionService: ConnectionService,
+    private chat: ChatService 
   ) {
     this.connectionService.monitor().subscribe(isConnected => {
       this.isConnected = isConnected;
@@ -57,6 +59,10 @@ export class AppComponent {
       this.statu=this.status.status
     })
   }
+  ngOnDestroy(){
+    alert("we are good")
+  }
+
  
 
 }

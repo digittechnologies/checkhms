@@ -140,7 +140,13 @@ import { AppointmentTypeComponent } from './record/appointment-type//appointment
 import { BrancesComponent } from './branches/brances/brances.component';
 import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 import { StoreModule } from '@ngrx/store';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { reducers, metaReducers } from './reducers';
+import { ChatService } from './service/chat.service';
+import { ChatComponent } from './chat/chat.component';
+import { NgxNotificationComponent } from 'ngx-notification';
+const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+
 
 
 @NgModule({
@@ -347,7 +353,9 @@ import { reducers, metaReducers } from './reducers';
     AppointmentTypeComponent,
   
     BrancesComponent,
-    NavLazyLoadComponent
+    NavLazyLoadComponent,
+    ChatComponent,
+    NgxNotificationComponent
   
   
   ],
@@ -370,9 +378,11 @@ import { reducers, metaReducers } from './reducers';
     ScrollingModule,
     InfiniteScrollModule,
     ExportAsModule,
+    SocketIoModule.forRoot(config),
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),
+    
 
     MatAutocompleteModule​,
     MatFormFieldModule,
@@ -389,7 +399,8 @@ import { reducers, metaReducers } from './reducers';
     DeptAdminRoleGuardService,
     AdminRoleGuardService,
     StaffRoleGuardService,
-    UserRoleGuardService
+    UserRoleGuardService,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

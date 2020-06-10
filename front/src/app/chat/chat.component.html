@@ -1,0 +1,219 @@
+<div class="body" >
+  <div class="container-fluid ">
+      <button class="btn text-light" [class.backgorund_color]="lists=='true'" (click)="lis()">List<span *ngIf="private_unread > 0" class="badge bg-pink ml-2">{{private_unread}}</span></button>
+      <button class="btn text-light ml-3"  [class.backgorund_color]="groups=='true'" (click)="grou()">Groups<span *ngIf="group_unread > 0" class="badge bg-pink ml-2">{{group_unread}}</span></button>
+      <button class="btn text-light ml-3" (click)="chat_one()">Chat</button>
+  </div>
+  <hr>
+<div class="container-fluid">
+<div *ngIf="chats">
+<div class="slim_scroll">
+<div class="chat_detail" >
+    <ul class="chat-widget clearfix mb-5" #scrollMe [scrollTop]="scrollMe.scrollHeight"  style="height:450px; overflow-y: auto;padding-top: 10px;">
+        <ng-container  *ngFor="let message of private_messages">
+            <li *ngIf="message.sender !=sender_id && private_messages!=''" class="left float-left" >
+                <div   class="avtar-pic w35 bg-pink">
+                <img  src="{{Jarwis.imageUrl}}/uploads/{{receiver_image}}"  alt="">
+                </div>
+                <div  class="chat-info">       
+                    <span class="message"> {{message.message}}</span>
+                    <div><small>{{message.date}}</small><small *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
+                </div>
+                
+            </li>
+            <li *ngIf="message.sender == sender_id && private_messages!=''" class="right" >
+                <div  class="chat-info">       
+                    <span class="message"> {{message.message}}</span>
+                    <div><small>{{message.date}}</small><small *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
+                </div>
+            </li>
+        </ng-container>
+        <ng-container  *ngFor="let list of receiveMessage">
+            <li *ngIf="list.sender !=sender_id && list.sender==receiver_id" class="left float-left" >
+                <div   class="avtar-pic w35 bg-pink">
+                <img  src="{{Jarwis.imageUrl}}/uploads/{{list.image}}"  alt="">
+                </div>
+                <div  class="chat-info">       
+                    <span class="message"> {{list.message}}</span>
+                    <small>{{list.time}}</small>
+                </div>
+                
+            </li>
+            <li *ngIf="list.sender == sender_id" class="right" >
+                <div  class="chat-info">       
+                    <span class="message"> {{list.message}}</span>
+                    <small>{{list.time}}</small>
+                </div>
+                
+            </li>
+        </ng-container>
+    </ul>
+    <div class="input-group p-t-15">
+        <textarea rows="3" class="form-control" style="height:50px;"  [(ngModel)]="message" placeholder="Enter text here..."></textarea>
+        <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:30px;"></i>
+    </div>
+</div>
+</div>
+</div>
+
+
+<div *ngIf="lists"> 
+<ul class="right_chat list-unstyled mb-0"  style="height:600px; overflow-y: auto;padding-top: 10px;">
+<ng-container *ngFor="let user of chat_users" >
+<li *ngIf="user.user.online_status == 'online'" class="nav-item online col-12">
+    <div class="media" (click)="chat_one(user.user.id)">
+        <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{user.user.image}}" alt="">
+        <div class="media-body">
+            <span class="name">{{user.user.firstname}} {{user.user.lastname}}</span>
+            <span class="message">{{user.user.online_status}}</span>
+            <span *ngIf="user.row.unread > 0" class="badge bg-primary float-right">{{user.row.unread}}</span>
+            <span class="badge badge-outline status"></span>
+        </div>
+    </div>                         
+</li>
+<li *ngIf="user.user.online_status == 'offline'" class="nav-item offline col-12">
+<div class="media" (click)="chat_one(user.user.id)">
+    <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{user.user.image}}" alt="">
+    <div class="media-body">
+        <span class="name">{{user.user.firstname}} {{user.user.lastname}}</span>
+        <span class="message">{{user.user.online_status}}</span>
+        <span *ngIf="user.row.unread > 0" class="badge bg-primary float-right">{{user.row.unread}}</span>
+        <span class="badge badge-outline status"></span>
+    </div>
+</div>                         
+</li>
+</ng-container>
+</ul>
+</div>
+
+
+<div *ngIf="group_chats">
+<div class="slim_scroll">
+<div class="chat_detail">
+    {{groupmembers}}
+<ul class="chat-widget clearfix mb-5"  #scrollMe [scrollTop]="scrollMe.scrollHeight"  style="height:450px; overflow-y: auto;padding-top: 10px;">
+<div *ngIf="admin_id == sender_id" class="col-12" (click)="group_settings()"> <input type="button" class="btn btn-primary mb-2" value="group settings"></div>
+<ng-container  *ngFor="let message of group_messages  ">
+<li *ngIf="message.sender !=sender_id && group_messages!=''" class="left float-left" >
+<div   class="avtar-pic w35 bg-pink">
+<img  src="{{Jarwis.imageUrl}}/uploads/{{message.image}"  alt="">
+</div>
+<div  class="chat-info">       
+<span class="message"> {{message.message}}</span>
+</div>
+
+</li>
+<li *ngIf="message.sender == sender_id && private_messages!=''" class="right" >
+<div  class="chat-info">       
+<span class="message"> {{message.message}}</span>
+</div>
+</li>
+</ng-container>
+<ng-container  *ngFor="let list of receiveGroupMessage">
+<li *ngIf="list.sender != sender_id && list.group_id == group_id" class="left float-left" >
+<div  class="chat-info">       
+<span class="message"> {{list.message}}</span>
+</div>
+</li>
+<li *ngIf="list.sender == sender_id && list.group_id == group_id" class="right" >
+<div  class="chat-info">       
+<span class="message"> {{list.message}}</span>
+</div>
+</li>
+</ng-container>
+</ul>
+<div class="input-group p-t-15">
+<textarea rows="3" class="form-control"  [(ngModel)]="groupmessage" placeholder="Enter text here..." ></textarea>
+<i (click)="sendMessage()" class="fa fa-paper-plane text-primary" style="font-size:30px;"></i>
+</div>
+</div>
+</div>
+</div>
+<div *ngIf="groups">
+<ul class="right_chat list-unstyled mb-0" style="height:500px; overflow-y: auto;">
+<li *ngFor="let user of allgroups" class="nav-item online">
+<div class="media" (click)="group_chat(user.group.group_id,user.admin)">
+    <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{user.group.images}}" alt="">
+    <div class="media-body">
+        <span class="name">{{user.group.name}}</span>
+        <span class="message">{{status}}</span>
+        <span *ngIf="user.unread > 0" class="badge bg-primary float-right">{{user.row.unread}}</span>
+        <span class="badge badge-outline status"></span>
+    </div>
+</div>                         
+</li>
+</ul>
+<div *ngIf="role<4004 || dept_id=='2'" class="col-12">
+<input type="button" class="btn btn-primary float-right" value="Create group" data-toggle="modal" data-target="#creat-group">
+</div>
+</div>
+<div class="modal fade" id="creat-group" tabindex="-1" role="dialog"  data-backdrop="false">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title h4" id="myLargeModalLabel">Create group</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<form class="form-auth-small m-t-20" role="form"> 
+<div class="modal-body">             
+<div class="row clearfix">
+    <div class="col-md-8">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="group name....." [(ngModel)]="name" [ngModelOptions]="{standalone: true}" >
+        </div>
+    </div> 
+    <div class="col-sm-12">
+        <div class="form-group mt-3">                            
+            <textarea rows="6" class="form-control no-resize" placeholder="Discription..." [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+    </div>
+    
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-round btn-primary" (click)="create()" data-dismiss="modal">Create</button>
+<button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div *ngIf="group_setting" class="body" >
+<ul class="nav nav-tabs2">
+<li class="nav-item" (click)="Addmembers()"><a class="nav-link  active" data-toggle="tab" href="#Addmembers">Add members</a></li>
+<li class="nav-item" ><a class="nav-link" data-toggle="tab" href="#changeprofile">change profile</a></li>
+</ul>
+<hr>
+<div class="tab-content">
+<div class="tab-pane vivify fadeIn delay-100 active" id="Addmembers">
+<div class="slim_scroll">
+    <div class="chat_detail">
+    Add users
+    <ul class="right_chat list-unstyled mb-0"  style="height:600px; overflow-y: auto;padding-top: 10px;">
+    <ng-container *ngFor="let user of userstoadd">
+    <li  class="nav-item online">
+                <div  class="media" (click)="addMember(user.id)">
+                    <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{user.image}}" alt="">
+                    <div class="media-body">
+                        <span class="name">{{user.firstname}} {{user.lastname}}</span>
+                        <span class="message">online</span>
+                        <span class="badge badge-outline status"></span>
+                    </div>
+                </div>                         
+        </li>
+    </ng-container>
+</ul>
+    </div>
+</div>
+</div>
+<div class="tab-pane vvivify fadeIn delay-100" id="changeprofile">
+change profile
+</div>
+</div>
+</div>
+
+
+
+

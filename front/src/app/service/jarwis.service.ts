@@ -70,6 +70,10 @@ export class JarwisService {
 
  
   }
+  chat() {
+    return this.http.get(`${this.baseUrl}/chat`)
+  }
+
   setupStatus() {
     return this.http.get(`${this.baseUrl}/setupStatus`)
   }

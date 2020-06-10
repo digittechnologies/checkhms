@@ -71,6 +71,7 @@ export class PharmacyLogComponent implements OnInit,OnDestroy {
     public snackBar: MatSnackBar, 
     public actRoute: ActivatedRoute,
   ) {
+
   //  this.time = setInterval(()=>{
   //     let id;
   //    this.lastid =this.log;
@@ -165,7 +166,6 @@ ngOnDestroy(){
   clearInterval(this.time)
 }
   allItem(argument){
-    // this.log = false;
     this.Jarwis.displayDeptAppointment(argument.target.text).subscribe(
       data=>{
         this.response = data; 
