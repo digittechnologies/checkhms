@@ -310,6 +310,47 @@ class RecordModuleController extends Controller
         }        
     }
 
+    public function bookAppointment(Request $request)
+    {
+        $date = new Carbon($request->a_date);
+        $time = new Carbon($request->a_time);
+        $staff_id= auth()->user()->id;
+        $bid= Auth()->user()->branch_id;   
+        $request->merge(['a_date' => $date->toFormattedDateString()]);
+        $request->merge(['a_time' => $time->format('h:i:s A')]);
+        $request->merge(['created_by' => $staff_id]);
+        $request->merge(['created_branch' => $bid]);
+            
+        if($request->appointment_type == "4"){
+            $request->merge(['pharm_id' => $request->center_id]);
+            $request->merge(['pharm_status' => 'open']);
+        }
+        
+        if($request->appointment_type == "1"){
+            $request->merge(['clinic_id' => $request->center_id]);
+            $request->merge(['clinic_status' => 'open']);
+        }
+
+        if($request->hospital_charges != "0"){
+            $request->merge(['revenue_id' => $request->charges]);
+            $request->merge(['revenue_status' => 'open']);
+        }
+
+        $insert =  Appointments::create($request->all());
+        
+         if($insert){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }       
+    }
+
     public function displayRecordData(Request $request)
     {
         $branch = DB::table("branches")->where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get(); 

@@ -97,8 +97,8 @@
                 <td style="color: #17C2D7;">{{b.name}}</td>     
                 <td style="color: #17C2D7;">{{b.address}}</td>
                 <td style="color: #17C2D7;">{{b.branch_name}}</td>
-                <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-                <td style="color: #17C2D7;">{{b.created_at}}</td>                                         
+                <td style="color: #17C2D7;">{{b.dept_name}}</td>
+                <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
                 <td>
                     <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                         <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -148,7 +148,7 @@
                 <td style="color: #17C2D7;">{{b.address}}</td>
                 <td style="color: #17C2D7;">{{b.branch_name}}</td>
                 <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-                <td style="color: #17C2D7;">{{b.created_at}}</td> 
+                <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
            
                 <td>
                     <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
@@ -198,7 +198,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -247,7 +247,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>            
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td>            
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -296,7 +296,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>           
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -345,7 +345,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>           
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -394,7 +394,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>            
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -443,7 +443,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>           
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -492,7 +492,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>           
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -541,7 +541,7 @@
             <td style="color: #17C2D7;">{{b.address}}</td>            
             <td style="color: #17C2D7;">{{b.branch_name}}</td>
             <td style="color: #17C2D7;">{{b.dept_name}}</td> 
-            <td style="color: #17C2D7;">{{b.created_at}}</td> 
+            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
             <td>
                 <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span>                                   
@@ -578,7 +578,7 @@
     <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header">
-    <h5 class="modal-title h4" id="myLargeModalLabel">Add Branch</h5>
+    <h5 class="modal-title h4" id="myLargeModalLabel">Add Center</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">×</span>
     </button>
@@ -628,6 +628,19 @@
     </div>             
     </div>
     </div>
+    <div class="modal-body">             
+        <div class="row clearfix">
+        <div class="col-md-8">
+        <div class="form-group">
+        <select name="branch_id" id="" required ngModel class="form-control">
+        <option value="">Branch</option>
+        <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
+        </select>
+        <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
+        </div>
+        </div>             
+        </div>
+        </div>
     <!-- <div class="modal-body">             
     <div class="row clearfix">
     <div class="col-md-8">
@@ -650,32 +663,20 @@
     </div>             
     </div>
     </div>
-    <div class="modal-body">             
-        <div class="row clearfix">
-        <div class="col-md-8">
-        <div class="form-group">
-        <select name="branch_id" id="" required ngModel class="form-control">
-        <option value="">Branch</option>
-        <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
-        </select>
-        <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
-        </div>
-        </div>             
-        </div>
-        </div>
+    
     <div class="modal-body">             
         <div class="row clearfix">
         <div class="col-md-8">
         <div class="form-group">
         <select name="clinic_type" id="" required ngModel class="form-control">
-        <option value="">Department</option>
+        <option value="">Center type</option>
         <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
         </select>
         </div>
         </div>             
         </div>
-        </div>
-
+    </div>
+<!-- 
     <div class="modal-body">             
     <div class="row clearfix">
     <div class="col-md-8">
@@ -688,7 +689,7 @@
     </div>
     </div>             
     </div>
-    </div>      
+    </div>       -->
     <div class="modal-footer">
     <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner" aria-hidden="true"></i></button>
     <button type="button" class="btn btn-round btn-default" data-toggle="modal" aria-hidden="true" (click)="close()">Close</button>
@@ -715,7 +716,7 @@
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="">Branch Name</label>
+                <label for="">Center Name</label>
                 <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_name"  ngModel name="name" required>
                 <input type="hidden" [value]="manufid" [(ngModel)]="branch_id" name="id">
 
@@ -727,7 +728,7 @@
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">
-                    <label for="">Branch Adress</label>
+                    <label for="">Center Adress</label>
                     <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_adress"  ngModel name="adress" required>
                     <input type="hidden" [value]="manufid" ngModel name="id">
     

@@ -130,8 +130,9 @@ class DisplayController extends Controller
 
     public function displayDepartments()
     {
-        return Departments::orderBy('id')->join('positions','departments.position_id','=','positions.id')
-                ->select('departments.*','positions.position_name')              
+        return Departments::orderBy('id')
+        // ->join('positions','departments.position_id','=','positions.id')
+        //         ->select('departments.*','positions.position_name')              
                 ->get();
     }
 
@@ -517,8 +518,8 @@ class DisplayController extends Controller
     }
     public function displayHospitalNum()
     {
-        $getLast = Customers::orderBy('id', 'desc')->select('id')->first();
-        return $getLast->id + 1;
+        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->first();
+        return $getLast->card_number + 1;
     }
     public function edtCustomer($id)
     {
@@ -628,7 +629,7 @@ class DisplayController extends Controller
            $center = 'pharm_id';
            $center_status = 'pharm_status';
         }
-        if (Auth()->user()->dept_id == '2' || Auth()->user()->dept_id == '18') {
+        if (Auth()->user()->dept_id == '2') {
             $center = 'clinic_id';
             $center_status = 'clinic_status';
          }
@@ -655,7 +656,7 @@ class DisplayController extends Controller
          }
 
     
-        if (Auth()->user()->dept_id == '10' || Auth()->user()->dept_id == '16') {
+        if (Auth()->user()->dept_id == '10' || Auth()->user()->dept_id == '16' || Auth()->user()->dept_id == '18') {
             return response()->json([
                 'data' => Appointments::orderBy('id', 'DESC')
             ->join('customers','appointments.customer_id','=','customers.id')
@@ -677,7 +678,7 @@ class DisplayController extends Controller
             ->join('branches','appointments.created_branch','=','branches.id')
             ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')
             ->where('appointments.'.$center,'=',$branchId)         
-            ->where('appointments.'.$center_status,'=','open')
+            ->where('appointments.'.$center_status,'!=','close')
             ->where('appointments.status','!=','close')
             // ->where('appointments.date', '=', $cDate)
             ->get(),
@@ -1868,7 +1869,7 @@ class DisplayController extends Controller
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
-            // 'appointment_type' =>  DB::table('appontment_type')->get()
+            'modules' =>  DB::table('center_type')->where('dept_id',$dept)->get(),
             'center'=> DB::table('centers')->select('centers.*')->get(), 
             // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);
@@ -1879,4 +1880,71 @@ class DisplayController extends Controller
     //         title::whereLike(['location', 'name_title'], $searchTerm)->get()   
     //     );
     // }
+
+
+    public function displayProcessProperties()
+    {
+        return response()->json([
+            'props' => DB::table('process_tb')->join('departments', 'process_tb.department_id', '=', 'departments.id')
+            ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
+            ->join('users', 'process_tb.created_by', '=', 'users.id')
+            ->select('process_tb.*', 'departments.name as dept_name', 'process_module_tb.module_name', 'users.firstname', 'users.lastname')
+            ->get()
+        ]);
+    }
+
+    public function displayProcessModules()
+    {
+        return DB::table('process_module_tb')->join('users', 'process_module_tb.created_by', '=', 'users.id')
+        ->select('process_module_tb.*', 'users.firstname', 'users.lastname')
+        ->get();
+    }
+
+    public function displayProcessAttributes()
+    {
+        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+        ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+        ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+        ->get();
+    }
+
+    public function displayProcessValues()
+    {
+        return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
+        ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
+        ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
+        ->get();
+    }
+    public function Value($id)
+    {
+        return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
+        ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
+        ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
+        ->where('process_value_tb.id',$id)
+        ->get();
+    }
+    public function fetchForm()
+    {
+        $user = Auth()->user();
+        $id = $user->dept_id;
+        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+        ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+        ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+        ->where('process_tb.department_id',$id)
+        ->get();
+    }
+    public function formvalue($id)
+    {
+        
+        return response()->json(
+            DB::table('process_value_tb')
+            ->where('process_attribute_id',$id)->get()
+
+        );
+        // return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+        // ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+        // ->select('process_attribute_tb.*', 'process_tb.*', 'users.firstname', 'users.lastname')
+        // ->where('process_tb.department_id',$id)
+        // ->get();
+    }
 }

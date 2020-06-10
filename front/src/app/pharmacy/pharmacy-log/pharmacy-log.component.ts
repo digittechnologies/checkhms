@@ -18,7 +18,6 @@ declare var $:any;
 export class PharmacyLogComponent implements OnInit,OnDestroy {
   public form = {
     customer: null,
-    
   };
  public dat;
   control = new FormControl();
@@ -156,7 +155,7 @@ export class PharmacyLogComponent implements OnInit,OnDestroy {
     $("#patient_info").on("keyup", function() {
      var value = $(this).val().toLowerCase();
      $("#patient-log .card").filter(function() {
-       $(this).toggle($(this).text().toLowerCase().indexOf   (value) > -1)
+       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
      });
    });
     

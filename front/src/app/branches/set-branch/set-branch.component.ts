@@ -45,15 +45,15 @@ export class SetBranchComponent implements OnInit {
    branch_adress:any;
    branch_hod:any;
    branch_status:any;
-  deptli: Object;
-  apppoint_type: Object;
-  dd: Object;
+  deptli: any;
+  apppoint_type: any;
+  dd: any;
   staff: any;
   app_type: any;
   depart: any;
   center: any;
   branch_rep_id: any;
-  branches: Object;
+  branches: any;
   departments: any;
   branche_id: any;
   department_id: any;
@@ -91,7 +91,7 @@ export class SetBranchComponent implements OnInit {
       data=>{ 
         this.depts=data;
         this.depts.map(d=>{
-          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="i5" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
+          if (d.dept_id=="2" || d.dept_id=="12" || d.dept_id=="15" || d.dept_id=="17" || d.dept_id=="18" || d.dept_id=="19") {
             this.clinic_dept.push(d);
           }
           else if (d.dept_id=="11" || d.dept_id=="16" || d.dept_id=="1") {
@@ -204,8 +204,6 @@ export class SetBranchComponent implements OnInit {
         this.center_id   =  this.branch_details.branch[0].branch_id;
         this.branch_id =this.branch_details.branch[0].id;
         this.clinic_type = this.branch_details.branch[0].clinic_type;
-
-        
         this.center= this.branch_details.center;
         this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;
@@ -244,7 +242,7 @@ export class SetBranchComponent implements OnInit {
     this.Jarwis.deptList({dept:this.dept_name}).subscribe(data=>{
       this.deptlists = data;
        this.staff = this.deptlists.list;
-       this.app_type = this.deptlists.appointment_type;
+       this.app_type = this.deptlists.modules ;
        this.branches = this.deptlists.center;
       //  this.departments = this.deptlists.department;
 

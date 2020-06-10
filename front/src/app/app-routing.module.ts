@@ -54,6 +54,9 @@ import { PatientDetailsComponent } from './customer/patient-details/patient-deta
 import { MakeAppointmentComponent } from './customer/make-appointment/make-appointment.component';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { AddPatientComponent } from './customer/add-patient/add-patient.component';
+import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
+import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
+import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
 
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
@@ -125,6 +128,7 @@ import { RecordHistoryComponent } from './record/record-history/record-history.c
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { BrancesComponent } from './branches/brances/brances.component';
 import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
+import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 
 
 //DEPARTMENTS Dashboards
@@ -154,6 +158,7 @@ const routes: Routes = [
                                                                             // DASHBOARDS
         //ADMINISTRATION START
         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
+        {path: 'Admin-system_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
         {path: 'Admin-global_admin', component: HomeComponent, outlet: 'side',canActivate: [] },
         //ADMINISTRATIPON  END
 
@@ -223,6 +228,9 @@ const routes: Routes = [
          {path: 'appointment', component: MakeAppointmentComponent, outlet: 'side',canActivate: [] },
          {path: 'patient_category', component: CustomerCategoryComponent, outlet: 'side', canActivate: [] },
          {path: 'add_patient', component: AddPatientComponent, outlet: 'side', canActivate: [] },
+         {path: 'patient_history/:id', component: PatientHistoryComponent, outlet: 'side', canActivate: [] },
+         {path: 'patient_review/:id', component: PatientReviewComponent, outlet: 'side', canActivate: [] },
+         {path: 'clinic_process/:id', component: PatientProcessComponent, outlet: 'side', canActivate: [] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [] },
@@ -239,6 +247,7 @@ const routes: Routes = [
          {path: 'report', component: TransHistoryComponent, outlet: 'side',canActivate: [] },
          {path: 'duration', component: DurationComponent, outlet: 'side',canActivate: [] },
          {path: 'instruction', component: DailySupplyComponent, outlet: 'side',canActivate: [] },
+         {path: 'process_settings', component: ProccessSettingsComponent, outlet: 'side',canActivate: [] },
          {path: 'refill', component: RefillComponent, outlet: 'side',canActivate: [] },
          {path: 'refill-details/:id', component: RefillDetailsComponent, outlet: 'side',canActivate: [] },        
         

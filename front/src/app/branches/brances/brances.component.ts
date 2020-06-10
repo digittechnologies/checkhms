@@ -109,13 +109,12 @@ onDelete(id: string) {
 
 
   onSubmit(form: NgForm) {
-   
-    this.Jarwis.addCenter(form.value).subscribe(
-     
-      data => this.handleResponse(data),
-      error => this.handleError(error), 
+    console.log(form.value)
+    // this.Jarwis.addCenter(form.value).subscribe(
+    //   data => this.handleResponse(data),
+    //   error => this.handleError(error), 
            
-    );
+    // );
     
   }
 

@@ -64,7 +64,6 @@ import { PharmHomeComponent } from './pharmacy/pharm-home/pharm-home.component';
 import { PaymentHomeComponent } from './payment/payment-home/payment-home.component';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { PatientHomeComponent } from './customer/patient-home/patient-home.component';
-import { AddDepartmentComponent } from './admin/add-department/add-department.component';
 import { ItemComponent } from './pharmacy/item/item.component';
 import { SetBranchComponent } from './branches/set-branch/set-branch.component';
 import { TestComponent } from './lab/test/test.component';
@@ -142,12 +141,15 @@ import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.c
 import { StoreModule } from '@ngrx/store';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { reducers, metaReducers } from './reducers';
+import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
+import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
+import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
+import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
+import { ProccessValueComponent } from './proccess-value/proccess-value.component';
 import { ChatService } from './service/chat.service';
 import { ChatComponent } from './chat/chat.component';
 import { NgxNotificationComponent } from 'ngx-notification';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
-
-
 
 @NgModule({
   declarations: [
@@ -231,9 +233,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     DoctorHomeComponent,
   
     PatientHomeComponent,
-  
-    AddDepartmentComponent,
-  
+    
     ItemComponent,
   
     SetBranchComponent,
@@ -355,8 +355,18 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     BrancesComponent,
     NavLazyLoadComponent,
     ChatComponent,
-    NgxNotificationComponent
+    NgxNotificationComponent,
   
+  
+    PatientHistoryComponent,
+  
+    PatientReviewComponent,
+  
+    PatientProcessComponent,
+  
+    ProccessSettingsComponent,
+  
+    ProccessValueComponent,
   
   ],
   imports: [

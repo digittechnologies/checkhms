@@ -34,6 +34,9 @@ use App\Customer_category;
 use App\Hospital_charges;
 use App\Http\Requests\PatientRequest;
 use App\Http\Requests\EpsRequest;
+use App\Process_tb;
+use App\Process_attribute_tb;
+use App\Process_module_tb;
 
 
 class AddController extends Controller
@@ -1235,33 +1238,30 @@ public function addCenter(Request $request)
 
     public function searchPatient(Request $request)
     {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+
         $value=$request->customer;
         $action=$request->action;
         $category = $request->category;
 
-
-        //EPS PATIENTS
-        if($category == 'eps'){
-
             if($action == 'name'){
                 $value = strtoupper($value);
+
+                $search=DB::table('customers')
+                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->where('customers.name', 'LIKE', "%{$value}%")
+                    ->orWhere('customers.othername', 'LIKE', "%{$value}%")
+                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->limit(1000)
+                    ->get();
+            } else {
+                $search=DB::table('customers')
+                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->where('customers.'.$action, $value)
+                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->get();
             }
-            switch ($action) {
-                case 'name':
-                    $action = 'eps_name';
-                    break;  
-                case 'card_number':
-                    $action = 'id';
-                    break;
-                case 'mobile_number':
-                    $action = 'phone';
-                    break;
-            }
-            $search=DB::table('eps')
-            ->join('customer_category','eps.cust_category_id','=','customer_category.id')
-            ->where('eps.'.$action, $value)
-            ->select('eps.*','customer_category.category_name as cate_name')
-            ->get();
             if (count($search) == 0) {
                 return response()->json([
                     'count'=> count($search),
@@ -1270,43 +1270,7 @@ public function addCenter(Request $request)
                     'show'=>"empty"
                 ]);
             }
-            else {
-                foreach($search as $row){
-                        return response()->json([
-                            'count'=> count($search),
-                            'message' => "successfully", 
-                            'search'=> $search, 
-                            'show'=>"show",
-                            'category' => $category,
-                            'cate'=>DB::table('customer_category')->get(),
-                            "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','customer_category.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
-                        ]);
-                }
-            }
-        }
-
-        //REGULAR PATIENTS
-        if($category == 'regular'){
-            if($action == 'name'){
-                $value = strtoupper($value);
-            }
-            $search=DB::table('customers')
-            ->join('customer_category','customers.cust_category_id','=','customer_category.id')
-            ->where('customers.'.$action, $value)
-            ->select('customers.*','customer_category.category_name as cate_name')
-            ->get();
-            if (count($search) == 0) {
-                return response()->json([
-                    'count'=> count($search),
-                    'message' => "successfully", 
-                    'search'=> $search, 
-                    'show'=>"empty"
-                ]);
-            }
-            else {
+            else if (count($search) > 0){
                 foreach($search as $row){
                         return response()->json([
                             'count'=> count($search),
@@ -1322,6 +1286,9 @@ public function addCenter(Request $request)
 
                             "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
                             ->where('appointments.customer_id','=',$row->id)->count(),
+                            
+                            "countBooked" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
+                            ->where('appointments.customer_id','=',$row->id)->where( 'appointments.a_date', '!=', $cDate)->where('appointments.status', '=', 'open')->count(),
 
                             "count3" => DB::table('invoices')->orderBy('id')->join('vouchers','invoices.voucher_id','=','vouchers.id')
                             ->join('appointments','vouchers.appointment_id','=','appointments.id')
@@ -1330,9 +1297,7 @@ public function addCenter(Request $request)
                             ->where('customers.id','=',$row->id)->sum('invoices.balance'),
                         ]);
                 }
-            }
-        }
-    
+            }    
     }
 
     //Appointment
@@ -2840,6 +2805,134 @@ public function addCenter(Request $request)
                 'status' => 'close',
             ]);
         }
+    }
+
+    public function addProcessProperties(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+
+        $create_process = DB::table('process_tb')->insertGetId([
+                'department_id' => $request->department_id,
+                'process_module_id' => $request->process_module_id,
+                'property' => $request->property,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]);
+        if ($create_process) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        }
+    }
+
+    public function addProcessAttributes(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+
+        $create_process_attribute = DB::table('process_attribute_tb')->insertGetId(
+            [
+                'process_id' => $request->process_id,
+                'attribute' => $request->attribute,
+                'description' => $request->description,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+        if ($create_process_attribute) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function addProcessModules(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+
+        $create_process_module= DB::table('process_module_tb')->insertGetId(
+            [
+                'module_name' => $request->module_name,
+                'description' => $request->description,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+
+        if ($create_process_module) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function addProcessValues(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+
+        $create_process_value = DB::table('process_value_tb')->insertGetId(
+            [
+                'process_attribute_id' => $request->process_attribute_id,
+                'description' => $request->description,
+                'value' => $request->value,
+                'status' => $request->status,
+                'created_by' => $created_by
+            ]); 
+
+        if ($create_process_value) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function addValues(Request $request)
+    {
+        // return $request->id;
+        $created_by= Auth()->user()->id;
+
+        $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+            [
+                'suggestion' =>$request->form['sugestion'],
+                'value_type' =>$request->form['value_type'],
+                'normal_range' => $request->form['normal_range'],
+                'unit' => $request->form['unit'],
+                'value_option' => $request->form['value_option'],
+                'updated_by' => $created_by
+            ]); 
+
+        if ($create_process_value) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
     }
 }
 

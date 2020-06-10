@@ -81,7 +81,7 @@ export class AddPatientComponent implements OnInit {
     let age = new Date().getFullYear() - getYear;
     if(age<0){
       alert('Invalid Dat of Birth');
-      dob.focus()
+      dob.focus();
     }else{
       this.age = age;
     }
@@ -89,6 +89,7 @@ export class AddPatientComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     form.value.age = this.age;
+    form.value.card_number = this.hostitalNum
     this.disabled = true;
      this.Jarwis.addCustomer(form.value).subscribe(
        data => this.handleResponse(data),
