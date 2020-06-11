@@ -37,8 +37,10 @@ export class PharmacyLogComponent implements OnInit,OnDestroy {
   imgLink: any; 
   spin: string;
   disabled = false;
-  logEmpty = false;
+  logEmpty = false
+  filt:any;
   // disabled = false;
+  
   delete_id;
   check="";
   endAppoit_id;

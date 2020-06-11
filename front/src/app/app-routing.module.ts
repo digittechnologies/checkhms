@@ -218,9 +218,7 @@ const routes: Routes = [
         // //CLINIC START
         // {path: 'Clinic-department_admin', component: ClinicAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
         // {path: 'Clinic-staff', component:ClinicUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
-        // //CLINIC END
-
-         {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [] },         
+        // //CLINIC END         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [] },
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [] },
 
@@ -279,6 +277,7 @@ const routes: Routes = [
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [] },
+         {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [] },
 
          // Doctor
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [] },
