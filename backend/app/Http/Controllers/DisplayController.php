@@ -119,6 +119,39 @@ class DisplayController extends Controller
         ->update(['status' =>'approved']); 
         return $status;
     }
+    public function staffdepartment($id)
+    {
+        $dept=DB::table('departments')
+        ->where('id','=', $id)
+        ->get();
+        return $dept;
+    }
+    public function deptModules($id)
+    {
+        return response()->json([
+           "dept" => DB::table('possition_module')
+            ->join('component_tb','possition_module.component_id','=','component_tb.id')
+            ->select('component_tb.*')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+
+            "department" => DB::table('positions')
+            ->join('departments','positions.dept_id','=','departments.id')
+            ->select('departments.name')
+            ->where('positions.id','=', $id)
+            ->get(),
+
+         "centers" => DB::table('possition_module')
+         ->join('positions','possition_module.position_id','=','positions.id')
+            ->join('departments','positions.dept_id','=','departments.id')
+            ->join('branches','branches.dept_id', '=', 'departments.id')
+            ->select('branches.name','branches.id')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+
+        ]);
+        
+    }
 
     //Depertment
 
@@ -144,16 +177,22 @@ class DisplayController extends Controller
             ->get()      
         );
     }
+    public function getmodules($id)
+    {
+        return response()->json(
+            DB::table('component_tb')->where('component_tb.dept_id',$id)->get()
+        );
+    }
 
     //Position
     public function displayAllposition()
     {
-        return DB::table("positions")->get();
+        return DB::table("positions")->join('departments','positions.dept_id','=','departments.id')->select('positions.*','departments.name AS department')->get();
     }
 
     public function displayModule()
     {
-        return DB::table("module")->get();
+        return DB::table("module")->where('id','!=',1)->get();
     }
 
     // Unit
@@ -1865,12 +1904,28 @@ class DisplayController extends Controller
      public function getDepertment(){
          return DB::table("departments")->orderBy('id')->get();
      }
+     public function centerBranch(){
+         return response()->json([
+             'center'=> DB::table('centers')->select('centers.*')->get(),
+         ]);
+     }
+     public function centerType(){
+        return response()->json([
+            'centerType'=> DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->where('center_type.status','=','active')->select('center_type.*','departments.name AS deptname')->get(),
+            'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
+            ]);
+    }
+    public function Ranks(){
+        return response()->json([
+            'ranks'=> DB::table('rank_tb')->join('departments','rank_tb.dept_id','=','departments.id')->where('rank_tb.status','=','active')->select('rank_tb.*','departments.name AS dept_name')->get(),
+            'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
+            ]);
+    }
     public function deptList(Request $request){
               $dept = $request->dept;
            return response()->json([
             'list' =>  DB::table('users')->where('dept_id', $dept)->get(),
             'modules' =>  DB::table('center_type')->where('dept_id',$dept)->get(),
-            'center'=> DB::table('centers')->select('centers.*')->get(), 
             // 'department'=> DB::table('departments')->select('departments.*')->get()
            ]);
           }

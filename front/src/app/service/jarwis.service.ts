@@ -73,7 +73,7 @@ export class JarwisService {
   chat() {
     return this.http.get(`${this.baseUrl}/chat`)
   }
-
+//Settings
   setupStatus() {
     return this.http.get(`${this.baseUrl}/setupStatus`)
   }
@@ -87,6 +87,11 @@ export class JarwisService {
   }
   signup(data) {
     return this.http.post(`${this.baseUrl}/signup`, data)
+  }
+  permision(data) {
+    return this.http.post(`${this.baseUrl}/permision`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   updatecontent(data) {
     return this.http.post(`${this.baseUrl}/updatecontent`, data)
@@ -130,6 +135,9 @@ export class JarwisService {
     }})
 
   } 
+  getmodules(id) {
+    return this.http.get(`${this.baseUrl}/getmodules/${id}`)
+  }
 
   // Type
   displayType() {
@@ -168,8 +176,81 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+  CenterTypes(data) {
+    return this.http.post<any>(`${this.baseUrl}/CenterTypes`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editCenterType(data){
+    return this.http.post<any>(`${this.baseUrl}/editCenterType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editCentertype(data){
+    return this.http.post<any>(`${this.baseUrl}/editCentertype`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  deleteCenterType(data){
+    return this.http.post<any>(`${this.baseUrl}/deleteCenterType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
   displayBranch() {
     return this.http.get(`${this.baseUrl}/displayBranch`,)
+  }
+  centerBranch() {
+    return this.http.get(`${this.baseUrl}/centerBranch`,)
+  }
+  centerType() {
+    return this.http.get(`${this.baseUrl}/centerType`,)
+  }
+  Ranks() {
+    return this.http.get(`${this.baseUrl}/Ranks`,)
+  }
+  AddRank(data) {
+    return this.http.post<any>(`${this.baseUrl}/AddRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editingRank(data){
+    return this.http.post<any>(`${this.baseUrl}/editingRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editRank(data){
+    return this.http.post<any>(`${this.baseUrl}/editRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  deleteRank(data){
+    return this.http.post<any>(`${this.baseUrl}/deleteRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  Teams() {
+    return this.http.get(`${this.baseUrl}/Teams`,)
+  }
+  AddTeam(data) {
+    return this.http.post<any>(`${this.baseUrl}/AddTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editingTeam(data){
+    return this.http.post<any>(`${this.baseUrl}/editingTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editTeam(data){
+    return this.http.post<any>(`${this.baseUrl}/editTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  deleteTeam(data){
+    return this.http.post<any>(`${this.baseUrl}/deleteTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   displayPharmacyBranch() {
     return this.http.get(`${this.baseUrl}/displayPharmacyBranch`,)
@@ -395,6 +476,16 @@ export class JarwisService {
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
+   Addposition(data) {
+    return this.http.post(`${this.baseUrl}/Addposition`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  AddpositionModules(data) {
+    return this.http.post(`${this.baseUrl}/AddpositionModules`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
 
   displayModule() {
     return this.http.get(`${this.baseUrl}/displayModule`,)
@@ -445,6 +536,13 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/staffdetails/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
+  }
+  staffdepartment(id:string) {
+    console.log(id)
+    return this.http.get<any>(`${this.baseUrl}/staffdepartment/${id}`)
+  }
+   deptModules(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/deptModules/${id}`)
   }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
@@ -984,7 +1082,7 @@ cancel_pharm_log(data){
   return this.http.post<any>(`${this.baseUrl}/relocateapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
-
+//Process settings
 displayProcessProperties() {
   return this.http.get(`${this.baseUrl}/displayProcessProperties`)
 }

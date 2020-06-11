@@ -2,7 +2,7 @@
     <div *ngIf="Jarwis.lazyload.load == 'loading'">
         <app-nav-lazy-load></app-nav-lazy-load>
     </div>
-    <div *ngIf = "hms == 'active'">
+    <!-- <div *ngIf = "hms == 'active'"> -->
         <div *ngIf="department=='1'">
         <app-pharmacy></app-pharmacy>
         </div>
@@ -33,7 +33,7 @@
         <div *ngIf="department=='19'">
         <app-ward></app-ward>
         </div>   
-    </div>
+    <!-- </div> -->
 
     <div *ngIf="response" >
         <router-outlet name="side"></router-outlet>

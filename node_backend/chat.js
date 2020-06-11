@@ -333,16 +333,15 @@ var fullDate =month+' '+date+','+' '+year
     })
   })
   socket.on("disconn",(data)=>{
-    console.log(data)
-    var sql = "UPDATE users SET online_status = 'offline' WHERE id = ?";
+   var sql = "UPDATE users SET online_status = 'offline' WHERE id = ?";
     mysqlConnection.query(sql,[data],function(err,res){
       if (!err) {
       }
     })
   })
-  socket.on("disconnect",(data)=>{
-    console.log(io)
-  })
+  // socket.on("disconnect",(data)=>{
+  //   console.log(io)
+  // })
 })
 
   

@@ -70,18 +70,24 @@ class AuthController extends Controller
         // $message->from('no-reply@jtcheck.com','noreply');
         // });
         $user= User::create($request->all());
-        if($user){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"Failed"
-            }';
+        return $user->id ;
+    }
+    public function permision(Request $request)
+    {   
+        // return $request;
+        $creator_id = Auth()->user()->id;
+        $user_id = $request->user_id;
+        $permisions = $request->permisions;
+        foreach ($permisions as $permision) {
+         $permition_save = DB::table('permission_tb')->insert([
+                 'user_id' =>$user_id,
+                 'component_id' => $permision->component_id,
+                 'read_status'  => $permision->read,
+                 'write_status'  => $permision->write,
+                 'created_by'   =>  $creator_id,
+                 'updated_by'   =>  $creator_id
+            ]);   
         }
-        // return $this->login($request);
     }
     
     public function me(Request $request)

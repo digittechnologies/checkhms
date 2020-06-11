@@ -43,7 +43,8 @@ export class ChatComponent implements OnInit,OnDestroy {
   groupmembers: number;
   constructor( public chat:ChatService,public Jarwis:JarwisService,public snackBar:MatSnackBar,private ngxNotificationService: NgxNotificationService) {
     this.chat.users().subscribe(
-      data=>{this.chat_users=data;
+      data=>{
+        this.chat_users=data;
       }
     )
     this.chat.usersToAdd().subscribe(
