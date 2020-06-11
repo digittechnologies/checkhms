@@ -62,11 +62,7 @@ export class PharmacyComponent implements OnInit {
         this.Jarwis.lazyLoader("loaded")
       }
     })
-   this.chat.unreadMessages().subscribe(
-     data=>{
-       this.unread = data.private+data.group;
-    }
-   )
+  
   }
 
   ngOnInit() {
@@ -85,7 +81,6 @@ export class PharmacyComponent implements OnInit {
       this.lname= this.response.det[0].lastname 
       this.role= this.response.det[0].role_id
       this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
-      this.chat.unread(this.id)
     })
 
     this.Jarwis. generalSettings().subscribe(

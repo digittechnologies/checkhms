@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use Image;
 use App\Role;
@@ -74,16 +75,17 @@ class AuthController extends Controller
     }
     public function permision(Request $request)
     {   
-        // return $request;
+        // return $request->permisions;
         $creator_id = Auth()->user()->id;
-        $user_id = $request->user_id;
-        $permisions = $request->permisions;
+       $user_id = $request->user_id;
+       $permisions = $request->permites;
+     
         foreach ($permisions as $permision) {
          $permition_save = DB::table('permission_tb')->insert([
                  'user_id' =>$user_id,
-                 'component_id' => $permision->component_id,
-                 'read_status'  => $permision->read,
-                 'write_status'  => $permision->write,
+                 'component_id' => $permision['component_id'],
+                 'read_status'  => $permision['read'],
+                 'write_status'  => $permision['write'],
                  'created_by'   =>  $creator_id,
                  'updated_by'   =>  $creator_id
             ]);   

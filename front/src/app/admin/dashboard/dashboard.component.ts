@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   records: any;
   position: any;
   department:any;
-  departments: Object;
+  departments: any;
   change_module: any;
   record= true;
   clinic=false;
@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   invest=false;
   revenue=false;
   user_id: any;
+  unread: any;
   
   constructor(
     private Auth: AuthService,
@@ -69,7 +70,11 @@ export class DashboardComponent implements OnInit,OnDestroy {
     public chat:ChatService,
     // public subscription:Subscription
   ) {
-   
+    this.chat.unreadMessages().subscribe(
+      data=>{
+        this.unread = data.private+data.group;
+     }
+    )
   }
   ngOnInit() {
     // location.reload()
