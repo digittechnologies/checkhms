@@ -58,8 +58,9 @@ export class SetdepartmentComponent implements OnInit {
       this.imgLink = this.response[0].app_url;
     })
     
-    this.Jarwis.displayAllposition().subscribe(
+    this.Jarwis.displayModule().subscribe(
       data=>{
+        console.log(data)
       this.posRes = data;
      
    

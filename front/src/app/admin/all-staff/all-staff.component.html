@@ -1,25 +1,34 @@
 <div id="main-content">
     <div class="container-fluid">
-        <div class="block-header">
+    <div class="block-header">
+    <div class="row clearfix">
+    <div class="col-md-6 col-sm-12">
+    <h2>User List</h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
+        <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+        <li class="breadcrumb-item active" aria-current="page">Users</li>
+        </ol>
+    </nav>
+    </div>            
+    <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
+    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
+    </div> -->
+    </div>
+    </div>
+    <div class="row clearfix">
+    <div class="col-lg-12">
+    <div class="card">
+    <ul class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Users">Users</a></li>
+    <li class="nav-item"><a class="nav-link float-right" data-toggle="tab" href="#addUser">Add User</a></li>        
+    </ul>
+    <div class="tab-content mt-0">
+        <div class=" tab-pane active show row " id="Users">
             <div class="row clearfix">
-                <div class="col-md-6 col-sm-12">
-                    <h1>All Staffs</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
-                        <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
-                        <li class="breadcrumb-item active" aria-current="page">Users</li>
-                        </ol>
-                    </nav>
-                </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs" *ngIf = "roleID != '4004'">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddStaff">Add New</a>
-                    <!-- <input type="text" id="search_staff" class="form-control mt-3" placeholder="Search...."> -->
-                </div>
-            </div>
-        </div>
 
-        <div class="row clearfix">
+            
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <ul class="list-group mt-0 mb-4">
                     <!-- <div>
@@ -121,160 +130,162 @@
                 </div>
             </div>
         </div>
+        </div>
 
+
+    <div class="tab-pane" id="addUser">
+    <div class="body mt-2">
+       <div class="row clearfix">
+    <form  class="form-auth-small m-t-20 row" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm" >
+       <div class="col-lg-2 col-md-6 col-sm-12">
+        <div class="form-group">
+            <input type="text" class="form-control round" placeholder="Input staff ID number here" ngModel name="id_number" required>
+        </div>
+       </div>
+    
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <div class="form-group">
+            <input type="text" class="form-control round" placeholder="Input staff Firstname here" ngModel name="firstname" required>
+            <div class="text-danger" [hidden]="!firstname">
+                {{firstname}}
+            </div>
+        </div>
     </div>
-</div>
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <div class="form-group">
+            <input type="text" class="form-control round" placeholder="Input staff Othername here" ngModel name="lastname" required>
+            <div class="text-danger" [hidden]="!lastname">
+                {{lastname}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12">
+        <div class="form-group">                            
+                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="male" type="radio" checked><span><i></i>Male</span></label>
+                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="female" type="radio"><span><i></i>Female</span></label>
+            <div class="text-danger" [hidden]="!gender">
+                {{gender}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <div class="form-group">
+            <input type="email" class="form-control round"  placeholder="Input staff email address here" ngModel name="email" required>
+            <div class="text-danger" [hidden]="!email">
+                {{email}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Staff Role</label>
+                </div> 
+                <select class="custom-select" (change)="onSelectRole($event)" ngModel name="role_id"> 
+                    <option value="">Select Role...</option>   
+                    <ng-container *ngFor="let r of role">
+                        <ng-container *ngIf="roleID != r.id && r.id > roleID">
+                            <option value="{{r.id}}" [value]="r.id">{{r.name}}</option>
+                        </ng-container>
+                    </ng-container>                                                                           
+                </select>        
+            </div>
+        </div>
+    </div>
+    <div class="clearfix row" *ngIf = "givenRole > '2003'">
+        <div class="col-lg-8 col-md-6 col-sm-12" >
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Staff Position</label>
+                    </div> 
+                    <select class="custom-select" (change)="onChange1($event)" ngModel name="position_id">   
+                        <option value="">Select Position...</option> 
+                        <ng-container *ngFor="let d of position">
+                            <ng-container *ngIf="profile.dept_id == d.id || profile.dept_id == '10'">                                    
+                                <option value="{{d.id}}" [value]="d.id">{{d.position_name}}</option> 
+                            </ng-container>
+                        </ng-container>                                      
+                    </select>        
+                </div>
+            </div>
+            <div class="input-group-prepend">
+                <label class="input-group-text"> {{deptname}}</label>
+            </div> 
+        </div>
+  </div>
 
-
-<!-- Default Size -->
-<div class="modal fade" id="AddStaff" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title h4" id="myLargeModalLabel">Add New Staff</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">                
-                        <div class="form-group">
-                            <input type="text" class="form-control round" placeholder="Input staff ID number here" ngModel name="id_number" required>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-lg-3 col-md-6 col-sm-12" *ngIf = "givenRole > '2003'">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Center</label>
+                </div> 
+                <select class="custom-select" ngModel name="branch_id"> 
+                    <option value="">Select Center...</option>   
+                    <ng-container *ngFor="let b of sbranch">
+                        <ng-container *ngIf="roleID != '4004' || profile.dept_id == '10'">                                     
+                            <option value="{{b.id}}" [value]="b.id">{{b.name}}</option>  
+                        </ng-container>
+                    </ng-container>                                  
+                </select>        
             </div>
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <input type="text" class="form-control round" placeholder="Input staff Firstname here" ngModel name="firstname" required>
-                            <div class="text-danger" [hidden]="!firstname">
-                                {{firstname}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <input type="text" class="form-control round" placeholder="Input staff Othername here" ngModel name="lastname" required>
-                            <div class="text-danger" [hidden]="!lastname">
-                                {{lastname}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-              <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">                            
-                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="male" type="radio" checked><span><i></i>Male</span></label>
-                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="female" type="radio"><span><i></i>Female</span></label>
-                            <div class="text-danger" [hidden]="!gender">
-                                {{gender}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-              <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <input type="email" class="form-control round" placeholder="Input staff email address here" ngModel name="email" required>
-                            <div class="text-danger" [hidden]="!email">
-                                {{email}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-             
-              <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Staff Role</label>
-                                </div> 
-                                <select class="custom-select" (change)="onSelectRole($event)" ngModel name="role_id"> 
-                                    <option value="">Select Role...</option>   
-                                    <ng-container *ngFor="let r of role">
-                                        <ng-container *ngIf="roleID != r.id && r.id > roleID">
-                                            <option value="{{r.id}}" [value]="r.id">{{r.name}}</option>
-                                        </ng-container>
-                                    </ng-container>                                                                           
-                                </select>        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="text-danger" [hidden]="!error.id">
-                    {{error.id}}
-                </div> -->
-              </div>
-              <div class="modal-body" *ngIf = "givenRole > '2003'">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Staff Department</label>
-                                </div> 
-                                <select class="custom-select" (click)="onChange1($event)" ngModel name="dept_id">   
-                                    <option value="">Select Department...</option> 
-                                    <ng-container *ngFor="let d of department">
-                                        <ng-container *ngIf="profile.dept_id == d.id || profile.dept_id == '10'">                                    
-                                            <option value="{{d.id}}" [value]="d.id">{{d.name}}</option> 
-                                        </ng-container>
-                                    </ng-container>                                      
-                                </select>        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="text-danger" [hidden]="!error.dept_id">
-                    {{error.dept_id}}
-                </div> -->
-              </div>
-              <span  *ngIf = "givenRole > '2003'">
-              <div class="modal-body" *ngIf= "givenDept == '1' || givenDept == '11' || givenDept == '16'">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Center</label>
-                                </div> 
-                                <select class="custom-select" ngModel name="branch_id"> 
-                                    <option value="">Select Center...</option>   
-                                    <ng-container *ngFor="let b of sbranch">
-                                        <ng-container *ngIf="roleID != '4004' || profile.dept_id == '10'">                                     
-                                            <option value="{{b.id}}" [value]="b.id">{{b.name}}</option>  
-                                        </ng-container>
-                                    </ng-container>                                  
-                                </select>        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="text-danger" [hidden]="!error.id">
-                    {{error.id}}
-                </div> -->
-              </div>
-              </span>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
-            </div>                                
-        </form>
-      </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-6 col-sm-12">
+    <div class="form-group" >
+        <textarea  class="form-control" placeholder="Description" ngModel name="description"></textarea>
+    </div>
+    </div>
+    <!-- 
+    <div class="col-lg-3 col-md-4 col-sm-12">
+    <div class="form-group">
+    <input type="file" class="form-control" placeholder="Image" ngModel name="image">
+    </div>
+    </div>                            -->
+    <div class="col-12">
+    <h6>Module Permission</h6>
+    <div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <td>Description</td>
+            <th>Read</th>
+            <th>Write</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let mod of modules">
+            <td>{{mod.component_name}}</td>
+            <td>{{mod.description}}</td>
+             <td>
+                <label class="fancy-checkbox">
+                    <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'read')" name="checkbox">
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                <label class="fancy-checkbox">
+                    <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'write')" name="checkbox">
+                    <span></span>
+                </label>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+    <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>            
+    </div>
+    </div>
+    </div>
     </div>
     </div>

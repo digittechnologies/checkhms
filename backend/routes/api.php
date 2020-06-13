@@ -17,6 +17,7 @@ Route::get('generalSettings', 'SetupController@generalSettings');
 
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
+Route::post('permision', 'AuthController@permision');
 Route::post('adminLogin','AuthController@adminLogin');
 Route::post('logout', 'AuthController@logout');
 Route::post('refresh', 'AuthController@refresh');
@@ -42,9 +43,13 @@ Route::get('showBranches','DisplayController@showBranches');
 Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');
 Route::post('deleteUser','DisplayController@deleteUser');
+Route::post('Addposition', 'AddController@Addposition');
+Route::post('AddpositionModules', 'AddController@AddpositionModules');
 Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
+Route::get('getmodules/{id}','DisplayController@getmodules'); 
+
 //Dashboard (PHARMACY)
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
 Route::get('displayPharAdminDashStaff','DisplayController@displayPharAdminDashStaff');
@@ -63,6 +68,10 @@ Route::post('c_uStatus','DisplayController@c_uStatus');
 Route::post('reStatus','DisplayController@reStatus');
 Route::post('assign','AddController@assign');
 Route::post('edtAssign','AddController@edtAssign');
+Route::get('staffdepartment/{id}','DisplayController@staffdepartment');
+Route::get('deptModules/{id}','DisplayController@deptModules');
+
+
 //ItemDetails
 Route::get('edtItemDetails/{id}','DisplayController@edtItemDetails');
 Route::get('displayItemDetails','DisplayController@displayItemDetails');
@@ -87,6 +96,27 @@ Route::post('updateBranch', 'AddController@updateBranch');
 Route::post('deleteBranch', 'AddController@deleteBranch');
 Route::post('suspendBranch', 'AddController@suspendBranch');
 Route::post('activateBranch', 'AddController@activateBranch');
+Route::get('centerBranch','DisplayController@centerBranch');
+Route::get('centerType','DisplayController@centerType');
+Route::post('CenterTypes','AddController@CenterTypes');
+Route::post('editCenterType','AddController@editCenterType');
+Route::post('editCentertype','AddController@editCentertypes');
+Route::post('deleteCenterType','AddController@deleteCenterType');
+Route::get('Ranks','DisplayController@Ranks');
+Route::post('AddRank','AddController@AddRank');
+Route::post('editingRank','AddController@editingRank');
+Route::post('editRank','AddController@editRank');
+Route::post('deleteRank','AddController@deleteRank');
+
+
+
+
+
+
+
+
+
+
 //Unit
 Route::get('edtUnit/{id}','DisplayController@edtUnit');
 Route::get('displayUnit','DisplayController@displayUnit');
@@ -181,6 +211,7 @@ Route::get('endappointments','DisplayController@endAppointments');
 Route::post('deptlist','DisplayController@deptList');
 Route::post('editapp','DisplayController@editAppoint');
 Route::post('relocateapp','DisplayController@relocateApp');
+Route::get('getnewappoint/{id}','DisplayController@getNewappoint');
 
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
@@ -189,6 +220,7 @@ Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription/{id}', 'AddController@deletePrescription');
 Route::post('displayPharmInvoice/{id}/{vid}','DisplayController@displayPharmInvoice');
+Route::get('displayAllInvoice/{id}','DisplayController@displayAllInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
 // Route::post('updateVoucher', 'AddController@updateVoucher');

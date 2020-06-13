@@ -407,6 +407,51 @@ public function addCenter(Request $request)
     
     }
 
+    public function Addposition(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $request ->merge(['created_by'=>$user_id]);
+        $request ->merge(['updated_by'=>$user_id]);
+        $position= Positions::create($request-> all());
+        return $position->id;
+        if($dept){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    public function AddpositionModules(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $position_id = $request->id;
+        $position_modules = $request->modules;
+        foreach ($position_modules as $module) {
+         $update = DB::table('possition_module')->insert([
+                 'position_id' =>$position_id,
+                 'component_id' => $module,
+                 'created_by'   =>  $user_id,
+                 'updated_by'   =>  $user_id
+            ]);   
+        }
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     // Manufacturer
     public function addManufacturer(Request $request)
     {
@@ -2923,6 +2968,141 @@ public function addCenter(Request $request)
             ]); 
 
         if ($create_process_value) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function CenterTypes(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $center_type = DB::table('center_type')->insert($request->all());
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function editCenterType(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $center_type = DB::table('center_type')->where('id',$request->id)->update([
+            'name' => $request->form['name'],
+            'description' => $request->form['description'],
+            'dept_id' =>  $request->form['dept_id'],
+            'updated_by' => $created_by
+        ]);
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function deleteCenterType(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $center_type = DB::table('center_type')->where('id',$request[0])->update([
+            'status' => "suspend"
+        ]);
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function editCentertypes(Request $request)
+    {
+     return $center_type = DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->select('center_type.*','departments.name AS deptname')->where('center_type.id',$request[0])->get();
+    }
+    public function AddRank(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $center_type = DB::table('rank_tb')->insert($request->all());
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function editingRank(Request $request)
+    {
+     return $center_type = DB::table('rank_tb')->join('departments','rank_tb.dept_id','=','departments.id')->select('rank_tb.*','departments.name AS deptname')->where('rank_tb.id',$request[0])->get();
+    }
+
+
+    public function editRank(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $editRank = DB::table('rank_tb')->where('id',$request->id)->update([
+            'name' => $request->form['rank_name'],
+            'description' => $request->form['description'],
+            'dept_id' =>  $request->form['dept_id'],
+            'updated_by' => $created_by
+        ]);
+
+        if ($editRank) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function deleteRank(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $center_type = DB::table('rank_tb')->where('id',$request[0])->update([
+            'status' => "suspend"
+        ]);
+
+        if ($center_type) {
             return '{
                 "success":true,
                 "message":"successful"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { filter } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ declare let $ : any;
   templateUrl: './revenue-log.component.html',
   styleUrls: ['./revenue-log.component.css']
 })
-export class RevenueLogComponent implements OnInit {
+export class RevenueLogComponent implements OnInit, OnDestroy {
 response:any;
 log;
 logs:any;
@@ -73,6 +73,13 @@ record_empty:null;
   setting: any;
   logo: any;
   result: any;
+  patient_image: any;
+  card_num: any;
+  patient_name: any;
+  patient_othername: any;
+  patient_mobile_number: any;
+  payall=[];
+
 
 
   constructor(
@@ -122,6 +129,11 @@ record_empty:null;
         data=>{          
           this.voucherResponse = data;      
         this.pat = this.voucherResponse.customer;
+        this.patient_image = this.pat[0].patient_image;
+        this.card_num = this.pat[0].card_number;
+        this.patient_name = this.pat[0].name;
+        this.patient_othername = this.pat[0].othername;
+        this.patient_mobile_number = this.pat[0].mobile_number
         this.roll = this.voucherResponse.voucher;
         this.patID = this.pat[0].id;
         this.schemeCat = this.pat[0].category_name;
@@ -141,14 +153,56 @@ record_empty:null;
     })
     
      }
+     ngOnDestroy(){
 
+     }
      cancelPay(cId){
       this.Jarwis.councelVoucher(cId).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),  
       );
      }
+     onPayall(){
+       this.Jarwis. displayAllInvoice(this.vouchId).subscribe(
+         data=>{
+           this.payall=data;
+           console.log(data.arr)
+           data.arr.map(res=>{
+             this.payall.push(res.original)
+               })
+               console.log(this.payall)
+          //    console.log(res.original)
+          //   this.PharmPreresponse = res.original;    
+          //   this.inv = this.PharmPreresponse; 
+            // console.log(this.inv)
+            // this.isEmpty=this.inv.isE
+            // this.voucher_Id=this.inv.pres[0].voucher_id;
+            // this.p_date=this.inv.pres[0].p_date
+            // this.name=this.inv.patient.name
+            // this.othername=this.inv.patient.othername
+            // this.card_number=this.inv.patient.card_number
+            // this.address=this.inv.patient.address
+            // this.city=this.inv.patient.city
+            // this.mobile_no=this.inv.patient.mobile_number
+            // this.state=this.inv.patient.state
+            // this.country=this.inv.patient.country
+            // this.amount=this.inv.totalAmount.amount
+            // this.v_status=this.inv.voucher_status.paid_status
+            // this.v_charges_amount = this.inv.voucher_status.charges
+            // this.v_discount = this.inv.voucher_status.discount_id
+            // this.amountPaid=this.inv.voucher_status.paid
+            // this.status=this.inv.pres[0].status
+            // this.pres=this.inv.pres 
+            // this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
+            // this.schemePercent = this.inv.patient.pacentage_value;
+            // this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
+            // this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
+          //  })
+          }
+       )
 
+     
+     }
      onPay(pay, param){
       this.Jarwis.displayPharmInvoice(pay, 'inv', '').subscribe(
         data=>{
@@ -316,7 +370,7 @@ record_empty:null;
         this.ngOnInit();       
       }
         
-      this.router.navigateByUrl('/Admin/(side:patient_log');
+      // this.router.navigateByUrl('/Admin/(side:patient_log');
       // this.ngOnInit();
       this.disabled = false;
     }

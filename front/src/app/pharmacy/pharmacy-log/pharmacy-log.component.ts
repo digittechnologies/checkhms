@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ declare var $:any;
   templateUrl: './pharmacy-log.component.html',
   styleUrls: ['./pharmacy-log.component.css']
 })
-export class PharmacyLogComponent implements OnInit {
+export class PharmacyLogComponent implements OnInit,OnDestroy {
   public form = {
     customer: null,
   };
@@ -61,6 +61,8 @@ export class PharmacyLogComponent implements OnInit {
   relocate_id: any;
   cat: any;
   cats: any;
+  lastid:any;
+  time:any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -69,7 +71,25 @@ export class PharmacyLogComponent implements OnInit {
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
     public actRoute: ActivatedRoute,
-  ) { }
+  ) {
+
+  //  this.time = setInterval(()=>{
+  //     let id;
+  //    this.lastid =this.log;
+  //     var rev = this.lastid
+  //     for (let i = 0; i < 1; i++) {
+  //      id=this.log[i];
+  //      break
+  //     }
+  // this.Jarwis.getnewappoint(id.id).subscribe(
+  //     data=>{
+  //       if(data.data){
+  //        this.log.unshift(data.data)
+  //       }
+  //     }
+  //   )
+  // },30000)
+   }
 
   ngOnInit() {
     // this.Jarwis.profile().subscribe(
@@ -111,6 +131,7 @@ export class PharmacyLogComponent implements OnInit {
       if(this.log.length <= 0){
         this.logEmpty = true;
       }
+   
     })
     // Start Autocomplete
     this.Jarwis.displayCustomer().subscribe(
@@ -142,9 +163,10 @@ export class PharmacyLogComponent implements OnInit {
     
   }
 
-
+ngOnDestroy(){
+  clearInterval(this.time)
+}
   allItem(argument){
-    // this.log = false;
     this.Jarwis.displayDeptAppointment(argument.target.text).subscribe(
       data=>{
         this.response = data; 

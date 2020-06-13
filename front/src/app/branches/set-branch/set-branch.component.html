@@ -13,7 +13,7 @@
     </nav>
     </div>            
     <div class="col-md-6 col-sm-12 text-right hidden-xs">
-    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments">Add</button>
+    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments" (click)="branche()">Add</button>
     <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
     </div>
     </div>
@@ -588,6 +588,19 @@
     <div class="row clearfix">
     <div class="col-md-8">
     <div class="form-group">
+    <select name="branch_id" id="" required ngModel class="form-control">
+    <option value="">Branch</option>
+    <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
+    </select>
+    <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
+    </div>
+    </div>             
+    </div>
+    </div>
+    <div class="modal-body">             
+    <div class="row clearfix">
+    <div class="col-md-8">
+    <div class="form-group">
     <select *ngIf="role=='1001' || role=='1002'" class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
         <option value="">Select department</option>
         <option *ngFor="let dep of depts" value="{{dep.id}}">{{dep.name}}</option>
@@ -623,33 +636,24 @@
     <div class="row clearfix">
     <div class="col-md-8">
     <div class="form-group">
-    <input type="text" class="form-control" placeholder="Branch Address" ngModel name="address" required>
+    <input type="text" class="form-control" placeholder="Branch Description" ngModel name="description" required>
     </div>
     </div>             
     </div>
     </div>
+    
     <div class="modal-body">             
         <div class="row clearfix">
         <div class="col-md-8">
         <div class="form-group">
-        <select name="branch_id" id="" required ngModel class="form-control">
-        <option value="">Branch</option>
-        <option *ngFor="let bran of branches" value="{{bran.id}}">{{bran.name}}</option>
+        <select name="center_type" id="" required ngModel class="form-control">
+        <option value="">Center type</option>
+        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
         </select>
-        <!-- <input type="text" class="form-control" placeholder="Branch Rep" ngModel name="sales_rep" required> -->
         </div>
         </div>             
         </div>
-        </div>
-    <!-- <div class="modal-body">             
-    <div class="row clearfix">
-    <div class="col-md-8">
-    <div class="form-group">
-    <input type="text" class="form-control" placeholder="Branch Contact" ngModel name="contact_number" required>
     </div>
-    </div>             
-    </div>
-    </div> -->
     <div class="modal-body">             
     <div class="row clearfix">
     <div class="col-md-8">
@@ -664,18 +668,7 @@
     </div>
     </div>
     
-    <div class="modal-body">             
-        <div class="row clearfix">
-        <div class="col-md-8">
-        <div class="form-group">
-        <select name="clinic_type" id="" required ngModel class="form-control">
-        <option value="">Center type</option>
-        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
-        </select>
-        </div>
-        </div>             
-        </div>
-    </div>
+   
 <!-- 
     <div class="modal-body">             
     <div class="row clearfix">
@@ -712,7 +705,35 @@
     </div>
     <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateBranch(form)" #form="ngForm"> 
     <div class="modal-body">             
-    <div class="modal-body">             
+    <div class="modal-body"> 
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="">Branch</label>
+                        <!-- <input type="text" > -->
+                       <select class="form-control"  [(ngModel)]="center_id" name="branch_id" required>   
+                           <option value="">{{center_name}}</option>                           
+                           <option *ngFor="let cent of center" value="{{cent.id}}">{{cent.name}}</option>    
+                       </select>                          
+                    </div>
+                </div>             
+            </div>
+            </div> 
+            <div class="modal-body">             
+                <div class="row clearfix">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">Depertment</label>
+                            <!-- <input type="text" > -->
+                           <select class="form-control"   [(ngModel)]="depart_id" name="dept_id" required>    
+                               <option value="">{{depart_name}}</option>                      
+                               <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
+                           </select>                       
+                        </div>
+                    </div>             
+                </div>
+                </div>           
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">
@@ -728,8 +749,8 @@
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">
-                    <label for="">Center Adress</label>
-                    <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_adress"  ngModel name="adress" required>
+                    <label for="">Center Description</label>
+                    <input type="text" class="form-control" [value]="catName" [(ngModel)]="branch_adress"  ngModel name="description" required>
                     <input type="hidden" [value]="manufid" ngModel name="id">
     
                     
@@ -737,6 +758,21 @@
             </div>             
         </div>
         </div>
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="">CLINIC TYPE</label>
+                        <!-- <input type="text" > -->
+                       <select name="" id="" class="form-control"  [(ngModel)]="clinic_type" name="clinic_type" required>
+                        <option value="">{{clinic_type}}</option> 
+                           <option *ngFor="let clinic of clinic_types" value="{{clinic.id}}">{{clinic.name}}</option>
+                       </select>
+                        <input type="hidden" [value]="manufid" ngModel name="id">
+                    </div>
+                </div>             
+            </div>
+            </div>
 
         <div class="modal-body">             
             <div class="row clearfix">
@@ -753,51 +789,11 @@
                 </div>             
             </div>
             </div>
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="">CLINIC TYPE</label>
-                            <!-- <input type="text" > -->
-                           <select name="" id="" class="form-control"  [(ngModel)]="clinic_type" name="clinic_type" required>
-                            <option value="">{{clinic_type}}</option> 
-                               <option *ngFor="let clinic of clinic_types" value="{{clinic.id}}">{{clinic.name}}</option>
-                           </select>
-                            <input type="hidden" [value]="manufid" ngModel name="id">
-                        </div>
-                    </div>             
-                </div>
-                </div>
+            
 
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="">Branch</label>
-                            <!-- <input type="text" > -->
-                           <select class="form-control"  [(ngModel)]="center_id" name="branch_id" required>   
-                               <option value="">{{center_name}}</option>                           
-                               <option *ngFor="let cent of center" value="{{cent.id}}">{{cent.name}}</option>    
-                           </select>                          
-                        </div>
-                    </div>             
-                </div>
-                </div>
+          
         
-        <div class="modal-body">             
-            <div class="row clearfix">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="">Depertment</label>
-                        <!-- <input type="text" > -->
-                       <select class="form-control"   [(ngModel)]="depart_id" name="dept_id" required>    
-                           <option value="">{{depart_name}}</option>                      
-                           <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
-                       </select>                       
-                    </div>
-                </div>             
-            </div>
-            </div>
+       
 
     <div class="modal-body">             
     <div class="row clearfix">
