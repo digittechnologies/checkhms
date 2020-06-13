@@ -19,8 +19,11 @@ export class PatientProcessComponent implements OnInit {
   patientResponse: any;
   pat: any;
   patID: any;
+  Property:any;
   schemeCat: any;
   schemeId: any;
+  branch:any
+  disabled =false;
   schemePercent: any;
   schemePercentToView: number;
   schemePriceList: any;
@@ -60,5 +63,6 @@ export class PatientProcessComponent implements OnInit {
     this.imgLink = this.response[0].app_url;
   })
   }
+  onSubmit(form:NgForm){}
 
 }
