@@ -49,10 +49,16 @@ export class NurseComponent implements OnInit {
     private Jarwis:JarwisService,
     private Token:TokenService,
     private elementRef:ElementRef
-  ) { }
+  ) { 
+    this.Jarwis.profile().subscribe(
+      data=>{if (data) {
+        this.Jarwis.lazyLoader("loaded")
+      }
+    })
+  }
 
   ngOnInit() {
-    
+    this.Jarwis.lazyLoader("loading")
     this.Jarwis.profile().subscribe(
       data=>{
        

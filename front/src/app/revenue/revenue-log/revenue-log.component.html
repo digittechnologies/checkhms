@@ -24,12 +24,12 @@
                     <div class="profile-header d-flex justify-content-between justify-content-center">
                         <div class="d-flex">
                             <div class="mr-3">
-                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{patient_image}}" class="rounded" alt="Patient_Photo">
                             </div>
                            <div class="details">
-                                  <h4 class="mb-0">Card Number : {{pat[0].card_number}}</h4>
-                                  <span class="text-light"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</span>
-                                  <div><b>Mobile: </b>{{pat[0].mobile_number}}</div>
+                                  <h4 class="mb-0">Card Number : {{card_number}}</h4>
+                                  <span class="text-light"><b>Name : </b>{{patient_name + " " + patient_othername}}</span>
+                                  <div><b>Mobile: </b>{{patient_mobile_number}}</div>
                             </div>                                 
                         </div>
                         <div class="col text-center">
@@ -58,6 +58,7 @@
                     <div class="tab-content">
                         <div class="tab-pane show active" id="EmployeeSalary">
                             <div class="table-responsive invoice_list mb-4">
+                                <button class="float-right btn btn-default text-success"><a data-toggle="tab" class="text-success"  href="#Payslip" (click)="onPayall()">pay all</a></button>
                                 <table class="table table-hover table-custom spacing8">
                                     <thead>
                                         <tr> 
@@ -284,6 +285,187 @@
 
                             </div>
                         </div>
+
+
+
+
+
+
+
+
+
+    <div *ngIf="payall" class="tab-pane" id="Payslip">
+    <div *ngFor="let pay of payall.original">
+    <div class="card">
+    <div id="print-history">
+    <div class="col-md-12 col-sm-12 body">
+    <div style="margin-left:33% ;" class="col-md-6 col-sm-6">
+    <img width="70%" src="http://{{imgLink}}/backend/public/upload/icons/{{icon}}" alt="Check Logo" class="center"><span id="cin"></span>                                
+    </div>                                
+    </div>                            
+    <article class="media body mb-0">
+    <div class="mr-3">
+    <img class="rounded" src="../assets/images/xs/avatar4.jpg" alt="">
+    </div>
+    <div class="media-body">
+    <div class="content">
+    <span><strong>RX#: </strong> {{voucher_Id}}</span>
+    <p class="h5">{{name}} {{othername}}: {{card_number}} <strong *ngIf="v_status == 'open'" class="float-right badge badge-warning">UNPAID</strong>  <strong *ngIf="v_status == 'paid'" class="float-right badge badge-success">PAID</strong></p>
+    <p>{{address}}, {{city}}, {{state}}, {{country}}</p>
+    <p>{{mobile_no}}</p>
+    </div>
+    <nav class="d-flex text-muted">
+    <a href="javascript:void(0);" class="badge badge-primary">{{p_date}}</a>                                            
+    </nav>
+    </div>
+    </article>
+    <div class="row clearfix">
+    <div class="col-md-12">
+    <div class="table-responsive">
+    <table class="table table-hover table-custom spacing5">
+    <thead>
+    <tr>
+        <th class="w60">#</th>
+        <!-- <th>Prescription Code</th> -->
+        <th>Item</th>
+        <th class="w100">Rate</th>
+        <th class="w100">Amount</th>
+        <th class="w100 text-right">Total Amount</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="isEmpty !='0'">
+    <tr *ngFor="let i of pres; let n =index">
+
+            <!-- <ng-container *ngIf = "i.status == 'invoice'" > -->
+                <td>{{n+1}}</td>
+                <td>
+                    <span>{{i.generic_name}}</span>
+                    <p class="hidden-sm-down mb-0 text-muted"> {{i.name}}</p>
+                </td>                                                    
+                <td>{{i.quantity}}</td>
+                <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
+            <!-- </ng-container> -->
+        </tr>
+        
+    </tbody>
+    <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+    No Invoice
+    </div>
+
+    <div *ngIf="!inv">
+
+    <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    </div> 
+    <tfoot>
+    <tr>
+        <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
+        
+        <td>
+            Sub Total: <br>
+            Discount %:<br>
+            Service Charge: <br>
+            Total: <br>
+        </td>
+        <td>
+            <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
+            <strong class="text-warning">{{schemePercentToView}}%</strong><br>
+            <strong class="text-success">{{charge_amount  | currency:'NGN':'symbol-narrow'}}</strong><br>
+            <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+        </td>
+    </tr>
+
+    </tfoot>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="row clearfix">
+    <div class="col-md-12 text-right">
+    <button *ngIf="v_status== 'open'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Payment</button> &nbsp;
+    <button *ngIf="v_status == 'paid' || v_status == 'terminate'" disabled class="btn btn-success" [hidden]="dept!='11'"><i class="icon-cash"></i> Payment</button> &nbsp;
+    <button class="btn btn-info" (click)="printComponent()"><i class="icon-printer"></i> Print</button> &nbsp;
+    <button class="btn btn-success" [hidden]="dept!='11'"  [routerLink]="['/Admin', {outlets: {side: ['invoice',voucher_Id]}}]"><i class="icon-printer"></i> Reciept</button>
+    </div>
+    </div> 
+
+
+    <!-- Default Size -->
+    <div class="modal fade" id="payment" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title h4" id="myLargeModalLabel">Select Payment Method</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <form class="form-auth-small m-t-20"  role="form" (ngSubmit)="onPaid(ed)" #ed="ngForm"> 
+    <div class="modal-body">             
+    <div class="row clearfix">
+    <div class="col-md-12">
+    <div class="form-group">
+        <label>Payment Method</label>
+        <select class="form-control show-tick" ngModel name="method">
+            <option>--Select Status--</option>
+            <option value="cash">Cash Payment</option>
+            <option value="pos">Pay with POS</option>  
+            <option value="wallet">Pay From Wallet</option> 
+        </select>                                                         
+    </div>
+    <div class="form-group">
+        <label>To Pay</label>
+            <input type="text" class="form-control" placeholder="Payment" (keyup)="apartTablet($event)" value="{{amountPaid}}" ngModel name="topay" required>
+        </div>
+        <div class="form-group">
+        <label>Balance</label>
+            <input type="text" disabled class="form-control" placeholder="0" value="{{balanceAmount | currency:'NGN':'symbol-narrow'}}" ngModel required>
+        </div>
+    </div>                                                               
+    </div>
+    </div>                                                
+    <div class="modal-footer">
+    <button type="submit" class="btn btn-round btn-primary">Pay<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                         <div class="tab-pane" id="plabel">

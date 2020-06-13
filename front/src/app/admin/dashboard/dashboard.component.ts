@@ -1,8 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef,OnDestroy, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
+import { ChatService } from 'src/app/service/chat.service';
+import { Page } from 'ngx-pagination/dist/pagination-controls.directive';
+import { Subscription } from 'rxjs';
 
 declare let jQuery: any;
 declare let $ : any;
@@ -12,7 +15,7 @@ declare let particlesJS : any;
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,OnDestroy {
 
   res: any;
   response: any;
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit {
   records: any;
   position: any;
   department:any;
-  departments: Object;
+  departments: any;
   change_module: any;
   record= true;
   clinic=false;
@@ -56,21 +59,26 @@ export class DashboardComponent implements OnInit {
   invest=false;
   revenue=false;
   module_name: any;
+  user_id: any;
+  unread: any;
   
-
   constructor(
     private Auth: AuthService,
     private router: Router,
     private Jarwis: JarwisService,
     private Token: TokenService,
-    private elementRef: ElementRef
-  ) { }
-
-
+    private elementRef: ElementRef,
+    public chat:ChatService,
+    // public subscription:Subscription
+  ) {
+    this.chat.unreadMessages().subscribe(
+      data=>{
+        this.unread = data.private+data.group;
+     }
+    )
+  }
   ngOnInit() {
-
-    
-
+    // location.reload()
     this.Jarwis.profile().subscribe(
       data=>{
         // console.log(data)    
@@ -81,7 +89,13 @@ export class DashboardComponent implements OnInit {
       this.lname= this.response.det[0].lastname   
       this.role= this.response.det[0].role_id
       this.position= this.response.det[0].dept_id
+      let user_id =this.response.det[0].id
+      this.user_id = user_id
       this.department=this.response.det[0].dept_id;
+      this.chat.conn(this.user_id)
+      this.chat.privatechat({sender:this.user_id})
+      this.chat.user(this.user_id)
+      this.chat.unread(this.user_id)
       // window.localStorage.department=JSON.stringify(this.department)
       this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name;
       this.module_name= this.response.det[0].module
@@ -182,13 +196,15 @@ export class DashboardComponent implements OnInit {
   changeModule(e){
     this.change_module = e
   }
-
-  // ngAfterViewInit(){
-  //   jQuery(this.elementRef.nativeElement)
-  // }
   
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    this.chat.disconne(this.user_id)
+  
+}
   logout(event: MouseEvent) {
     event.preventDefault();
+    alert("welcome!")
     this.Token.remove();
     this.Auth.changeAuthStatus(false);
     this.router.navigateByUrl('');

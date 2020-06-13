@@ -12,6 +12,7 @@ declare var $:any;
   styleUrls: ['./all-staff.component.css']
 })
 export class AllStaffComponent implements OnInit {
+  permisions:Array<{component_id:Number,read:String,write:String}>=[]
   response: any;
   department: any;
   role: any;
@@ -36,7 +37,10 @@ export class AllStaffComponent implements OnInit {
   gender: any;
   email: any;
   staff_countAll: any;
-
+  deptname: any;
+   res:any
+  modules: any;
+  added = [];
 
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
@@ -70,6 +74,12 @@ export class AllStaffComponent implements OnInit {
       this.response = data;
       this.department = this.response
     })
+    this.Jarwis.displayAllposition().subscribe(
+      data=>{
+        let res:any = data
+        this.position =res;
+      }
+    )
 
     this.Jarwis.displayRole().subscribe(
       data=>{
@@ -101,17 +111,54 @@ export class AllStaffComponent implements OnInit {
     console.log("hello")
       
   }
+  
   onChange1(b){
     this.givenDept = b.target.value;
-    console.info(this.givenDept);
-    this.ngOnInit() 
-
-    this.Jarwis.displayStaffBranch(this.givenDept).subscribe(
+    this.Jarwis.deptModules(this.givenDept).subscribe(
       data=>{
-      this.sResponse = data;      
-      this.sbranch = this.sResponse
-      })
+        this.res = data;
+        this.sbranch = this.res.centers;
+        this.modules = this.res.dept;
+        this.deptname = this.res.department[0].name;
+      }
+    )
+   
   
+  }
+  check(id,data){
+      let index = this.permisions.find(i =>{
+        return i.component_id === id;
+      })
+      if (index && data =='read') {
+        if (index.read =="") {
+          index.read=data
+        } else if (index.read =="read" && index.write==""){
+        let dele=  this.permisions.findIndex(i=>{return i.component_id===id})
+            this.permisions.splice(dele,1)
+          } 
+          else{
+            index.read = ""
+          }
+      }
+      else if (index && data =='write') {
+       if (index.write == "") {
+         index.write = data;
+       } else if (index.write =="write" && index.read==""){
+        let dele=  this.permisions.findIndex(i=>{return i.component_id===id})
+            this.permisions.splice(dele,1)
+          } 
+          else{
+            index.write = ""
+          }
+      }
+      else{
+        if (data =='read') {
+          this.permisions.push({component_id:id,read:data,write:""})
+        } else if(data =='write') {
+          this.permisions.push({component_id:id,read:"",write:data})
+        }
+  }
+  console.log(this.permisions)
   }
   
   onSelectRole(r){
@@ -122,8 +169,13 @@ export class AllStaffComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.disabled = true;
     this.Jarwis.signup(form.value).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error),  
+     data=>{
+       this.Jarwis.permision({user_id:data,permites:this.permisions}).subscribe(
+         data=>{
+           this.handleResponse(data)
+         }
+       )
+     }  
     );
   }
 

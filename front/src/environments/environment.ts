@@ -4,12 +4,13 @@
 
 export const environment = {
   production: false,
-
+  // imageUrl : 'http://demo.checkhms.com/backend/public/upload',
   // baseUrl: 'http://demo.checkhms.com/backend/public/api',
   // login: 'http://demo.checkhms.com/backend/public/api/login',
   // signup: 'http://demo.checkhms.com/backend/public/api/signup'
 
   baseUrl : 'http://localhost/buth-pharm/backend/public/api',
+  imageUrl : 'http://localhost/buth-pharm/backend/public/upload',
   login: 'http://localhost/buth-pharm/backend/public/api/login',
   signup: 'http://localhost/buth-pharm/backend/public/api/signup',
 };
