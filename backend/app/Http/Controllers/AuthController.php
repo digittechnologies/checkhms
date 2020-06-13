@@ -86,6 +86,7 @@ class AuthController extends Controller
     
     public function me(Request $request)
     {
+       
         $a = auth()->user();
         $e = auth()->user()->email;
         $m = auth()->user()->id;
@@ -94,11 +95,11 @@ class AuthController extends Controller
             [
                 'aut'=> auth()->user(),
                 'det'=>User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
-                // ->join('branches','users.branch_id','=','branches.id')
+                ->join('module','departments.module_id','=','module.id')
                 ->join('roles','users.role_id','=','roles.id')
                 ->join('branches','users.branch_id','=','branches.id')
-                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
-                ->where('email','=',$e)->get(),            
+                ->select('users.*', 'module.module','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
+                ->where('users.id','=',$m)->get(),            
             ]
         );
     }

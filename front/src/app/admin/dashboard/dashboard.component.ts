@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
   pharm=false;
   invest=false;
   revenue=false;
+  module_name: any;
   
 
   constructor(
@@ -80,10 +81,10 @@ export class DashboardComponent implements OnInit {
       this.lname= this.response.det[0].lastname   
       this.role= this.response.det[0].role_id
       this.position= this.response.det[0].dept_id
-
       this.department=this.response.det[0].dept_id;
       // window.localStorage.department=JSON.stringify(this.department)
-      this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
+      this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name;
+      this.module_name= this.response.det[0].module
     })
 
     this.Jarwis. generalSettings().subscribe(
