@@ -134,6 +134,7 @@ import { ProccessSettingsComponent } from './proccess-settings/proccess-settings
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { PossitionComponent } from './admin/possition/possition.component';
 import { RankComponent } from './admin/rank/rank.component';
+import { TeamComponent } from './admin/team/team.component';
 
 
 //DEPARTMENTS Dashboards
@@ -306,7 +307,9 @@ const routes: Routes = [
          //setting
         {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [] },
         {path: 'possition', component:PossitionComponent, outlet: 'side',canActivate: [] },
-        {path: 'rank', component:RankComponent, outlet: 'side',canActivate: [] },
+        {path: 'ranks', component:RankComponent, outlet: 'side',canActivate: [] },
+        {path: 'teams', component:TeamComponent, outlet: 'side',canActivate: [] },
+
 
 
        

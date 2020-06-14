@@ -17,14 +17,14 @@
                 </div>
                 <div  class="chat-info">       
                     <span class="message"> {{message.message}}</span>
-                    <div><small>{{message.date}}</small><small *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
+                    <div><small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
                 </div>
                 
             </li>
             <li *ngIf="message.sender == sender_id && private_messages!=''" class="right" >
                 <div  class="chat-info">       
                     <span class="message"> {{message.message}}</span>
-                    <div><small>{{message.date}}</small><small *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
+                    <div><small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small></div> 
                 </div>
             </li>
         </ng-container>

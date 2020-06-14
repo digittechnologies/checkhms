@@ -54,16 +54,6 @@ io.on("connection", (socket) => {
   })
   socket.on('user',(data)=>{
    var user=[]
-
-  // var sqle=`SELECT groupmembers.*,groups.*,COUNT(group_chat.id) AS unread 
-  // FROM groupmembers LEFT JOIN groups ON  groupmembers.group_id = groups.id 
-  // LEFT JOIN group_chat ON groups.id = group_chat.group_id WHERE groupmembers.user = ${data}
-  //  AND group_chat.receiver = ${data} AND group_chat.status = 'unread'`;
-  // `SELECT id, body FROM messages LEFT JOIN
-  // (SELECT message_id FROM messages_read WHERE user_id = ?)
-  // ON id=message_id WHERE message_id IS NULL` 
-  // var sql= `SELECT U.id, U.firstname,U.lastname,U.image FROM users U LEFT JOIN (SELECT  COUNT(M.id) FROM private_chat M WHERE M.receiver =${data} AND M.sender = U.id WHERE M.status = 'unread') ON U.id = M.sender`
-    // var sql = `SELECT users.*,COUNT(private_chat.id) FROM users FULL OUTER JOIN private_chat ON users.id = private_chat.sender ORDER BY users.id`
    var sql =`SELECT * FROM users WHERE id != ${data}`
     mysqlConnection.query(sql, (err, rows, fields) => {
       if (!err){
@@ -89,10 +79,9 @@ io.on("connection", (socket) => {
   })
 
   socket.on('message',(data)=>{
-    function id(){
-      return data.reciever
-    }
-    var info= client_id.find(id)
+    var info = client_id.find(id=>{
+         return data.receiver ===id;
+    })
     var sender_id = data.sender;
     var sql ="SELECT firstname,lastname,image FROM users WHERE id = ?"
     if (info) {
@@ -103,7 +92,8 @@ io.on("connection", (socket) => {
         socket.broadcast.to(data.receiver).emit("new message",{sender:data.sender,message:data.message,receiver:data.receiver,firstname:res.firstname,lastname:res.lastname,image:res.image})
       })); 
     } 
-    else {
+    else  {
+      console.log("noot")
       io.in(data.sender,
         mysqlConnection.query(sql,[sender_id],function(err,rese){
           let res = rese[0]
@@ -115,8 +105,14 @@ io.on("connection", (socket) => {
          let year = date_ob.getFullYear();
          //current hour
          let hours = date_ob.getHours();
+         if (hours < 10) {
+           hours  = "0"+hours;
+         }
          //current minutes
          let minutes = date_ob.getMinutes();
+         if (minutes < 10) {
+          minutes  = "0"+minutes;
+        }
          console.log(hours+':'+minutes)
          var time = hours+":"+minutes;
          var fullDate =month+' '+date+','+' '+year

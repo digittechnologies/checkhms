@@ -141,6 +141,11 @@ class DisplayController extends Controller
             ->where('positions.id','=', $id)
             ->get(),
 
+            // "centers" => DB::table('branches')->join('departments','branches.dept_id','=','departments.id')
+            // ->join('possition_module','department.id','=','positions.dept_id')
+            // ->where('possition_module.position_id','=', $id)
+            // ->select('branches.name','branches.id')
+            // ->get(),
          "centers" => DB::table('possition_module')
          ->join('positions','possition_module.position_id','=','positions.id')
             ->join('departments','positions.dept_id','=','departments.id')

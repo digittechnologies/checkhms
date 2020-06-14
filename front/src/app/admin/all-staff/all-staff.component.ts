@@ -85,6 +85,7 @@ export class AllStaffComponent implements OnInit {
       data=>{
       this.response = data;
       this.role = this.response
+      console.log(this.role)
     })
 
     this.Jarwis.displayBranch().subscribe(

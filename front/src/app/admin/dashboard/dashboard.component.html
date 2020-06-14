@@ -417,7 +417,7 @@
                 <ul id="main-menu" class="metismenu">
                     <li class="header">Home</li>                  
                     <li class="active open"><a href="#"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>All Staff</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-users"></i><span>Staffs</span></a></li> 
 
                     <div *ngIf="record">
                         <ul>
@@ -457,13 +457,14 @@
                     </div>
                     <div *ngIf="pharm">
                         <li class="header">Pharmacy Module</li>
-                        <li>
-                            <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
-                            <ul>
+                        <!-- <li> -->
+                          <li *ngFor="let module of components" (click)="permit(module.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [module.link]}}]"><i class="icon-user-follow"></i><span>{{module.component_name}}</span></a></li>                             
+                            <!-- <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a> -->
+                            <!-- <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
-                            </ul>
-                        </li>
+                            </ul> -->
+                        <!-- </li> -->
                         <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
                     </div>
 
@@ -490,7 +491,15 @@
                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
             
                     <li class="header">Settings</li>
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><span>Set Staff</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['possition']}}]"><span>Set Position</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['center_type']}}]"><span>Set Center type</span></a></li>
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ranks']}}]"><span>Set Rank</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['teams']}}]"><span>Set Teams</span></a></li> 
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ecounter_type']}}]"><span>Set Ecounter type</span></a></li> 
+
+
+
                     <li>
                         <a href="#Authentication" class="has-arrow"><i class="icon-lock"></i><span>Authentication</span></a>
                         <ul>
@@ -512,7 +521,7 @@
     </div>
 
     <div *ngIf="response" >
-        <router-outlet name="side"></router-outlet>
+        <router-outlet name="side" [class.shows]="write == null"></router-outlet>
   </div>
     
 </div>
