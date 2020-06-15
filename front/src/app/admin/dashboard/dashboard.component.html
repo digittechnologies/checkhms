@@ -416,13 +416,13 @@
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="header">Home</li>                  
+
                     <li class="active open"><a href="javascript:void(0);"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
                     <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>All Staff</span></a></li> 
                     
                     <li class="header">Patient Log</li>                  
                     <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_log']}}]"><i class="icon-user-follow"></i><span>Appointments</span></a></li>
                     <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['booked']}}]"><i class="icon-users"></i><span>Booked Appointments</span></a></li> 
-
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'" class="header">Record Module</li>
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
@@ -502,15 +502,27 @@
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><span>Our Centers</span></a></li>                                
                         </ul>
                     </li>
-                    
+                
                     <li *ngIf="module_name == 'hms'" class="header">Configuration</li>
+
                     <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-lock"></i><span>Set Staff</span></a></li> 
                     <li *ngIf="module_name == 'hms'">
                         <a href="javascript:void(0);" class="has-arrow"><i class="icon-settings"></i><span>General Settings</span></a>
                         <ul>
 
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['process_settings']}}]"><span>Proccess settings</span></a></li>
+
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['general_setting']}}]"><span>General Settings</span></a></li>
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['possition']}}]"><span>Set Position</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['center_type']}}]"><span>Set Center type</span></a></li>
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ranks']}}]"><span>Set Rank</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['teams']}}]"><span>Set Teams</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ecounter_type']}}]"><span>Set Ecounter type</span></a></li> 
+        
+
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['general_setting']}}]"><span>App Settings</span></a></li>
+
                         </ul>
                     </li>
 
@@ -529,7 +541,7 @@
     </div>
 
     <div *ngIf="response" >
-        <router-outlet name="side"></router-outlet>
+        <router-outlet name="side" [class.shows]="write == null"></router-outlet>
   </div>
     
 </div>

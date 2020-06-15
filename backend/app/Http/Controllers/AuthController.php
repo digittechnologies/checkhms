@@ -106,8 +106,15 @@ class AuthController extends Controller
                 ->join('module','departments.module_id','=','module.id')
                 ->join('roles','users.role_id','=','roles.id')
                 ->join('branches','users.branch_id','=','branches.id')
-                ->select('users.*', 'module.module','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
-                ->where('users.id','=',$m)->get(),            
+                ->select('users.*','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
+                ->where('email','=',$e)->get(), 
+                'module' => DB::table('component_tb')
+                ->join('permission_tb','component_tb.id','=','permission_tb.component_id')
+                ->where('permission_tb.user_id',$m)
+                 ->select('permission_tb.read_status', 'permission_tb.write_status','component_tb.component_name','component_tb.link')
+                ->get(), 
+                // ->select('users.*', 'module.module','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
+                // ->where('users.id','=',$m)->get(),            
             ]
         );
     }

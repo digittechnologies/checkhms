@@ -70,7 +70,6 @@ image_url:any;
 
   }
   chek(data){
-
       let index = this.added.indexOf(data)
       if (index>=0) {
         this.added.splice(index,1)
