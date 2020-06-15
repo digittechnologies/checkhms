@@ -25,6 +25,7 @@ export class SettingsComponent implements OnInit {
   app: any;
   module: FormGroup;
   error: any;
+  moduleResponse: Object;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -81,6 +82,11 @@ export class SettingsComponent implements OnInit {
       )
       this.image=this.setting.logo
       })
+
+      this.Jarwis.displayModule().subscribe(
+        data=>{      
+        this.moduleResponse = data;              
+      })  
   }
   uploadFile(event){
     let files =event.target.files[0];
