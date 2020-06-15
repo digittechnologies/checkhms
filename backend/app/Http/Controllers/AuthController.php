@@ -113,6 +113,8 @@ class AuthController extends Controller
                 ->where('permission_tb.user_id',$m)
                  ->select('permission_tb.read_status', 'permission_tb.write_status','component_tb.component_name','component_tb.link')
                 ->get(), 
+                // ->select('users.*', 'module.module','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
+                // ->where('users.id','=',$m)->get(),            
             ]
         );
     }
