@@ -12,6 +12,7 @@
                   </nav>
               </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <a [routerLink]="['/Admin', {outlets: {side: ['patient_history', appId]}}]" class="btn btn-sm btn-success btn-round" title="">History</a>
                 <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
                 <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
             </div>
@@ -37,16 +38,187 @@
                         <div class="h m-0">Appointment #: AP{{appId}}</div>
                         <div class="h m-0">Appointment Status: <span class="badge badge-warning">IPD</span></div>
                       </div>
+                    </div>
+                      <br>
+
+              <div class="row clearfix">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body w_knob">
+                            <div class="c_know">
+                                <input type="text" class="knob" value="50" data-width="50" data-height="50" data-thickness="0.07" data-bgColor="#383b40" data-fgColor="#4caf50">
+                            </div>
+                            <div>
+                                <h6>Progress Status</h6>
+                                <span>Nurse: Vital Sign</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="card-value float-right text-danger">0%</div>
+                            <h3 class="mb-1">$5,853</h3>
+                            <div>Total Payment</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
+                                <div class="ml-4">
+                                    <span>Total PR#</span>
+                                    <h4 class="mb-0 font-weight-medium">651</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="body">
+                            <div class="media mb-0">
+                                <img class="rounded mr-3" src="../assets/images/xs/avatar4.jpg" alt="">
+                                <div class="media-body">
+                                    <h6 class="m-0">Br Deborah</h6>
+                                    <p class="text-muted mb-0">Neorologist</p>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+               
                   <ul class="nav nav-tabs3 mt-2">
-                      <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Feed">Feeds</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Activity">Activity</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Friends">Friends</a></li>
+                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Activity">Activity</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Feed">Feeds</a></li>                      
+                      <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Friends">Friends</a></li> -->
                   </ul>
               </div>                    
           </div>
           <div class="tab-content col-md-12">
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="Feed">
+            <div class="tab-pane vivify fadeIn delay-100 active show" id="Activity">
+                <div class="card">
+                    <div class="body">
+                        <ul class="timeline">
+                            <li class="timeline-item">
+                                <div class="timeline-info">
+                                    <span>March 12, 2018</span>
+                                </div>
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                  <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
+                                  <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
+                                  <ul class="list-unstyled team-info sm margin-0">
+                                      <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>                                       
+                                      <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                      <li class="ml-2"><span>10k +</span></li>
+                                  </ul>
+                                  <br>
+                                  <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
+                                  <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
+                                  <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
+                                  <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
+                                  <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
+                              </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-info">
+                                    <span>March 23, 2018</span>
+                                </div>
+                                <div class="timeline-marker"></div>
+                               <div class="timeline-content">
+                                      <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
+                                      <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
+                                      <ul class="list-unstyled team-info sm margin-0">
+                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>                                           
+                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                          <li class="ml-2"><span>10k +</span></li>
+                                      </ul>
+                                      <br>
+                                      <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
+                                      <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
+                                      <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
+                                      <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
+                                      <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
+                                  </div>
+                            </li>
+                            <li class="timeline-item period">
+                                <div class="timeline-info"></div>
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h2 class="timeline-title">April 2018</h2>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-info">
+                                    <span>April 02, 2018</span>
+                                </div>
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                  <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
+                                  <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
+                                  <ul class="list-unstyled team-info sm margin-0">
+                                      <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
+                                      <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                      <li class="ml-2"><span>10k +</span></li>
+                                  </ul>
+                                  <br>
+                                  <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
+                                  <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
+                                  <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
+                                  <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
+                                  <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
+                              </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-info">
+                                    <span>April 28, 2018</span>
+                                </div>
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content pb-0">
+                                    <h3 class="timeline-title">Event Title</h3>
+                                    <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
+                                        eu pede mollis pretium. Pellentesque ut neque. </p>
+                                        <ul class="list-unstyled team-info sm margin-0">
+                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
+                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
+                                          <li class="ml-2"><span>10k +</span></li>
+                                      </ul>
+                                      <br>
+                                      <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
+                                      <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
+                                      <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
+                                      <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
+                                      <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
+                                </div>
+                            </li>
+                        </ul>
+                        <hr>
+                  <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                      <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#Addapp">Add Encounter</button>   
+                            
+                  </div>
+                    </div>
+                </div>
+            </div>
+              <div class="tab-pane vivify fadeIn delay-100" id="Feed">
                 <!-- <div class="row clearfix">
                   <div class="col-md-12">
                       <div class="card">
@@ -419,273 +591,220 @@
                   </div>
                   <div class="col-xl-4 col-lg-5 col-md-12">
                    
-                    <div class="card">
-                      <div class="header">
-                          <h2>Users</h2>
-                      </div>
-                      <!-- <div class="body">                     
-                          <div class="body text-center">
-                              <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar1.jpg" alt="">
-                              <h6 class="mt-3">Michelle Green</h6>
-                              <div class="text-center text-muted">Intranet Developer</div>
-                          </div>                         
-                  
-                          <div class="row text-center">
-                              <div class="col-6 border-right pb-4 pt-4">
-                                  <label class="mb-0">New Users</label>
-                                  <h4 class="font-30 font-weight-bold text-col-blue">2,025</h4>
-                              </div>
-                              <div class="col-6 pb-4 pt-4">
-                                  <label class="mb-0">Return Visitors</label>
-                                  <h4 class="font-30 font-weight-bold text-col-blue">1,254</h4>
-                              </div>
-                          </div>
-                      </div> -->
-                 
-                  </div>
+                    <!-- <div class="card"> -->
+                       <div class="card" style="margin-top: 53px;">
+                        <div class="body">
+                            <div class="media">
+                                <img class="rounded mr-3" src="../assets/images/xs/avatar7.jpg" alt="">
+                                <div class="media-body">
+                                    <h5 class="m-0">Betty Torres</h5>
+                                    <p class="text-muted mb-0">Mobile Designer</p>
+                                </div>
+                            </div>
+                            <table class="table card-table mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Invoice Status</td>
+                                        <td class="text-right"><span class="badge badge-success">PAID</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Nurse Status</td>
+                                        <td class="text-right"><span class="badge badge-warning">VITAL SIGNS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Lab Status</td>
+                                        <td class="text-right"><span class="badge badge-info">SAMPLE COLLECTED</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Radiology Status</td>
+                                        <td class="text-right"><span class="badge badge-success">SUCCESS</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Theather Status</td>
+                                        <td class="text-right"><span class="badge badge-success">SUCCESS</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Ward Status</td>
+                                        <td class="text-right">48.75 <span class="text-danger">(-0.63%) <i class="fa fa-caret-down"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                       <div class="card">
                           <div class="body">
-                              <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a>
-                              <h5 class="mt-4">Process</h5>                            
+                              <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
+                              <h6 class="mt-4">Examination Note</h6>                            
                               <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-                            </div>                             
+                                <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">SOAP</a>
+                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Differental Diagnosis</a>
+                               
+                           
+                              <h6 class="mt-4">Plans</h6>                           
+                            
+                                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Order Lab Test</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Order Image Test</a>
+                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Order Surgery</a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Activate IPD</a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Team Review</a>
+                            
+                            <h6 class="mt-4">Treatment</h6>                            
+                           
+                              <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Pharmacy Prescription</a>
+                              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Diagnosis</a>
+                              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Chief Complant</a>
+                              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Extral Information</a>
+                          </div>     
+                          <h6 class="mt-4">Other</h6>                            
+                         
+                            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Order Next Appointment</a>         
+                        </div>                             
                           </div>
-                      </div>
+                     
+                          <div class="card">
+                            <div class="header">
+                                <h2>Followers</h2>
+                            </div>
+                            <div class="body">
+                                <ul class="right_chat w_followers list-unstyled mb-0">
+                                    <li class="online">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="avtar-pic w35 bg-red"><span>FC</span></div>
+                                                <div class="media-body">
+                                                    <span class="name">@MelissaMcCoy</span>
+                                                    <span class="message">Designer, Blogger</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="online">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
+                                                <div class="media-body">
+                                                    <span class="name">@Joge Lucky</span>
+                                                    <span class="message">Java Developer</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="offline">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
+                                                <div class="media-body">
+                                                    <span class="name">@JuanMartinez</span>
+                                                    <span class="message">CEO, puffintheme</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="offline">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="avtar-pic w35 bg-indigo"><span>FC</span></div>
+                                                <div class="media-body">
+                                                    <span class="name">@Folisise Chosielie</span>
+                                                    <span class="message">Art director, Movie Cut</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="online">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
+                                                <div class="media-body">
+                                                    <span class="name">@LouisHenry</span>
+                                                    <span class="message">Writter, Mag Editor</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="offline">
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <img class="media-object " src="../assets/images/xs/avatar10.jpg" alt="">
+                                                <div class="media-body">
+                                                    <span class="name">@Folisise Chosielie</span>
+                                                    <span class="message">Art director, Movie Cut</span>
+                                                    <span class="badge badge-outline status"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                   </div>
               </div>  
               </div>
-              <div class="tab-pane vivify fadeIn delay-100" id="Activity">
-                  <div class="card">
-                      <div class="body">
-                          <ul class="timeline">
-                              <li class="timeline-item">
-                                  <div class="timeline-info">
-                                      <span>March 12, 2018</span>
-                                  </div>
-                                  <div class="timeline-marker"></div>
-                                  <div class="timeline-content">
-                                      <h3 class="timeline-title">Event Title</h3>
-                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
-                                          eu pede mollis pretium. Pellentesque ut neque.</p>
-                                  </div>
-                              </li>
-                              <li class="timeline-item">
-                                  <div class="timeline-info">
-                                      <span>March 23, 2018</span>
-                                  </div>
-                                  <div class="timeline-marker"></div>
-                                  <div class="timeline-content">
-                                      <h3 class="timeline-title">Event Title</h3>
-                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
-                                          eu pede mollis pretium. Pellentesque ut neque. </p>
-                                  </div>
-                              </li>
-                              <li class="timeline-item period">
-                                  <div class="timeline-info"></div>
-                                  <div class="timeline-marker"></div>
-                                  <div class="timeline-content">
-                                      <h2 class="timeline-title">April 2018</h2>
-                                  </div>
-                              </li>
-                              <li class="timeline-item">
-                                  <div class="timeline-info">
-                                      <span>April 02, 2018</span>
-                                  </div>
-                                  <div class="timeline-marker"></div>
-                                  <div class="timeline-content">
-                                      <h3 class="timeline-title">Event Title</h3>
-                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
-                                          eu pede mollis pretium. Pellentesque ut neque. </p>
-                                  </div>
-                              </li>
-                              <li class="timeline-item">
-                                  <div class="timeline-info">
-                                      <span>April 28, 2018</span>
-                                  </div>
-                                  <div class="timeline-marker"></div>
-                                  <div class="timeline-content pb-0">
-                                      <h3 class="timeline-title">Event Title</h3>
-                                      <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
-                                          eu pede mollis pretium. Pellentesque ut neque. </p>
-                                  </div>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-              <div class="tab-pane vivify fadeIn delay-100" id="Friends">
-                  <div class="table-responsive">
-                      <table class="table table-hover table-custom spacing5">
-                          <thead>
-                              <tr> 
-                                  <th>#</th>
-                                  <th></th>
-                                  <th>eMail</th>
-                                  <th>Address</th>                                        
-                                  <th>Action</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Jason Porter</a>
-                                      <p class="mb-0">+ 264-625-5858</p>
-                                  </td>
-                                  <td>
-                                      <span>jason-porter@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>123 6th St. Melbourne, FL 32904</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Denise Elliott</a>
-                                      <p class="mb-0">+ 264-625-4523</p>
-                                  </td>
-                                  <td>
-                                      <span>denise-elliott@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Rose Coke</a>
-                                      <p class="mb-0">+ 264-625-2583</p>
-                                  </td>
-                                  <td>
-                                      <span>rose-coke@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Grace Knight</a>
-                                      <p class="mb-0">+ 264-625-2583</p>
-                                  </td>
-                                  <td>
-                                      <span>grace-knight@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>70 Bowman St. South Windsor, CT 06074</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Elizabeth Martin</a>
-                                      <p class="mb-0">+ 264-625-2341</p>
-                                  </td>
-                                  <td>
-                                      <span>Elizabeth-Martin@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>123 6th St. Melbourne, FL 32904</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Sean Black</a>
-                                      <p class="mb-0">+ 264-625-7262</p>
-                                  </td>
-                                  <td>
-                                      <span>denise-Alvarado@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>514 S. Magnolia St. Orlando, FL 32806</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">David Wallace</a>
-                                      <p class="mb-0">+ 264-625-9283</p>
-                                  </td>
-                                  <td>
-                                      <span>Carol-coke@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>44 Shirley Ave. West Chicago, IL 60185</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="w60">
-                                      <img src="../assets/images/xs/avatar8.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                  </td>
-                                  <td>
-                                      <a href="javascript:void(0);" title="">Theresa Wright</a>
-                                      <p class="mb-0">+ 264-625-2233</p>
-                                  </td>
-                                  <td>
-                                      <span>Michelle-Schultz@example.com</span>
-                                  </td>
-                                  <td>
-                                      <span>70 Bowman St. South Windsor, CT 06074</span>
-                                  </td>
-                                  <td>
-                                      <button class="btn btn-primary btn-sm">Follow</button>
-                                      <button class="btn btn-success btn-sm">Message</button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
+              
+                <div class="modal fade" id="Addapp" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Add Shelve Point</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+                    <div class="modal-body">             
+                        <div class="row clearfix">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Shelve Name" ngModel name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control show-tick" ngModel name="status">
+                                        <option value="active">Active</option>
+                                        <option value="suspend">Suspend</option>                                
+                                    </select>                  
+                                </div>
+                            </div>            
+                        </div>
+                    </div>
+                    <div class="modal-body">             
+                        <div class="row clearfix">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Shelve Point" ngModel name="point" required>
+                                </div>
+                            </div> 
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control show-tick" ngModel name="branch_id">
+                                        <option value="">- Select Team -</option>
+                                        <option *ngFor="let b of branch" [value]="b.id">{{b.br_name}}</option>                                
+                                    </select>
+                                </div>
+                            </div>                               
+                        </div>
+                    </div>       
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+            
           </div>         
       </div>
   </div>

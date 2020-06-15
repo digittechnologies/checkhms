@@ -137,11 +137,22 @@ import { RecordHistoryComponent } from './record/record-history/record-history.c
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 import { BrancesComponent } from './branches/brances/brances.component';
+import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
+import { StoreModule } from '@ngrx/store';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { reducers, metaReducers } from './reducers';
 import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
 import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
 import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 import { ProccessValueComponent } from './proccess-value/proccess-value.component';
+import { ChatService } from './service/chat.service';
+import { ChatComponent } from './chat/chat.component';
+import { NgxNotificationComponent } from 'ngx-notification';
+import { CenterTypeComponent } from './center-type/center-type.component';
+import { TeamComponent } from './admin/team/team.component';
+import { RankComponent } from './admin/rank/rank.component';
+const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
   declarations: [
@@ -345,6 +356,10 @@ import { ProccessValueComponent } from './proccess-value/proccess-value.componen
     AppointmentTypeComponent,
   
     BrancesComponent,
+    NavLazyLoadComponent,
+    ChatComponent,
+    NgxNotificationComponent,
+  
   
     PatientHistoryComponent,
   
@@ -355,6 +370,12 @@ import { ProccessValueComponent } from './proccess-value/proccess-value.componen
     ProccessSettingsComponent,
   
     ProccessValueComponent,
+  
+    CenterTypeComponent,
+  
+    TeamComponent,
+  
+    RankComponent,
   
   ],
   imports: [
@@ -376,13 +397,16 @@ import { ProccessValueComponent } from './proccess-value/proccess-value.componen
     ScrollingModule,
     InfiniteScrollModule,
     ExportAsModule,
+    SocketIoModule.forRoot(config),
     LazyLoadImageModule.forRoot({
       preset: scrollPreset 
     }),
+    
 
     MatAutocompleteModule​,
     MatFormFieldModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forRoot(reducers, { metaReducers }),
   
   ],
   providers: [
@@ -394,7 +418,8 @@ import { ProccessValueComponent } from './proccess-value/proccess-value.componen
     DeptAdminRoleGuardService,
     AdminRoleGuardService,
     StaffRoleGuardService,
-    UserRoleGuardService
+    UserRoleGuardService,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

@@ -204,15 +204,21 @@ export class SetBranchComponent implements OnInit {
         this.center_id   =  this.branch_details.branch[0].branch_id;
         this.branch_id =this.branch_details.branch[0].id;
         this.clinic_type = this.branch_details.branch[0].clinic_type;
-
-        
         this.center= this.branch_details.center;
         this.depart= this.branch_details.department;
         this.staffs = this.branch_details.staffs;
         this.clinic_types = this.branch_details.clinic_type;
-        // console.log(this.branch_details.branch)
+        console.log(this.branch_details.branch)
       }
     )
+  }
+  branche(){
+  this.Jarwis.centerBranch().subscribe(
+    data=>{
+      let res:any = data
+      this.branches = res.center
+    }
+  )
   }
   onUpdateBranch(form:NgForm){
     // console.log(form)
@@ -245,7 +251,7 @@ export class SetBranchComponent implements OnInit {
       this.deptlists = data;
        this.staff = this.deptlists.list;
        this.app_type = this.deptlists.modules ;
-       this.branches = this.deptlists.center;
+      //  this.branches = this.deptlists.center;
       //  this.departments = this.deptlists.department;
 
       //  console.log(this.app_type)

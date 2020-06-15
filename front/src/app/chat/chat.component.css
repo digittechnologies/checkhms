@@ -1,0 +1,17 @@
+.spacer{
+    flex: 1 1 auto;
+}
+.notUser{
+      border-radius: 10px;
+      background-color: lightgrey;
+  }
+  .user{
+      background-color: rgb(88, 236, 162)
+  }
+  .backgorund_color{
+      background-color:#17C2D7;
+      border-radius: 30px;
+  }
+  .body{
+   cursor: pointer;   
+  }

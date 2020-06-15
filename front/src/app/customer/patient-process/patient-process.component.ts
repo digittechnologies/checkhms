@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms'
 
+declare var test3: any;
+declare var test4: any;
 @Component({
   selector: 'app-patient-process',
   templateUrl: './patient-process.component.html',
@@ -17,8 +19,11 @@ export class PatientProcessComponent implements OnInit {
   patientResponse: any;
   pat: any;
   patID: any;
+  Property:any;
   schemeCat: any;
   schemeId: any;
+  branch:any
+  disabled =false;
   schemePercent: any;
   schemePercentToView: number;
   schemePriceList: any;
@@ -34,6 +39,8 @@ export class PatientProcessComponent implements OnInit {
 
   ngOnInit() {
 
+    new test3();
+    new test4();
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
 	    this.appId= id;
@@ -56,5 +63,6 @@ export class PatientProcessComponent implements OnInit {
     this.imgLink = this.response[0].app_url;
   })
   }
+  onSubmit(form:NgForm){}
 
 }

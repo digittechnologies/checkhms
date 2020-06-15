@@ -49,9 +49,16 @@ export class TheaterComponent implements OnInit {
     private Jarwis:JarwisService,
     private Token:TokenService,
     private elementRef:ElementRef
-  ) { }
+  ) { 
+    this.Jarwis.profile().subscribe(
+      data=>{if (data) {
+        this.Jarwis.lazyLoader("loaded")
+      }
+    })
+  }
 
   ngOnInit() {
+    this.Jarwis.lazyLoader("loading")
  // location.reload()
 
  this.Jarwis.profile().subscribe(
