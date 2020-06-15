@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   pharm=false;
   invest=false;
   revenue=false;
+  module_name: any;
   user_id: any;
   unread: any;
   components:any;
@@ -98,7 +99,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.chat.user(this.user_id)
       this.chat.unread(this.user_id)
       // window.localStorage.department=JSON.stringify(this.department)
-      this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name ;
+      this.home = this.response.det[0].nameD +'-'+ this.response.det[0].role_name;
+      this.module_name= this.response.det[0].module
     })
 
     this.Jarwis. generalSettings().subscribe(

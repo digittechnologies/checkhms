@@ -169,8 +169,8 @@ class DisplayController extends Controller
     public function displayDepartments()
     {
         return Departments::orderBy('id')
-        // ->join('positions','departments.position_id','=','positions.id')
-        //         ->select('departments.*','positions.position_name')              
+        ->join('module','departments.module_id','=','module.id')
+                ->select('departments.*','module.module')              
                 ->get();
     }
 

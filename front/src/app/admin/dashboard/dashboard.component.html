@@ -153,19 +153,19 @@
                             <i class="fa fa-language"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item pt-2 pb-2" href="#"><img src="../assets/images/flag/us.svg " class="w20 mr-2 rounded-circle"> US English</a>
-                            <a class="dropdown-item pt-2 pb-2" href="#"><img src="../assets/images/flag/gb.svg " class="w20 mr-2 rounded-circle"> UK English</a>
+                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);"><img src="../assets/images/flag/us.svg " class="w20 mr-2 rounded-circle"> US English</a>
+                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);"><img src="../assets/images/flag/gb.svg " class="w20 mr-2 rounded-circle"> UK English</a>
                             <div class="dropdown-divider"></div>
                            
-                            <a class="dropdown-item pt-2 pb-2" href="#"><img src="../assets/images/flag/france.svg " class="w20 mr-2 rounded-circle"> French</a>
+                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);"><img src="../assets/images/flag/france.svg " class="w20 mr-2 rounded-circle"> French</a>
                         </div>
                     </li> -->
                     <!-- <li><a href="javascript:void(0);" class="megamenu_toggle icon-menu" title="Mega Menu">Record</a></li> -->
-                    <li class="p_social"><a (click)="modu('record')" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
-                    <li class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
-                    <li class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
-                    <li class="p_blog"><a (click)="modu('pharm')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
-                    <li class="p_blog"><a (click)="modu('revenue')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
+                    <li *ngIf="module_name == 'hms' || module_name == 'record'" class="p_social"><a (click)="modu('record')" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
+                    <li *ngIf="module_name == 'hms' || module_name == 'clinic'" class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
+                    <li *ngIf="module_name == 'hms' || module_name == 'investigation'" class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
+                    <li *ngIf="module_name == 'hms' || module_name == 'pharmacy'"class="p_blog"><a (click)="modu('pharm')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
+                    <li *ngIf="module_name == 'hms' || module_name == 'revenue'" class="p_blog"><a (click)="modu('revenue')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
                 </ul>
             </div>
             
@@ -174,7 +174,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="javascript:void(0);" class="search_toggle icon-menu" title="Search Result"><i class="icon-magnifier"></i></a></li>                        
                         <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i class="icon-bubbles"></i><span *ngIf="unread>0" class="notification-dot bg-pink">{{unread}}</span></a></li>
-                        <li><a href="#" (click)="logout($event)" class="icon-menu"><i class="icon-power"></i></a></li>
+                        <li><a href="javascript:void(0);" (click)="logout($event)" class="icon-menu"><i class="icon-power"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -313,9 +313,9 @@
                         <li><a href="app-inbox.html"><i class="icon-envelope"></i><span>Inbox</span></a></li>
                         <li><a href="app-chat.html"><i class="icon-bubbles"></i><span>Messenger</span></a></li>
                         <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Event</span></a></li>
-                        <li><a href="page-profile.html"><i class="icon-user"></i><span>Profile</span></a></li>
-                        <li><a href="page-invoices.html"><i class="icon-printer"></i><span>Invoice</span></a></li>
-                        <li><a href="page-timeline.html"><i class="icon-list"></i><span>Timeline</span></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-user"></i><span>Profile</span></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-printer"></i><span>Invoice</span></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-list"></i><span>Timeline</span></a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -393,7 +393,7 @@
 
     <div id="left-sidebar" class="sidebar">
         <div class="navbar-brand">
-            <a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><img src="./assets/images/checklogo_3.png" alt="Check Logo" class="img-fluid logo"><span>BUTH ADMIN</span></a>
+            <a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['home']}}]"><img src="./assets/images/checklogo_3.png" alt="Check Logo" class="img-fluid logo"><span>BUTH ADMIN</span></a>
             <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu icon-close"></i></button>
         </div>
         <div class="sidebar-scroll">
@@ -405,7 +405,7 @@
                     <span>Welcome,</span>
                     <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{fname}} {{lname}}</strong></a>
                     <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['admin-profile']}}]"><i class="icon-user"></i> My Profile</a></li>
+                        <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['admin-profile']}}]"><i class="icon-user"></i> My Profile</a></li>
                         <li><a href="javascript:void(0);"><i class="icon-envelope-open"></i>Messages</a></li>
                         <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
                         <li class="divider"></li>
@@ -416,43 +416,43 @@
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="header">Home</li>                  
+<<<<<<< HEAD
                     <li class="active open"><a href="#"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
                     <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-users"></i><span>Staffs</span></a></li> 
+=======
+                    <li class="active open"><a href="javascript:void(0);"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>All Staff</span></a></li> 
+>>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
 
-                    <div *ngIf="record">
-                        <ul>
-                        <li class="header">Record Module</li>
-                        <li>
-                            <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'" class="header">Record Module</li>
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
                             </ul>
                         </li>
-                        <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
-                    </ul>
-                    </div>
-
-                    <div *ngIf="clinic">
-                        <li class="header">Clinic Module</li>
-                        <li>
-                            <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
+                   
+                        <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'" class="header">Clinic Module</li>
+                        <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
                             </ul>
                         </li>
-                        <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
-                    </div>
-                    <div *ngIf="invest">
-                        <li class="header">Investigation Module</li>
-                        <li>
-                            <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                        <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
+                    
+                        <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'" class="header">Investigation Module</li>
+                        <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
                             </ul>
                         </li>
+<<<<<<< HEAD
                         <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
                     </div>
                     <div *ngIf="pharm">
@@ -467,25 +467,54 @@
                         <!-- </li> -->
                         <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
                     </div>
+=======
+                        <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
+                  
+                        <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'" class="header">Pharmacy Module</li>
+                        <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                            <ul>
+                                <li><a href="app-contact.html">List View</a></li>
+                                <li><a href="app-contact2.html">Grid View</a></li>
+                            </ul>
+                        </li>
+                        <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
+                   
+                        <li  *ngIf="revenue && module_name == 'hms' || module_name == 'revenue'" class="header">Revenue Module</li>
+                        <li  *ngIf="revenue && module_name == 'hms' || module_name == 'revenue'">
+                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                            <ul>
+                                <li><a href="app-contact.html">List View</a></li>
+                                <li><a href="app-contact2.html">Grid View</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);"><i class="icon-envelope"></i><span> Email</span></a></li>
+                 
+>>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
 
+                    <li *ngIf="module_name == 'hms'" class="header">Audit Trail</li>
+                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+            
                       
-                    <li class="header">Configuration</li> 
-                    <li>
-                        <a href="#uiIcons" class="has-arrow"><i class="icon-tag"></i><span>Icons</span></a>
+                    <li *ngIf="module_name == 'hms'" class="header">Configuration</li> 
+                    <li *ngIf="module_name == 'hms'">
+                        <a href="javascript:void(0);" class="has-arrow"><i class="icon-tag"></i><span>Icons</span></a>
                         <ul>
                             <li><a href="ui-icons.html">FontAwesome</a></li>
                             <li><a href="ui-icons-line.html">Simple Line</a></li>
                             <li><a href="ui-icons-themify.html">Themify Icon</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#uiComponents" class="has-arrow"><i class="icon-diamond"></i><span>Components</span></a>
+                    <li *ngIf="module_name == 'hms'">
+                        <a href="javascript:void(0);" class="has-arrow"><i class="icon-diamond"></i><span>Components</span></a>
                         <ul>
                             <li><a href="ui-bootstrap.html">Bootstrap UI</a></li>
                             <li><a href="ui-typography.html">Typography</a></li>                          
                         </ul>
                     </li>
 
+<<<<<<< HEAD
                     <li class="header">Audit Trail</li>
                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
                         <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
@@ -502,19 +531,41 @@
 
                     <li>
                         <a href="#Authentication" class="has-arrow"><i class="icon-lock"></i><span>Authentication</span></a>
+=======
+
+
+
+
+                    
+                    <li *ngIf="module_name == 'hms'" class="header">Settings</li>
+                    <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-lock"></i><span>Set Staff</span></a></li> 
+                    <li *ngIf="module_name == 'hms'">
+                        <a href="javascript:void(0);" class="has-arrow"><i class="icon-settings"></i><span>General Settings</span></a>
+>>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
                         <ul>
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a href="page-login2.html">Login Version2</a></li>
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-forgot-password.html">Forgot Password</a></li>
-                            <li><a href="page-404.html">Page 404</a></li>
-                            <li><a href="page-maintenance.html">Maintenance</a></li>
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><span>All Staffs</span></a></li>
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><span>Departments</span></a></li>
+                            <li><a href="javascript:void(0);"  [routerLink]="['/Admin', {outlets: {side: ['set_department']}}]"><span>Set Departments</span></a></li> 
+                            <li><a href="javascript:void(0);"  [routerLink]="['/Admin', {outlets: {side: ['branches']}}]"><span>Our Branches</span></a></li> 
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['set_branch']}}]"><span>Our Centers</span></a></li>                                
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['duration']}}]"><span>Set Prescription Qty</span></a></li>
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]"><span>Set Daily Supply</span></a></li>
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['process_settings']}}]"><span>Proccess settings</span></a></li>
+                            <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['general_setting']}}]"><span>General Settings</span></a></li>
                         </ul>
                     </li>
+
+                   
+
                               
                     <li class="header">More</li>
                     <li><a href="../documentation/index.html"><i class="icon-doc"></i><span>Documentation</span></a></li>
                     <li><a href="../documentation/index.html"><i class="icon-doc"></i><span>About</span></a></li>
+
+
+
+
                 </ul>
             </nav>     
         </div>
