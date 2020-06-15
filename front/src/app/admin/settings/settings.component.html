@@ -28,6 +28,7 @@
                                 <ul class="nav nav-tabs page-header-tab mb-0">
                                     <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Company_Settings">Company</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Localization">Localization</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#module">Module</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Roles_Permissions">Roles & Permissions</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Email_Settings">Email</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Invoice_Settings">Invoice</a></li>
@@ -94,10 +95,12 @@
                                             </div>
                                             <div class="col-lg-4 col-md-12">
                                                 <div class="form-group">
-                                              <label>Change file</label><br>
-                                              <input type="file" name="file"  (change)="uploadFile($event)">
-                                              </div>
-                                              </div>
+                                                    <label>Change file</label><br>
+                                                    <input type="file" name="file" class="dropify" (change)="uploadFile($event)">
+                                                </div>
+                                            </div>                               
+
+
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
@@ -132,8 +135,9 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Default Country</label>
-                                                        <select class="form-control">
-                                                            <option selected="selected">USA</option>
+                                                        <select disabled class="form-control">
+                                                            <option selected="selected">Nigeria</option>
+                                                            <option>USA</option>
                                                             <option>United Kingdom</option>
                                                             <option>India</option>
                                                             <option>French</option>
@@ -143,30 +147,30 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Date Format</label>
-                                                        <select class="form-control">
+                                                        <select disabled class="form-control">
                                                             <option value="d/m/Y">15/05/2016</option>
                                                             <option value="d.m.Y">15.05.2016</option>
                                                             <option value="d-m-Y">15-05-2016</option>
                                                             <option value="m/d/Y">05/15/2016</option>
                                                             <option value="Y/m/d">2016/05/15</option>
-                                                            <option value="Y-m-d">2016-05-15</option>
+                                                            <option value="d M Y">15 May 2016</option>
                                                             <option value="M d Y">May 15 2016</option>
-                                                            <option selected="selected" value="d M Y">15 May 2016</option>
+                                                            <option selected="selected" value="Y-m-d">2016-05-15</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Timezone</label>
-                                                        <select class="form-control">
-                                                            <option>10:45am Chicago (GMT-6)</option>
+                                                        <select disabled class="form-control">
+                                                            <option>10:45am West African (GMT+1)</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Default Language</label>
-                                                        <select class="form-control">
+                                                        <select disabled class="form-control">
                                                             <option selected="selected">English</option>
                                                             <option>Russian</option>
                                                             <option>Arabic</option>
@@ -178,8 +182,9 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Currency Code</label>
-                                                        <select class="form-control">
-                                                            <option selected="selected">USD</option>
+                                                        <select disabled class="form-control">
+                                                            <option selected="selected">Naira</option>
+                                                            <option>USD</option>
                                                             <option>Pound</option>
                                                             <option>EURO</option>
                                                             <option>Ringgit</option>
@@ -189,14 +194,35 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Currency Symbol</label>
-                                                        <input class="form-control" value="$" type="text">
+                                                        <input disabled class="form-control" value="₦" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 text-right m-t-20">
-                                                    <button type="button" class="btn btn-primary">Save</button>
+                                                    <button disabled type="button" class="btn btn-primary">Save</button>
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>                    
+                            </div>
+                            <div class="tab-pane" id="module">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>Module</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group mb-3 tp-setting">
+                                            <li *ngFor="let md of moduleResponse" class="list-group-item">
+                                                {{md.module}} Module
+                                                <div class="float-right">
+                                                    <label class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" checked='' />
+                                                        <span class="custom-control-label">&nbsp;</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                      
                                     </div>
                                 </div>                    
                             </div>

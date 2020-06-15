@@ -1,3 +1,4 @@
+function showfile2(){
 $(function() {
     $('.dropify').dropify();
 
@@ -19,3 +20,4 @@ $(function() {
         }
     });
 });
+}
