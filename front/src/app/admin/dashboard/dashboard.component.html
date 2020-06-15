@@ -416,13 +416,8 @@
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="header">Home</li>                  
-<<<<<<< HEAD
                     <li class="active open"><a href="#"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
                     <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-users"></i><span>Staffs</span></a></li> 
-=======
-                    <li class="active open"><a href="javascript:void(0);"  [routerLink]="['/Admin', {outlets: {side: [home]}}]"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><i class="icon-users"></i><span>All Staff</span></a></li> 
->>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
 
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'" class="header">Record Module</li>
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'">
@@ -452,22 +447,6 @@
                                 <li><a href="app-contact2.html">Grid View</a></li>
                             </ul>
                         </li>
-<<<<<<< HEAD
-                        <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
-                    </div>
-                    <div *ngIf="pharm">
-                        <li class="header">Pharmacy Module</li>
-                        <!-- <li> -->
-                          <li *ngFor="let module of components" (click)="permit(module.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [module.link]}}]"><i class="icon-user-follow"></i><span>{{module.component_name}}</span></a></li>                             
-                            <!-- <a href="#Contact" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a> -->
-                            <!-- <ul>
-                                <li><a href="app-contact.html">List View</a></li>
-                                <li><a href="app-contact2.html">Grid View</a></li>
-                            </ul> -->
-                        <!-- </li> -->
-                        <li><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
-                    </div>
-=======
                         <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
                   
                         <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'" class="header">Pharmacy Module</li>
@@ -490,7 +469,6 @@
                         </li>
                         <li><a href="javascript:void(0);"><i class="icon-envelope"></i><span> Email</span></a></li>
                  
->>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
 
                     <li *ngIf="module_name == 'hms'" class="header">Audit Trail</li>
                         <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
@@ -513,35 +491,10 @@
                             <li><a href="ui-typography.html">Typography</a></li>                          
                         </ul>
                     </li>
-
-<<<<<<< HEAD
-                    <li class="header">Audit Trail</li>
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                        <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
-            
-                    <li class="header">Settings</li>
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['possition']}}]"><span>Set Position</span></a></li> 
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['center_type']}}]"><span>Set Center type</span></a></li>
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ranks']}}]"><span>Set Rank</span></a></li> 
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['teams']}}]"><span>Set Teams</span></a></li> 
-                    <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ecounter_type']}}]"><span>Set Ecounter type</span></a></li> 
-
-
-
-                    <li>
-                        <a href="#Authentication" class="has-arrow"><i class="icon-lock"></i><span>Authentication</span></a>
-=======
-
-
-
-
-                    
                     <li *ngIf="module_name == 'hms'" class="header">Settings</li>
                     <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><i class="icon-lock"></i><span>Set Staff</span></a></li> 
                     <li *ngIf="module_name == 'hms'">
                         <a href="javascript:void(0);" class="has-arrow"><i class="icon-settings"></i><span>General Settings</span></a>
->>>>>>> 8bfd8730fd8423791fadd1458896ac9e3d8d2ff0
                         <ul>
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['staffs']}}]"><span>All Staffs</span></a></li>
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['department']}}]"><span>Departments</span></a></li>
@@ -553,6 +506,13 @@
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['instruction']}}]"><span>Set Daily Supply</span></a></li>
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['process_settings']}}]"><span>Proccess settings</span></a></li>
                             <li><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['general_setting']}}]"><span>General Settings</span></a></li>
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['all_staff']}}]"><span>Set Staff</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['possition']}}]"><span>Set Position</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['center_type']}}]"><span>Set Center type</span></a></li>
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ranks']}}]"><span>Set Rank</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['teams']}}]"><span>Set Teams</span></a></li> 
+                            <li><a href="" [routerLink]="['/Admin', {outlets: {side: ['ecounter_type']}}]"><span>Set Ecounter type</span></a></li> 
+        
                         </ul>
                     </li>
 
