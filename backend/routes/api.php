@@ -37,8 +37,8 @@ Route::post('updateprofile','AuthController@updateprofile');
 Route::post('editPriviledges', 'AuthController@editPriviledges');
 
 Route::post('addDept', 'AddController@addDept');
-Route::post('updateDept', 'AddController@updateDept');
-Route::post('deleteDept', 'AddController@deleteDept');
+Route::post('EditBranch', 'AddController@EditBranch');
+Route::post('suspendCenter', 'AddController@suspendCenter');
 Route::get('showBranches','DisplayController@showBranches');
 Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');

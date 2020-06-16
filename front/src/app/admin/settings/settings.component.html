@@ -30,8 +30,8 @@
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Localization">Localization</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#branches">Service Point</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#module">Module</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Roles_Permissions">Roles & Permissions</a></li>
-                                    
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#dept">Departments</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Roles_Permissions">Position & Permissions</a></li>                                    
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Invoice_Settings">Invoice</a></li>
                        
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Change_Password">Change Password </a></li>
@@ -211,7 +211,7 @@
                                     <div class="header">
                                         <h2>Service Point</h2>
                                         <div class="col-md-12 col-sm-12 text-right hidden-xs">
-                                            <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments">Add Branch</button>
+                                            <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddBranch">Add Branch</button>
                                         </div>
                                     </div>
                                     
@@ -231,20 +231,20 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let d of dept; let r=index">
+                                                            <tr *ngFor="let branch of branches; let r=index">
                                                                 <td>
                                                                   {{r+1}}
                                                                 </td>
-                                                                <td>{{d.name}}</td>
-                                                                <td>{{d.address}}</td>                               
+                                                                <td>{{branch.name}}</td>
+                                                                <td>{{branch.address}}</td>                               
                                                                 
                                                                 <td>
-                                                                    <span class="badge badge-success" *ngIf ="d.status=== 'active'">Active</span>
-                                                                     <span class="badge badge-danger" *ngIf ="d.status=== 'suspend'">Suspend</span> 
+                                                                    <span class="badge badge-success" *ngIf ="branch.status=== 'active'">Active</span>
+                                                                     <span class="badge badge-danger" *ngIf ="branch.status=== 'deleted'">Deleted</span> 
                                                                 </td>   
                                                                 <td>
-                                                                    <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
-                                                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                                                    <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditBranch" (click)="editdept(branch.id)"><i class="fa fa-pencil"></i></button>
+                                                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" (click)="onDelete(branch.id)"><i class="fa fa-trash-o"></i></button>
                                                                 </td>
                                                             </tr>                                                   
                                                         </tbody>
@@ -254,7 +254,7 @@
                                         </div>
 
 
-                                        <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+                                        <div class="modal fade" id="AddBranch" tabindex="-1" role="dialog">
                                             <div class="modal-dialog" role="document">
                                               <div class="modal-content">
                                                   <div class="modal-header">
@@ -263,7 +263,7 @@
                                                       <span aria-hidden="true">×</span>
                                                       </button>
                                                   </div>
-                                                  <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+                                                  <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(brch)" #brch="ngForm"> 
                                                   <div class="modal-body">             
                                                       <div class="row clearfix">
                                                           <div class="col-md-8">
@@ -301,7 +301,7 @@
                                             </div>
                                             </div>
                                             
-                                            <div class="modal fade" id="EditDepartments" tabindex="1" role="dialog">
+                                            <div class="modal fade" id="EditBranch" tabindex="1" role="dialog">
                                               <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
                                                       <div class="modal-header">
@@ -310,7 +310,7 @@
                                                           <span aria-hidden="true">×</span>
                                                           </button>
                                                       </div>
-                                                      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateCenter(br)" #br="ngForm"> 
                                                       <div class="modal-body">             
                                                           <div class="row clearfix">
                                                               <div class="col-md-8">
@@ -373,223 +373,270 @@
                                 </div>                    
                             </div>
 
+                            <div class="tab-pane" id="dept">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>Departments</h2>
+                                        <div class="col-md-12 col-sm-12 text-right hidden-xs">
+                                            <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments">Add Department</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <div class="row clearfix">
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-custom spacing8">
+                                                        <thead>
+                                                            <tr> 
+                                                                <th>Image</th>
+                                                                <th>Depertment Name</th>
+                                                                <th>Description</th>
+                                                                <!-- <th>Total Staff</th> -->
+                                                                <th>position</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let d of depertm">
+                                                                <td class="w60">
+                                                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                                                </td>
+                                                                <td>{{d.name}}</td>
+                                                                <td>{{d.description}}</td>                               
+                                                                <td>
+                                                                    <span class="badge badge-success" *ngIf ="d.module=== 'clinic'">{{d.module}}</span>
+                                                                     <span class="badge badge-danger" *ngIf ="d.module=== 'hms'">{{d.module}}</span> 
+                                                                     <span class="badge badge-info" *ngIf ="d.module=== 'investigation'">{{d.module}}</span>
+                                                                     <span class="badge badge-primary" *ngIf ="d.module=== 'pharmacy'">{{d.module}}</span> 
+                                                                     <span class="badge badge-secondary" *ngIf ="d.module=== 'record'">{{d.module}}</span>
+                                                                     <span class="badge badge-warning" *ngIf ="d.module=== 'revenue'">{{d.module}}</span> 
+                                                                </td>                                                              
+                                                                <td *ngIf="d.status == 'default'">
+                                                                    <button type="button" disabled class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments"><i class="fa fa-pencil"></i></button>
+                                                                    <button type="button" disabled class="btn btn-default btn-sm" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i></button>
+                                                                </td>
+                                                                <td *ngIf="d.status != 'default'">
+                                                                    <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
+                                                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" (click)="onDeleteDept(d.id)"><i class="fa fa-trash-o"></i></button>
+                                                                </td>
+                                                            </tr>                                                   
+                                                        </tbody>
+                                                    </table>                     
+                                                </div>
+                                            </div>
+                                        </div>                                                                               
+
+                                        <div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title h4" id="myLargeModalLabel">Add Departments</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitDept(dept)" #dept="ngForm"> 
+                                                    <div class="modal-body">             
+                                                        <div class="row clearfix">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" placeholder="Departments Name" ngModel name="name" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control show-tick" ngModel name="position_id">
+                                                                        <option value="">- Select Team -</option>
+                                                                        <option *ngFor="let p of moduleResponse" [value]="p.id">{{p.module}}</option>                                
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group mt-3">
+                                                                    <textarea rows="6" class="form-control no-resize" placeholder="Please type about the depertment..." ngModel name="description" required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-round btn-primary">Add</button>
+                                                        <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="modal fade" id="EditDepartments" tabindex="1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title h4" id="myLargeModalLabel">Add Departments</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdateDept(ed)" #ed="ngForm"> 
+                                                        <div class="modal-body">             
+                                                            <div class="row clearfix">
+                                                                <div class="col-md-8">
+                                                                    <div class="form-group">
+                                                                
+                                                                        <input type="text" class="form-control" [value]="deptName" ngModel name="name" >
+                                                                        <input hidden="true" [value]="deptid" ngModel name="id">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                    
+                                                                        <select class="form-control show-tick" ngModel name="position_id">
+                                                                            <option value="">- Select Team -</option>
+                                                                            <option *ngFor="let p of posRes" placeholder="Edit position name here..." [value]="p.id">{{p.position_name}}</option>                                
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group mt-3">                            
+                                                                        <textarea rows="6" class="form-control no-resize" placeholder="Edit about the depertment..." [value]="deptDescrip" ngModel name="description"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-round btn-primary">Update</button>
+                                                            <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                      
+                                    </div>
+                                </div>                    
+                            </div>
+
                             <div class="tab-pane" id="Roles_Permissions">
                                 <div class="card">
                                     <div class="header">
                                         <h2>Roles & Permissions</h2>
                                     </div>
                                     <div class="card-body">
-                                        <ul class="list-group mb-3 tp-setting">
-                                            <li class="list-group-item">
-                                                Anyone seeing my profile page
-                                                <div class="float-right">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" />
-                                                        <span class="custom-control-label">&nbsp;</span>
-                                                    </label>
+                                        <div class="card">
+                                            <ul class="nav nav-tabs">
+                                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Users">Users</a></li>
+                                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add New</a></li>        
+                                            </ul>
+                                            <div class="tab-content mt-0">
+                                            <div class="tab-pane active show" id="Users">
+                                            <div class="table-responsive">
+                                            <table class="table table-hover table-custom spacing8">         
+                                            
+                                            <thead>
+                                            <tr>
+                                            <th class="w60">Image</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Created Date</th>
+                                            <th>Department</th>
+                                            <th class="w100">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let pos of possitions">
+                                            <td class="w60">
+                                                <img src="http://{{imgLink}}/backend/public/upload/uploads/{{pos.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">                                                   </td>
+                                            <td>
+                                                <h6 class="mb-0">{{pos.position_name}}</h6>
+                                            </td>
+                                            <td><span>{{pos.description}}</span></td>
+                                            <td>{{pos.created_at}}</td>
+                                            <td>{{pos.department}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-default" title="Edit"><i class="fa fa-edit"></i></button>
+                                                <button type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm"><i class="fa fa-trash-o text-danger"></i></button>
+                                            </td>
+                                            </tr>
+                                            
+                                            </tbody>
+                                            </table>                
+                                            </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                            <div class="tab-pane" id="addUser">
+                                            <div class="body mt-2">
+                                               <div class="row clearfix">
+                                            <form  class="form-auth-small m-t-20 row" role="form" (ngSubmit)="onSubmitPos(poss)" #poss="ngForm" >
+                                               <div class="col-lg-4 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Possition Name" ngModel name="position_name">
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                Anyone send me a message
-                                                <div class="float-right">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" />
-                                                        <span class="custom-control-label">&nbsp;</span>
-                                                    </label>
+                                               </div>
+                                            
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                <select class="form-control show-tick" ngModel name="dept_id" (change)="modulesPos($event)">
+                                                <option>Department</option>
+                                                <option value="{{dept.id}}" *ngFor="let dept of depertm">{{dept.name}}</option>
+                                                </select>
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                Anyone posts a comment on my post
-                                                <div class="float-right">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" />
-                                                        <span class="custom-control-label">&nbsp;</span>
-                                                    </label>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                Anyone invite me to group
-                                                <div class="float-right">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" checked='' />
-                                                        <span class="custom-control-label">&nbsp;</span>
-                                                    </label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Module Permission</th>
-                                                        <th>Read</th>
-                                                        <th>Write</th>
-                                                        <th>Create</th>
-                                                        <th>Delete</th>
-                                                        <th>Import</th>
-                                                        <th>Export</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Employee</td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Holidays</td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Leave Request</td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked="" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Events</td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked=""/>
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" checked="" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" />
-                                                                <span class="custom-control-label">&nbsp;</span>
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="form-group" >
+                                                <textarea  class="form-control" placeholder="Description" ngModel name="description"></textarea>
+                                            </div>
+                                            </div>
+                                            <!-- 
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                            <div class="form-group">
+                                            <input type="file" class="form-control" placeholder="Image" ngModel name="image">
+                                            </div>
+                                            </div>                            -->
+                                            <div class="col-12">
+                                            <h6>Module Permission</h6>
+                                            <div class="table-responsive">
+                                            <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <td>Description</td>
+                                                    <th>Permite</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let mod of module">
+                                                    <td>{{mod.component_name}}</td>
+                                                    <td>{{mod.description}}</td>
+                                                    <td>
+                                                        <label class="fancy-checkbox">
+                                                            <input class="checkbox-tick" type="checkbox" (click)="chek(mod.id)" name="checkbox">
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                             </table>
+                                            </div>
+                                            </div>
+                                            <div class="float-right">
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                                            </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>            
                                         </div>
+                                                                       
                                     </div>
                                 </div>                    
                             </div>
