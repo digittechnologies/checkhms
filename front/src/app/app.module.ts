@@ -152,6 +152,7 @@ import { NgxNotificationComponent } from 'ngx-notification';
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { TeamComponent } from './admin/team/team.component';
 import { RankComponent } from './admin/rank/rank.component';
+import { BookedAppointmentComponent } from './customer/booked-appointment/booked-appointment.component';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -376,6 +377,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     TeamComponent,
   
     RankComponent,
+  
+    BookedAppointmentComponent,
   
   ],
   imports: [

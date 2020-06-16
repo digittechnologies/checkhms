@@ -197,7 +197,7 @@ class DisplayController extends Controller
 
     public function displayModule()
     {
-        return DB::table("module")->where('id','!=',1)->get();
+        return DB::table("module")->where('id','!=',1)->where('status','=','active')->get();
     }
 
     // Unit
