@@ -132,6 +132,36 @@
         <div class="form-group">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <label class="input-group-text">Staff Rank</label>
+                </div> 
+                <select class="custom-select"  ngModel name="rank_id"> 
+                    <option value="">Select Rank...</option>   
+                    <ng-container *ngFor="let r of ranks">
+                            <option value="{{r.id}}" [value]="r.id">{{r.rank_name}}</option>
+                    </ng-container>                                                                           
+                </select>        
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Staff Team</label>
+                </div> 
+                <select class="custom-select"  ngModel name="team_id"> 
+                    <option value="">Select Team...</option>   
+                    <ng-container *ngFor="let t of teams">
+                            <option value="{{t.id}}" [value]="t.id">{{t.team_name}}</option>
+                    </ng-container>                                                                           
+                </select>        
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <label class="input-group-text">Staff Role</label>
                 </div> 
                 <select class="custom-select" (change)="onSelectRole($event)" ngModel name="role_id"> 

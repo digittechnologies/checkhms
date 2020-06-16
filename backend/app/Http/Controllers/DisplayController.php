@@ -1657,7 +1657,12 @@ class DisplayController extends Controller
 
     public function displayRole()
     {
-        return Role::where('status', '=', 'active')->get();
+        return response()->json([
+           'roles' => Role::where('status', '=', 'active')->get(),
+           'ranks' => DB::table('rank_tb')->where('status', '=', 'active')->get(),
+           'teams' => DB::table('team_tb')->where('status', '=', 'active')->get()
+
+        ]) ;
     }
 
     public function displayPharAdminDash()
