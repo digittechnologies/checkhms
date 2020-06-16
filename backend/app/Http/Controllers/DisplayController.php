@@ -170,7 +170,8 @@ class DisplayController extends Controller
     {
         return Departments::orderBy('id')
         ->join('module','departments.module_id','=','module.id')
-                ->select('departments.*','module.module')              
+                ->select('departments.*','module.module')  
+                ->where('module.status','=', 'active')            
                 ->get();
     }
 

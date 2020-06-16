@@ -38,6 +38,13 @@ export class SettingsComponent implements OnInit {
   deptName: any;
   deptDescrip: any;
   posid: any;
+  deptPesponse: Object;
+  branches: any;
+  depertm: Object;
+  image_url: string;
+  possitions: Object;
+  added: any;
+  message: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -49,6 +56,7 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.image_url = this.Jarwis.imageUrl;
     this.submissionForm = this.formBuilder.group(     
       {
       //   fname: [''],
@@ -102,7 +110,7 @@ export class SettingsComponent implements OnInit {
       this.Jarwis.showBranches().subscribe(
         data=>{
         this.branchResponse = data;      
-        this.dept = this.branchResponse   
+        this.branches = this.branchResponse   
       })
   
       this.Jarwis.displayAllstaff().subscribe(
@@ -118,10 +126,17 @@ export class SettingsComponent implements OnInit {
         this.setresponse = data;      
         this.imgLink = this.setresponse[0].app_url;
       })
-      
+
       this.Jarwis.displayAllposition().subscribe(
         data=>{
-        this.posRes = data;    
+         this.possitions = data;
+  
+        }
+      )
+      this.Jarwis.displayDepartments().subscribe(
+        data=>{
+        this.deptPesponse = data;      
+        this.depertm = this.deptPesponse   
       })
      
   }
@@ -139,12 +154,14 @@ export class SettingsComponent implements OnInit {
       })
   }
   
-  onUpdate(form: NgForm) {
+
+  //FOR BRANCHES
+  onUpdateCenter(form: NgForm) {
+
   
-    
     form.value.id=this.deptid
     //  console.log(form)
-    this.Jarwis.updateDept(form.value).subscribe(  
+    this.Jarwis.EditBranch(form.value).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -155,7 +172,7 @@ export class SettingsComponent implements OnInit {
   onDelete(id: string) {
     if(confirm('This can\'t be revert after deleted')){
   
-      this.Jarwis.deleteDept(id).subscribe(  
+      this.Jarwis.suspendCenter(id).subscribe(  
           
         data => this.handleResponse(data),
         error => this.handleError(error), 
@@ -166,14 +183,28 @@ export class SettingsComponent implements OnInit {
   
   
     onSubmit(form: NgForm) {
-      console.log(form.value)
-      // this.Jarwis.addCenter(form.value).subscribe(
-      //   data => this.handleResponse(data),
-      //   error => this.handleError(error), 
+
+      this.Jarwis.addCenter(form.value).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
              
-      // );
+      );
       
     }
+
+    //FOR DEPARTMENTS    
+   
+    
+      onSubmitDept(form: NgForm) {
+       
+        this.Jarwis.addDept(form.value).subscribe(
+         
+          data => this.handleResponse(data),
+          error => this.handleError(error), 
+               
+        );
+        
+      }
   
     handleResponse(data) {    // 
       let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
@@ -196,6 +227,46 @@ export class SettingsComponent implements OnInit {
   
     councle(){}
   
+
+    //FOR POSSITION
+
+    modulesPos(id){
+      this.Jarwis.getmodules(id.target.value).subscribe(
+        data=>{
+          let res:any = data;
+          this.module = res;
+        }
+      )
+     }
+
+    
+     onSubmitPos(form:NgForm){
+       this.Jarwis.Addposition(form.value).subscribe(
+         data=>{
+           let response:any = data;
+           console.log(data)
+           if (response) {
+             this.Jarwis.AddpositionModules({id:response,modules:this.added}).subscribe(
+               data=>{
+                 let resPos:any = data
+                 this.message = resPos;
+                 this.handleResponse(this.message.message)
+               }
+             )
+             
+           }
+         }
+       )
+   
+     }
+     chek(data){
+         let index = this.added.indexOf(data)
+         if (index>=0) {
+           this.added.splice(index,1)
+         }else{
+           this.added.push(data);
+         }
+     }
 
   
   uploadFile(event){

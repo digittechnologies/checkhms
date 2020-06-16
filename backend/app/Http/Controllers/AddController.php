@@ -185,9 +185,8 @@ public function addCenter(Request $request)
 
     }
 
-    public function updateDept(Request $request)
+    public function EditBranch(Request $request)
     {
-        return $request;
         $id=$request->id;
         $name= $request->name;
         $address= $request->description;
@@ -210,6 +209,27 @@ public function addCenter(Request $request)
                 "message":"Failed"
             }';
         }
+    }
+
+    public function suspendCenter(Request $request)
+    {
+        $id=$request[0];
+
+    $deletec=DB::table('centers')->where('id', $id)->update([    
+        'status' => "deleted"
+    ]);
+    if($deletec){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+    
     }
 
     public function deleteDept(Request $request)

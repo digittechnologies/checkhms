@@ -467,11 +467,11 @@ export class JarwisService {
   addDept(data) {
     return this.http.post(`${this.baseUrl}/addDept`, data)
   }
-  updateDept(data) {
-    return this.http.post(`${this.baseUrl}/updateDept`, data)
+  EditBranch(data) {
+    return this.http.post(`${this.baseUrl}/EditBranch`, data)
   }
-  deleteDept(data) {
-    return this.http.post(`${this.baseUrl}/deleteDept`, data)
+  suspendCenter(data) {
+    return this.http.post(`${this.baseUrl}/suspendCenter`, data)
   }  
   displayAllposition() {
     return this.http.get(`${this.baseUrl}/displayAllposition`,)

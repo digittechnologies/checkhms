@@ -129,11 +129,9 @@ import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 //Settings
-import { BrancesComponent } from './branches/brances/brances.component';
 import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 import { CenterTypeComponent } from './center-type/center-type.component';
-import { PossitionComponent } from './admin/possition/possition.component';
 import { RankComponent } from './admin/rank/rank.component';
 import { TeamComponent } from './admin/team/team.component';
 
@@ -302,13 +300,10 @@ const routes: Routes = [
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [] },
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [] },
          {path: 'center_type', component: CenterTypeComponent, outlet: 'side',canActivate: [] },
-
-         {path: 'branches', component: BrancesComponent, outlet: 'side',canActivate: [] },
        
        
          //setting
         {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [] },
-        {path: 'possition', component:PossitionComponent, outlet: 'side',canActivate: [] },
         {path: 'ranks', component:RankComponent, outlet: 'side',canActivate: [] },
         {path: 'teams', component:TeamComponent, outlet: 'side',canActivate: [] },
 
