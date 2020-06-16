@@ -1926,6 +1926,12 @@ class DisplayController extends Controller
             'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
             ]);
     }
+    public function Teams(){
+        return response()->json([
+            'teams'=> DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->where('team_tb.status','active')->select('team_tb.*','branches.name AS center_name')->get(),
+            'centers' =>  DB::table('branches')->select('branches.name','branches.id')->get()
+            ]);
+    }
     public function deptList(Request $request){
               $dept = $request->dept;
            return response()->json([

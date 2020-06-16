@@ -3046,6 +3046,7 @@ public function addCenter(Request $request)
     {
      return $center_type = DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->select('center_type.*','departments.name AS deptname')->where('center_type.id',$request[0])->get();
     }
+
     public function AddRank(Request $request)
     {
         $created_by= Auth()->user()->id;
@@ -3099,6 +3100,75 @@ public function addCenter(Request $request)
         // return $request;
         $created_by= Auth()->user()->id;
         $center_type = DB::table('rank_tb')->where('id',$request[0])->update([
+            'status' => "suspend"
+        ]);
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function AddTeam(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $insert_team = DB::table('team_tb')->insert($request->all());
+
+        if ($insert_team) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function editingTeam(Request $request)
+    {
+     return $center_type = DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->select('team_tb.*','branches.name AS centerName', 'branches.id AS center_id')->where('team_tb.id',$request[0])->get();
+    }
+
+
+    public function editTeam(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $editRank = DB::table('team_tb')->where('id',$request->id)->update([
+            'team_name' => $request->form['team_name'],
+            'description' => $request->form['description'],
+            'center_tb_id' =>  $request->form['center_tb_id'],
+            'updated_by' => $created_by
+        ]);
+
+        if ($editRank) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function deleteTeam(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $center_type = DB::table('team_tb')->where('id',$request[0])->update([
             'status' => "suspend"
         ]);
 

@@ -102,11 +102,18 @@ Route::post('CenterTypes','AddController@CenterTypes');
 Route::post('editCenterType','AddController@editCenterType');
 Route::post('editCentertype','AddController@editCentertypes');
 Route::post('deleteCenterType','AddController@deleteCenterType');
+
 Route::get('Ranks','DisplayController@Ranks');
 Route::post('AddRank','AddController@AddRank');
 Route::post('editingRank','AddController@editingRank');
 Route::post('editRank','AddController@editRank');
 Route::post('deleteRank','AddController@deleteRank');
+
+Route::get('Teams','DisplayController@Teams');
+Route::post('AddTeam','AddController@AddTeam');
+Route::post('editingTeam','AddController@editingTeam');
+Route::post('editTeam','AddController@editTeam');
+Route::post('deleteTeam','AddController@deleteTeam');
 
 
 

@@ -41,7 +41,7 @@ export class RankComponent implements OnInit {
     data=>{
       if(data){
         this.ngOnInit()
-        this.handllResponse("opration successfuly")
+        this.handllResponse("Operation Successfull")
       }
     }
     )
@@ -70,7 +70,7 @@ export class RankComponent implements OnInit {
     this.Jarwis.editRank({form:form.value,id:this.id}).subscribe(
       data=>{
         this.ngOnInit();
-        this.handllResponse("opration successfuly")
+        this.handllResponse("Operation Successfull")
 
       }
     )
