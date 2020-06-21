@@ -471,6 +471,56 @@ public function addCenter(Request $request)
             }';
         }
     }
+    
+    public function updatePos(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $id = $request->id;
+        $name = $request->position_name;
+        $describ = $request->description;
+        $status = $request->status;
+        $update = DB::table('positions')->where('id','=',$id)
+        ->update([
+            'position_name'=> $name,
+            'describ' => $description,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function permtes(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $request ->merge(['created_by'=>$user_id]);
+        $request ->merge(['updated_by'=>$user_id]);
+        $positioned = DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->select('status')->get();
+        if ($positioned->count()>0) {
+            if ($positioned[0]->status =='permite') {
+                DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'unpermite','updated_by'=>$user_id]);
+            } else {
+                DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'permite','updated_by'=>$user_id]);
+                
+            }
+            
+        } else {
+            DB::table('possition_module')->insert([
+                'position_id' =>$request->id,
+                'component_id' => $request->component_id,
+                'created_by'   =>  $user_id,
+                'updated_by'   =>  $user_id
+           ]);  
+        }
+    }
 
     // Manufacturer
     public function addManufacturer(Request $request)

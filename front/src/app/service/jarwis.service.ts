@@ -51,7 +51,7 @@ export class JarwisService {
   lazyload={load:'loading'};
 
 
-
+public  permite ="";
   
 
   constructor(private http: HttpClient,) { 
@@ -486,6 +486,16 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+   onPermit(data) {
+    return this.http.post(`${this.baseUrl}/permtes`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}})
+  }
+  updatePos(data) {
+    return this.http.post<any>(`${this.baseUrl}/updatePos`, data,{headers:{Authorization:`Bearer ${localStorage.token}`}})
+   }
+   onEditPos(id) {
+    return this.http.get<any>(`${this.baseUrl}/onEditPos/${id}`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+    )
+  }
 
   displayModule() {
     return this.http.get(`${this.baseUrl}/displayModule`,)
@@ -544,6 +554,9 @@ export class JarwisService {
    deptModules(id:string) {
     return this.http.get<any>(`${this.baseUrl}/deptModules/${id}`)
   }
+  dashDeptModules(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/dashDeptModules/${id}`)
+  }
   profile() {
     return this.http.get(`${this.baseUrl}/me`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -551,7 +564,14 @@ export class JarwisService {
   }
 
   editPriviledges(data) {
-    return this.http.post<any>(`${this.baseUrl}/editPriviledges`, data)
+    return this.http.post<any>(`${this.baseUrl}/editPriviledges`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  checkPermision(data){
+    return this.http.get(`${this.baseUrl}/checkPermision/${data}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
   }
   
 // Branches
@@ -1133,7 +1153,6 @@ addProcessValues(data) {
   }})
 }
  addValues(data) {
-   console.log(data)
   return this.http.post(`${this.baseUrl}/addValues`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})

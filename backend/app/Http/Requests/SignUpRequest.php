@@ -31,12 +31,6 @@ class SignUpRequest extends FormRequest
             // 'mobile_number' => 'required',
             // 'password' => 'required|confirmed',
             'id_number' => 'required',
-            'role_id' => 'require',
-            'rank_id',
-            'team',
-            'position_id',
-            'center_id',
-            'dept_id',
 
 
 

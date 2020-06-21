@@ -115,7 +115,6 @@ export class AllStaffComponent implements OnInit {
     console.log("hello")
       
   }
-  
   onChange1(b){
     this.givenDept = b.target.value;
     this.Jarwis.deptModules(this.givenDept).subscribe(

@@ -150,8 +150,6 @@ const routes: Routes = [
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
   {path: 'Admin', component: DashboardComponent, canActivate: [AfterLoginService],
- 
-
   children: [
 
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: []},

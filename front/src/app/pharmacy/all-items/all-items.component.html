@@ -195,13 +195,18 @@
                 <div class="card">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#items" (click)="get()">All Items</a></li>
-                        <ng-container *ngIf ="4004> uPos">
-                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
-                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
-                            <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
+                        <ng-container *ngIf="write_permition == 'write'">
+                            <li  class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_item" (click)="get()">Add Item</a></li>
+                            <li  class="nav-item"><a class="nav-link " data-toggle="tab" href="#add_stock" (click)="get()">Add Stock</a></li>
+                            <li  class="nav-item"><a class="nav-link " data-toggle="tab" href="#trans_stock" (click)="get()">Transfer Stock</a></li>
                         </ng-container>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance" (click)="get()">Variance</a></li>
-                        <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#returns" (click)="get()">Return Items</a></li>
+                        <ng-container  *ngIf="write_permition == null">
+                            <li   class="nav-item"><a class="nav-link " >Add Item</a></li>
+                            <li    class="nav-item"><a class="nav-link ">Add Stock</a></li>
+                            <li   class="nav-item"><a class="nav-link ">Transfer Stock</a></li>
+                        </ng-container>
+                        <!-- <li [dissabled]="permission != 'write'" class="nav-item"><a class="nav-link " data-toggle="tab" href="#variance" (click)="get()">Variance</a></li> -->
+                        <li class="nav-item"><a  [hidden]="permission != 'write'" class="nav-link " data-toggle="tab" href="#returns" (click)="get()">Return Items</a></li>
                     </ul>
                     <div class="tab-content mt-0">
                         <div class="tab-pane active show" id="items">

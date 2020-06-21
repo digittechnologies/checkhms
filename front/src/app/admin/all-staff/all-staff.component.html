@@ -191,9 +191,17 @@
                     </select>        
                 </div>
             </div>
-            <span *ngIf="deptname" class="input-group-prepend">
-                <span class="input-group-text"> {{deptname}}</span>
-            </span> 
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Staff Department</label>
+                    </div> 
+                    <span *ngIf="deptname" class="input-group-prepend">
+                        <span class="input-group-text"> {{deptname}}</span>
+                    </span> 
+                </div>
+            </div>
+            
         </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12" *ngIf = "givenRole > '2003'">

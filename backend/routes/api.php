@@ -33,6 +33,7 @@ Route::get('general_setting','DisplayController@general_setting');
 Route::post('updateGeneralset', 'AddController@updateGeneralSet');
 Route::post('addGeneralset', 'AddController@GeneralSet');
 Route::post('updateprofile','AuthController@updateprofile');
+Route::get('editPriviledges/{data}','DisplayController@editPriviledges');
 
 Route::post('editPriviledges', 'AuthController@editPriviledges');
 
@@ -43,12 +44,15 @@ Route::get('showBranches','DisplayController@showBranches');
 Route::get('displayDepartments','DisplayController@displayDepartments');
 Route::get('displayAllstaff','DisplayController@displayAllstaff');
 Route::post('deleteUser','DisplayController@deleteUser');
-Route::post('Addposition', 'AddController@Addposition');
-Route::post('AddpositionModules', 'AddController@AddpositionModules');
-Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('edtDept/{id}','DisplayController@edtDept');
 Route::get('getalltitle','DisplayController@getalltitle'); 
 Route::get('getmodules/{id}','DisplayController@getmodules'); 
+Route::post('Addposition', 'AddController@Addposition');
+Route::post('AddpositionModules', 'AddController@AddpositionModules');
+Route::get('displayAllposition','DisplayController@displayAllposition');
+Route::get('onEditPos/{id}','DisplayController@onEditPos');
+Route::post('updatePos', 'AddController@updatePos');
+Route::post('permtes', 'AddController@permtes');
 
 //Dashboard (PHARMACY)
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
@@ -70,6 +74,8 @@ Route::post('assign','AddController@assign');
 Route::post('edtAssign','AddController@edtAssign');
 Route::get('staffdepartment/{id}','DisplayController@staffdepartment');
 Route::get('deptModules/{id}','DisplayController@deptModules');
+Route::get('dashDeptModules/{id}','DisplayController@dashDeptModules');
+
 
 
 //ItemDetails
@@ -102,28 +108,16 @@ Route::post('CenterTypes','AddController@CenterTypes');
 Route::post('editCenterType','AddController@editCenterType');
 Route::post('editCentertype','AddController@editCentertypes');
 Route::post('deleteCenterType','AddController@deleteCenterType');
-
 Route::get('Ranks','DisplayController@Ranks');
 Route::post('AddRank','AddController@AddRank');
 Route::post('editingRank','AddController@editingRank');
 Route::post('editRank','AddController@editRank');
 Route::post('deleteRank','AddController@deleteRank');
-
 Route::get('Teams','DisplayController@Teams');
 Route::post('AddTeam','AddController@AddTeam');
 Route::post('editingTeam','AddController@editingTeam');
 Route::post('editTeam','AddController@editTeam');
 Route::post('deleteTeam','AddController@deleteTeam');
-
-
-
-
-
-
-
-
-
-
 //Unit
 Route::get('edtUnit/{id}','DisplayController@edtUnit');
 Route::get('displayUnit','DisplayController@displayUnit');
