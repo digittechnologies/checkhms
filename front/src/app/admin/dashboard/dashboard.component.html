@@ -428,7 +428,9 @@
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['add_patient']}}]"><i class="icon-user"></i><span>Add Patient</span></a></li>
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
-                       
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['scheme_hmo']}}]"><i class="icon-user"></i><span>Scheme HMO</span></a></li>
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['insurance']}}]"><i class="icon-user"></i><span>Insurance</span></a></li>
+
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'" class="header">Clinic Module</li>
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'">
                             <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>

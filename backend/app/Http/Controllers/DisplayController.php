@@ -329,7 +329,35 @@ class DisplayController extends Controller
             ->get()   
         );
     }
+    public function displaySchemes()
+    {
+        return response()->json([
+           'schemes' => DB::table('scheme')->where('id','!=', 1)->get(),
+           'hmos' => DB::table('scheme_hmo')->where('scheme_hmo.status','=','active')->join('price_list_column','scheme_hmo.price_list_column','=','price_list_column.id')
+                                        ->select('scheme_hmo.*','price_list_column.price_list_name as price_list_n')               
+                                        ->get()
 
+        ]
+        );
+    }
+
+    public function displayPricelist()
+    {
+        return response()->json([
+            'price_list' => DB::table('price_list_column')->get(),
+           
+         ]
+         );
+    }
+
+    public function onEditHmo($id)
+    {
+        return response()->json([
+           'hmos' => DB::table('scheme_hmo')->join('scheme','scheme_hmo.scheme_id','=','scheme.id')->select('scheme_hmo.*','scheme.scheme_name','scheme.id')->where('scheme_hmo.id',$id)->get()   
+
+        ]
+        );
+    }
 
     // Categories
 
@@ -508,23 +536,39 @@ class DisplayController extends Controller
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
     }
 
-    public function displayAppointmentBranch(Request $request)
+    public function displayAppointmentBranch($id)
     {
     
-        return response()->json(['branch'=> Branches::where('status', '=', 'active')
-                                        ->where ('branches.clinic_type', '=', $request->dept)
-                                        ->where ('branches.branch_id', '=', $request->branch)
-                                        ->orderBy('id')->get(),
-                                 'appt'=> Hospital_charges::where('status', '=', 'active')
-                                        ->where ('hospital_charges.appointment_type', '=', $request->dept)
-                                        ->orderBy('id')->get()
+        return response()->json([ 'charges'=> Hospital_charges::where('hospital_charges.status', '=', 'active')
+                                         ->join('departments','hospital_charges.dept_id','=','departments.id')
+                                        ->join('module','departments.module_id','=','module.id')
+                                        ->select('hospital_charges.*')
+                                        ->where ('module.id', '=', $id)
+                                        ->get(),
+                                'center_type'=>DB::table('center_type')
+                                        ->join('departments','center_type.dept_id','=','departments.id')
+                                        ->join('module','departments.module_id','=','module.id')
+                                        ->select('center_type.*')
+                                        ->where('center_type.status', '=', 'active')
+                                        ->where ('module.id', '=', $id)
+                                        ->get()
                                         
-                                ]);
+                    ]);
     }
 
     public function displayBranchs(Request $request)
     {
        return response()->json($request->dept);
+    }
+
+    public function displayCenter($id)
+    {
+        return response()->json(
+            Branches::orderBy('id')
+            ->select('branches.*')     
+            ->where('center_type','=',$id)          
+            ->get()   
+        );
     }
 
     public function edtBranch($id)

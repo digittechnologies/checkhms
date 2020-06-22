@@ -164,15 +164,19 @@ export class JarwisService {
   }
   deleteType(data) {
     return this.http.post(`${this.baseUrl}/deleteType`, data)
-  }  
+  }
 
   // Branch
   displayStaffBranch(id: any) {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
   }
 
-  displayAppointmentBranch(data) {
-    return this.http.post<any>(`${this.baseUrl}/displayAppointmentBranch`, data,{headers:{
+  displayCenter(id: any) {
+    return this.http.get(`${this.baseUrl}/displayCenter/${id}`,)
+  }
+
+  displayAppointmentBranch(id: any) {
+    return this.http.post<any>(`${this.baseUrl}/displayAppointmentBranch/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -612,6 +616,11 @@ addCustomer(data) {
 updateCustomer(data) {
   return this.http.post(`${this.baseUrl}/updateCustomer`, data)
 }
+updateCustomer2(data) {
+  return this.http.post(`${this.baseUrl}/updateCustomer2`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
 patientdetails(id:string) {
   return this.http.get<any>(`${this.baseUrl}/patientdetails/${id}`)
 }
@@ -654,6 +663,8 @@ addEpsCustomer(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+
 
 
 //Category (PATIENTS)
@@ -1135,6 +1146,38 @@ addProcessValues(data) {
  addValues(data) {
    console.log(data)
   return this.http.post(`${this.baseUrl}/addValues`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+displaySchemes(){
+  return this.http.get<any>(`${this.baseUrl}/displaySchemes`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+
+}
+displayPricelist(){
+  return this.http.get<any>(`${this.baseUrl}/displayPricelist`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+
+}
+addHmo(data) {
+  return this.http.post(`${this.baseUrl}/addHmo`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+onEditHmo(id) {
+  return this.http.get(`${this.baseUrl}/onEditHmo/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+editingHmo(data) {
+  return this.http.post(`${this.baseUrl}/editingHmo`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+ondeleteHmo(id) {
+  return this.http.post(`${this.baseUrl}/editingondeleteHmoHmo/${id}`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
