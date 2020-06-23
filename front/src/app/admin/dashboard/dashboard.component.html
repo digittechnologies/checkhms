@@ -161,11 +161,28 @@
                         </div>
                     </li> -->
                     <!-- <li><a href="javascript:void(0);" class="megamenu_toggle icon-menu" title="Mega Menu">Record</a></li> -->
-                    <li *ngIf="module_name == 'hms' || module_name == 'record'" class="p_social"><a (click)="modu('record')" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
-                    <li *ngIf="module_name == 'hms' || module_name == 'clinic'" class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
-                    <li *ngIf="module_name == 'hms' || module_name == 'investigation'" class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
-                    <li *ngIf="module_name == 'hms' || module_name == 'pharmacy'"class="p_blog"><a (click)="modu('pharm')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
-                    <li *ngIf="module_name == 'hms' || module_name == 'revenue'" class="p_blog"><a (click)="modu('revenue')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
+                    <ng-container *ngIf="module_name == 'hms'">
+                         <li  class="p_social" *ngFor="let mod of module">
+                         <a (click)="modu(mod.module,mod.id)" href="javascript:void(0);" class="social icon-menu" title="News">{{mod.module}}</a>
+                       </li>
+                    </ng-container>
+
+                    <ng-container *ngIf="uPos == '2001'">
+                           <li *ngIf=" module_name == 'investigation'" class="p_news"><a (click)="modu('investigation',3)" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
+                           <li *ngIf=" module_name == 'clinic'" class="p_social"><a (click)="modu('clinic',2)" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
+                    </ng-container> 
+
+                    <ng-container *ngIf="uPos == '2002'">
+                           <li *ngIf=" module_name == 'record'" class="p_social"><a (click)="modu('record',5)" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
+                           <li *ngIf=" module_name == 'pharmacy'"class="p_blog"><a (click)="modu('pharmacy',4)" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
+                           <li *ngIf=" module_name == 'revenue'" class="p_blog"><a (click)="modu('revenue',6)" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
+                    </ng-container> 
+    
+                    <li *ngIf=" module_name == 'record'" class="p_social"><a (click)="modu('record')" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
+                    <li *ngIf=" module_name == 'clinic'" class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
+                    <li *ngIf=" module_name == 'investigation'" class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
+                    <li *ngIf=" module_name == 'pharmacy'"class="p_blog"><a (click)="modu('pharmacy')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
+                    <li *ngIf=" module_name == 'revenue'" class="p_blog"><a (click)="modu('revenue')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
                 </ul>
             </div>
             
@@ -433,7 +450,10 @@
 
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'" class="header">Clinic Module</li>
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                            <ul>
+                                <li *ngFor="let comp of components" (click)="permit(comp.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [comp.link]}}]"><i class="icon-user"></i><span>{{comp.component_name}}</span></a>
+                               </li>
+                            </ul>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
@@ -443,7 +463,10 @@
                     
                         <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'" class="header">Investigation Module</li>
                         <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                            <ul>
+                                <li *ngFor="let comp of components" (click)="permit(comp.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [comp.link]}}]"><i class="icon-user"></i><span>{{comp.component_name}}</span></a>
+                               </li>
+                            </ul>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
@@ -451,9 +474,12 @@
                         </li>
                         <li *ngIf="invest && module_name == 'hms' || module_name == 'investigation'"><a href="app-inbox.html"><i class="icon-envelope"></i><span> Email</span></a></li>
                   
-                        <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'" class="header">Pharmacy Module</li>
-                        <li *ngIf="pharm && module_name == 'hms' || module_name == 'pharmacy'">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                        <li *ngIf="pharmacy && module_name == 'hms' || module_name == 'pharmacy'" class="header">Pharmacy Module</li>
+                        <li *ngIf="pharmacy && module_name == 'hms' || module_name == 'pharmacy'">
+                        <ul>
+                            <li *ngFor="let comp of components" (click)="permit(comp.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [comp.link]}}]"><i class="icon-user"></i><span>{{comp.component_name}}</span></a>
+                           </li>
+                        </ul>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
@@ -463,7 +489,10 @@
                    
                         <li  *ngIf="revenue && module_name == 'hms' || module_name == 'revenue'" class="header">Revenue Module</li>
                         <li  *ngIf="revenue && module_name == 'hms' || module_name == 'revenue'">
-                            <a href="javascript:void(0);" class="has-arrow"><i class="icon-book-open"></i><span> Contact</span></a>
+                            <ul>
+                                <li *ngFor="let comp of components" (click)="permit(comp.write_status)"><a href="#" [routerLink]="['/Admin', {outlets: {side: [comp.link]}}]"><i class="icon-user"></i><span>{{comp.component_name}}</span></a>
+                               </li>
+                            </ul>
                             <ul>
                                 <li><a href="app-contact.html">List View</a></li>
                                 <li><a href="app-contact2.html">Grid View</a></li>
@@ -519,10 +548,6 @@
 
                         </ul>
                     </li>
-
-                   
-
-                              
                     <li class="header">More</li>
                     <li><a href="javascript:void(0);"><i class="icon-doc"></i><span>Documentation</span></a></li>
                     <li><a href="javascript:void(0);" class="megamenu_toggle icon-menu" title="Mega Menu"><i class="icon-doc"></i><span>About</span></a></li>
@@ -535,7 +560,7 @@
     </div>
 
     <div *ngIf="response" >
-        <router-outlet name="side" [class.shows]="write == null"></router-outlet>
+        <router-outlet name="side"  [class.shows]="write == null"></router-outlet>
   </div>
     
 </div>

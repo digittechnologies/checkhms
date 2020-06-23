@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef,OnDestroy, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { ChatService } from 'src/app/service/chat.service';
@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     private Token: TokenService,
     private elementRef: ElementRef,
     public chat:ChatService,
+    public routes:ActivatedRoute
     // public subscription:Subscription
   ) {
     this.chat.unreadMessages().subscribe(
@@ -80,6 +81,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
   ngOnInit() {
     // location.reload()
+    const abc = this.routes.snapshot.params['abc'];
     this.Jarwis.profile().subscribe(
       data=>{
         // console.log(data)    
@@ -157,47 +159,52 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   }
   permit(e){
-   this.write =e;
-   console.log(this.write)
+this.Jarwis.permite = e;
   }
 
-  modu(show:string){
+  modu(show:string,id:any){
     if (show=='record') {
       this.record=true;
       this.clinic=false;
-      this.pharm=false;
+      this.pharmacy=false;
       this.invest=false;
       this.revenue=false;
     }
     if (show=='clinic') {
       this.record=false;
       this.clinic=true;
-      this.pharm=false;
+      this.pharmacy=false;
       this.invest=false;
       this.revenue=false;
     }
     if (show=='investigation') {
       this.record=false;
       this.clinic=false;
-      this.pharm=false;
+      this.pharmacy=false;
       this.invest=true;
       this.revenue=false;
     }
-    if (show=='pharm') {
+    if (show=='pharmacy') {
       this.record=false;
       this.clinic=false;
-      this.pharm=true;
+      this.pharmacy=true;
       this.invest=false;
       this.revenue=false;
     }
     if (show=='revenue') {
       this.record=false;
       this.clinic=false;
-      this.pharm=false;
+      this.pharmacy=false;
       this.invest=false;
       this.revenue=true;
     }
-
+  if (id) {
+    this.Jarwis.dashDeptModules(id).subscribe(
+      data=>{
+       this.components = data
+      }
+    )
+  }
   }
 
   changeModule(e){
