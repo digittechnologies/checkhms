@@ -1431,105 +1431,106 @@ public function addCenter(Request $request)
     }
 
     //Appointment
-    public function makeAppointment(Request $request)
-    {
-        $id = $request->customer;
-        $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
-        $cust_id=$cus->id;
-        $dept_id= auth()->user()->dept_id;
-        $bid= Auth()->user()->branch_id;
-        // $dept_id = $request->form['dept_id'];
-        $dt = Carbon::now();
-        $date = $dt->toFormattedDateString();
-        $time = $dt->format('h:i:s A');
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
-            'appointments.customer_id' => $cust_id,
-            'appointments.prescription' =>'open',
-            'appointments.date' => $date
-            ])->get();
-        if (count($checkAppointment) == 0) {
+    // public function makeAppointment(Request $request)
+    // {
+    //     $id = $request->customer;
+    //     $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
+    //     $cust_id=$cus->id;
+    //     $dept_id= auth()->user()->dept_id;
+    //     $bid= Auth()->user()->branch_id;
+    //     // $dept_id = $request->form['dept_id'];
+    //     $dt = Carbon::now();
+    //     $date = $dt->toFormattedDateString();
+    //     $time = $dt->format('h:i:s A');
+    //     $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+    //         'appointments.customer_id' => $cust_id,
+    //         'appointments.prescription' =>'open',
+    //         'appointments.date' => $date
+    //         ])->get();
+    //     if (count($checkAppointment) == 0) {
 
-            $appointment= Vouchers::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'staff_id' => $dept_id,           
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Vouchers::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'staff_id' => $dept_id,           
+    //                 'branch_id' => $bid
+    //             ]);    
             
-            $appointment= Appointments::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'department_id' => $dept_id, 
-                    'voucher_id'=> $appointment->id,
-                    'prescription' => 'open', 
-                    'invoice' => 'open', 
-                    'voucher' => 'open',
-                    'treatment' => 'open', 
-                    'status' => 'active',
-                    'date' => $date,
-                    'time' => $time,
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Appointments::create(
+    //             [
+    //                 'customer_id' => $cust_id,  
+    //                 'appointment_type' => $request->appointment_type,  
+    //                 'branch_id'=> $bid,
+    //                 'voucher_id'=> $appointment->id,
+    //                 'prescription' => 'open', 
+    //                 'invoice' => 'open', 
+    //                 'voucher' => 'open',
+    //                 'treatment' => 'open', 
+    //                 'status' => 'active',
+    //                 'date' => $date,
+    //                 'time' => $time,
+    //                 'branch_id' => $bid
+    //             ]);    
       
-         if($appointment){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-              return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
+    //      if($appointment){
+    //         return '{
+    //             "success":true,
+    //             "message":"successful"
+    //         }' ;
+    //     } else {
+    //           return '{
+    //             "success":false,
+    //             "message":"Failed"
+    //         }';
+    //     }
         
-        }else if(count($checkAppointment) > 0){
+    //     }else if(count($checkAppointment) > 0){
 
-            return 'Already Loged';
+    //         return 'Already Loged';
 
-        }
+    //     }
         
-    }
+    // }
 
-    public function makeAppointment2(Request $request)
-    {       
-        $cust_id=$request->aid;
-        // $dept_id= auth()->user()->dept_id;
-        $bid= Auth()->user()->branch_id;
-        $dept_id = $request->form['dept_id'];
+    // public function makeAppointment2(Request $request)
+    // {       
+    //     $cust_id=$request->aid;
+    //     // $dept_id= auth()->user()->dept_id;
+    //     $bid= Auth()->user()->branch_id;
+    //     $dept_id = $request->form['dept_id'];
        
-        $dt = Carbon::now();
-        $date = $dt->toFormattedDateString();
-        $time = $dt->format('h:i:s A');
+    //     $dt = Carbon::now();
+    //     $date = $dt->toFormattedDateString();
+    //     $time = $dt->format('h:i:s A');
 
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
+    //     $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
        
 
-        if ( empty ( $checkAppointment[0] )) {
+    //     if ( empty ( $checkAppointment[0] )) {
 
-            $appointment= Vouchers::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'staff_id' => $dept_id,           
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Vouchers::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'staff_id' => $dept_id,           
+    //                 'branch_id' => $bid
+    //             ]);    
             
           
-            $appointment= Appointments::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'department_id' => $dept_id, 
-                    'voucher_id'=> $appointment->id,
-                    'prescription' => 'open', 
-                    'invoice' => 'open', 
-                    'voucher' => 'open',
-                    'treatment' => 'open', 
-                    'status' => 'active',
-                    'date' => $date,
-                    'time' => $time,
-                    'branch_id' => $bid
-                ]);   
-             }
+    //         $appointment= Appointments::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'department_id' => $dept_id, 
+    //                 'voucher_id'=> $appointment->id,
+    //                 'prescription' => 'open', 
+    //                 'invoice' => 'open', 
+    //                 'voucher' => 'open',
+    //                 'treatment' => 'open', 
+    //                 'status' => 'active',
+    //                 'date' => $date,
+    //                 'time' => $time,
+    //                 'branch_id' => $bid
+    //             ]);   
+    //          }
         
         //  $appointment= Appointments::create(
         //     [
@@ -1545,19 +1546,19 @@ public function addCenter(Request $request)
         //         // 'branch_id' => $bid
         //     ]);    
   
-     if($appointment){
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
-    } else {
-          return '{
-            "success":false,
-            "message":"Failed"
-        }';
-    }
+    //  if($appointment){
+    //     return '{
+    //         "success":true,
+    //         "message":"successful"
+    //     }' ;
+    // } else {
+    //       return '{
+    //         "success":false,
+    //         "message":"Failed"
+    //     }';
+    // }
     
-    }
+    // }
 
     public function deleteAppointment(Request $request)
     {

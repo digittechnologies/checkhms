@@ -648,11 +648,13 @@ searchPatient(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 } 
+
 makeAppointment2(data) {
   return this.http.post<any>(`${this.baseUrl}/makeAppointment2`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
 verifyInvoice(id:string) {
   return this.http.get<any>(`${this.baseUrl}/verifyInvoice/${id}`)
 }

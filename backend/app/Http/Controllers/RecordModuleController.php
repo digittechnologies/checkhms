@@ -16,6 +16,9 @@ use App\Appointment_type;
 use App\Appointments;
 use App\Centers;
 use App\Customers;
+use App\Vouchers;
+use App\Hmo;
+use App\Service_charges;
 
 class RecordModuleController extends Controller
 {
@@ -261,9 +264,12 @@ class RecordModuleController extends Controller
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
 
+        $dept_id= auth()->user()->dept_id;
+        $bid= Auth()->user()->branch_id;
         $staff_id= auth()->user()->id;
         $bid= Auth()->user()->branch_id;
 
+        $Customer_id= Customers::find($request->customer_id);
         $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
             'appointments.customer_id' => $request->customer_id,
             'appointments.status' =>'open'
@@ -271,27 +277,98 @@ class RecordModuleController extends Controller
             ])->get();
 
         if (count($checkAppointment) == 0) {
-     
-
+    
+            $request->merge(['branch_id'=> $bid]);
+            $request->merge(['appointment_type' => $request->appointment_type]);
+            $request->merge(['customer_id' => $request->customer_id]);
             $request->merge(['created_by' => $staff_id]);
             $request->merge(['created_branch' => $bid]);
             $request->merge(['a_date' => $date]);
             $request->merge(['a_time' => $time]);
 
+            if($request->insurance_status == 'enabled'){
+                $request->merge(['insurance_status' => $request->insurance_status]);
+                $request->merge(['hmo_id' => $Customer_id->hmo_no]);
+            }
+
+            if($request->insurance_status != 'enabled'){
+                $request->merge(['insurance_status' => 'disabled']);
+                $request->merge(['hmo_id' => '1']);
+            }
+
+
+            if($request->appointment_type == "2"){
+                $request->merge(['clinic_id' => $request->center_id]);
+                $request->merge(['clinic_status' => 'open']);
+            }
+            
+            if($request->appointment_type == "3"){           
+                $request->merge(['investigation_status' => 'open']);
+            }
 
             if($request->appointment_type == "4"){
                 $request->merge(['pharm_id' => $request->center_id]);
                 $request->merge(['pharm_status' => 'open']);
             }
 
-            if($request->hospital_charges != "0"){
-                $request->merge(['revenue_id' => $request->charges]);
+            if($request->appointment_type == "5"){
+                $request->merge(['record_status' => 'open']);
+            }
+
+            if($request->charges != "0"){
                 $request->merge(['revenue_status' => 'open']);
             }
 
             $insert =  Appointments::create($request->all());
         
          if($insert){
+            if($request->charges != "0"){
+
+                $chargeSum= Hospital_charges::find($request->charges);               
+                $hmoNo= Hmo::find($insert->hmo_id);
+
+                $discount_amount = $hmoNo->discount_1 * $chargeSum->charge_amount / 100;
+                $total_amount = $chargeSum->charge_amount - $discount_amount;
+
+                $voucherId= Vouchers::create(
+                    [
+                        'module_id' => $request->appointment_type,
+                        'quantity' => 1,
+                        'amount' => $chargeSum->charge_amount,
+                        'discount_id'=> $hmoNo->hmo_no,
+                        'discount_amount'=>  $discount_amount,
+                        'paid' => '0',
+                        'balance' => $total_amount,                
+                        'appointment_id' => $insert->id,
+                        'staff_id' => Auth()->user()->id,
+                        'branch_id' => Auth()->user()->branch_id,
+                        'v_date' => $date,
+                        'v_time' => $time,
+                    ]);    
+
+                    $appointment= Service_charges::create(
+                        [
+                            'appointment_id' => $insert->id,
+                            'voucher_id'=> $voucherId->id,
+                            'service_charge_id' =>  $chargeSum->id,
+                            'service_charge_name' =>  $chargeSum->charge_name,
+                            'dept_id' => $chargeSum->dept_id,
+                            'amount' => $chargeSum->charge_amount,
+                            'balance' => $total_amount,
+                            'nhis_no'=> $Customer_id->h_n_i_s,
+                            'hmo_no'=> $hmoNo->hmo_no,
+                            'discount_percentage'=> $hmoNo->discount_1,
+                            'discount_amount'=> $discount_amount,
+                            'total_amount' => $total_amount,
+                            'status' => 'open',
+                            'c_date' => $date,
+                            'c_time' => $time,
+                            'created_by'=> Auth()->user()->id,
+                            'updated_by' => Auth()->user()->id,
+                     
+                        ]);    
+
+            }
             return '{
                 "success":true,
                 "message":"successful"

@@ -699,6 +699,94 @@ class DisplayController extends Controller
     }
     public function displayDeptAppointment($branchId)
     {
+        $branchId = Auth()->user()->branch_id;
+        $branch = Branches::select('branches.id', 'branches.name')      
+        ->where('id', $branchId)
+        ->orWhere('name', $branchId)
+        ->first();  
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $branName = $branch->name;
+        
+        $deptId = Auth()->user()->dept_id;
+        $moduleId = Departments::orderBy('id')->join('module','departments.module_id','=','module.id')
+                                ->select('departments.*','module.module')  
+                                ->where('departments.id','=', $deptId) 
+                                ->where('module.status','=', 'active')            
+                                ->first();
+
+        if ($moduleId->module_id == '1' || $moduleId->module_id == '5') {
+
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    // ->where('appointments.date', '=', $cDate)
+                    ->get(),
+                'bName' => $branName
+                    ]);            
+             }
+
+        if ($moduleId->module_id == '2') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.clinic_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+
+        if ($moduleId->module_id == '3') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.investigation_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+            
+        if ($moduleId->module_id == '4') {
+
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.pharm_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+
+            if ($moduleId->module_id == '6') {
+
+                return response()->json([
+                    'data' => Appointments::orderBy('id', 'DESC')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->join('users','appointments.created_by','=','users.id')
+                        ->join('branches','appointments.created_branch','=','branches.id')
+                        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                        ->where('appointments.status','!=','close')
+                        ->where('appointments.revenue_status', '!=', 'close')
+                        ->get(),
+                        ]);            
+                }
+        
+
+        return $branchId;
 
         // $loggedUserDept = Auth()->user()->dept_id;
         if($branchId == 'undefined'){
@@ -771,7 +859,7 @@ class DisplayController extends Controller
             ->where('appointments.status','!=','close')
             // ->where('appointments.date', '=', $cDate)
             ->get(),
-            'bName' => $branName
+            
         ]);
          }
 
