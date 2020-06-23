@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Positions;
 use App\Departments;
 use App\User;
+use App\Hmo;
 use Image;
 use Validator;
 use App\Item_types;
@@ -522,6 +523,79 @@ public function addCenter(Request $request)
         }
     }
 
+    public function addHmo(Request $request)
+    {    
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $user_id = Auth()->user()->id;
+        $position_id = $request->id;
+        $price_list = $request->price_list_column;
+        $request->merge(['created_by' => $user_id]);
+        $request->merge(['updated_by' => $user_id]);
+        $request->merge(['c_date' => $cDate]);
+        $request->merge(['c_time' => $cTime]);
+        $hmo = Hmo::create($request-> all());
+        if($hmo){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function editingHmo(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->name;
+        $address= $request->address;
+        $contact= $request->contact_number;
+        $details= $request->details;
+        $status= $request->status; 
+        $update = DB::table('scheme_hmo')->where('id','=',$request->id)
+        ->update([
+            'name'=> $name,
+            'address' => $address,
+            'contact_number' => $contact,
+            'details' => $details,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    public function editingondeleteHmoHmo($id)
+    {
+        $update = DB::table('scheme_hmo')->where('id','=',$id)
+        ->update([
+            'status' =>"suspend"
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     // Manufacturer
     public function addManufacturer(Request $request)
     {
@@ -568,6 +642,8 @@ public function addCenter(Request $request)
             }';
         }
     }
+
+
 
     public function updateDuration(Request $request)
     {
@@ -1234,6 +1310,7 @@ public function addCenter(Request $request)
     
     public function updateCustomer(Request $request)
     {
+        
         $id=$request->formdata['id'];
         $user=Customers::find($id);
         $currentfile= $user->patient_image;
@@ -1287,51 +1364,35 @@ public function addCenter(Request $request)
          }
     }
 
-    // public function updateCustomer(Request $request)
-    // {
-    //     $id=$request->id;
-    //     $fullname= $request->name;
-    //     $email= $request->email;
-    //     $mobile_number= $request->mobile_number;
-    //     $address= $request->address;   
-    //     $dob= $request->d_o_b;    
-    //     $about= $request->about;
-    //     $allergy= $request->allergy;
-    //     $nhis= $request->n_h_i_s;
-    //     $card_number= $request->card_number;
-    //     $status= $request->status;
-    //     $blood_id= $request->blood_id;
-    //     $treatment_id= $request->treatment_id;
-    //     $prescription_id= $request->prescription_id;
+    public function updateCustomer2(Request $request)
+    {
 
-    //     $update = DB::table('customers')->where('customers.id','=',$id)
-    //     ->update([
-    //         'name'=> $fullname,
-    //         'email' => $email,
-    //         'mobile_number' =>$mobile_number,
-    //         'address' => $address,
-    //         'd_o_b' => $dob,
-    //         'about' => $about,
-    //         'allergy' => $allergy,  
-    //         'n_h_i_s' => $nhis,
-    //         'card_number' => $card_number,
-    //         'blood_id' => $blood_id,
-    //         'treatment_id' => $treatment_id,
-    //         'prescription_id' => $prescription_id,
-    //     ]);
-    //     if($update){
-    //         return '{
-    //             "success":true,
-    //             "message":"successful"
-    //         }' ;
-    //     } else {
-    //         return '{
-    //             "success":false,
-    //             "message":"Failed"
-    //         }';
-    //     }
-    // }
+        $id=$request->formdata['id'];
+        $user=Customers::find($id);
+        $datas=$request->formdata;
+        
+         $user->scheme_id = $datas['scheme_id'];
+         $user->n_h_i_s = $datas['n_h_i_s'];
+         $user->hmo_no = $datas['hmo_no'];
+         $user->cust_category_id =  $datas['cust_category_id'];
+         $user->updated_by =  auth()->user()->id;
+       
+         $user->save();
+         // $user->update($request->all());
+         if($user){
+             return '{
+                 "success":true,
+                 "message":"successful"
+             }' ;
+         } else {
+             return '{
+                 "success":false,
+                 "message":"Failed"
+             }';
+         }
+    }
 
+  
     public function deleteCustomer(Request $request)
     {
         $id=$request[0];
@@ -1365,16 +1426,20 @@ public function addCenter(Request $request)
 
                 $search=DB::table('customers')
                     ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->join('scheme','customers.scheme_id','=','scheme.id')
+                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
                     ->where('customers.name', 'LIKE', "%{$value}%")
                     ->orWhere('customers.othername', 'LIKE', "%{$value}%")
-                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
                     ->limit(1000)
                     ->get();
             } else {
                 $search=DB::table('customers')
                     ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->join('scheme','customers.scheme_id','=','scheme.id')
+                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
                     ->where('customers.'.$action, $value)
-                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
                     ->get();
             }
             if (count($search) == 0) {

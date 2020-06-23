@@ -53,6 +53,17 @@ Route::get('displayAllposition','DisplayController@displayAllposition');
 Route::get('onEditPos/{id}','DisplayController@onEditPos');
 Route::post('updatePos', 'AddController@updatePos');
 Route::post('permtes', 'AddController@permtes');
+Route::get('displaySchemes','DisplayController@displaySchemes');
+Route::get('displayPricelist','DisplayController@displayPricelist');
+Route::post('addHmo', 'AddController@addHmo');
+Route::get('onEditHmo/{id}', 'DisplayController@onEditHmo');
+Route::post('editingHmo', 'AddController@editingHmo');
+Route::post('editingondeleteHmoHmo/{id}', 'AddController@editingondeleteHmoHmo');
+
+
+
+
+
 
 //Dashboard (PHARMACY)
 Route::get('displayPharAdminDash','DisplayController@displayPharAdminDash');
@@ -88,8 +99,9 @@ Route::get('disItemDet','DisplayController@disItemDet');
 //Branch  
 Route::post('addCenter', 'AddController@addCenter');
 Route::get('displayStaffBranch/{id}','DisplayController@displayStaffBranch');
-Route::post('displayAppointmentBranch','DisplayController@displayAppointmentBranch');
+Route::post('displayAppointmentBranch/{id}','DisplayController@displayAppointmentBranch');
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
+Route::get('displayCenter/{id}','DisplayController@displayCenter');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displayPharmacyBranch','DisplayController@displayPharmacyBranch');
 Route::get('displaybranchs','DisplayController@displayBranchs');
@@ -179,6 +191,7 @@ Route::get('displayHospitalNum','DisplayController@displayHospitalNum');
 Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');
+Route::post('updateCustomer2', 'AddController@updateCustomer2');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
 Route::get('displayCharges','DisplayController@displayCharges');
 Route::post('searchPatient','AddController@searchPatient');

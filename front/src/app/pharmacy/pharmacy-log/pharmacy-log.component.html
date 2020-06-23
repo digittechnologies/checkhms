@@ -185,17 +185,16 @@
             </div>
         
             <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-            <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
-            <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
+            <!-- <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
             <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
             <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
             <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
             <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
-            <li ><button class="btn bnt-default" [hidden]=" dept!='16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+            <li ><button class="btn bnt-default" [hidden]=" dept!='16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
             <!--Nurse-->
-            <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-            <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='18' " [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-            <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+            <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
+            <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
+            <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
         </ul>
         <hr>Created by<hr>
         <div class="d-flex justify-content-between">
@@ -238,17 +237,17 @@
         </div>
     
         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-        <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
-        <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
+        <!-- <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
+        
         <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
         <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
         <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
         <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
-        <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+        <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
         <!--Nurse-->
-        <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-        <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='18' " [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-        <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+        <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
+        <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
+        <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
     </ul>
     <hr>Created by<hr>
     <div class="d-flex justify-content-between">
@@ -291,17 +290,16 @@
         </div>
     
         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
-        <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>
-        <!-- <li><button class="btn bnt-default" [hidden]="dept!='1'" ><a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['invoice', l.id]}}]">Voucher</a></button></li> -->
+        <!-- <li > <button class="btn bnt-default" [hidden]="dept !='1'" ><a   href="#" [routerLink]="['/Admin', {outlets: {side: ['refill', l.id]}}]">Transfer</a></button></li>       
         <li ><button class="btn bnt-default" [hidden]=" dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log',  l.id]}}]">Voucher</a></button></li>
         <li ><button class="btn bnt-default" [hidden]="dept!='1' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['voucher', l.id]}}]">Prescription</a></button></li>
         <li ><button class="btn bnt-default" [hidden]=" dept!='11' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
         <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
-        <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li>
+        <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
          <!--Nurse-->
-         <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-         <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='18' " [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-         <li ><button class="btn bnt-default" [hidden]=" dept!='18'"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+         <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
+         <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
+         <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
     </ul>
     <hr>Created by<hr>
     <div class="d-flex justify-content-between">

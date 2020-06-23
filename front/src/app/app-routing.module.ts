@@ -134,7 +134,8 @@ import { ProccessSettingsComponent } from './proccess-settings/proccess-settings
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { RankComponent } from './admin/rank/rank.component';
 import { TeamComponent } from './admin/team/team.component';
-
+import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
+import { InsuranceComponent } from './customer/insurance/insurance.component';
 
 //DEPARTMENTS Dashboards
 
@@ -154,11 +155,6 @@ const routes: Routes = [
 
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: []},
 
-        //  {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-        //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
-        //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
-
-                                                                            // DASHBOARDS
         //ADMINISTRATION START
         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
         {path: 'Admin-system_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
@@ -259,6 +255,9 @@ const routes: Routes = [
          {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [] },
          {path: 'record_report', component:ReportComponent, outlet: 'side',canActivate: [] },
          {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [] },
+         {path: 'scheme_hmo', component:SchemeHmoComponent, outlet: 'side',canActivate: [] },
+         {path: 'insurance', component:InsuranceComponent, outlet: 'side',canActivate: [] },
+         
          
            //REvenue
          {path: 'revenue_log/:id', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },

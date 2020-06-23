@@ -141,6 +141,8 @@ import { CenterTypeComponent } from './center-type/center-type.component';
 import { TeamComponent } from './admin/team/team.component';
 import { RankComponent } from './admin/rank/rank.component';
 import { BookedAppointmentComponent } from './customer/booked-appointment/booked-appointment.component';
+import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
+import { InsuranceComponent } from './customer/insurance/insurance.component';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -345,6 +347,10 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     RankComponent,
   
     BookedAppointmentComponent,
+  
+    SchemeHmoComponent,
+  
+    InsuranceComponent,
   
   ],
   imports: [
