@@ -24,6 +24,7 @@ export class SettingsComponent implements OnInit {
   web_url: any;
   app: any;
   module: FormGroup;
+  modules:any
   error: any;
   moduleResponse: any;
   branchResponse: any;
@@ -43,8 +44,19 @@ export class SettingsComponent implements OnInit {
   depertm: Object;
   image_url: string;
   possitions: Object;
-  added: any;
+  added = [];
+  addedPos = [];
+  positionEditRes:any
+  editingPossition:Boolean = false;
   message: any;
+  addedCompToPos: any;
+  newaddCompToPos:any
+  newData:Array<{id:Number, component_name:String, description:String}>=[];
+  editPosName: any;
+  editPosdept: any;
+  editPosdescription: any;
+  editPosId: any;
+  editPosStatus: any;
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -234,7 +246,7 @@ export class SettingsComponent implements OnInit {
       this.Jarwis.getmodules(id.target.value).subscribe(
         data=>{
           let res:any = data;
-          this.module = res;
+          this.modules = res;
         }
       )
      }
@@ -266,6 +278,7 @@ export class SettingsComponent implements OnInit {
          }else{
            this.added.push(data);
          }
+         console.log(this.added)
      }
 
   
@@ -287,6 +300,42 @@ export class SettingsComponent implements OnInit {
    );
    
   }
+  oneditingPos(id){
+    this.editingPossition = true;
+    this.Jarwis.onEditPos(id).subscribe(
+      data=>{
+        this.positionEditRes = data;
+        this.newData = this.positionEditRes.deptCom
+        this.positionEditRes.positionCom.map(r=>{
+          let dele=  this.newData.findIndex(i=>{return i.id===r.id})
+          this.newData.splice(dele,1)
+        })
+        this.newaddCompToPos = this.newData
+        this.editPosName = this.positionEditRes.position[0].position_name;
+        this.editPosStatus = this.positionEditRes.position[0].status;
+        this.editPosdept = this.positionEditRes.position[0].name;
+        this.editPosdescription = this.positionEditRes.position[0].description;
+        this.editPosId = this.positionEditRes.position[0].id;
+        this.addedCompToPos = this.positionEditRes.positionCom;
+      }
+    )
+  }
+  onSubmitPosEdit(){
+     this.Jarwis.updatePos({position_name:this.editPosName,description:this.editPosdescription,status:this.editPosStatus,id:this.editPosId}).subscribe(
+       data=>{console.log(data)}
+     )
+  }
+  Checkchanging(e){
+       this.Jarwis.onPermit({id:this.editPosId,component_id:e}).subscribe(
+         data=>{
+           console.log(data)
+         }
+       )
+   }
+  closeEdit(){
+    this.editingPossition = false;
+
+  }
   handleErrorp(error) {
    
     this.error = error.error.errors;
@@ -298,5 +347,8 @@ export class SettingsComponent implements OnInit {
       duration: 2000
     })  
     this.ngOnInit()
+  }
+  AddNew(){
+    this.editingPossition = false;
   }
 }

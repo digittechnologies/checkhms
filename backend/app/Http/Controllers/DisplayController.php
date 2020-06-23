@@ -50,13 +50,31 @@ class DisplayController extends Controller
     //staff
     public function staffdetails($id)
     {
+        $pos_id = DB::table('users')->where('id',$id)->select('position_id')->get();
         return response()->json(
-        
-            User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
+        [
+           'user' => User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
             ->join('roles','users.role_id','=','roles.id')
-            ->select('users.*', 'departments.position_id', 'departments.name AS nameD', 'roles.name AS role_name')
+            ->join('team_tb','users.team_id','=','team_tb.id')
+            ->join('rank_tb','users.rank_id','=','rank_tb.id')
+            ->join('positions','users.position_id','=','positions.id')
+            ->join('branches','users.branch_id','=','branches.id')
+            ->select('users.*', 'roles.name AS role_name','departments.name AS departmentName','branches.name AS centerName','branches.id AS center_id','positions.position_name AS positionName','roles.id AS roleId','team_tb.team_name AS teamName','team_tb.id AS teamId','rank_tb.rank_name AS rankName','rank_tb.id AS rankId')
             ->where('users.id','=',$id)          
-            ->get() 
+            ->get(),
+            'teams' =>DB::table('team_tb')->get(),
+            'ranks' =>DB::table('rank_tb')->get(),
+            'roles' =>DB::table('roles')->get(),
+            'permitions' => DB::table('component_tb')
+            ->join('permission_tb','component_tb.id','=','permission_tb.component_id')
+            ->where('permission_tb.user_id',$id)
+            ->get(),
+            'centers' => DB::table('branches')->get(),
+            'newPermitios' => DB::table('component_tb')->join('possition_module','component_tb.id','=','possition_module.component_id')
+            ->where('possition_module.position_id',$pos_id[0]->position_id)
+            ->select('component_tb.component_name','component_tb.description','component_tb.id')
+            ->get()
+        ] 
         ); 
     }
 
@@ -132,31 +150,53 @@ class DisplayController extends Controller
            "dept" => DB::table('possition_module')
             ->join('component_tb','possition_module.component_id','=','component_tb.id')
             ->select('component_tb.*')
+            >where('possition_module.status','=','permite')
             ->where('possition_module.position_id','=', $id)
             ->get(),
-
             "department" => DB::table('positions')
             ->join('departments','positions.dept_id','=','departments.id')
             ->select('departments.name')
             ->where('positions.id','=', $id)
             ->get(),
-
-            // "centers" => DB::table('branches')->join('departments','branches.dept_id','=','departments.id')
-            // ->join('possition_module','department.id','=','positions.dept_id')
-            // ->where('possition_module.position_id','=', $id)
-            // ->select('branches.name','branches.id')
-            // ->get(),
-         "centers" => DB::table('possition_module')
-         ->join('positions','possition_module.position_id','=','positions.id')
-            ->join('departments','positions.dept_id','=','departments.id')
-            ->join('branches','branches.dept_id', '=', 'departments.id')
+            "centers" => DB::table('branches')
+            ->join('departments','branches.dept_id','=','departments.id')
+            ->join('positions','departments.id','=','positions.dept_id')
             ->select('branches.name','branches.id')
-            ->where('possition_module.position_id','=', $id)
+            ->where('positions.id','=', $id)
             ->get(),
 
         ]);
         
     }
+     public function dashDeptModules($id){
+        return  DB::table('component_tb')->where('module_id',$id)->get();
+     }
+    public function onEditPos($id)
+    {
+        $dept = auth()->user()->dept_id;
+        return response()->json([
+            'position'=>DB::table('positions')->join('departments','positions.dept_id','=','departments.id')
+            ->select('positions.position_name','positions.description','positions.id','departments.name')
+            ->where('positions.id',$id)->get(),
+
+           "positionCom" => DB::table('component_tb')
+            ->join('possition_module','component_tb.id' ,'=', 'possition_module.component_id')
+            ->select('component_tb.*','possition_module.status AS pos_status')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+
+            "deptCom" => DB::table('component_tb')
+            ->join('module','component_tb.module_id','=','module.id')
+            ->join('departments','module.id','=','departments.module_id')
+            ->join('positions','departments.id','=','positions.dept_id')
+            ->select('component_tb.id','component_tb.component_name','component_tb.description')
+            ->where('positions.id','=', $id)
+            ->get(),
+        ]);
+        
+    }
+
+
 
     //Depertment
 
@@ -186,7 +226,7 @@ class DisplayController extends Controller
     public function getmodules($id)
     {
         return response()->json(
-            DB::table('component_tb')->where('component_tb.dept_id',$id)->get()
+            DB::table('component_tb')->join('module','component_tb.module_id','=','module.id')->join('departments','module.id','=','departments.module_id')->where('departments.id',$id)->get()
         );
     }
 
@@ -1702,7 +1742,12 @@ class DisplayController extends Controller
 
     public function displayRole()
     {
-        return Role::where('status', '=', 'active')->get();
+        return response()->json([
+           'roles' => Role::where('status', '=', 'active')->get(),
+           'ranks' => DB::table('rank_tb')->where('status', '=', 'active')->get(),
+           'teams' => DB::table('team_tb')->where('status', '=', 'active')->get()
+
+        ]) ;
     }
 
     public function displayPharAdminDash()
@@ -1971,6 +2016,12 @@ class DisplayController extends Controller
             'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
             ]);
     }
+    public function Teams(){
+        return response()->json([
+            'teams'=> DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->where('team_tb.status','active')->select('team_tb.*','branches.name AS center_name')->get(),
+            'centers' =>  DB::table('branches')->select('branches.name','branches.id')->get()
+            ]);
+    }
     public function deptList(Request $request){
               $dept = $request->dept;
            return response()->json([
@@ -1990,18 +2041,18 @@ class DisplayController extends Controller
     public function displayProcessProperties()
     {
         return response()->json([
-            'props' => DB::table('process_tb')->join('departments', 'process_tb.department_id', '=', 'departments.id')
-            ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
+            'props' => DB::table('process_tb')->join('positions', 'process_tb.position_id', '=', 'positions.id')
+            // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
-            ->select('process_tb.*', 'departments.name as dept_name', 'process_module_tb.module_name', 'users.firstname', 'users.lastname')
+            ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
             ->get()
         ]);
     }
 
     public function displayProcessModules()
     {
-        return DB::table('process_module_tb')->join('users', 'process_module_tb.created_by', '=', 'users.id')
-        ->select('process_module_tb.*', 'users.firstname', 'users.lastname')
+        return DB::table('positions')
+        ->select('positions.*')
         ->get();
     }
 

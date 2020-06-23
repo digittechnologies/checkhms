@@ -18,8 +18,7 @@
       <div class="row clearfix">
         <div class="body col-12">
           <ul class="nav nav-tabs2">
-              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#modules">Modules</a></li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#properties">Properties</a></li>
+              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#properties">Properties</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#attributes">Attributes</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#values">Values</a></li>
               <li class="nav-item"><button class="bth btn-primary" data-toggle="modal" data-target="#formTesting" (click)="fetchForms()" >Values</button></li>
@@ -27,75 +26,17 @@
             </ul>
           <hr>
           <div class="tab-content">
-            <!-- Modules display start here -->
-              <div class="tab-pane vivify fadeIn delay-100 active" id="modules">
-                <div class="col-sm-12 col-lg-12">
-                  <div class="col-md-6 col-sm-12 text-right float-right">
-                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddModule">Add Module</button>
-                  </div>
-                  <div class="table-responsive">
-                      <table class="table table-hover table-custom spacing8">
-                          <thead>
-                              <tr> 
-                                  <th>#</th>
-                                  <th>Module Name</th>
-                                  <th>Module Description</th>
-                                  <th>Created By</th>
-                                  <th>Updated By</th>
-                                  <th>Date & Time</th>
-                                  <th>Status</th>
-                                  <th>Action</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let propMod of processModules; let r = index">
-                                  <td>
-                                      {{r+1}}
-                                  </td>                              
-                                  <td style="color: #17C2D7;">{{propMod.module_name}}</td>
-                                  <td>{{propMod.description}}</td>
-                                  <td>{{propMod.firstname}} {{propMod.lastname}}</td>    
-                                  <td>{{propMod.firstname}} {{propMod.lastname}}</td>      
-                                  <td>{{propMod.created_at}} </td>                         
-                                  <td>
-                                    <span class="badge badge-success" *ngIf ="propMod.status=== 'active'">Active</span>
-                                    <span class="badge badge-danger" *ngIf ="propMod.status=== 'suspend'">Suspend</span>                                   
-                                  </td>                       
-                                  <td>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
-                                  </td>
-                              </tr>  
-                              <div *ngIf="!processModules">
-                                  <div class="spinner-grow text-primary" role="status">
-                                  <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="spinner-grow text-secondary" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              <div class="spinner-grow text-success" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              </div>                                                 
-                          </tbody>
-                      </table>
-                  </div>
-                </div>
-              </div>
-              <!-- Modules display end here -->
-
               <!-- Properties display start here -->
-              <div class="tab-pane vvivify fadeIn delay-100" id="properties">
+              <div class="tab-pane vvivify fadeIn delay-100 active" id="properties">
                 <div class="col-sm-12 col-lg-12">
                   <div class="col-md-6 col-sm-12 text-right float-right">
-                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddProperty">Add Property</button>                  </div>
+                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddProperty">Add Property</button></div>
                   <div class="table-responsive">
                       <table class="table table-hover table-custom spacing8">
                           <thead>
                               <tr> 
                                   <th>#</th>
-                                  <th>Department</th>
-                                  <th>Module</th>
+                                  <th>Position</th>
                                   <th>Property</th>
                                   <th>Created By</th>
                                   <th>Updated By</th>
@@ -110,7 +51,6 @@
                                       {{r+1}}
                                   </td>                              
                                   <td style="color: #17C2D7;">{{prop.dept_name}}</td>
-                                  <td style="color: #17C2D7;">{{prop.module_name}}</td>
                                   <td>{{prop.property}}</td>
                                   <td>{{prop.firstname}} {{prop.lastname}}</td>    
                                   <td>{{prop.firstname}} {{prop.lastname}}</td>      
@@ -251,7 +191,7 @@
                                   </div> -->
                                  </td>
                               </tr>  
-                              <!-- <tr id="{{propVal.value}}" class="collapse col-12">
+                              <tr id="{{propVal.value}}" class="collapse col-12">
                                    <td><select name="value_type" id="">
                                      <option value="">--Select value type</option>
                                      <option value="number">Number</option>
@@ -269,7 +209,7 @@
                                   </div>
                                    </td>
 
-                                </tr> -->
+                                </tr>
                             </ng-container>
                               <div *ngIf="!processValues">
                                   <div class="spinner-grow text-primary" role="status">
@@ -428,67 +368,7 @@
      
                          
 
-<!-- Add Module -->
-<div class="modal fade" id="AddModule" tabindex="-1" role="dialog">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-      <div class="modal-header">
-          <h5 class="modal-title h4" id="myLargeModalLabel">Add Process Module</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-          </button>
-      </div>
-      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveProcessModule(modulespayload)" #modulespayload="ngForm"> 
-      <div class="modal-body">             
-          <div class="row clearfix">
-              <div class="col-md-8">
-                  <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Input Module Name" ngModel name="module_name" required>
-                  </div>
-              </div>             
-          </div>
-      </div>
 
-      <div class="modal-body">             
-        <div class="row clearfix">
-            <div class="col-md-8">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Input Module Description" ngModel name="description" required>
-                </div>
-            </div>             
-        </div>
-    </div>
-
-      <div class="modal-body">             
-          <div class="row clearfix">
-              <div class="col-md-8">
-                  <div class="form-group">                      
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text">Module Status</label>
-                        </div> 
-                        <select class="custom-select" ngModel name="status"> 
-                            <option value="">-- Select Status --</option>   
-                            <ng-container>
-                                <ng-container>
-                                  <option value="active">Active</option>
-                                  <option value="suspend">Suspend</option>  
-                                </ng-container>
-                            </ng-container>                                                                           
-                        </select>        
-                    </div>                  
-                    </div>
-              </div>             
-          </div>
-      </div>      
-      <div class="modal-footer">
-          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-          <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
-      </div>
-      </form>
-  </div>
-</div>
-</div>
 
 <!-- Add Property -->
 <div class="modal fade" id="AddProperty" tabindex="-1" role="dialog">
@@ -501,7 +381,7 @@
             </button>
         </div>
         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveProcessProp(propertiespayload)" #propertiespayload="ngForm"> 
-          <div class="modal-body">             
+          <!-- <div class="modal-body">             
             <div class="row clearfix">
                 <div class="col-md-8">
                   <div class="form-group">
@@ -521,7 +401,7 @@
                   </div>
                 </div>             
             </div>
-          </div>
+          </div> -->
   
           <div class="modal-body">             
             <div class="row clearfix">
@@ -535,7 +415,7 @@
                             <option value="">-- Select Process Module--</option>   
                             <ng-container *ngFor="let pm of processModules">
                                 <ng-container>
-                                    <option value="{{pm.id}}">{{pm.module_name}}</option>
+                                    <option value="{{pm.id}}">{{pm.position_name}}</option>
                                 </ng-container>
                             </ng-container>                                                                           
                         </select>        
