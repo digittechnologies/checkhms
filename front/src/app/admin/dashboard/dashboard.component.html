@@ -162,14 +162,22 @@
                     </li> -->
                     <!-- <li><a href="javascript:void(0);" class="megamenu_toggle icon-menu" title="Mega Menu">Record</a></li> -->
                     <ng-container *ngIf="module_name == 'hms'">
-                    <li  class="p_social" *ngFor="let mod of module">
-                        <a (click)="modu(mod.module,mod.id)" href="javascript:void(0);" class="social icon-menu" title="News">{{mod.module}}</a>
-                    </li>
-                    <!-- <li  class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
-                    <li  class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
-                    <li  class="p_blog"><a (click)="modu('pharm')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
-                    <li  class="p_blog"><a (click)="modu('revenue')" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li> -->
+                         <li  class="p_social" *ngFor="let mod of module">
+                         <a (click)="modu(mod.module,mod.id)" href="javascript:void(0);" class="social icon-menu" title="News">{{mod.module}}</a>
+                       </li>
                     </ng-container>
+
+                    <ng-container *ngIf="uPos == '2001'">
+                           <li *ngIf=" module_name == 'investigation'" class="p_news"><a (click)="modu('investigation',3)" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>
+                           <li *ngIf=" module_name == 'clinic'" class="p_social"><a (click)="modu('clinic',2)" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
+                    </ng-container> 
+
+                    <ng-container *ngIf="uPos == '2002'">
+                           <li *ngIf=" module_name == 'record'" class="p_social"><a (click)="modu('record',5)" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
+                           <li *ngIf=" module_name == 'pharmacy'"class="p_blog"><a (click)="modu('pharmacy',4)" href="javascript:void(0);" class="blog icon-menu" title="Blog">Pharmacy</a></li>
+                           <li *ngIf=" module_name == 'revenue'" class="p_blog"><a (click)="modu('revenue',6)" href="javascript:void(0);" class="blog icon-menu" title="Blog">Revenue</a></li>
+                    </ng-container> 
+    
                     <li *ngIf=" module_name == 'record'" class="p_social"><a (click)="modu('record')" href="javascript:void(0);" class="social icon-menu" title="News">Record</a></li>
                     <li *ngIf=" module_name == 'clinic'" class="p_social"><a (click)="modu('clinic')" href="javascript:void(0);" class="social icon-menu" title="News">Clinic</a></li>
                     <li *ngIf=" module_name == 'investigation'" class="p_news"><a (click)="modu('investigation')" href="javascript:void(0);" class="news icon-menu" title="News">Investigation</a></li>

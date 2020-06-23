@@ -112,7 +112,7 @@ export class AllItemsComponent implements OnInit {
   permission_module:Array<{component_name:any,link:any,read_status:any,write_status:any}>=[];
   res: any;
   respo: string;
-  write_permition:any
+  write_permition:Boolean;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -130,18 +130,22 @@ export class AllItemsComponent implements OnInit {
       this.uDept= this.response.det[0].dept_idpp
       this.permission_module = this.response.module
       this.res =  this.permission_module.find(e=>{
-         return e.link === this.respo;
-       })
-       this.write_permition = this.res.write_status;
-       console.log(this.res)
-       console.log(this.write_permition)
+        return e.link == this.respo;
+      })                
+      if (this.res.write_status =='write' || this.uPos < 3003) {
+        this.write_permition = true
+       } else  {
+        this.write_permition = false
+       }
+      //  this.write_permition = true
+      //  console.log(this.uPos)
     })
    }
 
   ngOnInit() {
     this.permission = this.router.url;
      this.respo = this.permission.slice(13,-1) 
-    
+    // this.Jarwis.profile()
     this.Jarwis.setupStatus().subscribe(data=>{}) 
 
     this.Jarwis. generalSettings().subscribe(
