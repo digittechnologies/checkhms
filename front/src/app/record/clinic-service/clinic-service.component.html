@@ -1,3 +1,282 @@
-<p>
-  clinic-service works!
-</p>
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h1>Hospital Charges Settings</h1>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                      <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+                      <li class="breadcrumb-item active" aria-current="page">Hospital Charges Settings</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <div class="col-md-6 col-sm-12 text-right">
+                  <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddCharge">Add</button>
+                  <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
+              </div>
+          </div>
+      </div>
+      <div class="row clearfix">
+          <div class="col-sm-12">
+              <div class="table-responsive">
+                  <table class="table table-hover table-custom spacing8">
+                      <thead>
+                          <tr> 
+                              <th>#</th>
+                              <th>Item</th>
+                              <th>General Price</th>
+                              <th>Price List 2</th>
+                              <th>Price List 3</th>
+                              <th>Discount Care Type</th>
+                              <th>Appointment</th>
+                              <th>Department</th>
+                              <th>Status</th>
+                              <th>Created Date</th>
+                              <th>Created Time</th>
+                              <th>Staff</th>
+                              <th>Last Updated Timestamp</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let c of charges; let i = index">
+                              <td>
+                                  {{i+1}}
+                              </td>                              
+                              <td style="color: #17C2D7;">{{c.charge_name}}</td>
+                              <td>{{c.charge_amount  | currency:'NGN':'symbol-narrow'}}</td>
+                              <td>{{c.price_2  | currency:'NGN':'symbol-narrow'}}</td>
+                              <td>{{c.price_3  | currency:'NGN':'symbol-narrow'}}</td> 
+                              <td>{{c.care_type}}</td>  
+                              <td>{{c.appoint_name}}</td> 
+                              <td>{{c.dept_name}}</td>                           
+                              <td>
+                                  <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
+                                  <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
+                              </td>  
+                              <td>{{c.created_date}}</td> 
+                              <td>{{c.created_time}}</td> 
+                              <td>{{c.firstname}} {{c.lastname}}</td>    
+                              <td>{{c.updated_at}}</td>                     
+                              <td>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditCharge" (click)="editCharge(c.id)"><i class="fa fa-pencil"></i></button>
+                                  <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)"><i class="fa fa-trash-o"></i></button>
+                              </td>
+                          </tr> 
+                          <div *ngIf="!charges">
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    <div class="spinner-grow text-secondary" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+<div class="spinner-grow text-success" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+                          </div>                                                  
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Default Size -->
+<div class="modal fade" id="AddCharge" tabindex="1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title h4" id="myLargeModalLabel">Add Hospital Charge</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(typ)" #typ="ngForm"> 
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Charge Name</label>
+                      <input type="text" class="form-control" placeholder="Charge Name" ngModel name="charge_name" required>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">
+                      <label>General Price</label>
+                      <input type="number" class="form-control" placeholder="Charge Amount" min="1" ngModel name="charge_amount" required>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Price List 3</label>
+                    <input type="number" class="form-control" placeholder="Charge amount II" min="1" ngModel name="price_2" required>
+                </div>
+            </div>             
+        </div>
+    </div>
+    <div class="modal-body">             
+      <div class="row clearfix">
+          <div class="col-md-8">
+              <div class="form-group">
+                  <label>Price List 2</label>
+                  <input type="number" class="form-control" placeholder="Charge amount III" min="1" ngModel name="price_3" required>
+              </div>
+          </div>             
+      </div>
+  </div>
+  <div class="modal-body">             
+    <div class="row clearfix">
+        <div class="col-md-8">
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Discount Care Type</label>
+                    </div> 
+                    <select class="form-control" ngModel name="care_type">
+                        <option>--Select Care Type--</option>                                                    
+                        <option value="primary">Primary Care</option>  
+                        <option value="secondary">Secondary Care</option>                                                
+                        <option value="others">Other Care</option>                                          
+                    </select>
+                </div>    
+            </div>
+        </div>             
+    </div>
+</div>
+      <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Appointment Type</label>
+                        </div> 
+                        <select class="form-control" ngModel name="appointment_type">
+                            <option>--Appointment_type--</option>                                                    
+                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                
+                                                                                 
+                        </select>
+                    </div>    
+                </div>
+            </div>             
+        </div>
+    </div>
+    <div class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Department Type</label>
+                        </div> 
+                        <select class="form-control" ngModel name="dept_id">
+                            <option>--Department--</option>                                                    
+                            <option *ngFor="let dp of dept" value="{{dp.id}}">{{dp.name}}</option>                                                                                  
+                        </select>      
+                    </div>    
+                </div>
+            </div>             
+        </div>
+    </div>
+      <div class="modal-body">             
+          <div class="row clearfix">
+              <div class="col-md-8">
+                  <div class="form-group">                      
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Status</label>
+                        </div> 
+                        <select class="custom-select" ngModel name="status"> 
+                            <option value="">Select Status...</option>   
+                            <ng-container>
+                                <ng-container>
+                                  <option value="active">Active</option>
+                                  <option value="suspend">Suspend</option>  
+                                </ng-container>
+                            </ng-container>                                                                           
+                        </select>        
+                    </div>                  
+                    </div>
+              </div>             
+          </div>
+      </div>      
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+          <button type="button" class="btn btn-round btn-default close" data-toggle="modal"  aria-label="Close">Close</button>
+      </div>
+      </form>
+  </div>
+  </div>
+  </div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="EditCharge" tabindex="1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Update Hospital Charge</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+            <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" [value]="chrgName" placeholder="Charge Name" ngModel name="charge_name" required>
+                      </div>
+                  </div>             
+              </div>
+          </div>
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="number" class="form-control"  [value]="chrgAmount" min="1" placeholder="Charge Amount" ngModel name="charge_amount" required>
+                      </div>
+                  </div>             
+              </div>
+          </div>
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">                      
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Status</label>
+                            </div> 
+                            <select class="custom-select" ngModel name="status"> 
+                                <option value="">Select Status...</option>   
+                                <ng-container>
+                                    <ng-container>
+                                      <option value="active">Active</option>
+                                      <option value="suspend">Suspend</option>  
+                                    </ng-container>
+                                </ng-container>                                                                           
+                            </select>        
+                        </div>                  
+                        </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+          </form>
+      </div>
+  </div>
+  </div>

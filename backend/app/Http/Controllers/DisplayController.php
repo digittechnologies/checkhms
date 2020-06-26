@@ -28,6 +28,7 @@ use App\Role;
 use App\Duration;
 use App\Hospital_charges;
 use App\Centers;
+use App\Service_charges;
 
 // Today's date working with displayItem,
 
@@ -1239,88 +1240,111 @@ class DisplayController extends Controller
         return DB::table("invoices")->get();
     }
 
-    public function displayPharmInvoice($Vid, $vid)
+    public function displayPharmInvoice($Vid, $vid, $moduleid)
     {
         $voucher_id= Vouchers::find($Vid);
         $id= $voucher_id->appointment_id;
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
-        $pc =  Doctor_prescriptions::orderBy('id') 
-        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-        ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-        // ->where('doctor_prescriptions.status', '=', 'close')
-        ->where('doctor_prescriptions.appointment_id', '=', $id)
-        // ->where('doctor_prescriptions.branch_id', '=', $bId)
-        ->count();
-        if($pc=='0'){
+
+        if($moduleid == 2){
+            $counting = Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)->count();
             return response()->json([
-                "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                // ->where('doctor_prescriptions.status', '=', 'close')
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                ->where('doctor_prescriptions.branch_id', '=', $bId)
+                "pres" => Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)
+                ->join('departments', 'service_charges.dept_id', '=', 'departments.id')
+                ->select('service_charges.*', 'departments.name as department')
                 ->get(),
-                "isE" =>$pc,
-                ]);
-           
-            
-        }
-        if($vid=='inv'){
-            return response()->json([
-                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                ->where('doctor_prescriptions.voucher_id', '=', $Vid)
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                // ->where('doctor_prescriptions.branch_id', '=', $bId)
-                ->get(),
-                "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
-                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
+                "isE" => $counting,
+                "module" => 'other',
                 "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
                 ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
-                "isE" =>$p->count(),
-                ]);
-        }else if ($vid=='ref') {
-            return response()->json([
-                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                // ->where('doctor_prescriptions.status', '=', 'close')
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                ->where('doctor_prescriptions.branch_id', '=', $bId)
-                ->get(),
-                "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
-                "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
-                ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
-                ->first(),
-                "isE" =>$p->count(),
-                ]);
+                "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+            ]);
+        }
+
+        if($moduleid == 4){
+            $pc =  Doctor_prescriptions::orderBy('id') 
+            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+            // ->where('doctor_prescriptions.status', '=', 'close')
+            ->where('doctor_prescriptions.appointment_id', '=', $id)
+            // ->where('doctor_prescriptions.branch_id', '=', $bId)
+            ->count();
+            if($pc=='0'){
+                return response()->json([
+                    "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                    ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                    ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                    // ->where('doctor_prescriptions.status', '=', 'close')
+                    ->where('doctor_prescriptions.appointment_id', '=', $id)
+                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get(),
+                    "isE" =>$pc,
+                    "module" => 'pharmacy',
+                    ]);
+            
+                
+            }
+            if($vid=='inv'){
+                return response()->json([
+                    "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                    ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                    ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                    ->where('doctor_prescriptions.voucher_id', '=', $Vid)
+                    ->where('doctor_prescriptions.appointment_id', '=', $id)
+                    // ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get(),
+                    "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                    "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
+                    "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
+                    ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                    ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                    ->first(),
+                    "isE" =>$p->count(),
+                    "module" => 'pharmacy',
+                    ]);
+            }else if ($vid=='ref') {
+                return response()->json([
+                    "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                    ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                    ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                    // ->where('doctor_prescriptions.status', '=', 'close')
+                    ->where('doctor_prescriptions.appointment_id', '=', $id)
+                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get(),
+                    "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
+                    "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
+                    ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                    ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                    ->first(),
+                    "isE" =>$p->count(),
+                    "module" => 'pharmacy',
+                    ]);
+            }
         }
     } 
 

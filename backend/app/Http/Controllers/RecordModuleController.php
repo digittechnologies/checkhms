@@ -260,6 +260,7 @@ class RecordModuleController extends Controller
     //Appointment
     public function makeAppointment(Request $request)
     {
+        
         $dt = Carbon::now();
         $date = $dt->toFormattedDateString();
         $time = $dt->format('h:i:s A');
@@ -317,6 +318,7 @@ class RecordModuleController extends Controller
 
             if($request->charges != "0"){
                 $request->merge(['revenue_status' => 'open']);
+                $request->merge(['service_flow' => 'Clinic: Payment']);
             }
 
             $insert =  Appointments::create($request->all());
@@ -324,16 +326,29 @@ class RecordModuleController extends Controller
          if($insert){
             if($request->charges != "0"){
 
-                $chargeSum= Hospital_charges::find($request->charges);               
+                $chargeSum= Hospital_charges::find($request->charges);   
+
                 $hmoNo= Hmo::find($insert->hmo_id);
 
-                $discount_amount = $hmoNo->discount_1 * $chargeSum->charge_amount / 100;
+                if ($chargeSum->care_type == 'primary') {
+                    $discout_percent= $hmoNo->discount_1;
+                }
+                if ($chargeSum->care_type == 'secondary') {
+                    $discout_percent= $hmoNo->discount_2;
+                }
+                if ($chargeSum->care_type == 'others') {
+                    $discout_percent= $hmoNo->discount_3;
+                }
+
+                $discount_amount = $discout_percent * $chargeSum->charge_amount / 100;
                 $total_amount = $chargeSum->charge_amount - $discount_amount;
 
                 $voucherId= Vouchers::create(
                     [
                         'module_id' => $request->appointment_type,
                         'quantity' => 1,
+                        'amount' => $chargeSum->charge_amount,
+                        'charges' => $discout_percent,
                         'amount' => $chargeSum->charge_amount,
                         'discount_id'=> $hmoNo->hmo_no,
                         'discount_amount'=>  $discount_amount,
@@ -357,7 +372,7 @@ class RecordModuleController extends Controller
                             'balance' => $total_amount,
                             'nhis_no'=> $Customer_id->h_n_i_s,
                             'hmo_no'=> $hmoNo->hmo_no,
-                            'discount_percentage'=> $hmoNo->discount_1,
+                            'discount_percentage'=> $discout_percent,
                             'discount_amount'=> $discount_amount,
                             'total_amount' => $total_amount,
                             'status' => 'open',

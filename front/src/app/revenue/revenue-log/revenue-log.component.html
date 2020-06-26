@@ -64,13 +64,12 @@
                                         <tr> 
                                             <th style="width: 20px;">#</th>
                                             <th style="width: 20px;">Voucher No</th>                                           
-                                            <th >Department</th>                                            
+                                            <th >Service Type</th>                                            
                                             <th class="w100">Date/Time</th>                                            
                                             <th class="w60">Amount</th>
-                                            <th class="w60">Charges</th>
-                                            <th class="w60">Discount</th>
+                                            <th class="w60">Discount %</th>                                            
                                             <th class="w60">Total Amount</th>
-                                            <th class="w60">Balance</th>
+                                            <th class="w60">Paid</th>
                                             <th class="w60">Status</th>
                                             <th class="w60">Action</th>
                                         </tr>
@@ -83,25 +82,27 @@
                                             <td>{{v.id}}</td>                                         
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div>
+                                                    <!-- <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>PH</span></div> -->
                                                     <div class="ml-3">
-                                                        <a href="javascript:void(0);"  title="">{{v.d_name}}</a>
-                                                        <p class="mb-0">{{v.br_name}}</p>
+                                                        <a href="javascript:void(0);"  title="">{{v.module}}</a>
+                                                        <!-- <p class="mb-0">{{v.br_name}}</p> -->
                                                     </div>
                                                 </div>                                        
                                             </td>                                            
                                             <td>{{v.created_at}}</td>
-                                            <td>{{v.amount}}</td>
-                                            <td>{{v.charges}}</td>
-                                            <td>{{v.discount_id}}</td>
-                                            <td>{{v.paid | currency:'NGN':'symbol-narrow'}}</td>
-                                            <td>{{v.balance | currency:'NGN':'symbol-narrow'}}</td>
+                                            <td>{{v.amount | currency:'NGN':'symbol-narrow'}}</td>                                            
+                                            <td>{{v.charges}}%</td>
+                                            <td><span class="badge badge-danger ml-0 mr-0">{{v.balance | currency:'NGN':'symbol-narrow'}}</span></td>
+                                            <td><span class="badge badge-success ml-0 mr-0">{{v.paid | currency:'NGN':'symbol-narrow'}}</span></td>                                            
                                             <td *ngIf="v.paid_status == 'open'"><span class="badge badge-warning ml-0 mr-0">{{v.paid_status}}</span></td>
                                             <td *ngIf="v.paid_status == 'paid'"><span class="badge badge-success ml-0 mr-0">{{v.paid_status}}</span></td>
                                             <td *ngIf="v.paid_status == 'terminate'"><span class="badge badge-danger ml-0 mr-0">Terminated</span></td>
                                             <td>
-                                                <!-- <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope text-info"></i></button> -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPay(v.id, 'slip', '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                                <!-- invoice botton for service Charges -->
+                                                <!-- <button *ngIf="v.module_id == '2'" type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPayCharges(v.id, 'slip', '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp; -->
+                                                <!-- invoice botton for Pharmacy -->
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPay(v.id, 'slip', v.module_id, '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                               
                                                 <button type="button" class="btn btn-sm btn-default" title="Label" data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#plabel"><i class="icon-printer"></i> Label</a></button> &nbsp;
                                                 <button type="button" class="btn btn-sm btn-default" title="councle" data-placement="top"><a class="text text-danger" data-toggle="tab" data-target="#cancelPay"  href="#EmployeeSalary"><i class="icon-trash"></i> Cancel</a></button>
                                             </td>
@@ -161,7 +162,7 @@
                                 <div class="row clearfix">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-custom spacing5">
+                                            <table class="table table-hover table-custom spacing5" *ngIf = "invoiceModule == 'pharmacy'">
                                                 <thead>
                                                     <tr>
                                                         <th class="w60">#</th>
@@ -173,7 +174,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody *ngIf="isEmpty !='0'">
-                                                    <tr *ngFor="let i of pres; let n =index">
+                                                    <tr *ngFor="let i of pres; let n = index">
                                                     
                                                             <!-- <ng-container *ngIf = "i.status == 'invoice'" > -->
                                                                 <td>{{n+1}}</td>
@@ -193,21 +194,19 @@
                                                 </div>
                                              
                                                 <div *ngIf="!inv">
-                                                    
                                                     <div class="spinner-grow text-primary" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                            <div class="spinner-grow text-secondary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <div class="spinner-grow text-success" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                    </div>
-                                                  </div> 
-                                                  <tfoot>
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="spinner-grow text-secondary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div> 
+                                                <tfoot>
                                                     <tr>
                                                         <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
-                                                        
                                                         <td>
                                                           Sub Total: <br>
                                                           Discount %:<br>
@@ -221,9 +220,65 @@
                                                           <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                       </td>
                                                     </tr>
-                                                    
-                                                  </tfoot>
-                                              </table>
+                                                </tfoot>
+                                            </table>
+
+                                            <table class="table table-hover table-custom spacing5" *ngIf = "invoiceModule == 'other'">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="w60">#</th>
+                                                        <th>Department</th>
+                                                        <th>Service Charge Name</th>
+                                                        <th class="w100">Amount</th>
+                                                        <th>Total Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="isEmpty !='0'">
+                                                    <tr *ngFor="let i of pres; let n = index">
+                                                        <td>{{n+1}}</td>                                                          
+                                                        <td>
+                                                            <p class="hidden-sm-down mb-0 text-muted"> {{i.department}}</p>
+                                                        </td> 
+                                                        <td>
+                                                            <p class="hidden-sm-down mb-0 text-muted"> {{i.service_charge_name}}</p>
+                                                        </td>    
+                                                        <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
+                                                        <td class="hidden-sm-down">{{i.total_amount  | currency:'NGN':'symbol-narrow'}}</td>
+
+                                                    </tr>
+                                                  </tbody>
+                                                  <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
+                                                    No Invoice
+                                                </div>
+                                             
+                                                <div *ngIf="!inv">
+                                                    <div class="spinner-grow text-primary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="spinner-grow text-secondary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div> 
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
+                                                        <td>
+                                                          Sub Total: <br>
+                                                          Discount %:<br>
+                                                          Total: <br>
+                                                      </td>
+                                                      <td>
+                                                          <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-warning">{{schemePercentToView}}%</strong><br>
+                                                          <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                      </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
                                         </div>
                                     </div>
                                 </div>

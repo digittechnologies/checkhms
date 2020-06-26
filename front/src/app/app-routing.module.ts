@@ -94,7 +94,7 @@ import { PhamUserComponent } from './dashboard/pharmacy_dept/pham-user/pham-user
 //RECORDS
 import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
-import { RecordChargeComponent } from './record/record-charge/record-charge.component'; 
+import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component'; 
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 
 //CLINIC
@@ -170,7 +170,7 @@ const routes: Routes = [
         {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [] },
         {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [] },
         {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [] },
-        {path: 'record_charges', component:RecordChargeComponent, outlet: 'side',canActivate: [] },
+        {path: 'record_charges', component:ClinicServiceComponent, outlet: 'side',canActivate: [] },
         {path: 'appointment_type', component:AppointmentTypeComponent, outlet: 'side',canActivate: [] },
         //RECORDS END
 

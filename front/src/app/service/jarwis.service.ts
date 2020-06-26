@@ -914,8 +914,14 @@ deleteAppointment(data) {
     }})
   } 
 
-  displayPharmInvoice(id: any, vid:any ,data) {
-    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}/${vid}`,data,{headers:{
+  displayServiceChargeInvoice(id: any, vid:any ,data) {
+    return this.http.post<any>(`${this.baseUrl}/displayServiceChargeInvoice/${id}/${vid}`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  } 
+
+  displayPharmInvoice(id: any, vid:any, module_id:any, data) {
+    return this.http.post<any>(`${this.baseUrl}/displayPharmInvoice/${id}/${vid}/${module_id}`,data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   } 

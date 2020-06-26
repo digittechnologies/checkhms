@@ -227,13 +227,16 @@ Route::post('editapp','DisplayController@editAppoint');
 Route::post('relocateapp','DisplayController@relocateApp');
 Route::get('getnewappoint/{id}','DisplayController@getNewappoint');
 
+
+
 //Doctor Prescriptions
 Route::get('edtPrescription/{id}','DisplayController@edtPrescription');
 Route::get('displayPrescription','DisplayController@displayPrescription');
 Route::post('addPrescription', 'AddController@addPrescription');
 Route::post('updatePrescription', 'AddController@updatePrescription');
 Route::post('deletePrescription/{id}', 'AddController@deletePrescription');
-Route::post('displayPharmInvoice/{id}/{vid}','DisplayController@displayPharmInvoice');
+Route::post('displayPharmInvoice/{id}/{vid}/{moduleid}','DisplayController@displayPharmInvoice');
+Route::post('displayServiceChargeInvoice/{id}/{vid}','DisplayController@displayServiceChargeInvoice');
 Route::get('displayAllInvoice/{id}','DisplayController@displayAllInvoice');
 Route::post('pharmPriscription', 'AddController@pharmPriscription');
 Route::post('saveTovoucher/{id}', 'AddController@saveTovoucher');
