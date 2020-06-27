@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import {FormBuilder,Validator} from "@angular/forms"
+import { JsonPipe } from '@angular/common';
 // import { $ } from 'protractor';
 declare var $:any;
 
@@ -43,6 +44,22 @@ export class ProccessSettingsComponent implements OnInit {
     sugestion:any
     comment:any
     form_res:any;
+    filteredStreets:any;
+  value_options: any;
+  options: any;
+  form_id: any;
+  datas: any;
+  property_res: any;
+  propertyId: any;
+  propertyName: any;
+  attribute_res: any;
+  attributeId: any;
+  attributeName: any;
+  process_value_res: any;
+  process_valueId: any;
+  process_valueName: any;
+  attributeDesc: any;
+  process_valueDesc: any;
   
 
 
@@ -139,6 +156,7 @@ export class ProccessSettingsComponent implements OnInit {
 
    onSaveProcessValue(form: NgForm) {
     this.disabled = true;
+    console.log(form.value)
      this.Jarwis.addProcessValues(form.value).subscribe(     
        data => this.handleResponse(data),
        error => this.handleError(error),            
@@ -153,13 +171,22 @@ export class ProccessSettingsComponent implements OnInit {
           this.normal_range = response.normal_range
           this.unit= response.unit;
           this.comment = response.comment
-          if (response.value_option) {
-            let v_opt = JSON.parse(response.value_option)
-            this.value_option =v_opt.join(',');
-          }
-          else{
-            this.value_option=''
-          }
+          this.value_option  = response.value_option
+          if (response.options) {
+            let vp = JSON.parse(response.options)
+            this.options = vp.join() 
+           }
+           else{
+            this.options=''
+           }
+          
+          if (response.value_options) {
+            let vp = JSON.parse(response.value_options)
+            this.value_options = vp.join() 
+           }
+           else{
+            this.value_options=''
+           }
            if (response.suggestion) {
             let sug = JSON.parse(response.suggestion)
             this.sugestion = sug.join() 
@@ -170,11 +197,23 @@ export class ProccessSettingsComponent implements OnInit {
      }
    )
   }
+  parse(e){
+   this.filteredStreets = JSON.parse(e)
+  }
    onSaveProcessValues(form:NgForm){
-    var array = form.value.sugestion.split(',');
-    form.value.sugestion= JSON.stringify(array);
-    var array2 = form.value.value_option.split(',');
-    form.value.value_option=JSON.stringify(array2);
+     console.log(form.value)
+     if(form.value.sugestion){
+      var array = form.value.sugestion.split(',');
+      form.value.sugestion= JSON.stringify(array);
+     }
+     if(form.value.value_options){
+      var array2 = form.value.value_options.split(',');
+      form.value.value_options= JSON.stringify(array2);
+    }
+    if(form.value.options){
+      var array3 = form.value.options.split(',');
+      form.value.options= JSON.stringify(array3);
+    }
     this.Jarwis.addValues({form:form.value,id:this.value_id}).subscribe(     
       data => this.handleResponse(data),
       error => {this.handleError(error)
@@ -183,22 +222,127 @@ export class ProccessSettingsComponent implements OnInit {
 
     );   
    }
+   editProperty(id: string) {
+    this.Jarwis.editProperty(id).subscribe(
+      data=>{      
+        this.property_res = data; 
+        this.propertyId= id
+        this.propertyName= this.property_res[0].property;
+      })
+  }
+  editAttribute(id: string) {
+    this.Jarwis.editAttribute(id).subscribe(
+      data=>{      
+        this.attribute_res = data; 
+        this.attributeId= id
+        this.attributeName= this.attribute_res[0].attribute;
+        this.attributeDesc = this.attribute_res[0].description; 
+      })
+  }
+  editProcessValue(id: string) {
+    this.Jarwis.editProcessValue(id).subscribe(
+      data=>{      
+        this.process_value_res = data; 
+        this.process_valueId= id
+        this.process_valueName= this.process_value_res[0].value;
+        this.process_valueDesc = this.process_value_res[0].description;
+      })
+  }
+
+  onEditProperty(form: NgForm){
+    this.disabled = true;
+    form.value.id=this.propertyId
+    this.Jarwis.updateProperty(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    ); 
+  }
+  onEditAttribute(form: NgForm){
+    this.disabled = true;
+    form.value.id=this.attributeId
+    this.Jarwis.updateAttribute(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    );   
+  }
+  onEditProcessValue(form: NgForm){
+    this.disabled = true;
+    form.value.id=this.process_valueId
+    this.Jarwis.updateProcessValue(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error),  
+    ); 
+  }
+
    fetchForms(){
      this.Jarwis.fetchForm().subscribe(
        data=>{
-         let res = data
-         this.testingform = res
+         let res:any = data
+         this.testingform = res.form;
+          let dt:any = res.datas[1];
+          if (dt.value_option) {
+            let vp = JSON.parse(dt.value_option)
+            dt.value_option = vp
+          }
+          else{
+            dt.value_option=''
+          }
+          console.log(dt)
+         this.datas = dt;
+         console.log(this.datas.value_option)
        }
      )
    }
    formValue(id){
+     this.form_id =  id;
      this.Jarwis.formvalue(id).subscribe(
        data=>{
-       let reses = data;
+       let reses:any = data;
+       for (let index = 0; index < reses.length; index++) {
+         console.log(reses[index].value_options)
+        if (reses[index].value_options) {
+          let vp = JSON.parse(reses[index].value_options)
+          reses[index].value_options= vp 
+         }
+         else{
+          reses[index].value_options=''
+         }
+         if (reses[index].suggestion) {
+          let vp = JSON.parse(reses[index].suggestion)
+          reses[index].suggestion = vp
+         }
+         else{
+          reses[index].suggestion=''
+         }
+         if (reses[index].options) {
+          let vp = JSON.parse(reses[index].options)
+          reses[index].options = vp
+         }
+         else{
+          reses[index].options=''
+         }
+         
+       }
+       
+       console.log(reses)
        this.form_res = reses;
        }
      )
    }
+   onSaveTestingProcessValue(form:NgForm){
+      //  event.preventDefault();
+      // const data = form.value.toString()
+      // form.value.process_value_tb_id = this.form_id
+         const data = Object.entries(form.value)
+        //  const dt = JSON.stringify(data)
+      //   const formData = form.value;
+      // const data = [...formData.entries()];
+      // console.log(dt);
+      this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
+        data=>{
+        this.response = data;  
+    })
+  }
   handleResponse(data) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000

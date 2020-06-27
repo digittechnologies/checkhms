@@ -2071,6 +2071,36 @@ class DisplayController extends Controller
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
         ->get();
     }
+
+    public function editProperty($id)
+    {
+        return response()->json(
+            DB::table('process_tb')->orderBy('id')->select('process_tb.*')     
+            ->where('process_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+
+    public function editAttribute($id)
+    {
+        return response()->json(
+            DB::table('process_attribute_tb')->orderBy('id')->select('process_attribute_tb.*')     
+            ->where('process_attribute_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+    public function editProcessValue($id)
+    {
+        return response()->json(
+            DB::table('process_value_tb')->orderBy('id')->select('process_value_tb.*')     
+            ->where('process_value_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+
     public function Value($id)
     {
         return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
@@ -2082,12 +2112,16 @@ class DisplayController extends Controller
     public function fetchForm()
     {
         $user = Auth()->user();
-        $id = $user->dept_id;
-        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
-        ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
-        ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
-        ->where('process_tb.department_id',$id)
-        ->get();
+        // $id = $user->posi;
+        return  response()->json([
+           "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+            ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+            ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+            ->where('process_tb.position_id',9)
+            ->get(),
+            "datas" => DB::table("form_process")->get()
+
+        ]);
     }
     public function formvalue($id)
     {

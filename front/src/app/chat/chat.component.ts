@@ -226,6 +226,11 @@ export class ChatComponent implements OnInit,OnDestroy {
     this.group_id = 0;
      this.receiveMessage = this.receiveMessageChange ;
      this.receiveGroupMessage =this.receiveGroupMessageChange
+     this.receiveMessage =[]
+  this.receiveMessage=[{sender:0, message:'',receiver:0,firstname:'',lastname:'',image:''}]
+  this.receiveMessageChange = [{sender:0, message:'',receiver:0,firstname:'',lastname:'',image:''}]
+
+
   }
   Addmembers(){
     this.chat.Showusers(this.group_id)
