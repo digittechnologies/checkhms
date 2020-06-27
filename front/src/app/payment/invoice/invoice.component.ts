@@ -101,7 +101,7 @@ setting:any;
     this.invoice=this.appointments[0].invoice
   })
 
-  this.Jarwis.displayPharmInvoice(this.appointID, 'inv', '').subscribe(
+  this.Jarwis.displayPharmInvoice(this.appointID, 'inv', 4, '').subscribe(
     data=>{
     this.PharmPreresponse = data;    
     this.inv = this.PharmPreresponse; 

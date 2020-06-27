@@ -101,7 +101,6 @@ import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 import { RecordsComponent } from './dashboard/records/records.component';
-import { RecordChargeComponent } from './record/record-charge/record-charge.component';
 import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
 import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
@@ -279,8 +278,6 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     PatDetailComponent,
   
     RecordsComponent,
-
-    RecordChargeComponent,
   
     ClinicServiceComponent,
   

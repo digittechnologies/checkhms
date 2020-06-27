@@ -119,11 +119,11 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#info">Patient Informations</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Basic">Appointments</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Make Consultation</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Book">Book Appointment</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Add to Insurance</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Order Service</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Book">Book Service</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Activat Discount</a></li>
                                     <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Patient Profile</a></li>
-                                    <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#set_insurance">Set Insurance</a></li>
+                                    <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#set_insurance">Set Payment Mode</a></li>
                                   
                                 </ul>
                             </div>
@@ -444,7 +444,7 @@
                             <div class="tab-pane" id="Account">
                                 <div class="card">
                                     <div class="header">
-                                        <h2>Make Consultation</h2>
+                                        <h2>Order Service</h2>
                                     </div>
                                     <div class="body">
                                         <form role="form" (ngSubmit)="onSubmitApp(apt)" #apt="ngForm"> 
@@ -459,7 +459,7 @@
                                                     <label class="fancy-radio custom-color-green">Appointment Type</label>  
                                                     <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
                                                         <option>--Appointment_type--</option>                                                    
-                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.module}}</option>                                                      
+                                                            <option *ngFor="let apt4 of appointment_ty" value="{{apt4.id}}">{{apt4.module}}</option>                                                      
                                                                                                              
                                                     </select>
                                                 </div>
@@ -507,6 +507,31 @@
                                                     </select>
                                                 </div>
 
+                                                <div *ngIf="ini_cate_id == 1"  class="col-lg-6 col-md-12">
+                                                    <label>Enable Discount</label>
+                                                    <br />
+                                                    <label class="fancy-radio">
+                                                        <input type="radio" ngModel name="insurance_status" value="disabled" checked >
+                                                        <span><i></i>disabled</span>
+                                                    </label>
+                                                    <label class="fancy-radio custom-color-green">
+                                                        <input disabled type="radio" name="insurance_status" value="enabled">                                                     
+                                                        <span><i></i>Enable</span>
+                                                    </label>                                                   
+                                                </div>
+                                                <div *ngIf="ini_cate_id == 2"  class="col-lg-6 col-md-12">
+                                                    <label>Enable Discount</label>
+                                                    <br />
+                                                    <label class="fancy-radio">
+                                                        <input type="radio" ngModel name="insurance_status" value="disabled" checked >
+                                                        <span><i></i>disabled</span>
+                                                    </label>
+                                                    <label class="fancy-radio custom-color-green">
+                                                        <input type="radio" ngModel name="insurance_status" value="enabled">                                                     
+                                                        <span><i></i>Enable</span>
+                                                    </label>                                                   
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Note</label>  
                                                     <textarea ngModel name="note" type="text" style="text-decoration: none;" class="form-control" value="" ></textarea>
@@ -539,7 +564,7 @@
                                                     <label class="fancy-radio custom-color-green">Appointment Type</label>  
                                                     <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
                                                         <option>--Appointment_type--</option>                                                    
-                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                      
+                                                            <option *ngFor="let apt3 of appointment_ty" value="{{apt3.id}}">{{apt3.name}}</option>                                                      
                                                                                                              
                                                     </select>
                                                 </div>
@@ -616,7 +641,7 @@
                                         <h2>Add to Insurance</h2>
                                     </div>
                                     <div class="body">
-                                        <form role="form" (ngSubmit)="onSubmitApp(apt)" #apt="ngForm"> 
+                                        <form role="form" (ngSubmit)="onSubmitApp(apt2)" #apt2="ngForm"> 
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
@@ -672,7 +697,7 @@
                                                     <label class="fancy-radio custom-color-green">Scheme Number</label>  
                                                     <select class="form-control" (change)="onChange1($event)" ngModel name="appointment_type">
                                                         <option>--Appointment_type--</option>                                                    
-                                                            <option *ngFor="let apt of appointment_ty" value="{{apt.id}}">{{apt.name}}</option>                                                      
+                                                            <option *ngFor="let apt5 of appointment_ty" value="{{apt5.id}}">{{apt5.name}}</option>                                                      
                                                                                                              
                                                     </select>
                                                 </div>

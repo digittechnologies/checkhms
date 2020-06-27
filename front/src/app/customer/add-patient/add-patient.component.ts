@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
 declare let $: any ;
+declare let form_wizard: any ;
+declare let steps: any ;
 
 @Component({
   selector: 'app-add-patient',
@@ -61,6 +63,9 @@ export class AddPatientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    new form_wizard();
+    new steps();
     this.Jarwis.displayCustomerCategory().subscribe(
         data=>{
         this.response = data;      
@@ -73,14 +78,16 @@ export class AddPatientComponent implements OnInit {
         this.hostitalNum = this.response   
       })
     }
-
+  clicked(){
+    alert()
+  }
   showAge(d) {
     let dob = d.target.value;
     let dobIndex = dob.indexOf("-");
     let getYear = dob.slice(0, dobIndex)
     let age = new Date().getFullYear() - getYear;
     if(age<0){
-      alert('Invalid Dat of Birth');
+      alert('Invalid Date of Birth');
       dob.focus();
     }else{
       this.age = age;

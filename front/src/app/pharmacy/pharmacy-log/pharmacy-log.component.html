@@ -152,7 +152,7 @@
         <div class="row clearfix">
 
 <div class="col-lg-3 col-md-4 col-sm-6" id="patient-log" *ngFor= "let l of log">
-    <div *ngIf="l.pharm_status == 'open'" class="card c_grid c_blue">        
+    <div *ngIf="l.insurance_status == 'enabled'" class="card c_grid c_green">        
         <div class="body text-center p-1 ">
             <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
                 <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
@@ -163,13 +163,13 @@
                 </div>
                 <div class="ribbon col-12">
                 <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-                 <small  class="text-light"> {{l.status}}</small> 
+                 <small  class="text-light"> {{l.service_flow}}</small> 
                </div>
                <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-                <small  class="text-light"> {{l.status}}</small> 
+                <small  class="text-light"> {{l.service_flow}}</small> 
                </div>
                <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-                <small  class="text-light"> {{l.status}}</small> 
+                <small  class="text-light"> {{l.service_flow}}</small> 
                </div>
                 </div>
                 </div>
@@ -204,7 +204,7 @@
     </div>  
 </div> 
 
-<div *ngIf="l.pharm_status == 'part-payment'" class="card c_grid c_yellow">        
+<div *ngIf="l.insurance_status == 'disabled'" class="card c_grid c_yellow">        
     <div class="body text-center p-1 ">
         <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
             <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
@@ -215,13 +215,13 @@
             </div>
             <div class="ribbon col-12">
             <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-             <small  class="text-light"> {{l.status}}</small> 
-           </div>
-           <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-            <small  class="text-light"> {{l.status}}</small> 
-           </div>
-           <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-            <small  class="text-light"> {{l.status}}</small> 
+                <small  class="text-light"> {{l.service_flow}}</small> 
+            </div>
+            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
+             <small  class="text-light"> {{l.service_flow}}</small> 
+            </div>
+            <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
+             <small  class="text-light"> {{l.service_flow}}</small> 
            </div>
             </div>
             </div>
@@ -257,7 +257,7 @@
 </div>  
 </div>
 
-<div *ngIf="l.pharm_status == 'full-payment'" class="card c_grid c_green">        
+<div *ngIf="l.insurance_status == 'unknow'" class="card c_grid c_blue">        
     <div class="body text-center p-1 ">
         <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
             <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
@@ -268,13 +268,13 @@
             </div>
             <div class="ribbon col-12">
             <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-             <small  class="text-light"> {{l.status}}</small> 
-           </div>
-           <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-            <small  class="text-light"> {{l.status}}</small> 
-           </div>
-           <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-            <small  class="text-light"> {{l.status}}</small> 
+                <small  class="text-light"> {{l.service_flow}}</small> 
+            </div>
+            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
+             <small  class="text-light"> {{l.service_flow}}</small> 
+            </div>
+            <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
+             <small  class="text-light"> {{l.service_flow}}</small>  
            </div>
             </div>
             </div>
