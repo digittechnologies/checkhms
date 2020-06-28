@@ -1,0 +1,9 @@
+
+@media screen and (min-width:768px){
+    .card{height:500px;}
+    .body{height:500px;}
+    .chatapp_list{height:100%;}
+    .meb{ height:80%; overflow: auto; }
+    .chatapp_body{height:100%;}
+    .chat-history{height:75%;overflow: auto;}
+}

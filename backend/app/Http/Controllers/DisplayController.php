@@ -78,7 +78,12 @@ class DisplayController extends Controller
         ] 
         ); 
     }
-
+    public function fetchteam()
+    {
+        return response()->json(
+            DB::table('team_tb')->select('team_name','id',)->where('id','!=',0)->get()
+        ); 
+    }
     public function mydetails()
     {
         $id= Auth()->user()->id;

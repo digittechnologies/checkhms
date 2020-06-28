@@ -172,7 +172,7 @@
                                   <td>
                                       {{r+1}}
                                   </td>                              
-                                  <td style="color: #17C2D7;" data-toggle="modal" data-target="#Pulse" (click)="value(propVal.id)">{{propVal.value}}</td>
+                                  <td style="color: #17C2D7;" data-toggle="modal" title="add properties" data-target="#Pulse" (click)="value(propVal.id)">{{propVal.value}}</td>
                                   <td>{{propVal.attribute}}</td>
                                   <td>{{propVal.description}}</td>
                                   <td>{{propVal.firstname}} {{propVal.lastname}}</td>    
@@ -353,10 +353,11 @@
                           </div> 
                           <select class="custom-select text-light" [(ngModel)]="value_type" name="value_type"> 
                               <option value="">--Select value type</option>
-                              <option value="number">Number</option>
-                              <option value="text">Text</option>
-                              <option value="radio">Radio</option>
-                              <option value="checkbox">Check</option>
+                              <option value="number">Number input</option>
+                              <option value="text">Text input</option>
+                              <option value="textarea">Textarea</option>
+                              <option value="radio">Radio input</option>
+                              <option value="checkbox">Checkbox input</option>
                           </select>       
                       </div>                  
                       </div>
@@ -442,7 +443,7 @@
         </div>             
     </div>
 </div>  
-<div  *ngIf="value_type == 'radio' || value_type == 'checkbox' || value_type == 'text' " class="modal-body">             
+<div  *ngIf="value_type == 'radio' || value_type == 'checkbox'" class="modal-body">             
   <div class="row clearfix">
       <div class="col-md-8">
           <div class="form-group">                      

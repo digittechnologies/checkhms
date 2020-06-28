@@ -1237,5 +1237,9 @@ ondeleteHmo(id) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
-
+ fetchteam() {
+  return this.http.get<any>(`${this.baseUrl}/fetchteam`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
 }

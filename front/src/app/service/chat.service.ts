@@ -265,4 +265,54 @@ groupMessages(){
   })
   return observable
 }
+
+
+
+
+
+
+
+
+createTeamRiview(data){
+  this.socket.emit('create team review',data)
+}
+ TeamRiviewCreated(){
+  let observable = new Observable<{message:String,members:any}>(observer=>{
+    this.socket.on('team review created',(data)=>{
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  return observable;
+}
+fetchReview(data){
+  this.socket.emit("fetch team review",data)
+}
+allReview(){
+  let observable = new Observable<{rows:any}>(observer=>{
+    this.socket.on('all team review',(data)=>{
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  return observable;
+}
+
+reviewMessages(data){
+  console.log(data)
+  this.socket.emit("review messages",data)
+}
+rievewDetails(){
+  let observable = new Observable<{admin:any,members:any,messages:any}>(observer=>{
+    this.socket.on('review details',(data)=>{
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  return observable;
+}
+
 }

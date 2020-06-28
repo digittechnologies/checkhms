@@ -2991,7 +2991,7 @@ public function addCenter(Request $request)
     public function addProcessProperties(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->property = strtoupper( $request->property);
         $create_process = DB::table('process_tb')->insertGetId([
                 'position_id' => $request->position_id,
                 'property' => $request->property,
@@ -3014,7 +3014,7 @@ public function addCenter(Request $request)
     public function addProcessAttributes(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->attribute = strtoupper($request->attribute); 
         $create_process_attribute = DB::table('process_attribute_tb')->insertGetId(
             [
                 'process_id' => $request->process_id,
@@ -3036,35 +3036,10 @@ public function addCenter(Request $request)
         } 
     }
 
-    public function addProcessModules(Request $request)
-    {
-        $created_by= Auth()->user()->id;
-
-        $create_process_module= DB::table('process_module_tb')->insertGetId(
-            [
-                'module_name' => $request->module_name,
-                'description' => $request->description,
-                'status' => $request->status,
-                'created_by' => $created_by
-            ]); 
-
-        if ($create_process_module) {
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"failed"
-            }' ;
-        } 
-    }
-
     public function addProcessValues(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->value = strtoupper($request->value); 
         $create_process_value = DB::table('process_value_tb')->insertGetId(
             [
                 'process_attribute_id' => $request->process_attribute_id,
@@ -3091,6 +3066,7 @@ public function addCenter(Request $request)
     {
         // return $request->id;
         $created_by= Auth()->user()->id;
+       
         if ($request->form['value_type'] == 'number') {
             $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
                 [
@@ -3102,17 +3078,16 @@ public function addCenter(Request $request)
                     'updated_by' => $created_by
                 ]); 
         }
-        if ($request->form['value_type'] == 'text') {
+        if ($request->form['value_type'] == 'text' ||$request->form['value_type'] == 'textarea') {
             $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
                 [
                     'suggestion' =>$request->form['sugestion'],
                     'value_type' =>$request->form['value_type'],
                     'value_option' => $request->form['value_option'],
-                    'options' => $request->form['options'],
                     'updated_by' => $created_by
                 ]); 
         }
-           if ($request->form['value_type'] == 'radio' || $request->form['value_type'] == 'checkbox') {
+           if ($request->form['value_type'] == 'radio' || $request->form['value_type'] == 'checkbox') {                                
                $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
                    [
                        'value_type' =>$request->form['value_type'],
@@ -3138,17 +3113,6 @@ public function addCenter(Request $request)
 
     public function submitProcessVals(Request $request)
     {
-        // return  $request;
-        // $data = $request->all(); 
-     
-    //   return   DB::table('form_process')->insert([
-            // 'value_option'=>$data,
-            // 'position_id'=>1,
-            // 'user_id'   =>4,
-            // 'value-options' => '',
-            // 'options'   => '',
-            // 'process_value_tb_id' => 9
-        // ]);
         $value_option = array();
         $process_id = array();
         $requests = $request->all();
@@ -3161,10 +3125,6 @@ public function addCenter(Request $request)
                     }
                 }
             }
-            // return response()->json([
-            //     $value_option,
-            //     $process_id,
-            // ]);
             DB::table('form_process')->insert([
                 'position_id'=>1,
                 'user_id'   =>4,

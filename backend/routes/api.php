@@ -86,6 +86,8 @@ Route::post('edtAssign','AddController@edtAssign');
 Route::get('staffdepartment/{id}','DisplayController@staffdepartment');
 Route::get('deptModules/{id}','DisplayController@deptModules');
 Route::get('dashDeptModules/{id}','DisplayController@dashDeptModules');
+Route::get('fetchteam','DisplayController@fetchteam');
+
 
 
 
