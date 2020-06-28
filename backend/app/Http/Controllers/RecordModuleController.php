@@ -301,24 +301,28 @@ class RecordModuleController extends Controller
             if($request->appointment_type == "2"){
                 $request->merge(['clinic_id' => $request->center_id]);
                 $request->merge(['clinic_status' => 'open']);
+                $request->merge(['service_flow' => 'Clinic']);
             }
             
             if($request->appointment_type == "3"){           
                 $request->merge(['investigation_status' => 'open']);
+                $request->merge(['service_flow' => 'Investigation']);
             }
 
             if($request->appointment_type == "4"){
                 $request->merge(['pharm_id' => $request->center_id]);
                 $request->merge(['pharm_status' => 'open']);
+                $request->merge(['service_flow' => 'Pharmacy']);
             }
 
             if($request->appointment_type == "5"){
                 $request->merge(['record_status' => 'open']);
+                $request->merge(['service_flow' => 'Record']);
             }
 
             if($request->charges != "0"){
                 $request->merge(['revenue_status' => 'open']);
-                $request->merge(['service_flow' => 'Clinic: Payment']);
+                $request->merge(['service_flow' => 'Revenue']);
             }
 
             $insert =  Appointments::create($request->all());
@@ -370,7 +374,7 @@ class RecordModuleController extends Controller
                             'dept_id' => $chargeSum->dept_id,
                             'amount' => $chargeSum->charge_amount,
                             'balance' => $total_amount,
-                            'nhis_no'=> $Customer_id->h_n_i_s,
+                            'nhis_no'=> $Customer_id->n_h_i_s,
                             'hmo_no'=> $hmoNo->hmo_no,
                             'discount_percentage'=> $discout_percent,
                             'discount_amount'=> $discount_amount,
