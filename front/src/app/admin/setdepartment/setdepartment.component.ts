@@ -81,23 +81,10 @@ editdept(id: string) {
     })
 }
 
-onUpdate(form: NgForm) {
-
-  
-  form.value.id=this.deptid
-  //  console.log(form)
-  this.Jarwis.updateDept(form.value).subscribe(  
-      
-    data => this.handleResponse(data),
-    error => this.handleError(error), 
-    
-  );  
-}
-
 onDelete(id: string) {
   if(confirm('This can\'t be revert after deleted')){
 
-    this.Jarwis.deleteDept(id).subscribe(  
+    this.Jarwis.suspendCenter(id).subscribe(  
         
       data => this.handleResponse(data),
       error => this.handleError(error), 

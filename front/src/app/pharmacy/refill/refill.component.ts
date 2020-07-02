@@ -13,8 +13,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./refill.component.css']
 })
 export class RefillComponent implements OnInit {
-  response: Object;
-  refill: Object;
+  response: any;
+  refill: any;
+  permission: string;
+  permission_module: any;
+  res: any;
 
   constructor(
     private http: HttpClient,
@@ -27,6 +30,19 @@ export class RefillComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.permission = this.router.url;
+    this.Jarwis.profile().subscribe(
+      data=>{
+        this.response = data
+        this.permission_module = this.response.module
+        console.log(this.permission_module)
+      let respo = this.permission.slice(13,-1)
+        this.res =  this.permission_module.find(e=>{
+           return e.link = respo;
+         })
+         console.log(this.res)
+      }
+    )
     this.Jarwis.displayRefill().subscribe(
       data=>{
       this.response = data;      

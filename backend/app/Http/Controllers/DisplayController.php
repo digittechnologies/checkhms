@@ -28,6 +28,8 @@ use App\Role;
 use App\Duration;
 use App\Hospital_charges;
 use App\Centers;
+use App\Service_charges;
+use App\Hmo;
 
 // Today's date working with displayItem,
 
@@ -50,13 +52,31 @@ class DisplayController extends Controller
     //staff
     public function staffdetails($id)
     {
+        $pos_id = DB::table('users')->where('id',$id)->select('position_id')->get();
         return response()->json(
-        
-            User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
+        [
+           'user' => User::orderBy('id')->join ('departments','users.dept_id','=','departments.id')
             ->join('roles','users.role_id','=','roles.id')
-            ->select('users.*', 'departments.position_id', 'departments.name AS nameD', 'roles.name AS role_name')
+            ->join('team_tb','users.team_id','=','team_tb.id')
+            ->join('rank_tb','users.rank_id','=','rank_tb.id')
+            ->join('positions','users.position_id','=','positions.id')
+            ->join('branches','users.branch_id','=','branches.id')
+            ->select('users.*', 'roles.name AS role_name','departments.name AS departmentName','branches.name AS centerName','branches.id AS center_id','positions.position_name AS positionName','roles.id AS roleId','team_tb.team_name AS teamName','team_tb.id AS teamId','rank_tb.rank_name AS rankName','rank_tb.id AS rankId')
             ->where('users.id','=',$id)          
-            ->get() 
+            ->get(),
+            'teams' =>DB::table('team_tb')->get(),
+            'ranks' =>DB::table('rank_tb')->get(),
+            'roles' =>DB::table('roles')->get(),
+            'permitions' => DB::table('component_tb')
+            ->join('permission_tb','component_tb.id','=','permission_tb.component_id')
+            ->where('permission_tb.user_id',$id)
+            ->get(),
+            'centers' => DB::table('branches')->get(),
+            'newPermitios' => DB::table('component_tb')->join('possition_module','component_tb.id','=','possition_module.component_id')
+            ->where('possition_module.position_id',$pos_id[0]->position_id)
+            ->select('component_tb.component_name','component_tb.description','component_tb.id')
+            ->get()
+        ] 
         ); 
     }
 
@@ -132,26 +152,53 @@ class DisplayController extends Controller
            "dept" => DB::table('possition_module')
             ->join('component_tb','possition_module.component_id','=','component_tb.id')
             ->select('component_tb.*')
+            >where('possition_module.status','=','permite')
             ->where('possition_module.position_id','=', $id)
             ->get(),
-
             "department" => DB::table('positions')
             ->join('departments','positions.dept_id','=','departments.id')
             ->select('departments.name')
             ->where('positions.id','=', $id)
             ->get(),
-
-         "centers" => DB::table('possition_module')
-         ->join('positions','possition_module.position_id','=','positions.id')
-            ->join('departments','positions.dept_id','=','departments.id')
-            ->join('branches','branches.dept_id', '=', 'departments.id')
+            "centers" => DB::table('branches')
+            ->join('departments','branches.dept_id','=','departments.id')
+            ->join('positions','departments.id','=','positions.dept_id')
             ->select('branches.name','branches.id')
-            ->where('possition_module.position_id','=', $id)
+            ->where('positions.id','=', $id)
             ->get(),
 
         ]);
         
     }
+     public function dashDeptModules($id){
+        return  DB::table('component_tb')->where('module_id',$id)->get();
+     }
+    public function onEditPos($id)
+    {
+        $dept = auth()->user()->dept_id;
+        return response()->json([
+            'position'=>DB::table('positions')->join('departments','positions.dept_id','=','departments.id')
+            ->select('positions.position_name','positions.description','positions.id','departments.name')
+            ->where('positions.id',$id)->get(),
+
+           "positionCom" => DB::table('component_tb')
+            ->join('possition_module','component_tb.id' ,'=', 'possition_module.component_id')
+            ->select('component_tb.*','possition_module.status AS pos_status')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+
+            "deptCom" => DB::table('component_tb')
+            ->join('module','component_tb.module_id','=','module.id')
+            ->join('departments','module.id','=','departments.module_id')
+            ->join('positions','departments.id','=','positions.dept_id')
+            ->select('component_tb.id','component_tb.component_name','component_tb.description')
+            ->where('positions.id','=', $id)
+            ->get(),
+        ]);
+        
+    }
+
+
 
     //Depertment
 
@@ -165,7 +212,8 @@ class DisplayController extends Controller
     {
         return Departments::orderBy('id')
         ->join('module','departments.module_id','=','module.id')
-                ->select('departments.*','module.module')              
+                ->select('departments.*','module.module')  
+                ->where('module.status','=', 'active')            
                 ->get();
     }
 
@@ -180,7 +228,7 @@ class DisplayController extends Controller
     public function getmodules($id)
     {
         return response()->json(
-            DB::table('component_tb')->where('component_tb.dept_id',$id)->get()
+            DB::table('component_tb')->join('module','component_tb.module_id','=','module.id')->join('departments','module.id','=','departments.module_id')->where('departments.id',$id)->get()
         );
     }
 
@@ -192,7 +240,7 @@ class DisplayController extends Controller
 
     public function displayModule()
     {
-        return DB::table("module")->where('id','!=',1)->get();
+        return DB::table("module")->where('id','!=',1)->where('status','=','active')->get();
     }
 
     // Unit
@@ -323,7 +371,35 @@ class DisplayController extends Controller
             ->get()   
         );
     }
+    public function displaySchemes()
+    {
+        return response()->json([
+           'schemes' => DB::table('scheme')->where('id','!=', 1)->get(),
+           'hmos' => DB::table('scheme_hmo')->where('scheme_hmo.status','=','active')->join('price_list_column','scheme_hmo.price_list_column','=','price_list_column.id')
+                                        ->select('scheme_hmo.*','price_list_column.price_list_name as price_list_n')               
+                                        ->get()
 
+        ]
+        );
+    }
+
+    public function displayPricelist()
+    {
+        return response()->json([
+            'price_list' => DB::table('price_list_column')->get(),
+           
+         ]
+         );
+    }
+
+    public function onEditHmo($id)
+    {
+        return response()->json([
+           'hmos' => DB::table('scheme_hmo')->join('scheme','scheme_hmo.scheme_id','=','scheme.id')->select('scheme_hmo.*','scheme.scheme_name','scheme.id')->where('scheme_hmo.id',$id)->get()   
+
+        ]
+        );
+    }
 
     // Categories
 
@@ -502,23 +578,39 @@ class DisplayController extends Controller
         return Branches::where('status', '=', 'active')->where ('branches.dept_id', '=', $id)->orderBy('id')->get();
     }
 
-    public function displayAppointmentBranch(Request $request)
+    public function displayAppointmentBranch($id)
     {
     
-        return response()->json(['branch'=> Branches::where('status', '=', 'active')
-                                        ->where ('branches.clinic_type', '=', $request->dept)
-                                        ->where ('branches.branch_id', '=', $request->branch)
-                                        ->orderBy('id')->get(),
-                                 'appt'=> Hospital_charges::where('status', '=', 'active')
-                                        ->where ('hospital_charges.appointment_type', '=', $request->dept)
-                                        ->orderBy('id')->get()
+        return response()->json([ 'charges'=> Hospital_charges::where('hospital_charges.status', '=', 'active')
+                                         ->join('departments','hospital_charges.dept_id','=','departments.id')
+                                        ->join('module','departments.module_id','=','module.id')
+                                        ->select('hospital_charges.*')
+                                        ->where ('module.id', '=', $id)
+                                        ->get(),
+                                'center_type'=>DB::table('center_type')
+                                        ->join('departments','center_type.dept_id','=','departments.id')
+                                        ->join('module','departments.module_id','=','module.id')
+                                        ->select('center_type.*')
+                                        ->where('center_type.status', '=', 'active')
+                                        ->where ('module.id', '=', $id)
+                                        ->get()
                                         
-                                ]);
+                    ]);
     }
 
     public function displayBranchs(Request $request)
     {
        return response()->json($request->dept);
+    }
+
+    public function displayCenter($id)
+    {
+        return response()->json(
+            Branches::orderBy('id')
+            ->select('branches.*')     
+            ->where('center_type','=',$id)          
+            ->get()   
+        );
     }
 
     public function edtBranch($id)
@@ -649,6 +741,94 @@ class DisplayController extends Controller
     }
     public function displayDeptAppointment($branchId)
     {
+        $branchId = Auth()->user()->branch_id;
+        $branch = Branches::select('branches.id', 'branches.name')      
+        ->where('id', $branchId)
+        ->orWhere('name', $branchId)
+        ->first();  
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $branName = $branch->name;
+        
+        $deptId = Auth()->user()->dept_id;
+        $moduleId = Departments::orderBy('id')->join('module','departments.module_id','=','module.id')
+                                ->select('departments.*','module.module')  
+                                ->where('departments.id','=', $deptId) 
+                                ->where('module.status','=', 'active')            
+                                ->first();
+
+        if ($moduleId->module_id == '1' || $moduleId->module_id == '5') {
+
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    // ->where('appointments.date', '=', $cDate)
+                    ->get(),
+                'bName' => $branName
+                    ]);            
+             }
+
+        if ($moduleId->module_id == '2') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.clinic_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+
+        if ($moduleId->module_id == '3') {
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.investigation_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+            
+        if ($moduleId->module_id == '4') {
+
+            return response()->json([
+                'data' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.pharm_status', '!=', 'close')
+                    ->get(),
+                    ]);            
+            }
+
+            if ($moduleId->module_id == '6') {
+
+                return response()->json([
+                    'data' => Appointments::orderBy('id', 'DESC')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->join('users','appointments.created_by','=','users.id')
+                        ->join('branches','appointments.created_branch','=','branches.id')
+                        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                        ->where('appointments.status','!=','close')
+                        ->where('appointments.revenue_status', '!=', 'close')
+                        ->get(),
+                        ]);            
+                }
+        
+
+        return $branchId;
 
         // $loggedUserDept = Auth()->user()->dept_id;
         if($branchId == 'undefined'){
@@ -721,7 +901,7 @@ class DisplayController extends Controller
             ->where('appointments.status','!=','close')
             // ->where('appointments.date', '=', $cDate)
             ->get(),
-            'bName' => $branName
+            
         ]);
          }
 
@@ -892,7 +1072,7 @@ class DisplayController extends Controller
                 ->where('dept_id', 1)
                 ->where('status', 'active')
                 ->select('hospital_charges.*')               
-                ->sum('charge_amount')
+                ->sum('selling_price')
         ]);
     }
 
@@ -1061,88 +1241,141 @@ class DisplayController extends Controller
         return DB::table("invoices")->get();
     }
 
-    public function displayPharmInvoice($Vid, $vid)
+    public function displayPriceColumn()
+    {
+        return DB::table("price_list_column")->get();
+    }
+
+    public function displayPharmInvoice($Vid, $vid, $moduleid)
     {
         $voucher_id= Vouchers::find($Vid);
         $id= $voucher_id->appointment_id;
-        $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.customer_id')->first();                                                                                                                         
+        $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.*')->first(); 
+        $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
-        $pc =  Doctor_prescriptions::orderBy('id') 
-        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-        ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-        // ->where('doctor_prescriptions.status', '=', 'close')
-        ->where('doctor_prescriptions.appointment_id', '=', $id)
-        // ->where('doctor_prescriptions.branch_id', '=', $bId)
-        ->count();
-        if($pc=='0'){
-            return response()->json([
-                "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                // ->where('doctor_prescriptions.status', '=', 'close')
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                ->where('doctor_prescriptions.branch_id', '=', $bId)
-                ->get(),
-                "isE" =>$pc,
-                ]);
-           
-            
+
+        if($customeId->insurance_status == 'enabled'){
+              
         }
-        if($vid=='inv'){
+    
+        $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
+
+        $hmoNo= Hmo::find($customeId->hmo_id);
+
+        if ($chargeSum->care_type == 'primary') {
+            $discout_percent= $hmoNo->discount_1;
+        }
+        if ($chargeSum->care_type == 'secondary') {
+            $discout_percent= $hmoNo->discount_2;
+        }
+        if ($chargeSum->care_type == 'others') {
+            $discout_percent= $hmoNo->discount_3;
+        }
+
+        if($moduleid == 2){
+            $counting = Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)->count();
             return response()->json([
-                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                ->where('doctor_prescriptions.voucher_id', '=', $Vid)
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                // ->where('doctor_prescriptions.branch_id', '=', $bId)
-                ->get(),
-                "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
-                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
+                "pres" => Service_charges::orderBy('id')
+                ->join('departments', 'service_charges.dept_id', '=', 'departments.id')
+                ->join('appointments', 'service_charges.appointment_id', '=', 'appointments.id')
+                ->join('hospital_charges', 'service_charges.service_charge_id', '=', 'hospital_charges.id')
+                ->join('scheme_hmo', 'appointments.hmo_id', '=', 'scheme_hmo.id')
+                ->join('price_list_column', 'scheme_hmo.price_list_column', '=', 'price_list_column.id')
+                ->select('service_charges.*', 'departments.name as department', 'hospital_charges.care_type', 'price_list_column.column_name as colum', 'hospital_charges.selling_price', 'hospital_charges.price_2', 'hospital_charges.price_3', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
+                ->where('service_charges.appointment_id', '=', $id)
+                ->where('service_charges.voucher_id', '=', $Vid)
+                ->get(), 
+                "isE" => $counting,
+                "module" => 'other',
                 "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
                 ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
-                "isE" =>$p->count(),
-                ]);
-        }else if ($vid=='ref') {
-            return response()->json([
-                "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
-                ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
-                ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
-                ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
-                ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
-                ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
-                ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
-                ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-                ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                // ->where('doctor_prescriptions.status', '=', 'close')
-                ->where('doctor_prescriptions.appointment_id', '=', $id)
-                ->where('doctor_prescriptions.branch_id', '=', $bId)
-                ->get(),
-                "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
-                "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
-                ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
-                ->first(),
-                "isE" =>$p->count(),
-                ]);
+                "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+            ]);
+        }
+
+        if($moduleid == 4){
+            $pc =  Doctor_prescriptions::orderBy('id') 
+            ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+            // ->where('doctor_prescriptions.status', '=', 'close')
+            ->where('doctor_prescriptions.appointment_id', '=', $id)
+            // ->where('doctor_prescriptions.branch_id', '=', $bId)
+            ->count();
+            if($pc=='0'){
+                return response()->json([
+                    "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+                    ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+                    ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+                    ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+                    // ->where('doctor_prescriptions.status', '=', 'close')
+                    ->where('doctor_prescriptions.appointment_id', '=', $id)
+                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get(),
+                    "isE" =>$pc,
+                    "module" => 'pharmacy',
+                    ]);
+            
+                
+            }
+            // if($vid=='inv'){
+            //     return response()->json([
+            //         "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+            //         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            //         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            //         ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+            //         ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+            //         ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+            //         ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            //         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            //         ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+            //         ->where('doctor_prescriptions.voucher_id', '=', $Vid)
+            //         ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //         // ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //         ->get(),
+            //         "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+            //         "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
+            //         "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
+            //         ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+            //         ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+            //         ->first(),
+            //         "isE" =>$p->count(),
+            //         "module" => 'pharmacy',
+            //         ]);
+            // }else if ($vid=='ref') {
+            //     return response()->json([
+            //         "pres" =>$p =  Doctor_prescriptions::orderBy('id') 
+            //         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+            //         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+            //         ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
+            //         ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
+            //         ->join ('users','doctor_prescriptions.pharmacist_id','=','users.id')
+            //         ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
+            //         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+            //         ->select('doctor_prescriptions.*','customers.name AS fname', 'users.firstname', 'users.lastname', 'customers.othername', 'card_number', 'durations.duration_name', 'daily_supply.name as daily_name', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
+            //         // ->where('doctor_prescriptions.status', '=', 'close')
+            //         ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //         ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //         ->get(),
+            //         "totalAmount" => DB::table('vouchers')->where('id', '=', $p[0]->voucher_id)->select('vouchers.amount')->first(),
+            //         "patient" => DB::table('customers')->where('customers.id', '=', $p[0]->customer_id)
+            //         ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+            //         ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+            //         ->first(),
+            //         "isE" =>$p->count(),
+            //         "module" => 'pharmacy',
+            //         ]);
+            // }
         }
     } 
 
@@ -1652,7 +1885,12 @@ class DisplayController extends Controller
 
     public function displayRole()
     {
-        return Role::where('status', '=', 'active')->get();
+        return response()->json([
+           'roles' => Role::where('status', '=', 'active')->get(),
+           'ranks' => DB::table('rank_tb')->where('status', '=', 'active')->get(),
+           'teams' => DB::table('team_tb')->where('status', '=', 'active')->get()
+
+        ]) ;
     }
 
     public function displayPharAdminDash()
@@ -1921,6 +2159,12 @@ class DisplayController extends Controller
             'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
             ]);
     }
+    public function Teams(){
+        return response()->json([
+            'teams'=> DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->where('team_tb.status','active')->select('team_tb.*','branches.name AS center_name')->get(),
+            'centers' =>  DB::table('branches')->select('branches.name','branches.id')->get()
+            ]);
+    }
     public function deptList(Request $request){
               $dept = $request->dept;
            return response()->json([
@@ -1940,18 +2184,18 @@ class DisplayController extends Controller
     public function displayProcessProperties()
     {
         return response()->json([
-            'props' => DB::table('process_tb')->join('departments', 'process_tb.department_id', '=', 'departments.id')
-            ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
+            'props' => DB::table('process_tb')->join('positions', 'process_tb.position_id', '=', 'positions.id')
+            // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
-            ->select('process_tb.*', 'departments.name as dept_name', 'process_module_tb.module_name', 'users.firstname', 'users.lastname')
+            ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
             ->get()
         ]);
     }
 
     public function displayProcessModules()
     {
-        return DB::table('process_module_tb')->join('users', 'process_module_tb.created_by', '=', 'users.id')
-        ->select('process_module_tb.*', 'users.firstname', 'users.lastname')
+        return DB::table('positions')
+        ->select('positions.*')
         ->get();
     }
 

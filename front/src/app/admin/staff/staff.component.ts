@@ -15,6 +15,10 @@ export class StaffComponent implements OnInit {
   staff: any;
   imgLink: any;
   allstaff: any;
+  staff_countAll: any;
+  profile: any;
+  roleID: any;
+  department: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -25,14 +29,15 @@ export class StaffComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Jarwis.profile().subscribe(
+      data=>{}
+    )
     this.Jarwis.displayAllstaff().subscribe(
       data=>{
-      // console.log(data);   
       this.response = data;
-      
       this.staff = this.response
+     this.staff_countAll = this.staff.countAll
       this.allstaff=this.staff.all
-   
     })
 
     this.Jarwis. generalSettings().subscribe(
@@ -40,7 +45,17 @@ export class StaffComponent implements OnInit {
       this.response = data;      
       this.imgLink = this.response[0].app_url;
     })
-    
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.profile = this.response.det[0];
+      this.roleID = this.profile.role_id
+    })
+    this.Jarwis.displayDepartments().subscribe(
+      data=>{
+      this.response = data;
+      this.department = this.response
+    })
   }
 
   

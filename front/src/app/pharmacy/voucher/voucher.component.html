@@ -432,8 +432,8 @@
                             <th></th>    
                             <th><strong>{{cg.charge_name}}</strong></th>                                                                
                                                                             
-                            <th *ngIf="schemePriceList == 'price_1'">{{cg.charge_amount | currency:'NGN':'symbol-narrow'}}</th>
-                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.charge_amount | currency:'NGN':'symbol-narrow'}}</del></th>
+                            <th *ngIf="schemePriceList == 'price_1'">{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</th>
+                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</del></th>
                             <th></th> 
                             <th></th> 
                             <th></th>   

@@ -57,6 +57,7 @@ import { AddPatientComponent } from './customer/add-patient/add-patient.componen
 import { PatientHistoryComponent } from './customer/patient-history/patient-history.component';
 import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
 import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
+import { BookedAppointmentComponent } from './customer/booked-appointment/booked-appointment.component';
 
 // Pharmacy
 import { UnitComponent } from './pharmacy/unit/unit.component';
@@ -93,7 +94,7 @@ import { PhamUserComponent } from './dashboard/pharmacy_dept/pham-user/pham-user
 //RECORDS
 import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
-import { RecordChargeComponent } from './record/record-charge/record-charge.component'; 
+import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component'; 
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
 
 //CLINIC
@@ -128,13 +129,13 @@ import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 //Settings
-import { BrancesComponent } from './branches/brances/brances.component';
 import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 import { CenterTypeComponent } from './center-type/center-type.component';
-import { PossitionComponent } from './admin/possition/possition.component';
 import { RankComponent } from './admin/rank/rank.component';
-
+import { TeamComponent } from './admin/team/team.component';
+import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
+import { InsuranceComponent } from './customer/insurance/insurance.component';
 
 //DEPARTMENTS Dashboards
 
@@ -150,17 +151,10 @@ const routes: Routes = [
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
   {path: 'Admin', component: DashboardComponent, canActivate: [AfterLoginService],
- 
-
   children: [
 
          {path: 'Profile/:id', component: ProfileComponent, outlet: 'side',canActivate: []},
 
-        //  {path: 'home', component: HomeComponent, outlet: 'side',canActivate: [AfterLoginService] },
-        //  {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [AfterLoginService] },         
-        //  {path: 'department', component: DepertmentComponent, outlet: 'side',canActivate: [AfterLoginService] },
-
-                                                                            // DASHBOARDS
         //ADMINISTRATION START
         {path: 'Admin-super_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
         {path: 'Admin-system_admin', component: HomeComponent, outlet: 'side',  canActivate: []},
@@ -176,7 +170,7 @@ const routes: Routes = [
         {path: 'Records-department_admin', component: RecordAdminComponent, outlet: 'side',canActivate: [] },
         {path: 'Records-staff', component:RecordUserComponent, outlet: 'side',canActivate: [] },
         {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [] },
-        {path: 'record_charges', component:RecordChargeComponent, outlet: 'side',canActivate: [] },
+        {path: 'record_charges', component:ClinicServiceComponent, outlet: 'side',canActivate: [] },
         {path: 'appointment_type', component:AppointmentTypeComponent, outlet: 'side',canActivate: [] },
         //RECORDS END
 
@@ -234,6 +228,7 @@ const routes: Routes = [
          {path: 'patient_history/:id', component: PatientHistoryComponent, outlet: 'side', canActivate: [] },
          {path: 'patient_review/:id', component: PatientReviewComponent, outlet: 'side', canActivate: [] },
          {path: 'clinic_process/:id', component: PatientProcessComponent, outlet: 'side', canActivate: [] },
+         {path: 'booked', component: BookedAppointmentComponent, outlet: 'side', canActivate: [] },
 
          // pharmacy
          {path: 'item_type', component: TypeComponent, outlet: 'side',canActivate: [] },
@@ -260,6 +255,9 @@ const routes: Routes = [
          {path: 'record_log', component:RecordLogComponent, outlet: 'side',canActivate: [] },
          {path: 'record_report', component:ReportComponent, outlet: 'side',canActivate: [] },
          {path: 'record_history', component:RecordHistoryComponent, outlet: 'side',canActivate: [] },
+         {path: 'scheme_hmo', component:SchemeHmoComponent, outlet: 'side',canActivate: [] },
+         {path: 'insurance', component:InsuranceComponent, outlet: 'side',canActivate: [] },
+         
          
            //REvenue
          {path: 'revenue_log/:id', component:RevenueLogComponent, outlet: 'side',canActivate: [AfterLoginService] },
@@ -299,14 +297,13 @@ const routes: Routes = [
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [] },
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [] },
          {path: 'center_type', component: CenterTypeComponent, outlet: 'side',canActivate: [] },
-
-         {path: 'branches', component: BrancesComponent, outlet: 'side',canActivate: [] },
        
        
          //setting
         {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [] },
-        {path: 'possition', component:PossitionComponent, outlet: 'side',canActivate: [] },
-        {path: 'rank', component:RankComponent, outlet: 'side',canActivate: [] },
+        {path: 'ranks', component:RankComponent, outlet: 'side',canActivate: [] },
+        {path: 'teams', component:TeamComponent, outlet: 'side',canActivate: [] },
+
 
 
        

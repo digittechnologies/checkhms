@@ -26,12 +26,31 @@
                         
                       <div class="body">
                             <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#noeps">Regular Patient</a></li>
-                                    <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#eps">EPS Patient</a></li> -->
+                                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#noeps">Patient Category</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab">Patient Info</a></li>
                                 </ul>
                             <div class="tab-content mt-0">
-                                <div class="tab-pane" id="eps">
-                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitEps(eps)" #eps="ngForm">
+                                <div class="tab-pane active show" id="noeps">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
+                                        <div class="col-lg-10 col-md-10 col-sm-8">
+                                            <div class="row clearfix">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="form-group"> 
+                                                        <label class="fancy-radio custom-color-green">Customer Category</label> 
+                                                        <select class="form-control" (change)="categorySelected()"  ngModel  name="cust_category_id">
+                                                            <option value="">-- Select Category --</option>
+                                                            <option *ngFor="let cust of custCat" value="{{cust.id}}">{{cust.category_name}}</option>
+                                                        </select>                                            
+                                                    </div>
+                                                    <div>
+                                                        <button class="btn btn-primary float-right"><a  href="#eps">Next</a></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                        <!-- <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitEps(eps)" #eps="ngForm">
                                                 <div class="form-group row">
                                                 <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
                                                 <div class="col-lg-10 col-md-10 col-sm-8">
@@ -95,9 +114,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> -->
                                 </div>
-                            <div class="tab-pane active show" id="noeps">
+                            <div class="tab-pane" id="eps">
                                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm">
                                     <div class="form-group row">
                                     <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>

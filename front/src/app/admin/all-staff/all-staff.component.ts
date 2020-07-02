@@ -41,6 +41,8 @@ export class AllStaffComponent implements OnInit {
    res:any
   modules: any;
   added = [];
+  ranks: any;
+  teams: any;
 
   constructor( private Jarwis: JarwisService,
     private Token: TokenService,
@@ -84,7 +86,9 @@ export class AllStaffComponent implements OnInit {
     this.Jarwis.displayRole().subscribe(
       data=>{
       this.response = data;
-      this.role = this.response
+      this.role = this.response.roles;
+      this.ranks = this.response.ranks;
+      this.teams = this.response.teams
     })
 
     this.Jarwis.displayBranch().subscribe(
@@ -111,7 +115,6 @@ export class AllStaffComponent implements OnInit {
     console.log("hello")
       
   }
-  
   onChange1(b){
     this.givenDept = b.target.value;
     this.Jarwis.deptModules(this.givenDept).subscribe(

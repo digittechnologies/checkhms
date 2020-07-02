@@ -63,7 +63,7 @@ record_empty:null;
   unavailable: boolean;
   chargesResponse: any;
   charges: any;
-  charge_amount: any;
+  selling_price: any;
   public paymentForm: FormGroup;
   amountPaid: any;
   balanceAmount: any;
@@ -79,6 +79,10 @@ record_empty:null;
   patient_othername: any;
   patient_mobile_number: any;
   payall=[];
+  invoiceModule: any;
+  charges_department: any;
+  priceColumn: any;
+  priceResponse: any;
 
 
 
@@ -121,6 +125,13 @@ record_empty:null;
       this.icon = this.response[0].logo;
     })
 
+    this.Jarwis.displayPriceColumn().subscribe(
+      data=>{
+      this.priceResponse = data;      
+      this.priceColumn = this.priceResponse;
+ 
+    })
+
       this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
       this.vouchId= id;
@@ -148,7 +159,7 @@ record_empty:null;
       data=>{
       this.chargesResponse = data;      
       this.charges = this.chargesResponse.charges;
-      this.charge_amount = this.chargesResponse.chargeSum;
+      this.selling_price = this.chargesResponse.chargeSum;
       this.charge_id = this.chargesResponse.charges[0].id;
     })
     
@@ -203,15 +214,16 @@ record_empty:null;
 
      
      }
-     onPay(pay, param){
-      this.Jarwis.displayPharmInvoice(pay, 'inv', '').subscribe(
+
+     onPay(pay, param, module_id){
+      this.Jarwis.displayPharmInvoice(pay, 'inv', module_id, '').subscribe(
         data=>{
         this.PharmPreresponse = data;    
         this.inv = this.PharmPreresponse; 
         // console.log(this.inv)
         this.isEmpty=this.inv.isE
-        this.voucher_Id=this.inv.pres[0].voucher_id;
-        this.p_date=this.inv.pres[0].p_date
+        this.invoiceModule = this.inv.module
+        this.pres=this.inv.pres 
         this.name=this.inv.patient.name
         this.othername=this.inv.patient.othername
         this.card_number=this.inv.patient.card_number
@@ -220,17 +232,25 @@ record_empty:null;
         this.mobile_no=this.inv.patient.mobile_number
         this.state=this.inv.patient.state
         this.country=this.inv.patient.country
-        this.amount=this.inv.totalAmount.amount
-        this.v_status=this.inv.voucher_status.paid_status
-        this.v_charges_amount = this.inv.voucher_status.charges
-        this.v_discount = this.inv.voucher_status.discount_id
-        this.amountPaid=this.inv.voucher_status.paid
-        this.status=this.inv.pres[0].status
-        this.pres=this.inv.pres 
         this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
         this.schemePercent = this.inv.patient.pacentage_value;
-        this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
-        this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
+        this.amount=this.inv.totalAmount.amount
+        this.afterPercentCost = this.schemePercent / 100 * this.amount
+        if(this.invoiceModule == 'pharmacy'){
+          this.voucher_Id=this.inv.pres[0].voucher_id;
+          this.p_date=this.inv.pres[0].p_date
+          this.v_status=this.inv.voucher_status.paid_status
+          this.v_charges_amount = this.inv.voucher_status.charges
+          this.v_discount = this.inv.voucher_status.discount_id
+          this.amountPaid=this.inv.voucher_status.paid
+          this.status=this.inv.pres[0].status
+          this.afterPercentCost = this.schemePercent / 100 * this.amount + 50; 
+          this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
+        }
+        if(this.invoiceModule == 'other'){
+          this.voucher_Id = this.inv.pres.voucher_id
+          this.p_date=this.inv.pres[0].c_date
+        }
         })
 
         this.paymentForm = this.formBuilder.group(     

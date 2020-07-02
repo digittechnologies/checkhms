@@ -88,7 +88,6 @@ export class VoucherComponent implements OnInit {
   amount_p: number;
   chargesResponse: any;
   charges: any;
-  charge_amount: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -126,7 +125,7 @@ export class VoucherComponent implements OnInit {
     data=>{
     this.chargesResponse = data;      
     this.charges = this.chargesResponse.charges;
-    this.charge_amount = this.chargesResponse.chargeSum;
+    this.selling_price = this.chargesResponse.chargeSum;
   })
   
   // this.Jarwis.displayPharmPre(this.patID, '').subscribe(

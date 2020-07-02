@@ -98,6 +98,25 @@ export class PatientComponent implements OnInit {
   patient_age: any;
   centerName: any;
   countBooked: any;
+  giventype: any;
+  schemeResponse: any;
+  schemeView: any;
+  hmoView: any;
+  schm_id: any;
+  n_h_i_s: any;
+  hmo: any;
+  discount_1: any;
+  discount_2: any;
+  discount_3: any;
+  hmo_address: any;
+  hmo_contact: any;
+  hmo_name: any;
+  hmo_no: any;
+  scheme_name: any;
+  moduleResponse: any;
+  getCenter: any;
+  centerResponse: any;
+  charges: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -149,33 +168,50 @@ export class PatientComponent implements OnInit {
       this.department = this.response        
     })
 
+    this.Jarwis.displaySchemes().subscribe(
+      data=>{
+      this.schemeResponse = data;
+      this.schemeView = this.schemeResponse.schemes  
+      this.hmoView = this.schemeResponse.hmos      
+    })
+
     this.JarwisRecord.displayUser().subscribe( 
       data=>{
       this.responseRec = data;
       this.center = this.responseRec.branch[0]; 
-      this.centerName = this.center.name;
-      this.appointment_ty = this.responseRec.appointment_type; 
+      this.centerName = this.center.name; 
       this.braches = this.responseRec.branches; 
     })
+
+    this.Jarwis.displayModule().subscribe( 
+      data=>{
+      this.moduleResponse = data;
+      this.appointment_ty = this.moduleResponse
+    })
   }
+  
   onChange1(b){
     this.givenDept = b.target.value; 
-    this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
+    this.Jarwis.displayAppointmentBranch(this.givenDept).subscribe(
       data=>{
-      this.sResponse = data;      
-      this.sbranch = this.sResponse.branch
-      this.appt = this.sResponse.appt
+            this.sResponse = data;      
+            this.sbranch = this.sResponse.center_type
+            this.charges= this.sResponse.charges
       })
+  
+  }
+
+  onChange3(d){
+    this.giventype = d.target.value;  
   
   }
 
   onChange2(bch){
     this.givenBranch = bch.target.value;
-    this.Jarwis.displayAppointmentBranch({branch:this.givenBranch, dept:this.givenDept}).subscribe(
+    this.Jarwis.displayCenter(this.givenBranch).subscribe(
       data=>{
-      this.sResponse = data;      
-      this.sbranch = this.sResponse.branch
-      this.appt = this.sResponse.appt
+      this.centerResponse = data;      
+      this.getCenter = this.centerResponse
       })
   
   }
@@ -265,9 +301,22 @@ export class PatientComponent implements OnInit {
           this.ePatient_image = this.patient.patient_image;
           this.eAge =  this.patient.age;
           this.cate_id = this.ini_cate_id;
+          this.schm_id = this.patient.scheme_id;
+          this.n_h_i_s = this.patient.n_h_i_s;
+          this.hmo = this.patient.hmo_no;
+          this.discount_1 = this.patient.discount_1;
+          this.discount_2 = this.patient.discount_2;
+          this.discount_3 = this.patient.discount_3;                    
+          this.hmo_address = this.patient.hmo_address;
+          this.hmo_contact = this.patient.hmo_contact;
+          this.hmo_name = this.patient.hmo_name;
+          this.hmo_no = this.patient.hmo_no;
+          this.scheme_name = this.patient.scheme_name;
 
           this.submissionForm = this.formBuilder.group(
             {
+              hmo_no:[this.hmo],
+              scheme_id:[this.schm_id],
               cust_category_id:[this.cate_id],
               name:[this.eName],
               othername:[this.eOthername],
@@ -281,7 +330,7 @@ export class PatientComponent implements OnInit {
               id:[this.eId],
               d_o_b:[this.eD_o_b],
               country:[this.eCountry],
-              // n_h_i_s:[this.pat[0].n_h_i_s],
+              n_h_i_s:[this.n_h_i_s],
               age:[this.eAge],
               type:[ this.eType],
               occupation:[this.eOccupation],
@@ -335,9 +384,17 @@ export class PatientComponent implements OnInit {
           this.eReferral_mobile = this.patient.referral_mobile;
           this.ePatient_image = this.patient.patient_image;
           this.eAge =  this.patient.age;
+          this.n_h_i_s = this.patient.n_h_i_s;
+          this.cate_id = this.ini_cate_id;
+          this.schm_id = this.patient.scheme_id;
+          this.hmo = this.patient.hmo_no;
+
 
           this.submissionForm = this.formBuilder.group(
             {
+              hmo_no:[this.hmo],
+              scheme_id:[this.schm_id],
+              cust_category_id:[this.cate_id],
               name:[this.eName],
               othername:[this.eOthername],
               email:[this.eEmail],
@@ -350,7 +407,7 @@ export class PatientComponent implements OnInit {
               id:[this.eId],
               d_o_b:[this.eD_o_b],
               country:[this.eCountry],
-              // n_h_i_s:[this.pat[0].n_h_i_s],
+              n_h_i_s:[this.n_h_i_s],
               age:[this.eAge],
               type:[ this.eType],
               occupation:[this.eOccupation],
@@ -399,6 +456,14 @@ export class PatientComponent implements OnInit {
     error => this.handleError(error)
   );
   }
+  
+  onSubmitprofile2() {
+    this.Jarwis.updateCustomer2({formdata:this.submissionForm.value}).subscribe(
+      data => this.handleResponse(data),
+    error => this.handleError(error)
+  );
+  }
+
   handleResponse(data) {    // 
     this.disabled = false;
     let snackBarRef = this.snackBar.open("Operation Successful", 'Dismiss', {

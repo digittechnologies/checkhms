@@ -108,6 +108,11 @@ export class AllItemsComponent implements OnInit {
   isVerify: any;
   isVerifyMsg: any;
   original_amount: number;
+  permission: string;
+  permission_module:Array<{component_name:any,link:any,read_status:any,write_status:any}>=[];
+  res: any;
+  respo: string;
+  write_permition:Boolean;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -115,19 +120,32 @@ export class AllItemsComponent implements OnInit {
     private router: Router,
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
-  ) { }
-
-  ngOnInit() {
-    
+  ) {
     this.Jarwis.profile().subscribe(
       data=>{
       this.response = data;
       this.uBranch= this.response.det[0].branch_id
       this.uBranchName= this.response.det[0].br_name
       this.uPos= this.response.det[0].role_id
-      this.uDept= this.response.det[0].dept_id
+      this.uDept= this.response.det[0].dept_idpp
+      this.permission_module = this.response.module
+      this.res =  this.permission_module.find(e=>{
+        return e.link == this.respo;
+      })                
+      if (this.res.write_status =='write' || this.uPos < 3003) {
+        this.write_permition = true
+       } else  {
+        this.write_permition = false
+       }
+      //  this.write_permition = true
+      //  console.log(this.uPos)
     })
+   }
 
+  ngOnInit() {
+    this.permission = this.router.url;
+     this.respo = this.permission.slice(13,-1) 
+    // this.Jarwis.profile()
     this.Jarwis.setupStatus().subscribe(data=>{}) 
 
     this.Jarwis. generalSettings().subscribe(

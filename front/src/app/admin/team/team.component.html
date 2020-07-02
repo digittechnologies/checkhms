@@ -25,7 +25,7 @@
                   <table class="table table-hover table-custom spacing8">
                       <thead>
                           <tr> 
-                              <th>Rank Name </th>
+                              <th>Team Name </th>
                               <th>Center</th>
                               <th>Description</th>
                               <!-- <th>Total Staff</th> -->
@@ -80,9 +80,9 @@
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">
-                  <select class="form-control show-tick" ngModel name="dept_id">
+                  <select class="form-control show-tick" ngModel name="center_tb_id">
                     <option value="">- Select Center-</option>
-                    <option *ngFor="let dept of departments" [value]="dept.id">{{dept.name}}</option>                                
+                    <option *ngFor="let cent of centers" [value]="cent.id">{{cent.name}}</option>                                
                 </select>
                 </div>
             </div>
@@ -122,7 +122,7 @@
             <div class="row clearfix">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input type="text" class="form-control" [(ngModel)]="editName" name="rank_name" required>
+                        <input type="text" class="form-control" [(ngModel)]="editName" name="team_name" required>
                     </div>
                 </div>
             </div>
@@ -140,9 +140,9 @@
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">
-                  <select class="form-control show-tick" ngModel name="dept_id">
-                    <option value="">{{editDepartment}}</option>
-                    <option *ngFor="let dept of departments" [value]="dept.id">{{dept.name}}</option>                                
+                  <select class="form-control show-tick" ngModel name="center_tb_id">
+                    <option value="">{{editCenter}}</option>
+                    <option *ngFor="let cent of centers" [value]="cent.id">{{cent.name}}</option>                                
                 </select>
                 </div>
             </div>
