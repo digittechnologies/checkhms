@@ -99,6 +99,7 @@ class AuthController extends Controller
         $e = auth()->user()->email;
         $m = auth()->user()->id;
         $p = auth()->user()->password;
+        $pos_id = auth()->user()->position_id;
         return response()->json(
             [
                 'aut'=> auth()->user(),
@@ -107,7 +108,20 @@ class AuthController extends Controller
                 ->join('roles','users.role_id','=','roles.id')
                 ->join('branches','users.branch_id','=','branches.id')
                 ->select('users.*', 'module.module','departments.name AS nameD', 'roles.name AS role_name','branches.name AS branch_name')    
-                ->where('users.id','=',$m)->get(),            
+                ->where('users.id','=',$m)->get(),  
+                'module' => DB::table('component_tb')
+                ->join('possition_module','component_tb.id','=','possition_module.component_id')
+                ->join('permission_tb','component_tb.id','=','permission_tb.component_id')
+                ->where('possition_module.status','=','permite')
+                ->where('permission_tb.user_id','=',  $m)
+                ->where('possition_module.position_id',$pos_id)
+                 ->select('component_tb.component_name','component_tb.link','permission_tb.read_status','permission_tb.write_status')
+                ->get(), 
+                // 'permition' => DB::table('component_tb')
+                // ->join('permission_tb','component_tb.id','=','permission_tb.component_id')
+                // ->where('permission_tb.user_id',$m)
+                //  ->select('permission_tb.read_status', 'permission_tb.write_status','component_tb.component_name','component_tb.link')
+                // ->get(), 
             ]
         );
     }
@@ -159,9 +173,42 @@ class AuthController extends Controller
 
     public function editPriviledges(Request $request)
     {
-        $input = collect(request()->all())->filter()->all();
-        $id=$request->id;
-        $update = User::where('id', $id)->update($input);
+        $creator_id = Auth()->user()->id;
+         $form = $request->form;
+         $permits = $request->permites;
+         $permites = $request->permites;
+         $id=$form['id'];
+         $update = User::where('id', $id)->update([
+             'firstname' => $form['firstname'],
+             'lastname' => $form['lastname'],
+             'email'    => $form['email'],
+             'id_number' => $form['id_number'],
+             'branch_id' => $form['branch_id'],
+             'rank_id'   => $form['rank_id'],
+             'role_id'  => $form['role_id'],
+             'team_id'  => $form['team_id']
+         ]);
+
+        foreach ($permites as $permite) {
+            $exist =  DB::table('permission_tb')->where('user_id',$id)->where('component_id',$permite['component_id'])->get();
+            if ($exist->count()>0) {
+                $response =  DB::table('permission_tb')->where('user_id',$id)->where('component_id',$permite['component_id'])->update([
+                    'read_status' => $permite['read'],
+                    'write_status' => $permite['write'],
+                    'updated_by'  =>  $creator_id
+                ]);
+            }
+            else{
+                $response =   DB::table('permission_tb')->insert([
+                    'user_id' =>$id,
+                    'component_id' => $permite['component_id'],
+                    'read_status'  => $permite['read'],
+                    'write_status'  => $permite['write'],
+                    'created_by'   =>  $creator_id,
+                    'updated_by'   =>  $creator_id
+               ]);  
+            }
+         }
         if($update){
             return '{
                 "success":true,

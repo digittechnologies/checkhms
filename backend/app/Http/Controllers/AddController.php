@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Positions;
 use App\Departments;
 use App\User;
+use App\Hmo;
 use Image;
 use Validator;
 use App\Item_types;
@@ -185,9 +186,8 @@ public function addCenter(Request $request)
 
     }
 
-    public function updateDept(Request $request)
+    public function EditBranch(Request $request)
     {
-        return $request;
         $id=$request->id;
         $name= $request->name;
         $address= $request->description;
@@ -210,6 +210,27 @@ public function addCenter(Request $request)
                 "message":"Failed"
             }';
         }
+    }
+
+    public function suspendCenter(Request $request)
+    {
+        $id=$request[0];
+
+    $deletec=DB::table('centers')->where('id', $id)->update([    
+        'status' => "deleted"
+    ]);
+    if($deletec){
+        return '{
+            "success":true,
+            "message":"successful"
+        }' ;
+    } else {
+        return '{
+            "success":false,
+            "message":"Failed"
+        }';
+    }
+    
     }
 
     public function deleteDept(Request $request)
@@ -451,6 +472,129 @@ public function addCenter(Request $request)
             }';
         }
     }
+    
+    public function updatePos(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $id = $request->id;
+        $name = $request->position_name;
+        $describ = $request->description;
+        $status = $request->status;
+        $update = DB::table('positions')->where('id','=',$id)
+        ->update([
+            'position_name'=> $name,
+            'describ' => $description,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function permtes(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $request ->merge(['created_by'=>$user_id]);
+        $request ->merge(['updated_by'=>$user_id]);
+        $positioned = DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->select('status')->get();
+        if ($positioned->count()>0) {
+            if ($positioned[0]->status =='permite') {
+                DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'unpermite','updated_by'=>$user_id]);
+            } else {
+                DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'permite','updated_by'=>$user_id]);
+                
+            }
+            
+        } else {
+            DB::table('possition_module')->insert([
+                'position_id' =>$request->id,
+                'component_id' => $request->component_id,
+                'created_by'   =>  $user_id,
+                'updated_by'   =>  $user_id
+           ]);  
+        }
+    }
+
+    public function addHmo(Request $request)
+    {    
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $user_id = Auth()->user()->id;
+        $position_id = $request->id;
+        $price_list = $request->price_list_column;
+        $request->merge(['created_by' => $user_id]);
+        $request->merge(['updated_by' => $user_id]);
+        $request->merge(['c_date' => $cDate]);
+        $request->merge(['c_time' => $cTime]);
+        $hmo = Hmo::create($request-> all());
+        if($hmo){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function editingHmo(Request $request)
+    {
+        $id=$request->id;
+        $name= $request->name;
+        $address= $request->address;
+        $contact= $request->contact_number;
+        $details= $request->details;
+        $status= $request->status; 
+        $update = DB::table('scheme_hmo')->where('id','=',$request->id)
+        ->update([
+            'name'=> $name,
+            'address' => $address,
+            'contact_number' => $contact,
+            'details' => $details,
+            'status' => $status
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+    public function editingondeleteHmoHmo($id)
+    {
+        $update = DB::table('scheme_hmo')->where('id','=',$id)
+        ->update([
+            'status' =>"suspend"
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
 
     // Manufacturer
     public function addManufacturer(Request $request)
@@ -498,6 +642,8 @@ public function addCenter(Request $request)
             }';
         }
     }
+
+
 
     public function updateDuration(Request $request)
     {
@@ -1164,6 +1310,7 @@ public function addCenter(Request $request)
     
     public function updateCustomer(Request $request)
     {
+        
         $id=$request->formdata['id'];
         $user=Customers::find($id);
         $currentfile= $user->patient_image;
@@ -1217,51 +1364,35 @@ public function addCenter(Request $request)
          }
     }
 
-    // public function updateCustomer(Request $request)
-    // {
-    //     $id=$request->id;
-    //     $fullname= $request->name;
-    //     $email= $request->email;
-    //     $mobile_number= $request->mobile_number;
-    //     $address= $request->address;   
-    //     $dob= $request->d_o_b;    
-    //     $about= $request->about;
-    //     $allergy= $request->allergy;
-    //     $nhis= $request->n_h_i_s;
-    //     $card_number= $request->card_number;
-    //     $status= $request->status;
-    //     $blood_id= $request->blood_id;
-    //     $treatment_id= $request->treatment_id;
-    //     $prescription_id= $request->prescription_id;
+    public function updateCustomer2(Request $request)
+    {
 
-    //     $update = DB::table('customers')->where('customers.id','=',$id)
-    //     ->update([
-    //         'name'=> $fullname,
-    //         'email' => $email,
-    //         'mobile_number' =>$mobile_number,
-    //         'address' => $address,
-    //         'd_o_b' => $dob,
-    //         'about' => $about,
-    //         'allergy' => $allergy,  
-    //         'n_h_i_s' => $nhis,
-    //         'card_number' => $card_number,
-    //         'blood_id' => $blood_id,
-    //         'treatment_id' => $treatment_id,
-    //         'prescription_id' => $prescription_id,
-    //     ]);
-    //     if($update){
-    //         return '{
-    //             "success":true,
-    //             "message":"successful"
-    //         }' ;
-    //     } else {
-    //         return '{
-    //             "success":false,
-    //             "message":"Failed"
-    //         }';
-    //     }
-    // }
+        $id=$request->formdata['id'];
+        $user=Customers::find($id);
+        $datas=$request->formdata;
+        
+         $user->scheme_id = $datas['scheme_id'];
+         $user->n_h_i_s = $datas['n_h_i_s'];
+         $user->hmo_no = $datas['hmo_no'];
+         $user->cust_category_id =  $datas['cust_category_id'];
+         $user->updated_by =  auth()->user()->id;
+       
+         $user->save();
+         // $user->update($request->all());
+         if($user){
+             return '{
+                 "success":true,
+                 "message":"successful"
+             }' ;
+         } else {
+             return '{
+                 "success":false,
+                 "message":"Failed"
+             }';
+         }
+    }
 
+  
     public function deleteCustomer(Request $request)
     {
         $id=$request[0];
@@ -1295,16 +1426,20 @@ public function addCenter(Request $request)
 
                 $search=DB::table('customers')
                     ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->join('scheme','customers.scheme_id','=','scheme.id')
+                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
                     ->where('customers.name', 'LIKE', "%{$value}%")
                     ->orWhere('customers.othername', 'LIKE', "%{$value}%")
-                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
                     ->limit(1000)
                     ->get();
             } else {
                 $search=DB::table('customers')
                     ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                    ->join('scheme','customers.scheme_id','=','scheme.id')
+                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
                     ->where('customers.'.$action, $value)
-                    ->select('customers.*','customer_category.category_name as cate_name')
+                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
                     ->get();
             }
             if (count($search) == 0) {
@@ -1346,105 +1481,106 @@ public function addCenter(Request $request)
     }
 
     //Appointment
-    public function makeAppointment(Request $request)
-    {
-        $id = $request->customer;
-        $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
-        $cust_id=$cus->id;
-        $dept_id= auth()->user()->dept_id;
-        $bid= Auth()->user()->branch_id;
-        // $dept_id = $request->form['dept_id'];
-        $dt = Carbon::now();
-        $date = $dt->toFormattedDateString();
-        $time = $dt->format('h:i:s A');
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
-            'appointments.customer_id' => $cust_id,
-            'appointments.prescription' =>'open',
-            'appointments.date' => $date
-            ])->get();
-        if (count($checkAppointment) == 0) {
+    // public function makeAppointment(Request $request)
+    // {
+    //     $id = $request->customer;
+    //     $cus=Customers::where('mobile_number', '=', $id)->orWhere('card_number', '=', $id)->first();
+    //     $cust_id=$cus->id;
+    //     $dept_id= auth()->user()->dept_id;
+    //     $bid= Auth()->user()->branch_id;
+    //     // $dept_id = $request->form['dept_id'];
+    //     $dt = Carbon::now();
+    //     $date = $dt->toFormattedDateString();
+    //     $time = $dt->format('h:i:s A');
+    //     $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where([
+    //         'appointments.customer_id' => $cust_id,
+    //         'appointments.prescription' =>'open',
+    //         'appointments.date' => $date
+    //         ])->get();
+    //     if (count($checkAppointment) == 0) {
 
-            $appointment= Vouchers::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'staff_id' => $dept_id,           
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Vouchers::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'staff_id' => $dept_id,           
+    //                 'branch_id' => $bid
+    //             ]);    
             
-            $appointment= Appointments::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'department_id' => $dept_id, 
-                    'voucher_id'=> $appointment->id,
-                    'prescription' => 'open', 
-                    'invoice' => 'open', 
-                    'voucher' => 'open',
-                    'treatment' => 'open', 
-                    'status' => 'active',
-                    'date' => $date,
-                    'time' => $time,
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Appointments::create(
+    //             [
+    //                 'customer_id' => $cust_id,  
+    //                 'appointment_type' => $request->appointment_type,  
+    //                 'branch_id'=> $bid,
+    //                 'voucher_id'=> $appointment->id,
+    //                 'prescription' => 'open', 
+    //                 'invoice' => 'open', 
+    //                 'voucher' => 'open',
+    //                 'treatment' => 'open', 
+    //                 'status' => 'active',
+    //                 'date' => $date,
+    //                 'time' => $time,
+    //                 'branch_id' => $bid
+    //             ]);    
       
-         if($appointment){
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-              return '{
-                "success":false,
-                "message":"Failed"
-            }';
-        }
+    //      if($appointment){
+    //         return '{
+    //             "success":true,
+    //             "message":"successful"
+    //         }' ;
+    //     } else {
+    //           return '{
+    //             "success":false,
+    //             "message":"Failed"
+    //         }';
+    //     }
         
-        }else if(count($checkAppointment) > 0){
+    //     }else if(count($checkAppointment) > 0){
 
-            return 'Already Loged';
+    //         return 'Already Loged';
 
-        }
+    //     }
         
-    }
+    // }
 
-    public function makeAppointment2(Request $request)
-    {       
-        $cust_id=$request->aid;
-        // $dept_id= auth()->user()->dept_id;
-        $bid= Auth()->user()->branch_id;
-        $dept_id = $request->form['dept_id'];
+    // public function makeAppointment2(Request $request)
+    // {       
+    //     $cust_id=$request->aid;
+    //     // $dept_id= auth()->user()->dept_id;
+    //     $bid= Auth()->user()->branch_id;
+    //     $dept_id = $request->form['dept_id'];
        
-        $dt = Carbon::now();
-        $date = $dt->toFormattedDateString();
-        $time = $dt->format('h:i:s A');
+    //     $dt = Carbon::now();
+    //     $date = $dt->toFormattedDateString();
+    //     $time = $dt->format('h:i:s A');
 
-        $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
+    //     $checkAppointment= Appointments::orderBy('id')->select('appointments.id')->where('appointments.customer_id', $cust_id)->where('appointments.prescription','open')->get();
        
 
-        if ( empty ( $checkAppointment[0] )) {
+    //     if ( empty ( $checkAppointment[0] )) {
 
-            $appointment= Vouchers::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'staff_id' => $dept_id,           
-                    'branch_id' => $bid
-                ]);    
+    //         $appointment= Vouchers::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'staff_id' => $dept_id,           
+    //                 'branch_id' => $bid
+    //             ]);    
             
           
-            $appointment= Appointments::create(
-                [
-                    'customer_id' => $cust_id, 
-                    'department_id' => $dept_id, 
-                    'voucher_id'=> $appointment->id,
-                    'prescription' => 'open', 
-                    'invoice' => 'open', 
-                    'voucher' => 'open',
-                    'treatment' => 'open', 
-                    'status' => 'active',
-                    'date' => $date,
-                    'time' => $time,
-                    'branch_id' => $bid
-                ]);   
-             }
+    //         $appointment= Appointments::create(
+    //             [
+    //                 'customer_id' => $cust_id, 
+    //                 'department_id' => $dept_id, 
+    //                 'voucher_id'=> $appointment->id,
+    //                 'prescription' => 'open', 
+    //                 'invoice' => 'open', 
+    //                 'voucher' => 'open',
+    //                 'treatment' => 'open', 
+    //                 'status' => 'active',
+    //                 'date' => $date,
+    //                 'time' => $time,
+    //                 'branch_id' => $bid
+    //             ]);   
+    //          }
         
         //  $appointment= Appointments::create(
         //     [
@@ -1460,19 +1596,19 @@ public function addCenter(Request $request)
         //         // 'branch_id' => $bid
         //     ]);    
   
-     if($appointment){
-        return '{
-            "success":true,
-            "message":"successful"
-        }' ;
-    } else {
-          return '{
-            "success":false,
-            "message":"Failed"
-        }';
-    }
+    //  if($appointment){
+    //     return '{
+    //         "success":true,
+    //         "message":"successful"
+    //     }' ;
+    // } else {
+    //       return '{
+    //         "success":false,
+    //         "message":"Failed"
+    //     }';
+    // }
     
-    }
+    // }
 
     public function deleteAppointment(Request $request)
     {
@@ -2503,7 +2639,7 @@ public function addCenter(Request $request)
                     ->where('dept_id', 1)
                     ->where('status', 'active')
                     ->select('hospital_charges.*')               
-                    ->sum('charge_amount');
+                    ->sum('selling_price');
 
         $customeId= Appointments::orderBy('id')->where('id','=',$cid)->select('appointments.customer_id')->get();
                     $cId= $customeId[0]->customer_id;                   
@@ -2607,7 +2743,7 @@ public function addCenter(Request $request)
 
         $vid= $request->voucher_Id;
         $v_method= $request->method;
-        $charge_amount = $request->charge_amt;
+        $selling_price = $request->charge_amt;
         $discount = $request->discount;
         $tobalance = $request->bal;
         $paying = $request->topay;
@@ -2711,7 +2847,7 @@ public function addCenter(Request $request)
                         'paid' => $paying,
                         'balance' => $tobalance,
                         'discount' => $discount,
-                        'service_charge' => $charge_amount,
+                        'service_charge' => $selling_price,
                         'other_charges' => 0,
                         'status' => 'paid',
                         'delivery_status' => 'delivered',
@@ -3046,6 +3182,7 @@ public function addCenter(Request $request)
     {
      return $center_type = DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->select('center_type.*','departments.name AS deptname')->where('center_type.id',$request[0])->get();
     }
+
     public function AddRank(Request $request)
     {
         $created_by= Auth()->user()->id;
@@ -3099,6 +3236,75 @@ public function addCenter(Request $request)
         // return $request;
         $created_by= Auth()->user()->id;
         $center_type = DB::table('rank_tb')->where('id',$request[0])->update([
+            'status' => "suspend"
+        ]);
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function AddTeam(Request $request)
+    {
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $insert_team = DB::table('team_tb')->insert($request->all());
+
+        if ($insert_team) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function editingTeam(Request $request)
+    {
+     return $center_type = DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->select('team_tb.*','branches.name AS centerName', 'branches.id AS center_id')->where('team_tb.id',$request[0])->get();
+    }
+
+
+    public function editTeam(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $editRank = DB::table('team_tb')->where('id',$request->id)->update([
+            'team_name' => $request->form['team_name'],
+            'description' => $request->form['description'],
+            'center_tb_id' =>  $request->form['center_tb_id'],
+            'updated_by' => $created_by
+        ]);
+
+        if ($editRank) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+    public function deleteTeam(Request $request)
+    {
+        // return $request;
+        $created_by= Auth()->user()->id;
+        $center_type = DB::table('team_tb')->where('id',$request[0])->update([
             'status' => "suspend"
         ]);
 

@@ -43,6 +43,30 @@ export class ProfileComponent implements OnInit {
   IMG: any;
   sbranch: any;
   sResponse: any;
+  ranks: any;
+  teams: any;
+  roles: any;
+  centers: any;
+  permitions: any;
+  newPermite: any;
+  permision:Array<{component_id:Number,read:String,write:String}>=[]
+  newData:Array<{id:Number, component_name:String, description:String}>=[];
+  id_number: any;
+  firstname: any;
+  gender: any;
+  email: any;
+  rankId: any;
+  rankName: any;
+  teamId: any;
+  team_name: any;
+  role_id: any;
+  role_name: any;
+  positionName: any;
+  departmentName: any;
+  centerName: any;
+  centerId: any;
+  description: any;
+  lastname: any;
   constructor( 
      private http: HttpClient,
      public actRoute: ActivatedRoute, 
@@ -66,7 +90,38 @@ export class ProfileComponent implements OnInit {
     this.uid = id;
     this.Jarwis.staffdetails(id).subscribe(data=>{
       this.resp = data;
-      this.response=this.resp[0];
+      this.response = this.resp.user[0];
+      this.id_number = this.response.id_number
+      this.firstname = this.response.firstname
+      this.lastname = this.response.lastname
+      this.gender   = this.response.gender
+      this.email    = this.response.email
+      this.rankId   = this.response.rankId
+      this.rankName = this.response.rankName
+      this.teamId   = this.response.teamId
+      this.team_name = this.response.team_name
+      this.role_id  = this.response.role_id
+      this.role_name = this.response.role_name
+      this.positionName = this.response.positionName
+      this.departmentName = this.response.departmentName
+      this.centerName     = this.response.centerName
+      this.centerId    = this.response.center_id
+      this.description = this.response.description
+      this.teams = this.resp.teams;
+      this.ranks = this.resp.ranks;
+      this.roles = this.resp.roles
+      this.permitions = this.resp.permitions
+      this.centers = this.resp.centers
+       this.newData = this.resp.newPermitios
+       if(this.permitions){
+         this.permitions.map(r=>{
+          this.permision.push({component_id:r.component_id,read:r.read_status,write:r.write_status})
+           let dele= this.newData.findIndex(i=>{return i.id===r.component_id})
+           this.newData.splice(dele,1)
+         })
+       }
+      console.log(this.permision)
+      this.newPermite = this.newData
       this.IMG = this.response.image;
     })
   }));
@@ -122,6 +177,35 @@ export class ProfileComponent implements OnInit {
   )
     // this.displayprofile()
   }
+  check(id,data){
+    let index = this.permision.find(i =>{
+      return i.component_id === id;
+    })
+  if (index && data =='read') {
+      if (index.read =="" || index.read ==null) {
+        index.read=data
+         }
+          else{
+            index.read = ""
+        }
+         }
+        else if (index && data =='write') {
+           if (index.write == "" || index.write ==null) {
+            index.write = data;
+           }
+          else{
+            index.write = ""
+         }
+       }
+    else if(!index){
+      if (data =='read') {
+        this.permision.push({component_id:id,read:data,write:""})
+      } else if(data =='write') {
+        this.permision.push({component_id:id,read:"",write:data})
+      }
+}
+console.log(this.permision)
+}
 uploadFile(event){
   let files =event.target.files[0];
   let reader = new FileReader();
@@ -179,10 +263,26 @@ onSelectRole(r){
 }
 
 onSubmit(form: NgForm) {
+
+  if (form.value.rank_id == '') {
+    form.value.rank_id = this.rankId
+  }
+  if (form.value.team_id == '') {
+    form.value.team_id = this.teamId
+  }
+  if (form.value.role_id == '') {
+    form.value.role_id = this.role_id
+  }
+  if (form.value.branch_id == '') {
+     form.value.branch_id =this.centerId
+  }
+  console.log(form.value)
   if(confirm('This will altered this user priviledges, click ok to processed')){
     form.value.id = this.uid
-    this.Jarwis.editPriviledges(form.value).subscribe(
-      data => this.handleResponse(data),
+    this.Jarwis.editPriviledges({form:form.value,permites:this.permision}).subscribe(
+      data => {this.handleResponse(data)
+               this.router.navigateByUrl("/Admin/(side:all_staff)")
+      },
       error => this.handleError(error),  
     );
   }

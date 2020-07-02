@@ -31,6 +31,9 @@ class SignUpRequest extends FormRequest
             // 'mobile_number' => 'required',
             // 'password' => 'required|confirmed',
             'id_number' => 'required',
+
+
+
         ];
     }
 }

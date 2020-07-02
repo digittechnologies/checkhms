@@ -3,6 +3,9 @@
     overflow-y: auto !important;
     position: absolute;
 }
+.shows{
+background-color: aqua;
+}
 
 .scroll::-webkit-scrollbar {
     width: 5px;

@@ -32,7 +32,7 @@ class SetupController extends Controller
         foreach($branch as $brancID){
             $branch_name = $brancID->br_name;
             $getFromBranch = DB::table($branch_name)
-                ->where ('c_date', '=', $yesterDate)
+                ->where ('c_date', '=', 'May 25, 2020')
                 ->get();
             foreach($getFromBranch as $itemID){
                 if(DB::table($branch_name)->where(['c_date' => $todayDate, 'item_detail_id' => $itemID->item_detail_id])->exists()){

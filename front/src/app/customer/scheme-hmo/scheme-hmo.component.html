@@ -1,0 +1,240 @@
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h2>Insurance Scheme</h2>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Dashboad</a></li>
+                      <li class="breadcrumb-item"><a href="#">Insurance</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">HMO Registration</li>
+                      </ol>
+                  </nav>
+              </div>            
+              <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
+              </div> -->
+          </div>
+      </div>
+      <div class="row clearfix">
+          <div class="col-lg-12">
+              <div class="card">
+                  <ul class="nav nav-tabs">
+                      <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Users">HMO List</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#addUser">Add HMO</a></li>        
+                  </ul>
+                  <div class="tab-content mt-0">
+                      <div class="tab-pane active show" id="Users">
+                          <div class="table-responsive">
+                              <table class="table table-hover table-custom spacing8">
+                                  <thead>
+                                      <tr>
+                                        <th class="w60">Scheme</th>
+                                          <th class="w60">HMO No</th>
+                                          <th>HMO</th>
+                                          <th>HMO cntact</th> 
+                                          <th>Price List</th>                                         
+                                          <th>Primary Care</th>
+                                          <th>Secondary Care</th>
+                                          <th>Other Care</th>
+                                          <th>Status</th>
+                                          <th>Created Date</th>
+                                          <th class="w100">Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody> 
+                                      <tr *ngFor="let hm of hmoses">
+                                        
+                                        <td class="width45">
+                                            <div class="avtar-pic w35 bg-green" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>NHIS</span></div>
+                                        </td>
+                                        <td><strong>{{hm.hmo_no}}</strong></td>
+                                        <td>
+                                            <h6 class="mb-0">{{hm.hmo_name}}</h6>
+                                            <span>{{hm.hmo_email}}</span>
+                                        </td>
+                                        <td>{{hm.hmo_contact}}</td>
+                                        <td>{{hm.price_list_n}}</td>
+                                        <td><span class="badge badge-info">{{hm.discount_1}}%</span></td>
+                                        <td><span class="badge badge-primary">{{hm.discount_2}}%</span></td>
+                                        <td><span class="badge badge-secondary">{{hm.discount_3}}%</span></td>
+
+                                        <td><span class="badge badge-success">{{hm.status}}</span></td>
+                                        <td>{{hm.created_at}}</td>                                        
+                                        <td>
+                                            <button *ngIf="hm.id != 5" type="button" (click)="onedit(hm.id)" class="btn btn-sm btn-default" title="Edit" data-toggle="modal" data-target="#editHmo"><i class="fa fa-edit"></i></button>
+                                            <button *ngIf="hm.id != 5" type="button" class="btn btn-sm btn-default js-sweetalert" title="Delete" data-type="confirm" (click)="ondelete(hm.id)"><i class="fa fa-trash-o text-danger"></i></button>
+                                        </td>
+                                      </tr>
+                                  </tbody>
+                              </table>                
+                          </div>
+                      </div>
+
+
+
+
+                      <div class="tab-pane" id="addUser">
+                          <div class="body mt-2">
+                            <h6>HMO Registration</h6>
+                            <hr>
+                            <form role="form" (ngSubmit)="onSubmitHmo(hmo)" #hmo="ngForm"> 
+                              <div class="row clearfix">
+                                <div class="col-lg-8 col-md-18 col-sm-12">
+                                  <div class="form-group">
+                                      <label>Select Scheme</label>
+                                    <select class="form-control show-tick" ngModel name="scheme_id">                                     
+                                        <option *ngFor="let scheme of chemes" value="scheme.id" [value]="scheme.id">{{scheme.scheme_name}}</option>                                        
+                                    </select>
+                                </div>
+                              </div>
+                              <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label>Select Price List</label>
+                                  <select class="form-control show-tick" ngModel name="price_list_column" >                                   
+                                    <option *ngFor="let list of price_list" value="list.id" [value]="list.id">{{list.price_list_name}}</option>                                                                     
+                                </select>
+                                </div>
+                            </div>                         
+                                  <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <div class="form-group">
+                                          <input type="text" oninput="this.value = this.value.replace(/[^0-9_.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="HMO  number" ngModel name="hmo_no">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <div class="form-group">
+                                          <input type="text" class="form-control" placeholder="HMO Name" ngModel name="hmo_name">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="About HMO*" ngModel name="about_hmo"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <div class="form-group">
+                                          <textarea class="form-control" placeholder="Address" ngModel name="hmo_address"></textarea>
+                                      </div>
+                                  </div>
+        
+                                  <div class="col-lg-6 col-md-4 col-sm-12">
+                                      <div class="form-group">
+                                          <input type="text" class="form-control" placeholder="Email ID *" ngModel name="hmo_email">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-4 col-sm-12">
+                                      <div class="form-group">
+                                          <input type="text" class="form-control" placeholder="Mobile No" ngModel name="hmo_contact">
+                                      </div>
+                                  </div>
+                                                          
+                                  <div class="col-lg-4 col-md-4 col-sm-12">
+                                      <div class="form-group">                                   
+                                          <input type="number" class="form-control" placeholder="Discount 1 *" ngModel name="discount_1">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Discount 2 " ngModel name="discount_2">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                  <div class="form-group">
+                                      <input type="number" class="form-control" placeholder="Discount 3 " ngModel name="discount_3">
+                                  </div>
+                                </div>
+                                    <div>
+                                      <input type="submit" class="btn btn-primary">
+                                    </div>
+                              </div>
+                               </form>
+                          </div>
+                      </div>
+                  </div>            
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editHmo" tabindex="-1" role="dialog">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title h4" id="myLargeModalLabel">Add Departments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        </button>
+    </div>
+      <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEdit(hmoedit)" #hmoedit="ngForm"> 
+            <div class="modal-body">
+            <div class="form-group">
+                <input type="text" disabled class="form-control" [(ngModel)]="edithmo_no" name="hmo_no">
+            </div>
+        </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="edithmo_no" name="hmo_no">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="edithmo_name" name="hmo_name">
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control"  [(ngModel)]="editabout_hmo" name="about_hmo"></textarea>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control"  [(ngModel)]="edithmo_address" name="hmo_address"></textarea>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control"  [(ngModel)]="edithmo_email" name="hmo_email">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="edithmo_contact" name="hmo_contact">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <select class="form-control show-tick" ngModel name="price_list_status" >
+                        <option>{{editprice_list_status}}</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>                                        
+                </select>
+                </div>
+            </div>                          
+            <div class="modal-body">
+                <div class="form-group">                                   
+                    <input type="number" class="form-control"  [(ngModel)]="editdiscount_1" name="discount_1">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="number" class="form-control"  [(ngModel)]="editdiscount_2" name="discount_2">
+                </div>
+            </div>
+            <div class="modal-body">
+            <div class="form-group">
+                <input type="number" class="form-control"   [(ngModel)]="editdiscount_3" name="">
+            </div>
+            </div>
+                <div class="col-12">
+                <input type="submit" class="btn btn-primary float-right" value="update" (click)="editHmo()">
+                </div>
+            </form>
+    </div>
+    </div>
+
+    

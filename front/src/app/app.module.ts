@@ -31,7 +31,6 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UpdateComponent } from './user/update/update.component';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
-import { PossitionComponent } from './admin/possition/possition.component';
 import { DepertmentComponent } from './admin/depertment/depertment.component';
 import { StaffComponent } from './admin/staff/staff.component';
 import { PatientComponent } from './customer/patient/patient.component';
@@ -102,18 +101,7 @@ import { ExportAsModule } from 'ngx-export-as';
 import { CustomerCategoryComponent } from './customer/customer-category/customer-category.component';
 import { PatDetailComponent } from './doctor/pat-detail/pat-detail.component';
 import { RecordsComponent } from './dashboard/records/records.component';
-import { RecordChargeComponent } from './record/record-charge/record-charge.component';
 import { ClinicServiceComponent } from './record/clinic-service/clinic-service.component';
-import { PharmacyComponent } from './admin/navs/pharmacy/pharmacy.component';
-import { ClinicComponent } from './admin/navs/clinic/clinic.component';
-import { AdminComponent } from './admin/navs/admin/admin.component';
-import { LabComponent } from './admin/navs/lab/lab.component';
-import { RadioComponent } from './admin/navs/radio/radio.component';
-import { TheaterComponent } from './admin/navs/theater/theater.component';
-import { RecordComponent } from './admin/navs/record/record.component';
-import { RevenueComponent } from './admin/navs/revenue/revenue.component';
-import { NurseComponent } from './admin/navs/nurse/nurse.component';
-import { WardComponent } from './admin/navs/ward/ward.component';
 import { RecordAdminComponent } from './dashboard/records_dept/record-admin/record-admin.component';
 import { RecordUserComponent } from './dashboard/records_dept/record-user/record-user.component';
 
@@ -136,7 +124,6 @@ import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
 import { AppointmentTypeComponent } from './record/appointment-type//appointment-type.component';
-import { BrancesComponent } from './branches/brances/brances.component';
 import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 import { StoreModule } from '@ngrx/store';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -152,6 +139,9 @@ import { NgxNotificationComponent } from 'ngx-notification';
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { TeamComponent } from './admin/team/team.component';
 import { RankComponent } from './admin/rank/rank.component';
+import { BookedAppointmentComponent } from './customer/booked-appointment/booked-appointment.component';
+import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
+import { InsuranceComponent } from './customer/insurance/insurance.component';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -172,7 +162,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     DashboardComponent,
     SettingsComponent,
     UpdateComponent,
-    PossitionComponent,
+
     DepertmentComponent,
   
     StaffComponent,
@@ -288,30 +278,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     PatDetailComponent,
   
     RecordsComponent,
-
-    RecordChargeComponent,
   
     ClinicServiceComponent,
-  
-    PharmacyComponent,
-  
-    ClinicComponent,
-  
-    AdminComponent,
-  
-    LabComponent,
-  
-    RadioComponent,
-  
-    TheaterComponent,
-  
-    RecordComponent,
-  
-    RevenueComponent,
-  
-    NurseComponent,
-  
-    WardComponent,
   
     RecordAdminComponent,
   
@@ -354,8 +322,6 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     RevenueLogComponent,
   
     AppointmentTypeComponent,
-  
-    BrancesComponent,
     NavLazyLoadComponent,
     ChatComponent,
     NgxNotificationComponent,
@@ -376,6 +342,12 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     TeamComponent,
   
     RankComponent,
+  
+    BookedAppointmentComponent,
+  
+    SchemeHmoComponent,
+  
+    InsuranceComponent,
   
   ],
   imports: [

@@ -41,8 +41,9 @@ return response()->json([
 
         'voucher'=> Vouchers::orderBy('id')->join('branches', 'vouchers.branch_id', '=', 'branches.id')
                                         ->join('departments', 'branches.dept_id', '=', 'departments.id')
+                                        ->join('module', 'vouchers.module_id', '=', 'module.id')
                                         ->where('appointment_id','=',$id)
-                                        ->select('vouchers.*', 'departments.name as d_name', 'branches.name as br_name')->get()
+                                        ->select('vouchers.*', 'departments.name as d_name', 'module.module', 'branches.name as br_name')->get()
 ]);
 
 }
