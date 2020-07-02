@@ -26,8 +26,8 @@
                         
                       <div class="body">
                             <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#noeps">Patient Category</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab">Patient Info</a></li>
+                                    <li class="nav-item"><a class="nav-link active" id="one" data-toggle="tab" href="#noeps">Patient Category</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="two">Patient Info</a></li>
                                 </ul>
                             <div class="tab-content mt-0">
                                 <div class="tab-pane active show" id="noeps">
@@ -44,7 +44,7 @@
                                                         </select>                                            
                                                     </div>
                                                     <div>
-                                                        <button class="btn btn-primary float-right"><a  href="#eps">Next</a></button>
+                                                        <button class="btn btn-primary float-right" disabled="false" (click)="activateNextB()" data-toggle="tab" href="#eps" id="nextbtn">Next</button>
                                                     </div>
                                                 </div>
                                             </div>

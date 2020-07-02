@@ -138,6 +138,7 @@ export class ProccessSettingsComponent implements OnInit {
    }
 
    onSaveProcessValue(form: NgForm) {
+     console.log(form.value)
     this.disabled = true;
      this.Jarwis.addProcessValues(form.value).subscribe(     
        data => this.handleResponse(data),

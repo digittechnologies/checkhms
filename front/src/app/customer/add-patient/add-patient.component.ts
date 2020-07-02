@@ -44,7 +44,7 @@ export class AddPatientComponent implements OnInit {
   eReferral_name: any;
   eReferral_address: any;
   eReferral_mobile: any;
-  hostitalNum: any;
+  hostitalNum = false;
 
   //EPS (External Paramedical Services)
 
@@ -53,6 +53,7 @@ export class AddPatientComponent implements OnInit {
   eps_contact: any;
   eps_address: any;
   eps_status: any;
+  activateNextBtn: boolean;
 
   constructor(
     private Jarwis: JarwisService,
@@ -78,9 +79,11 @@ export class AddPatientComponent implements OnInit {
         this.hostitalNum = this.response   
       })
     }
-  clicked(){
-    alert()
-  }
+    categorySelected(){
+      document.getElementById('nextbtn').removeAttribute('disabled');
+      document.getElementById('one').classList.remove('active');
+      document.getElementById('two').classList.add('active');
+    }
   showAge(d) {
     let dob = d.target.value;
     let dobIndex = dob.indexOf("-");
