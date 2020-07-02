@@ -3190,7 +3190,7 @@
                                                 </ul>
                                             </div>
                                             <div class="chat-message clearfix">
-                                                <textarea  *ngIf="copiedMessage != ''"  disabled type="text" row="" class="form-control">{{copiedMessage}} <span class="ml-2" (click)="cancelCopied()">x</span></textarea>
+                                                <textarea  *ngIf="copiedMessage != ''"  disabled type="text" row="" class="form-control">{{copiedMessage}}</textarea><span *ngIf="copiedMessage != ''" class="ml-2" (click)="cancelCopied()">x</span>
                                                 <div class="input-group mb-0" *ngIf="reviw_admin">
                                                     <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
                                                     <textarea *ngIf="!review_messages && user_id != reviw_admin.id" disabled type="text" row="" class="form-control" placeholder="You are not allow to type yet"></textarea>
