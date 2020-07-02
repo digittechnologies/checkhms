@@ -14,6 +14,7 @@ Route::group([
 //Settings
 Route::get('setupStatus', 'SetupController@setupStatus');
 Route::get('generalSettings', 'SetupController@generalSettings');
+Route::get('displayPriceColumn', 'DisplayController@displayPriceColumn');
 
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');

@@ -168,7 +168,7 @@
                                                       <td>
                                                           <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                           <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-                                                          <strong class="text-success">{{charge_amount  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-success">{{selling_price  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                           <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                       </td>
                                                     </tr>
@@ -182,7 +182,7 @@
                                                         <th>Department</th>
                                                         <th>Service Charge Name</th>
                                                         <th class="w100">Amount</th>
-                                                        <th>Total Amount</th>
+                                                        <th>Less Discount</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody *ngIf="isEmpty !='0'">
@@ -194,10 +194,15 @@
                                                         <td>
                                                             <p class="hidden-sm-down mb-0 text-muted"> {{i.service_charge_name}}</p>
                                                         </td>                                                        
-                                                        <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_percentage}}%) <i class="fa fa-caret-up"></i></span>
+                                                        <td class="hidden-sm-down">{{i.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                       
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'primary'" >{{i.amount - i.discount_1 /100 * i.amount  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_1}}%) <i class="fa fa-caret-up"></i></span>
                                                         </td>
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage == 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}} <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'secondary'" >{{i.amount - i.discount_2 /100 * i.amount | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span>
+                                                        </td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'others'" >{{i.amount - i.discount_3 /100 * i.amount  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_3}}%) <i class="fa fa-caret-up"></i></span>
+                                                        </td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage == 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span>
                                                         </td>   
                                                         <!-- <td class="hidden-sm-down">{{i.total_amount  | currency:'NGN':'symbol-narrow'}}</td> -->
 
@@ -389,7 +394,7 @@
         <td>
             <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
             <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-            <strong class="text-success">{{charge_amount  | currency:'NGN':'symbol-narrow'}}</strong><br>
+            <strong class="text-success">{{selling_price  | currency:'NGN':'symbol-narrow'}}</strong><br>
             <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
         </td>
     </tr>

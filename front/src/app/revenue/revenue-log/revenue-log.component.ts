@@ -63,7 +63,7 @@ record_empty:null;
   unavailable: boolean;
   chargesResponse: any;
   charges: any;
-  charge_amount: any;
+  selling_price: any;
   public paymentForm: FormGroup;
   amountPaid: any;
   balanceAmount: any;
@@ -81,6 +81,8 @@ record_empty:null;
   payall=[];
   invoiceModule: any;
   charges_department: any;
+  priceColumn: any;
+  priceResponse: any;
 
 
 
@@ -123,6 +125,13 @@ record_empty:null;
       this.icon = this.response[0].logo;
     })
 
+    this.Jarwis.displayPriceColumn().subscribe(
+      data=>{
+      this.priceResponse = data;      
+      this.priceColumn = this.priceResponse;
+ 
+    })
+
       this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
       this.vouchId= id;
@@ -150,7 +159,7 @@ record_empty:null;
       data=>{
       this.chargesResponse = data;      
       this.charges = this.chargesResponse.charges;
-      this.charge_amount = this.chargesResponse.chargeSum;
+      this.selling_price = this.chargesResponse.chargeSum;
       this.charge_id = this.chargesResponse.charges[0].id;
     })
     

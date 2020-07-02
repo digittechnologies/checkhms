@@ -103,13 +103,13 @@ class RecordModuleController extends Controller
     {   
         $carbon = Carbon::now();
         $name = $request->charge_name;
-        $amount = $request->charge_amount;
+        $amount = $request->selling_price;
         $status = $request->status;
         $id = $request->id;   
         $update = DB::table('hospital_charges')->where('id','=',$id)
             ->update([
                 'charge_name'=> $name,
-                'charge_amount'=> $amount,
+                'selling_price'=> $amount,
                 'status'=> $status,
                 'updated_at'=> $carbon
             ]);
@@ -344,16 +344,16 @@ class RecordModuleController extends Controller
                     $discout_percent= $hmoNo->discount_3;
                 }
 
-                $discount_amount = $discout_percent * $chargeSum->charge_amount / 100;
-                $total_amount = $chargeSum->charge_amount - $discount_amount;
+                $discount_amount = $discout_percent * $chargeSum->selling_price / 100;
+                $total_amount = $chargeSum->selling_price - $discount_amount;
 
                 $voucherId= Vouchers::create(
                     [
                         'module_id' => $request->appointment_type,
                         'quantity' => 1,
-                        'amount' => $chargeSum->charge_amount,
+                        'amount' => $chargeSum->selling_price,
                         'charges' => $discout_percent,
-                        'amount' => $chargeSum->charge_amount,
+                        'amount' => $chargeSum->selling_price,
                         'discount_id'=> $hmoNo->hmo_no,
                         'discount_amount'=>  $discount_amount,
                         'paid' => '0',
@@ -372,13 +372,13 @@ class RecordModuleController extends Controller
                             'service_charge_id' =>  $chargeSum->id,
                             'service_charge_name' =>  $chargeSum->charge_name,
                             'dept_id' => $chargeSum->dept_id,
-                            'amount' => $chargeSum->charge_amount,
-                            'balance' => $total_amount,
+                            'amount' => $chargeSum->selling_price,
+                            // 'balance' => $total_amount,
                             'nhis_no'=> $Customer_id->n_h_i_s,
                             'hmo_no'=> $hmoNo->hmo_no,
-                            'discount_percentage'=> $discout_percent,
-                            'discount_amount'=> $discount_amount,
-                            'total_amount' => $total_amount,
+                            // 'discount_percentage'=> $discout_percent,
+                            // 'discount_amount'=> $discount_amount,
+                            // 'total_amount' => '0',
                             'status' => 'open',
                             'c_date' => $date,
                             'c_time' => $time,

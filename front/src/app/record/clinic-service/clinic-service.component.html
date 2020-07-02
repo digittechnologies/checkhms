@@ -46,7 +46,7 @@
                                   {{i+1}}
                               </td>                              
                               <td style="color: #17C2D7;">{{c.charge_name}}</td>
-                              <td>{{c.charge_amount  | currency:'NGN':'symbol-narrow'}}</td>
+                              <td>{{c.selling_price  | currency:'NGN':'symbol-narrow'}}</td>
                               <td>{{c.price_2  | currency:'NGN':'symbol-narrow'}}</td>
                               <td>{{c.price_3  | currency:'NGN':'symbol-narrow'}}</td> 
                               <td>{{c.care_type}}</td>  
@@ -110,7 +110,7 @@
               <div class="col-md-8">
                   <div class="form-group">
                       <label>General Price</label>
-                      <input type="number" class="form-control" placeholder="Charge Amount" min="1" ngModel name="charge_amount" required>
+                      <input type="number" class="form-control" placeholder="Charge Amount" min="1" ngModel name="selling_price" required>
                   </div>
               </div>             
           </div>
@@ -245,7 +245,7 @@
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
-                          <input type="number" class="form-control"  [value]="chrgAmount" min="1" placeholder="Charge Amount" ngModel name="charge_amount" required>
+                          <input type="number" class="form-control"  [value]="chrgAmount" min="1" placeholder="Charge Amount" ngModel name="selling_price" required>
                       </div>
                   </div>             
               </div>
