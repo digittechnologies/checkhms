@@ -136,6 +136,7 @@ import { RankComponent } from './admin/rank/rank.component';
 import { TeamComponent } from './admin/team/team.component';
 import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
 import { InsuranceComponent } from './customer/insurance/insurance.component';
+import { TeamReviewComponent } from './admin/team-review/team-review.component';
 
 //DEPARTMENTS Dashboards
 
@@ -281,6 +282,8 @@ const routes: Routes = [
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [] },
          {path: 'doctor_home', component: DoctorHomeComponent, outlet: 'side',canActivate: [] },
          {path: 'treatment/:id', component: MakePrescriptionComponent, outlet: 'side',canActivate: [] },
+         {path: 'team_review', component: TeamReviewComponent, outlet: 'side',canActivate: [] },
+
 
           // Payment
          {path: 'payment_log', component: PaymentLogComponent, outlet: 'side',canActivate: [] },
