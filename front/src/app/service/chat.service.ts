@@ -315,4 +315,53 @@ rievewDetails(){
   return observable;
 }
 
+joinReview(data){
+  this.socket.emit("join review",data)
+ }
+ joinedReview(){
+   let observable = new Observable<{message:String}>(observer=>{
+     this.socket.on('joined review',(data)=>{
+       observer.next(data);
+     })
+     return ()=>{this.socket.disconnect()}
+     
+   })
+   return observable;
+ }
+ leftReview(data){
+   this.socket.emit("left review",data)
+  }
+ userleftReview(){
+   let observable = new Observable<{message:String}>(observer=>{
+     this.socket.on('left review',(data)=>{
+       observer.next(data);
+     })
+     return ()=>{this.socket.disconnect()}
+     
+   })
+   return observable;
+ }
+ sendReviewMessage(data){
+  this.socket.emit("review message",data);
+}
+newReviewMessage(){
+  let observable = new Observable<{sender:any, message:String,firstname:String,lastname:String,image:String,team_review_id:any,copied:any,date:any,time:any}>(observer=>{
+    this.socket.on('new reviewmessage',(data)=>{
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  return observable;
+}
+SenderReviewMessage(){
+  let observable = new Observable<{sender:any, message:String,firstname:String,lastname:String,image:String,team_review_id:any,copied:any,date:any,time:any}>(observer=>{
+    this.socket.on('sender reviewmessage',(data)=>{
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  return observable;
+}
 }

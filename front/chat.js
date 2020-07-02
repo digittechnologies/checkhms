@@ -11,6 +11,7 @@ var user_id;
 var client_id = [];
 // app.use(cors({origin:"*"}));
 app.use(bodyparser.json())
+app.use(express.static(__dirname + '/dist'));
 // app.use(express.static(path))
 
 var mysqlConnection = mysql.createConnection({
@@ -412,29 +413,14 @@ var fullDate =month+' '+date+','+' '+year
   //   })
   // })
   socket.on("fetch team review",(data)=>{
-  var sql=`SELECT team_review_members.*,team_review.*, users.firstname,users.lastname,users.image FROM  team_review_members LEFT JOIN team_review ON   team_review_members.team_review_id = team_review.id  LEFT JOIN users ON   team_review.user_id = users.id   WHERE team_review_members.member_id = ${data} AND team_review_members.status = 'active'`;
+  var sql=`SELECT team_review_members.*,team_review.* FROM  team_review_members LEFT JOIN team_review ON   team_review_members.team_review_id = team_review.id   WHERE team_review_members.member_id = ${data.user_id} AND team_review.appointment_id = ${data.app_id} AND team_review_members.status = 'active'`;
       mysqlConnection.query(sql,(err,rows)=>{
         if (!err) {
             socket.emit('all team review',rows)
-          }
+          }else{console.log(err)}
         })
   })
-  socket.on("join review",(data)=>{
-    socket.join(data)
-    socket.broadcast.to(data).emit('joined',{message:"new user joined"})
-  })
-  socket.on('left review',(data)=>{
-    socket.broadcast.to(data).emit('left room',{message:' has left this group'});
-     socket.leave(data);
-  })
-  socket.on("save review message",(data)=>{
-    console.log(data)
- var sql = "INSERT INTO group_chat (sender,message,receiver,group_id,status) VALUES (?)";
-    var values = [data.sender,data.message,data.receiver,data.group_id,data.status]
-    mysqlConnection.query(sql,[values],function (err, result) {
-    if (err) throw err;
-    })
-  })
+ 
   socket.on("review messages",(data)=>{
     var sql = `SELECT team_review.user_id, team_review.id,users.firstname,users.lastname,users.image FROM team_review JOIN users ON team_review.user_id = users.id   WHERE team_review.id = ${data}`
     var sql2 = `SELECT team_review_members.*, team_review.*,users.firstname,users.lastname,users.image,users.online_status FROM team_review_members JOIN team_review ON team_review_members.team_review_id = team_review.id JOIN users ON team_review_members.member_id = users.id  WHERE team_review_members.team_review_id = ${data}`   
@@ -453,7 +439,50 @@ var fullDate =month+' '+date+','+' '+year
           })
       }
       })
+  })
 
+
+  socket.on("join review",(data)=>{
+    socket.join(data)
+    socket.broadcast.to(data).emit('joined review',{message:"joined"})
+  })
+  socket.on('left review',(data)=>{
+    socket.broadcast.to(data).emit('left review',{message:'left'});
+     socket.leave(data);
+  })
+  socket.on("review message",(data)=>{
+   var sql = "INSERT INTO team_review_messages (user_id,team_review_id,message,copied,c_date,time) VALUES (?)";
+   var sq=`SELECT firstname,lastname,image FROM users WHERE id= ${data.sender} `
+    let date_ob = new Date();
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    // current month
+    let month = date_ob.toLocaleString('default', { month: 'long' });
+   // current year
+   let year = date_ob.getFullYear();
+   //current hour
+   let hours = date_ob.getHours();
+   if (hours < 10) {
+     hours  = "0"+hours;
+   }
+   //current minutes
+   let minutes = date_ob.getMinutes();
+   if (minutes < 10) {
+    minutes  = "0"+minutes;
+  }
+  var time = hours+":"+minutes;
+var fullDate =month+' '+date+','+' '+year
+  var values = [data.sender,data.team_review_id,data.message,data.copied,fullDate,time]
+    mysqlConnection.query(sq,function (err, userDetail) {
+     let user = userDetail[0]
+    mysqlConnection.query(sql,[values],function (err, result) {
+    if (!err) {
+   io.in(data.team_review_id,
+    socket.emit('sender reviewmessage',{sender:data.sender,message:data.message,firstname:user.firstname,lastname:user.lastname,image:user.image,team_review_id:data.team_review_id,copied:data.copied,date:fullDate,time:time}),
+    socket.broadcast.to(data.team_review_id).emit("new reviewmessage",{sender:data.sender,message:data.message,firstname:user.firstname,lastname:user.lastname,image:user.image,team_review_id:data.team_review_id,copied:data.copied,date:fullDate,time:time})         
+   )
+    }else{console.log(err)}
+    })
+  })
   })
 
 

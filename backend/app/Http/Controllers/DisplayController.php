@@ -680,7 +680,7 @@ class DisplayController extends Controller
         $cId= $customeId[0]->customer_id;
         return response()->json(
                 Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customer_category.description')
+                // ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customer_category.description')
                 ->where('customers.id','=',$cId)          
                 ->get()   
             );
@@ -914,7 +914,6 @@ class DisplayController extends Controller
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
         $branch = Branches::select('branches.id', 'branches.name')
-        // ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
         ->where('id', $branchId)
         ->first();  
         $dt = Carbon::now();
@@ -1067,16 +1066,16 @@ class DisplayController extends Controller
         return response()->json([ 
         'charges'=> Hospital_charges::orderBy('id')
                 ->join('departments','hospital_charges.dept_id','=','departments.id')
-                ->where('dept_id', 1)
-                ->where('status', 'active')
+                ->where('hospital_charges.dept_id', 1)
+                ->where('hospital_charges.status', 'active')
                 ->select('hospital_charges.*')               
                 ->get(),
         'chargeSum'=> Hospital_charges::orderBy('id')
                 ->join('departments','hospital_charges.dept_id','=','departments.id')
-                ->where('dept_id', 1)
-                ->where('status', 'active')
+                ->where('hospital_charges.dept_id', 1)
+                ->where('hospital_charges.status', 'active')
                 ->select('hospital_charges.*')               
-                ->sum('charge_amount')
+                ->sum('hospital_charges.charge_amount')
         ]);
     }
 

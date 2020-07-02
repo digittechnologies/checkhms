@@ -278,7 +278,7 @@
                                                               </div>
                                                               <div class="form-group">
                                                                 <label>Balance</label>
-                                                                  <input type="text" disabled class="form-control" placeholder="0" value="{{balanceAmount | currency:'NGN':'symbol-narrow'}}" ngModel required>
+                                                                  <input type="text" disabled class="form-control" placeholder="0" value="{{balanceAmount | currency:'NGN':'symbol-narrow'}}" [ngModelOptions]="{standalone: true}" ngModel required>
                                                               </div>
                                                         </div>                                                               
                                                     </div>
