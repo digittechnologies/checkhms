@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   allPos: any;
     pat: any;
     patResponse: any;
-    roleResponse: Object;
+    roleResponse: any;
     role: any;
     super: any;
     global: any;
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.Jarwis.displayRole().subscribe(
         data=>{       
         this.roleResponse = data
-        this.role= this.roleResponse
+        this.role= this.roleResponse.roles
         this.super=this.role[0].id
         this.global=this.role[1].id
         this.center=this.role[2].id

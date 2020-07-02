@@ -11,6 +11,7 @@ var user_id;
 var client_id = [];
 // app.use(cors({origin:"*"}));
 app.use(bodyparser.json())
+app.use(express.static(__dirname + '/dist'));
 // app.use(express.static(path))
 
 var mysqlConnection = mysql.createConnection({
@@ -18,7 +19,7 @@ var mysqlConnection = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'buth_pharmacy',
-  port: 3308,
+  port: 3306,
   multipleStatements: true
 });
 
@@ -325,6 +326,194 @@ var fullDate =month+' '+date+','+' '+year
     }
     })
   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  socket.on("create team review",(data)=>{
+    var sql = `INSERT INTO team_review (user_id,team_review_name,appointment_id,description) VALUES ('${data.user_id}', '${data.name}','${data.appoint_id}','${data.description}')`;
+    mysqlConnection.query(sql,async(err,res)=>{
+      if (!err) {
+        var sq=`SELECT MAX(id) AS id FROM team_review WHERE user_id = ${data.user_id}`
+        mysqlConnection.query(sq,(err, res, fields) => {
+          var sql2 = `INSERT INTO team_review_members (member_id,team_review_id,status) VALUES ('${data.user_id}', '${res[0].id}','active')`;
+          mysqlConnection.query(sql2,(err,ress)=>{
+            if (!err) {
+              var team=`SELECT  id FROM users WHERE team_id = ${data.team_id} AND id != ${data.user_id}`
+               mysqlConnection.query(team,(err,users)=>{
+                  if(!err && users){
+                    users.map(e=>{
+                      console.log(e.id)
+                      var sql2 = `INSERT INTO team_review_members (member_id,team_review_id,status) VALUES ('${e.id}', '${res[0].id}','active')`;
+                     mysqlConnection.query(sql2,(err,user)=>{
+                    if (!err) {
+                      // console.log(user)
+                    // socket.emit('team review created',{message:'team review created successefuly'})
+                    }
+                  })
+                })
+                  }
+               })
+               var team_memebers=`SELECT * FROM users WHERE team_id = ${data.team_id} AND id != ${data.user_id}`
+               mysqlConnection.query(team_memebers,(err,members)=>{
+              socket.emit('team review created',{message:'team review created successefuly',members:members})
+            })
+            }
+
+           })
+        })
+     }
+     else{
+       console.log(err)
+     }
+    })
+  })
+  // socket.on("add members",(data)=>{
+  //   var sql = `"SELECT id FROM users WHERE team_id = ${data.id}`;
+  //   mysqlConnection.query(sql,(err,res)=>{
+  //     if (!err) {
+  //       res.map(e=>{
+  //         var sql2 = `INSERT INTO team_review_members (member_id,team_review_id,status) VALUES ('${e}', '${data.team_review_id}','active')`;
+  //        mysqlConnection.query(sql2,(err,user)=>{
+  //       if (!err) {
+  //         console.log(user)
+          
+  //       }
+  //       else{console.log(err)}
+  //     })
+  //   })
+        
+  //    }
+  //    else{console.log(err)}
+  //   })
+  // })
+  socket.on("fetch team review",(data)=>{
+  var sql=`SELECT team_review_members.*,team_review.* FROM  team_review_members LEFT JOIN team_review ON   team_review_members.team_review_id = team_review.id   WHERE team_review_members.member_id = ${data.user_id} AND team_review.appointment_id = ${data.app_id} AND team_review_members.status = 'active'`;
+      mysqlConnection.query(sql,(err,rows)=>{
+        if (!err) {
+            socket.emit('all team review',rows)
+          }else{console.log(err)}
+        })
+  })
+ 
+  socket.on("review messages",(data)=>{
+    var sql = `SELECT team_review.user_id, team_review.id,users.firstname,users.lastname,users.image FROM team_review JOIN users ON team_review.user_id = users.id   WHERE team_review.id = ${data}`
+    var sql2 = `SELECT team_review_members.*, team_review.*,users.firstname,users.lastname,users.image,users.online_status FROM team_review_members JOIN team_review ON team_review_members.team_review_id = team_review.id JOIN users ON team_review_members.member_id = users.id  WHERE team_review_members.team_review_id = ${data}`   
+    var sql3 = `SELECT team_review_members.*,team_review_messages.*,users.firstname,users.lastname,users.image FROM team_review_members JOIN team_review_messages ON team_review_members.member_id =  team_review_messages.user_id JOIN users ON team_review_members.member_id = users.id  WHERE team_review_members.team_review_id = ${data}`   
+    mysqlConnection.query(sql,function (err, admin) {
+      if (!err){
+        mysqlConnection.query(sql2,function (err, members) {
+          if (!err){
+            mysqlConnection.query(sql3,function (err, messages) {
+              if (!err){
+                socket.emit('review details',{admin,members,messages})
+                console.log({admin,members,messages})
+              }
+              }) 
+          }
+          })
+      }
+      })
+  })
+
+
+  socket.on("join review",(data)=>{
+    socket.join(data)
+    socket.broadcast.to(data).emit('joined review',{message:"joined"})
+  })
+  socket.on('left review',(data)=>{
+    socket.broadcast.to(data).emit('left review',{message:'left'});
+     socket.leave(data);
+  })
+  socket.on("review message",(data)=>{
+   var sql = "INSERT INTO team_review_messages (user_id,team_review_id,message,copied,c_date,time) VALUES (?)";
+   var sq=`SELECT firstname,lastname,image FROM users WHERE id= ${data.sender} `
+    let date_ob = new Date();
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    // current month
+    let month = date_ob.toLocaleString('default', { month: 'long' });
+   // current year
+   let year = date_ob.getFullYear();
+   //current hour
+   let hours = date_ob.getHours();
+   if (hours < 10) {
+     hours  = "0"+hours;
+   }
+   //current minutes
+   let minutes = date_ob.getMinutes();
+   if (minutes < 10) {
+    minutes  = "0"+minutes;
+  }
+  var time = hours+":"+minutes;
+var fullDate =month+' '+date+','+' '+year
+  var values = [data.sender,data.team_review_id,data.message,data.copied,fullDate,time]
+    mysqlConnection.query(sq,function (err, userDetail) {
+     let user = userDetail[0]
+    mysqlConnection.query(sql,[values],function (err, result) {
+    if (!err) {
+   io.in(data.team_review_id,
+    socket.emit('sender reviewmessage',{sender:data.sender,message:data.message,firstname:user.firstname,lastname:user.lastname,image:user.image,team_review_id:data.team_review_id,copied:data.copied,date:fullDate,time:time}),
+    socket.broadcast.to(data.team_review_id).emit("new reviewmessage",{sender:data.sender,message:data.message,firstname:user.firstname,lastname:user.lastname,image:user.image,team_review_id:data.team_review_id,copied:data.copied,date:fullDate,time:time})         
+   )
+    }else{console.log(err)}
+    })
+  })
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   socket.on("disconn",(data)=>{
    var sql = "UPDATE users SET online_status = 'offline' WHERE id = ?";
     mysqlConnection.query(sql,[data],function(err,res){
