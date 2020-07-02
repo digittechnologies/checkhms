@@ -2639,7 +2639,7 @@ public function addCenter(Request $request)
                     ->where('dept_id', 1)
                     ->where('status', 'active')
                     ->select('hospital_charges.*')               
-                    ->sum('charge_amount');
+                    ->sum('selling_price');
 
         $customeId= Appointments::orderBy('id')->where('id','=',$cid)->select('appointments.customer_id')->get();
                     $cId= $customeId[0]->customer_id;                   
@@ -2743,7 +2743,7 @@ public function addCenter(Request $request)
 
         $vid= $request->voucher_Id;
         $v_method= $request->method;
-        $charge_amount = $request->charge_amt;
+        $selling_price = $request->charge_amt;
         $discount = $request->discount;
         $tobalance = $request->bal;
         $paying = $request->topay;
@@ -2847,7 +2847,7 @@ public function addCenter(Request $request)
                         'paid' => $paying,
                         'balance' => $tobalance,
                         'discount' => $discount,
-                        'service_charge' => $charge_amount,
+                        'service_charge' => $selling_price,
                         'other_charges' => 0,
                         'status' => 'paid',
                         'delivery_status' => 'delivered',

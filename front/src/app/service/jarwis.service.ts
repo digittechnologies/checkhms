@@ -81,6 +81,9 @@ public  permite ="";
   generalSettings() {
     return this.http.get(`${this.baseUrl}/generalSettings`)
   }
+  displayPriceColumn() {
+    return this.http.get(`${this.baseUrl}/displayPriceColumn`)
+  }
 
   roleuser() {
     return this.http.get(`${this.baseUrl}/roleuser`)

@@ -63,7 +63,7 @@ export class ClinicServiceComponent implements OnInit {
         this.chrgRes = data; 
         this.chrgid= id;
         this.chrgName= this.chrgRes[0].charge_name;
-        this.chrgAmount= this.chrgRes[0].charge_amount;
+        this.chrgAmount= this.chrgRes[0].selling_price;
         this.chrgStatus = this.charges[0].status;
       })
   }
@@ -72,7 +72,7 @@ export class ClinicServiceComponent implements OnInit {
     this.disabled = true;
     form.value.id=this.chrgid
     if(form.value.charge_name == '') form.value.charge_name = this.chrgName;
-    if(form.value.charge_amount == '') form.value.charge_amount = this.chrgAmount;
+    if(form.value.selling_price == '') form.value.selling_price = this.chrgAmount;
     if(form.value.status == '') form.value.status = this.chrgStatus;
     this.recordJarwis.updateCharge(form.value).subscribe(        
       data => this.handleResponse(data),
