@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   pharmacy: any;
   radiology: any;
   doctor: any;
-  roleResponse: Object;
-  role: Object;
+  roleResponse:any;
+  role: any;
   super: any;
   global: any;
   center: any;
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   home: string;
   imgLink: any;
   pstatus = 'active';
-  roleD: Object;
+  roleD: any;
   shorName: any;
   records: any;
   position: any;
@@ -142,8 +142,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.Jarwis.displayRole().subscribe(
       data=>{      
       this.roleResponse = data
-      this.roleD= this.roleResponse
+      this.roleD= this.roleResponse.roles
       this.super=this.roleD[0].id
+      console.log(this.roleD[0].id)
       this.global=this.roleD[1].id
       this.center=this.roleD[2].id
       this.user=this.roleD[3].id

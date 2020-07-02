@@ -2991,10 +2991,9 @@ public function addCenter(Request $request)
     public function addProcessProperties(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->property = strtoupper( $request->property);
         $create_process = DB::table('process_tb')->insertGetId([
-                'department_id' => $request->department_id,
-                'process_module_id' => $request->process_module_id,
+                'position_id' => $request->position_id,
                 'property' => $request->property,
                 'status' => $request->status,
                 'created_by' => $created_by
@@ -3015,7 +3014,7 @@ public function addCenter(Request $request)
     public function addProcessAttributes(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->attribute = strtoupper($request->attribute); 
         $create_process_attribute = DB::table('process_attribute_tb')->insertGetId(
             [
                 'process_id' => $request->process_id,
@@ -3037,35 +3036,10 @@ public function addCenter(Request $request)
         } 
     }
 
-    public function addProcessModules(Request $request)
-    {
-        $created_by= Auth()->user()->id;
-
-        $create_process_module= DB::table('process_module_tb')->insertGetId(
-            [
-                'module_name' => $request->module_name,
-                'description' => $request->description,
-                'status' => $request->status,
-                'created_by' => $created_by
-            ]); 
-
-        if ($create_process_module) {
-            return '{
-                "success":true,
-                "message":"successful"
-            }' ;
-        } else {
-            return '{
-                "success":false,
-                "message":"failed"
-            }' ;
-        } 
-    }
-
     public function addProcessValues(Request $request)
     {
         $created_by= Auth()->user()->id;
-
+        $request->value = strtoupper($request->value); 
         $create_process_value = DB::table('process_value_tb')->insertGetId(
             [
                 'process_attribute_id' => $request->process_attribute_id,
@@ -3092,16 +3066,37 @@ public function addCenter(Request $request)
     {
         // return $request->id;
         $created_by= Auth()->user()->id;
-
-        $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
-            [
-                'suggestion' =>$request->form['sugestion'],
-                'value_type' =>$request->form['value_type'],
-                'normal_range' => $request->form['normal_range'],
-                'unit' => $request->form['unit'],
-                'value_option' => $request->form['value_option'],
-                'updated_by' => $created_by
-            ]); 
+       
+        if ($request->form['value_type'] == 'number') {
+            $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+                [
+                    'suggestion' =>$request->form['sugestion'],
+                    'value_type' =>$request->form['value_type'],
+                    'normal_range' => $request->form['normal_range'],
+                    'unit' => $request->form['unit'],
+                    'value_option' => $request->form['value_option'],
+                    'updated_by' => $created_by
+                ]); 
+        }
+        if ($request->form['value_type'] == 'text' ||$request->form['value_type'] == 'textarea') {
+            $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+                [
+                    'suggestion' =>$request->form['sugestion'],
+                    'value_type' =>$request->form['value_type'],
+                    'value_option' => $request->form['value_option'],
+                    'updated_by' => $created_by
+                ]); 
+        }
+           if ($request->form['value_type'] == 'radio' || $request->form['value_type'] == 'checkbox') {                                
+               $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+                   [
+                       'value_type' =>$request->form['value_type'],
+                       'value_options' => $request->form['value_options'],
+                       'comment' => $request->form['comment'],
+                       'options' => $request->form['options'],
+                       'updated_by' => $created_by
+                   ]); 
+           }
 
         if ($create_process_value) {
             return '{
@@ -3111,10 +3106,95 @@ public function addCenter(Request $request)
         } else {
             return '{
                 "success":false,
-                "message":"failed"
+                "message":"failed"  
             }' ;
         } 
     }
+
+    public function submitProcessVals(Request $request)
+    {
+        $value_option = array();
+        $process_id = array();
+        $requests = $request->all();
+        $getProcessValue = DB::table('process_value_tb')->get();
+            foreach($getProcessValue as $data) {
+                foreach ($requests as $key => $value) {
+                    if($data->value == $key){
+                        array_push($value_option, $value);
+                        array_push($process_id, $data->id);
+                    }
+                }
+            }
+            DB::table('form_process')->insert([
+                'position_id'=>1,
+                'user_id'   =>4,
+                'value_option'=> json_encode($request->form),
+                'process_value_tb_id' =>$request->process_value_tb_id,
+            ]);
+            
+       
+
+    }
+
+    public function updateProperty(Request $request)
+    {
+        $update = DB::table('process_tb')->where('id','=',$request->id)
+        ->update([
+            'property' => $request->propertyName
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    } 
+    
+    
+    public function updateAttribute(Request $request)
+    {
+        $update = DB::table('process_attribute_tb')->where('id','=',$request->id)
+        ->update([
+            'attribute' => $request->attributeName,
+            'description' =>  $request->attributeDesc
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    } 
+    public function updateProcessValue(Request $request)
+    {
+        $update = DB::table('process_value_tb')->where('id','=',$request->id)
+        ->update([
+            'value' =>  $request->process_valueName,
+            'description' => $request->process_valueDesc
+        ]);
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
     public function CenterTypes(Request $request)
     {
         $created_by= Auth()->user()->id;
