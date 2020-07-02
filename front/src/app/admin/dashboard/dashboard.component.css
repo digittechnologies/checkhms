@@ -17,7 +17,7 @@
     background-color: inherit;
 }
 ::-webkit-scrollbar {
-    width:7px;
+    width:6px;
   }
   
   /* Track */
@@ -39,6 +39,6 @@
 #main-menu{
     max-height:80vh !important;
     overflow-y: auto !important;
-    position: absolute;
+    /* position: absolute; */
     margin-bottom:50px;
 }

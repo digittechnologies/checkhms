@@ -123,11 +123,17 @@ import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-us
 //WARD
 import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+//Report and History
 import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
 import { RevenueLogComponent } from './revenue/revenue-log/revenue-log.component';
+//Settings
 import { BrancesComponent } from './branches/brances/brances.component';
+import { NavLazyLoadComponent } from './admin/navs/nav-lazy-load/nav-lazy-load.component';
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
+import { CenterTypeComponent } from './center-type/center-type.component';
+import { PossitionComponent } from './admin/possition/possition.component';
+import { RankComponent } from './admin/rank/rank.component';
 
 
 //DEPARTMENTS Dashboards
@@ -139,6 +145,7 @@ const routes: Routes = [
   // {path: 'home', component: HomeComponent },
   {path: '', component: LoginComponent,canActivate: [BeforeLoginService] },
   {path: 'setupregister', component: RegisterComponent},
+  {path:'lazyload',component:NavLazyLoadComponent},
   // {path: 'Signin', component: SigninComponent,canActivate: [BeforeLoginService] },
   {path: 'forgot_password', component: ForgotPasswordEmailComponent,canActivate: [BeforeLoginService] },
   {path: 'reset_password/:token', component: ForgotPasswordResetComponent,canActivate: [BeforeLoginService] },
@@ -211,9 +218,7 @@ const routes: Routes = [
         // //CLINIC START
         // {path: 'Clinic-department_admin', component: ClinicAdminComponent, outlet: 'side',canActivate: [AfterLoginService],  },
         // {path: 'Clinic-staff', component:ClinicUserComponent, outlet: 'side',canActivate: [AfterLoginService],  },
-        // //CLINIC END
-
-         {path: 'staff', component: StaffComponent, outlet: 'side',canActivate: [] },         
+        // //CLINIC END         
          {path: 'department_admin', component: DepertmentComponent, outlet: 'side',canActivate: [] },
          {path: 'set_department', component: SetdepartmentComponent, outlet: 'side',canActivate: [] },
 
@@ -272,6 +277,7 @@ const routes: Routes = [
 
          // Staff
          {path: 'all_staff', component: AllStaffComponent, outlet: 'side',canActivate: [] },
+         {path: 'staffs', component: StaffComponent, outlet: 'side',canActivate: [] },
 
          // Doctor
          {path: 'doctor_log', component: DoctorLogComponent, outlet: 'side',canActivate: [] },
@@ -292,11 +298,17 @@ const routes: Routes = [
          {path: 'set_lab_department', component: SetLabComponent, outlet: 'side',canActivate: [] },
          {path: 'set_lab_test', component: SetLabTestComponent, outlet: 'side',canActivate: [] },
          {path: 'set_branch', component: SetBranchComponent, outlet: 'side',canActivate: [] },
+         {path: 'center_type', component: CenterTypeComponent, outlet: 'side',canActivate: [] },
+
          {path: 'branches', component: BrancesComponent, outlet: 'side',canActivate: [] },
        
        
          //setting
         {path: 'general_setting', component: SettingsComponent, outlet: 'side',canActivate: [] },
+        {path: 'possition', component:PossitionComponent, outlet: 'side',canActivate: [] },
+        {path: 'rank', component:RankComponent, outlet: 'side',canActivate: [] },
+
+
        
 
      ],

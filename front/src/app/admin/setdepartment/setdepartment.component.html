@@ -36,13 +36,17 @@
                         <tbody>
                             <tr *ngFor="let d of dept">
                                 <td class="w60">
-                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                    <img src="http://{{imgLink}}/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
                                 </td>
                                 <td>{{d. name}}</td>
                                 <td>{{d.description}}</td>                               
                                 
-                                <td>{{d.position_name}}</td>   
-                                <td>
+                                <td>{{d.module}}</td>   
+                                <td *ngIf="d.status == 'default'">
+                                    <button type="button" disabled class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" disabled class="btn btn-default btn-sm" title="Delete" data-toggle="modal"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                                <td *ngIf="d.status != 'default'">
                                     <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
                                     <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                                 </td>
@@ -78,7 +82,7 @@
                     <div class="form-group">
                         <select class="form-control show-tick" ngModel name="position_id">
                             <option value="">- Select Team -</option>
-                            <option *ngFor="let p of posRes" [value]="p.id">{{p.position_name}}</option>                                
+                            <option *ngFor="let p of posRes" [value]="p.id">{{p.module}}</option>                                
                         </select>
                     </div>
                 </div>

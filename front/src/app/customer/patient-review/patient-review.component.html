@@ -12,6 +12,7 @@
                   </nav>
               </div>            
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <a [routerLink]="['/Admin', {outlets: {side: ['patient_history', appId]}}]" class="btn btn-sm btn-success btn-round" title="">History</a>
                 <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
                 <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
             </div>
@@ -102,6 +103,7 @@
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#mch">Ward MCH</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#pharmacy">pharmacy</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#revenue">Revenue</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#team">Team Review</a></li>
                   </ul>
               </div>                    
           </div>
@@ -3060,307 +3062,62 @@
                        
                 </div>                
               </div>
-              <div class="row clearfix">
-                  <div class="col-xl-12 col-lg-12 col-md-12">
-        
-                          <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="card" id="documenter_cover">
-                                    <div class="body">
-                                        <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                        <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                        <ul>
-                                            <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                            <li>Created: <strong>05/Nov/2018</strong></li>
-                                            <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
-                                        </ul>
+
+              <div class="tab-pane vivify fadeIn delay-100" id="team">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="body">
+                                <div class="media mleft">
+                                    <div class="media-left"><a href="javascript:void(0);"><img class="media-object rounded" src="../assets/images/sm/avatar1.jpg" width="64" height="64" alt=""></a></div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Media heading</h4>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                        ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
+                                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
+                                        in faucibus.
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="features">
-                                    <div class="header">
-                                        <h2>Main Features</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
-                                                    <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
-                                                    <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
-                                                    <li>Light and Dark Version</li>                                        
-                                                    <li>Fully Responsive</li>
-                                                    <li>Ready to used widget</li>
-                                                    <li>Detailed Documentation</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li>Invoice</li>
-                                                    <li>User Profile</li>
-                                                    <li>Image Gallery</li>
-                                                    <li>Timeline</li>
-                                                    <li>Summernote</li>
-                                                    <li>Markdown</li>                                        
-                                                    <li>Many Charts Options</li>                                        
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">
-                                                    <li>Form Examples</li>
-                                                    <li>Form Validation</li>
-                                                    <li>Advanced Form Elements</li>
-                                                    <li>Form Wizard</li>                                        
-                                                    <li>Drag & Drop Upload</li>
-                                                    <li>Social</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6">
-                                                <ul class="main_features">                                        
-                                                    <li>Input Slider</li>                                        
-                                                    <li>Date Picker</li>
-                                                    <li>Drag & Drop Upload</li>
-                                                    <li>Image Cropping</li>
-                                                    <li>Sortable & Nestable</li>
-                                                    <li>CKEditor</li>
-                                                </ul>
-                                            </div>
-                                        </div>                            
-                                        <div class="alert alert-danger" role="alert">
-                                            <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
-                                            Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
+                                <div class="media mleft">
+                                    <div class="media-left"><a href="javascript:void(0);"><img alt="" class="media-object rounded" src="../assets/images/sm/avatar2.jpg" width="64" height="64"></a></div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Media heading</h4>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                        ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
+                                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
+                                        in faucibus.
+                                        <div class="media m-t-20">
+                                            <div class="media-left"><a href="javascript:void(0);"><img alt="" class="media-object rounded" src="../assets/images/sm/avatar3.jpg" width="64" height="64"></a></div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Nested media heading</h4>
+                                                Cras sit amet nibh libero, in gravida nulla. Nulla
+                                                vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
+                                                in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                                                fringilla. Donec lacinia congue felis in faucibus. </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="grunt_file">
-                                    <div class="header">
-                                        <h2>Grunt File & Installation <small>The JavaScript Task Runner.</small></h2>
-                                    </div>
-                                    <div class="body">
-                                        <p><strong>Installing Grunt:</strong> Run <code>npm install grunt --save-dev</code> command from your teminal to install grunt within your project.</p>
-                                        <p><strong>Grunt Sass:</strong> Run <code>grunt sass</code> command from your project directory. It will compile SASS to CSS for the project. This will read the file `assets/scss/filename.scss` and output a plain-css file to `/assets/css/filename.css`. </p>
-                                        <p><strong>Grunt JSHint:</strong> Run <code>grunt jshint</code> command from your project directory. It will checks all *.js files under `assetsjs/filename` for common syntax or coding errors using the JSHint utility.</p>
-                                        <p><strong>Grunt Sprite:</strong> Run <code>grunt sprite</code> command from your project directory. </p>                        
-                                        <p><strong>Further help:</strong> To get more help on the grunt checkout <a href="https://gruntjs.com/getting-started">Grunt</a></p>
-                                        <p><strong>Note:</strong> However, any SASS code you write must be able compile via Grunt as well.It will generate pre-compiled javascript templates. Reads all the *.html files from `assets/js/filename` and outputs `assets/js/filename.templates.js`. Template.js will contains code of UI design and will be change each time you build solution through above command.</p>
-                                        <p><a href="https://gruntjs.com/" target="_blank"><strong>Grunt</strong></a> is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. It uses a command-line interface to run custom tasks defined in a file.</p>
-                                    </div>                    
+                                <div class="media mright">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Media heading</h4>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                        ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
+                                        turpis. </div>
+                                    <div class="media-right"><a href="javascript:void(0);"><img alt="" class="media-object rounded" src="../assets/images/sm/avatar4.jpg" width="64" height="64"></a></div>
+                                </div>
+                                <div class="media mleft">
+                                    <div class="media-left"><a href="javascript:void(0);"><img alt="" class="media-object rounded" src="../assets/images/sm/avatar2.jpg" width="64" height="64"></a></div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Media heading</h4>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                        ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
+                                        turpis. </div>
+                                    <div class="media-right"><a href="javascript:void(0);"><img class="media-object rounded" src="../assets/images/sm/avatar3.jpg" width="64" height="64"></a></div>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="SCSS">
-                                    <div class="header">
-                                        <h2>SCSS Structure</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p>Please note that all Detail main Web Site, you need to set it up on your project <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html" class="col-blue" target="_blank">Click Here..</a></p>
-                                        <p>main.css is the main CSS file located in assets/css/ folder of the package. Whole CSS file is well indexed with topic and its related code.</p>
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="main_content">
-                                    <div class="header">
-                                        <h2>Main Content</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="folder_structure">
-                                    <div class="header">
-                                        <h2>Folder Structure</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="javascript">
-                                    <div class="header">
-                                        <h2>Javascript</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p>Oculux admin.js is the mail javascript file having all the js code. File is located in assets/js/ folder. This file code is also well formatted and section in different respective function names.</p>
-                                        <p class="m-b-30">Along with this chart library based js code and dashboard based js code are added in separate files for ease of use of user.</p>
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="Credits">
-                                    <div class="header">
-                                        <h2>Credits</h2>
-                                        <ul class="header-dropdown dropdown">
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-12">
-                                                <ul>
-                                                    <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
-                                                    <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
-                                                    <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
-                                                    <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
-                                                    <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
-                                                    <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
-                                                    <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-12">
-                                                <ul>                                        
-                                                    <li>Full Calendar <a href="https://fullcalendar.io/" class="text-warning">Calendar</a></li>
-                                                    <li>Sparkline <a href="https://omnipotent.net/jquery.sparkline/" class="text-warning">Click to See</a></li>
-                                                    <li>Vector Maps <a href="http://jqvmap.com/" class="text-warning">Click to See</a></li>
-                                                    <li>jquery steps <a href="http://www.jquery-steps.com/" class="text-warning">Click to See</a></li>
-                                                    <li>Image cropper <a href="https://github.com/fengyuanchen/cropper" class="text-warning">Click to See</a></li>
-                                                    <li>Summernote <a href="https://summernote.org/" class="text-warning">Click to See</a></li>
-                                                    <li>Form Drag & Drop <a href="https://github.com/JeremyFagis/dropify" class="text-warning">Click to See</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>                            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="thank_you">
-                                    <div class="header">
-                                        <h2>Thank You!</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <p> Once again, thank you so much for purchasing this template. As I said at the beginning, I&#39;d be glad to help you if you have any questions relating to this template.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="card" id="Gallery">
-                                    <div class="header">
-                                        <h2>Gallery</h2>
-                                        <ul class="header-dropdown dropdown">                                
-                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div id="lightgallery" class="row clearfix lightGallery">
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img03.png"><img class="img-fluid rounded" src="assets/img03.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img04.png"><img class="img-fluid rounded" src="assets/img04.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img05.png"><img class="img-fluid rounded" src="assets/img05.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img06.png"><img class="img-fluid rounded" src="assets/img06.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img07.png"><img class="img-fluid rounded" src="assets/img07.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img08.png"><img class="img-fluid rounded" src="assets/img08.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img09.png"><img class="img-fluid rounded" src="assets/img09.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
-                                            <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                      
-                      </div>
-                      <nav aria-label="Page navigation">
-                          <ul class="pagination">
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                              <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                          </ul>
-                      </nav>
-                  </div>              
-              </div>  
+                        </div>
+                    </div>
+                </div>                
               </div>
           </div>         
       </div>
