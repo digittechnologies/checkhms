@@ -19,6 +19,7 @@ use App\Customers;
 use App\Vouchers;
 use App\Hmo;
 use App\Service_charges;
+use App\price_list;
 
 class RecordModuleController extends Controller
 {
@@ -330,9 +331,13 @@ class RecordModuleController extends Controller
          if($insert){
             if($request->charges != "0"){
 
-                $chargeSum= Hospital_charges::find($request->charges);   
+                $chargeSum= Hospital_charges::find($request->charges);               
 
                 $hmoNo= Hmo::find($insert->hmo_id);
+
+                $hmoNo2= Hmo::find( $Customer_id->hmo_no );
+
+                $pice_column= price_list::find($insert->hmo_id);
 
                 if ($chargeSum->care_type == 'primary') {
                     $discout_percent= $hmoNo->discount_1;
