@@ -117,6 +117,7 @@ export class PatientComponent implements OnInit {
   getCenter: any;
   centerResponse: any;
   charges: any;
+  searching =  false;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -247,9 +248,11 @@ export class PatientComponent implements OnInit {
 
     this.patient_age = '';
     this.disabled = true; 
+    this.show = 'null'
 
     if(form.value.customer == '' || form.value.action == ''){
       alert('Serch Box Parameters Empty')
+      this.searching = false;
       this.disabled = false
     }
     else if(form.value.customer != '' || form.value.action != ''){        
@@ -257,6 +260,7 @@ export class PatientComponent implements OnInit {
         this.spin="disable";
         this.disabled= false;
         this.searchResponse = data;
+        this.searching = false;
         this.show= this.searchResponse.show;
         this.patient = this.searchResponse.search[0]; 
         this.patientAll = this.searchResponse.search; 

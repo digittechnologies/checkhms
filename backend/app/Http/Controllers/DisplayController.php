@@ -652,10 +652,14 @@ class DisplayController extends Controller
         ->select('customers.*')->limit(10000)->get();
 
     }
-    public function displayHospitalNum()
+    public function displayHospitalNum($id)
     {
-        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->first();
-        return $getLast->card_number + 1;
+        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->where('cust_category_id', $id)->first();
+        if(empty($getLast)) {
+            return 1;
+        } else {
+            return $getLast->card_number + 1;
+        }
     }
     public function edtCustomer($id)
     {
@@ -671,7 +675,7 @@ class DisplayController extends Controller
     public function edtCustCategories($id)
     {
         return response()->json(
-            DB::table("customer_category")->where('id','=',$id) ->get()      
+            DB::table("customer_category")->where('id','=',$id)->get()      
         );
     }
 
@@ -2188,7 +2192,7 @@ class DisplayController extends Controller
     public function displayProcessProperties()
     {
         return response()->json([
-            'props' => DB::table('process_tb')->join('positions', 'process_tb.position_id', '=', 'positions.id')
+            'props' => DB::table('process_tb')->orderBy('id', 'desc')->join('positions', 'process_tb.position_id', '=', 'positions.id')
             // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
             ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
@@ -2205,7 +2209,7 @@ class DisplayController extends Controller
 
     public function displayProcessAttributes()
     {
-        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+        return DB::table('process_attribute_tb')->orderBy('id', 'desc')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
         ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
         ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
         ->get();
@@ -2213,7 +2217,7 @@ class DisplayController extends Controller
 
     public function displayProcessValues()
     {
-        return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
+        return DB::table('process_value_tb')->orderBy('id', 'desc')->join('users', 'process_value_tb.created_by', '=', 'users.id')
         ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
         ->get();

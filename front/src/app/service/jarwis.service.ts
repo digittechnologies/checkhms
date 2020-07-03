@@ -625,8 +625,8 @@ displayCustomer() {
 displayCharges() {
   return this.http.get(`${this.baseUrl}/displayCharges`,)
 }
-displayHospitalNum(){
-  return this.http.get(`${this.baseUrl}/displayHospitalNum`,)
+displayHospitalNum(id: any){
+  return this.http.get(`${this.baseUrl}/displayHospitalNum/${id}`,)
 }
 
 countCustomer() {

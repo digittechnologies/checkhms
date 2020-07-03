@@ -26,8 +26,8 @@
                         
                       <div class="body">
                             <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#noeps">Patient Category</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab">Patient Info</a></li>
+                                    <li class="nav-item"><a class="nav-link active" id="one" data-toggle="tab" href="#noeps">Patient Category</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="two">Patient Info</a></li>
                                 </ul>
                             <div class="tab-content mt-0">
                                 <div class="tab-pane active show" id="noeps">
@@ -38,13 +38,13 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="form-group"> 
                                                         <label class="fancy-radio custom-color-green">Customer Category</label> 
-                                                        <select class="form-control" (change)="categorySelected()"  ngModel  name="cust_category_id">
+                                                        <select class="form-control" (change)="categorySelected($event)"  ngModel  name="cust_category_id">
                                                             <option value="">-- Select Category --</option>
-                                                            <option *ngFor="let cust of custCat" value="{{cust.id}}">{{cust.category_name}}</option>
+                                                            <option *ngFor="let cust of custCat" value="{{cust.id}}" [value]="cust.id">{{cust.category_name}}</option>
                                                         </select>                                            
                                                     </div>
                                                     <div>
-                                                        <button class="btn btn-primary float-right"><a  href="#eps">Next</a></button>
+                                                        <button class="btn btn-primary float-right" disabled="false" (click)="activateNextB()" data-toggle="tab" href="#eps" id="nextbtn">Next</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,30 +118,22 @@
                                 </div>
                             <div class="tab-pane" id="eps">
                                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm">
-                                    <div class="form-group row">
-                                    <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-8">
-                                        <div class="row clearfix">
-                                            <!-- <div class="col-lg-12 col-md-12">
-                                                <div class="form-group"> 
-                                                    <label class="fancy-radio custom-color-green">Customer category</label> 
-                                                    <select class="form-control" ngModel  name="cust_category_id">
-                                                        <option value="">select category</option>
-                                                        <option *ngFor="let cust of custCat" value="{{cust.id}}">{{cust.category_name}}</option>
-                                                    </select>                                             
-                                                </div>
-                                            </div> -->
-                                                <div class="col-lg-12 col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="fancy-radio custom-color-green">Hospital Number</label>
-                                                        <input type="number" readonly min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
-                                                        <input type="hidden" min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
-                                                        <div class="text-danger" [hidden]="!eCard_number">
-                                                            {{eCard_number}}
+                                    <div *ngIf="category_id != 3">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-8">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Hospital Number</label>
+                                                            <input type="number" readonly min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                            <input type="hidden" min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                            <div class="text-danger" [hidden]="!eCard_number">
+                                                                {{eCard_number}}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="col-lg-12 col-md-12">
                                                         <div class="form-group"> 
                                                             <label class="fancy-radio custom-color-green">Surname</label>  
                                                             <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="name" placeholder="Patient Surname">                                                      
@@ -196,14 +188,14 @@
                                                         </div>
                                                     </div>                          
                                                     <div class="col-lg-12 col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="fancy-radio custom-color-green">Date of Birth</label>
-                                                        <input type="date" class="form-control" (input)="showAge($event)" ngModel name="d_o_b" placeholder="Patient Date of Birth">
-                                                        <div class="text-danger" [hidden]="!eD_o_b">
-                                                            {{eD_o_b}}
+                                                        <div class="form-group">
+                                                            <label class="fancy-radio custom-color-green">Date of Birth</label>
+                                                            <input type="date" class="form-control" (input)="showAge($event)" ngModel name="d_o_b" placeholder="Patient Date of Birth">
+                                                            <div class="text-danger" [hidden]="!eD_o_b">
+                                                                {{eD_o_b}}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="form-group">
                                                             <label class="fancy-radio custom-color-green">Age</label>
@@ -299,16 +291,16 @@
                                                                     {{eX_ray_number}}
                                                                 </div> -->
                                                             </div>
-                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row">
-                                        <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Referral Information If Any!</label>
-                                        <div class="col-lg-10 col-md-10 col-sm-8">
-                                            <div class="row clearfix">
-                                                <div class="col-lg-12 col-md-12">
+                                    
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Referral Information If Any!</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-8">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 col-md-12">
                                                         <div class="form-group">
                                                             <label class="fancy-radio custom-color-green">Referral Name</label>
                                                             <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="referral_name" placeholder="Referral Name">
@@ -335,14 +327,14 @@
                                                             </div> -->
                                                         </div>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Next of Kin Information</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-8">
-                                        <div class="row clearfix">
-                                                <div class="col-lg-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Next of Kin Information</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-8">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 col-md-12">
                                                         <div class="form-group">
                                                             <label class="fancy-radio custom-color-green">Patient Next of Kin Name</label>
                                                             <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="next_of_kin_name" placeholder="Next of Kin Name">
@@ -378,19 +370,75 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                            <div class="col-sm-12">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                <!-- <button type="submit" class="btn btn-outline-secondary">Cancel</button> -->
+                                                    <div class="col-sm-12">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <!-- <button type="submit" class="btn btn-outline-secondary">Cancel</button> -->
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                    <!-- <div *ngIf="category_id == 2">
+                                        <h1>CATEGORY 2</h1>
+                                    </div> -->
+                                    <div *ngIf="category_id == 3">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-md-2 col-sm-4 form-label">Patient Personal Information</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-8">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="fancy-radio custom-color-green">Hospital Number</label>
+                                                                <input type="number" readonly min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                                <input type="hidden" min="0" class="form-control" (keyup)="capsLock($event)" ngModel name="card_number" placeholder="Patient Hospital Number" value="{{hostitalNum}}">
+                                                                <div class="text-danger" [hidden]="!eCard_number">
+                                                                    {{eCard_number}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group"> 
+                                                                <label class="fancy-radio custom-color-green">Surname</label>  
+                                                                <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="name" placeholder="Patient Surname">                                                      
+                                                                <div class="text-danger" [hidden]="!eName">
+                                                                    {{eName}}
+                                                                </div>                                           
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group">  
+                                                                <label class="fancy-radio custom-color-green">Other Names</label> 
+                                                                <input type="text" class="form-control" (keyup)="capsLock($event)" ngModel name="othername" placeholder="Patient Other Names">
+                                                                <div class="text-danger" [hidden]="!eOthername">
+                                                                    {{eOthername}}
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="fancy-radio custom-color-green">Sex</label><br>
+                                                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Male" type="radio" checked><span><i></i>Male</span></label>
+                                                                <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="Female" type="radio"><span><i></i>Female</span></label>
+                                                                <div class="text-danger" [hidden]="!eGender">
+                                                                    {{eGender}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
