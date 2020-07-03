@@ -189,8 +189,8 @@ Route::post('updateItem', 'AddController@updateItem');
 Route::post('deleteItem', 'AddController@deleteItem');
 //Customers / Patients
 Route::get('edtCustomer/{id}','DisplayController@edtCustomer');
-Route::get('displayCustomer','DisplayController@displayCustomer');\
-Route::get('displayHospitalNum','DisplayController@displayHospitalNum');
+Route::get('displayCustomer','DisplayController@displayCustomer');
+Route::get('displayHospitalNum/{id}','DisplayController@displayHospitalNum');
 Route::get('countCustomer','DisplayController@countCustomer');
 Route::post('addCustomer', 'AddController@addCustomer');
 Route::post('updateCustomer', 'AddController@updateCustomer');

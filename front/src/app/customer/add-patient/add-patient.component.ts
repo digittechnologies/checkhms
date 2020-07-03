@@ -54,6 +54,7 @@ export class AddPatientComponent implements OnInit {
   eps_address: any;
   eps_status: any;
   activateNextBtn: boolean;
+  category_id: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -72,17 +73,17 @@ export class AddPatientComponent implements OnInit {
         this.response = data;      
         this.custCat = this.response   
       })
-
-      this.Jarwis.displayHospitalNum().subscribe(
-        data=>{
-        this.response = data;      
-        this.hostitalNum = this.response   
-      })
     }
-    categorySelected(){
+    categorySelected(params){
+      this.category_id = params.target.value;
       document.getElementById('nextbtn').removeAttribute('disabled');
       document.getElementById('one').classList.remove('active');
       document.getElementById('two').classList.add('active');
+      this.Jarwis.displayHospitalNum(this.category_id).subscribe(
+        data=>{
+        this.response = data;      
+        this.hostitalNum = this.response;  
+      })
     }
   showAge(d) {
     let dob = d.target.value;
@@ -98,8 +99,15 @@ export class AddPatientComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    form.value.name = form.value.name.toUpperCase().replace(/[a-z]\b/g, c => c.toUpperCase())
+    form.value.othername = form.value.othername.toUpperCase().replace(/[a-z]\b/g, c => c.toUpperCase())
     form.value.age = this.age;
     form.value.card_number = this.hostitalNum
+    form.value.cust_category_id = this.category_id
+    if(this.category_id == '1' || this.category_id == '3') {
+      form.value.scheme_id = '1';
+      form.value.hmo_no = '1';
+    } 
     this.disabled = true;
      this.Jarwis.addCustomer(form.value).subscribe(
        data => this.handleResponse(data),
