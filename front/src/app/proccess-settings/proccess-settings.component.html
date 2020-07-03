@@ -21,7 +21,9 @@
               <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#properties">Properties</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#attributes">Attributes</a></li>
               <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#values">Values</a></li>
-              <li class="nav-item"><button class="bth btn-primary" data-toggle="modal" data-target="#formTesting" (click)="fetchForms()" >Values</button></li>
+              <li class="nav-item" (click)="fetchForms()"><a class="nav-link" data-toggle="tab" href="#forms">Form</a></li>
+
+              <!-- <li class="nav-item"><button class="bth btn-primary" data-toggle="modal" data-target="#formTesting"  >Values</button></li> -->
 
             </ul>
           <hr>
@@ -36,8 +38,8 @@
                           <thead>
                               <tr> 
                                   <th>#</th>
-                                  <th>Position</th>
                                   <th>Property</th>
+                                  <th>Position</th>
                                   <th>Created By</th>
                                   <th>Updated By</th>
                                   <th>Date & Time</th>
@@ -50,8 +52,8 @@
                                   <td>
                                       {{r+1}}
                                   </td>                              
-                                  <td style="color: #17C2D7;">{{prop.dept_name}}</td>
-                                  <td>{{prop.property}}</td>
+                                  <td style="color: #17C2D7;">{{prop.property}}</td>
+                                  <td>{{prop.dept_name}}</td>
                                   <td>{{prop.firstname}} {{prop.lastname}}</td>    
                                   <td>{{prop.firstname}} {{prop.lastname}}</td>      
                                   <td>{{prop.created_at}} </td>                         
@@ -60,7 +62,7 @@
                                     <span class="badge badge-danger" *ngIf ="prop.status=== 'suspend'">Suspend</span>                                   
                                   </td>                       
                                   <td>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProperty" (click)="editProperty(prop.id)"><i class="fa fa-pencil"></i></button>
                                       <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
@@ -119,7 +121,7 @@
                                     <span class="badge badge-danger" *ngIf ="propAttr.status=== 'suspend'">Suspend</span>                                   
                                   </td>                       
                                   <td>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAttribute" (click)="editAttribute(propAttr.id)"><i class="fa fa-pencil"></i></button>
                                       <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
@@ -170,7 +172,7 @@
                                   <td>
                                       {{r+1}}
                                   </td>                              
-                                  <td style="color: #17C2D7;" data-toggle="modal" data-target="#Pulse" (click)="value(propVal.id)">{{propVal.value}}</td>
+                                  <td style="color: #17C2D7;" data-toggle="modal" title="add properties" data-target="#Pulse" (click)="value(propVal.id)">{{propVal.value}}</td>
                                   <td>{{propVal.attribute}}</td>
                                   <td>{{propVal.description}}</td>
                                   <td>{{propVal.firstname}} {{propVal.lastname}}</td>    
@@ -181,7 +183,7 @@
                                     <span class="badge badge-danger" *ngIf ="propVal.status=== 'suspend'">Suspend</span>                                   
                                   </td>                       
                                   <td>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(d.id)"><i class="fa fa-pencil"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProcessValue" (click)="editProcessValue(propVal.id)"><i class="fa fa-pencil"></i></button>
                                       <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                                  <td>
@@ -229,6 +231,97 @@
               </div>
             </div>
             <!-- Values display end here -->
+            <div class="tab-pane vivify fadeIn delay-100" id="forms">
+              <div class="row clearfix">
+                <div  class="col-lg-2 col-md-4 col-sm-6" *ngFor="let form of testingform">
+                    <button class="modal-title  h4 btn btn-default" id="myLargeModalLabel" (click)="formValue(form.id)">{{form.attribute}}</button>     
+            </div>
+          </div>
+              <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
+                  <div class="row clearfix">
+                      <!-- <div class="col-md-6"> -->
+                        <div class="form-group">
+                          <div class="input-group mb-3" *ngFor="let fr of form_res">
+                              <div class="input-group-prepend mb-3">
+                                  <label class="input-group-text">{{fr.value}}</label>
+                              </div>
+                              <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
+                                <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete" >
+                                  <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
+                                   {{street}} 
+                                  </mat-option>
+                              </mat-autocomplete> 
+                              <ng-container *ngFor="let ops of fr.options">
+                                <div class="input-group mb-3 col-lg-6">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">{{ops}}</label>
+                                    </div> 
+                                    <textarea class="form-control" ngModel name="ops" style="border: none; border-bottom: solid grey 1px;background-color: inherit;outline: none;color:white"></textarea>
+                                </div>
+                            </ng-container>  
+                              </ng-container>
+                    
+                              <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">
+                                <div  *ngIf="fr.value_type == 'radio'">
+                                  <ng-container  *ngFor="let rad of fr.value_options">
+                                    <div  class="col-lg-1 mr-2">
+                                      <!-- name="{{fr.value}}" -->
+                                      <label class="fancy-radio custom-color-green"><input type="radio"   ngModel name="{{fr.value}}"  value="{{rad}}" ><span><i></i>{{rad}}</span></label>
+                                      <!-- {{rad}} <input type="{{fr.value_type}}" ngModel name="gender" value="male"> -->
+                                    </div>
+                                 </ng-container>
+                                </div>
+                                <div  *ngIf="fr.value_type == 'checkbox'">
+                                  <ng-container  *ngFor="let rad of fr.value_options">
+                                    <div  class="col-lg-1 mr-2">
+                                      {{rad}} <input   type="checkbox" ngModel name="{{rad}}"  value="{{rad}}">
+                                    </div>
+                                 </ng-container>
+                                </div>
+                             <!-- <div *ngIf="fr.value_type == 'checkbox'" class="col-lg-1 mr-2">
+                              {{rad}} <input   type="{{fr.value_type}}" ngModel name="{{rad}}" value="{{rad}}">
+                            </div> -->
+                                <ng-container *ngFor="let ops of fr.options">
+                                    <div class="input-group mb-3 col-lg-6">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text">{{ops}}</label>
+                                        </div> 
+                                        <textarea class="form-control" ngModel name="{{ops}}" style="border: none; border-bottom: solid grey 1px;background-color: inherit;outline: none;color:white"></textarea>
+                                    </div>
+                                </ng-container>
+                              </ng-container>
+                          </div>
+                        </div>
+                      <!-- </div>              -->
+                  </div>
+              <div>
+                  <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                  <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+              </div>
+              </form>
+            </div>
+            <div *ngIf="datas">
+              <ng-container *ngFor="let val of datas.value_option">
+                <div class="input-group mb-3 col-lg-6">
+                  <div class="input-group-prepend">
+                      <label class="input-group-text">{{val[0]}}</label>
+                  </div> 
+                  <input *ngIf="val[1] != true" type="text" disabled value="{{val[1]}}" name="" style="width: auto;" id="">
+                  <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
+                    <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'write')" checked>
+                    <span></span>
+                </label>
+                <label *ngIf="val[1] == ''" class="fancy-checkbox mt-3">
+                  <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'write')" >
+                  <span></span>
+              </label>
+
+              </div>
+              </ng-container>
+
+            </div>
+
           </div>
       </div>
     </div>
@@ -260,13 +353,11 @@
                           </div> 
                           <select class="custom-select text-light" [(ngModel)]="value_type" name="value_type"> 
                               <option value="">--Select value type</option>
-                              <option value="number">Number</option>
-                              <option value="text">Text</option>
+                              <option value="number">Number input</option>
+                              <option value="text">Text input</option>
                               <option value="textarea">Textarea</option>
-                              <option value="select">Select</option>
-                              <option value="textarea">Textarea</option>
-                              <option value="textarea">Textarea</option>
-
+                              <option value="radio">Radio input</option>
+                              <option value="checkbox">Checkbox input</option>
                           </select>       
                       </div>                  
                       </div>
@@ -275,22 +366,37 @@
         </div>  
         
 
-        <div class="modal-body">             
+        <div *ngIf="value_type == 'number' || value_type == 'text' || value_type == 'textarea'" class="modal-body">             
           <div class="row clearfix">
               <div class="col-md-8">
                   <div class="form-group">                      
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text">Value Option</label>
+                            <label class="input-group-text">Default value</label>
                         </div> 
-                        <!-- <input type="text" class="form-control"  formControlName="value_option" placeholder="Value">       -->
-                        <textarea  name="value_option" style="background-color: inherit;color: white;" [(ngModel)]="value_option"></textarea>
+                        <input type="text" class="form-control"  placeholder="Value" [(ngModel)]="value_option" name="value_option">      
+                        <!-- <textarea   style="background-color: inherit;color: white;" ></textarea> -->
                       </div>                  
                     </div>
               </div>             
           </div>
       </div> 
-      <div class="modal-body">             
+      <div  *ngIf="value_type == 'radio' || value_type == 'checkbox'"  class="modal-body">             
+        <div class="row clearfix">
+            <div class="col-md-8">
+                <div class="form-group">                      
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <label class="input-group-text">Value Option</label>
+                      </div> 
+                      <input type="text" class="form-control"  placeholder="Value" [(ngModel)]="value_options" name="value_options">      
+                      <!-- <textarea   style="background-color: inherit;color: white;" ></textarea> -->
+                    </div>                  
+                  </div>
+            </div>             
+        </div>
+    </div> 
+      <div *ngIf="value_type == 'number'" class="modal-body">             
         <div class="row clearfix">
             <div class="col-md-8">
                 <div class="form-group">                      
@@ -304,7 +410,7 @@
             </div>             
         </div>
     </div> 
-    <div class="modal-body">             
+    <div *ngIf="value_type == 'number'" class="modal-body">             
       <div class="row clearfix">
           <div class="col-md-8">
               <div class="form-group">                      
@@ -319,7 +425,7 @@
           </div>             
       </div>
   </div> 
-  <div class="modal-body">             
+  <div  *ngIf="value_type == 'radio' || value_type == 'checkbox'" class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">                      
@@ -337,7 +443,27 @@
         </div>             
     </div>
 </div>  
-  <div class="modal-body">             
+<div  *ngIf="value_type == 'radio' || value_type == 'checkbox'" class="modal-body">             
+  <div class="row clearfix">
+      <div class="col-md-8">
+          <div class="form-group">                      
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Options</label>
+                </div> 
+                <div class="body row">
+                  <div class="input-group  demo-tagsinput-area col-12"  id="options" >
+                      <!-- <input type="text"    data-role="tagsinput"  value="Washington,Beijing,Cairo,Taiwoa" > -->
+                  <textarea  name="options" [(ngModel)]="options" style="background-color: inherit; color: white;"></textarea>
+                    </div>
+                      
+              </div> 
+            </div>                  
+            </div>
+      </div>             
+  </div>
+</div> 
+  <div *ngIf="value_type == 'number' || value_type == 'text' || value_type == 'textarea'"  class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">                      
@@ -381,27 +507,6 @@
             </button>
         </div>
         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveProcessProp(propertiespayload)" #propertiespayload="ngForm"> 
-          <!-- <div class="modal-body">             
-            <div class="row clearfix">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text">Departments</label>
-                        </div> 
-                        <select class="custom-select" ngModel name="department_id"> 
-                            <option value="">-- Select Department--</option>   
-                            <ng-container *ngFor="let d of dept">
-                                <ng-container>
-                                    <option value="{{d.id}}">{{d.name}}</option>
-                                </ng-container>
-                            </ng-container>                                                                           
-                        </select>        
-                    </div>
-                  </div>
-                </div>             
-            </div>
-          </div> -->
   
           <div class="modal-body">             
             <div class="row clearfix">
@@ -411,7 +516,7 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text">Process Modules</label>
                         </div> 
-                        <select class="custom-select" ngModel name="process_module_id"> 
+                        <select class="custom-select" ngModel name="position_id"> 
                             <option value="">-- Select Process Module--</option>   
                             <ng-container *ngFor="let pm of processModules">
                                 <ng-container>
@@ -466,6 +571,35 @@
   </div>
   </div>
 
+<!-- Edit Property -->
+  <div class="modal fade" id="EditProperty" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Edit Process Property</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEditProperty(edit1)" #edit1="ngForm">     
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="propertyName" ngModel name="propertyName">
+                      </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
+  
   <!-- Add Attribute -->
 <div class="modal fade" id="AddAttr" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -549,6 +683,35 @@
   </div>
   </div>
 
+  <!-- Edit Attribute -->
+  <div class="modal fade" id="EditAttribute" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Edit Process Attribute</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEditAttribute(edit2)" #edit2="ngForm">     
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="attributeName" ngModel name="attributeName">
+                        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="attributeDesc" ngModel name="attributeDesc">
+                      </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
 
   <!-- Add Values -->
 <div class="modal fade" id="AddValue" tabindex="-1" role="dialog">
@@ -633,58 +796,34 @@
   </div>
   </div>
 
-
-
-
-
-   <!-- Testing form section -->
-<div class="modal fade" id="formTesting" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header ">
-          <h5 class="modal-title  h4 btn btn-default" id="myLargeModalLabel">Testing form</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">             
-          <div class="row clearfix">
-              <div class="col-md-8">
-                <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let form of testingform">
-                  <button class="modal-title  h4 btn btn-default" id="myLargeModalLabel" (click)="formValue(form.id)">{{form.attribute}}</button>
-                </div>       
+  <!-- Edit ProcessValue -->
+  <div class="modal fade" id="EditProcessValue" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Edit Process Value</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
           </div>
-        </div>
-        </div>
-        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveProcessValue(valuepayload)" #valuepayload="ngForm"> 
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onEditProcessValue(edit3)" #edit3="ngForm">     
           <div class="modal-body">             
-            <div class="row clearfix">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <div class="input-group mb-3" *ngFor="let fr of form_res">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text">{{fr.value}}</label>
-                        </div> 
-                        <input *ngIf="fr.value_type != 'select'" type="{{fr.value_type}}" value="{{fr.value_option}}">
-                         <!-- <div *ngIf="fr.value_type != 'select' && fr.value_option!=null">{{fr.value_option.split('"')}}</div>  -->
-                        <select *ngIf="fr.value_type == 'select'" class="custom-select" ngModel name="process_attribute_id"> 
-                            <option value="">-- Select Attribute--</option>   
-                            <!-- <ng-container *ngFor="let va fr.value_option">
-                                    <option value="{{va}}">{{va}}</option>
-                            </ng-container>                                                                            -->
-                        </select>        
-                    </div>
-                  </div>
-                </div>             
-            </div>
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="process_valueName" ngModel name="process_valueName">
+                        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="process_valueDesc" ngModel name="process_valueDesc">
+                      </div>
+                  </div>             
+              </div>
+          </div>      
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+              <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
           </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-            <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
-        </div>
-        </form>
+          </form>
+      </div>
     </div>
-  </div>
-  </div>
+    </div>
 
 

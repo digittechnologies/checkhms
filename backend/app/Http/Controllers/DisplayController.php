@@ -79,7 +79,12 @@ class DisplayController extends Controller
         ] 
         ); 
     }
-
+    public function fetchteam()
+    {
+        return response()->json(
+            DB::table('team_tb')->select('team_name','id')->where('id','!=',0)->get()
+        ); 
+    }
     public function mydetails()
     {
         $id= Auth()->user()->id;
@@ -676,7 +681,7 @@ class DisplayController extends Controller
         $cId= $customeId[0]->customer_id;
         return response()->json(
                 Customers::join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
-                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customer_category.description')
+                // ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customer_category.description')
                 ->where('customers.id','=',$cId)          
                 ->get()   
             );
@@ -910,7 +915,6 @@ class DisplayController extends Controller
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
         $branch = Branches::select('branches.id', 'branches.name')
-        // ->where(['status' => 'active', 'branches.dept_id' => $loggedUserDept])
         ->where('id', $branchId)
         ->first();  
         $dt = Carbon::now();
@@ -1063,14 +1067,14 @@ class DisplayController extends Controller
         return response()->json([ 
         'charges'=> Hospital_charges::orderBy('id')
                 ->join('departments','hospital_charges.dept_id','=','departments.id')
-                ->where('dept_id', 1)
-                ->where('status', 'active')
+                ->where('hospital_charges.dept_id', 1)
+                ->where('hospital_charges.status', 'active')
                 ->select('hospital_charges.*')               
                 ->get(),
         'chargeSum'=> Hospital_charges::orderBy('id')
                 ->join('departments','hospital_charges.dept_id','=','departments.id')
-                ->where('dept_id', 1)
-                ->where('status', 'active')
+                ->where('hospital_charges.dept_id', 1)
+                ->where('hospital_charges.status', 'active')
                 ->select('hospital_charges.*')               
                 ->sum('selling_price')
         ]);
@@ -2214,6 +2218,36 @@ class DisplayController extends Controller
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
         ->get();
     }
+
+    public function editProperty($id)
+    {
+        return response()->json(
+            DB::table('process_tb')->orderBy('id')->select('process_tb.*')     
+            ->where('process_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+
+    public function editAttribute($id)
+    {
+        return response()->json(
+            DB::table('process_attribute_tb')->orderBy('id')->select('process_attribute_tb.*')     
+            ->where('process_attribute_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+    public function editProcessValue($id)
+    {
+        return response()->json(
+            DB::table('process_value_tb')->orderBy('id')->select('process_value_tb.*')     
+            ->where('process_value_tb.id','=',$id)          
+            ->get()      
+        );
+    }
+
+
     public function Value($id)
     {
         return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
@@ -2225,12 +2259,16 @@ class DisplayController extends Controller
     public function fetchForm()
     {
         $user = Auth()->user();
-        $id = $user->dept_id;
-        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
-        ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
-        ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
-        ->where('process_tb.department_id',$id)
-        ->get();
+        // $id = $user->posi;
+        return  response()->json([
+           "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+            ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+            ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+            ->where('process_tb.position_id',9)
+            ->get(),
+            "datas" => DB::table("form_process")->get()
+
+        ]);
     }
     public function formvalue($id)
     {

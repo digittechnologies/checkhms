@@ -1179,6 +1179,35 @@ addProcessValues(data) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+editProperty(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/editProperty/${id}`)
+}
+
+editAttribute(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/editAttribute/${id}`)
+}
+
+editProcessValue(id:string) {
+  return this.http.get<any>(`${this.baseUrl}/editProcessValue/${id}`)
+}
+
+updateProperty(data) {
+  return this.http.post(`${this.baseUrl}/updateProperty`, data)
+}
+updateAttribute(data) {
+  return this.http.post(`${this.baseUrl}/updateAttribute`, data)
+}
+updateProcessValue(data) {
+  return this.http.post(`${this.baseUrl}/updateProcessValue`, data)
+}
+
+submitProcessVals(data) {
+  console.log(data)
+  return this.http.post(`${this.baseUrl}/submitProcessVals`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
 displaySchemes(){
   return this.http.get<any>(`${this.baseUrl}/displaySchemes`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -1211,5 +1240,9 @@ ondeleteHmo(id) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
-
+ fetchteam() {
+  return this.http.get<any>(`${this.baseUrl}/fetchteam`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
 }
