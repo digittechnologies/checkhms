@@ -34,6 +34,11 @@ export class PatientProcessComponent implements OnInit {
   form_id: any;
   form_res: any;
   p: number = 1;
+  patient_image: any;
+  name: any;
+  othername: any;
+  gender: any;
+  age: any;
     // collection: any[];
 
   constructor(   private Jarwis: JarwisService,
@@ -60,6 +65,11 @@ export class PatientProcessComponent implements OnInit {
         this.schemePercent = this.pat[0].pacentage_value;
         this.schemePercentToView = 100 -this.pat[0].pacentage_value;
         this.schemePriceList = this.pat[0].price_list_column;
+         this.patient_image = this.pat[0].patient_image;
+         this.name = this.pat[0].name;
+         this.othername = this.pat[0].othername;
+         this.gender = this.pat[0].gender;
+         this.age = this.pat[0].age
 	    })
   }))
   
@@ -69,10 +79,6 @@ export class PatientProcessComponent implements OnInit {
     this.imgLink = this.response[0].app_url;
   })
   }
-  onSubmit(form:NgForm){}
-
-
-
   // PROCESS START
 
   fetchForms(){
@@ -80,19 +86,6 @@ export class PatientProcessComponent implements OnInit {
       data=>{
         let res:any = data
         this.testingform = res.form;
-        if(res.datas != ''){
-          let dt:any = res.datas[1];
-          if (dt.value_option) {
-            let vp = JSON.parse(dt.value_option)
-            dt.value_option = vp
-          }
-          else{
-            dt.value_option=''
-          }
-          console.log(dt)
-         this.datas = dt;
-         console.log(this.datas.value_option)
-        }
       }
     )
   }
@@ -134,7 +127,7 @@ export class PatientProcessComponent implements OnInit {
   }
   onSaveTestingProcessValue(form:NgForm){
         const data = Object.entries(form.value)
-     this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
+     this.Jarwis.submitProcessVals({form:data,process_attribute_id: this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
        this.response = data;  
    })

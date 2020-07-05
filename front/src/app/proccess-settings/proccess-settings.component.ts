@@ -207,6 +207,7 @@ export class ProccessSettingsComponent implements OnInit {
         this.response = data;  
     })
   }
+  
   handleResponse(data) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000

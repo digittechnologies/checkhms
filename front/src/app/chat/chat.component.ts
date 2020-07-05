@@ -164,6 +164,14 @@ export class ChatComponent implements OnInit,OnDestroy {
         // console.log(this.user.aut)
       }
     )
+    this.chat.connected().subscribe(
+      data=>{
+      let index =  this.chat_users.find(e=>{
+          return e.id == data.id;
+        })
+         index.online_status = data.status
+      }
+    )
   }
   ngOnDestroy(){
 
