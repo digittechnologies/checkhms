@@ -330,14 +330,7 @@ export class ProccessSettingsComponent implements OnInit {
      )
    }
    onSaveTestingProcessValue(form:NgForm){
-      //  event.preventDefault();
-      // const data = form.value.toString()
-      // form.value.process_value_tb_id = this.form_id
          const data = Object.entries(form.value)
-        //  const dt = JSON.stringify(data)
-      //   const formData = form.value;
-      // const data = [...formData.entries()];
-      // console.log(dt);
       this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
         data=>{
         this.response = data;  

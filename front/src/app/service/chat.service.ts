@@ -301,7 +301,6 @@ allReview(){
 }
 
 reviewMessages(data){
-  console.log(data)
   this.socket.emit("review messages",data)
 }
 rievewDetails(){
@@ -319,7 +318,7 @@ joinReview(data){
   this.socket.emit("join review",data)
  }
  joinedReview(){
-   let observable = new Observable<{message:String}>(observer=>{
+   let observable = new Observable<{user_id:any,message:String}>(observer=>{
      this.socket.on('joined review',(data)=>{
        observer.next(data);
      })
@@ -332,7 +331,7 @@ joinReview(data){
    this.socket.emit("left review",data)
   }
  userleftReview(){
-   let observable = new Observable<{message:String}>(observer=>{
+   let observable = new Observable<{user_id:any,message:String}>(observer=>{
      this.socket.on('left review',(data)=>{
        observer.next(data);
      })
