@@ -82,7 +82,7 @@ class DisplayController extends Controller
     public function fetchteam()
     {
         return response()->json(
-            DB::table('team_tb')->select('team_name','id',)->where('id','!=',0)->get()
+            DB::table('team_tb')->select('team_name','id')->where('id','!=',0)->get()
         ); 
     }
     public function mydetails()
@@ -652,10 +652,14 @@ class DisplayController extends Controller
         ->select('customers.*')->limit(10000)->get();
 
     }
-    public function displayHospitalNum()
+    public function displayHospitalNum($id)
     {
-        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->first();
-        return $getLast->card_number + 1;
+        $getLast = Customers::orderBy('id', 'desc')->select('card_number')->where('cust_category_id', $id)->first();
+        if(empty($getLast)) {
+            return 1;
+        } else {
+            return $getLast->card_number + 1;
+        }
     }
     public function edtCustomer($id)
     {
@@ -671,7 +675,7 @@ class DisplayController extends Controller
     public function edtCustCategories($id)
     {
         return response()->json(
-            DB::table("customer_category")->where('id','=',$id) ->get()      
+            DB::table("customer_category")->where('id','=',$id)->get()      
         );
     }
 
@@ -1285,7 +1289,7 @@ class DisplayController extends Controller
                 ->join('hospital_charges', 'service_charges.service_charge_id', '=', 'hospital_charges.id')
                 ->join('scheme_hmo', 'appointments.hmo_id', '=', 'scheme_hmo.id')
                 ->join('price_list_column', 'scheme_hmo.price_list_column', '=', 'price_list_column.id')
-                ->select('service_charges.*', 'departments.name as department', 'hospital_charges.care_type', 'price_list_column.column_name as colum', 'hospital_charges.selling_price', 'hospital_charges.price_2', 'hospital_charges.price_3', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
+                ->select('service_charges.*', 'departments.name as department', 'appointments.insurance_status', 'hospital_charges.care_type', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
                 ->where('service_charges.appointment_id', '=', $id)
                 ->where('service_charges.voucher_id', '=', $Vid)
                 ->get(), 
@@ -2188,7 +2192,7 @@ class DisplayController extends Controller
     public function displayProcessProperties()
     {
         return response()->json([
-            'props' => DB::table('process_tb')->join('positions', 'process_tb.position_id', '=', 'positions.id')
+            'props' => DB::table('process_tb')->orderBy('id', 'desc')->join('positions', 'process_tb.position_id', '=', 'positions.id')
             // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
             ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
@@ -2205,7 +2209,7 @@ class DisplayController extends Controller
 
     public function displayProcessAttributes()
     {
-        return DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+        return DB::table('process_attribute_tb')->orderBy('id', 'desc')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
         ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
         ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
         ->get();
@@ -2213,7 +2217,7 @@ class DisplayController extends Controller
 
     public function displayProcessValues()
     {
-        return DB::table('process_value_tb')->join('users', 'process_value_tb.created_by', '=', 'users.id')
+        return DB::table('process_value_tb')->orderBy('id', 'desc')->join('users', 'process_value_tb.created_by', '=', 'users.id')
         ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
         ->get();

@@ -84,8 +84,8 @@ export class LoginComponent implements OnInit {
     this.Auth.changeAuthStatus(true);  
 
     this.ngOnInit() 
-    this.router.navigateByUrl('/Admin/(side:'+pos+')');      
-   
+    this.router.navigateByUrl('/Admin/(side:'+pos+')');    
+   console.log(pos)
    this.disabled= false;
    this.sav= 'Submited'
 

@@ -83,6 +83,9 @@ record_empty:null;
   charges_department: any;
   priceColumn: any;
   priceResponse: any;
+  footerSubTotal = 0;
+  footerTotal = 0;
+  footerDiscountAmount = 0;
 
 
 
@@ -215,12 +218,14 @@ record_empty:null;
      
      }
 
-     onPay(pay, param, module_id){
+     onPay(pay, param1, module_id, param2){
+      this.footerSubTotal = 0
+      this.footerTotal = 0
+      this.footerDiscountAmount = 0;
       this.Jarwis.displayPharmInvoice(pay, 'inv', module_id, '').subscribe(
         data=>{
         this.PharmPreresponse = data;    
         this.inv = this.PharmPreresponse; 
-        // console.log(this.inv)
         this.isEmpty=this.inv.isE
         this.invoiceModule = this.inv.module
         this.pres=this.inv.pres 
@@ -236,6 +241,58 @@ record_empty:null;
         this.schemePercent = this.inv.patient.pacentage_value;
         this.amount=this.inv.totalAmount.amount
         this.afterPercentCost = this.schemePercent / 100 * this.amount
+        this.pres.forEach(e => {
+          let footerSubTotal = (e.insurance_status == 'enabled') ? parseInt(e.amount_2) : parseInt(e.amount);
+          this.footerSubTotal+=footerSubTotal
+
+
+          if(e.discount_1 == 0){
+            let footerTotal2 = (e.discount_1 == 0) ? parseInt(e.total_amount) : parseInt(e.total_amount);
+            this.footerTotal+=footerTotal2
+          }
+          //PRIMARY HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
+          if(e.discount_1 != 0 && e.care_type == 'primary' && e.insurance_status == 'enabled'){
+            let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_1) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_1)) *  parseInt(e.amount_2) / 100
+            this.footerTotal+=footerTotal
+          } else if(e.discount_1 != 0 && e.care_type == 'primary' && e.insurance_status != 'enabled') {
+            let footerDiscountAmount = parseInt(e.amount) * parseInt(e.discount_1) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_1)) * parseInt(e.amount) / 100
+            this.footerTotal+=footerTotal
+          }
+          //PRIMARY HEALTH CARE TYPE END FOR DISCOUNT A MOUNT
+
+          //SECONDARY HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
+          if(e.discount_2 != 0 && e.care_type == 'secondary' && e.insurance_status == 'enabled'){
+            let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_2) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_2)) * parseInt(e.amount_2) / 100
+            this.footerTotal+=footerTotal
+          } else if(e.discount_2 != 0 && e.care_type == 'secondary' && e.insurance_status != 'enabled') {
+            let footerDiscountAmount = parseInt(e.amount) * parseInt(e.discount_2) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_2)) * parseInt(e.amount) / 100
+            this.footerTotal+=footerTotal
+          }
+          //SECONDARY HEALTH CARE TYPE END FOR DISCOUNT A MOUNT
+
+          //OTHERS HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
+          if(e.discount_3 != 0 && e.care_type == 'others' && e.insurance_status == 'enabled'){
+            let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_3) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_3)) * parseInt(e.amount_2) / 100
+            this.footerTotal+=footerTotal
+          } else if(e.discount_3 != 0 && e.care_type == 'others' && e.insurance_status != 'enabled') {
+            let footerDiscountAmount = parseInt(e.amount) * parseInt(e.discount_3) /100
+            this.footerDiscountAmount+=footerDiscountAmount
+            let footerTotal = (100 - parseInt(e.discount_3)) * parseInt(e.amount) / 100
+            this.footerTotal+=footerTotal
+          }
+          //OTHERS HEALTH CARE TYPE END FOR DISCOUNT A MOUNT
+
+      });
         if(this.invoiceModule == 'pharmacy'){
           this.voucher_Id=this.inv.pres[0].voucher_id;
           this.p_date=this.inv.pres[0].p_date
@@ -261,7 +318,11 @@ record_empty:null;
           document.getElementById('vouch').classList.remove('active');
           document.getElementById('slip').classList.remove('active');
           document.getElementById('label').classList.remove('active');
-          document.getElementById(param).classList.add('active');
+          document.getElementById('payvoucher').classList.remove('active');
+          document.getElementById('Payslip').classList.remove('active');
+          document.getElementById('plabel').classList.remove('active');
+          document.getElementById(param1).classList.add('active');
+          document.getElementById(param2).classList.add('active');
       }
 
       apartTablet(n){
