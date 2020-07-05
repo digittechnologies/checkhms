@@ -1167,10 +1167,11 @@ public function addCenter(Request $request)
     // Customers / Patients
     public function addCustomer(PatientRequest $request)
     {
+        $patient_category = app(\App\Http\Controllers\DisplayController::class)->displayHospitalNum($request->cust_category_id);
+        $request->merge(['card_number' => $patient_category]);
         // $dt = Carbon::now();
         // $request->date = $dt->toFormattedDateString();
         // $request->time = $dt->format('h:i:s A');
-        $form=$request;
         $customer= Customers::create($request-> all());
        
         if($customer){
@@ -1420,64 +1421,66 @@ public function addCenter(Request $request)
         $value=$request->customer;
         $action=$request->action;
         $category = $request->category;
+        if($action == 'mobile_number'){
+            $value = substr($value, 1);
+        }
+        if($action == 'name'){
+            $value = strtoupper($value);
 
-            if($action == 'name'){
-                $value = strtoupper($value);
+            $search=DB::table('customers')
+                ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                ->join('scheme','customers.scheme_id','=','scheme.id')
+                ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
+                ->where('customers.name', 'LIKE', "%{$value}%")
+                ->orWhere('customers.othername', 'LIKE', "%{$value}%")
+                ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
+                ->limit(1000)
+                ->get();
+        } else {
+            $search=DB::table('customers')
+                ->join('customer_category','customers.cust_category_id','=','customer_category.id')
+                ->join('scheme','customers.scheme_id','=','scheme.id')
+                ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
+                ->where('customers.'.$action, $value)
+                ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
+                ->get();
+        }
+        if (count($search) == 0) {
+            return response()->json([
+                'count'=> count($search),
+                'message' => "successfully", 
+                'search'=> $search, 
+                'show'=>"empty"
+            ]);
+        }
+        else if (count($search) > 0){
+            foreach($search as $row){
+                    return response()->json([
+                        'count'=> count($search),
+                        'message' => "successfully", 
+                        'search'=> $search, 
+                        'show'=>"show",
+                        'category' => $category,
+                        'cate'=>DB::table('customer_category')->get(),
+                        "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                        ->where('appointments.customer_id','=',$row->id)->get(),
 
-                $search=DB::table('customers')
-                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
-                    ->join('scheme','customers.scheme_id','=','scheme.id')
-                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
-                    ->where('customers.name', 'LIKE', "%{$value}%")
-                    ->orWhere('customers.othername', 'LIKE', "%{$value}%")
-                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
-                    ->limit(1000)
-                    ->get();
-            } else {
-                $search=DB::table('customers')
-                    ->join('customer_category','customers.cust_category_id','=','customer_category.id')
-                    ->join('scheme','customers.scheme_id','=','scheme.id')
-                    ->join('scheme_hmo','customers.hmo_no','=','scheme_hmo.id')
-                    ->where('customers.'.$action, $value)
-                    ->select('customers.*','customer_category.category_name as cate_name', 'scheme.scheme_name','scheme_hmo.scheme_id','scheme_hmo.hmo_no','scheme_hmo.hmo_name','scheme_hmo.hmo_address','scheme_hmo.hmo_contact','scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3')
-                    ->get();
+                        "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
+                        ->where('appointments.customer_id','=',$row->id)->count(),
+                        
+                        "countBooked" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
+                        ->where('appointments.customer_id','=',$row->id)->where( 'appointments.a_date', '!=', $cDate)->where('appointments.status', '=', 'open')->count(),
+
+                        "count3" => DB::table('invoices')->orderBy('id')->join('vouchers','invoices.voucher_id','=','vouchers.id')
+                        ->join('appointments','vouchers.appointment_id','=','appointments.id')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->select('invoices.*')   
+                        ->where('customers.id','=',$row->id)->sum('invoices.balance'),
+                    ]);
             }
-            if (count($search) == 0) {
-                return response()->json([
-                    'count'=> count($search),
-                    'message' => "successfully", 
-                    'search'=> $search, 
-                    'show'=>"empty"
-                ]);
-            }
-            else if (count($search) > 0){
-                foreach($search as $row){
-                        return response()->json([
-                            'count'=> count($search),
-                            'message' => "successfully", 
-                            'search'=> $search, 
-                            'show'=>"show",
-                            'category' => $category,
-                            'cate'=>DB::table('customer_category')->get(),
-                            "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                            ->where('appointments.customer_id','=',$row->id)->get(),
-
-                            "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
-                            ->where('appointments.customer_id','=',$row->id)->count(),
-                            
-                            "countBooked" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
-                            ->where('appointments.customer_id','=',$row->id)->where( 'appointments.a_date', '!=', $cDate)->where('appointments.status', '=', 'open')->count(),
-
-                            "count3" => DB::table('invoices')->orderBy('id')->join('vouchers','invoices.voucher_id','=','vouchers.id')
-                            ->join('appointments','vouchers.appointment_id','=','appointments.id')
-                            ->join('customers','appointments.customer_id','=','customers.id')
-                            ->select('invoices.*')   
-                            ->where('customers.id','=',$row->id)->sum('invoices.balance'),
-                        ]);
-                }
-            }    
+        }    
     }
 
     //Appointment

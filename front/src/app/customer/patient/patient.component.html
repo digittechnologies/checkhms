@@ -52,13 +52,14 @@
                                         <option value="">-Select-</option>
                                         <option value="card_number">Hospital Number</option>
                                         <option value="name">Patient Name</option>
-                                        <option value="mobile_number">Phone Number</option>                                                  
+                                        <option value="mobile_number">Phone Number</option>
+                                        <option value="n_h_i_s">NHIS Number</option>                                                  
                                     </select>
                                 </div>
                             </div>                           
                             <div class="col-lg-2 col-md-2 col-sm-4">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-block" title="" (click)="searching = true">Search<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
 
                             </div>
                         </div>
@@ -67,7 +68,17 @@
                 </div>
             </div>
             </div>
-
+            <div *ngIf="searching" class="text-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <div class="row clearfix" *ngIf="show == 'empty'"> 
                 <div class="col-lg-12 col-md-12 col-sm-12 card">
                     <div class="card-header text-center">
@@ -85,6 +96,7 @@
                                     <th>S/N</th>
                                     <th>Image</th>
                                     <th>Name</th>
+                                    <th>Patient Category</th>
                                     <th>Card Number</th>
                                     <th>Gender</th>
                                     <th>Action</th>
@@ -98,6 +110,9 @@
                                         </td>
                                     <td>
                                         <p class="mb-0">{{pp.name}} {{pp.othername}}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">{{pp.cate_name}}</p>
                                     </td>
                                     <td class="text-center">{{pp.card_number}}</td>  
                                     <td>{{pp.gender}}</td>   
@@ -121,7 +136,7 @@
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Basic">Appointments</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Order Service</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Book">Book Service</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Activat Discount</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Activate Discount</a></li>
                                     <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Patient Profile</a></li>
                                     <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#set_insurance">Set Payment Mode</a></li>
                                   

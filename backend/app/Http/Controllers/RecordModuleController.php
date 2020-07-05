@@ -337,7 +337,7 @@ class RecordModuleController extends Controller
 
                 $hmoNo2= Hmo::find( $Customer_id->hmo_no );
 
-                $pice_column= price_list::find($insert->hmo_id);
+                $pice_column= price_list::find($hmoNo2->price_list_column);
 
                 if ($chargeSum->care_type == 'primary') {
                     $discout_percent= $hmoNo->discount_1;
@@ -378,7 +378,7 @@ class RecordModuleController extends Controller
                             'service_charge_name' =>  $chargeSum->charge_name,
                             'dept_id' => $chargeSum->dept_id,
                             'amount' => $chargeSum->selling_price,
-                            // 'balance' => $total_amount,
+                            'amount_2' => $chargeSum[$pice_column->column_name],
                             'nhis_no'=> $Customer_id->n_h_i_s,
                             'hmo_no'=> $hmoNo->hmo_no,
                             // 'discount_percentage'=> $discout_percent,

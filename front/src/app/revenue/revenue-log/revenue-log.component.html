@@ -3,12 +3,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <ul class="nav nav-tabs2">
-                        <li class="nav-item"><a id="vouch" class="nav-link active show" data-toggle="tab" href="#EmployeeSalary">Voucher</a></li>
-                        <li class="nav-item"><a id="slip" class="nav-link" disabled="true" data-toggle="tab" href="#Payslip">Payment Slip</a></li>       
+                        <li class="nav-item"><a id="vouch" class="nav-link active" data-toggle="tab" href="#payvoucher">Voucher</a></li>
+                        <li class="nav-item"><a id="slip" class="nav-link" disabled="true">Payment Slip</a></li>       
                         <li class="nav-item"><a id="label" class="nav-link" disabled="true" data-toggle="tab" href="#plabel">Label</a></li>                
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane show active" id="EmployeeSalary">
+                        <div class="tab-pane active" id="payvoucher">
                             <div class="table-responsive invoice_list mb-4">
                                 <button class="float-right btn btn-default text-success"><a data-toggle="tab" class="text-success"  href="#Payslip" (click)="onPayall()">pay all</a></button>
                                 <table class="table table-hover table-custom spacing8">
@@ -53,7 +53,7 @@
                                                 <!-- invoice botton for service Charges -->
                                                 <!-- <button *ngIf="v.module_id == '2'" type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPayCharges(v.id, 'slip', '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp; -->
                                                 <!-- invoice botton for Pharmacy -->
-                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPay(v.id, 'slip', v.module_id, '#Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><a data-toggle="tab"  href="#Payslip" (click)="onPay(v.id, 'slip', v.module_id, 'Payslip')"><i class="icon-printer"></i> Invoice</a></button> &nbsp;
                                                
                                                 <button type="button" class="btn btn-sm btn-default" title="Label" data-placement="top" (click)="onPay(v.id, 'label')"><a class="text text-success" data-toggle="tab"  href="#plabel"><i class="icon-printer"></i> Label</a></button> &nbsp;
                                                 <button type="button" class="btn btn-sm btn-default" title="councle" data-placement="top"><a class="text text-danger" data-toggle="tab" data-target="#cancelPay"  href="#EmployeeSalary"><i class="icon-trash"></i> Cancel</a></button>
@@ -194,18 +194,18 @@
                                                         <td>
                                                             <p class="hidden-sm-down mb-0 text-muted"> {{i.service_charge_name}}</p>
                                                         </td>                                                        
-                                                        <td class="hidden-sm-down">{{i.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                        <td *ngIf="i.insurance_status == 'enabled'" class="hidden-sm-down">{{i.amount_2 | currency:'NGN':'symbol-narrow'}}</td>
+                                                        <td *ngIf="i.insurance_status != 'enabled'" class="hidden-sm-down">{{i.amount | currency:'NGN':'symbol-narrow'}}</td>
                                                        
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'primary'" >{{i.amount - i.discount_1 /100 * i.amount  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_1}}%) <i class="fa fa-caret-up"></i></span>
-                                                        </td>
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'secondary'" >{{i.amount - i.discount_2 /100 * i.amount | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span>
-                                                        </td>
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage != 0 && i.care_type == 'others'" >{{i.amount - i.discount_3 /100 * i.amount  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_3}}%) <i class="fa fa-caret-up"></i></span>
-                                                        </td>
-                                                        <td class="hidden-sm-down" *ngIf="i.discount_percentage == 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span>
-                                                        </td>   
-                                                        <!-- <td class="hidden-sm-down">{{i.total_amount  | currency:'NGN':'symbol-narrow'}}</td> -->
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_1 != 0 && i.care_type == 'primary' && i.insurance_status != 'enabled'" >{{(100 - i.discount_1) * i.amount  /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_1}}%) <i class="fa fa-caret-up"></i></span></td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_2 != 0 && i.care_type == 'secondary' && i.insurance_status != 'enabled'" >{{(100 - i.discount_2) * i.amount /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span></td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_3 != 0 && i.care_type == 'others' && i.insurance_status != 'enabled'" >{{(100 - i.discount_3) * i.amount  /100  | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_3}}%) <i class="fa fa-caret-up"></i></span></td>
 
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_1 != 0 && i.care_type == 'primary' && i.insurance_status == 'enabled'" >{{(100 - i.discount_1) * i.amount_2 /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_1}}%) <i class="fa fa-caret-up"></i></span></td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_2 != 0 && i.care_type == 'secondary' && i.insurance_status == 'enabled'" >{{(100 - i.discount_2) * i.amount_2 /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span></td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_3 != 0 && i.care_type == 'others' && i.insurance_status == 'enabled'" >{{(100 - i.discount_3) * i.amount_2/100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_3}}%) <i class="fa fa-caret-up"></i></span></td>
+                                                        <td class="hidden-sm-down" *ngIf="i.discount_1 == 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
+                                                        <!-- <td class="hidden-sm-down">{{i.total_amount  | currency:'NGN':'symbol-narrow'}}</td> -->
                                                     </tr>
                                                   </tbody>
                                                   <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
@@ -228,13 +228,16 @@
                                                         <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
                                                         <td>
                                                           Sub Total: <br>
-                                                          Discount %:<br>
+                                                          Discount Amount:<br>
                                                           Total: <br>
                                                       </td>
                                                       <td>
-                                                          <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
-                                                          <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-                                                          <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <!-- <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br> -->
+                                                          <!-- <strong class="text-warning">{{schemePercentToView}}%</strong><br>
+                                                          <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br> -->
+                                                          <strong class="text-secondary">{{footerSubTotal | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-warning">{{footerDiscountAmount | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-success">{{footerTotal  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                       </td>
                                                     </tr>
                                                 </tfoot>
@@ -310,7 +313,7 @@
 
 
 
-    <div *ngIf="payall" class="tab-pane" id="Payslip">
+    <div *ngIf="payall" class="tab-pane" id="Payslip2">
     <div *ngFor="let pay of payall.original">
     <div class="card">
     <div id="print-history">
