@@ -44,7 +44,7 @@ export class AllStaffComponent implements OnInit {
   ranks: any;
   teams: any;
 
-  constructor( private Jarwis: JarwisService,
+  constructor( public Jarwis: JarwisService,
     private Token: TokenService,
     public snackBar: MatSnackBar,
     private router: Router) { }

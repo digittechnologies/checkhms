@@ -14,7 +14,7 @@
               <div class="col-md-6 col-sm-12 text-right hidden-xs">
                 <a [routerLink]="['/Admin', {outlets: {side: ['patient_history', appId]}}]" class="btn btn-sm btn-success btn-round" title="">History</a>
                 <a [routerLink]="['/Admin', {outlets: {side: ['patient_review', appId]}}]" class="btn btn-sm btn-success btn-round" title="">Encouter</a>
-                <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-warning btn-round" title="">My Process</a>
+                <a [routerLink]="['/Admin', {outlets: {side: ['clinic_process', appId]}}]" class="btn btn-sm btn-wpatiarning btn-round" title="">My Process</a>
             </div>
           </div>
       </div>
@@ -103,7 +103,8 @@
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#mch">Ward MCH</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#pharmacy">pharmacy</a></li>
                       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#revenue" (click)="left()">Revenue</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#team" (click)="reviewMessages(team_reviews.id)">Team Review</a></li>
+                      <li *ngIf="!team_reviews" class="nav-item"><a class="nav-link" data-toggle="tab" href="#team">Team Review</a></li>
+                      <li *ngIf="team_reviews" class="nav-item"><a class="nav-link" data-toggle="tab" href="#team" (click)="reviewMessages(team_reviews.id)">Team Review</a></li>
                   </ul>
               </div>                    
           </div>
@@ -3062,17 +3063,23 @@
                        
                 </div>                
               </div>
+
+
+
+
+
+              <!-- Team review starting -->
                 <div id="main-content" class="tab-pane vivify fadeIn delay-100 review" id="team">        
                     <div class="container-fluid">
                         <div class="block-header">
                             <div class="row clearfix">
                                 <div class="col-md-6 col-sm-12" *ngIf="team_reviews">
                                     <h1>{{team_reviews.team_review_name}}</h1>
-                                    <small>{{team_reviews.description}</small>
+                                    <small>{{team_reviews.description}}</small>
                                   </div>        
                                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
                                     <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
-                                    <input type="button" class="btn btn-primary float-right" value="Create team review" data-toggle="modal" data-target="#creat-Team_review">
+                                    <input *ngIf="!team_reviews" type="button" class="btn btn-primary float-right" value="Create team review" data-toggle="modal" data-target="#creat-Team_review">
                                     <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                                 </div>
                             </div>
@@ -3096,21 +3103,23 @@
                                                               <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
                                                               <div class="media-body">
                                                                   <span class="name">{{member.firstname}} {{member.lastname}}</span>
-                                                                  <span class="message">{{member.online_status}}</span>
+                                                                  <span class="message">{{member.reviews_status}}</span>
                                                                   <span class="badge badge-outline status"></span>
                                                               </div>
                                                           </div>
                                                       </a>                            
                                                   </li>
-                                                  <li *ngIf="member.online_status == 'online' && member.member_id != member.user_id" class="online">
+                                                  <li *ngIf="member.online_status == 'online' && member.member_id != member.user_id && member.member_id != user_id" class="online">
                                                       <a href="javascript:void(0);">
                                                           <div class="media">
-                                                              <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
+                                                              <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
                                                               <div class="media-body">
                                                                   <span class="name">{{member.firstname}} {{member.lastname}}</span>
-                                                                  <span class="message">{{member.status}}</span>
+                                                                  <span class="message">{{member.reviews_status}}</span>
                                                                   <span class="badge badge-outline status"></span>
                                                               </div>
+                                                                  
+
                                                           </div>
                                                       </a>                            
                                                   </li>
@@ -3123,13 +3132,14 @@
                                                   <ng-container *ngFor="let message of review_messages">
                                                     <li *ngIf="message.user_id == user_id" class="right clearfix">
                                                         <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#282B2F;">
+                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#454d57;">
                                                                 <span>{{message.copied}}</span>
                                                             </p>
                                                             
                                                             <p class="" style="width: fit-content;height:auto;">
                                                                 <span>{{message.message}}</span>
                                                             </p>
+                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
                                                         </span>
                                                         <span class="data_time">
                                                      <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
@@ -3137,15 +3147,15 @@
                                                     </li>
                                                     <li  *ngIf="message.user_id != user_id" class="left clearfix">
                                                         <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
-                                                        <i *ngIf="message.copied == null || message.copied == ''" (click)="copyMessage(message.message)" style="font-size:23px;" class="fa fa-share"></i>
                                                         <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#282B2F;" >
+                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#4e96e2;" >
                                                                 <span>{{message.copied}}</span>
                                                             </p>
                                                             
                                                             <p class="" style="width: fit-content;height:auto;">
                                                                 <span>{{message.message}}</span>
                                                             </p>
+                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
                                                         </span>
                                                                 <span class="data_time">
                                                                     <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
@@ -3163,6 +3173,7 @@
                                                             <p class="" style="width: fit-content;height:auto;">
                                                                 <span>{{message.message}}</span>
                                                             </p>
+                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
                                                         </span>
                                                         <span class="data_time">
                                                      <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
@@ -3171,16 +3182,15 @@
                                                     <li  *ngIf="message.sender != user_id" class="left clearfix">
                                                         <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
                                                         <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#282B2F;">
+                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#007AFE;">
                                                                 <span>{{message.copied}}</span>
                                                             </p>
                                                             
                                                             <p class="" style="width: fit-content;height:auto;">
                                                                 <span>{{message.message}}</span>
                                                             </p>
+                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
                                                         </span>
-                                                        
-                                                        <i *ngIf="message.copied == null || message.copied == ''" (click)="copyMessage(message.message)" style="font-size:23px;" class="fa fa-share"></i>
 
                                                         <span class="data_time">
                                                             <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
@@ -3190,15 +3200,23 @@
                                                 </ul>
                                             </div>
                                             <div class="chat-message clearfix">
-                                                <textarea  *ngIf="copiedMessage != ''"  disabled type="text" row="" class="form-control">{{copiedMessage}}</textarea><span *ngIf="copiedMessage != ''" class="ml-2" (click)="cancelCopied()">x</span>
-                                                <div class="input-group mb-0" *ngIf="reviw_admin">
+                                                <div class="input-group mb-0 " *ngIf="reviw_admin">
                                                     <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
-                                                    <textarea *ngIf="!review_messages && user_id != reviw_admin.id" disabled type="text" row="" class="form-control" placeholder="You are not allow to type yet"></textarea>
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <span *ngIf="copiedMessage != ''" style="background-color:#3C4043; border:none;height: auto;"  class=" col-12"> <span>{{copiedMessage}}</span>
+                                                                
+                                                                <span  class="ml-2 text-danger float-right" style="cursor: pointer;" (click)="cancelCopied()">x</span>
+                                                
+                                                                </span>      
+                                                            </div>
+                                                        </div>
+                                                    <textarea *ngIf="review_messages == '' && user_id != reviw_admin.id" disabled type="text" row="" class="form-control" placeholder="You are not allow to type yet"></textarea>
                                                     <textarea *ngIf="review_messages ||  user_id == reviw_admin.id" type="text" [(ngModel)]="message" row="" class="form-control" placeholder="Enter text here..."></textarea>
-                                                        <div class="input-group-prepend"></div>
-                                                            <span class="input-group-text">
+                                                        
+                                                            <span class="input-group-text" style="background-color: inherit;">
                                                                 <!-- <input type="button"  class="btn btn-default fa fa-paper-plane text-primary" > -->
-                                                                <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:30px;" (click)="send()"></i>
+                                                                <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:23px;cursor: pointer;"></i>
                                                                 <!-- <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
                                                                 <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a> -->
                                                             </span>
@@ -3222,6 +3240,7 @@
                             </div>
                         </div>
                   </div>
+                 
                   <div class="modal fade" id="creat-Team_review" tabindex="-1" role="dialog"  data-backdrop="false">
                       <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -3262,6 +3281,9 @@
                       </div>
                       </div>
                       </div>     
+                       <!-- Team review nded -->
+
+
               </div>
           </div>         
       </div>

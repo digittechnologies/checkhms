@@ -29,6 +29,12 @@ export class PatientProcessComponent implements OnInit {
   schemePriceList: any;
   response: any;
   imgLink: any;
+  testingform: any;
+  datas: any;
+  form_id: any;
+  form_res: any;
+  p: number = 1;
+    // collection: any[];
 
   constructor(   private Jarwis: JarwisService,
     private Token: TokenService,
@@ -64,5 +70,75 @@ export class PatientProcessComponent implements OnInit {
   })
   }
   onSubmit(form:NgForm){}
+
+
+
+  // PROCESS START
+
+  fetchForms(){
+    this.Jarwis.fetchForm().subscribe(
+      data=>{
+        let res:any = data
+        this.testingform = res.form;
+        if(res.datas != ''){
+          let dt:any = res.datas[1];
+          if (dt.value_option) {
+            let vp = JSON.parse(dt.value_option)
+            dt.value_option = vp
+          }
+          else{
+            dt.value_option=''
+          }
+          console.log(dt)
+         this.datas = dt;
+         console.log(this.datas.value_option)
+        }
+      }
+    )
+  }
+  formValue(id){
+    this.form_id =  id;
+    this.Jarwis.formvalue(id).subscribe(
+      data=>{
+      let reses:any = data;
+      for (let index = 0; index < reses.length; index++) {
+        console.log(reses[index].value_options)
+       if (reses[index].value_options) {
+         let vp = JSON.parse(reses[index].value_options)
+         reses[index].value_options= vp 
+        }
+        else{
+         reses[index].value_options=''
+        }
+        if (reses[index].suggestion) {
+         let vp = JSON.parse(reses[index].suggestion)
+         reses[index].suggestion = vp
+        }
+        else{
+         reses[index].suggestion=''
+        }
+        if (reses[index].options) {
+         let vp = JSON.parse(reses[index].options)
+         reses[index].options = vp
+        }
+        else{
+         reses[index].options=''
+        }
+        
+      }
+      
+      console.log(reses)
+      this.form_res = reses;
+      }
+    )
+  }
+  onSaveTestingProcessValue(form:NgForm){
+        const data = Object.entries(form.value)
+     this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
+       data=>{
+       this.response = data;  
+   })
+ }
+//  PROCESS END
 
 }

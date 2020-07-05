@@ -43,6 +43,7 @@ export class ProccessSettingsComponent implements OnInit {
     sugestion:any
     comment:any
     form_res:any;
+  form_id: any;
   
 
 
@@ -199,6 +200,13 @@ export class ProccessSettingsComponent implements OnInit {
        }
      )
    }
+   onSaveTestingProcessValue(form:NgForm){
+         const data = Object.entries(form.value)
+      this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
+        data=>{
+        this.response = data;  
+    })
+  }
   handleResponse(data) {
     let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
       duration: 2000

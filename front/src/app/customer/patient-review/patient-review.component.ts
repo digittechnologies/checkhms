@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy,HostListener} from '@angular/core';
 import { JarwisService } from 'src/app/service/jarwis.service';
 import { TokenService } from 'src/app/service/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,7 +17,7 @@ declare var test4: any;
   templateUrl: './patient-review.component.html',
   styleUrls: ['./patient-review.component.css']
 })
-export class PatientReviewComponent implements OnInit {
+export class PatientReviewComponent implements OnInit,OnDestroy {
 
   appId: string;
   patientResponse: any;
@@ -42,7 +42,7 @@ export class PatientReviewComponent implements OnInit {
   team_id: any;
   description: any;
   members: any;
-  team_reviews: { rows: any; };
+  team_reviews:{rows :any};
   reviw_admin: any;
   review_id: any;
   message:any;
@@ -78,11 +78,24 @@ export class PatientReviewComponent implements OnInit {
       this.reviw_admin = data.admin[0];
       this.members = data.members;
       this.review_messages = data.messages;
+        this.Chat.joinedReview().subscribe(
+          data=>{
+            console.log(data)
+            let join = this.members.find(e=>{
+              return e.id === data.user_id;
+            })
+            join.reviews_status = data.message;
+          }
+        )
         }
       )
-      this.Chat.joinedReview().subscribe(
+      this.Chat.userleftReview().subscribe(
         data=>{
           console.log(data)
+          let join = this.members.find(e=>{
+            return e.id === data.user_id;
+          })
+          join.reviews_status = data.message;
         }
       )
       this.Chat.newReviewMessage().subscribe(
@@ -147,19 +160,23 @@ export class PatientReviewComponent implements OnInit {
   })
   
   }
+  //TEAM REVIEW START
   createReview(){
     if(this.user_id && this.team_id){
       this.Chat.createTeamRiview({user_id:this.user_id,name:this.name,description:this.description,appoint_id:this.appId,team_id:this.team_id})
     }
   }
   reviewMessages(id){
-    this.team_review_id = id
-    this.Chat.reviewMessages(id)
-    this.Chat.joinReview(id);
+    if(id){
+      this.team_review_id = id
+      this.Chat.reviewMessages(id)
+      this.Chat.joinReview({user_id:this.user_id,team:id});
+    }
   }
-  left(){
-    this.Chat.leftReview(this.review_id)
-  }
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    this.Chat.leftReview({user_id:this.user_id,team:this.team_review_id})
+}
   copyMessage(message){
     this.copiedMessage = message.slice(0,20)+'........'
     console.log(this.copiedMessage)
