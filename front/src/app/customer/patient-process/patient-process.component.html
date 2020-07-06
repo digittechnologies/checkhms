@@ -643,11 +643,12 @@
                     </div>
 
                       <div class="card">
-                          <div class="body bg-primary text-light">
+                          <div class="body">
                               <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
                               <h6 class="mt-4">Examination Note</h6>     
-                              <div  class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
-                                <button class="modal-title  h4 btn text-lifht"  id="myLargeModalLabel" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button>
+                              <div  class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
+                                <!-- <button class="modal-title  h4 btn text-primary"  id="myLargeModalLabel" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button> -->
+                                <a class="nav-link"  id="myLargeModalLabel" data-toggle="pill" href="#v-pills" role="tab" aria-controls="v-pills" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</a>
                               </div>                   
                               <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>
