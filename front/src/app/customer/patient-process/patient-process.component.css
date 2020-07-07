@@ -1,4 +1,33 @@
 @media screen and (min-width:768px){
     .forms{height:500px; overflow: auto;}
    .process{height:500px; overflow: auto;}
+    
+  /* Track */
+  ::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background:#282B2F; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:grey; 
+  }
+.process{
+    max-height:80vh !important;
+    overflow-y: auto !important;
+    /* position: absolute; */
+    margin-bottom:50px;
+}
+.forms{
+    max-height:80vh !important;
+    overflow-y: auto !important;
+    /* position: absolute; */
+    margin-bottom:50px;
+}
 }

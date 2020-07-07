@@ -2261,14 +2261,25 @@ class DisplayController extends Controller
         ->get();
     }
     public function processResult(Request $request){
-        return response()->json([
-            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+        // $dat =array_push()
+    // foreach ($datas as  $data) {
+    //     return $data->value_option;
+    //    $data_value = json_decode($data->value_option);
+    //   for ($i=0; $i < $data_value; $i++) { 
+    //     $ans = DB::table('process_value_tb')->where('value',$data_value[$i])->select('unit')->get();
+    //    array_push( $data_value[$i],$ans);
+    //    return $data_value[$i] ;
+    //   }
+    // };
+    //  return $datas;
+                        return response()->json([
+                            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
                             ->select('form_process.*','process_attribute_tb.attribute')
                             ->where('position_id',$request->position_id)
                             ->where('appointment_id',$request->appointment_id)
                             ->get()
-        ]
-        );
+                            ]
+                          );
     }
     public function fetchForm()
     {
