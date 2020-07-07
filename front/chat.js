@@ -77,6 +77,8 @@ io.on("connection", (socket) => {
   })
 
   socket.on('message',(data)=>{
+    console.log(data)
+    console.log(client_id)
     var info = client_id.find(id=>{
          return data.receiver ===id;
     })
