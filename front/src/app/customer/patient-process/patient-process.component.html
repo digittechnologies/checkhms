@@ -25,12 +25,12 @@
                 <div class="profile-header d-flex justify-content-between justify-content-center">
                     <div class="d-flex">
                         <div class="mr-3">
-                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{patient_image}}" class="rounded" alt="Patient_Photo">
                         </div>
                        <div class="details">
-                              <h4 class="mb-0"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</h4>
-                              <span class="text-light"><b>Gender : </b>{{pat[0].gender}}</span>
-                              <div><b>Age: </b>{{pat[0].age}}</div>
+                              <h4 class="mb-0"><b>Name : </b>{{name + " " + othername}}</h4>
+                              <span class="text-light"><b>Gender : </b>{{gender}}</span>
+                              <div><b>Age: </b>{{age}}</div>
                         </div>                                 
                     </div>                  
                      <div class="col text-right">
@@ -256,8 +256,8 @@
                                       </ul>
                                   </div>
                                   <div class="body row">
-                                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
-                                        <div class="row clearfix forms" style="height:500;overflow:auto">
+                                    <form class="form-auth-small m-t-20 col-12" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
+                                        <div class="row clearfix forms ">
                                             <!-- <div class="col-md-6"> -->
                                               <div class="form-group">
                                                 <!-- <div class="input-group mb-3" *ngFor="let fr of form_res | paginate: { itemsPerPage:5, currentPage: p };let r = index"> -->
@@ -267,13 +267,13 @@
                                                         <label class="input-group-text">{{fr.value}}</label>
                                                     </div>
                                                     <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
-                                                      <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
+                                                      <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}" [matAutocomplete]="auto">
                                                       <mat-autocomplete #auto="matAutocomplete" >
                                                         <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
                                                          {{street}} 
                                                         </mat-option>
                                                     </mat-autocomplete> 
-                                                </ng-container>
+                                                     </ng-container>
                                                         <ng-container *ngIf="fr.value_type == 'textarea'">
                                                               <textarea class="form-control" ngModel name="ops" [matAutocomplete]="auto"></textarea>
                                                               <mat-autocomplete #auto="matAutocomplete" >
@@ -307,6 +307,7 @@
                                                           </div>
                                                       </ng-container>
                                                     </ng-container>
+                                                  
                                                
                                             </div>
                                               </div>
@@ -646,9 +647,8 @@
                           <div class="body">
                               <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
                               <h6 class="mt-4">Examination Note</h6>     
-                              <div  class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
-                                <!-- <button class="modal-title  h4 btn text-primary"  id="myLargeModalLabel" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button> -->
-                                <a class="nav-link"  id="myLargeModalLabel" data-toggle="pill" href="#v-pills" role="tab" aria-controls="v-pills" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</a>
+                              <div  class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
+                                <button class="modal-title  h4 btn text-primary"  id="myLargeModalLabel" style="cursor: pointer;background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button>
                               </div>                   
                               <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>

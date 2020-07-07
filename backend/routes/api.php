@@ -350,6 +350,7 @@ Route::get('displayProcessValues','DisplayController@displayProcessValues');
 Route::get('Value/{id}','DisplayController@Value');
 Route::get('formvalue/{id}','DisplayController@formvalue');
 Route::get('fetchForm','DisplayController@fetchForm');
+Route::post('processResult','DisplayController@processResult');
 Route::post('addProcessProperties','AddController@addProcessProperties');
 Route::post('addProcessModules','AddController@addProcessModules');
 Route::post('addProcessAttributes','AddController@addProcessAttributes');

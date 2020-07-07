@@ -50,6 +50,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   reviewMessage:Array<{sender:any, message:String,firstname:String,lastname:String,image:String,team_review_id:any,copied:any,date:any,time:any}>=[]
   team_review_id: any;
   review_messages: any;
+  datas: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -96,6 +97,14 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
             return e.id === data.user_id;
           })
           join.reviews_status = data.message;
+        }
+      )
+      this.Chat.connected().subscribe(
+        data=>{
+        let index =  this.members.find(e=>{
+            return e.id === data.id;
+          })
+           index.online_status = data.status
         }
       )
       this.Chat.newReviewMessage().subscribe(
@@ -190,6 +199,32 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.message = ''
       this.copiedMessage = ''
     }
+  }
+  // TEAM REVIEW END
+
+  // ENCOUTER START
+  encouter(id){
+    console.log({position_id:id,appointment_id:this.appId})
+    this.Jarwis.processResult({position_id:id,appointment_id:this.appId}).subscribe(
+      data=>{
+        console.log(data)
+        let res:any =data
+        if(res.datas != ''){
+        for (let index = 0; index < res.datas.length; index++) {
+          let dt:any = res.datas[index];
+          if (dt.value_option) {
+            let vp = JSON.parse(dt.value_option)
+            dt.value_option = vp
+          }
+         
+          else{
+            dt.value_option=''
+          }
+        }
+        this.datas = res.datas;
+        }
+      }
+    )
   }
 
 }

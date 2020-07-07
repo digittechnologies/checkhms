@@ -2260,6 +2260,16 @@ class DisplayController extends Controller
         ->where('process_value_tb.id',$id)
         ->get();
     }
+    public function processResult(Request $request){
+        return response()->json([
+            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+                            ->select('form_process.*','process_attribute_tb.attribute')
+                            ->where('position_id',$request->position_id)
+                            ->where('appointment_id',$request->appointment_id)
+                            ->get()
+        ]
+        );
+    }
     public function fetchForm()
     {
         $user = Auth()->user();
@@ -2269,8 +2279,7 @@ class DisplayController extends Controller
             ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
             ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
             ->where('process_tb.position_id',9)
-            ->get(),
-            "datas" => DB::table("form_process")->get()
+            ->get()
 
         ]);
     }

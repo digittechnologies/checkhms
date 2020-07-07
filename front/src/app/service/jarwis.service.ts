@@ -1150,6 +1150,9 @@ fetchForm() {
   return this.http.get<any>(`${this.baseUrl}/fetchForm`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
+processResult(data) {
+  return this.http.post<any>(`${this.baseUrl}/processResult`,data)
+}
 
 addProcessProperties(data) {
   return this.http.post(`${this.baseUrl}/addProcessProperties`, data,{headers:{
