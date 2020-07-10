@@ -6,4 +6,5 @@
     .review .meb{ height:80%; overflow: auto; }
     .review .chatapp_body{height:100%;}
     .review .chat-history{height:75%;overflow: auto;}
+    .result{height:400px;width: 100%; overflow: auto;}
 }

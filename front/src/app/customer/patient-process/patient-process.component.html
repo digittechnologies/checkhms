@@ -34,7 +34,7 @@
                         </div>                                 
                     </div>                  
                      <div class="col text-right">
-                      <h4 class="mb-0">Hospital # : HP{{pat[0].card_number}}</h4>
+                      <h4 class="mb-0">Hospital # : HP{{card_number}}</h4>
                         <div class="h m-0">Appointment #: AP{{appId}}</div>
                         <div class="h m-0">Appointment Status: <span class="badge badge-warning">IPD</span></div>
                       </div>
@@ -262,12 +262,11 @@
                                               <div class="form-group">
                                                 <!-- <div class="input-group mb-3" *ngFor="let fr of form_res | paginate: { itemsPerPage:5, currentPage: p };let r = index"> -->
                                                 <div class="input-group mb-3" *ngFor="let fr of form_res; let r = index">
-
                                                     <div class="input-group-prepend mb-3">
                                                         <label class="input-group-text">{{fr.value}}</label>
                                                     </div>
                                                     <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
-                                                      <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}" [matAutocomplete]="auto">
+                                                      <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
                                                       <mat-autocomplete #auto="matAutocomplete" >
                                                         <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
                                                          {{street}} 
@@ -275,9 +274,9 @@
                                                     </mat-autocomplete> 
                                                      </ng-container>
                                                         <ng-container *ngIf="fr.value_type == 'textarea'">
-                                                              <textarea class="form-control" ngModel name="ops" [matAutocomplete]="auto"></textarea>
+                                                              <textarea class="form-control" ngModel name="{{fr.value}}" [matAutocomplete]="auto"></textarea>
                                                               <mat-autocomplete #auto="matAutocomplete" >
-                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
+                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street">
                                                                  {{street}} 
                                                                 </mat-option>
                                                             </mat-autocomplete>
@@ -307,8 +306,8 @@
                                                           </div>
                                                       </ng-container>
                                                     </ng-container>
-                                                  
-                                               
+                                                     <input type="text" name="unit" value="{{fr.unit}}">
+                                                  <span *ngIf="fr.unit">{{fr.unit}}</span>
                                             </div>
                                               </div>
                                             <!-- </div>              -->

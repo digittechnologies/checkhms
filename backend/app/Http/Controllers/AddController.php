@@ -3116,13 +3116,23 @@ public function addCenter(Request $request)
 
     public function submitProcessVals(Request $request)
     {
+        $forms = $request->form;
+        $form_data = array();
+        //  $forms = json_encode($request->form);
+        foreach ($forms as  $form) {
+            //  return $form;
+         $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
+         array_push($form,$ans[0]->unit);
+         array_push($form_data,$form);
+         
+        }
         $user_id = Auth()->user()->id;
         $user_possintion_id = Auth()->user()->position_id;
             DB::table('form_process')->insert([
                 'user_id'   =>$user_id,
                 'position_id'=>$user_possintion_id,
                 'appointment_id' =>$request->appointment_id,
-                'value_option'=> json_encode($request->form),
+                'value_option'=> json_encode($form_data),
                 'process_attribute_id' =>$request->process_attribute_id,
             ]);
             

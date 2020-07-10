@@ -39,6 +39,7 @@ export class PatientProcessComponent implements OnInit {
   othername: any;
   gender: any;
   age: any;
+  card_number: any;
     // collection: any[];
 
   constructor(   private Jarwis: JarwisService,
@@ -70,6 +71,7 @@ export class PatientProcessComponent implements OnInit {
          this.othername = this.pat[0].othername;
          this.gender = this.pat[0].gender;
          this.age = this.pat[0].age
+         this.card_number = this.pat[0].card_number
 	    })
   }))
   
@@ -126,7 +128,8 @@ export class PatientProcessComponent implements OnInit {
     )
   }
   onSaveTestingProcessValue(form:NgForm){
-        const data = Object.entries(form.value)
+    const data = Object.entries(form.value)
+    console.log(form.value)
      this.Jarwis.submitProcessVals({form:data,process_attribute_id: this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
        this.response = data;  
