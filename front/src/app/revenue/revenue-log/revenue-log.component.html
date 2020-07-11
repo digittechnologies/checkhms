@@ -196,6 +196,8 @@
                                                         </td>                                                        
                                                         <td *ngIf="i.insurance_status == 'enabled'" class="hidden-sm-down">{{i.amount_2 | currency:'NGN':'symbol-narrow'}}</td>
                                                         <td *ngIf="i.insurance_status != 'enabled'" class="hidden-sm-down">{{i.amount | currency:'NGN':'symbol-narrow'}}</td>
+
+                                                        <!-- <td *ngIf="i.amount_2 == '0'" class="hidden-sm-down">{{i.amount | currency:'NGN':'symbol-narrow'}}</td> -->
                                                        
                                                         <td class="hidden-sm-down" *ngIf="i.discount_1 != 0 && i.care_type == 'primary' && i.insurance_status != 'enabled'" >{{(100 - i.discount_1) * i.amount  /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_1}}%) <i class="fa fa-caret-up"></i></span></td>
                                                         <td class="hidden-sm-down" *ngIf="i.discount_2 != 0 && i.care_type == 'secondary' && i.insurance_status != 'enabled'" >{{(100 - i.discount_2) * i.amount /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span></td>
@@ -205,7 +207,8 @@
                                                         <td class="hidden-sm-down" *ngIf="i.discount_2 != 0 && i.care_type == 'secondary' && i.insurance_status == 'enabled'" >{{(100 - i.discount_2) * i.amount_2 /100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_2}}%) <i class="fa fa-caret-up"></i></span></td>
                                                         <td class="hidden-sm-down" *ngIf="i.discount_3 != 0 && i.care_type == 'others' && i.insurance_status == 'enabled'" >{{(100 - i.discount_3) * i.amount_2/100 | currency:'NGN':'symbol-narrow'}} <span class="text-success">({{i.discount_3}}%) <i class="fa fa-caret-up"></i></span></td>
                                                         <td class="hidden-sm-down" *ngIf="i.discount_1 == 0" >{{i.total_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
-                                                        <!-- <td class="hidden-sm-down">{{i.total_amount  | currency:'NGN':'symbol-narrow'}}</td> -->
+                                                        
+                                                        <!-- <td class="hidden-sm-down" *ngIf="i.amount_2 == '0'">{{i.total_amount  | currency:'NGN':'symbol-narrow'}} <span class="text-warning">({{i.discount_percentage}}%) <i class="fa fa-caret-down"></i></span></td></td> -->
                                                     </tr>
                                                   </tbody>
                                                   <div *ngIf="isEmpty =='0'" class="alert alert-danger" role="alert">
@@ -249,7 +252,10 @@
                             </div>
                                 <div class="row clearfix">
                                     <div class="col-md-12 text-right">
-                                        <button *ngIf="v_status== 'open'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Payment</button> &nbsp;
+                                        <button *ngIf="v_status== 'open' && invoiceModule == 'pharmacy'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Pay Prescription</button> &nbsp;
+
+                                        <button *ngIf="v_status== 'open' && invoiceModule == 'other'" class="btn btn-danger" [hidden]="dept!='11'" (click)="payService()"><i *ngIf="disabled" class="fa fa-spin fa-spinner"></i><i *ngIf="!disabled" class="fa fa-money"></i> Pay Service</button> &nbsp;
+
                                         <button *ngIf="v_status == 'paid' || v_status == 'terminate'" disabled class="btn btn-success" [hidden]="dept!='11'"><i class="icon-cash"></i> Payment</button> &nbsp;
                                         <button class="btn btn-info" (click)="printComponent()"><i class="icon-printer"></i> Print</button> &nbsp;
                                         <button class="btn btn-success" [hidden]="dept!='11'"  [routerLink]="['/Admin', {outlets: {side: ['invoice',voucher_Id]}}]"><i class="icon-printer"></i> Reciept</button>

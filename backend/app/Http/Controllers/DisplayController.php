@@ -1259,28 +1259,29 @@ class DisplayController extends Controller
         $voucher_id= Vouchers::find($Vid);
         $id= $voucher_id->appointment_id;
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.*')->first(); 
-        $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
 
         if($customeId->insurance_status == 'enabled'){
               
         }
-    
-        $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
-
-        $hmoNo= Hmo::find($customeId->hmo_id);
-
-        if ($chargeSum->care_type == 'primary') {
-            $discout_percent= $hmoNo->discount_1;
-        }
-        if ($chargeSum->care_type == 'secondary') {
-            $discout_percent= $hmoNo->discount_2;
-        }
-        if ($chargeSum->care_type == 'others') {
-            $discout_percent= $hmoNo->discount_3;
-        }
 
         if($moduleid == 2){
+            $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
+
+            $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
+
+            $hmoNo= Hmo::find($customeId->hmo_id);
+    
+            if ($chargeSum->care_type == 'primary') {
+                $discout_percent= $hmoNo->discount_1;
+            }
+            if ($chargeSum->care_type == 'secondary') {
+                $discout_percent= $hmoNo->discount_2;
+            }
+            if ($chargeSum->care_type == 'others') {
+                $discout_percent= $hmoNo->discount_3;
+            }
+
             $counting = Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)->count();
             return response()->json([
                 "pres" => Service_charges::orderBy('id')
@@ -1300,6 +1301,7 @@ class DisplayController extends Controller
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
                 "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
             ]);
         }
 
@@ -2261,14 +2263,25 @@ class DisplayController extends Controller
         ->get();
     }
     public function processResult(Request $request){
-        return response()->json([
-            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+        // $dat =array_push()
+    // foreach ($datas as  $data) {
+    //     return $data->value_option;
+    //    $data_value = json_decode($data->value_option);
+    //   for ($i=0; $i < $data_value; $i++) { 
+    //     $ans = DB::table('process_value_tb')->where('value',$data_value[$i])->select('unit')->get();
+    //    array_push( $data_value[$i],$ans);
+    //    return $data_value[$i] ;
+    //   }
+    // };
+    //  return $datas;
+                        return response()->json([
+                            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
                             ->select('form_process.*','process_attribute_tb.attribute')
                             ->where('position_id',$request->position_id)
                             ->where('appointment_id',$request->appointment_id)
                             ->get()
-        ]
-        );
+                            ]
+                          );
     }
     public function fetchForm()
     {

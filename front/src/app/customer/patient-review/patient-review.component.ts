@@ -216,7 +216,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
             let vp = JSON.parse(dt.value_option)
             dt.value_option = vp
           }
-         
           else{
             dt.value_option=''
           }
@@ -228,3 +227,4 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   }
 
 }
+

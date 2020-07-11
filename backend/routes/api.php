@@ -258,6 +258,7 @@ Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
 Route::post('saveToInvoice', 'AddController@saveToInvoice');
+Route::post('payService', 'AddController@payService');
 //Vouchers
 Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
 Route::get('displayVoucher','DisplayController@displayVoucher');

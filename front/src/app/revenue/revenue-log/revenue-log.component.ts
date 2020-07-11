@@ -57,7 +57,7 @@ record_empty:null;
   userResponse: any;
   uBranch: any;
   uBranchName: any;
-  disabled: boolean;
+  disabled = false;
   error: any;
   v_status: any;
   unavailable: boolean;
@@ -86,6 +86,8 @@ record_empty:null;
   footerSubTotal = 0;
   footerTotal = 0;
   footerDiscountAmount = 0;
+  appointment_id: any;
+  patient_id: any;
 
 
 
@@ -229,6 +231,7 @@ record_empty:null;
         this.isEmpty=this.inv.isE
         this.invoiceModule = this.inv.module
         this.pres=this.inv.pres 
+        this.patient_id = this.inv.patient.id
         this.name=this.inv.patient.name
         this.othername=this.inv.patient.othername
         this.card_number=this.inv.patient.card_number
@@ -241,10 +244,12 @@ record_empty:null;
         this.schemePercent = this.inv.patient.pacentage_value;
         this.amount=this.inv.totalAmount.amount
         this.afterPercentCost = this.schemePercent / 100 * this.amount
+        this.v_status=this.inv.voucher_status.paid_status
+        this.appointment_id = this.inv.pres[0].appointment_id
+
         this.pres.forEach(e => {
           let footerSubTotal = (e.insurance_status == 'enabled') ? parseInt(e.amount_2) : parseInt(e.amount);
           this.footerSubTotal+=footerSubTotal
-
 
           if(e.discount_1 == 0){
             let footerTotal2 = (e.discount_1 == 0) ? parseInt(e.total_amount) : parseInt(e.total_amount);
@@ -296,7 +301,6 @@ record_empty:null;
         if(this.invoiceModule == 'pharmacy'){
           this.voucher_Id=this.inv.pres[0].voucher_id;
           this.p_date=this.inv.pres[0].p_date
-          this.v_status=this.inv.voucher_status.paid_status
           this.v_charges_amount = this.inv.voucher_status.charges
           this.v_discount = this.inv.voucher_status.discount_id
           this.amountPaid=this.inv.voucher_status.paid
@@ -305,7 +309,7 @@ record_empty:null;
           this.schemeAmt = (100 - this.schemePercent)  / 100 * this.amount + 50;
         }
         if(this.invoiceModule == 'other'){
-          this.voucher_Id = this.inv.pres.voucher_id
+          this.voucher_Id = this.inv.pres[0].voucher_id
           this.p_date=this.inv.pres[0].c_date
         }
         })
@@ -375,6 +379,22 @@ record_empty:null;
       this.Jarwis.saveToInvoice(form.value).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),  
+      ); 
+    }
+
+    payService() {
+      this.disabled = true;
+      let form = {
+        patient_id: this.patient_id,
+        voucher_id: this.voucher_Id,
+        subtotal: this.footerSubTotal,
+        discountamt: this.footerDiscountAmount,
+        total: this.footerTotal,
+        appointment_id: this.appointment_id
+      }
+      console.log(form)
+      this.Jarwis.payService(form).subscribe(
+        
       ); 
     }
 
