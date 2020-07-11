@@ -994,6 +994,12 @@ deleteAppointment(data) {
     }})
   }
 
+  payService(data) {
+    return this.http.post(`${this.baseUrl}/payService`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   terminateAppointment(id: any, data) {
     return this.http.post(`${this.baseUrl}/terminateAppointment/${id}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`

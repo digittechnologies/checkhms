@@ -38,6 +38,7 @@ use App\Http\Requests\EpsRequest;
 use App\Process_tb;
 use App\Process_attribute_tb;
 use App\Process_module_tb;
+use App\Service_charges;
 
 
 class AddController extends Controller
@@ -2737,6 +2738,77 @@ public function addCenter(Request $request)
        
     }
 
+    public function payService(Request $request) 
+    {
+        // return $request->all();
+        $appointment_id = $request->appointment_id;
+        $voucher_id = $request->voucher_id;
+        $patient_id = $request->patient_id;                                                                                                                         
+
+        $charges = Service_charges::orderBy('id')
+                ->join('departments', 'service_charges.dept_id', '=', 'departments.id')
+                ->join('appointments', 'service_charges.appointment_id', '=', 'appointments.id')
+                ->join('hospital_charges', 'service_charges.service_charge_id', '=', 'hospital_charges.id')
+                ->join('scheme_hmo', 'appointments.hmo_id', '=', 'scheme_hmo.id')
+                ->join('price_list_column', 'scheme_hmo.price_list_column', '=', 'price_list_column.id')
+                ->select('service_charges.*', 'departments.name as department', 'appointments.insurance_status', 'hospital_charges.care_type', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
+                ->where('service_charges.appointment_id', '=', $appointment_id)
+                ->where('service_charges.voucher_id', '=', $voucher_id)
+                ->get();
+        $patient = DB::table('customers')->where('customers.id', '=', $patient_id)
+                ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                ->first();
+
+                foreach($charges as $row){
+                    if($row->discount_1 != 0 && $row->care_type == 'primary' && $row->insurance_status != 'enabled') {
+                        $discount_percent = $row->discount_1;
+                        $discount_amount = $row->amount * $row->discount_1 / 100;
+                        $total_amount = $row->amount;
+                    }
+                    if($row->discount_2 != 0 && $row->care_type == 'secondary' && $row->insurance_status != 'enabled') {
+                        $discount_percent = $row->discount_2;
+                        $discount_amount = $row->amount * $row->discount_2 / 100;
+                        $total_amount = $row->amount;
+                    }
+                    if($row->discount_3 != 0 && $row->care_type == 'others' && $row->insurance_status != 'enabled') {
+                        $discount_percent = $row->discount_3;
+                        $discount_amount = $row->amount * $row->discount_3 / 100;
+                        $total_amount = $row->amount;
+                    }
+                    
+                    if($row->discount_1 != 0 && $row->care_type == 'primary' && $row->insurance_status == 'enabled') {
+                        $discount_percent = $row->discount_1;
+                        $discount_amount = $row->amount_2 * $row->discount_1 / 100;
+                        $total_amount = $row->amount_2;
+                    }
+                    if($row->discount_2 != 0 && $row->care_type == 'secondary' && $row->insurance_status == 'enabled') {
+                        $discount_percent = $row->discount_2;
+                        $discount_amount = $row->amount_2 * $row->discount_2 / 100;
+                        $total_amount = $row->amount_2;
+                    }
+                    if($row->discount_3 != 0 && $row->care_type == 'others' && $row->insurance_status == 'enabled') {
+                        $discount_percent = $row->discount_3;
+                        $discount_amount = $row->amount_2 * $row->discount_3 / 100;
+                        $total_amount = $row->amount_2;
+                    }
+                    if($row->discount_1 == 0) {
+                        $discount_percent = 0;
+                        $total_amount = $row->total_amount;
+                    }
+                    $updateServiceCharges = DB::table('service_charges')->where('service_charges.id', '=', $row->id)
+                    ->update([
+                        'nhis_no' => $row->nhis_no,
+                        'hmo_no' => $row->hmo_no,
+                        'discount_percentage' => $discount_percent,
+                        'discount_amount' => $discount_amount,
+                        'total_amount' => $total_amount,
+                        'status' => 'paid',
+                    ]);
+                }
+                
+
+    }
 
     public function saveToInvoice(Request $request)
     {

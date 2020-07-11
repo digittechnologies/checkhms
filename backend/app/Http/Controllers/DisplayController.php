@@ -1259,28 +1259,29 @@ class DisplayController extends Controller
         $voucher_id= Vouchers::find($Vid);
         $id= $voucher_id->appointment_id;
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.*')->first(); 
-        $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
 
         if($customeId->insurance_status == 'enabled'){
               
         }
-    
-        $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
-
-        $hmoNo= Hmo::find($customeId->hmo_id);
-
-        if ($chargeSum->care_type == 'primary') {
-            $discout_percent= $hmoNo->discount_1;
-        }
-        if ($chargeSum->care_type == 'secondary') {
-            $discout_percent= $hmoNo->discount_2;
-        }
-        if ($chargeSum->care_type == 'others') {
-            $discout_percent= $hmoNo->discount_3;
-        }
 
         if($moduleid == 2){
+            $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
+
+            $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
+
+            $hmoNo= Hmo::find($customeId->hmo_id);
+    
+            if ($chargeSum->care_type == 'primary') {
+                $discout_percent= $hmoNo->discount_1;
+            }
+            if ($chargeSum->care_type == 'secondary') {
+                $discout_percent= $hmoNo->discount_2;
+            }
+            if ($chargeSum->care_type == 'others') {
+                $discout_percent= $hmoNo->discount_3;
+            }
+
             $counting = Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)->count();
             return response()->json([
                 "pres" => Service_charges::orderBy('id')
@@ -1300,6 +1301,7 @@ class DisplayController extends Controller
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
                 "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
             ]);
         }
 
