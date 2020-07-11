@@ -356,13 +356,18 @@ Route::post('addProcessModules','AddController@addProcessModules');
 Route::post('addProcessAttributes','AddController@addProcessAttributes');
 Route::post('addProcessValues','AddController@addProcessValues');
 Route::post('addValues','AddController@addValues');
-Route::post('submitProcessVals','AddController@submitProcessVals');
 Route::get('editProperty/{id}','DisplayController@editProperty');
 Route::get('editAttribute/{id}','DisplayController@editAttribute');
 Route::get('editProcessValue/{id}','DisplayController@editProcessValue');
 Route::post('updateProperty', 'AddController@updateProperty');
 Route::post('updateAttribute', 'AddController@updateAttribute');
 Route::post('updateProcessValue', 'AddController@updateProcessValue');
+Route::post('deleteProp/{id}', 'AddController@deleteProp');
+Route::post('deleteAttr/{id}', 'AddController@deleteAttr');
+Route::post('deletePropVal/{id}', 'AddController@deletePropVal');
+Route::post('submitProcessVals','AddController@submitProcessVals');
+Route::post('onSubmitTable', 'AddController@onSubmitTable');
+
 
 
 

@@ -9,6 +9,7 @@ app.use(cors({origin:"*"}));
 
 var user_id;
 var client_id = [];
+var allcliets = "clients";
 // app.use(cors({origin:"*"}));
 app.use(bodyparser.json())
 app.use(express.static(__dirname + '/dist'));
@@ -35,19 +36,25 @@ const server = app.listen(port, () => console.log(`Listening on port ${port}..`)
 const io = require('socket.io')(server);
 io.on("connection", (socket) => {
   socket.on("conn",(data)=>{
-    function id(){
-      return data
-    }
-    var info = client_id.find(id)
-    if (!info) {
-      client_id.push(data)
-   }
     var sql = "UPDATE users SET online_status = 'online' WHERE id = ?";
-    user_id=data
-    mysqlConnection.query(sql,[data],function(err,res){
+    user_id=data.user_id;
+    mysqlConnection.query(sql,[data.user_id],function(err,res){
       if (!err) {
-        socket.broadcast.emit("connected",{status:"online",id:data})
+
+        var info = client_id.find(id=>{
+          return data.user_id === id;
+     })
+        if (!info) {
+          client_id.push(data.user_id)
+          socket.join(data.allclients)
+          io.in(data.allclients,
+           socket.broadcast.to(data.allclients).emit('init online',{status:"online",id:data.user_id})
+           )
+    
+       }
+
       }
+      else{console.log(err)}
     })
   })
   socket.on('user',(data)=>{
@@ -77,8 +84,6 @@ io.on("connection", (socket) => {
   })
 
   socket.on('message',(data)=>{
-    console.log(data)
-    console.log(client_id)
     var info = client_id.find(id=>{
          return data.receiver ===id;
     })
@@ -418,7 +423,6 @@ var fullDate =month+' '+date+','+' '+year
           if (!err){
             mysqlConnection.query(sql3,function (err, messages) {
               if (!err){
-                console.log(messages)
                 socket.emit('review details',{admin,members,messages})
               }
               }) 
@@ -439,11 +443,9 @@ var fullDate =month+' '+date+','+' '+year
     })
   })
   socket.on('left review',(data)=>{
-    console.log(data)
     var sql = `UPDATE team_review_members SET reviews_status = 'not in the meeting' WHERE member_id = ${data.user_id} AND team_review_id = ${data.team}`;
     mysqlConnection.query(sql,function (err, members) {
       if (!err) {
-        console.log(members)
         socket.broadcast.to(data.team).emit('left review',{user_id:data.user_id,message:'not in the meeting'});
          socket.leave(data.team);
       }
@@ -515,8 +517,17 @@ var fullDate =month+' '+date+','+' '+year
 
   socket.on("disconn",(data)=>{
    var sql = "UPDATE users SET online_status = 'offline' WHERE id = ?";
-    mysqlConnection.query(sql,[data],function(err,res){
+    mysqlConnection.query(sql,[data.user_id],function(err,res){
       if (!err) {
+        if (client_id.length>0) {
+          var index = client_id.indexOf(data.user_id)
+          if (index>=0) {
+            client_id.splice(index,1)
+          }
+          
+        }
+        socket.leave(data.allclients)
+        socket.broadcast.to(data.allclients).emit('offline',{status:"offline",id:data})
       }
     })
   })

@@ -40,6 +40,8 @@ export class PatientProcessComponent implements OnInit {
   gender: any;
   age: any;
   card_number: any;
+  table_data: any;
+  table_id: any;
     // collection: any[];
 
   constructor(   private Jarwis: JarwisService,
@@ -134,6 +136,20 @@ export class PatientProcessComponent implements OnInit {
        data=>{
        this.response = data;  
    })
+ }
+ tableDetails(data,id){
+   this.table_data = data;
+   this.table_id   = id;
+   console.log(this.table_data)
+ }
+ onSubmittable(form:NgForm){
+  const data = Object.entries(form.value)
+  console.log(data)
+    //  this.Jarwis.onSubmitTable({}).subscribe(
+    //    data=>{
+    //      console.log(data)
+    //    }
+    //  )
  }
 //  PROCESS END
 

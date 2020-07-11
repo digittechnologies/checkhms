@@ -47,21 +47,32 @@ privatechat(data){
   this.socket.emit('privatechatroom',data)
 }
 conn(data){  
-  console.log(data)
   this.socket.emit('conn',data)
 }
-connected(){
-  let observable = new Observable<{status:String,id:Number}>(observer=>{
-    this.socket.on('connected',(data)=>{
+online(){
+  let observable = new Observable<{status:String,id:any}>(observer=>{
+    this.socket.on('init online',(data)=>{
+      console.log(data)
+      observer.next(data);
+    })
+    return ()=>{this.socket.disconnect()}
+    
+  })
+  console.log(observable)
+  return observable;
+}
+disconne(data){  
+  this.socket.emit('disconn',data)
+}
+offline(){
+  let observable = new Observable<{status:String,id:any}>(observer=>{
+    this.socket.on('offline',(data)=>{
       observer.next(data);
     })
     return ()=>{this.socket.disconnect()}
     
   })
   return observable;
-}
-disconne(data){  
-  this.socket.emit('disconn',data)
 }
 sendMessage(msg){
   this.socket.emit("message",msg);
@@ -301,7 +312,10 @@ allReview(){
 }
 
 reviewMessages(data){
+  console.log(data)
   this.socket.emit("review messages",data)
+  console.log(data, 2)
+
 }
 rievewDetails(){
   let observable = new Observable<{admin:any,members:any,messages:any}>(observer=>{

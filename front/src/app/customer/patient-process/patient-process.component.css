@@ -31,3 +31,11 @@
     margin-bottom:50px;
 }
 }
+.cont{
+  border: none;
+  border-bottom: 1px grey solid;
+  width: auto;
+}
+.cont input{
+  border: none;
+}
