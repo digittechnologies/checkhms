@@ -164,12 +164,32 @@ export class ChatComponent implements OnInit,OnDestroy {
         // console.log(this.user.aut)
       }
     )
-    this.chat.connected().subscribe(
+    this.chat.online().subscribe(
       data=>{
+        console.log(data)
       let index =  this.chat_users.find(e=>{
-          return e.id == data.id;
+          return e.id === data.id;
         })
-         index.online_status = data.status
+        if(index){
+          index.online_status = data.status
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+    this.chat.offline().subscribe(
+      data=>{
+        console.log(data)
+      let index =  this.chat_users.find(e=>{
+          return e.id === data.id;
+        })
+        if(index){
+          index.online_status = data.status
+        }
+      },
+      err=>{
+        console.log(err)
       }
     )
   }
@@ -248,7 +268,7 @@ export class ChatComponent implements OnInit,OnDestroy {
   }
 send(){
   if (this.message !='') {
-    this.chat.privatechat({sender:this.sender_id,receiver:this.receiver_id})
+    // this.chat.privatechat({sender:this.sender_id,receiver:this.receiver_id})
     this.chat.sendMessage({sender:this.sender_id,message:this.message,receiver:this.receiver_id})
     this.message=''
   }

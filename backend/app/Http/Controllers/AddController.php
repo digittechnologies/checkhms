@@ -3172,6 +3172,14 @@ public function addCenter(Request $request)
                        'updated_by' => $created_by
                    ]); 
            }
+           if ($request->form['value_type'] == 'table') {                                
+            $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+                [
+                    'value_type' =>$request->form['value_type'],
+                    'options' => $request->form['options'],
+                    'updated_by' => $created_by
+                ]); 
+        }
 
         if ($create_process_value) {
             return '{
@@ -3207,6 +3215,32 @@ public function addCenter(Request $request)
                 'value_option'=> json_encode($form_data),
                 'process_attribute_id' =>$request->process_attribute_id,
             ]);
+            
+       
+
+    }
+    public function onSubmitTable(Request $request)
+    {
+        return $request;
+        // $forms = $request->form;
+        // $form_data = array();
+        // //  $forms = json_encode($request->form);
+        // foreach ($forms as  $form) {
+        //     //  return $form;
+        //  $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
+        //  array_push($form,$ans[0]->unit);
+        //  array_push($form_data,$form);
+         
+        // }
+        // $user_id = Auth()->user()->id;
+        // $user_possintion_id = Auth()->user()->position_id;
+        //     DB::table('form_process')->insert([
+        //         'user_id'   =>$user_id,
+        //         'position_id'=>$user_possintion_id,
+        //         'appointment_id' =>$request->appointment_id,
+        //         'value_option'=> json_encode($form_data),
+        //         'process_attribute_id' =>$request->process_attribute_id,
+        //     ]);
             
        
 
@@ -3269,6 +3303,63 @@ public function addCenter(Request $request)
                 "message":"Failed"
             }';
         }
+    }
+
+    public function deleteProp($id)
+    {
+        $deletec=DB::table('process_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteAttr($id)
+    {
+
+        $deletec=DB::table('process_attribute_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    public function deletePropVal($id)
+    {
+        $deletec=DB::table('process_value_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
     }
 
     public function CenterTypes(Request $request)

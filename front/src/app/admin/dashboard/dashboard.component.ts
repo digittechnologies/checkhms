@@ -96,8 +96,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
       let user_id =this.response.det[0].id
       this.user_id = user_id
       this.department=this.response.det[0].dept_id;
-      this.chat.conn(this.user_id)
-      this.chat.privatechat({sender:this.user_id})
+      this.chat.conn({user_id:this.user_id,allclients:"clients"})
+      // this.chat.privatechat({sender:this.user_id})
       this.chat.user(this.user_id)
       this.chat.unread(this.user_id)
       // window.localStorage.department=JSON.stringify(this.department)
@@ -214,7 +214,7 @@ this.Jarwis.permite = e;
   
   @HostListener('window:beforeunload')
   async ngOnDestroy() {
-    this.chat.disconne(this.user_id)
+    this.chat.disconne({user_id:this.user_id,allclients:"clients"})
   
 }
   logout(event: MouseEvent) {

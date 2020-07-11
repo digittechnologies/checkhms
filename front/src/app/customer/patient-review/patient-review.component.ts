@@ -99,12 +99,26 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
           join.reviews_status = data.message;
         }
       )
-      this.Chat.connected().subscribe(
+      this.Chat.online().subscribe(
         data=>{
+          console.info(data)
         let index =  this.members.find(e=>{
             return e.id === data.id;
           })
-           index.online_status = data.status
+          if (index) {
+            index.online_status = data.status
+          }
+        }
+      )
+      this.Chat.offline().subscribe(
+        data=>{
+          console.info(data)
+        let index =  this.members.find(e=>{
+            return e.id === data.id;
+          })
+          if (index) {
+            index.online_status = data.status
+          }
         }
       )
       this.Chat.newReviewMessage().subscribe(

@@ -2198,15 +2198,9 @@ class DisplayController extends Controller
             // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
             ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
+            ->where('process_tb.status','=','active')
             ->get()
         ]);
-    }
-
-    public function displayProcessModules()
-    {
-        return DB::table('positions')
-        ->select('positions.*')
-        ->get();
     }
 
     public function displayProcessAttributes()
@@ -2214,6 +2208,7 @@ class DisplayController extends Controller
         return DB::table('process_attribute_tb')->orderBy('id', 'desc')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
         ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
         ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+        ->where('process_attribute_tb.status','=','active')
         ->get();
     }
 
@@ -2222,6 +2217,8 @@ class DisplayController extends Controller
         return DB::table('process_value_tb')->orderBy('id', 'desc')->join('users', 'process_value_tb.created_by', '=', 'users.id')
         ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
+        ->where('process_value_tb.status','=','active')
+
         ->get();
     }
 

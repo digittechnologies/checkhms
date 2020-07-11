@@ -63,7 +63,7 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProperty" (click)="editProperty(prop.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeleteProp(prop.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
                               <div *ngIf="!process_properties">
@@ -122,7 +122,7 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAttribute" (click)="editAttribute(propAttr.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeleteAttr(propAttr.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
                               <div *ngIf="!processAttributes">
@@ -184,7 +184,7 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProcessValue" (click)="editProcessValue(propVal.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeletePropVal(propVal.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                                  <td>
                                   <!-- <div *ngFor="let test of propVal.value_body">
@@ -358,6 +358,7 @@
                               <option value="textarea">Textarea</option>
                               <option value="radio">Radio input</option>
                               <option value="checkbox">Checkbox input</option>
+                              <option value="table">Table</option>
                           </select>       
                       </div>                  
                       </div>
@@ -443,7 +444,7 @@
         </div>             
     </div>
 </div>  
-<div  *ngIf="value_type == 'radio' || value_type == 'checkbox'" class="modal-body">             
+<div  *ngIf="value_type == 'radio' || value_type == 'checkbox' || value_type == 'table' " class="modal-body">             
   <div class="row clearfix">
       <div class="col-md-8">
           <div class="form-group">                      

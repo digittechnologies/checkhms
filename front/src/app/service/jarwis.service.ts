@@ -1064,37 +1064,6 @@ displayPharStaffDash(data) {
   }})
 }
 
-
-
-  getcontent(id:string) {
-    return this.http.get(`${this.baseUrl}/getcontent/${id}`)
-  }
-  getcontentonly(id:string) {
-    return this.http.get(`${this.baseUrl}/getcontentonly/${id}`)
-  }
-  getalltitle() {
-    return this.http.get(`${this.baseUrl}/getalltitle`,)
-  }
-  getfootertitle() {
-    return this.http.get(`${this.baseUrl}/getfootertitle`,)
-  }
-  gettitles(id:string) {
-    return this.http.get(`${this.baseUrl}/gettitles/${id}`)
-  }
-  getUtitles() {
-    return this.http.get(`${this.baseUrl}/getUtitles`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
-  getUcontent() {
-    return this.http.get(`${this.baseUrl}/getUcontent`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
-//  search(searchTerm:string) {
-//     return this.http.get(`${this.baseUrl}/getalltitle/${searchTerm}`)
-//   }
-
 comment(data) {
   return this.http.post(`${this.baseUrl}/comment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -1130,7 +1099,7 @@ cancel_pharm_log(data){
   return this.http.post<any>(`${this.baseUrl}/relocateapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
-//Process settings
+//PROCESS START
 displayProcessProperties() {
   return this.http.get(`${this.baseUrl}/displayProcessProperties`)
 }
@@ -1211,12 +1180,35 @@ updateProcessValue(data) {
   return this.http.post(`${this.baseUrl}/updateProcessValue`, data)
 }
 
+deleteProp(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deleteProp/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
+deleteAttr(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deleteAttr/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
+deletePropVal(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deletePropVal/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
 submitProcessVals(data) {
-  console.log(data)
   return this.http.post(`${this.baseUrl}/submitProcessVals`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+onSubmitTable(data){
+  return this.http.post(`${this.baseUrl}/onSubmitTable`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+// PROCESS END
 displaySchemes(){
   return this.http.get<any>(`${this.baseUrl}/displaySchemes`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -1254,4 +1246,35 @@ ondeleteHmo(id) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+
+
+  getcontent(id:string) {
+    return this.http.get(`${this.baseUrl}/getcontent/${id}`)
+  }
+  getcontentonly(id:string) {
+    return this.http.get(`${this.baseUrl}/getcontentonly/${id}`)
+  }
+  getalltitle() {
+    return this.http.get(`${this.baseUrl}/getalltitle`,)
+  }
+  getfootertitle() {
+    return this.http.get(`${this.baseUrl}/getfootertitle`,)
+  }
+  gettitles(id:string) {
+    return this.http.get(`${this.baseUrl}/gettitles/${id}`)
+  }
+  getUtitles() {
+    return this.http.get(`${this.baseUrl}/getUtitles`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  getUcontent() {
+    return this.http.get(`${this.baseUrl}/getUcontent`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+//  search(searchTerm:string) {
+//     return this.http.get(`${this.baseUrl}/getalltitle/${searchTerm}`)
+//   }
 }

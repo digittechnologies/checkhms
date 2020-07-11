@@ -44,6 +44,17 @@ export class ProccessSettingsComponent implements OnInit {
     comment:any
     form_res:any;
   form_id: any;
+  propertyName: any;
+  attributeName: any;
+  attributeDesc: any;
+  process_valueName: any;
+  process_valueDesc: any;
+  propResponse: any;
+  attResponse: any;
+  proValResponse: any;
+  propId: any;
+  attId: any;
+  proValId: any;
   
 
 
@@ -145,6 +156,87 @@ export class ProccessSettingsComponent implements OnInit {
        error => this.handleError(error),            
      );    
    }
+
+   editProperty(id){
+    this.Jarwis.editProperty(id).subscribe(
+      data=>{
+      this.propResponse = data;  
+      this.propId = id;    
+      this.propertyName = this.propResponse[0].property 
+    })
+   }  
+
+   editAttribute(id){
+    this.Jarwis.editAttribute(id).subscribe(
+      data=>{
+      this.attResponse = data;      
+      this.attId = id;
+      this.attributeName = this.attResponse[0].attribute   
+      this.attributeDesc = this.attResponse[0].description   
+    })
+  }
+
+  editProcessValue(id){
+    this.Jarwis.editProcessValue(id).subscribe(
+      data=>{
+      this.proValResponse = data;  
+      this.proValId = id;    
+      this.process_valueName = this.proValResponse[0].value   
+      this.process_valueDesc = this.proValResponse[0].description   
+    })
+  }
+
+  onEditProperty(form:NgForm) {
+    form.value.id = this.propId
+    this.Jarwis.updateProperty(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+    );
+  }
+
+  onEditAttribute(form:NgForm) {
+    form.value.id = this.attId
+    this.Jarwis.updateAttribute(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+    );
+  }
+
+  onEditProcessValue(form:NgForm) {
+    form.value.id = this.proValId
+    this.Jarwis.updateProcessValue(form.value).subscribe(        
+      data => this.handleResponse(data),
+      error => this.handleError(error), 
+    );
+  }
+
+  onDeleteProp(id: string) {
+    if(confirm('This can\'t be revert after deleted')){
+      this.Jarwis.deleteProp(id).subscribe(     
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
+    }
+  }
+
+  onDeleteAttr(id: string) {
+    if(confirm('This can\'t be revert after deleted')){
+      this.Jarwis.deleteAttr(id).subscribe(     
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
+    }
+  }
+
+  onDeletePropVal(id: string) {
+    if(confirm('This can\'t be revert after deleted')){
+      this.Jarwis.deletePropVal(id).subscribe(     
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
+    }
+  }
+
   value(id){
     this.value_id = id;
    this.Jarwis.Value(id).subscribe(
@@ -172,10 +264,19 @@ export class ProccessSettingsComponent implements OnInit {
    )
   }
    onSaveProcessValues(form:NgForm){
-    var array = form.value.sugestion.split(',');
-    form.value.sugestion= JSON.stringify(array);
-    var array2 = form.value.value_option.split(',');
-    form.value.value_option=JSON.stringify(array2);
+     if(form.value.sugestion){
+       var array = form.value.sugestion.split(',');
+       form.value.sugestion= JSON.stringify(array);
+     }
+    if(form.value.value_option){
+      var array2 = form.value.value_option.split(',');
+      form.value.value_option=JSON.stringify(array2);
+    }
+    if(form.value.options){
+      var array3 = form.value.options.split(',');
+      form.value.options=JSON.stringify(array3);
+    }
+    console.log(form.value)
     this.Jarwis.addValues({form:form.value,id:this.value_id}).subscribe(     
       data => this.handleResponse(data),
       error => {this.handleError(error)
@@ -201,11 +302,13 @@ export class ProccessSettingsComponent implements OnInit {
      )
    }
    onSaveTestingProcessValue(form:NgForm){
+     console.log(form.value)
          const data = Object.entries(form.value)
-      this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
-        data=>{
-        this.response = data;  
-    })
+         console.log(data)
+    //   this.Jarwis.submitProcessVals({form:data,process_value_tb_id: this.form_id}).subscribe(
+    //     data=>{
+    //     this.response = data;  
+    // })
   }
   
   handleResponse(data) {
