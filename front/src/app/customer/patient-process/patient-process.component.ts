@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms'
 
 declare var test3: any;
 declare var test4: any;
+declare var $ : any;
 @Component({
   selector: 'app-patient-process',
   templateUrl: './patient-process.component.html',
@@ -23,7 +24,7 @@ export class PatientProcessComponent implements OnInit {
   schemeCat: any;
   schemeId: any;
   branch:any
-  disabled =false;
+  disabled = false;
   schemePercent: any;
   schemePercentToView: number;
   schemePriceList: any;
@@ -42,7 +43,9 @@ export class PatientProcessComponent implements OnInit {
   card_number: any;
   table_data: any;
   table_id: any;
-    // collection: any[];
+  process_attribute_id: any;
+  collection=[];
+  closeModal:Boolean =false;
 
   constructor(   private Jarwis: JarwisService,
     private Token: TokenService,
@@ -94,6 +97,7 @@ export class PatientProcessComponent implements OnInit {
     )
   }
   formValue(id){
+    this.collection = []
     this.form_id =  id;
     this.Jarwis.formvalue(id).subscribe(
       data=>{
@@ -131,26 +135,43 @@ export class PatientProcessComponent implements OnInit {
   }
   onSaveTestingProcessValue(form:NgForm){
     const data = Object.entries(form.value)
-    console.log(form.value)
-     this.Jarwis.submitProcessVals({form:data,process_attribute_id: this.form_id,appointment_id:this.appId}).subscribe(
+     this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
        this.response = data;  
    })
  }
- tableDetails(data,id){
+ closeMo(data){
+   $('#Table').modal('hide');
+        this.handleResponse(data)  
+}
+ tableDetails(data,id,process_attribute_id){
    this.table_data = data;
    this.table_id   = id;
-   console.log(this.table_data)
+   this.process_attribute_id = process_attribute_id
+   console.log(this.table_id)
+   this.closeModal = false;
  }
  onSubmittable(form:NgForm){
+  this.disabled = true;
   const data = Object.entries(form.value)
-  console.log(data)
-    //  this.Jarwis.onSubmitTable({}).subscribe(
-    //    data=>{
-    //      console.log(data)
-    //    }
-    //  )
+  this.collection.push(data)
+  this.Jarwis.onSubmitTable({form:data,id:this.table_id,appoint__id:this.appId,process_attribute_id:this.process_attribute_id}).subscribe(
+    data=>{
+      console.log(data)
+      this.closeModal = true;
+      let res:any = data
+     this.closeMo(res.message)
+       }
+     )
  }
 //  PROCESS END
 
+handleResponse(data) {    // 
+  this.disabled = false;
+  let snackBarRef = this.snackBar.open(data, 'Dismiss', {
+    duration: 2000
+  })   
+  this.ngOnInit();
+  
+  }
 }

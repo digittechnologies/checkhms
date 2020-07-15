@@ -2259,27 +2259,7 @@ class DisplayController extends Controller
         ->where('process_value_tb.id',$id)
         ->get();
     }
-    public function processResult(Request $request){
-        // $dat =array_push()
-    // foreach ($datas as  $data) {
-    //     return $data->value_option;
-    //    $data_value = json_decode($data->value_option);
-    //   for ($i=0; $i < $data_value; $i++) { 
-    //     $ans = DB::table('process_value_tb')->where('value',$data_value[$i])->select('unit')->get();
-    //    array_push( $data_value[$i],$ans);
-    //    return $data_value[$i] ;
-    //   }
-    // };
-    //  return $datas;
-                        return response()->json([
-                            "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
-                            ->select('form_process.*','process_attribute_tb.attribute')
-                            ->where('position_id',$request->position_id)
-                            ->where('appointment_id',$request->appointment_id)
-                            ->get()
-                            ]
-                          );
-    }
+   
     public function fetchForm()
     {
         $user = Auth()->user();
@@ -2306,5 +2286,40 @@ class DisplayController extends Controller
         // ->select('process_attribute_tb.*', 'process_tb.*', 'users.firstname', 'users.lastname')
         // ->where('process_tb.department_id',$id)
         // ->get();
+    }
+    public function processResult(Request $request){
+    //    $resut =  DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+    //     ->select('form_process.*','process_attribute_tb.attribute')
+    //     ->where('position_id',$request->position_id)
+    //     ->where('appointment_id',$request->appointment_id)
+    //     ->get();
+
+    //     foreach ($resut as $value) {
+    //         if ($value->process_value_id != null) {
+    //             $js = json_decode($value->value_option);
+    //             foreach ($js as $val) {
+    //                 foreach ($val as $us) {
+    //                     if ($us[0]=='user') {
+    //                       $fulltb = DB::table('users')->where('id',$us[1])->select('firstname','lastname','image')->get() ;
+    //                          $us = $fulltb;
+    //                          array_splice($val,-1);
+    //                          array_push($val,$us);
+    //                          $js = $val;
+    //                          return $js;
+    //                     }
+    //                 }
+    //             }
+    // form_process.process_value_id
+    //         }
+    //     }
+    return response()->json([
+        "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+        ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+        ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+        ->where('form_process.position_id',$request->position_id)
+        ->where('form_process.appointment_id',$request->appointment_id)
+        ->get()
+        ]
+        );
     }
 }
