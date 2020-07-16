@@ -3221,27 +3221,64 @@ public function addCenter(Request $request)
     }
     public function onSubmitTable(Request $request)
     {
-        return $request;
-        // $forms = $request->form;
-        // $form_data = array();
-        // //  $forms = json_encode($request->form);
-        // foreach ($forms as  $form) {
-        //     //  return $form;
-        //  $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
-        //  array_push($form,$ans[0]->unit);
-        //  array_push($form_data,$form);
-         
-        // }
-        // $user_id = Auth()->user()->id;
-        // $user_possintion_id = Auth()->user()->position_id;
-        //     DB::table('form_process')->insert([
-        //         'user_id'   =>$user_id,
-        //         'position_id'=>$user_possintion_id,
-        //         'appointment_id' =>$request->appointment_id,
-        //         'value_option'=> json_encode($form_data),
-        //         'process_attribute_id' =>$request->process_attribute_id,
-        //     ]);
-            
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $user_id = Auth()->user()->id;
+        $pos_id = Auth()->user()->position_id;
+        $user_fname = Auth()->user()->firstname;
+        $user_lname = Auth()->user()->lastname;
+        $form_data = array();
+        $form_data = $request->form;
+        // foreach ($request->form as $value) {
+        //     array_push($value,$cDate,$cTime);
+        //     array_push($form_data,$value);
+        // } 
+        array_unshift( $form_data,['DATE',$cDate],['TIME',$cTime]);
+        array_push( $form_data,['STAFF',$user_fname.' '.$user_lname]);
+
+        // return  $form_data;
+         $ans = DB::table('form_process')->where('appointment_id',$request->appoint__id)
+                                        ->where('process_value_id',$request->id)
+                                        // ->where('position_id',4)
+                                        ->where('user_id',$user_id)
+                                         ->select('value_option')->get();
+
+  if ($ans->count()>0) {
+    $as = json_decode($ans[0]->value_option);
+        // array_push($form_data,$as);
+        array_push($as,$form_data);
+        // return $as;
+      $resp =   DB::table('form_process')->where('appointment_id',$request->appoint__id)
+        ->where('process_value_id',$request->id)
+        // ->where('position_id',$pos_id)
+        ->where('user_id',$user_id)->update([
+            'value_option' =>  json_encode($as)
+        ]);
+}                         
+ else{
+
+    $resp =    DB::table('form_process')->insert([
+            'user_id'   =>$user_id,
+            'position_id'=>$pos_id,
+            'appointment_id' =>$request->appoint__id,
+            'value_option'=> json_encode(array($form_data)),
+            'process_value_id' =>$request->id,
+            'process_attribute_id' =>  $request->process_attribute_id
+        ]);
+
+ }
+ if($resp){
+    return '{
+        "success":true,
+        "message":"successful"
+    }' ;
+} else {
+    return '{
+        "success":false,
+        "message":"Failed"
+    }';
+}      
        
 
     }

@@ -457,7 +457,7 @@
                                       <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
                                       <ul>
                                           <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                          <li>Created: <strong>05/Nov/2018</strong></li>
+                              <li>Created: <strong>05/Nov/2018</strong></li>
                                           <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
                                       </ul>
                                   </div>
@@ -718,9 +718,11 @@
                                   </div>
                                   <div class="body result">
                                       <div id="lightgallery" class="row clearfix lightGallery">
-                                        <div *ngIf="datas">
-                                            <ng-container *ngFor="let data of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
+                                        <div *ngIf="datas" class="col-12">
+                                            <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
+                                            <ng-container *ngFor="let data of datass.groups">
                                                <div class="col-12 text-center mb-3"><strong>{{data.attribute}}</strong></div> 
+                                               <div *ngIf="data.process_value_id == nulll">
                                               <ng-container *ngFor="let val of data.value_option">
                                                   <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
                                                         <span class="mr-3">
@@ -731,11 +733,37 @@
                                                         <input class="checkbox-tick" type="checkbox"  checked>
                                                         <span></span>
                                                     </label>
-                                                   
-                                    
-                                                    </div>
+                                                </div>
                                                 </ng-container>
-                                              </ng-container>
+                                                 </div>
+                                                    <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                                        <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="body table table-responsive">
+                                                                    
+                                                                    <table class="table table-hover table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <td>S/N</td>
+                                                                                <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody style="height: 100%;overflow: auto;">
+                                                                            <tr *ngFor="let val of data.value_option;let r = index">
+                                                                              <td>{{r+1}}</td>
+                                                                                <td *ngFor="let tb of val" class="col-1" scope="row">{{tb[1]}}</td>
+                                                                            </tr>
+                                                                           
+                                                                        </tbody>
+                                                                       
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </ng-container>
+                                                </ng-container>
                                           </div>
                                           <!-- <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
                                           <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
@@ -749,7 +777,7 @@
                                           <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
                                           <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
                                           <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div> -->
-                                      </div>
+                                        </div>
                                   </div>
                               </div>
                           </div>
@@ -757,9 +785,9 @@
                     </div>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                     <li class="page-item"><pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls></li>
-<!-- 
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                     <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
+
+                        <!-- <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
                             <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
                             <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
                             <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>

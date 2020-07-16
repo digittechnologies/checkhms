@@ -234,7 +234,24 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
             dt.value_option=''
           }
         }
-        this.datas = res.datas;
+        // this.datas = res.datas;
+            const groups =  res.datas.reduce((groups, game) => {
+              const date = game.process_attribute_id;
+              if (!groups[date]) {
+                groups[date] = [];
+              }
+              groups[date].push(game);
+              return groups;
+            }, {});
+            // Edit: to add it in the array format instead
+            const groupArrays = Object.keys(groups).map((date) => {
+              return {
+                date,
+                games: groups[date]
+              };
+            });
+           this.datas = groupArrays
+            console.log(this.datas);
         }
       }
     )
