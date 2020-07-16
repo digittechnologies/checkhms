@@ -3198,13 +3198,14 @@ public function addCenter(Request $request)
     {
         $forms = $request->form;
         $form_data = array();
-        //  $forms = json_encode($request->form);
+    //    return  $forms =$forms;
         foreach ($forms as  $form) {
             //  return $form;
-         $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
-         array_push($form,$ans[0]->unit);
-         array_push($form_data,$form);
-         
+        $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
+        if ($ans->count()>=1) {
+            array_push($form,$ans[0]->unit);
+            array_push($form_data,$form);
+        }
         }
         $user_id = Auth()->user()->id;
         $user_possintion_id = Auth()->user()->position_id;
@@ -3235,7 +3236,7 @@ public function addCenter(Request $request)
         //     array_push($form_data,$value);
         // } 
         array_unshift( $form_data,['DATE',$cDate],['TIME',$cTime]);
-        array_push( $form_data,['STAFF',$user_fname.' '.$user_lname]);
+        array_push( $form_data,['STAFF',$user_fname.' '.$user_lname,$user_id]);
 
         // return  $form_data;
          $ans = DB::table('form_process')->where('appointment_id',$request->appoint__id)
