@@ -90,12 +90,6 @@ export class ProccessSettingsComponent implements OnInit {
       this.process_properties = this.response.props
     })
 
-    this.Jarwis.displayProcessModules().subscribe(
-      data=>{
-      this.response = data;      
-      this.processModules = this.response   
-    })
-
     this.Jarwis.displayProcessAttributes().subscribe(
       data=>{
       this.response = data;      
@@ -123,29 +117,47 @@ export class ProccessSettingsComponent implements OnInit {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
-
+    $("#propertiesSearch").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#searchproperties tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+    $("#atributtesSearch").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#searchattribute tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
   }
-
+  closeMo(data){
+    $('#Pulse').modal('hide'); 
+    $('#AddProperty').modal('hide');
+         $('#EditProperty').modal('hide');
+         $('#AddAttr').modal('hide');
+         $('#EditAttribute').modal('hide');
+         $('#AddValue').modal('hide');  
+         $('#EditProcessValue').modal('hide');
+         this.handleResponse(data)   
+ }
   onSaveProcessProp(form: NgForm) {
     this.disabled = true;
      this.Jarwis.addProcessProperties(form.value).subscribe(     
-       data => this.handleResponse(data),
-       error => this.handleError(error),            
+       data => {
+         let res:any = data
+         this.closeMo(res.message)         
+       },
+       error => this.handleError(error),   
      );    
    }
 
-   onSaveProcessModule(form: NgForm) {
-    this.disabled = true;
-     this.Jarwis.addProcessModules(form.value).subscribe(     
-       data => this.handleResponse(data),
-       error => this.handleError(error),            
-     );    
-   }
 
    onSaveProcessAttribute(form: NgForm) {
     this.disabled = true;
      this.Jarwis.addProcessAttributes(form.value).subscribe(     
-       data => this.handleResponse(data),
+       data => {   
+          let res:any = data
+         this.closeMo(res.message)},
        error => this.handleError(error),            
      );    
    }
@@ -153,7 +165,9 @@ export class ProccessSettingsComponent implements OnInit {
    onSaveProcessValue(form: NgForm) {
     this.disabled = true;
      this.Jarwis.addProcessValues(form.value).subscribe(     
-       data => this.handleResponse(data),
+       data =>{   
+        let res:any = data
+       this.closeMo(res.message)},
        error => this.handleError(error),            
      );    
    }
@@ -198,7 +212,10 @@ export class ProccessSettingsComponent implements OnInit {
   onEditAttribute(form:NgForm) {
     form.value.id = this.attId
     this.Jarwis.updateAttribute(form.value).subscribe(        
-      data => this.handleResponse(data),
+      data =>{
+        let res:any = data
+        this.closeMo(res.message)
+      },
       error => this.handleError(error), 
     );
   }
@@ -206,7 +223,11 @@ export class ProccessSettingsComponent implements OnInit {
   onEditProcessValue(form:NgForm) {
     form.value.id = this.proValId
     this.Jarwis.updateProcessValue(form.value).subscribe(        
-      data => this.handleResponse(data),
+  data => {
+    let res:any = data
+    this.closeMo(res.message)
+  }
+    ,
       error => this.handleError(error), 
     );
   }
@@ -214,7 +235,9 @@ export class ProccessSettingsComponent implements OnInit {
   onDeleteProp(id: string) {
     if(confirm('This can\'t be revert after deleted')){
       this.Jarwis.deleteProp(id).subscribe(     
-        data => this.handleResponse(data),
+      data => {
+        
+      },
         error => this.handleError(error), 
       );
     }
@@ -279,7 +302,10 @@ export class ProccessSettingsComponent implements OnInit {
     }
     console.log(form.value)
     this.Jarwis.addValues({form:form.value,id:this.value_id}).subscribe(     
-      data => this.handleResponse(data),
+      data => {
+        let res:any = data
+        this.closeMo(res.message)
+      },
       error => {this.handleError(error)
       console.log(error)
       }, 
@@ -313,7 +339,7 @@ export class ProccessSettingsComponent implements OnInit {
   }
   
   handleResponse(data) {
-    let snackBarRef = this.snackBar.open("Operation successfully", 'Dismiss', {
+    let snackBarRef = this.snackBar.open(data, 'Dismiss', {
       duration: 2000
     })   
     this.ngOnInit();
