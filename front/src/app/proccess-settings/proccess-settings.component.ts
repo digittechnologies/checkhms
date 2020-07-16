@@ -55,6 +55,7 @@ export class ProccessSettingsComponent implements OnInit {
   propId: any;
   attId: any;
   proValId: any;
+  datas:any;
   
 
 

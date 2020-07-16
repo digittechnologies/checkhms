@@ -51,6 +51,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   team_review_id: any;
   review_messages: any;
   datas: any;
+  p:any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -182,6 +183,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.imgLink = this.response[0].app_url;
   })
   
+  }
+  left(){
+
   }
   //TEAM REVIEW START
   createReview(){

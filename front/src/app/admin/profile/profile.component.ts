@@ -67,6 +67,7 @@ export class ProfileComponent implements OnInit {
   centerId: any;
   description: any;
   lastname: any;
+  teamName:any;
   constructor( 
      private http: HttpClient,
      public actRoute: ActivatedRoute, 

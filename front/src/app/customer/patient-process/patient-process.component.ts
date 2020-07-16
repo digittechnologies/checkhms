@@ -166,6 +166,9 @@ export class PatientProcessComponent implements OnInit {
      )
  }
 //  PROCESS END
+onSubmit(form:NgForm){
+
+}
 
 handleResponse(data) {    // 
   this.disabled = false;
@@ -174,5 +177,6 @@ handleResponse(data) {    //
   })   
   this.ngOnInit();
   
-  }
+
+}
 }

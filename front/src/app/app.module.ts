@@ -134,7 +134,7 @@ import { PatientProcessComponent } from './customer/patient-process/patient-proc
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
 import { ChatService } from './service/chat.service';
 import { ChatComponent } from './chat/chat.component';
-import { NgxNotificationComponent } from 'ngx-notification';
+// import { NgxNotificationComponent } from 'ngx-notification';
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { TeamComponent } from './admin/team/team.component';
 import { RankComponent } from './admin/rank/rank.component';
@@ -324,7 +324,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     AppointmentTypeComponent,
     NavLazyLoadComponent,
     ChatComponent,
-    NgxNotificationComponent,
+    // NgxNotificationComponent,
   
   
     PatientHistoryComponent,

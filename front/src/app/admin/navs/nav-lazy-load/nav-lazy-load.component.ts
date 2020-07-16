@@ -8,6 +8,8 @@ import { JarwisService } from 'src/app/service/jarwis.service';
 })
 export class NavLazyLoadComponent implements OnInit {
 imgurl:any;
+fname:any;
+lname:any
   constructor(public service:JarwisService) {
 
    }

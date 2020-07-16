@@ -5,6 +5,7 @@ export const environment = {
   // signup: 'https://buthserver.checkhms.com/back/backend/public/api/signup'
 
   baseUrl: 'http://demo.checkhms.com/backend/public/api',
+  imageUrl : 'http://demo.checkhms.com/backend/public/upload',
   login: 'http://demo.checkhms.com/backend/public/api/login',
   signup: 'http://demo.checkhms.com/backend/public/api/signup'
 };
