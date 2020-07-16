@@ -2797,14 +2797,14 @@ public function addCenter(Request $request)
                         $total_amount = $row->total_amount;
                     }
                     $updateServiceCharges = DB::table('service_charges')->where('service_charges.id', '=', $row->id)
-                    ->update([
-                        'nhis_no' => $row->nhis_no,
-                        'hmo_no' => $row->hmo_no,
-                        'discount_percentage' => $discount_percent,
-                        'discount_amount' => $discount_amount,
-                        'total_amount' => $total_amount,
-                        'status' => 'paid',
-                    ]);
+                        ->update([
+                            'nhis_no' => $row->nhis_no,
+                            'hmo_no' => $row->hmo_no,
+                            'discount_percentage' => $discount_percent,
+                            'discount_amount' => $discount_amount,
+                            'total_amount' => $total_amount,
+                            'status' => 'paid',
+                        ]);
                 }
                 
 

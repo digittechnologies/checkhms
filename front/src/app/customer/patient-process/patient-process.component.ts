@@ -152,5 +152,7 @@ export class PatientProcessComponent implements OnInit {
     //  )
  }
 //  PROCESS END
+onSubmit(form:NgForm){
 
+}
 }

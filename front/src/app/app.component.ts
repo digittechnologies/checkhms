@@ -6,6 +6,8 @@ import { TokenService } from './service/token.service';
 import { MatSnackBar } from '@angular/material';
 import { ConnectionService } from 'ng-connection-service';
 import { ChatService } from './service/chat.service';
+// import { NgxNotificationService } from 'ngx-notification';
+
 declare var $:any;
 @Component({
   selector: 'app-root',

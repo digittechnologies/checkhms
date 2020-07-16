@@ -152,7 +152,9 @@ export class SettingsComponent implements OnInit {
       })
      
   }
+  onUpdateDept(form:NgForm){
 
+  }
 
   editdept(id: string) {
     this.Jarwis.edtDept(id).subscribe(

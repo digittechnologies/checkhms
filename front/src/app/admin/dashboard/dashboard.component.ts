@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   unread: any;
   components:any;
   write:String;
+  uPos:any
   constructor(
     private Auth: AuthService,
     private router: Router,
