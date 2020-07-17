@@ -137,6 +137,7 @@ export class PatientProcessComponent implements OnInit {
     const data = Object.entries(form.value)
      this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
+         this.handleResponse("opration successfuly")
        this.response = data;  
    })
  }
