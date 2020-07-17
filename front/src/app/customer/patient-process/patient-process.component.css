@@ -31,11 +31,14 @@
     margin-bottom:50px;
 }
 }
-/* .cont{
+.cont{
   border: none;
   border-bottom: 1px grey solid;
   width: auto;
-} */
-/* .cont input{
+  height:40px;
+}
+.cont input{
   border: none;
-} */
+  width:auto;
+  height:100%;
+}

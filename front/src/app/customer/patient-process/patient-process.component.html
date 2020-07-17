@@ -266,8 +266,8 @@
                                                         <label class="input-group-text">{{fr.value}}</label>
                                                     </div>
                                                     <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
-                                                        <div class="cont">
-                                                            <input class="form-control col-lg-6" ngModel type="{{fr.value_type}}" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
+                                                        <div class="cont ">
+                                                            <input ngModel type="{{fr.value_type}}" class="form-control" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
                                                             <mat-autocomplete #auto="matAutocomplete" >
                                                                 <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
                                                                     {{street}} 
