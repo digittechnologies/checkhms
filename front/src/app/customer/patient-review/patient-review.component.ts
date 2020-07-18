@@ -11,6 +11,9 @@ declare let jQuery: any;
 declare let $ : any;
 declare var test3: any;
 declare var test4: any;
+declare var index2: any;
+declare var chat1: any;
+
 
 @Component({
   selector: 'app-patient-review',
@@ -141,6 +144,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
 
     new test3();
     new test4();
+    new index2();
+    new chat1();
+
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
       this.appId= id;

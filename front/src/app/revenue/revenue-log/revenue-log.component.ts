@@ -248,15 +248,26 @@ record_empty:null;
         this.appointment_id = this.inv.pres[0].appointment_id
 
         this.pres.forEach(e => {
-          let footerSubTotal = (e.insurance_status == 'enabled') ? parseInt(e.amount_2) : parseInt(e.amount);
+          let footerSubTotal = e.insurance_status == 'enabled' ? parseInt(e.amount_2) : parseInt(e.amount);
           this.footerSubTotal+=footerSubTotal
+          
 
-          if(e.discount_1 == 0){
-            let footerTotal2 = (e.discount_1 == 0) ? parseInt(e.total_amount) : parseInt(e.total_amount);
+          if(e.discount_1 == 0 && e.insurance_status != 'enabled'){
+            let footerTotal2 = (e.discount_1 == 0) ? parseInt(e.amount) : parseInt(e.amount);
             this.footerTotal+=footerTotal2
           }
+
+          if(e.insurance_status == 'enabled' && e.amount_2 == 0) {
+            let footerDiscountAmount = e.amount
+            this.footerDiscountAmount+=parseInt(footerDiscountAmount)
+            let footerTotal = e.amount
+            this.footerTotal+=parseInt(footerTotal)
+            let footerSubTotal = e.amount
+            this.footerSubTotal+=parseInt(footerSubTotal)
+          }
+
           //PRIMARY HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
-          if(e.discount_1 != 0 && e.care_type == 'primary' && e.insurance_status == 'enabled'){
+          if(e.discount_1 != 0 && e.care_type == 'primary' && e.insurance_status == 'enabled'  && e.amount_2 != 0){
             let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_1) /100
             this.footerDiscountAmount+=footerDiscountAmount
             let footerTotal = (100 - parseInt(e.discount_1)) *  parseInt(e.amount_2) / 100
@@ -270,7 +281,7 @@ record_empty:null;
           //PRIMARY HEALTH CARE TYPE END FOR DISCOUNT A MOUNT
 
           //SECONDARY HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
-          if(e.discount_2 != 0 && e.care_type == 'secondary' && e.insurance_status == 'enabled'){
+          if(e.discount_2 != 0 && e.care_type == 'secondary' && e.insurance_status == 'enabled' && e.amount_2 != 0){
             let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_2) /100
             this.footerDiscountAmount+=footerDiscountAmount
             let footerTotal = (100 - parseInt(e.discount_2)) * parseInt(e.amount_2) / 100
@@ -284,7 +295,7 @@ record_empty:null;
           //SECONDARY HEALTH CARE TYPE END FOR DISCOUNT A MOUNT
 
           //OTHERS HEALTH CARE TYPE START FOR DISCOUNT A MOUNT
-          if(e.discount_3 != 0 && e.care_type == 'others' && e.insurance_status == 'enabled'){
+          if(e.discount_3 != 0 && e.care_type == 'others' && e.insurance_status == 'enabled' && e.amount_2 != 0){
             let footerDiscountAmount = parseInt(e.amount_2) * parseInt(e.discount_3) /100
             this.footerDiscountAmount+=footerDiscountAmount
             let footerTotal = (100 - parseInt(e.discount_3)) * parseInt(e.amount_2) / 100
@@ -392,9 +403,9 @@ record_empty:null;
         total: this.footerTotal,
         appointment_id: this.appointment_id
       }
-      console.log(form)
       this.Jarwis.payService(form).subscribe(
-        
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
       ); 
     }
 
@@ -457,7 +468,6 @@ record_empty:null;
       };
 
     handleResponse(data) {   
-      console.log(data)
       if (data.success == false) {
         let snackBarRef = this.snackBar.open(data.message, 'Dismiss', {
           duration: 5000

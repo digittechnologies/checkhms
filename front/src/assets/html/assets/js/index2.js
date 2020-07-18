@@ -1,3 +1,4 @@
+function index2(){
 $(function(){
     "use strict";
 
@@ -485,3 +486,4 @@ $(function(){
         }
     });
 });
+}
