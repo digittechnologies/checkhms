@@ -46,6 +46,8 @@ export class PatientProcessComponent implements OnInit {
   process_attribute_id: any;
   collection=[];
   closeModal:Boolean =false;
+  formTittle: any;
+  suggestions: any;
 
   constructor(   private Jarwis: JarwisService,
     private Token: TokenService,
@@ -93,14 +95,18 @@ export class PatientProcessComponent implements OnInit {
       data=>{
         let res:any = data
         this.testingform = res.form;
+        let defaultForm:any = this.testingform[0].id
+        let dfaulAttribute:any =  this.testingform[0].attribute
+        this.formValue(defaultForm,dfaulAttribute)
       }
     )
   }
-  formValue(id){
+  formValue(id,formatrribute){
     this.collection = []
     this.form_id =  id;
     this.Jarwis.formvalue(id).subscribe(
       data=>{
+        this.formTittle = formatrribute
       let reses:any = data;
       for (let index = 0; index < reses.length; index++) {
         console.log(reses[index].value_options)
@@ -114,6 +120,7 @@ export class PatientProcessComponent implements OnInit {
         if (reses[index].suggestion) {
          let vp = JSON.parse(reses[index].suggestion)
          reses[index].suggestion = vp
+         console.log(reses[index].suggestion)
         }
         else{
          reses[index].suggestion=''
@@ -145,10 +152,12 @@ export class PatientProcessComponent implements OnInit {
    $('#Table').modal('hide');
         this.handleResponse(data)  
 }
- tableDetails(data,id,process_attribute_id){
+ tableDetails(data,id,process_attribute_id,suggestions){
    this.table_data = data;
    this.table_id   = id;
    this.process_attribute_id = process_attribute_id
+   this.suggestions = suggestions;
+   console.log(this.suggestions)
    console.log(this.table_id)
    this.closeModal = false;
  }

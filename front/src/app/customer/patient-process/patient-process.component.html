@@ -242,7 +242,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -266,7 +266,7 @@
                                                         <label class="input-group-text">{{fr.value}}</label>
                                                     </div>
                                                     <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
-                                                        <div class="cont ">
+                                                        <div class="cont">
                                                             <input ngModel type="{{fr.value_type}}" class="form-control" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
                                                             <mat-autocomplete #auto="matAutocomplete" >
                                                                 <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
@@ -318,7 +318,7 @@
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th *ngFor="let ops of fr.options">{{ops}}</th>
-                                                                                        <input type="button" value="Add" data-toggle="modal" data-target="#Table" (click)="tableDetails(fr.options,fr.id,fr.process_attribute_id)" class="btn btn-primary">
+                                                                                        <input type="button" value="Add" data-toggle="modal" data-target="#Table" (click)="tableDetails(fr.options,fr.id,fr.process_attribute_id,fr.suggestion)" class="btn btn-primary">
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -354,7 +354,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -443,7 +443,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -524,7 +524,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -672,7 +672,7 @@
                               <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
                               <h6 class="mt-4">Examination Note</h6>     
                               <div  class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
-                                <button class="modal-title  h4 btn"  id="myLargeModalLabel" style="cursor: pointer;color:#17ACBF; background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button>
+                                <button class="modal-title  h4 btn"  id="myLargeModalLabel" style="cursor: pointer;color:#17ACBF; background-color: inherit;" (click)="formValue(form.id,form.attribute)">{{form.attribute}}</button>
                               </div>                   
                               <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>
@@ -857,12 +857,18 @@
                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
                         <div class="modal-body">        
                             <div class="row clearfix">
-                                <div class="col-md-8" *ngFor="let tb of table_data">
-                                    <div class="input-group mb-3">
+                                <div class="col-md-12" *ngFor="let tb of table_data">
+                                    <div class="input-group mb-3 row">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text">{{tb}}</label>
                                         </div> 
-                                        <input type="text" ngModel name="{{tb}}" class="form-control">     
+                                        <textarea  class="form-control col-12" ngModel name="{{tb}}" id="" rows="4"  [matAutocomplete]="auto"></textarea>
+                                        <mat-autocomplete #auto="matAutocomplete" >
+                                          <mat-option *ngFor="let street of suggestions" [value]="street">
+                                           {{street}} 
+                                          </mat-option>
+                                      </mat-autocomplete> 
+                                        <!-- <input type="text" ngModel name="{{tb}}" >      -->
                                     </div>
                                 </div>           
                             </div>
