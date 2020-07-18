@@ -1,3 +1,4 @@
+function chat(){
 $(function () {
     "use strict";
     MorrisArea();
@@ -331,3 +332,4 @@ var data = [
 
 config.element = 'bar_stacked';
 Morris.Bar(config);
+}
