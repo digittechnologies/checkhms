@@ -2322,4 +2322,6 @@ class DisplayController extends Controller
         ]
         );
     }
+
+  
 }

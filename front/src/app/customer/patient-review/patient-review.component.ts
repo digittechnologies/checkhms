@@ -13,6 +13,7 @@ declare var test3: any;
 declare var test4: any;
 declare var index2: any;
 declare var chat1: any;
+declare var mutil_list: any;
 
 
 @Component({
@@ -146,6 +147,10 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     new test4();
     new index2();
     new chat1();
+    new mutil_list();
+
+    let getReturnData =  localStorage.getItem('returnData') 
+    console.log(getReturnData)
 
     this.actRoute.paramMap.subscribe((params => {
 	    let id = params.get('id');
