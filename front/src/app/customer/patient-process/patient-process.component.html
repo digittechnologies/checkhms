@@ -256,6 +256,7 @@
                                       </ul>
                                   </div>
                                   <div class="body row">
+                                       
                                     <form class="form-auth-small m-t-20 col-12" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
                                         <div class="row clearfix forms ">
                                             <!-- <div class="col-md-6"> -->
@@ -277,13 +278,22 @@
                                                             </div>
                                                      </ng-container>
                                                         <ng-container *ngIf="fr.value_type == 'textarea'">
-                                                              <textarea class="form-control" ngModel name="{{fr.value}}" [matAutocomplete]="auto"></textarea>
+                                                            <!-- <textarea class="form-control"  [formControl]="myControl" ngModel name="{{fr.value}}" [matAutocomplete]="auto" (click)="submitSuggest(fr.suggestion)" matInput></textarea>
+                                                            <mat-autocomplete #auto="matAutocomplete" >
+                                                              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                                  {{option}}
+                                                              </mat-option> -->
+                                                              <div class="input-group demo-tagsinput-area">
+                                                                <input type="text"  class="form-control" id="test" data-role="tagsinput" ngModel name="{{fr.value}}" value="Washington,Beijing,Cairo,Taiwo">
+                                                            </div>
+                                                              <!-- <mat-form-field>
+                                                              <textarea class="form-control" ngModel name="{{fr.value}}" [value]="hello" [matAutocomplete]="auto" matInput (keyup)=submitSuggest(fr.value,$event)></textarea>
                                                               <mat-autocomplete #auto="matAutocomplete" >
-                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street">
+                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="hello + ' '+street">
                                                                  {{street}} 
                                                                 </mat-option>
                                                             </mat-autocomplete>
-                                                        
+                                                        </mat-form-field> -->
                                                       </ng-container>  
                                           
                                                     <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">

@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms'
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 declare var test3: any;
 declare var test4: any;
@@ -48,6 +51,10 @@ export class PatientProcessComponent implements OnInit {
   closeModal:Boolean =false;
   formTittle: any;
   suggestions: any;
+  myControl = new FormControl();
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
+  hello:any
 
   constructor(   private Jarwis: JarwisService,
     private Token: TokenService,
@@ -55,9 +62,16 @@ export class PatientProcessComponent implements OnInit {
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
     public actRoute: ActivatedRoute,) { }
-
+    private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+  
+      return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    }
   ngOnInit() {
-
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     new test3();
     new test4();
     this.actRoute.paramMap.subscribe((params => {
@@ -132,6 +146,13 @@ export class PatientProcessComponent implements OnInit {
         else{
          reses[index].options=''
         }
+        if (reses[index].value_option) {
+          let vo = JSON.parse(reses[index].value_option)
+          reses[index].value_option = vo
+         }
+         else{
+          reses[index].value_option=''
+         }
         
       }
       
@@ -142,12 +163,18 @@ export class PatientProcessComponent implements OnInit {
   }
   onSaveTestingProcessValue(form:NgForm){
     const data = Object.entries(form.value)
-     this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
-       data=>{
-         this.handleResponse("opration successfuly")
-       this.response = data;  
-   })
+    console.log(data)
+  //    this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+  //      data=>{
+  //        this.handleResponse("opration successfuly")
+  //      this.response = data;  
+  //  })
  }
+
+ submitSuggest(data) {
+   this.options = data;
+ }
+
  closeMo(data){
    $('#Table').modal('hide');
         this.handleResponse(data)  
