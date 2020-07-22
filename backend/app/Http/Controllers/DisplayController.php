@@ -30,6 +30,7 @@ use App\Hospital_charges;
 use App\Centers;
 use App\Service_charges;
 use App\Hmo;
+use App\price_list;
 
 // Today's date working with displayItem,
 
@@ -1061,6 +1062,28 @@ class DisplayController extends Controller
 
     // Prescriptions  
 
+    public function getEncounterType()
+    {
+        return DB::table("encounter_tittle")->get();
+    }
+
+    public function getEncounter($id)
+    {
+        return DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name') 
+                                        ->where('encounter_tb.appointment_id','=', $id)                          
+                                        ->get();
+    }
+
+    public function getEncounterDetails($id)
+    {
+        return response()->json([ 'view'=> DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name')   
+                                        ->where('encounter_tb.id','=', $id)            
+                                        ->first()
+        ]);
+    }
+
     public function displayPrescription()
     {
         return DB::table("doctor_prescriptions")->get();
@@ -1588,8 +1611,15 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function voucherAllStock($item)
+    public function voucherAllStock($item, $appoint)
     {
+
+        $hmoNo= Appointments::find($appoint);
+
+        $hmoNo= Hmo::find($hmoNo->hmo_id);
+
+        $price_column= price_list::find($hmoNo->price_list_column);
+
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
 
@@ -1607,8 +1637,12 @@ class DisplayController extends Controller
         ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
         ->join ('shelves','shelves.id','=','item_details.shelve_id')
         ->where(['item_details.id' => $item, 'c_date' => $cDate])
-        ->get();
-        return $itemr;
+        ->first();
+        $r = $price_column->column_name;
+        return response()->json([
+            'item' => $itemr,
+            'price' => $itemr->$r
+        ]);
     }
     public function onEditBranch(Request $request){
          $id=$request->id;

@@ -23,6 +23,72 @@ declare var mutil_list: any;
 })
 export class PatientReviewComponent implements OnInit,OnDestroy {
 
+  //Pharmacy 
+
+  generic_name: any;
+  total: any;
+  error: any;
+  itemDet: any;
+  prescriptions: any;
+  duration: any;
+  instruct: any;
+  getInst: any;
+  quantity: any;
+  amt: any;
+  sup: any;
+  days: any;
+  count: any;
+  defaultCount = 1;
+  math = Math;
+  useFor: any;
+  quant: any;
+  tQuantity = 0;
+  PharmPreresponse: any;
+  ItemDetresponse: any;
+  Instructionresponse: any;
+  AllStockresponse: any;
+  DurationForVresponse: any;
+  prescriptionsList: any;
+  voucherId: any;
+  appointResponse: any;
+  appointments: any;
+  total_name: any;
+  cat_name: any;
+  type_name: any;
+  total_remain: any;
+  shelve_name: any;
+  shelve_point: any;
+  selling_price: any;
+  tquant: any;
+  refill: any;
+  remain: any;
+  tcost: any;
+  prescription: any;
+  voucher: any;
+  invoice: any;
+  disabled = false;
+  afterPercentCost: any;
+  schemeAmt: any;
+  catResponds: any;
+  cust_cat: any;
+  editdept:any;
+  DurationForVresponse_id: any;
+  Instructionresponse_id: any;
+  amt_value: any;
+  sup_id: any;
+  presResponds: Object;
+  original_qty: any;
+  refill_qty: any;
+  total_quantity: any;
+  total_amount: any;
+  instock: any;
+  amnt_v: any;
+  amount_p: number;
+  chargesResponse: any;
+  charges: any;
+
+
+  // Doctor Encounter
   appId: string;
   patientResponse: any;
   pat: any;
@@ -56,6 +122,17 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   review_messages: any;
   datas: any;
   p:any;
+  titles: any;
+  encounterResponce:any
+  encounterRes: Object;
+  encounters: Object;
+  encId: any;
+  viewEncounter: any;
+  encounterResD: any;
+  encountersD: any;
+  column: any;
+  patientAppointment: any;
+  itemPrice: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -149,6 +226,47 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     new chat1();
     new mutil_list();
 
+    //Pharmacy  
+
+    this.Jarwis.displayPharmPre2(this.appId).subscribe(
+      data=>{
+      this.PharmPreresponse = data;      
+      this.prescriptions = this.PharmPreresponse;
+      this.tquant= this.prescriptions.tquant;
+      this.refill = this.prescriptions.refill;
+      this.remain = this.prescriptions.remain;
+      this.tcost = this.prescriptions.tcost;
+      if (this.schemePriceList == 'price_1') {
+        this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50;
+      } else {
+        this.afterPercentCost = this.schemePercent / 100 * this.tcost;
+      }
+       
+      this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost + 50;
+      this.prescriptionsList= this.PharmPreresponse.pres; 
+    })
+  
+      this.Jarwis.disItemDet().subscribe(
+        data=>{
+        this.ItemDetresponse = data;      
+        this.itemDet = this.ItemDetresponse;      
+      })
+  
+      this.Jarwis.displayInstruction().subscribe(
+        data=>{
+        this.Instructionresponse = data;      
+        this.instruct = this.Instructionresponse;      
+      })
+  
+      this.Jarwis.customer_category().subscribe(
+        data=>{
+        this.catResponds = data;      
+        this.cust_cat = this.catResponds;      
+      })
+
+
+    //Doctor Ecounter...
+
     let getReturnData =  localStorage.getItem('returnData') 
     console.log(getReturnData)
 
@@ -188,6 +306,21 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
        this.teams = res;
     }
   )
+
+  this.Jarwis.getEncounterType().subscribe(
+    data=>{
+       this.encounterResponce = data;
+       this.titles = this.encounterResponce;       
+    }
+  );
+
+  this.Jarwis.getEncounter(this.appId).subscribe(
+    data=>{
+       this.encounterRes = data;
+       this.encounters = this.encounterRes;       
+    }
+  )
+
   this.Jarwis. generalSettings().subscribe(
     data=>{
     this.response = data;      
@@ -198,6 +331,89 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   left(){
 
   }
+
+  onSelectItem(Itemid) {
+    this.Jarwis.voucherAllStock(Itemid.target.value, '', this.patientAppointment).subscribe(  
+      data=>{
+
+        // console.log(data)
+        this.AllStockresponse = data;
+        this.total =this.AllStockresponse.item;
+        this.generic_name= this.total.generic_name
+        this.total_name= this.total.name;
+        this.cat_name= this.total.cat_name;
+        this.type_name= this.total.type_name;
+        this.total_remain= this.total.total_remain;
+        this.shelve_name= this.total.shelve_name;
+        this.shelve_point= this.total.shelve_point;
+        this.getInst = this.total.type_id;
+        this.quantity = 0;
+        this.tQuantity = 0;
+        this.itemPrice = this.AllStockresponse.price;
+        if(this.schemePriceList == 'price_2'){
+          this.selling_price = this.total.price_2;
+        }
+        else if(this.schemePriceList == 'price_3'){
+          this.selling_price = this.total.price_3;
+        }
+        else{
+          this.selling_price= this.total.purchasing_price*this.total.markup_price;
+        }
+        this.ngOnInit()
+        this.Jarwis.displayDurationForV(this.getInst).subscribe(
+          data=>{
+          this.DurationForVresponse = data;      
+          this.duration = this.DurationForVresponse       
+        })
+      }
+    );
+  }
+
+  onId(id:any){
+    this.encId=id
+    // this.viewEncounter= this.encounters[id];
+
+    this.Jarwis.getEncounterDetails(this.encId).subscribe(
+      data=>{
+         this.encounterResD = data;
+         this.encountersD = this.encounterResD.view; 
+         this.patientAppointment = this.encounterResD.view.appointment_id;
+      });
+  }
+  onSubmit(form:NgForm){
+
+    form.value.appointment_id= this.appId
+
+    this.Jarwis.submitEncounter(form.value).subscribe(
+      data=>{
+        this.handleResponse("Operation successfuly")
+        this.response = data;  
+        this.ngOnInit();
+  })
+
+  }
+
+  // columnName(view:string){
+  //   this.column= view;
+  //   alert( this.column)
+  // }
+
+  onPreamble(form:NgForm){
+
+    // form.value.appointment_id= this.appId
+    // form.value.ids= this.encId
+    // form.value.colum= this.column
+
+    this.Jarwis.submitPreamble({value1:form.value, value2:this.encId, value3:this.appId}).subscribe(
+      data=>{
+        this.handleResponse("Operation successfuly")
+      // this.response = data;  
+      this.onId(this.encId)
+    
+  })
+
+  }
+
   //TEAM REVIEW START
   createReview(){
     if(this.user_id && this.team_id){
@@ -270,6 +486,15 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         }
       }
     )
+  }
+
+  handleResponse(data) {    // 
+    let snackBarRef = this.snackBar.open(data, 'Dismiss', {
+      duration: 2000
+    })   
+    this.ngOnInit();
+    
+  
   }
 
 }

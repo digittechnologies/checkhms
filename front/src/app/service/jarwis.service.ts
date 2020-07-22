@@ -169,6 +169,30 @@ public  permite ="";
     return this.http.post(`${this.baseUrl}/deleteType`, data)
   }
 
+  getEncounterType() {
+    return this.http.get(`${this.baseUrl}/getEncounterType`,)
+  } 
+  
+  getEncounter(id: any) {
+    return this.http.get(`${this.baseUrl}/getEncounter/${id}`,)
+  } 
+
+  getEncounterDetails(id: any) {
+    return this.http.get(`${this.baseUrl}/getEncounterDetails/${id}`,)
+  }
+
+  submitEncounter(data) {
+    return this.http.post(`${this.baseUrl}/submitEncounter`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  submitPreamble(data) {
+    return this.http.post(`${this.baseUrl}/submitPreamble`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   // Branch
   displayStaffBranch(id: any) {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
@@ -850,8 +874,8 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
-  voucherAllStock(id:string, data) {
-    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}`, data,{headers:{
+  voucherAllStock(id:string, data, appointment: any) {
+    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}/${appointment}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }

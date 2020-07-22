@@ -39,7 +39,7 @@ use App\Process_tb;
 use App\Process_attribute_tb;
 use App\Process_module_tb;
 use App\Service_charges;
-
+use App\Encounter;
 
 class AddController extends Controller
 {
@@ -212,6 +212,53 @@ public function addCenter(Request $request)
             }';
         }
     }
+
+    public function submitEncounter(Request $request)
+    {
+       
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $staffId= Auth()->user()->id;
+
+        $request->merge(['created_time' => $cTime]);
+        $request->merge(['created_at' => $cDate]);
+        $request->merge(['created_by' => $staffId]);
+
+        $encounter= Encounter::insert($request->all());
+       
+        if($encounter){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function submitPreamble(Request $request)
+    {
+        // return $request->all();
+        $staffId= Auth()->user()->id;
+        $docProcess=DB::table('encounter_tb')->where('id', $request->value2)->where('appointment_id', $request->value3)->update(    
+           $request->value1
+        );
+        if($docProcess){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    } 
 
     public function suspendCenter(Request $request)
     {

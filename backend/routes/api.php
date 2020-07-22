@@ -212,8 +212,13 @@ Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
 Route::get('displayAppointmentType','RecordModuleController@displayAppointmentType');
 //EPS Patients
 Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
-// Appointments 
+// Appointments   
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
+Route::get('getEncounterType','DisplayController@getEncounterType');
+Route::get('getEncounter/{id}','DisplayController@getEncounter');
+Route::get('getEncounterDetails/{id}','DisplayController@getEncounterDetails');
+Route::post('submitPreamble','AddController@submitPreamble');
+Route::post('submitEncounter','AddController@submitEncounter');
 Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment/{id}','DisplayController@displayDeptAppointment');
 Route::get('displayRevenueAppointment','DisplayController@displayRevenueAppointment');
@@ -292,7 +297,7 @@ Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');
 Route::get('inStock/{id}','DisplayController@inStock');
 Route::post('inStockT','DisplayController@inStockT');
-Route::post('voucherAllStock/{id}','DisplayController@voucherAllStock');
+Route::post('voucherAllStock/{id}/{appointment}','DisplayController@voucherAllStock');
 Route::get('editAdd/{id}', 'AddController@editAdd');
 Route::post('deleteAdd', 'AddController@deleteAdd');
 Route::post('updateAddItem', 'AddController@updateAddItem');

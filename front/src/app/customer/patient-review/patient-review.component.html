@@ -286,7 +286,7 @@
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title h4" id="myLargeModalLabel">Add Shelve Point</h5>
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Add New Encounter</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                         </button>
@@ -294,38 +294,17 @@
                     <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
                     <div class="modal-body">             
                         <div class="row clearfix">
-                            <div class="col-md-8">
+                            <div class="col-md-10">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Shelve Name" ngModel name="name" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control show-tick" ngModel name="status">
-                                        <option value="active">Active</option>
-                                        <option value="suspend">Suspend</option>                                
+                                    <select class="form-control show-tick" ngModel name="encounter_tittle_id">
+                                        <option value="0">Select Encounter Title</option>
+                                        <option *ngFor="let title of titles" value="{{title.id}}">{{title.tittle_name}}</option>                                
                                     </select>                  
                                 </div>
-                            </div>            
+                            </div>                                     
                         </div>
                     </div>
-                    <div class="modal-body">             
-                        <div class="row clearfix">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Shelve Point" ngModel name="point" required>
-                                </div>
-                            </div> 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control show-tick" ngModel name="branch_id">
-                                        <option value="">- Select Team -</option>
-                                        <option *ngFor="let b of branch" [value]="b.id">{{b.br_name}}</option>                                
-                                    </select>
-                                </div>
-                            </div>                               
-                        </div>
-                    </div>       
+                        
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
                         <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
@@ -1068,20 +1047,18 @@
             </div>        
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-4 col-sm-12">
-                    <small class="text-muted">DOCTOR ENCOUNTER</small>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="">Add New Encounter</a><br>            
+                    <small class="text-muted">NURSING PROCESS</small>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a><br>            
                     <div class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-success">2</span></a>
+                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-success">2</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Overview <span class="badge badge-danger">14</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Vital Signs <span class="badge badge-info">14</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="nurse" aria-controls="v-pills-messages" aria-selected="false">Nursing Accessment <span class="badge badge-warning">1</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Nursing Accessment <span class="badge badge-warning">1</span></a>
                                  
-                    <small class="text-muted mb-2 mt-1">LOCATION</small>
+                    <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                    
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home <span class="badge badge-success">2</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile <span class="badge badge-danger">14</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages <span class="badge badge-warning">1</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings <span class="badge badge-info">14</span></a>
+                        <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">{{encId}}</span></a>
+
                     </div>                  
                     <small class="text-muted">JOB POSITION</small>
                     <ul class="list-group mt-2">
@@ -1094,7 +1071,7 @@
                 <div class="col-lg-9 col-md-8 col-sm-12">
                     <div class="row clearfix">
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane vivify fadeIn delay-100 active show" id="v-pills-home" role="tabpanel" aria-labelledby="history">
+                            <div class="tab-pane vivify fadeIn delay-100 active show" id="v-pills-history" role="tabpanel" aria-labelledby="history">
                             
 
 
@@ -1265,9 +1242,58 @@
                                 </div>   
 
                             </div>
+
+                            <div class="tab-pane" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                               
+                                <div class="row clearfix">
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                            
+                                    <div class="col-sm-12">
+                                        <div class="card" id="features">
+                                            <div class="header">
+                                                <h2><strong>Vital Signs</strong></h2>
+                                                <ul class="header-dropdown dropdown">                                
+                                                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another Action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-6">
+                                                        <ul class="main_features">
+                                                            <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
+                                                            <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
+                                                            <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
+                                                            <li>Light and Dark Version</li>                                        
+                                                            <li>Fully Responsive</li>
+                                                            <li>Ready to used widget</li>
+                                                            <li>Detailed Documentation</li>
+                                                        </ul>
+                                                    </div>
+                                                  
+                                                </div>                            
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
+                                                    Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>                         
+                                </div>
+
+                                
                             <div class="tab-pane vivify fadeIn delay-100" id="v-pills-messages" role="tabpanel" aria-labelledby="nurse"> 
                                   
-                                    <div class="row clearfix">
+                                <div class="row clearfix">
                                       <div class="col-xl-12 col-lg-12 col-md-12">
                             
                                               <div class="row clearfix">
@@ -1448,68 +1474,668 @@
                                   </div>  
                             </div>
 
-                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
-                                
-
-                            </div>
-
-                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
-                                
-
-                            </div>
-
-                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
-                                
-
-                            </div>
-                            <div class="tab-pane" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">                 
                                
-                            <div class="row clearfix">
-                                <div class="col-xl-12 col-lg-12 col-md-12">
-                        
-                                <div class="col-sm-12">
-                                    <div class="card" id="features">
-                                        <div class="header">
-                                            <h2><strong>Vital Signs</strong></h2>
-                                            <ul class="header-dropdown dropdown">                                
-                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="javascript:void(0);">Action</a></li>
-                                                        <li><a href="javascript:void(0);">Another Action</a></li>
-                                                        <li><a href="javascript:void(0);">Something else</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="body">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6">
-                                                    <ul class="main_features">
-                                                        <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
-                                                        <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
-                                                        <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
-                                                        <li>Light and Dark Version</li>                                        
-                                                        <li>Fully Responsive</li>
-                                                        <li>Ready to used widget</li>
-                                                        <li>Detailed Documentation</li>
-                                                    </ul>
+                                  
+                                    <div class="row clearfix">
+                                          <div class="col-xl-12 col-lg-12 col-md-12">
+                                
+                                                  <div class="row clearfix">
+                                                    <div class="col-sm-12">
+                                                        <div class="card" id="documenter_cover">
+                                                            <div class="body">
+                                                                <h4 class="mb-3">Doctor Process {{encId}}</h4>
+                                                                <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                                                <ul>
+                                                                    <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                                                                    <li><strong>05/Nov/2018</strong></li>
+                                                                    <li><strong class="text-orange">18/June/2019</strong></li>
+                                                                    <li><strong class="text-orange">{{encId}}</strong></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>                        
+                          
+                                                    <div class="col-sm-12">
+                                                      <div class="card" id="Gallery">
+                                                          <div class="header">
+                                                              <h2><strong>PREAMBLE</strong></h2>
+                                                              <ul class="header-dropdown dropdown">                                
+                                                                  <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                  <li class="dropdown">
+                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                      <ul class="dropdown-menu">                                                                        
+                                                                          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#preamble">Update</a></li>
+                                                                          <li><a href="javascript:void(0);">Print</a></li>
+                                                                          <li><a href="javascript:void(0);">Export</a></li>
+                                                                      </ul>
+                                                                  </li>
+                                                              </ul>
+                                                          </div>                                                        
+                                                        
+                                                          <div class="body">                                                            
+                                                            <p style="white-space: pre-line">{{encountersD.preable}}</p>                                                             
+                                                          </div>
+                                                      </div>
+                                                      <!-- <nav aria-label="Page navigation">
+                                                          <ul class="pagination">
+                                                       <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
+                                                          </ul>
+                                                      </nav> -->
+                                                  </div>
+                          
+                                                    <div class="col-sm-12">
+                                                      <div class="card" id="SCSS">
+                                                          <div class="header">
+                                                              <h2><strong>SUBJECTIVITY</strong></h2>
+                                                              <ul class="header-dropdown dropdown">                                
+                                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                <li class="dropdown">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#subject">Update</a></li>
+                                                                        <li><a href="javascript:void(0);">Print</a></li>
+                                                                        <li><a href="javascript:void(0);">Export</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                          </div>
+                                                          <div class="body">
+                                                            <p style="white-space: pre-line">{{encountersD.subject}}</p>
+                                  
+                                                          </div>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>OBJECTIVITY</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#object">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body">
+                                                          <p style="white-space: pre-line">{{encountersD.object}}</p>
+                                
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                              
-                                            </div>                            
-                                            <div class="alert alert-danger" role="alert">
-                                                <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
-                                                Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
-                                            </div>
-                                        </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>ASSESSMENT</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#assessment">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body">
+                                                          <p style="white-space: pre-line">{{encountersD.assessment}}</p>
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>PRESUMPTIVE DIAGNOSIS</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#presumption_d">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body">
+                                                          <p style="white-space: pre-line">{{encountersD.presumption_d}}</p>
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>DIFFERENTIAL DIAGNOSIS</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#diffrential_d">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body">
+                                                          <p style="white-space: pre-line">{{encountersD.diffrential_d}}</p>
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>DEFINITIVE DIAGNOSIS</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#definitive_d">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body">
+                                                          <p style="white-space: pre-line">{{encountersD.definitive_d}}</p>
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                    <div class="col-sm-12">
+                                                        <div class="card" id="grunt_file">
+                                                            <div class="header">
+                                                                <h2><strong>PHARMACY ORDER</strong></h2>
+                                                                <ul class="header-dropdown dropdown">                                
+                                                                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                    <li class="dropdown">
+                                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">Update</a></li>
+                                                                            <li><a href="javascript:void(0);">Print</a></li>
+                                                                            <li><a href="javascript:void(0);">Export</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="body">
+                                                                <p style="white-space: pre-line">{{encountersD.definitive_d}}</p>
+                                                            </div>                    
+                                                        </div>
+                                                    </div>
+                                                  
+                                                   
+                                                   
+                                                    <div class="col-sm-12">
+                                                        <div class="card" id="Credits">
+                                                            <div class="header">
+                                                                <h2><strong>Nurse Record Sheet</strong></h2>
+                                                                <ul class="header-dropdown dropdown">
+                                                                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                    <li class="dropdown">
+                                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                                            <li><a href="javascript:void(0);">Another Action</a></li>
+                                                                            <li><a href="javascript:void(0);">Something else</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-12">
+                                                                        <ul>
+                                                                            <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
+                                                                            <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
+                                                                            <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
+                                                                            <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
+                                                                            <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
+                                                                            <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
+                                                                            <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
+                                                                        </ul>
+                                                                    </div>
+                                                                   
+                                                                </div>                            
+                                                            </div>
+                                                        </div>
+                                                    </div>                    
+                                              </div>
+                                             
+                                          </div>              
+                                      </div>  
+
                                     </div>
-                                </div>
+                             
+                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
+                                
+
                             </div>
-                            </div>                         
-                            </div>
+
+                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
+                                
+
+                            </div>                            
                         </div>
                     </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="preamble" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Preamble Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pr)" #pr="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="preable" >{{encountersD.preable}}</textarea>
+                            <!-- <input type="hidden" ngModel name="ids" value="{{encId}}" [value]="encId"> -->
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="subject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Subjectivity Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(sub)" #sub="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="subject" >{{encountersD.subject}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="object" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Objectivity Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(obj)" #obj="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="object" >{{encountersD.object}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="assessment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Assessment Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(asses)" #asses="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="assessment" >{{encountersD.assessment}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="presumption_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Presumptive Diagnosis Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(presump)" #presump="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="presumption_d" >{{encountersD.presumption_d}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="diffrential_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Differential Diagnosis Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(different)" #different="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="diffrential_d" >{{encountersD.diffrential_d}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div> 
+
+        <div class="modal fade" id="definitive_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Definitive Diagnosis Input {{encId}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(definitive)" #definitive="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="definitive_d" >{{encountersD.definitive_d}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pharmacy Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pharmacy)" #pharmacy="ngForm"> 
+                    <div class="modal-body">
+                        
+                       
+                        
+
+
+                        <div class="row clearfix">
+                            <div class="col-12">
+                                    <div class="card">
+                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(data)" #data="ngForm">                    
+                                       
+                                        <div class="body">
+                                            <!-- <div class="row text-center">
+                                                <div class="col-6 border-right pb-4 pt-4">
+                                                    <label class="mb-0">New Users</label>
+                                                    <h4 class="font-30 font-weight-bold text-col-blue">2,025</h4>
+                                                </div>
+                                                <div class="col-6 pb-4 pt-4">
+                                                    <label class="mb-0">Return Visitors</label>
+                                                    <h4 class="font-30 font-weight-bold text-col-blue">1,254</h4>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group">
+                                                    <label class="d-block">New Users <span class="float-right">77%</span></label>
+                                                    <div class="progress progress-xxs">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="d-block">Return Visitors <span class="float-right">50%</span></label>
+                                                    <div class="progress progress-xxs">
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="d-block">Engagement <span class="float-right">23%</span></label>
+                                                    <div class="progress progress-xxs">
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="row clearfix">
+                    
+                                                <div class="col-lg-12 col-md-12"> 
+                                                    <div class="row">
+                                                <div class="col-lg-4 col-md-12">                                            
+                                                    <div class="form-group">   
+                                                            <label>Item</label>                                             
+                                                        <input type="text" class="form-control" value="{{generic_name}} {{total_name}}" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                            <label>Class</label>
+                                                        <input type="text" class="form-control" value="{{cat_name}}" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                            <label>Type</label> 
+                                                        <input type="text" class="form-control" value="{{type_name}}" disabled>
+                                                    </div>
+                                                </div>
+                    
+                                                </div>
+                                                </div>
+                    
+                                                <div class="col-lg-12 col-md-12">     
+                                                <div class="row">
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Shelf</label>
+                                                        <input type="text" class="form-control" value="{{shelve_name}} {{shelve_point}}" disabled>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                            <label>Total Remain</label>
+                                                        <input type="text" disabled class="form-control" value="{{total_remain}}">
+                                                    </div>
+                                                </div>                           
+                                                <div class="col-lg-4 col-md-12">
+                                                        <div class="form-group">
+                                                                <label>Price</label>
+                                                            <input type="text" class="form-control" value="{{itemPrice | currency:'NGN':'symbol-narrow'}}" disabled>
+                                                        </div>
+                                                    </div>    
+                                            
+                                                </div>
+                                                </div>
+                    
+                                                <div class="col-lg-12 col-md-12">
+                                                    <hr>
+                    
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <label>Item</label>
+                                                            <div class="form-group">
+                                                                <select class="form-control" (change)="onSelectItem($event)" ngModel name="item_id">
+                                                                    <option value="">Select Item</option>
+                                                                    <option  *ngFor="let itdet of itemDet" value="{{itdet.id}}">{{itdet.generic_name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>                                             
+                                                        <div class="col-lg-3 col-md-2 col-sm-6">
+                                                            <label>{{type_name}}</label>
+                                                            <div class="form-group">
+                                                                <select class="form-control" (change)="onSelectAmount($event)" ngModel name="instruction">
+                                                                    <option value="">Select Instruction</option>
+                                                                    <option  *ngFor="let dura of duration" value="{{dura.id}}">{{dura.duration_name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>                                            
+                                                        <div class="col-lg-3 col-md-2 col-sm-6">
+                                                            <label>Daily Supply</label>
+                                                            <div class="form-group">
+                                                                <select class="form-control" (change)="onSelectDailySup($event)" ngModel name="day_supply">
+                                                                    <option value="">Select Daily Supply</option>
+                                                                    <option  *ngFor="let inst of instruct" value="{{inst.id}}">{{inst.name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-lg-3 col-md-2 col-sm-6">
+                                                            <label>Day(s)</label>
+                                                            <div class="form-group">
+                                                                <input type="number" class="form-control" (keyup)="putQty($event)" placeholder="Input Number of Day(s)">
+                                                            </div>
+                                                        </div>                                     
+                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                                            <label>Present Dispensable Amount</label>
+                                                            <div class="form-group">
+                                                                <input type="number" min="1" value="{{math.round(quantity)}}" class="form-control" (keyup)="apartTablet($event)" placeholder="Disp Amount" ngModel name="quantity">
+                                                            </div>  
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                                                <label></label>
+                                                                <div class="form-group">
+                                                                    <input type="hidden" value="{{math.round(tQuantity)}}" class="form-control" disabled placeholder="Total Amount" ngModel name="original_qty">
+                                                                    <h5>Total Quantity: 
+                                                                        <small class="badge badge-warning" *ngIf = "quant == 'undefined'">0</small>
+                                                                        <small class="badge badge-warning">{{math.round(tQuantity)}}</small>
+                                                                    </h5>
+                                                                </div>  
+                                                            </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                                        <label></label>
+                                                        <!-- <div class="form-group">
+                                                            <input type="number" class="form-control" value="{{math.round(useFor)}}" ngModel name="days" disabled placeholder="Days">
+                                                        </div>   -->
+                                                        <h5>Total Cost: 
+                                                            <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0 | currency:'NGN':'symbol-narrow'}}</small>
+                                                            <small class="badge badge-success">{{math.round(quant)*selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <h5>Total Cost: 
+                                                            <small class="badge badge-success" *ngIf = "quant == 'undefined'">{{0*selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                                            <small class="badge badge-success">{{math.round(quant)*selling_price | currency:'NGN':'symbol-narrow'}}</small>
+                                                        </h5>
+                                                    </div>
+                                                </div> -->
+                                                    <label>Pre Caution</label>
+                                                    <div class="form-group">
+                                                        <textarea rows="4" class="form-control" ngModel name="caution" placeholder="Input pre-cautions here (if any)..."></textarea>
+                                                    </div>
+                                                    <label>Physician Name</label>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" ngModel name="doctor_id" placeholder="Input physician name here...">
+                                                    </div>                                        
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
+                                            <button type="submit" *ngIf = "prescription == 'open' " class="btn btn-round btn-primary">Save<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;&nbsp;
+                                            <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
+                                        </div>
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
             </div>
         </div>
 

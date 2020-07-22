@@ -185,7 +185,7 @@ export class VoucherComponent implements OnInit {
     
   // }
   onSelectItem(Itemid) {
-    this.Jarwis.voucherAllStock(Itemid.target.value, '').subscribe(  
+    this.Jarwis.voucherAllStock(Itemid.target.value, '', '').subscribe(  
       data=>{
 
         // console.log(data)
