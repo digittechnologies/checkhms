@@ -3181,9 +3181,8 @@ public function addCenter(Request $request)
 
     public function addValues(Request $request)
     {
-        // return $request->id;
+        // return $request->form['options'];
         $created_by= Auth()->user()->id;
-       
         if ($request->form['value_type'] == 'number') {
             $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
                 [
@@ -3211,6 +3210,7 @@ public function addCenter(Request $request)
                        'value_options' => $request->form['value_options'],
                        'comment' => $request->form['comment'],
                        'options' => $request->form['options'],
+                       'suggestion' =>$request->form['sugestion'],
                        'updated_by' => $created_by
                    ]); 
            }
@@ -3219,6 +3219,7 @@ public function addCenter(Request $request)
                 [
                     'value_type' =>$request->form['value_type'],
                     'options' => $request->form['options'],
+                    'suggestion' =>$request->form['sugestion'],
                     'updated_by' => $created_by
                 ]); 
         }
@@ -3242,10 +3243,12 @@ public function addCenter(Request $request)
         $form_data = array();
     //    return  $forms =$forms;
         foreach ($forms as  $form) {
-            //  return $form;
         $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
         if ($ans->count()>=1) {
             array_push($form,$ans[0]->unit);
+            array_push($form_data,$form);
+        }
+        else{
             array_push($form_data,$form);
         }
         }

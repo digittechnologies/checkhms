@@ -56,6 +56,8 @@ export class ProccessSettingsComponent implements OnInit {
   attId: any;
   proValId: any;
   datas:any;
+  value_options: any;
+  options: any;
   
 
 
@@ -270,37 +272,39 @@ export class ProccessSettingsComponent implements OnInit {
           this.normal_range = response.normal_range
           this.unit= response.unit;
           this.comment = response.comment
-          if (response.value_option) {
-            let v_opt = JSON.parse(response.value_option)
-            this.value_option =v_opt.join(',');
-          }
-          else{
-            this.value_option=''
-          }
-           if (response.suggestion) {
-            let sug = JSON.parse(response.suggestion)
-            this.sugestion = sug.join() 
-           }
-           else{
-            this.sugestion=''
-           }
+          if (response.value_option!=null || response.value_option!="") {
+            this.value_option = JSON.parse(response.value_option)
+          }else{response.value_option=""}
+          if (response.value_options != null || response.value_options != "") {
+            this.value_options = JSON.parse(response.value_options)
+          }else{response.value_options=""}
+           if (response.suggestion != null || response.suggestion != "") {
+            this.sugestion= JSON.parse(response.suggestion)
+           }else{response.suggestion=""}
+           if (response.options !=null || response.options !="") {
+            this.options = JSON.parse(response.options)
+           }else{response.suggestion=""}
      }
    )
   }
    onSaveProcessValues(form:NgForm){
-     if(form.value.sugestion){
-       var array = form.value.sugestion.split(',');
-       form.value.sugestion= JSON.stringify(array);
-     }
-    if(form.value.value_option){
-      var array2 = form.value.value_option.split(',');
-      form.value.value_option=JSON.stringify(array2);
+     console.log(form.value)
+    if(form.value.sugestion){
+      var array = [form.value.sugestion]
+      form.value.sugestion= JSON.stringify(array);
     }
-    if(form.value.options){
-      var array3 = form.value.options.split(',');
-      form.value.options=JSON.stringify(array3);
-    }
-    console.log(form.value)
+   if(form.value.value_option){
+     var array2 = [form.value.value_option]
+     form.value.value_option=JSON.stringify(array2);
+   }
+   if(form.value.options){
+     var array3 = [form.value.options];
+     form.value.options=JSON.stringify(array3);
+   }
+   if(form.value.value_options){
+     var array4 = [form.value.value_options]
+     form.value.value_options=JSON.stringify(array4);
+   }
     this.Jarwis.addValues({form:form.value,id:this.value_id}).subscribe(     
       data => {
         let res:any = data

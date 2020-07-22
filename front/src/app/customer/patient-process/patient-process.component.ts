@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms'
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 declare var test3: any;
 declare var test4: any;
@@ -46,6 +49,12 @@ export class PatientProcessComponent implements OnInit {
   process_attribute_id: any;
   collection=[];
   closeModal:Boolean =false;
+  formTittle: any;
+  suggestions: any;
+  myControl = new FormControl();
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
+  hello:any
 
   constructor(   private Jarwis: JarwisService,
     private Token: TokenService,
@@ -53,9 +62,16 @@ export class PatientProcessComponent implements OnInit {
     private Auth: AuthService,
     public snackBar: MatSnackBar, 
     public actRoute: ActivatedRoute,) { }
-
+    private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+  
+      return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    }
   ngOnInit() {
-
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     new test3();
     new test4();
     this.actRoute.paramMap.subscribe((params => {
@@ -93,14 +109,18 @@ export class PatientProcessComponent implements OnInit {
       data=>{
         let res:any = data
         this.testingform = res.form;
+        let defaultForm:any = this.testingform[0].id
+        let dfaulAttribute:any =  this.testingform[0].attribute
+        this.formValue(defaultForm,dfaulAttribute)
       }
     )
   }
-  formValue(id){
+  formValue(id,formatrribute){
     this.collection = []
     this.form_id =  id;
     this.Jarwis.formvalue(id).subscribe(
       data=>{
+        this.formTittle = formatrribute
       let reses:any = data;
       for (let index = 0; index < reses.length; index++) {
         console.log(reses[index].value_options)
@@ -114,6 +134,7 @@ export class PatientProcessComponent implements OnInit {
         if (reses[index].suggestion) {
          let vp = JSON.parse(reses[index].suggestion)
          reses[index].suggestion = vp
+         console.log(reses[index].suggestion)
         }
         else{
          reses[index].suggestion=''
@@ -125,6 +146,13 @@ export class PatientProcessComponent implements OnInit {
         else{
          reses[index].options=''
         }
+        if (reses[index].value_option) {
+          let vo = JSON.parse(reses[index].value_option)
+          reses[index].value_option = vo
+         }
+         else{
+          reses[index].value_option=''
+         }
         
       }
       
@@ -135,20 +163,28 @@ export class PatientProcessComponent implements OnInit {
   }
   onSaveTestingProcessValue(form:NgForm){
     const data = Object.entries(form.value)
-     this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
-       data=>{
-         this.handleResponse("opration successfuly")
-       this.response = data;  
-   })
+    console.log(data)
+  //    this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+  //      data=>{
+  //        this.handleResponse("opration successfuly")
+  //      this.response = data;  
+  //  })
  }
+
+ submitSuggest(data) {
+   this.options = data;
+ }
+
  closeMo(data){
    $('#Table').modal('hide');
         this.handleResponse(data)  
 }
- tableDetails(data,id,process_attribute_id){
+ tableDetails(data,id,process_attribute_id,suggestions){
    this.table_data = data;
    this.table_id   = id;
    this.process_attribute_id = process_attribute_id
+   this.suggestions = suggestions;
+   console.log(this.suggestions)
    console.log(this.table_id)
    this.closeModal = false;
  }

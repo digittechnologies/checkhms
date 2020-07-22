@@ -407,7 +407,7 @@
                                 <div class="body result">
                                     <div id="lightgallery" class="row clearfix lightGallery">
                                       <div *ngIf="datas" class="col-12">
-                                          <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
+                                          <!-- <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
                                               <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
                                           <ng-container *ngFor="let data of datass.games">
                                              <div *ngIf="data.process_value_id == nulll">
@@ -427,9 +427,6 @@
                                                   <div class="row clearfix" *ngIf="data.process_value_id != nulll">
                                                       <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
                                                       <div class="col-lg-12">
-                                                          <!-- <div class="card">
-                                                              <div class="body"> -->
-                                                                  
                                                                   <table class="table table-hover table-bordered">
                                                                       <thead>
                                                                           <tr>
@@ -443,21 +440,15 @@
                                                                             
                                                                               <td *ngFor="let tb of val" class="col-1" scope="row">
                                                                                   <span>{{tb[1]}}</span> 
-
-                                                                                  <!-- <span *ngIf="{{val.length>2}}" style="color: #007AFE;">{{tb[1]}}</span> -->
-
-                                                                                 <!-- <span *ngIf="{{tb[2]}}" style="color: #007AFE;">{{tb[2]}}</span>  -->
                                                                               </td>
                                                                           </tr>
                                                                       </tbody>
                                                                      
                                                                   </table>
-                                                              <!-- </div>
-                                                          </div> -->
                                                       </div>
                                                   </div>
                                                   </ng-container>
-                                              </ng-container>
+                                              </ng-container> -->
                                         </div>
                                       </div>
                                 </div>
@@ -512,10 +503,86 @@
                          
                          
                           <div class="col-sm-12">
-                              <div class="card" id="Credits">
+                            <!-- <div *ngIf="datas" class="col-12">
+                                <ng-container *ngFor="let datass of datas let">
+                                    <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
+                                <ng-container *ngFor="let data of datass.games">
+                                   <div *ngIf="data.process_value_id == nulll">
+                                  <ng-container *ngFor="let val of data.value_option">
+                                      <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
+                                            <span class="mr-3">
+                                                <label class="">{{val[0]}}</label>
+                                            </span> 
+                                            <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
+                                            <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
+                                            <input class="checkbox-tick" type="checkbox"  checked>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    </ng-container>
+                                     </div>
+                                        <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                            <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
+                                            <div class="col-lg-12">
+                                                        <table class="table table-hover table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td>S/N</td>
+                                                                    <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="height: 100%;overflow: auto;">
+                                                                <tr *ngFor="let val of data.value_option;let r = index">
+                                                                  <td>{{r+1}}</td>
+                                                                  
+                                                                    <td *ngFor="let tb of val" class="col-1" scope="row">
+                                                                        <span>{{tb[1]}}</span> 
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                           
+                                                        </table>
+                                            </div>
+                                        </div>
+                                        </ng-container>
+                                    </ng-container>
+                              </div> -->
+                              <div class="card" id="Credits" *ngIf="datas">
+                                  <div *ngFor="let data of datas">
+                                  <div class="header" *ngIf="data.process_value_id == null">
+                                      <h2>{{data.attribute}}</h2>
+                                  <div class="body" *ngIf="data.process_value_id == null">
+                                      <div class="row">
+                                          <div class="col-lg-6 col-md-12">
+                                              <ul>
+                                                  <ng-container *ngFor="let option of data.value_option">
+                                                      <li>{{option[0]}}
+                                                           <a class="ml-5" *ngIf="option[1] != null && option[1] != false" href="https://fonts.google.com/specimen/Krub" class="text-warning">
+                                                            {{option[1]}}
+                                                            <span *ngIf="option[2]">{{option[2]}}</span>
+                                                        </a>
+                                                        <a *ngIf="option[1] == true" href="https://fonts.google.com/specimen/Krub" class="text-warning">
+                                                        <label  class="fancy-checkbox mt-3">
+                                                            <input class="checkbox-tick" type="checkbox"  checked>
+                                                            <span></span>
+                                                        </label>
+                                                        </a>
+                                                            </li>
+                                                                                           
+                                                    </ng-container>
+                                              </ul>
+                                          </div>
+                                        
+                                      </div>                            
+                                  </div>
+                            
+                              </div>
+                          </div>
+                          <!-- <div class="col-sm-12">
+                              <div class="card" id="thank_you">
                                   <div class="header">
-                                      <h2><strong>Nurse Record Sheet</strong></h2>
-                                      <ul class="header-dropdown dropdown">
+                                      <h2>Thank You!</h2>
+                                      <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
                                               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -528,28 +595,78 @@
                                       </ul>
                                   </div>
                                   <div class="body">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-12">
-                                              <ul>
-                                                  <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
+                                      <p> Once again, thank you so much for purchasing this template. As I said at the beginning, I&#39;d be glad to help you if you have any questions relating to this template.</p>
+                                  </div>
+                              </div>
+                          </div> -->
+                          <!-- <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Nursing Process</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body result">
+                                      <div id="lightgallery" class="row clearfix lightGallery">
+                                 
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img03.png"><img class="img-fluid rounded" src="assets/img03.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img04.png"><img class="img-fluid rounded" src="assets/img04.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img05.png"><img class="img-fluid rounded" src="assets/img05.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img06.png"><img class="img-fluid rounded" src="assets/img06.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img07.png"><img class="img-fluid rounded" src="assets/img07.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img08.png"><img class="img-fluid rounded" src="assets/img08.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img09.png"><img class="img-fluid rounded" src="assets/img09.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div>
+                                        
+                                        </div>
+                                  </div>
+                              </div>
+                          </div> -->
+                    
+                    </div>
+                    <!-- <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                     <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
+
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li> 
+                        </ul>
+                    </nav> -->
+                                                  <!-- <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
                                                   <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
                                                   <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
                                                   <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
                                                   <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
                                                   <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
                                                   <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
-                                              </ul>
+                                              </ul> -->
                                           </div>
                                          
                                       </div>                            
                                   </div>
                               </div>
                           </div>                    
-                    </div>
+                    <!-- </div>
                    
                 </div>              
             </div>  
-              </div>
+              </div> -->
 
               
               <div class="tab-pane vivify fadeIn delay-100" id="doctor">
