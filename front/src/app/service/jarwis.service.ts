@@ -880,6 +880,12 @@ deleteAppointment(data) {
     }})
   }
 
+  displayEncounterPharm(appointment: any, pharm:any ) {
+    return this.http.post<any>(`${this.baseUrl}/displayEncounterPharm/${appointment}/${pharm}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   displayInstockT(data) {
     return this.http.post<any>(`${this.baseUrl}/inStockT`, data)
   }

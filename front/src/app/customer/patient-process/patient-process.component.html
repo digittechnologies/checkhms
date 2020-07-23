@@ -242,7 +242,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -256,35 +256,29 @@
                                       </ul>
                                   </div>
                                   <div class="body row">
+                                       
                                     <form class="form-auth-small m-t-20 col-12" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
                                         <div class="row clearfix forms ">
                                             <!-- <div class="col-md-6"> -->
-                                              <div class="form-group">
+                                              <div class="form-group col-12">
                                                 <!-- <div class="input-group mb-3" *ngFor="let fr of form_res | paginate: { itemsPerPage:5, currentPage: p };let r = index"> -->
-                                                <div class="input-group mb-3" *ngFor="let fr of form_res; let r = index">
-                                                    <div class="input-group-prepend mb-3">
-                                                        <label class="input-group-text">{{fr.value}}</label>
-                                                    </div>
-                                                    <ng-container *ngIf="fr.value_type == 'number' || fr.value_type == 'text'">
-                                                        <div class="cont ">
-                                                            <input ngModel type="{{fr.value_type}}" class="form-control" name="{{fr.value}}" value="{{fr.value_option}}"  [matAutocomplete]="auto">
-                                                            <mat-autocomplete #auto="matAutocomplete" >
-                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street" >
-                                                                    {{street}} 
-                                                                </mat-option>
-                                                            </mat-autocomplete> 
-                                                            <span *ngIf="fr.unit" class="float-right">{{fr.unit}}</span>
-                                                            </div>
-                                                     </ng-container>
-                                                        <ng-container *ngIf="fr.value_type == 'textarea'">
-                                                              <textarea class="form-control" ngModel name="{{fr.value}}" [matAutocomplete]="auto"></textarea>
-                                                              <mat-autocomplete #auto="matAutocomplete" >
-                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street">
-                                                                 {{street}} 
-                                                                </mat-option>
-                                                            </mat-autocomplete>
-                                                        
-                                                      </ng-container>  
+                                                <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
+                                                     <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
+                                                                <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                                <input matInput type="number" class="example-right-align form-control">
+                                                                <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
+                                                        </mat-form-field>
+                                                        <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
+                                                                <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                                <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
+                                                                <mat-autocomplete #auto="matAutocomplete" >
+                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
+                                                                </mat-autocomplete>
+                                                        </mat-form-field> 
+                                                        <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                                            <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                            <textarea matInput class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                                        </mat-form-field>
                                           
                                                     <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">
                                                       <div  *ngIf="fr.value_type == 'radio'" class="ml-3">
@@ -295,7 +289,7 @@
                                                       <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
                                                         <ng-container  *ngFor="let rad of fr.value_options">
                                                             <label class="fancy-checkbox mt-3">
-                                                               <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{rad}}"  value="{{rad}}">
+                                                               <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{fr.value}}"  value="{{rad}}">
                                                                 <span></span>
                                                             </label>
                                                        </ng-container>
@@ -318,7 +312,7 @@
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th *ngFor="let ops of fr.options">{{ops}}</th>
-                                                                                        <input type="button" value="Add" data-toggle="modal" data-target="#Table" (click)="tableDetails(fr.options,fr.id,fr.process_attribute_id)" class="btn btn-primary">
+                                                                                        <input type="button" value="Add" data-toggle="modal" data-target="#Table" (click)="tableDetails(fr.options,fr.id,fr.process_attribute_id,fr.suggestion)" class="btn btn-primary">
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -354,7 +348,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -443,7 +437,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -524,7 +518,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -672,7 +666,7 @@
                               <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
                               <h6 class="mt-4">Examination Note</h6>     
                               <div  class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
-                                <button class="modal-title  h4 btn"  id="myLargeModalLabel" style="cursor: pointer;color:#17ACBF; background-color: inherit;" (click)="formValue(form.id)">{{form.attribute}}</button>
+                                <button class="modal-title  h4 btn"  id="myLargeModalLabel" style="cursor: pointer;color:#17ACBF; background-color: inherit;" (click)="formValue(form.id,form.attribute)">{{form.attribute}}</button>
                               </div>                   
                               <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>
@@ -857,12 +851,18 @@
                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
                         <div class="modal-body">        
                             <div class="row clearfix">
-                                <div class="col-md-8" *ngFor="let tb of table_data">
-                                    <div class="input-group mb-3">
+                                <div class="col-md-12" *ngFor="let tb of table_data">
+                                    <div class="input-group mb-3 row">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text">{{tb}}</label>
                                         </div> 
-                                        <input type="text" ngModel name="{{tb}}" class="form-control">     
+                                        <textarea  class="form-control col-12" ngModel name="{{tb}}" id="" rows="4"  [matAutocomplete]="auto"></textarea>
+                                        <mat-autocomplete #auto="matAutocomplete" >
+                                          <mat-option *ngFor="let street of suggestions" [value]="street">
+                                           {{street}} 
+                                          </mat-option>
+                                      </mat-autocomplete> 
+                                        <!-- <input type="text" ngModel name="{{tb}}" >      -->
                                     </div>
                                 </div>           
                             </div>

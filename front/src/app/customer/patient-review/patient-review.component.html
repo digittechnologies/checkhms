@@ -109,12 +109,356 @@
               </div>                    
           </div>
           <div class="tab-content col-md-12">              
-              <div class="tab-pane vivify fadeIn delay-100 active show" id="signs">
-   
-
+             
+            <div class="tab-pane vivify fadeIn delay-100" id="nurse">
+                <!-- <div class="row clearfix">
+                  <div class="col-md-12">
+                      <div class="card">
+                          <div class="body">
+                              <div class="input-group mb-3">
+                                  <input type="text" class="form-control" placeholder="Search here...">
+                                  <div class="input-group-append">
+                                      <button class="btn btn-outline-secondary" type="button">Search</button>
+                                  </div>
+                              </div>
+                              <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
+                          </div>
+                      </div>
+                  </div>
               </div>
-            
+               -->
 
+
+              <div class="row clearfix">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+      
+                        <div class="row clearfix">
+                          <div class="col-sm-12">
+                              <div class="card" id="documenter_cover">
+                                  <div class="body">
+                                      <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
+                                      <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                      <ul>
+                                          <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                              <li><strong>05/Nov/2018</strong></li>
+                                          <li><strong class="text-orange">18/June/2019</strong></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="card" id="features">
+                                  <div class="header">
+                                      <h2><strong>Vital Signs</strong></h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                      <div class="row">
+                                          <div class="col-lg-3 col-md-6">
+                                              <ul class="main_features">
+                                                  <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
+                                                  <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
+                                                  <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
+                                                  <li>Light and Dark Version</li>                                        
+                                                  <li>Fully Responsive</li>
+                                                  <li>Ready to used widget</li>
+                                                  <li>Detailed Documentation</li>
+                                              </ul>
+                                          </div>
+                                        
+                                      </div>                            
+                                      <div class="alert alert-danger" role="alert">
+                                          <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
+                                          Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-sm-12">
+                            <div class="card" id="Gallery">
+                                <div class="header">
+                                    <h2><strong>Nurse Assessment</strong></h2>
+                                    <ul class="header-dropdown dropdown">                                
+                                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:void(0);">Action</a></li>
+                                                <li><a href="javascript:void(0);">Another Action</a></li>
+                                                <li><a href="javascript:void(0);">Something else</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="body result">
+                                    <div id="lightgallery" class="row clearfix lightGallery">
+                                      <div *ngIf="datas" class="col-12">
+                                          <!-- <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
+                                              <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
+                                          <ng-container *ngFor="let data of datass.games">
+                                             <div *ngIf="data.process_value_id == nulll">
+                                            <ng-container *ngFor="let val of data.value_option">
+                                                <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
+                                                      <span class="mr-3">
+                                                          <label class="">{{val[0]}}</label>
+                                                      </span> 
+                                                      <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
+                                                      <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
+                                                      <input class="checkbox-tick" type="checkbox"  checked>
+                                                      <span></span>
+                                                  </label>
+                                              </div>
+                                              </ng-container>
+                                               </div>
+                                                  <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                                      <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
+                                                      <div class="col-lg-12">
+                                                                  <table class="table table-hover table-bordered">
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <td>S/N</td>
+                                                                              <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody style="height: 100%;overflow: auto;">
+                                                                          <tr *ngFor="let val of data.value_option;let r = index">
+                                                                            <td>{{r+1}}</td>
+                                                                            
+                                                                              <td *ngFor="let tb of val" class="col-1" scope="row">
+                                                                                  <span>{{tb[1]}}</span> 
+                                                                              </td>
+                                                                          </tr>
+                                                                      </tbody>
+                                                                     
+                                                                  </table>
+                                                      </div>
+                                                  </div>
+                                                  </ng-container>
+                                              </ng-container> -->
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                             <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                          <div class="col-sm-12">
+                            <div class="card" id="SCSS">
+                                <div class="header">
+                                    <h2><strong>Nurse Documentation</strong></h2>
+                                    <ul class="header-dropdown dropdown">                                
+                                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:void(0);">Action</a></li>
+                                                <li><a href="javascript:void(0);">Another Action</a></li>
+                                                <li><a href="javascript:void(0);">Something else</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="body">
+                                    <p>Please note that all Detail main Web Site, you need to set it up on your project <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html" class="col-blue" target="_blank">Click Here..</a></p>
+                                    <p>main.css is the main CSS file located in assets/css/ folder of the package. Whole CSS file is well indexed with topic and its related code.</p>
+        
+                                </div>
+                            </div>
+                        </div>
+                          <div class="col-sm-12">
+                              <div class="card" id="grunt_file">
+                                  <div class="header">
+                                      <h2><strong>Nurse Care Plan</strong></h2>
+                                  </div>
+                                  <div class="body">
+                                      <p><strong>Installing Grunt:</strong> Run <code>npm install grunt --save-dev</code> command from your teminal to install grunt within your project.</p>
+                                      <p><strong>Grunt Sass:</strong> Run <code>grunt sass</code> command from your project directory. It will compile SASS to CSS for the project. This will read the file `assets/scss/filename.scss` and output a plain-css file to `/assets/css/filename.css`. </p>
+                                      <p><strong>Grunt JSHint:</strong> Run <code>grunt jshint</code> command from your project directory. It will checks all *.js files under `assetsjs/filename` for common syntax or coding errors using the JSHint utility.</p>
+                                      <p><strong>Grunt Sprite:</strong> Run <code>grunt sprite</code> command from your project directory. </p>                        
+                                      <p><strong>Further help:</strong> To get more help on the grunt checkout <a href="https://gruntjs.com/getting-started">Grunt</a></p>
+                                      <p><strong>Note:</strong> However, any SASS code you write must be able compile via Grunt as well.It will generate pre-compiled javascript templates. Reads all the *.html files from `assets/js/filename` and outputs `assets/js/filename.templates.js`. Template.js will contains code of UI design and will be change each time you build solution through above command.</p>
+                                      <p><a href="https://gruntjs.com/" target="_blank"><strong>Grunt</strong></a> is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. It uses a command-line interface to run custom tasks defined in a file.</p>
+                                  </div>                    
+                              </div>
+                          </div>
+                        
+                         
+                         
+                          <div class="col-sm-12">
+                            <!-- <div *ngIf="datas" class="col-12">
+                                <ng-container *ngFor="let datass of datas let">
+                                    <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
+                                <ng-container *ngFor="let data of datass.games">
+                                   <div *ngIf="data.process_value_id == nulll">
+                                  <ng-container *ngFor="let val of data.value_option">
+                                      <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
+                                            <span class="mr-3">
+                                                <label class="">{{val[0]}}</label>
+                                            </span> 
+                                            <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
+                                            <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
+                                            <input class="checkbox-tick" type="checkbox"  checked>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    </ng-container>
+                                     </div>
+                                        <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                            <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
+                                            <div class="col-lg-12">
+                                                        <table class="table table-hover table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td>S/N</td>
+                                                                    <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="height: 100%;overflow: auto;">
+                                                                <tr *ngFor="let val of data.value_option;let r = index">
+                                                                  <td>{{r+1}}</td>
+                                                                  
+                                                                    <td *ngFor="let tb of val" class="col-1" scope="row">
+                                                                        <span>{{tb[1]}}</span> 
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                           
+                                                        </table>
+                                            </div>
+                                        </div>
+                                        </ng-container>
+                                    </ng-container>
+                              </div> -->
+                              <div class="card" id="Credits" *ngIf="datas">
+                                  <div *ngFor="let data of datas">
+                                  <div class="header" *ngIf="data.process_value_id == null">
+                                      <h2>{{data.attribute}}</h2>
+                                  <div class="body" *ngIf="data.process_value_id == null">
+                                      <div class="row">
+                                          <div class="col-lg-6 col-md-12">
+                                              <ul>
+                                                  <ng-container *ngFor="let option of data.value_option">
+                                                      <li>{{option[0]}}
+                                                           <a class="ml-5" *ngIf="option[1] != null && option[1] != false" href="https://fonts.google.com/specimen/Krub" class="text-warning">
+                                                            {{option[1]}}
+                                                            <span *ngIf="option[2]">{{option[2]}}</span>
+                                                        </a>
+                                                        <a *ngIf="option[1] == true" href="https://fonts.google.com/specimen/Krub" class="text-warning">
+                                                        <label  class="fancy-checkbox mt-3">
+                                                            <input class="checkbox-tick" type="checkbox"  checked>
+                                                            <span></span>
+                                                        </label>
+                                                        </a>
+                                                            </li>
+                                                                                           
+                                                    </ng-container>
+                                              </ul>
+                                          </div>
+                                        
+                                      </div>                            
+                                  </div>
+                            
+                              </div>
+                          </div>
+                          <!-- <div class="col-sm-12">
+                              <div class="card" id="thank_you">
+                                  <div class="header">
+                                      <h2>Thank You!</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body">
+                                      <p> Once again, thank you so much for purchasing this template. As I said at the beginning, I&#39;d be glad to help you if you have any questions relating to this template.</p>
+                                  </div>
+                              </div>
+                          </div> -->
+                          <!-- <div class="col-sm-12">
+                              <div class="card" id="Gallery">
+                                  <div class="header">
+                                      <h2>Nursing Process</h2>
+                                      <ul class="header-dropdown dropdown">                                
+                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                          <li class="dropdown">
+                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="javascript:void(0);">Action</a></li>
+                                                  <li><a href="javascript:void(0);">Another Action</a></li>
+                                                  <li><a href="javascript:void(0);">Something else</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <div class="body result">
+                                      <div id="lightgallery" class="row clearfix lightGallery">
+                                 
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img03.png"><img class="img-fluid rounded" src="assets/img03.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img04.png"><img class="img-fluid rounded" src="assets/img04.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img05.png"><img class="img-fluid rounded" src="assets/img05.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img06.png"><img class="img-fluid rounded" src="assets/img06.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img07.png"><img class="img-fluid rounded" src="assets/img07.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img08.png"><img class="img-fluid rounded" src="assets/img08.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img09.png"><img class="img-fluid rounded" src="assets/img09.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
+                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div>
+                                        
+                                        </div>
+                                  </div>
+                              </div>
+                          </div> -->
+                    
+                    </div>
+                    <!-- <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                     <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
+
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li> 
+                        </ul>
+                    </nav> -->
+                                                  <!-- <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
+                                                  <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
+                                                  <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
+                                                  <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
+                                                  <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
+                                                  <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
+                                                  <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
+                                              </ul> -->
+                                          </div>
+                                         
+                                      </div>                            
+                                  </div>
+                              </div>
+                          </div>  
               
               <div class="tab-pane vivify fadeIn delay-100" id="doctor">
               
@@ -314,672 +658,6 @@
                 </div>
                 </div>
 
-
-              <div class="tab-pane vivify fadeIn delay-100" id="radio">
-                <div class="row clearfix">
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-          
-                            <div class="row clearfix">
-                              <div class="col-sm-12">
-                                  <div class="card" id="documenter_cover">
-                                      <div class="body">
-                                          <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                          <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                          <ul>
-                                              <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                              <li>Created: <strong>05/Nov/2018</strong></li>
-                                              <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>   
-                              
-                              
-                              <div class="row clearfix">
-                                <div class="col-sm-12">
-                                    <div class="card" id="documenter_cover">
-                                        <div class="body">
-                                            <div class="input-group demo-tagsinput-area">
-                                                <input name="" type="text" class="form-control" data-role="tagsinput" value="Washington,Beijing,Cairo,Taiwo">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               </div>   
-                        
-                        </div>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>              
-                </div>   
-              </div>
-              <div class="tab-pane vivify fadeIn delay-100" id="theater">
-                <div class="row clearfix">
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-          
-                            <div class="row clearfix">
-                              <div class="col-sm-12">
-                                  <div class="card" id="documenter_cover">
-                                      <div class="body">
-                                          <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                          <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                          <ul>
-                                              <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                              <li>Created: <strong>05/Nov/2018</strong></li>
-                                              <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>                     
-                        
-                        </div>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>              
-                </div>   
-              </div>             
-              <div class="tab-pane vivify fadeIn delay-100" id="pharmacy">
-                <!-- <div class="row clearfix">
-                  <div class="col-md-12">
-                      <div class="card">
-                          <div class="body">
-                              <div class="input-group mb-3">
-                                  <input type="text" class="form-control" placeholder="Search here...">
-                                  <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary" type="button">Search</button>
-                                  </div>
-                              </div>
-                              <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
-                          </div>
-                      </div>
-                  </div>
-              </div> -->
-              <div class="row clearfix">
-                <div class="col-lg-8 col-md-12">
-                    <div class="table-responsive">                        
-                        <table class="table table-hover table-custom spacing5">
-                            <thead>
-                                <tr>                                       
-                                    <th>Media</th>
-                                    <th>Patients ID</th>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Address</th>
-                                    <th>Number</th>
-                                    <th>Last Visit</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">US 00598</span></td>
-                                    <td>Daniel</td>
-                                    <td>32</td>
-                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                    <td>404-447-7845</td>
-                                    <td>11 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">DR 00258</span></td>
-                                    <td>Alexander</td>
-                                    <td>22</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-6013</td>
-                                    <td>15 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">YM 00369</span></td>
-                                    <td>Richard</td>
-                                    <td>26</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-8545</td>
-                                    <td>16 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">SO 00147</span></td>
-                                    <td>Samuel</td>
-                                    <td>45</td>
-                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                    <td>404-447-5963</td>
-                                    <td>17 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">JW 00123</span></td>
-                                    <td>Stephen</td>
-                                    <td>55</td>
-                                    <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                    <td>404-447-6013</td>
-                                    <td>18 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">GY 00456</span></td>
-                                    <td>Joseph</td>
-                                    <td>27</td>
-                                    <td>70 Bowman St. South Windsor, CT 06074</td>
-                                    <td>404-447-7845</td>
-                                    <td>19 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar7.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">EG 00789</span></td>
-                                    <td>Cameron</td>
-                                    <td>38</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-4593</td>
-                                    <td>19 Jan 2019</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar8.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">PD 00987</span></td>
-                                    <td>Alex</td>
-                                    <td>39</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-1593</td>
-                                    <td>20 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar1.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">AA 00951</span></td>
-                                    <td>James</td>
-                                    <td>32</td>
-                                    <td>44 Shirley Ave. West Chicago, IL 60185</td>
-                                    <td>404-447-6013</td>
-                                    <td>22 Jan 2019</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">JS 00953</span></td>
-                                    <td>charlie</td>
-                                    <td>51</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-2478</td>
-                                    <td>22 Jan 2019</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar3.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">TS 00984</span></td>
-                                    <td>William</td>
-                                    <td>35</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-9865</td>
-                                    <td>22 Jan 2019</td>
-                                    <td><span class="badge badge-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="w60">
-                                        <img src="../assets/images/xs/avatar4.jpg" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                    </td>
-                                    <td><span class="list-name">RT 00934</span></td>
-                                    <td>Bing</td>
-                                    <td>26</td>
-                                    <td>123 6th St. Melbourne, FL 32904</td>
-                                    <td>404-447-5622</td>
-                                    <td>29 Jan 2019</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-12">  
-                    
-                    <div class="row clearfix">
-                        <div class="card">
-                            <div class="body">
-                                <div class="media">
-                                    <img class="rounded mr-3" src="../assets/images/xs/avatar7.jpg" alt="">
-                                    <div class="media-body">
-                                        <h5 class="m-0">Betty Torres</h5>
-                                        <p class="text-muted mb-0">Mobile Designer</p>
-                                    </div>
-                                </div>
-                                <table class="table card-table mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="font-weight-bold">Apple</td>
-                                            <td class="text-right">984.52 <span class="text-success">(0.25%) <i class="fa fa-caret-up"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Google</td>
-                                            <td class="text-right">956.3 <span class="text-danger">(-0.15%) <i class="fa fa-caret-down"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">DMKT</td>
-                                            <td class="text-right">89.74 <span class="text-success">(0.85%) <i class="fa fa-caret-up"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">TCS</td>
-                                            <td class="text-right">48.75 <span class="text-danger">(-0.63%) <i class="fa fa-caret-down"></i></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                </div>                                                          
-                    <div class="card">
-                        <div class="header">
-                            <h2>Followers</h2>
-                        </div>
-                        <div class="body">
-                            <ul class="right_chat w_followers list-unstyled mb-0">
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <div class="avtar-pic w35 bg-red"><span>FC</span></div>
-                                            <div class="media-body">
-                                                <span class="name">@MelissaMcCoy</span>
-                                                <span class="message">Designer, Blogger</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@Joge Lucky</span>
-                                                <span class="message">Java Developer</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@JuanMartinez</span>
-                                                <span class="message">CEO, puffintheme</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <div class="avtar-pic w35 bg-indigo"><span>FC</span></div>
-                                            <div class="media-body">
-                                                <span class="name">@Folisise Chosielie</span>
-                                                <span class="message">Art director, Movie Cut</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="online">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@LouisHenry</span>
-                                                <span class="message">Writter, Mag Editor</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="offline">
-                                    <a href="javascript:void(0);">
-                                        <div class="media">
-                                            <img class="media-object " src="../assets/images/xs/avatar10.jpg" alt="">
-                                            <div class="media-body">
-                                                <span class="name">@Folisise Chosielie</span>
-                                                <span class="message">Art director, Movie Cut</span>
-                                                <span class="badge badge-outline status"></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> 
-                   
-            </div>  
-              </div>
-              <div class="tab-pane vivify fadeIn delay-100" id="revenue">
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12">
-                       <app-revenue-log></app-revenue-log>                    
-                    </div>
-                    
-                    <!-- <div class="col-lg-4 col-md-12">  
-                        
-                    <div class="row clearfix">
-                        <div class="col-lg-6 col-6" style="margin-top:55px;">
-                            <div class="card">
-                                <div class="body">
-                                    <div>Total Amounty</div>
-                                    <div class="py-4 m-0 text-center h5 text-success">#45,000.00</div>
-                                    <div class="d-flex">
-                                        <small class="text-muted">Total Voucher</small>
-                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>6</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-6" style="margin-top:55px;">
-                            <div class="card">
-                                <div class="body">
-                                    <div>Total Invoice</div>
-                                    <div class="py-4 m-0 text-center h3 text-info">8</div>
-                                    <div class="d-flex">
-                                        <small class="text-muted">Total Amount</small>
-                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>6</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-6">
-                            <div class="card">
-                                <div class="body">
-                                    <div>Unpaid Bal</div>
-                                    <div class="py-4 m-0 text-center h4 text-warning">N32,000</div>
-                                    <div class="d-flex">
-                                        <small class="text-muted">New users</small>
-                                        <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>3%</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-6">
-                            <div class="card">
-                                <div class="body">
-                                    <div>Total Bal</div>
-                                    <div class="py-4 m-0 text-center h4 text-danger">#8,000</div>
-                                    <div class="d-flex">
-                                        <small class="text-muted">New order</small>
-                                        <div class="ml-auto"><i class="fa fa-caret-down text-danger"></i>10%</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      
-                    </div>                                              
-                    <div class="card">
-                        <div class="header">
-                            <h2>Depertment</h2>
-                        </div>
-                        <div class="body">
-                            <table class="table card-table mb-0">
-                                <tbody>
-                                    <tr>
-                                        <td class="font-weight-bold">GOPD Clinic</td>
-                                        <td class="text-right">984.52 <span class="text-success">(0.25%) <i class="fa fa-caret-up"></i></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Laboratory</td>
-                                        <td class="text-right">956.3 <span class="text-danger">(-0.15%) <i class="fa fa-caret-down"></i></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Ward</td>
-                                        <td class="text-right">89.74 <span class="text-success">(0.85%) <i class="fa fa-caret-up"></i></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Pharmacy</td>
-                                        <td class="text-right">210.04 <span class="text-success">(0.65%) <i class="fa fa-caret-up"></i></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Radiology</td>
-                                        <td class="text-right">218.47 <span class="text-danger">(-0.42%) <i class="fa fa-caret-down"></i></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Nursing</td>
-                                        <td class="text-right">48.75 <span class="text-danger">(-0.63%) <i class="fa fa-caret-down"></i></span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    </div>  -->
-                       
-                </div>                
-              </div>
-
-
-
-
-
-              <!-- Team review starting -->
-                <div id="main-content" class="tab-pane vivify fadeIn delay-100 review" id="team">        
-                    <div class="container-fluid">
-                        <div class="block-header">
-                            <div class="row clearfix">
-                                <div class="col-md-6 col-sm-12" *ngIf="team_reviews">
-                                    <h1>{{team_reviews.team_review_name}}</h1>
-                                    <small>{{team_reviews.description}}</small>
-                                  </div>        
-                                <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                                    <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
-                                    <input *ngIf="!team_reviews" type="button" class="btn btn-primary float-right" value="Create team review" data-toggle="modal" data-target="#creat-Team_review">
-                                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-12">                    
-                                <div class="card">
-                                    <div class="body">
-                                        <div class="chatapp_list">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Search...">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="icon-magnifier"></i></span>
-                                                </div>
-                                            </div>
-                                            <ul *ngIf="members" class="right_chat list-unstyled mb-0 meb">  
-                                              <ng-container  *ngFor="let member of members">
-                                                  <li class="offline"  *ngIf="member.online_status == 'offline' && member.member_id != member.user_id">
-                                                      <a href="javascript:void(0);">
-                                                          <div class="media">
-                                                              <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
-                                                              <div class="media-body">
-                                                                  <span class="name">{{member.firstname}} {{member.lastname}}</span>
-                                                                  <span class="message">{{member.reviews_status}}</span>
-                                                                  <span class="badge badge-outline status"></span>
-                                                              </div>
-                                                          </div>
-                                                      </a>                            
-                                                  </li>
-                                                  <li *ngIf="member.online_status == 'online' && member.member_id != member.user_id && member.member_id != user_id" class="online">
-                                                      <a href="javascript:void(0);">
-                                                          <div class="media">
-                                                              <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
-                                                              <div class="media-body">
-                                                                  <span class="name">{{member.firstname}} {{member.lastname}}</span>
-                                                                  <span class="message">{{member.reviews_status}}</span>
-                                                                  <span class="badge badge-outline status"></span>
-                                                              </div>
-                                                                  
-
-                                                          </div>
-                                                      </a>                            
-                                                  </li>
-                                                </ng-container>                             
-                                            </ul>
-                                        </div>
-                                        <div class="chatapp_body">
-                                            <div class="chat-history">
-                                                <ul class="message_data" *ngIf="review_messages"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
-                                                  <ng-container *ngFor="let message of review_messages">
-                                                    <li *ngIf="message.user_id == user_id" class="right clearfix">
-                                                        <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#454d57;">
-                                                                <span>{{message.copied}}</span>
-                                                            </p>
-                                                            
-                                                            <p class="" style="width: fit-content;height:auto;">
-                                                                <span>{{message.message}}</span>
-                                                            </p>
-                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
-                                                        </span>
-                                                        <span class="data_time">
-                                                     <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
-                                                      </span>
-                                                    </li>
-                                                    <li  *ngIf="message.user_id != user_id" class="left clearfix">
-                                                        <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
-                                                        <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#4e96e2;" >
-                                                                <span>{{message.copied}}</span>
-                                                            </p>
-                                                            
-                                                            <p class="" style="width: fit-content;height:auto;">
-                                                                <span>{{message.message}}</span>
-                                                            </p>
-                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
-                                                        </span>
-                                                                <span class="data_time">
-                                                                    <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
-                                                                    </span>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container *ngFor="let message of reviewMessage">
-                                                    <li *ngIf="message.sender == user_id" class="right clearfix">
-                                
-                                                        <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#282B2F;" >
-                                                                <span>{{message.copied}}</span>
-                                                            </p>
-                                                        
-                                                            <p class="" style="width: fit-content;height:auto;">
-                                                                <span>{{message.message}}</span>
-                                                            </p>
-                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
-                                                        </span>
-                                                        <span class="data_time">
-                                                     <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
-                                                      </span>
-                                                    </li>
-                                                    <li  *ngIf="message.sender != user_id" class="left clearfix">
-                                                        <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
-                                                        <span class="message">
-                                                            <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#007AFE;">
-                                                                <span>{{message.copied}}</span>
-                                                            </p>
-                                                            
-                                                            <p class="" style="width: fit-content;height:auto;">
-                                                                <span>{{message.message}}</span>
-                                                            </p>
-                                                            <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
-                                                        </span>
-
-                                                        <span class="data_time">
-                                                            <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
-                                                             </span>
-                                                    </li>
-                                                </ng-container>
-                                                </ul>
-                                            </div>
-                                            <div class="chat-message clearfix">
-                                                <div class="input-group mb-0 " *ngIf="reviw_admin">
-                                                    <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
-                                                        <div class="col-12">
-                                                            <div class="row">
-                                                                <span *ngIf="copiedMessage != ''" style="background-color:#3C4043; border:none;height: auto;"  class=" col-12"> <span>{{copiedMessage}}</span>
-                                                                
-                                                                <span  class="ml-2 text-danger float-right" style="cursor: pointer;" (click)="cancelCopied()">x</span>
-                                                
-                                                                </span>      
-                                                            </div>
-                                                        </div>
-                                                    <textarea *ngIf="review_messages == '' && user_id != reviw_admin.id" disabled type="text" row="" class="form-control" placeholder="You are not allow to type yet"></textarea>
-                                                    <textarea *ngIf="review_messages ||  user_id == reviw_admin.id" type="text" [(ngModel)]="message" row="" class="form-control" placeholder="Enter text here..."></textarea>
-                                                        
-                                                            <span class="input-group-text" style="background-color: inherit;">
-                                                                <!-- <input type="button"  class="btn btn-default fa fa-paper-plane text-primary" > -->
-                                                                <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:23px;cursor: pointer;"></i>
-                                                                <!-- <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
-                                                                <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a> -->
-                                                            </span>
-                                                        </div>
-                                                </div>
-                                            </div>   
-                                        </div>
-                                        <div *ngIf="reviw_admin" class="chatapp_detail text-center vivify pullLeft delay-150">
-                                            <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
-                                            <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5>                                
-                                            <!-- <small class="text-muted">Address: </small>
-                                            <p> San Francisco</p>
-                                            <small class="text-muted">Email address: </small>
-                                            <p>louispierce@example.com</p>
-                                            <small class="text-muted">Mobile: </small>
-                                            <p>+ 202-222-2121</p>
-                                            <button class="btn btn-round btn-success">View Profile</button> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-                 
                   <div class="modal fade" id="creat-Team_review" tabindex="-1" role="dialog"  data-backdrop="false">
                       <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -1050,23 +728,27 @@
                     <small class="text-muted">NURSING PROCESS</small>
                     <a href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a><br>            
                     <div class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-success">2</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Overview <span class="badge badge-danger">14</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Vital Signs <span class="badge badge-info">14</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Nursing Accessment <span class="badge badge-warning">1</span></a>
+                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-info">2th July 2018</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Overview <span class="badge badge-danger">1</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Vital Signs <span class="badge badge-success">Success</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Nursing Assessment <span class="badge badge-warning">IPD</span></a>
                                  
                     <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                    
-                        <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">{{encId}}</span></a>
+                        <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">Open</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="type" data-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type" aria-selected="false">AP Type <span class="badge badge-warning">OPD</span></a>
 
-                    </div>                  
-                    <small class="text-muted">JOB POSITION</small>
-                    <ul class="list-group mt-2">
-                        <li class="list-group-item">Software Engineer</li>
-                        <li class="list-group-item">UI Designer</li>
-                        <li class="list-group-item">Sales Representative</li>
-                        <li class="list-group-item">Mechanical Engineer</li>
-                    </ul>
+                                   
+                    <small class="text-muted mb-2 mt-1">PHARMACY</small>
+                       <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="pharmacy" data-toggle="pill" href="#v-pills-pharmacy" role="tab" aria-controls="v-pills-pharmacy" aria-selected="false">Prescription List <span class="badge badge-info">Open</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="label" data-toggle="pill" href="#v-pills-label" role="tab" aria-controls="v-pills-settings" aria-selected="false">Label<span class="badge badge-success">Success</span></a>
+                   
+                        <small class="text-muted mb-2 mt-1">REVENUE</small>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="voucher" data-toggle="pill" href="#v-pills-voucher" role="tab" aria-controls="v-pills-voucher" aria-selected="false">Voucher<span class="badge badge-info">Open</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="invoice" data-toggle="pill" href="#v-pills-invoice" role="tab" aria-controls="v-pills-invoice" aria-selected="false">Invoice<span class="badge badge-success">Success</span></a>
+           
+                   </div>   
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-12">
                     <div class="row clearfix">
@@ -1672,7 +1354,8 @@
                                                                     <li class="dropdown">
                                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                         <ul class="dropdown-menu">
-                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">Update</a></li>
+                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li>
+                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u">Update</a></li>
                                                                             <li><a href="javascript:void(0);">Print</a></li>
                                                                             <li><a href="javascript:void(0);">Export</a></li>
                                                                         </ul>
@@ -1680,7 +1363,38 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="body">
-                                                                <p style="white-space: pre-line">{{encountersD.definitive_d}}</p>
+                                                                <div class="col-lg-12">
+                                                                    <div class="card">
+                                                                        <div class="header">
+                                                                            <h2>Priscription List <small>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</small></h2>
+                                                                        </div>
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>#</th>
+                                                                                        <th>Item</th>
+                                                                                        <th>class</th>
+                                                                                        <th>Quantity</th>
+                                                                                        <th>Date, Time</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr *ngFor="let en of encounter_pham; let i =index">
+                                                                                        <td scope="row">{{i+1}}</td>
+                                                                                        <td>
+                                                                                            <a href="javascript:void(0);" title="">{{en.generic_name}}</a>
+                                                                                            <p class="mb-0">{{en.name}}</p>
+                                                                                        </td>
+                                                                                        <td>{{en.cat_name}}</td>
+                                                                                        <td>{{en.original_qty}}</td>                                                                                        
+                                                                                        <td>{{en.created_at}}</td>
+                                                                                    </tr>                                                                                   
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>                    
                                                         </div>
                                                     </div>
@@ -1728,15 +1442,256 @@
 
                                     </div>
                              
-                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-team" role="tabpanel" aria-labelledby="">  
+<!--                                   
+                                <div class="row clearfix">
+                                    <div class="col-xl-12 col-lg-12 col-md-12"> -->
+                                        <div class="row clearfix">
+                                            <div class="col-md-12 col-sm-12" *ngIf="team_reviews">
+                                                <h1>{{team_reviews.team_review_name}}</h1>
+                                                <small>{{team_reviews.description}}</small>
+                                            </div>        
+                                            <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                                                <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
+                                                <input *ngIf="!team_reviews" type="button" class="btn btn-primary float-right" value="Create team review" data-toggle="modal" data-target="#creat-Team_review">
+                                                <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
+                                            </div>
+                                        </div>
+                                    
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12">                    
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="chatapp_list">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Search...">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <ul *ngIf="members" class="right_chat list-unstyled mb-0 meb">  
+                                                        <ng-container  *ngFor="let member of members">
+                                                            <li class="offline"  *ngIf="member.online_status == 'offline' && member.member_id != member.user_id">
+                                                                <a href="javascript:void(0);">
+                                                                    <div class="media">
+                                                                        <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
+                                                                        <div class="media-body">
+                                                                            <span class="name">{{member.firstname}} {{member.lastname}}</span>
+                                                                            <span class="message">{{member.reviews_status}}</span>
+                                                                            <span class="badge badge-outline status"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>                            
+                                                            </li>
+                                                            <li *ngIf="member.online_status == 'online' && member.member_id != member.user_id && member.member_id != user_id" class="online">
+                                                                <a href="javascript:void(0);">
+                                                                    <div class="media">
+                                                                        <img class="media-object " src="{{Jarwis.imageUrl}}/uploads/{{member.image}}" alt="">
+                                                                        <div class="media-body">
+                                                                            <span class="name">{{member.firstname}} {{member.lastname}}</span>
+                                                                            <span class="message">{{member.reviews_status}}</span>
+                                                                            <span class="badge badge-outline status"></span>
+                                                                        </div>
+                                                                            
+
+                                                                    </div>
+                                                                </a>                            
+                                                            </li>
+                                                            </ng-container>                             
+                                                        </ul>
+                                                    </div>
+                                                    <div class="chatapp_body">
+                                                        <div class="chat-history">
+                                                            <ul class="message_data" *ngIf="review_messages"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                                                            <ng-container *ngFor="let message of review_messages">
+                                                                <li *ngIf="message.user_id == user_id" class="right clearfix">
+                                                                    <span class="message">
+                                                                        <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#454d57;">
+                                                                            <span>{{message.copied}}</span>
+                                                                        </p>
+                                                                        
+                                                                        <p class="" style="width: fit-content;height:auto;">
+                                                                            <span>{{message.message}}</span>
+                                                                        </p>
+                                                                        <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
+                                                                    </span>
+                                                                    <span class="data_time">
+                                                                <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
+                                                                </span>
+                                                                </li>
+                                                                <li  *ngIf="message.user_id != user_id" class="left clearfix">
+                                                                    <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
+                                                                    <span class="message">
+                                                                        <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#4e96e2;" >
+                                                                            <span>{{message.copied}}</span>
+                                                                        </p>
+                                                                        
+                                                                        <p class="" style="width: fit-content;height:auto;">
+                                                                            <span>{{message.message}}</span>
+                                                                        </p>
+                                                                        <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
+                                                                    </span>
+                                                                            <span class="data_time">
+                                                                                <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
+                                                                                </span>
+                                                                </li>
+                                                            </ng-container>
+                                                            <ng-container *ngFor="let message of reviewMessage">
+                                                                <li *ngIf="message.sender == user_id" class="right clearfix">
+                                            
+                                                                    <span class="message">
+                                                                        <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#282B2F;" >
+                                                                            <span>{{message.copied}}</span>
+                                                                        </p>
+                                                                    
+                                                                        <p class="" style="width: fit-content;height:auto;">
+                                                                            <span>{{message.message}}</span>
+                                                                        </p>
+                                                                        <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
+                                                                    </span>
+                                                                    <span class="data_time">
+                                                                <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
+                                                                </span>
+                                                                </li>
+                                                                <li  *ngIf="message.sender != user_id" class="left clearfix">
+                                                                    <img class="user_pix" src="{{Jarwis.imageUrl}}/uploads/{{message.image}}" alt="avatar">
+                                                                    <span class="message">
+                                                                        <p *ngIf="message.copied != null && message.copied != ''" class="card-header" style="width: fit-content;height: auto; background-color:#007AFE;">
+                                                                            <span>{{message.copied}}</span>
+                                                                        </p>
+                                                                        
+                                                                        <p class="" style="width: fit-content;height:auto;">
+                                                                            <span>{{message.message}}</span>
+                                                                        </p>
+                                                                        <small (click)="copyMessage(message.message)" class="float-right" style="cursor: pointer;" >Reply</small>
+                                                                    </span>
+
+                                                                    <span class="data_time">
+                                                                        <small>{{message.date}}</small><small class="ml-3" *ngIf="message.time.slice(0,2)%12==0">{{message.time.slice(0,2)%12+12}}</small> <small class="ml-3" *ngIf="message.time.slice(0,2)%12!=0">{{message.time.slice(0,2)%12}}</small> <small>{{message.time.slice(2,5)}}</small><small *ngIf="message.time.slice(0,2)<=11">am</small><small *ngIf="message.time.slice(0,2)>=12">pm</small>
+                                                                        </span>
+                                                                </li>
+                                                            </ng-container>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="chat-message clearfix">
+                                                            <div class="input-group mb-0 " *ngIf="reviw_admin">
+                                                                <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
+                                                                    <div class="col-12">
+                                                                        <div class="row">
+                                                                            <span *ngIf="copiedMessage != ''" style="background-color:#3C4043; border:none;height: auto;"  class=" col-12"> <span>{{copiedMessage}}</span>
+                                                                            
+                                                                            <span  class="ml-2 text-danger float-right" style="cursor: pointer;" (click)="cancelCopied()">x</span>
+                                                            
+                                                                            </span>      
+                                                                        </div>
+                                                                    </div>
+                                                                <textarea *ngIf="review_messages == '' && user_id != reviw_admin.id" disabled type="text" row="" class="form-control" placeholder="You are not allow to type yet"></textarea>
+                                                                <textarea *ngIf="review_messages ||  user_id == reviw_admin.id" type="text" [(ngModel)]="message" row="" class="form-control" placeholder="Enter text here..."></textarea>
+                                                                    
+                                                                        <span class="input-group-text" style="background-color: inherit;">
+                                                                            <!-- <input type="button"  class="btn btn-default fa fa-paper-plane text-primary" > -->
+                                                                            <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:23px;cursor: pointer;"></i>
+                                                                            <!-- <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
+                                                                            <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a> -->
+                                                                        </span>
+                                                                    </div>
+                                                            </div>
+                                                        </div>   
+                                                    </div>
+                                                    <div *ngIf="reviw_admin" class="chatapp_detail text-center vivify pullLeft delay-150">
+                                                        <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
+                                                        <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5>                                
+                                                        <!-- <small class="text-muted">Address: </small>
+                                                        <p> San Francisco</p>
+                                                        <small class="text-muted">Email address: </small>
+                                                        <p>louispierce@example.com</p>
+                                                        <small class="text-muted">Mobile: </small>
+                                                        <p>+ 202-222-2121</p>
+                                                        <button class="btn btn-round btn-success">View Profile</button> -->
+                                                    </div>
+                                                </div>
+                                            <!-- </div>
+                                        </div> -->
+                                    </div>
+                                </div>                                
+
+                            </div>
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-pharmacy" role="tabpanel" aria-labelledby="">    
+                                <div class="row clearfix">
                                 
+                                <div class="col-lg-12">
+                                    <div class="card" id="grunt_file">
+                                        <div class="header">
+                                            <h2><strong>PHARMACY ORDER</strong></h2>
+                                            <ul class="header-dropdown dropdown">                                
+                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li> -->
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u">Update</a></li>
+                                                        <li><a href="javascript:void(0);">Print</a></li>
+                                                        <li><a href="javascript:void(0);">Export</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h2>Priscription List <small>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</small></h2>
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Item</th>
+                                                                    <th>Class</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Date, Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let pr of prescriptionsList; let i =index">
+                                                                    <td scope="row">{{i+1}}</td>
+                                                                    <td>
+                                                                        <a href="javascript:void(0);" title="">{{pr.generic_name}}</a>
+                                                                        <p class="mb-0">{{pr.name}}</p>
+                                                                    </td>
+                                                                    <td>{{pr.cat_name}}</td>
+                                                                    <td>{{pr.original_qty}}</td>                                                                                        
+                                                                    <td>{{pr.created_at}}</td>
+                                                                </tr>                                                                                   
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                    
+                                    </div>
+                                </div>                                
+                            </div>
+                            </div>
+                            <div class="tab-pane" id="v-pills-label" role="tabpanel" aria-labelledby="">    
+                                 
 
                             </div>
 
-                            <div class="tab-pane" id="v-pills-messages" role="tabpanel" aria-labelledby="">    
-                                
+                            <div class="tab-pane" id="v-pills-voucher" role="tabpanel" aria-labelledby="">    
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12">
+                                       <app-revenue-log></app-revenue-log>                    
+                                    </div>                      
+                                </div>  
 
-                            </div>                            
+                            </div>  
+                            <div class="tab-pane" id="v-pills-invoice" role="tabpanel" aria-labelledby="">    
+                                 
+
+                            </div>
+                                                        
                         </div>
                     </div>
             </div>
@@ -1928,7 +1883,6 @@
             </div>
         </div>
 
-
         <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -1949,7 +1903,8 @@
                             <div class="col-12">
                                     <div class="card">
                                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(data)" #data="ngForm">                    
-                                       
+                                            <h5 class="text-right text-success" *ngIf="itemPrice2 > 0">Insurance Price</h5>
+                                            <h5 class="text-right text-warning" *ngIf="itemPrice2 == '0'">General Price</h5>
                                         <div class="body">
                                             <!-- <div class="row text-center">
                                                 <div class="col-6 border-right pb-4 pt-4">
@@ -2018,7 +1973,9 @@
                                                 <div class="col-lg-4 col-md-12">
                                                     <div class="form-group">
                                                             <label>Total Remain</label>
-                                                        <input type="text" disabled class="form-control" value="{{total_remain}}">
+                                                            <!-- <input type="text" disabled class="form-control" value="{{total_remain}}"> -->
+                                                            <!-- <p *ngFor="let remain of item_remains">{{remain}}</p> -->
+                                                            <p *ngFor="let remain_branch of item_branches; let i = index" class="text-warning">{{remain_branch}} <span class="text-secondary">{{item_remains[i]}}</span></p>                                                            
                                                     </div>
                                                 </div>                           
                                                 <div class="col-lg-4 col-md-12">
@@ -2124,11 +2081,6 @@
                             </div>
                         </div>
 
-
-
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
@@ -2139,14 +2091,258 @@
             </div>
         </div>
 
+        <div class="modal fade" id="pharmacy_u" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pharmacy Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pharmacy)" #pharmacy="ngForm"> 
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-12">
 
-
-        
-      </div>
-
-
-
-
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>Encounter Voucher</h2>
+                                        <ul class="header-dropdown dropdown">                                
+                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                            <li class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                <ul class="dropdown-menu">                               
+                                                    <li><a href="javascript:void(0);">Charges Settings</a></li>
+                                                    <!-- <li><a href="javascript:void(0);">Settings</a></li> -->
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-custom spacing8">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S/N</th>
+                                                            <th>Select</th>
+                                                            <th>Image</th>
+                                                            <th>Item</th>
+                                                            <th>Category</th>
+                                                            <th>Original Quantity</th>
+                                                            <th>Quantity</th>                                                                            
+                                                            <!-- <th>Refill</th>  
+                                                            <th>Remain</th>                            -->                         
+                                                            <th>Cost</th>
+                                                            <th>Amount</th>
+                                                            <th>Refill Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let r of prescriptionsList; let i =index">
+                                                        <td>{{i+1}}</td> 
+                                                        <td class="fancy-checkbox">
+                                                            <label><input type="checkbox" (change)="itemSelected(r.id, r.quantity)"><span>Check</span></label>
+                                                        </td>                                                                                    
+                                                        <td class="w60">
+                                                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
+                                                            <p class="mb-0">{{r.name}}</p>
+                                                        </td>
+                                                        <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
+                                                        <td>{{r.original_qty}}</td>
+                                                        <td>{{r.quantity}}</td>                                                                          
+                                                        <!-- <td>{{r.refill}}</td>
+                                                        <td>{{r.remain}}</td> -->                     
+                                                        <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                        <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
+                                                        <td>
+                                                            <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
+                                                                Refill
+                                                            </span>
+                                                            <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
+                                                            Close
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
+                                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                                                    </td> 
+                                                    
+                                                    <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div  class="modal-content">  
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Make Refill</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">             
+                                                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                                                                    
+                                                                <div class="modal-body">             
+                                                                    <div class="row clearfix"> 
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Instock</label>
+                                                                                <input type="text" class="form-control" value="{{instock}}" disabled>
+                                                                            </div>
+                                                                        </div>                                    
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label>General Quantity</label>
+                                                                                    <input type="text" class="form-control" value="{{original_qty}}" disabled>
+                                                                                </div>
+                                                                            </div> 
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Refill Quatity</label>
+                                                                                    <input type="text" disabled class="form-control" value="{{refill_qty}}">
+                                                                                </div>
+                                                                            </div>                                                 
+                                                                        </div>
+                                                                        <div class="row clearfix">                                    
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label>Total Quantity</label>
+                                                                                    <input type="text" class="form-control" value="{{total_quantity}}" disabled>
+                                                                                </div>
+                                                                            </div> 
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Amount</label>
+                                                                                    <input type="text" disabled class="form-control" value="{{total_amount}}">
+                                                                                </div>
+                                                                            </div>                                                 
+                                                                        </div>
+                                
+                                                                        <div class="row clearfix">                                    
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label>Change Total Quantity</label>
+                                                                                    <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
+                                                                                </div>
+                                                                            </div> 
+                                                                            <div class="col-lg-6 col-md-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Amount</label>
+                                                                                    <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
+                                                                                </div>
+                                                                            </div>                                                 
+                                                                        </div>
+                                                                    </div>                                     
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                                                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                                                </div>
+                                                                </form>
+                                                            </div>     
+                                                            
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </tr>
+                                                        <div *ngIf="!prescriptionsList">
+                                                            
+                                                            <div class="spinner-grow text-primary" role="status">
+                                                                <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <div class="spinner-grow text-secondary" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <div class="spinner-grow text-success" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <h5 class="text text-center text-primary">No Medications yet</h5>
+                                                        </div>                                                    
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>                         
+                                                            <th><strong>SUB TOTAL</strong></th>                             
+                                                                                                            
+                                                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                        </tr>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>   
+                                                            <th><strong>DISCOUNT %</strong></th>                                                                
+                                                                                                                            
+                                                            <th>{{schemePercentToView}}%</th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>     
+                                                        </tr>
+                                                        <tr *ngFor="let cg of charges">
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th><strong>{{cg.charge_name}}</strong></th>                                                                
+                                                                                                            
+                                                            <th *ngIf="schemePriceList == 'price_1'">{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</del></th>
+                                                            <th></th> 
+                                                            <th></th> 
+                                                            <th></th>   
+                                                        </tr>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>                
+                                                            <th><strong>TOTAL</strong></th>                            
+                                                        
+                                                            <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th></th>   
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <div>
+                                                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
+                                
+                                                    <!-- <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                                                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp; -->
+                                                    <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp;
+                                                    <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                                                    <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
+                                                </div><br>              
+                                                </div>
+                                                </div>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-round btn-primary">Save</button>
+                                </div>
+                            </form> 
+                            </div>
+                        </div>
+                    </div>        
+                </div>
               </div>
           </div>
               
