@@ -30,6 +30,7 @@ use App\Hospital_charges;
 use App\Centers;
 use App\Service_charges;
 use App\Hmo;
+use App\price_list;
 
 // Today's date working with displayItem,
 
@@ -816,8 +817,7 @@ class DisplayController extends Controller
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
-                    ->where('appointments.status','!=','close')
-                    ->where('appointments.pharm_status', '!=', 'close')
+                    ->where('appointments.status','!=','close')                   
                     ->get(),
                     ]);            
             }
@@ -1061,6 +1061,28 @@ class DisplayController extends Controller
 
     // Prescriptions  
 
+    public function getEncounterType()
+    {
+        return DB::table("encounter_tittle")->get();
+    }
+
+    public function getEncounter($id)
+    {
+        return DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name') 
+                                        ->where('encounter_tb.appointment_id','=', $id)                          
+                                        ->get();
+    }
+
+    public function getEncounterDetails($id)
+    {
+        return response()->json([ 'view'=> DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name')   
+                                        ->where('encounter_tb.id','=', $id)            
+                                        ->first()
+        ]);
+    }
+
     public function displayPrescription()
     {
         return DB::table("doctor_prescriptions")->get();
@@ -1189,6 +1211,24 @@ class DisplayController extends Controller
             ->first();
      }
 
+     public function displayEncounterPharm($appointment, $pharm)
+    {
+        // $bId= Auth()->user()->branch_id;
+        return response()->json([
+            "pres" => Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    // ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.appointment_id', '=', $appointment)
+                    ->where('doctor_prescriptions.encounter_id', '=', $pharm)                  
+                    ->get(),
+        ]);
+
+    }
+
     public function displayPharmPrescription($id)
     {
         $bId= Auth()->user()->branch_id;
@@ -1201,12 +1241,12 @@ class DisplayController extends Controller
                     ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                     ->where('doctor_prescriptions.status', '=', 'save')
                     ->where('doctor_prescriptions.appointment_id', '=', $id)
-                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    // ->where('doctor_prescriptions.branch_id', '=', $bId)
                     ->get(),
             "tquant" => Doctor_prescriptions::select('doctor_prescriptions.*')
                         ->where('doctor_prescriptions.status', '=', 'save')
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.quantity'),
             // "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
             //             // ->where('doctor_prescriptions.status', '!=', 'close')
@@ -1221,12 +1261,12 @@ class DisplayController extends Controller
             "eachcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
                          ->where('doctor_prescriptions.status', '=', 'save')
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.amount'),
             "tcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
                         ->where('doctor_prescriptions.status', '=', 'save')
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.amount_paid'),
         ]);
 
@@ -1588,8 +1628,14 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function voucherAllStock($item)
+    public function voucherAllStock($item, $appoint)
     {
+        $item_remain = array();
+        $remain_branch = array();
+        $hmoNo= Appointments::find($appoint);
+        $hmoNo= Hmo::find($hmoNo->hmo_id);
+        $price_column= price_list::find($hmoNo->price_list_column);
+
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
 
@@ -1607,9 +1653,27 @@ class DisplayController extends Controller
         ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
         ->join ('shelves','shelves.id','=','item_details.shelve_id')
         ->where(['item_details.id' => $item, 'c_date' => $cDate])
-        ->get();
-        return $itemr;
+        ->first();
+        $r = $price_column->column_name;
+        $centers = Branches::where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get();
+        foreach($centers as $row){
+            $getitem = DB::table('item_details')->select('item_details.*', $row->br_name.'.total_remain')
+            ->join ($row->br_name, $row->br_name.'.item_detail_id','=','item_details.id')
+            ->where(['item_details.id' => $item, 'c_date' => $cDate])->first();
+            array_push($item_remain, (int)$getitem->total_remain);
+            array_push($remain_branch, $row->name);
+
+        };
+        
+        return response()->json([
+            'item' => $itemr,
+            'price' => $itemr->$r,
+            'item_remains' => $item_remain,
+            'totalremain' => array_sum($item_remain),
+            'branches' => $remain_branch
+        ]);
     }
+
     public function onEditBranch(Request $request){
          $id=$request->id;
         return
@@ -2322,4 +2386,6 @@ class DisplayController extends Controller
         ]
         );
     }
+
+  
 }
