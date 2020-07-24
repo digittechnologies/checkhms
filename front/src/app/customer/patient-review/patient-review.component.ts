@@ -140,6 +140,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   encounter_pham: any;
   PharmEncreresponse: any;
   getEncId: any;
+  open: Boolean=false;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -566,6 +567,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
 
   onId(id:any){
     this.encId=id
+    this.open=true;
     // this.viewEncounter= this.encounters[id];
 
     this.Jarwis.getEncounterDetails(this.encId).subscribe(

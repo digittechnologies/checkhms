@@ -1156,7 +1156,7 @@
                                   </div>  
                             </div>
 
-                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">                 
+                            <div *ngIf="open" class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">                 
                                
                                   
                                     <div class="row clearfix">
@@ -1195,7 +1195,7 @@
                                                               </ul>
                                                           </div>                                                        
                                                         
-                                                          <div class="body">                                                            
+                                                          <div class="body" *ngIf="encountersD">                                                            
                                                             <p style="white-space: pre-line">{{encountersD.preable}}</p>                                                             
                                                           </div>
                                                       </div>
@@ -1222,8 +1222,8 @@
                                                                 </li>
                                                             </ul>
                                                           </div>
-                                                          <div class="body">
-                                                            <p style="white-space: pre-line">{{encountersD.subject}}</p>
+                                                          <div class="body" *ngIf="encountersD">
+                                                            <p  style="white-space: pre-line">{{encountersD.subject}}</p>
                                   
                                                           </div>
                                                       </div>
@@ -1245,7 +1245,7 @@
                                                               </li>
                                                           </ul>
                                                         </div>
-                                                        <div class="body">
+                                                        <div class="body" *ngIf="encountersD">
                                                           <p style="white-space: pre-line">{{encountersD.object}}</p>
                                 
                                                         </div>
@@ -1268,7 +1268,7 @@
                                                               </li>
                                                           </ul>
                                                         </div>
-                                                        <div class="body">
+                                                        <div class="body" *ngIf="encountersD">
                                                           <p style="white-space: pre-line">{{encountersD.assessment}}</p>
                                 
                                                         </div>
@@ -1291,7 +1291,7 @@
                                                               </li>
                                                           </ul>
                                                         </div>
-                                                        <div class="body">
+                                                        <div class="body" *ngIf="encountersD">
                                                           <p style="white-space: pre-line">{{encountersD.presumption_d}}</p>
                                 
                                                         </div>
@@ -1314,7 +1314,7 @@
                                                               </li>
                                                           </ul>
                                                         </div>
-                                                        <div class="body">
+                                                        <div class="body" *ngIf="encountersD">
                                                           <p style="white-space: pre-line">{{encountersD.diffrential_d}}</p>
                                 
                                                         </div>
@@ -1337,7 +1337,7 @@
                                                               </li>
                                                           </ul>
                                                         </div>
-                                                        <div class="body">
+                                                        <div class="body" *ngIf="encountersD">
                                                           <p style="white-space: pre-line">{{encountersD.definitive_d}}</p>
                                 
                                                         </div>
@@ -1710,7 +1710,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pr)" #pr="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="preable" >{{encountersD.preable}}</textarea>
                             <!-- <input type="hidden" ngModel name="ids" value="{{encId}}" [value]="encId"> -->
                         </div>
@@ -1739,7 +1739,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(sub)" #sub="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="subject" >{{encountersD.subject}}</textarea>                           
                         </div>
                      
@@ -1765,7 +1765,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(obj)" #obj="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="object" >{{encountersD.object}}</textarea>                           
                         </div>
                      
@@ -1791,7 +1791,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(asses)" #asses="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="assessment" >{{encountersD.assessment}}</textarea>                           
                         </div>
                      
@@ -1817,7 +1817,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(presump)" #presump="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="presumption_d" >{{encountersD.presumption_d}}</textarea>                           
                         </div>
                      
@@ -1843,7 +1843,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(different)" #different="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="diffrential_d" >{{encountersD.diffrential_d}}</textarea>                           
                         </div>
                      
@@ -1869,7 +1869,7 @@
                 <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(definitive)" #definitive="ngForm"> 
                     <div class="modal-body">
                         
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="encountersD">
                             <textarea rows="4" class="form-control no-resize" ngModel name="definitive_d" >{{encountersD.definitive_d}}</textarea>                           
                         </div>
                      
