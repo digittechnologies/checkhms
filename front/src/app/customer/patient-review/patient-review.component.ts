@@ -140,6 +140,19 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   encounter_pham: any;
   PharmEncreresponse: any;
   getEncId: any;
+  open:Boolean = false;
+  vitasigns: any;
+  testingform: any;
+  collection: any[];
+  form_id: any;
+  formTittle: any;
+  form_res: any;
+  table_data: any;
+  table_id: any;
+  process_attribute_id: any;
+  suggestions: any;
+  closeModal: boolean;
+  nurseAss=[];
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -565,7 +578,8 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   }
 
   onId(id:any){
-    this.encId=id
+    this.encId=id;
+    this.open=true;
     // this.viewEncounter= this.encounters[id];
 
     this.Jarwis.getEncounterDetails(this.encId).subscribe(
@@ -662,10 +676,23 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   // ENCOUTER START
   encouter(id){
     console.log({position_id:id,appointment_id:this.appId})
-    this.Jarwis.processResult({position_id:id,appointment_id:this.appId}).subscribe(
+    this.Jarwis.NursingAssessment({position_id:id,appointment_id:this.appId}).subscribe(
       data=>{
         console.log(data)
         let res:any =data
+        this.nurseAss = data.form
+        for (let index = 0; index <  res.datas.length; index++) {
+          let response = this.nurseAss.findIndex(e=>{
+             return e.attribute == res.datas[index].attribute
+           })
+           if(response){
+            this.nurseAss.splice(response,1)
+             console.log(response)
+           }
+           console.log()
+          }
+          this.testingform = this.nurseAss
+          console.log(this.testingform)
         if(res.datas != ''){
         for (let index = 0; index < res.datas.length; index++) {
           let dt:any = res.datas[index];
@@ -677,7 +704,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
             dt.value_option=''
           }
         }
-        // this.datas = res.datas;
+        this.datas = res.datas;
             const groups =  res.datas.reduce((groups, game) => {
               const date = game.process_attribute_id;
               if (!groups[date]) {
@@ -699,7 +726,144 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       }
     )
   }
+   // PROCESS START
 
+  //  fetchForms(){
+  //   this.Jarwis.fetchForm().subscribe(
+  //     data=>{
+  //       let res:any = data
+  //       this.testingform = res.form;
+  //       let defaultForm:any = this.testingform[0].id
+  //       let dfaulAttribute:any =  this.testingform[0].attribute
+  //       this.formValue(defaultForm,dfaulAttribute)
+  //     }
+  //   )
+  // }
+  formValue(id,formatrribute){
+    this.collection = []
+    this.form_id =  id;
+    this.Jarwis.formvalue(id).subscribe(
+      data=>{
+        this.formTittle = formatrribute
+      let reses:any = data;
+      for (let index = 0; index < reses.length; index++) {
+        console.log(reses[index].value_options)
+       if (reses[index].value_options) {
+         let vp = JSON.parse(reses[index].value_options)
+         reses[index].value_options= vp 
+        }
+        else{
+         reses[index].value_options=''
+        }
+        if (reses[index].suggestion) {
+         let vp = JSON.parse(reses[index].suggestion)
+         reses[index].suggestion = vp
+         console.log(reses[index].suggestion)
+        }
+        else{
+         reses[index].suggestion=''
+        }
+        if (reses[index].options) {
+         let vp = JSON.parse(reses[index].options)
+         reses[index].options = vp
+        }
+        else{
+         reses[index].options=''
+        }
+        if (reses[index].value_option) {
+          let vo = JSON.parse(reses[index].value_option)
+          reses[index].value_option = vo
+         }
+         else{
+          reses[index].value_option=''
+         }
+        
+      }
+      
+      console.log(reses)
+      this.form_res = reses;
+      }
+    )
+  }
+  onSaveTestingProcessValue(form:NgForm){
+    const data = Object.entries(form.value)
+    console.log(data)
+  //    this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+  //      data=>{
+  //        this.handleResponse("opration successfuly")
+  //      this.response = data;  
+  //  })
+ }
+
+ closeMo(data){
+   $('#Table').modal('hide');
+        this.handleResponse(data)  
+}
+ tableDetails(data,id,process_attribute_id,suggestions){
+   this.table_data = data;
+   this.table_id   = id;
+   this.process_attribute_id = process_attribute_id
+   this.suggestions = suggestions;
+   console.log(this.suggestions)
+   console.log(this.table_id)
+   this.closeModal = false;
+ }
+ onSubmittable(form:NgForm){
+  this.disabled = true;
+  const data = Object.entries(form.value)
+  this.collection.push(data)
+  this.Jarwis.onSubmitTable({form:data,id:this.table_id,appoint__id:this.appId,process_attribute_id:this.process_attribute_id}).subscribe(
+    data=>{
+      console.log(data)
+      this.closeModal = true;
+      let res:any = data
+     this.closeMo(res.message)
+       }
+     )
+ }
+  vitaSigns(){
+    this.Jarwis.vitasigns({appointment_id:this.appId}).subscribe(
+      data=>{
+          let res:any = data
+          if(res.vitasigns != ''){
+          for (let index = 0; index < res.vitasigns.length; index++) {
+            let dt:any = res.vitasigns[index];
+            if (dt.value_option) {
+              let vp = JSON.parse(dt.value_option)
+              dt.value_option = vp
+            }
+            else{
+              dt.value_option=''
+            }
+          }
+          this.vitasigns = res.vitasigns;
+       
+
+          console.log(this.vitasigns.value_option)
+              // const groups =  res.datas.reduce((groups, game) => {
+              //   const date = game.process_attribute_id;
+              //   if (!groups[date]) {
+              //     groups[date] = [];
+              //   }
+              //   groups[date].push(game);
+              //   return groups;
+              // }, {});
+              // Edit: to add it in the array format instead
+              // const groupArrays = Object.keys(groups).map((date) => {
+              //   return {
+              //     date,
+              //     games: groups[date]
+              //   };
+              // });
+            //  this.datas = groupArrays
+            //   console.log(this.datas);
+          }
+         
+          // this.vitasigns = res.vitasigns
+      }
+    )
+  }
+//  PROCESS END
   handleResponse(data) {    // 
     let snackBarRef = this.snackBar.open(data, 'Dismiss', {
       duration: 2000
