@@ -1155,8 +1155,13 @@ fetchForm() {
   return this.http.get<any>(`${this.baseUrl}/fetchForm`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
-processResult(data) {
-  return this.http.post<any>(`${this.baseUrl}/processResult`,data)
+
+NursingAssessment(data) {
+  return this.http.post<any>(`${this.baseUrl}/NursingAssessment`,data)
+}
+vitasigns(data) {
+  return this.http.post<any>(`${this.baseUrl}/vitasigns`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
 }
 
 addProcessProperties(data) {

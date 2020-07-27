@@ -39,594 +39,12 @@
                         <div class="h m-0">Appointment Status: <span class="badge badge-default">IPD</span></div>
                       </div>
                 </div>
-              <br>
-
-              <!-- <div class="row clearfix">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="body w_knob">
-                            <div class="c_know">
-                                <input type="text" class="knob" value="50" data-width="50" data-height="50" data-thickness="0.07" data-bgColor="#383b40" data-fgColor="#4caf50">
-                            </div>
-                            <div>
-                                <h6>Progress Status</h6>
-                                <span>Nurse: Vital Sign</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="body">
-                            <div class="card-value float-right text-danger">0%</div>
-                            <h3 class="mb-1">$5,853</h3>
-                            <div>Total Payment</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="body">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
-                                <div class="ml-4">
-                                    <span>Total PR#</span>
-                                    <h4 class="mb-0 font-weight-medium">651</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="body">
-                            <div class="media mb-0">
-                                <img class="rounded mr-3" src="../assets/images/xs/avatar4.jpg" alt="">
-                                <div class="media-body">
-                                    <h6 class="m-0">Br Deborah</h6>
-                                    <p class="text-muted mb-0">Neorologist</p>                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>               
-            </div>   -->
-                  <ul class="nav nav-tabs3 mt-2">
-                      <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#signs">Overview</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nurse" (click)="encouter(4)">Nurse Assessment</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#doctor">Doctor</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#lab">Laboratory</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#radio">Radiology</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#theater">Theater</a></li>
-                      <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ward1">Ward</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ward2">Ward Theater</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#mch">Ward MCH</a></li> -->
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#pharmacy">pharmacy</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#revenue" (click)="left()">Revenue</a></li>
-                      <li *ngIf="!team_reviews" class="nav-item"><a class="nav-link" data-toggle="tab" href="#team">Team Review</a></li>
-                      <li *ngIf="team_reviews" class="nav-item"><a class="nav-link" data-toggle="tab" href="#team" (click)="reviewMessages(team_reviews.id)">Team Review</a></li>
-                  </ul>
               </div>                    
           </div>
-          <div class="tab-content col-md-12">              
-             
-            <div class="tab-pane vivify fadeIn delay-100" id="nurse">
-                <!-- <div class="row clearfix">
-                  <div class="col-md-12">
-                      <div class="card">
-                          <div class="body">
-                              <div class="input-group mb-3">
-                                  <input type="text" class="form-control" placeholder="Search here...">
-                                  <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary" type="button">Search</button>
-                                  </div>
-                              </div>
-                              <strong> About <span class="text-orange">12,284</span> result ( 0.17 seconds)</strong>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-               -->
+          <div class="tab-content col-md-12">                  
 
-
-              <div class="row clearfix">
-                <div class="col-xl-12 col-lg-12 col-md-12">
-      
-                        <div class="row clearfix">
-                          <div class="col-sm-12">
-                              <div class="card" id="documenter_cover">
-                                  <div class="body">
-                                      <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                      <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                      <ul>
-                                          <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                              <li><strong>05/Nov/2018</strong></li>
-                                          <li><strong class="text-orange">18/June/2019</strong></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-sm-12">
-                              <div class="card" id="features">
-                                  <div class="header">
-                                      <h2><strong>Vital Signs</strong></h2>
-                                      <ul class="header-dropdown dropdown">                                
-                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                          <li class="dropdown">
-                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                              <ul class="dropdown-menu">
-                                                  <li><a href="javascript:void(0);">Action</a></li>
-                                                  <li><a href="javascript:void(0);">Another Action</a></li>
-                                                  <li><a href="javascript:void(0);">Something else</a></li>
-                                              </ul>
-                                          </li>
-                                      </ul>
-                                  </div>
-                                  <div class="body">
-                                      <div class="row">
-                                          <div class="col-lg-3 col-md-6">
-                                              <ul class="main_features">
-                                                  <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
-                                                  <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
-                                                  <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
-                                                  <li>Light and Dark Version</li>                                        
-                                                  <li>Fully Responsive</li>
-                                                  <li>Ready to used widget</li>
-                                                  <li>Detailed Documentation</li>
-                                              </ul>
-                                          </div>
-                                        
-                                      </div>                            
-                                      <div class="alert alert-danger" role="alert">
-                                          <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
-                                          Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12">
-                            <div class="card" id="Gallery">
-                                <div class="header">
-                                    <h2><strong>Nurse Assessment</strong></h2>
-                                    <ul class="header-dropdown dropdown">                                
-                                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                        <li class="dropdown">
-                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="javascript:void(0);">Action</a></li>
-                                                <li><a href="javascript:void(0);">Another Action</a></li>
-                                                <li><a href="javascript:void(0);">Something else</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="body result">
-                                    <div id="lightgallery" class="row clearfix lightGallery">
-                                      <div *ngIf="datas" class="col-12">
-                                          <!-- <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
-                                              <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
-                                          <ng-container *ngFor="let data of datass.games">
-                                             <div *ngIf="data.process_value_id == nulll">
-                                            <ng-container *ngFor="let val of data.value_option">
-                                                <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                                      <span class="mr-3">
-                                                          <label class="">{{val[0]}}</label>
-                                                      </span> 
-                                                      <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
-                                                      <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
-                                                      <input class="checkbox-tick" type="checkbox"  checked>
-                                                      <span></span>
-                                                  </label>
-                                              </div>
-                                              </ng-container>
-                                               </div>
-                                                  <div class="row clearfix" *ngIf="data.process_value_id != nulll">
-                                                      <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
-                                                      <div class="col-lg-12">
-                                                                  <table class="table table-hover table-bordered">
-                                                                      <thead>
-                                                                          <tr>
-                                                                              <td>S/N</td>
-                                                                              <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
-                                                                          </tr>
-                                                                      </thead>
-                                                                      <tbody style="height: 100%;overflow: auto;">
-                                                                          <tr *ngFor="let val of data.value_option;let r = index">
-                                                                            <td>{{r+1}}</td>
-                                                                            
-                                                                              <td *ngFor="let tb of val" class="col-1" scope="row">
-                                                                                  <span>{{tb[1]}}</span> 
-                                                                              </td>
-                                                                          </tr>
-                                                                      </tbody>
-                                                                     
-                                                                  </table>
-                                                      </div>
-                                                  </div>
-                                                  </ng-container>
-                                              </ng-container> -->
-                                        </div>
-                                      </div>
-                                </div>
-                            </div>
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                             <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                          <div class="col-sm-12">
-                            <div class="card" id="SCSS">
-                                <div class="header">
-                                    <h2><strong>Nurse Documentation</strong></h2>
-                                    <ul class="header-dropdown dropdown">                                
-                                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                        <li class="dropdown">
-                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="javascript:void(0);">Action</a></li>
-                                                <li><a href="javascript:void(0);">Another Action</a></li>
-                                                <li><a href="javascript:void(0);">Something else</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="body">
-                                    <p>Please note that all Detail main Web Site, you need to set it up on your project <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html" class="col-blue" target="_blank">Click Here..</a></p>
-                                    <p>main.css is the main CSS file located in assets/css/ folder of the package. Whole CSS file is well indexed with topic and its related code.</p>
-        
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-sm-12">
-                              <div class="card" id="grunt_file">
-                                  <div class="header">
-                                      <h2><strong>Nurse Care Plan</strong></h2>
-                                  </div>
-                                  <div class="body">
-                                      <p><strong>Installing Grunt:</strong> Run <code>npm install grunt --save-dev</code> command from your teminal to install grunt within your project.</p>
-                                      <p><strong>Grunt Sass:</strong> Run <code>grunt sass</code> command from your project directory. It will compile SASS to CSS for the project. This will read the file `assets/scss/filename.scss` and output a plain-css file to `/assets/css/filename.css`. </p>
-                                      <p><strong>Grunt JSHint:</strong> Run <code>grunt jshint</code> command from your project directory. It will checks all *.js files under `assetsjs/filename` for common syntax or coding errors using the JSHint utility.</p>
-                                      <p><strong>Grunt Sprite:</strong> Run <code>grunt sprite</code> command from your project directory. </p>                        
-                                      <p><strong>Further help:</strong> To get more help on the grunt checkout <a href="https://gruntjs.com/getting-started">Grunt</a></p>
-                                      <p><strong>Note:</strong> However, any SASS code you write must be able compile via Grunt as well.It will generate pre-compiled javascript templates. Reads all the *.html files from `assets/js/filename` and outputs `assets/js/filename.templates.js`. Template.js will contains code of UI design and will be change each time you build solution through above command.</p>
-                                      <p><a href="https://gruntjs.com/" target="_blank"><strong>Grunt</strong></a> is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. It uses a command-line interface to run custom tasks defined in a file.</p>
-                                  </div>                    
-                              </div>
-                          </div>
-                        
-                         
-                         
-                          <div class="col-sm-12">
-                            <!-- <div *ngIf="datas" class="col-12">
-                                <ng-container *ngFor="let datass of datas let">
-                                    <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
-                                <ng-container *ngFor="let data of datass.games">
-                                   <div *ngIf="data.process_value_id == nulll">
-                                  <ng-container *ngFor="let val of data.value_option">
-                                      <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                            <span class="mr-3">
-                                                <label class="">{{val[0]}}</label>
-                                            </span> 
-                                            <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
-                                            <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
-                                            <input class="checkbox-tick" type="checkbox"  checked>
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                    </ng-container>
-                                     </div>
-                                        <div class="row clearfix" *ngIf="data.process_value_id != nulll">
-                                            <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
-                                            <div class="col-lg-12">
-                                                        <table class="table table-hover table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <td>S/N</td>
-                                                                    <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody style="height: 100%;overflow: auto;">
-                                                                <tr *ngFor="let val of data.value_option;let r = index">
-                                                                  <td>{{r+1}}</td>
-                                                                  
-                                                                    <td *ngFor="let tb of val" class="col-1" scope="row">
-                                                                        <span>{{tb[1]}}</span> 
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                           
-                                                        </table>
-                                            </div>
-                                        </div>
-                                        </ng-container>
-                                    </ng-container>
-                              </div> -->
-                              <div class="card" id="Credits" *ngIf="datas">
-                                  <div *ngFor="let data of datas">
-                                  <div class="header" *ngIf="data.process_value_id == null">
-                                      <h2>{{data.attribute}}</h2>
-                                  <div class="body" *ngIf="data.process_value_id == null">
-                                      <div class="row">
-                                          <div class="col-lg-6 col-md-12">
-                                              <ul>
-                                                  <ng-container *ngFor="let option of data.value_option">
-                                                      <li>{{option[0]}}
-                                                           <a class="ml-5" *ngIf="option[1] != null && option[1] != false" href="https://fonts.google.com/specimen/Krub" class="text-warning">
-                                                            {{option[1]}}
-                                                            <span *ngIf="option[2]">{{option[2]}}</span>
-                                                        </a>
-                                                        <a *ngIf="option[1] == true" href="https://fonts.google.com/specimen/Krub" class="text-warning">
-                                                        <label  class="fancy-checkbox mt-3">
-                                                            <input class="checkbox-tick" type="checkbox"  checked>
-                                                            <span></span>
-                                                        </label>
-                                                        </a>
-                                                            </li>
-                                                                                           
-                                                    </ng-container>
-                                              </ul>
-                                          </div>
-                                        
-                                      </div>                            
-                                  </div>
-                            
-                              </div>
-                          </div>
-                          <!-- <div class="col-sm-12">
-                              <div class="card" id="thank_you">
-                                  <div class="header">
-                                      <h2>Thank You!</h2>
-                                      <ul class="header-dropdown dropdown">                                
-                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                          <li class="dropdown">
-                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                              <ul class="dropdown-menu">
-                                                  <li><a href="javascript:void(0);">Action</a></li>
-                                                  <li><a href="javascript:void(0);">Another Action</a></li>
-                                                  <li><a href="javascript:void(0);">Something else</a></li>
-                                              </ul>
-                                          </li>
-                                      </ul>
-                                  </div>
-                                  <div class="body">
-                                      <p> Once again, thank you so much for purchasing this template. As I said at the beginning, I&#39;d be glad to help you if you have any questions relating to this template.</p>
-                                  </div>
-                              </div>
-                          </div> -->
-                          <!-- <div class="col-sm-12">
-                              <div class="card" id="Gallery">
-                                  <div class="header">
-                                      <h2>Nursing Process</h2>
-                                      <ul class="header-dropdown dropdown">                                
-                                          <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                          <li class="dropdown">
-                                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                              <ul class="dropdown-menu">
-                                                  <li><a href="javascript:void(0);">Action</a></li>
-                                                  <li><a href="javascript:void(0);">Another Action</a></li>
-                                                  <li><a href="javascript:void(0);">Something else</a></li>
-                                              </ul>
-                                          </li>
-                                      </ul>
-                                  </div>
-                                  <div class="body result">
-                                      <div id="lightgallery" class="row clearfix lightGallery">
-                                 
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img01.png"><img class="img-fluid rounded" src="assets/img01.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img02.png"><img class="img-fluid rounded" src="assets/img02.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img03.png"><img class="img-fluid rounded" src="assets/img03.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img04.png"><img class="img-fluid rounded" src="assets/img04.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img05.png"><img class="img-fluid rounded" src="assets/img05.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img06.png"><img class="img-fluid rounded" src="assets/img06.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img07.png"><img class="img-fluid rounded" src="assets/img07.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img08.png"><img class="img-fluid rounded" src="assets/img08.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img09.png"><img class="img-fluid rounded" src="assets/img09.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img10.png"><img class="img-fluid rounded" src="assets/img10.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img11.png"><img class="img-fluid rounded" src="assets/img11.png" alt=""></a></div>
-                                          <div class="col-lg-3 col-md-6 m-b-30"><a class="light-link" href="assets/img12.png"><img class="img-fluid rounded" src="assets/img12.png" alt=""></a></div>
-                                        
-                                        </div>
-                                  </div>
-                              </div>
-                          </div> -->
-                    
-                    </div>
-                    <!-- <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                     <li class="page-item text-light"><pagination-controls (pageChange)="p = $event" class="my-pagination" ></pagination-controls></li>
-
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li> 
-                        </ul>
-                    </nav> -->
-                                                  <!-- <li>Google fonts are used in the template. <a href="https://fonts.google.com/specimen/Krub" class="text-warning">Krub</a></li>
-                                                  <li>Font Awesome: <a href="https://fontawesome.com/v4.7.0/" class="text-warning">Click to See</a></li>
-                                                  <li>All Images are used: <a href="https://www.pexels.com/" class="text-warning">Pexels.com</a></li>
-                                                  <li>Animation css are used: <a href="http://vivify.mkcreative.cz/"  class="text-warning" title="">vivify</a></li>
-                                                  <li>Bootstrap framework <a href="http://getbootstrap.com/" class="text-warning">Bootstrap</a></li>
-                                                  <li>Jquery <a href="https://jquery.com/" class="text-warning">Jquery</a></li>
-                                                  <li>Datatables <a href="https://www.datatables.net/" class="text-warning">Click to See</a></li>                                        
-                                              </ul> -->
-                                          </div>
-                                         
-                                      </div>                            
-                                  </div>
-                              </div>
-                          </div>  
-              
-              <div class="tab-pane vivify fadeIn delay-100" id="doctor">
-              
-              <div class="row clearfix">
-                  <div class="col-xl-12 col-lg-12 col-md-12">
-        
-                          <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="card" id="documenter_cover">
-                                    <div class="body">
-                                        <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                        <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
-                                        <ul>
-                                            <li>eMail: <strong>puffintheme@gmail.com</strong></li>
-                                            <li>Created: <strong>05/Nov/2018</strong></li>
-                                            <li>Update:  <strong class="text-orange">18/June/2019</strong></li>
-                                        </ul>
-
-                                        <hr>
-                                        <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                                            <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#Addapp">Add Encounter</button>   
-                                            <button class="btn btn-sm btn-primary" *ngIf="!team_reviews" class="nav-item"><a class="nav-link" data-toggle="tab" href="#team" (click)="reviewMessages(team_reviews.id)">Team Review</a></button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>                     
-                      
-                      </div>
-
-                    <div class="row clearfix">
-                    <div class="col-sm-12">
-                      <div class="card">
-                        <div class="body">
-                            <ul class="timeline">
-                                <li class="timeline-item">
-                                    <div class="timeline-info">
-                                        <span>March 12, 2018</span>
-                                    </div>
-                                    <div class="timeline-marker"></div>
-                                    <div class="timeline-content">
-                                      <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
-                                      <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
-                                      <ul class="list-unstyled team-info sm margin-0">
-                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>                                       
-                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                          <li class="ml-2"><span>10k +</span></li>
-                                      </ul>
-                                      <br>
-                                      <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
-                                      <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
-                                      <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
-                                      <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
-                                      <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
-                                  </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <div class="timeline-info">
-                                        <span>March 23, 2018</span>
-                                    </div>
-                                    <div class="timeline-marker"></div>
-                                   <div class="timeline-content">
-                                          <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
-                                          <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
-                                          <ul class="list-unstyled team-info sm margin-0">
-                                              <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>                                           
-                                              <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                              <li class="ml-2"><span>10k +</span></li>
-                                          </ul>
-                                          <br>
-                                          <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
-                                          <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
-                                          <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
-                                          <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
-                                          <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
-                                      </div>
-                                </li>
-                                <li class="timeline-item period">
-                                    <div class="timeline-info"></div>
-                                    <div class="timeline-marker"></div>
-                                    <div class="timeline-content">
-                                        <h2 class="timeline-title">April 2018</h2>
-                                    </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <div class="timeline-info">
-                                        <span>April 02, 2018</span>
-                                    </div>
-                                    <div class="timeline-marker"></div>
-                                    <div class="timeline-content">
-                                      <h3 class="timeline-title">Santa Cruz WordPress Monthly Meetup</h3>
-                                      <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact</p>
-                                      <ul class="list-unstyled team-info sm margin-0">
-                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
-                                          <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                          <li class="ml-2"><span>10k +</span></li>
-                                      </ul>
-                                      <br>
-                                      <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
-                                      <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
-                                      <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
-                                      <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
-                                      <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
-                                  </div>
-                                </li>
-                                <li class="timeline-item">
-                                    <div class="timeline-info">
-                                        <span>April 28, 2018</span>
-                                    </div>
-                                    <div class="timeline-marker"></div>
-                                    <div class="timeline-content pb-0">
-                                        <h3 class="timeline-title">Event Title</h3>
-                                        <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis
-                                            eu pede mollis pretium. Pellentesque ut neque. </p>
-                                            <ul class="list-unstyled team-info sm margin-0">
-                                              <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar10.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
-                                              <li><img src="../assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                                              <li class="ml-2"><span>10k +</span></li>
-                                          </ul>
-                                          <br>
-                                          <!-- <a class="btn btn-outline-success mr-2" href="javascript:void(0);" role="button">Signs</a> -->
-                                          <button class="btn btn-outline-info mr-2"><a class="nav-link" data-toggle="tab" href="#Feed">Examinations</a></button>
-                                          <!-- <input class="btn btn-outline-primary mr-2" type="button" value="Lab Test">
-                                          <input class="btn btn-outline-warning mr-2" type="submit" value="Image Test">
-                                          <input class="btn btn-outline-danger mr-2" type="reset" value="Ward"> -->
-                                    </div>
-                                </li>
-                            </ul>
-                            <hr>
-                      <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                          <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#Addapp">Add Encounter</button>   
-                                
-                      </div>
-                        </div>
-                    </div>
-
-                    </div>
-                    </div>
-
-                      <nav aria-label="Page navigation">
-                          <ul class="pagination">
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                              <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                          </ul>
-                      </nav>
-                  </div>              
-              </div>  
-              </div>
-
-
-              
-              <div class="modal fade" id="Addapp" tabindex="-1" role="dialog">
+          <div class="container-fluid">
+            <div class="modal fade" id="Addapp" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -658,71 +76,6 @@
                 </div>
                 </div>
 
-                  <div class="modal fade" id="creat-Team_review" tabindex="-1" role="dialog"  data-backdrop="false">
-                      <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                      <div class="modal-header">
-                      <h5 class="modal-title h4" id="myLargeModalLabel">Create Team Review</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                      </button>
-                      </div>
-                      <form class="form-auth-small m-t-20" role="form"> 
-                      <div class="modal-body">             
-                      <div class="row clearfix">
-                          <div class="col-md-8">
-                              <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="group name....." [(ngModel)]="name" [ngModelOptions]="{standalone: true}" >
-                              </div>
-                          </div> 
-                          <div class="col-sm-12">
-                              <div class="form-group mt-3">                            
-                                  <textarea rows="6" class="form-control no-resize" placeholder="Discription..." [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
-                              </div>
-                          </div>
-                          <div class="col-sm-12">
-                              <div class="form-group mt-3">  
-                                  <select class="form-control no-resize"  [(ngModel)]="team_id" [ngModelOptions]="{standalone: true}">
-                                   <option *ngFor="let team of teams" [value]="team.id" value="{{team.id}}">{{team.team_name}}</option>
-                                  </select>                          
-                              </div>
-                          </div>
-                          
-                      </div>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-round btn-primary" (click)="createReview()" data-dismiss="modal">Create</button>
-                      <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                      </form>
-                      </div>
-                      </div>
-                      </div>     
-                       <!-- Team review nded -->
-
-
-
-
-                       
-
-          <div class="container-fluid">
-            <div class="block-header">
-                <div class="row clearfix">
-                    <div class="col-md-6 col-sm-12">
-                        <h2>Contact Grid</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Oculux</a></li>
-                            <li class="breadcrumb-item"><a href="#">App</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                            </ol>
-                        </nav>
-                    </div>            
-                    <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                        <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
-                    </div>
-                </div>
-            </div>        
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-4 col-sm-12">
                     <small class="text-muted">NURSING PROCESS</small>
@@ -730,8 +83,8 @@
                     <div class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-info">2th July 2018</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Overview <span class="badge badge-danger">1</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Vital Signs <span class="badge badge-success">Success</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Nursing Assessment <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" (click)="vitaSigns()">Vital Signs <span class="badge badge-success">Success</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" (click)="encouter(4)">Nursing Assessment <span class="badge badge-warning">IPD</span></a>
                                  
                     <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                    
@@ -930,7 +283,7 @@
                                 <div class="row clearfix">
                                     <div class="col-xl-12 col-lg-12 col-md-12">
                             
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12" *ngIf="vitasigns">
                                         <div class="card" id="features">
                                             <div class="header">
                                                 <h2><strong>Vital Signs</strong></h2>
@@ -946,26 +299,24 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="body">
+                                            <ng-container *ngFor="let vt of vitasigns">
+                                                {{vt.created_at}}
+                                            <div class="body mb-5">
                                                 <div class="row">
-                                                    <div class="col-lg-3 col-md-6">
-                                                        <ul class="main_features">
-                                                            <li><strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> 4x</strong></li>
-                                                            <li>Latest <strong><a href="https://jquery.com/" target="_blank">jQuery v3.3.1</a></strong></li>
-                                                            <li>Built in <strong><a href="http://sass-lang.com/" target="_blank">SASS</a></strong></li>
-                                                            <li>Light and Dark Version</li>                                        
-                                                            <li>Fully Responsive</li>
-                                                            <li>Ready to used widget</li>
-                                                            <li>Detailed Documentation</li>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <ul class="main_features row" >
+                                                            <ng-container *ngFor="let datas of vt.value_option">
+                                                                <li *ngIf="datas[1] != null" class="col-12">{{datas[0]}}<a class="ml-5 mr-3" href="https://fonts.google.com/specimen/Krub" class="text-warning">{{datas[1]}}</a>{{datas[2]}} </li>
+                                                                <li *ngIf="datas[1] == null" class="col-12">{{datas[0]}}<a class="ml-5 mr-3" href="https://fonts.google.com/specimen/Krub" class="text-warning">0</a> {{datas[2]}}</li>
+    
+                                                                </ng-container> 
+                                                                <hr>
                                                         </ul>
                                                     </div>
                                                   
-                                                </div>                            
-                                                <div class="alert alert-danger" role="alert">
-                                                    <strong>Note:-</strong> jQuery plugin dependencies may relay on used platform and their versions. and
-                                                    Works well in all latest browsers like Chrome, Firefox, Safari, Microsoft Edge.
-                                                </div>
+                                                </div>  
                                             </div>
+                                        </ng-container>
                                         </div>
                                     </div>
                                 </div>
@@ -1001,39 +352,43 @@
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                                  <ul class="dropdown-menu">
-                                                                      <li><a href="javascript:void(0);">Action</a></li>
-                                                                      <li><a href="javascript:void(0);">Another Action</a></li>
-                                                                      <li><a href="javascript:void(0);">Something else</a></li>
+                                                                  <ul class="dropdown-menu" *ngIf="testingform">
+                                                                      <li *ngFor="let datalist of testingform"><a href="javascript:void(0);">{{datalist.attribute}}</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Another Action</a></li>
+                                                                      <li><a href="javascript:void(0);">Something else</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
                                                       </div>
                                                       <div class="body result">
                                                           <div id="lightgallery" class="row clearfix lightGallery">
+                                                            
                                                             <div *ngIf="datas" class="col-12">
                                                                 <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
                                                                     <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
                                                                 <ng-container *ngFor="let data of datass.games">
                                                                    <div *ngIf="data.process_value_id == nulll">
-                                                                  <ng-container *ngFor="let val of data.value_option">
-                                                                      <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                                                            <span class="mr-3">
+                                                                       <ul>
+                                                                    <ng-container *ngFor="let val of data.value_option">
+                                                                        <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
+                                                                        <li>{{val[0]}}<a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
+                                                                                                              
+                                                                            <!-- <span class="mr-3">
                                                                                 <label class="">{{val[0]}}</label>
                                                                             </span> 
                                                                             <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
                                                                             <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
                                                                             <input class="checkbox-tick" type="checkbox"  checked>
                                                                             <span></span>
-                                                                        </label>
-                                                                    </div>
+                                                                        </label> -->
+                                                                    </div> 
                                                                     </ng-container>
-                                                                     </div>
-                                                                        <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                                                </ul>
+                                                                </div>
+                                                                
+                                                                        <!-- <div class="row clearfix" *ngIf="data.process_value_id != nulll">
                                                                             <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
                                                                             <div class="col-lg-12">
-                                                                                <!-- <div class="card">
-                                                                                    <div class="body"> -->
                                                                                         
                                                                                         <table class="table table-hover table-bordered">
                                                                                             <thead>
@@ -1049,18 +404,16 @@
                                                                                                     <td *ngFor="let tb of val" class="col-1" scope="row">
                                                                                                         <span>{{tb[1]}}</span> 
                       
-                                                                                                        <!-- <span *ngIf="{{val.length>2}}" style="color: #007AFE;">{{tb[1]}}</span> -->
+                                                                                                        <span *ngIf="{{val.length>2}}" style="color: #007AFE;">{{tb[1]}}</span>
                       
-                                                                                                       <!-- <span *ngIf="{{tb[2]}}" style="color: #007AFE;">{{tb[2]}}</span>  -->
+                                                                                                       <span *ngIf="{{tb[2]}}" style="color: #007AFE;">{{tb[2]}}</span> 
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                            
                                                                                         </table>
-                                                                                    <!-- </div>
-                                                                                </div> -->
                                                                             </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                         </ng-container>
                                                                     </ng-container>
                                                               </div>
@@ -1355,7 +708,7 @@
                                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                         <ul class="dropdown-menu">
                                                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li>
-                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u">Update</a></li>
+                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u_encounter">Update</a></li>
                                                                             <li><a href="javascript:void(0);">Print</a></li>
                                                                             <li><a href="javascript:void(0);">Export</a></li>
                                                                         </ul>
@@ -1451,7 +804,7 @@
                                                 <h1>{{team_reviews.team_review_name}}</h1>
                                                 <small>{{team_reviews.description}}</small>
                                             </div>        
-                                            <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                                            <div class="col-md-12 col-sm-12 text-right hidden-xs">
                                                 <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
                                                 <input *ngIf="!team_reviews" type="button" class="btn btn-primary float-right" value="Create team review" data-toggle="modal" data-target="#creat-Team_review">
                                                 <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
@@ -1613,7 +966,215 @@
                                             <!-- </div>
                                         </div> -->
                                     </div>
-                                </div>                                
+                                </div>  
+                                
+                                
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-12">                    
+                                        <div class="card">
+                                            <div class="body">
+                                                <div class="chatapp_list">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="Search...">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="right_chat list-unstyled mb-0">                                
+                                                        <li class="offline">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-red"><span>FC</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Folisise Chosielie</span>
+                                                                        <span class="message">offline</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
+                                                                    <div class="media-body">
+                                                                        <span class="name">Marshall Nichols</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-red"><span>FC</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Louis Henry</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-orange"><span>DS</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Debra Stewart</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="offline">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-green"><span>SW</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Lisa Garett</span>
+                                                                        <span class="message">offline since May 12</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
+                                                                    <div class="media-body">
+                                                                        <span class="name">Debra Stewart</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="offline">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
+                                                                    <div class="media-body">
+                                                                        <span class="name">Lisa Garett</span>
+                                                                        <span class="message">offline since Jan 18</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-indigo"><span>FC</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Louis Henry</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="online">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-pink"><span>DS</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Debra Stewart</span>
+                                                                        <span class="message">online</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                        <li class="offline">
+                                                            <a href="javascript:void(0);">
+                                                                <div class="media">
+                                                                    <div class="avtar-pic w35 bg-info"><span>SW</span></div>
+                                                                    <div class="media-body">
+                                                                        <span class="name">Lisa Garett</span>
+                                                                        <span class="message">offline since May 12</span>
+                                                                        <span class="badge badge-outline status"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>                            
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="chatapp_body">
+                                                    <div class="chat-header clearfix">
+                                                        <div class="row clearfix">
+                                                            <div class="col-lg-12">
+                                                                <div class="chat-about">
+                                                                    <h6 class="m-b-0">Louis Pierce</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="chat-history">
+                                                        <ul class="message_data">
+                                                            <li class="right clearfix">
+                                                                <img class="user_pix" src="../assets/images/xs/avatar7.jpg" alt="avatar">
+                                                                <div class="message">
+                                                                    <span>Hi Aiden, how are you?<br> How is the project coming along?</span>
+                                                                </div>
+                                                                <span class="data_time">10:12 AM, Today</span>
+                                                            </li>
+                                                            <li class="left clearfix">
+                                                                <img class="user_pix" src="../assets/images/user.png" alt="avatar">
+                                                                <div class="message">
+                                                                    <span>Are we meeting today?</span>
+                                                                </div>
+                                                                <span class="data_time">10:12 AM, Today</span>
+                                                            </li>
+                                                            <li class="right clearfix">
+                                                                <img class="user_pix" src="../assets/images/xs/avatar5.jpg" alt="avatar">
+                                                                <div class="message">
+                                                                    <span>How is the project coming along?</span>
+                                                                </div>
+                                                                <span class="data_time">10:12 AM, Today</span>
+                                                            </li>
+                                                            <li class="left clearfix">
+                                                                <img class="user_pix" src="../assets/images/user.png" alt="avatar">
+                                                                <div class="message">
+                                                                    <span>Project has been already finished and I have<br> results to show you.</span>
+                                                                </div>
+                                                                <span class="data_time">10:16 AM, Today</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="chat-message clearfix">
+                                                        <div class="input-group mb-0">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
+                                                                    <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a>
+                                                                </span>
+                                                            </div>
+                                                            <textarea type="text" row="" class="form-control" placeholder="Enter text here..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="chatapp_detail text-center vivify pullLeft delay-150">
+                                                    <div class="profile-image"><img src="../assets/images/user.png" class="rounded-circle mb-3" alt=""></div>
+                                                    <h5 class="mb-0">Louis Pierce</h5>                                
+                                                    <small class="text-muted">Address: </small>
+                                                    <p> San Francisco</p>
+                                                    <small class="text-muted">Email address: </small>
+                                                    <p>louispierce@example.com</p>
+                                                    <small class="text-muted">Mobile: </small>
+                                                    <p>+ 202-222-2121</p>
+                                                    <button class="btn btn-round btn-success">View Profile</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
 
                             </div>
                             <div class="tab-pane vivify fadeIn delay-100" id="v-pills-pharmacy" role="tabpanel" aria-labelledby="">    
@@ -1892,19 +1453,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pharmacy)" #pharmacy="ngForm"> 
                     <div class="modal-body">
-                        
-                       
-                        
-
 
                         <div class="row clearfix">
                             <div class="col-12">
                                     <div class="card">
                                         <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmitAdd(data)" #data="ngForm">                    
-                                            <h5 class="text-right text-success" *ngIf="itemPrice2 > 0">Insurance Price</h5>
-                                            <h5 class="text-right text-warning" *ngIf="itemPrice2 == '0'">General Price</h5>
+                                            <h5 class="text-right text-success" *ngIf="itemPrice2Name == 'price_2' || itemPrice2Name == 'price_3'">Insurance Price</h5>
+                                            <h5 class="text-right text-warning" *ngIf="itemPrice2Name == 'selling_price'">General Price</h5>
                                         <div class="body">
                                             <!-- <div class="row text-center">
                                                 <div class="col-6 border-right pb-4 pt-4">
@@ -2082,11 +1638,6 @@
                         </div>
 
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-round btn-primary">Save</button>
-                    </div>
-                </form> 
                 </div>
             </div>
         </div>
@@ -2100,7 +1651,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(pharmacy)" #pharmacy="ngForm"> 
                     <div class="modal-body">
                         <div class="row clearfix">
                             <div class="col-12">
@@ -2135,115 +1685,153 @@
                                                             <th>Remain</th>                            -->                         
                                                             <th>Cost</th>
                                                             <th>Amount</th>
-                                                            <th>Refill Status</th>
+                                                            <!-- <th>Refill Status</th> -->
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let r of prescriptionsList; let i =index">
-                                                        <td>{{i+1}}</td> 
-                                                        <td class="fancy-checkbox">
-                                                            <label><input type="checkbox" (change)="itemSelected(r.id, r.quantity)"><span>Check</span></label>
-                                                        </td>                                                                                    
-                                                        <td class="w60">
-                                                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
-                                                            <p class="mb-0">{{r.name}}</p>
-                                                        </td>
-                                                        <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
-                                                        <td>{{r.original_qty}}</td>
-                                                        <td>{{r.quantity}}</td>                                                                          
-                                                        <!-- <td>{{r.refill}}</td>
-                                                        <td>{{r.remain}}</td> -->                     
-                                                        <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
-                                                        <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                                                        <td>
-                                                            <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
-                                                                Refill
-                                                            </span>
-                                                            <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
-                                                            Close
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                        <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
-                                                        <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
-                                                    </td> 
-                                                    
-                                                    <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div  class="modal-content">  
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Make Refill</h4>
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            </div>
-                                                            <div class="modal-body">             
-                                                                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
-                                                                                                    
-                                                                <div class="modal-body">             
-                                                                    <div class="row clearfix"> 
-                                                                        <div class="col-lg-12 col-md-12">
-                                                                            <div class="form-group">
-                                                                                <label>Instock</label>
-                                                                                <input type="text" class="form-control" value="{{instock}}" disabled>
-                                                                            </div>
-                                                                        </div>                                    
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>General Quantity</label>
-                                                                                    <input type="text" class="form-control" value="{{original_qty}}" disabled>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                        <label>Refill Quatity</label>
-                                                                                    <input type="text" disabled class="form-control" value="{{refill_qty}}">
-                                                                                </div>
-                                                                            </div>                                                 
-                                                                        </div>
-                                                                        <div class="row clearfix">                                    
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Total Quantity</label>
-                                                                                    <input type="text" class="form-control" value="{{total_quantity}}" disabled>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                        <label>Amount</label>
-                                                                                    <input type="text" disabled class="form-control" value="{{total_amount}}">
-                                                                                </div>
-                                                                            </div>                                                 
-                                                                        </div>
-                                
-                                                                        <div class="row clearfix">                                    
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Change Total Quantity</label>
-                                                                                    <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="col-lg-6 col-md-12">
-                                                                                <div class="form-group">
-                                                                                        <label>Amount</label>
-                                                                                    <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
-                                                                                </div>
-                                                                            </div>                                                 
-                                                                        </div>
-                                                                    </div>                                     
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                                                                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
-                                                                </div>
-                                                                </form>
-                                                            </div>     
-                                                            
-                                                        </div>
-                                                        </div>
-                                                        </div>
+                                                        <tr *ngFor="let r of prescriptionsList; let i = index">
+                                                            <ng-container *ngFor="let r2 of itemsitem;">
+                                                               <ng-container *ngIf="r.item_id == r2.item_id && r2.total_remain >= r.quantity" (onCreate)="itemSelected(r.item_id)">
+                                                                    <td>{{i+1}}</td> 
+                                                                    <td class="fancy-checkbox">
+                                                                        <label><input type="checkbox" disabled checked ><span>Available</span></label>
+                                                                    </td>                                                                                    
+                                                                    <td class="w60">
+                                                                        <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
+                                                                        <p class="mb-0">{{r.name}}</p>
+                                                                    </td>
+                                                                    <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
+                                                                    <td>{{r.original_qty}}</td>
+                                                                    <td>{{r.quantity}}</td>                                                                          
+                                                                    <!-- <td>{{r.refill}}</td>
+                                                                    <td>{{r.remain}}</td> -->                     
+                                                                    <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                                    <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
+                                                                    <!-- <td>
+                                                                        <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
+                                                                            Refill
+                                                                        </span>
+                                                                        <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
+                                                                        Close
+                                                                        </span>
+                                                                    </td> -->
+                                                                    <td>
+                                                                    <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
+                                                                    <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                                                                    </td>
+                                                                </ng-container>
+
+                                                                <ng-container *ngIf="r.item_id == r2.item_id && r.quantity > r2.total_remain">
+                                                                    <td>{{i+1}}</td> 
+                                                                    <td class="fancy-checkbox">
+                                                                        <label><input type="checkbox" disabled ><span>Un-available</span></label>
+                                                                    </td>                                                                                    
+                                                                    <td class="w60">
+                                                                        <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                                    </td>
+                                                                    <td>
+                                                                        <del>
+                                                                            <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
+                                                                            <p class="mb-0">{{r.name}}</p>
+                                                                        </del>
+                                                                    </td>
+                                                                    <td disabled="true"><span class="badge badge-warning">{{r.cat_name}}</span></td>
+                                                                    <td><del>{{r.original_qty}}</del></td>
+                                                                    <td><del>{{r.quantity}}</del></td>                                                                          
+                                                                    <!-- <td>{{r.refill}}</td>
+                                                                    <td>{{r.remain}}</td> -->                     
+                                                                    <td><del>{{r.amount | currency:'NGN':'symbol-narrow'}}</del></td>
+                                                                    <td><del>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</del></td>
+                                                                    <!-- <td>
+                                                                        <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
+                                                                            Refill
+                                                                        </span>
+                                                                        <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
+                                                                        Close
+                                                                        </span>
+                                                                    </td> -->
+                                                                    <td>
+                                                                    <button disabled type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
+                                                                    <button disabled type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                                                                    </td>
+                                                                </ng-container>
+                                                            </ng-container>                                                                
                                                         </tr>
+
+                                                        <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div  class="modal-content">  
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Make Refill</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">             
+                                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                                                                            
+                                                                        <div class="modal-body">             
+                                                                            <div class="row clearfix"> 
+                                                                                <div class="col-lg-12 col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Instock</label>
+                                                                                        <input type="text" class="form-control" value="{{instock}}" disabled>
+                                                                                    </div>
+                                                                                </div>                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>General Quantity</label>
+                                                                                            <input type="text" class="form-control" value="{{original_qty}}" disabled>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Refill Quatity</label>
+                                                                                            <input type="text" disabled class="form-control" value="{{refill_qty}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                                                                <div class="row clearfix">                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Total Quantity</label>
+                                                                                            <input type="text" class="form-control" value="{{total_quantity}}" disabled>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Amount</label>
+                                                                                            <input type="text" disabled class="form-control" value="{{total_amount}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                        
+                                                                                <div class="row clearfix">                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Change Total Quantity</label>
+                                                                                            <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Amount</label>
+                                                                                            <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                                                            </div>                                     
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    </div>                                                                          
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div *ngIf="!prescriptionsList">
                                                             
                                                             <div class="spinner-grow text-primary" role="status">
@@ -2334,16 +1922,381 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-round btn-primary">Save</button>
-                                </div>
-                            </form> 
                             </div>
                         </div>
                     </div>        
                 </div>
               </div>
           </div>
+
+        <div class="modal fade" id="pharmacy_u_encounter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Encounter Pharmacy Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-12">
+
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>Encounter Voucher</h2>
+                                        <ul class="header-dropdown dropdown">                                
+                                            <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                            <li class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                <ul class="dropdown-menu">                               
+                                                    <li><a href="javascript:void(0);">Charges Settings</a></li>
+                                                    <!-- <li><a href="javascript:void(0);">Settings</a></li> -->
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-custom spacing8">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S/N</th>
+                                                            <th>Select</th>
+                                                            <th>Image</th>
+                                                            <th>Item</th>
+                                                            <th>Category</th>
+                                                            <th>Original Quantity</th>
+                                                            <th>Quantity</th>                                                                            
+                                                            <!-- <th>Refill</th>  
+                                                            <th>Remain</th>                            -->                         
+                                                            <th>Cost</th>
+                                                            <th>Amount</th>
+                                                            <!-- <th>Refill Status</th> -->
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let r of encounter_pham; let i = index">
+                                                            <td>{{i+1}}</td> 
+                                                            <td class="fancy-checkbox">
+                                                                <label><input type="checkbox" disabled checked ><span>Available</span></label>
+                                                            </td>                                                                                    
+                                                            <td class="w60">
+                                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
+                                                                <p class="mb-0">{{r.name}}</p>
+                                                            </td>
+                                                            <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
+                                                            <td>{{r.original_qty}}</td>
+                                                            <td>{{r.quantity}}</td>                                                                          
+                                                            <!-- <td>{{r.refill}}</td>
+                                                            <td>{{r.remain}}</td> -->                     
+                                                            <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                            <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
+                                                            <!-- <td>
+                                                                <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
+                                                                    Refill
+                                                                </span>
+                                                                <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
+                                                                Close
+                                                                </span>
+                                                            </td> -->
+                                                            <td>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
+                                                            </td>                                                            
+                                                        </tr>
+
+                                                        <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div  class="modal-content">  
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Make Refill</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">             
+                                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                                                                                                            
+                                                                        <div class="modal-body">             
+                                                                            <div class="row clearfix"> 
+                                                                                <div class="col-lg-12 col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Instock</label>
+                                                                                        <input type="text" class="form-control" value="{{instock}}" disabled>
+                                                                                    </div>
+                                                                                </div>                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>General Quantity</label>
+                                                                                            <input type="text" class="form-control" value="{{original_qty}}" disabled>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Refill Quatity</label>
+                                                                                            <input type="text" disabled class="form-control" value="{{refill_qty}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                                                                <div class="row clearfix">                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Total Quantity</label>
+                                                                                            <input type="text" class="form-control" value="{{total_quantity}}" disabled>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Amount</label>
+                                                                                            <input type="text" disabled class="form-control" value="{{total_amount}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                        
+                                                                                <div class="row clearfix">                                    
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Change Total Quantity</label>
+                                                                                            <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="col-lg-6 col-md-12">
+                                                                                        <div class="form-group">
+                                                                                                <label>Amount</label>
+                                                                                            <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
+                                                                                        </div>
+                                                                                    </div>                                                 
+                                                                                </div>
+                                                                            </div>                                     
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    </div>                                                                          
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="!prescriptionsList">
+                                                            
+                                                            <div class="spinner-grow text-primary" role="status">
+                                                                <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <div class="spinner-grow text-secondary" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <div class="spinner-grow text-success" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                            </div>
+                                                            <h5 class="text text-center text-primary">No Medications yet</h5>
+                                                        </div>                                                    
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>                         
+                                                            <th><strong>SUB TOTAL</strong></th>                             
+                                                                                                            
+                                                            <th>{{tcost | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                        </tr>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>   
+                                                            <th><strong>DISCOUNT %</strong></th>                                                                
+                                                                                                                            
+                                                            <th>{{schemePercentToView}}%</th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>     
+                                                        </tr>
+                                                        <tr *ngFor="let cg of charges">
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th> 
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th><strong>{{cg.charge_name}}</strong></th>                                                                
+                                                                                                            
+                                                            <th *ngIf="schemePriceList == 'price_1'">{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</del></th>
+                                                            <th></th> 
+                                                            <th></th> 
+                                                            <th></th>   
+                                                        </tr>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>                
+                                                            <th><strong>TOTAL</strong></th>                            
+                                                        
+                                                            <th>{{afterPercentCost | currency:'NGN':'symbol-narrow'}}</th>
+                                                            <th></th>
+                                                            <th></th>    
+                                                            <th></th>   
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <div>
+                                                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
+                                
+                                                    <!-- <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
+                                                    <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp; -->
+                                                    <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp;
+                                                    <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                                                    <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
+                                                </div><br>              
+                                                </div>
+                                                </div>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
               
+              
+          <div class="modal fade" id="Table" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
+                <div class="modal-body">        
+                    <div class="row clearfix">
+                        <div class="col-md-12" *ngFor="let tb of table_data">
+                            <!-- <mat-form-field class="example-chip-list">
+                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                  <mat-chip
+                                    *ngFor="let fruit of fruits"
+                                    [selectable]="selectable"
+                                    [removable]="removable"
+                                    (removed)="remove(fruit)">
+                                    {{fruit}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                  </mat-chip>
+                                  <input 
+                                  (click)="addChips()"
+                                    placeholder="{{tb}}"
+                                    #fruitInput
+                                    [formControl]="fruitCtrl"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                  <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                    {{fruit}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                              </mat-form-field> -->
+                                <mat-form-field class="example-full-width col-12" appearance="fill">
+                                    <mat-label style="color:grey">{{tb}}</mat-label>
+                                    <textarea matInput class="form-control" ngModel name="{{tb}}" [matAutocomplete]="auto"></textarea>
+                                    <mat-autocomplete #auto="matAutocomplete" >
+                                        <mat-option *ngFor="let street of suggestions" [value]="street">
+                                         {{street}} 
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                        </div>           
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+                </form>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+             <div class="modal fade" id="Table" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
+                <div class="modal-body">        
+                    <div class="row clearfix">
+                        <div class="col-md-12" *ngFor="let tb of table_data">
+                            <!-- <mat-form-field class="example-chip-list">
+                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                  <mat-chip
+                                    *ngFor="let fruit of fruits"
+                                    [selectable]="selectable"
+                                    [removable]="removable"
+                                    (removed)="remove(fruit)">
+                                    {{fruit}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                  </mat-chip>
+                                  <input 
+                                  (click)="addChips()"
+                                    placeholder="{{tb}}"
+                                    #fruitInput
+                                    [formControl]="fruitCtrl"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                  <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                    {{fruit}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                              </mat-form-field> -->
+                                <mat-form-field class="example-full-width col-12" appearance="fill">
+                                    <mat-label style="color:grey">{{tb}}</mat-label>
+                                    <textarea matInput class="form-control" ngModel name="{{tb}}" [matAutocomplete]="auto"></textarea>
+                                    <mat-autocomplete #auto="matAutocomplete" >
+                                        <mat-option *ngFor="let street of suggestions" [value]="street">
+                                         {{street}} 
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                        </div>           
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+                </form>
+            </div>
+            </div>
+            </div>
   </div>

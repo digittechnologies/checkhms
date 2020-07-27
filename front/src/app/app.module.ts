@@ -21,7 +21,7 @@ import { ProfileComponent } from './admin/profile/profile.component';
 import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
-import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule,} from '@angular/material';
+import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule, MAT_CHIPS_DEFAULT_OPTIONS, MatChip, MatChipsModule,} from '@angular/material';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'​;
@@ -142,6 +142,7 @@ import { BookedAppointmentComponent } from './customer/booked-appointment/booked
 import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
 import { InsuranceComponent } from './customer/insurance/insurance.component';
 import { TeamReviewComponent } from './admin/team-review/team-review.component';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -362,6 +363,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     MatInputModule,
     MatTabsModule,
     MatListModule,
+    MatChipsModule,
     MatSnackBarModule,
     NgxPrintModule,
     NgxPaginationModule,
@@ -391,7 +393,13 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     AdminRoleGuardService,
     StaffRoleGuardService,
     UserRoleGuardService,
-    ChatService
+    ChatService,
+    {
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        separatorKeyCodes: [ENTER, COMMA]
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

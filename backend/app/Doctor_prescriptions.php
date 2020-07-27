@@ -37,5 +37,6 @@ class Doctor_prescriptions extends Model
         'amount',
         'amount_paid',
         'instock',
+        'general_amount',
     ];
 }
