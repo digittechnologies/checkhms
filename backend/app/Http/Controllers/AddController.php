@@ -2563,7 +2563,6 @@ public function addCenter(Request $request)
         // $request->merge(["voucher_id" => $request->voucher_id]);
 
         // return $request->all();
-        //appointment_id yet to be implemented
         $pharmP= Doctor_prescriptions::create($request-> all());
        
         if($pharmP){

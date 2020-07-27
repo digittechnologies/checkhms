@@ -1229,6 +1229,28 @@ class DisplayController extends Controller
 
     }
 
+    public function edtPrescription($id)
+    {
+        return response()->json(
+            Doctor_prescriptions::orderBy('id')
+            ->select('doctor_prescriptions.*')     
+            ->where('id','=',$id)          
+            ->get()   
+        );
+    }
+
+    // Invoices
+
+    public function displayInvoice()
+    {
+        return DB::table("invoices")->get();
+    }
+
+    public function displayPriceColumn()
+    {
+        return DB::table("price_list_column")->get();
+    }
+
     public function displayPharmPrescription($id)
     {
         $bId= Auth()->user()->branch_id;
@@ -1270,28 +1292,6 @@ class DisplayController extends Controller
                         ->sum('doctor_prescriptions.amount_paid'),
         ]);
 
-    }
-
-    public function edtPrescription($id)
-    {
-        return response()->json(
-            Doctor_prescriptions::orderBy('id')
-            ->select('doctor_prescriptions.*')     
-            ->where('id','=',$id)          
-            ->get()   
-        );
-    }
-
-    // Invoices
-
-    public function displayInvoice()
-    {
-        return DB::table("invoices")->get();
-    }
-
-    public function displayPriceColumn()
-    {
-        return DB::table("price_list_column")->get();
     }
 
     public function displayPharmInvoice($Vid, $vid, $moduleid)
@@ -1667,7 +1667,7 @@ class DisplayController extends Controller
         
         return response()->json([
             'item' => $itemr,
-            'price' => $itemr->$r,
+            'price' => [$r, $itemr->$r],
             'item_remains' => $item_remain,
             'totalremain' => array_sum($item_remain),
             'branches' => $remain_branch
