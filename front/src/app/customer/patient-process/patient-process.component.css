@@ -63,12 +63,25 @@ input.example-right-align {
 .example-full-width {
   width: 100%;
 }
-/* .mat-form-field-underline{
-  background-color: grey;
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: grey;
 }
+.mat-form-field-label {
+  color: grey;
+}
+.mat-label{
+  color: grey !important;
+}
+.mat-focused .mat-form-field-label {
+  color: grey !important;
+}
+
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color:lightgrey !important;
+}
+::ng-deep .mat-form-field-underline .mat-form-field-ripple{
   background-color: white !important;
 }
-::ng-deep .mat-focused  .mat-form-field-ripple{
-  background-color: white !important;
-} */
+.example-chip-list {
+  width: 100%;
+}

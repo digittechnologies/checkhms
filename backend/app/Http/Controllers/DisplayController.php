@@ -2327,16 +2327,17 @@ class DisplayController extends Controller
     public function fetchForm()
     {
         $user = Auth()->user();
-        // $id = $user->posi;
         return  response()->json([
            "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
             ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
             ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
             ->where('process_tb.position_id',9)
+            ->where('process_attribute_tb.attribute','!=','VITASIGNS')
             ->get()
 
         ]);
     }
+  
     public function formvalue($id)
     {
         
@@ -2351,38 +2352,43 @@ class DisplayController extends Controller
         // ->where('process_tb.department_id',$id)
         // ->get();
     }
-    public function processResult(Request $request){
-    //    $resut =  DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
-    //     ->select('form_process.*','process_attribute_tb.attribute')
-    //     ->where('position_id',$request->position_id)
-    //     ->where('appointment_id',$request->appointment_id)
-    //     ->get();
-
-    //     foreach ($resut as $value) {
-    //         if ($value->process_value_id != null) {
-    //             $js = json_decode($value->value_option);
-    //             foreach ($js as $val) {
-    //                 foreach ($val as $us) {
-    //                     if ($us[0]=='user') {
-    //                       $fulltb = DB::table('users')->where('id',$us[1])->select('firstname','lastname','image')->get() ;
-    //                          $us = $fulltb;
-    //                          array_splice($val,-1);
-    //                          array_push($val,$us);
-    //                          $js = $val;
-    //                          return $js;
-    //                     }
-    //                 }
-    //             }
-    // form_process.process_value_id
-    //         }
-    //     }
+    public function vitasigns(Request $request)
+    {
+        // return $request->appointment_id;
+        $user = Auth()->user();
+        return response()->json([
+            "vitasigns" => DB::table("form_process")->orderBy('id', 'desc')->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+            ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+            ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+            ->where('form_process.position_id',4)
+            ->where('form_process.appointment_id',$request->appointment_id)
+            ->where('process_attribute_tb.attribute','=','VITASIGNS')
+            ->get()
+            ]);
+    }
+    public function NursingAssessment(Request $request){
     return response()->json([
         "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
         ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
         ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
-        ->where('form_process.position_id',$request->position_id)
+        ->where('form_process.position_id',4)
         ->where('form_process.appointment_id',$request->appointment_id)
-        ->get()
+        ->where('process_attribute_tb.attribute','!=','VITASIGNS')
+        ->where('process_attribute_tb.attribute','!=','NURSING ASSESSMENT - CONTINUATION SHEET')
+        ->where('process_attribute_tb.attribute','!=','INTAKE AND OUTPUT CHART')
+        ->where('process_attribute_tb.attribute','!=','NURSING CARE PLAN')
+        ->where('process_attribute_tb.attribute','!=','NURSES RECORD SHEET')
+        ->get(),
+        "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+            ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+            ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+            ->where('process_tb.position_id',9)
+            ->where('process_attribute_tb.attribute','!=','VITASIGNS')
+            ->where('process_attribute_tb.attribute','!=','NURSING ASSESSMENT - CONTINUATION SHEET')
+            ->where('process_attribute_tb.attribute','!=','INTAKE AND OUTPUT CHART')
+            ->where('process_attribute_tb.attribute','!=','NURSING CARE PLAN')
+            ->where('process_attribute_tb.attribute','!=','NURSES RECORD SHEET')
+            ->get()
         ]
         );
     }

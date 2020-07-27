@@ -264,23 +264,26 @@
                                                 <!-- <div class="input-group mb-3" *ngFor="let fr of form_res | paginate: { itemsPerPage:5, currentPage: p };let r = index"> -->
                                                 <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
                                                      <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
-                                                                <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                                <mat-label style="color:grey">{{fr.value}}</mat-label>
                                                                 <input matInput type="number" class="example-right-align form-control">
                                                                 <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
                                                         </mat-form-field>
                                                         <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
-                                                                <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                                <mat-label style="color:grey">{{fr.value}}</mat-label>
                                                                 <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
                                                                 <mat-autocomplete #auto="matAutocomplete" >
                                                                 <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
                                                                 </mat-autocomplete>
                                                         </mat-form-field> 
                                                         <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
-                                                            <mat-label class="text-light">{{fr.value}}</mat-label>
+                                                            <mat-label style="color:grey">{{fr.value}}</mat-label>
                                                             <textarea matInput class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
                                                         </mat-form-field>
                                           
                                                     <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text">{{fr.value}}</label>
+                                                        </div> 
                                                       <div  *ngIf="fr.value_type == 'radio'" class="ml-3">
                                                         <ng-container  *ngFor="let rad of fr.value_options">
                                                             <label class="fancy-radio custom-color-green"><input type="radio" class="fancy-radio custom-color-green"   ngModel name="{{fr.value}}"  value="{{rad}}" ><span><i></i><strong>{{rad}}</strong></span></label>
@@ -289,18 +292,17 @@
                                                       <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
                                                         <ng-container  *ngFor="let rad of fr.value_options">
                                                             <label class="fancy-checkbox mt-3">
-                                                               <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{fr.value}}"  value="{{rad}}">
+                                                                <!-- <input class="checkbox-tick" type="hidden" ngModel name="{{rad}}"  value="{{rad}}"> -->
+                                                               <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name=" {{rad}}"  value="{{rad}}">
                                                                 <span></span>
                                                             </label>
                                                        </ng-container>
                                                       </div>
                                                       <ng-container *ngFor="let ops of fr.options">
-                                                          <div class="input-group mb-3">
-                                                              <div class="input-group-prepend">
-                                                                  <label class="input-group-text">{{ops}}</label>
-                                                              </div> 
-                                                              <textarea class="form-control" ngModel name="{{ops}}"></textarea>
-                                                          </div>
+                                                        <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                                            <mat-label style="color:grey">{{ops}}</mat-label>
+                                                            <textarea matInput class="form-control" ngModel name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                                        </mat-form-field>
                                                       </ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="fr.value_type == 'table'">
@@ -308,7 +310,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="card">
                                                                         <div class="body">
-                                                                            <table id="mainTable" class="table table-hover">
+                                                                            <table id="mainTable" class="table table-hover table-bordered">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th *ngFor="let ops of fr.options">{{ops}}</th>
@@ -852,7 +854,42 @@
                         <div class="modal-body">        
                             <div class="row clearfix">
                                 <div class="col-md-12" *ngFor="let tb of table_data">
-                                    <div class="input-group mb-3 row">
+                                    <!-- <mat-form-field class="example-chip-list">
+                                        <mat-chip-list #chipList aria-label="Fruit selection">
+                                          <mat-chip
+                                            *ngFor="let fruit of fruits"
+                                            [selectable]="selectable"
+                                            [removable]="removable"
+                                            (removed)="remove(fruit)">
+                                            {{fruit}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                          </mat-chip>
+                                          <input 
+                                          (click)="addChips()"
+                                            placeholder="{{tb}}"
+                                            #fruitInput
+                                            [formControl]="fruitCtrl"
+                                            [matAutocomplete]="auto"
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="add($event)">
+                                        </mat-chip-list>
+                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                            {{fruit}}
+                                          </mat-option>
+                                        </mat-autocomplete>
+                                      </mat-form-field> -->
+                                        <mat-form-field class="example-full-width col-12" appearance="fill">
+                                            <mat-label style="color:grey">{{tb}}</mat-label>
+                                            <textarea matInput class="form-control" ngModel name="{{tb}}" [matAutocomplete]="auto"></textarea>
+                                            <mat-autocomplete #auto="matAutocomplete" >
+                                                <mat-option *ngFor="let street of suggestions" [value]="street">
+                                                 {{street}} 
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                     <!-- <div class="input-group mb-3 row">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text">{{tb}}</label>
                                         </div> 
@@ -861,9 +898,8 @@
                                           <mat-option *ngFor="let street of suggestions" [value]="street">
                                            {{street}} 
                                           </mat-option>
-                                      </mat-autocomplete> 
-                                        <!-- <input type="text" ngModel name="{{tb}}" >      -->
-                                    </div>
+                                      </mat-autocomplete>
+                                    </div> -->
                                 </div>           
                             </div>
                         </div>
