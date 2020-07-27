@@ -1155,6 +1155,10 @@ fetchForm() {
   return this.http.get<any>(`${this.baseUrl}/fetchForm`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
+fetchnuresetables(data) {
+  return this.http.post<any>(`${this.baseUrl}/fetchnuresetables`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
+}
 
 NursingAssessment(data) {
   return this.http.post<any>(`${this.baseUrl}/NursingAssessment`,data)

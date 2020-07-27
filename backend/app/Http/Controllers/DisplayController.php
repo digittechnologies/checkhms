@@ -2393,5 +2393,35 @@ class DisplayController extends Controller
         );
     }
 
+    public function fetchnuresetables(Request $request)
+    {
+        $user = Auth()->user();
+        return response()->json([
+            "nurseprocecess" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+            ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+            ->select('form_process.*','process_attribute_tb.*','process_value_tb.value','process_value_tb.options','process_value_tb.suggestion')
+            ->where('form_process.position_id',4)
+            ->where('form_process.appointment_id',$request->appointment_id)
+            ->where('process_attribute_tb.id','=',$request->id)
+            ->get(),
+            "form"=> DB::table('process_attribute_tb')->join('process_value_tb','process_attribute_tb.id','=','process_value_tb.process_attribute_id')->get()
+        ]);
+    }
+
+    public function nuresetables(Request $request)
+    {
+        // return $request->appointment_id;
+        $user = Auth()->user();
+        return response()->json([
+            "tables" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+            ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+            ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+            ->where('form_process.position_id',4)
+            ->where('form_process.appointment_id',$request->appointment_id)
+            ->where('process_attribute_tb.attribute','=','VITASIGNS')
+            ->get()
+            ]);
+    }
+
   
 }
