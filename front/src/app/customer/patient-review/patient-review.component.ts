@@ -133,7 +133,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   column: any;
   patientAppointment: any;
   itemPrice: any;
-  itemPrice2: any;
   item_remains: any;
   item_branches: any;
   remain_sumation: any;
@@ -153,8 +152,17 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   suggestions: any;
   closeModal: boolean;
   nurseAss=[];
+
   other_proce: any;
   init_dat: any;
+  itemPrice2Name: any;
+  itemPrice2Amount: any;
+  general_selling_price: any;
+  remainInStockResponse: any;
+  remainInStock: any;
+  branch_id: any;
+  items: any;
+  itemsitem: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -363,10 +371,20 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     data=>{
       this.user = data;
       this.user_id = this.user.aut.id;
+      this.branch_id = this.user.aut.branch_id;
       this.Chat.fetchReview({user_id:this.user_id,app_id:this.appId})
       // console.log(this.user.aut)
     }
   )
+
+  this.Jarwis.displayItem(this.branch_id).subscribe(
+    data=>{
+    this.response = data;      
+    this.items = this.response;
+    this.itemsitem=this.items.item;
+    console.log(this.itemsitem[0])
+  })
+
   this.Jarwis.fetchteam().subscribe(
     data=>{
        let res:any = data;
@@ -432,12 +450,16 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         this.getInst = this.total.type_id;
         this.quantity = 0;
         this.tQuantity = 0;
-        this.itemPrice = this.AllStockresponse.price;
-        this.itemPrice2 = this.AllStockresponse.price;
-        if(this.itemPrice == 0 ){
+        this.general_selling_price = this.total.selling_price
+        this.itemPrice = this.AllStockresponse.price[1];
+        this.itemPrice2Name = this.AllStockresponse.price[0]
+        this.itemPrice2Amount = this.AllStockresponse.price[1];
+        ;
+        if(this.itemPrice2Amount == 0 ){
           let confirmPrice = confirm("Item price is 0 under this category, switch to general price");
           if(confirmPrice){
             this.itemPrice = this.total.selling_price
+            this.itemPrice2Name = 'selling_price'
           }
         }
         if(this.schemePriceList == 'price_2'){
@@ -553,18 +575,25 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     form.value.amount = this.itemPrice
     form.value.amount_paid = parseInt(this.itemPrice) * parseInt(this.quant)
     form.value.instock = this.remain_sumation
+    form.value.general_amount = this.general_selling_price
     this.Jarwis.pharmPriscription(form.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
   }
 
-  itemSelected(itemId, itemQty){
+  itemSelected2(itemId, itemQty){
     console.log(itemId, itemQty)
     this.Jarwis.voucherAllStock(itemId, '', this.patientAppointment).subscribe(  
-      data => this.handleResponse(data),
-      error => this.handleError(error),  
+      data=>{
+        this.remainInStockResponse = data;
+        this.remainInStock = this.remainInStockResponse.item_remains;
+      }
     );
+  }
+
+  itemSelected(id){
+    console.log(id)
   }
 
   saveTovoucher(){
@@ -581,7 +610,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   }
 
   onId(id:any){
-    this.encId=id;
+    this.encId=id
     this.open=true;
     // this.viewEncounter= this.encounters[id];
 
