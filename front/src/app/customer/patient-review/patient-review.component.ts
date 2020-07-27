@@ -813,7 +813,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
    this.suggestions = suggestions;
    console.log(this.suggestions)
     console.log(this.table_id)
-   console.log(this.table_id)
+   console.log(data)
    this.closeModal = false;
  }
  onSubmittable(form:NgForm){
@@ -876,7 +876,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.Jarwis.fetchnuresetables({appointment_id:this.appId,id:id}).subscribe(
       data=>{
         let res:any =data
-        this.init_dat = res.form
+        if(res.nurseprocecess==""){
+          res.nurseprocecess = res.form
+        }
         if(res.nurseprocecess != ''){
         for (let index = 0; index < res.nurseprocecess.length; index++) {
           let dt:any = res.nurseprocecess[index];
