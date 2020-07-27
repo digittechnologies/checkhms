@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ChatService } from 'src/app/service/chat.service';
 import { JarwisService } from '../service/jarwis.service';
 import { MatSnackBar } from '@angular/material';
-import { NgxNotificationService } from 'ngx-notification';
+// import { NgxNotificationService } from 'ngx-notification';
 declare var $:any;
 @Component({
   selector: 'app-chat',
@@ -41,7 +41,9 @@ export class ChatComponent implements OnInit,OnDestroy {
   group_unread:any;
   group_messages:any;
   groupmembers: number;
-  constructor( public chat:ChatService,public Jarwis:JarwisService,public snackBar:MatSnackBar,private ngxNotificationService: NgxNotificationService) {
+  constructor( public chat:ChatService,public Jarwis:JarwisService,public snackBar:MatSnackBar,
+    // private ngxNotificationService: NgxNotificationService
+    ) {
     this.chat.users().subscribe(
       data=>{
         this.chat_users=data;
@@ -64,11 +66,11 @@ export class ChatComponent implements OnInit,OnDestroy {
         console.log(data)
         if(data.sender===this.receiver_id){
           this.receiveMessage.push(data)
-          this.ngxNotificationService.sendMessage(`You have new message from ${data.firstname}`, 'dark', 'bottom-right');
+          // this.ngxNotificationService.sendMessage(`You have new message from ${data.firstname}`, 'dark', 'bottom-right');
           this.chat.savePrivateChat({sender:data.sender,message:data.message,receiver:data.receiver,status:"read"})
         }
         else{
-          this.ngxNotificationService.sendMessage(`You have new message from ${data.firstname}`, 'dark', 'bottom-right');
+          // this.ngxNotificationService.sendMessage(`You have new message from ${data.firstname}`, 'dark', 'bottom-right');
           this.chat.savePrivateChat({sender:data.sender,message:data.message,receiver:data.receiver,status:"unread"})
            this.private_unread+=1
         }
@@ -99,10 +101,10 @@ export class ChatComponent implements OnInit,OnDestroy {
         if (data.group_id === this.group_id) {
           this. receiveGroupMessage.push(data)
           this.chat.saveGroupChat({sender:data.sender,message:data.message,receiver:data.group_id,group_id:data.group_id,status:"read"})
-          this.ngxNotificationService.sendMessage(`You have new message from ${data.group_name}`, 'dark', 'bottom-right');
+          // this.ngxNotificationService.sendMessage(`You have new message from ${data.group_name}`, 'dark', 'bottom-right');
         }
         else{
-          this.ngxNotificationService.sendMessage(`You have new message from ${data.group_name}`, 'dark', 'bottom-right');
+          // this.ngxNotificationService.sendMessage(`You have new message from ${data.group_name}`, 'dark', 'bottom-right');
           this.chat.saveGroupChat({sender:data.sender,message:data.message,receiver:data.receiver,group_id:data.group_id,status:"unread"})
         this.group_unread+=1;
         }
@@ -164,6 +166,34 @@ export class ChatComponent implements OnInit,OnDestroy {
         // console.log(this.user.aut)
       }
     )
+    this.chat.online().subscribe(
+      data=>{
+        console.log(data)
+      let index =  this.chat_users.find(e=>{
+          return e.id === data.id;
+        })
+        if(index){
+          index.online_status = data.status
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+    this.chat.offline().subscribe(
+      data=>{
+        console.log(data)
+      let index =  this.chat_users.find(e=>{
+          return e.id === data.id;
+        })
+        if(index){
+          index.online_status = data.status
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
   ngOnDestroy(){
 
@@ -183,18 +213,7 @@ export class ChatComponent implements OnInit,OnDestroy {
   disconnect(){
     return this.sender_id;
   }
-  chat_one(id){
-    this.chat.privatechat({sender:this.sender_id,receiver:id})
-    this.chat.displayMessage({sender:this.sender_id,receiver:id})
-    this.receiver_id = id;
-    this.chats=true;
-    this.lists=false;
-    this.group_chats=false;
-    this.groups=false;
-    this.group_setting=false;
-    this.group_id = 0;
-    this.chat.readMessage({sender:this.sender_id,receiver:id})
-  }
+
   group_chat(e,admin){
     this.chat.joinGroup(e)
     this.chat.readGroupMessage({group_id:e,user_id:this.sender_id})
@@ -240,7 +259,7 @@ export class ChatComponent implements OnInit,OnDestroy {
   }
 send(){
   if (this.message !='') {
-    this.chat.privatechat({sender:this.sender_id,receiver:this.receiver_id})
+    // this.chat.privatechat({sender:this.sender_id,receiver:this.receiver_id})
     this.chat.sendMessage({sender:this.sender_id,message:this.message,receiver:this.receiver_id})
     this.message=''
   }

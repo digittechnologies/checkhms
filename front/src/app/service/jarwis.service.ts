@@ -169,6 +169,30 @@ public  permite ="";
     return this.http.post(`${this.baseUrl}/deleteType`, data)
   }
 
+  getEncounterType() {
+    return this.http.get(`${this.baseUrl}/getEncounterType`,)
+  } 
+  
+  getEncounter(id: any) {
+    return this.http.get(`${this.baseUrl}/getEncounter/${id}`,)
+  } 
+
+  getEncounterDetails(id: any) {
+    return this.http.get(`${this.baseUrl}/getEncounterDetails/${id}`,)
+  }
+
+  submitEncounter(data) {
+    return this.http.post(`${this.baseUrl}/submitEncounter`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  submitPreamble(data) {
+    return this.http.post(`${this.baseUrl}/submitPreamble`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   // Branch
   displayStaffBranch(id: any) {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
@@ -850,8 +874,14 @@ deleteAppointment(data) {
   displayInstock(id:string) {
     return this.http.get<any>(`${this.baseUrl}/inStock/${id}`)
   }
-  voucherAllStock(id:string, data) {
-    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}`, data,{headers:{
+  voucherAllStock(id:string, data, appointment: any) {
+    return this.http.post<any>(`${this.baseUrl}/voucherAllStock/${id}/${appointment}`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  displayEncounterPharm(appointment: any, pharm:any ) {
+    return this.http.post<any>(`${this.baseUrl}/displayEncounterPharm/${appointment}/${pharm}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -994,6 +1024,12 @@ deleteAppointment(data) {
     }})
   }
 
+  payService(data) {
+    return this.http.post(`${this.baseUrl}/payService`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   terminateAppointment(id: any, data) {
     return this.http.post(`${this.baseUrl}/terminateAppointment/${id}`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -1058,37 +1094,6 @@ displayPharStaffDash(data) {
   }})
 }
 
-
-
-  getcontent(id:string) {
-    return this.http.get(`${this.baseUrl}/getcontent/${id}`)
-  }
-  getcontentonly(id:string) {
-    return this.http.get(`${this.baseUrl}/getcontentonly/${id}`)
-  }
-  getalltitle() {
-    return this.http.get(`${this.baseUrl}/getalltitle`,)
-  }
-  getfootertitle() {
-    return this.http.get(`${this.baseUrl}/getfootertitle`,)
-  }
-  gettitles(id:string) {
-    return this.http.get(`${this.baseUrl}/gettitles/${id}`)
-  }
-  getUtitles() {
-    return this.http.get(`${this.baseUrl}/getUtitles`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
-  getUcontent() {
-    return this.http.get(`${this.baseUrl}/getUcontent`,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
-//  search(searchTerm:string) {
-//     return this.http.get(`${this.baseUrl}/getalltitle/${searchTerm}`)
-//   }
-
 comment(data) {
   return this.http.post(`${this.baseUrl}/comment`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -1124,7 +1129,7 @@ cancel_pharm_log(data){
   return this.http.post<any>(`${this.baseUrl}/relocateapp`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
-//Process settings
+//PROCESS START
 displayProcessProperties() {
   return this.http.get(`${this.baseUrl}/displayProcessProperties`)
 }
@@ -1148,6 +1153,14 @@ formvalue(id) {
 }
 fetchForm() {
   return this.http.get<any>(`${this.baseUrl}/fetchForm`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
+}
+
+NursingAssessment(data) {
+  return this.http.post<any>(`${this.baseUrl}/NursingAssessment`,data)
+}
+vitasigns(data) {
+  return this.http.post<any>(`${this.baseUrl}/vitasigns`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
 
@@ -1202,12 +1215,35 @@ updateProcessValue(data) {
   return this.http.post(`${this.baseUrl}/updateProcessValue`, data)
 }
 
+deleteProp(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deleteProp/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
+deleteAttr(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deleteAttr/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
+deletePropVal(id:string) {
+  return this.http.post<any>(`${this.baseUrl}/deletePropVal/${id}`,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+} 
+
 submitProcessVals(data) {
-  console.log(data)
   return this.http.post(`${this.baseUrl}/submitProcessVals`, data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+onSubmitTable(data){
+  return this.http.post(`${this.baseUrl}/onSubmitTable`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+}
+// PROCESS END
 displaySchemes(){
   return this.http.get<any>(`${this.baseUrl}/displaySchemes`,{headers:{
     Authorization:`Bearer ${localStorage.token}`
@@ -1245,4 +1281,35 @@ ondeleteHmo(id) {
     Authorization:`Bearer ${localStorage.token}`
   }})
 }
+
+
+
+  getcontent(id:string) {
+    return this.http.get(`${this.baseUrl}/getcontent/${id}`)
+  }
+  getcontentonly(id:string) {
+    return this.http.get(`${this.baseUrl}/getcontentonly/${id}`)
+  }
+  getalltitle() {
+    return this.http.get(`${this.baseUrl}/getalltitle`,)
+  }
+  getfootertitle() {
+    return this.http.get(`${this.baseUrl}/getfootertitle`,)
+  }
+  gettitles(id:string) {
+    return this.http.get(`${this.baseUrl}/gettitles/${id}`)
+  }
+  getUtitles() {
+    return this.http.get(`${this.baseUrl}/getUtitles`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  getUcontent() {
+    return this.http.get(`${this.baseUrl}/getUcontent`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+//  search(searchTerm:string) {
+//     return this.http.get(`${this.baseUrl}/getalltitle/${searchTerm}`)
+//   }
 }

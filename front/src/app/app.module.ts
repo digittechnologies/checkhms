@@ -21,7 +21,7 @@ import { ProfileComponent } from './admin/profile/profile.component';
 import { DetailsComponent } from './user/details/details.component';
 import { PostComponent } from './user/post/post.component';
 import { MypostComponent } from './user/mypost/mypost.component';
-import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule,} from '@angular/material';
+import {MatSelectModule,MatInputModule, MatListModule, MatSnackBarModule, MAT_CHIPS_DEFAULT_OPTIONS, MatChip, MatChipsModule,} from '@angular/material';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'​;
@@ -132,10 +132,9 @@ import { PatientHistoryComponent } from './customer/patient-history/patient-hist
 import { PatientReviewComponent } from './customer/patient-review/patient-review.component';
 import { PatientProcessComponent } from './customer/patient-process/patient-process.component';
 import { ProccessSettingsComponent } from './proccess-settings/proccess-settings.component';
-import { ProccessValueComponent } from './proccess-value/proccess-value.component';
 import { ChatService } from './service/chat.service';
 import { ChatComponent } from './chat/chat.component';
-import { NgxNotificationComponent } from 'ngx-notification';
+// import { NgxNotificationComponent } from 'ngx-notification';
 import { CenterTypeComponent } from './center-type/center-type.component';
 import { TeamComponent } from './admin/team/team.component';
 import { RankComponent } from './admin/rank/rank.component';
@@ -143,6 +142,7 @@ import { BookedAppointmentComponent } from './customer/booked-appointment/booked
 import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
 import { InsuranceComponent } from './customer/insurance/insurance.component';
 import { TeamReviewComponent } from './admin/team-review/team-review.component';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -325,7 +325,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     AppointmentTypeComponent,
     NavLazyLoadComponent,
     ChatComponent,
-    NgxNotificationComponent,
+    // NgxNotificationComponent,
   
   
     PatientHistoryComponent,
@@ -335,9 +335,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     PatientProcessComponent,
   
     ProccessSettingsComponent,
-  
-    ProccessValueComponent,
-  
+    
     CenterTypeComponent,
   
     TeamComponent,
@@ -365,6 +363,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     MatInputModule,
     MatTabsModule,
     MatListModule,
+    MatChipsModule,
     MatSnackBarModule,
     NgxPrintModule,
     NgxPaginationModule,
@@ -394,7 +393,13 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     AdminRoleGuardService,
     StaffRoleGuardService,
     UserRoleGuardService,
-    ChatService
+    ChatService,
+    {
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        separatorKeyCodes: [ENTER, COMMA]
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

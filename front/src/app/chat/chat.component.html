@@ -1,8 +1,7 @@
 <div class="body" >
   <div class="container-fluid ">
-      <button class="btn text-light" [class.backgorund_color]="lists=='true'" (click)="lis()">List<span *ngIf="private_unread > 0" class="badge bg-pink ml-2">{{private_unread}}</span></button>
-      <button class="btn text-light ml-3"  [class.backgorund_color]="groups=='true'" (click)="grou()">Groups<span *ngIf="group_unread > 0" class="badge bg-pink ml-2">{{group_unread}}</span></button>
-      <button class="btn text-light ml-3" (click)="chat_one()">Chat</button>
+      <button class="btn text-light" (click)="lis()">List<span *ngIf="private_unread >=1" class="badge bg-pink ml-2">{{private_unread}}</span></button>
+      <button class="btn text-light ml-3" (click)="grou()">Groups<span *ngIf="group_unread >= 1" class="badge bg-pink ml-2">{{group_unread}}</span></button>
   </div>
   <hr>
 <div class="container-fluid">

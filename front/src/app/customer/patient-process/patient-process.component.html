@@ -25,16 +25,16 @@
                 <div class="profile-header d-flex justify-content-between justify-content-center">
                     <div class="d-flex">
                         <div class="mr-3">
-                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{pat[0].patient_image}}" class="rounded" alt="Patient_Photo">
+                            <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{patient_image}}" class="rounded" alt="Patient_Photo">
                         </div>
                        <div class="details">
-                              <h4 class="mb-0"><b>Name : </b>{{pat[0].name + " " + pat[0].othername}}</h4>
-                              <span class="text-light"><b>Gender : </b>{{pat[0].gender}}</span>
-                              <div><b>Age: </b>{{pat[0].age}}</div>
+                              <h4 class="mb-0"><b>Name : </b>{{name + " " + othername}}</h4>
+                              <span class="text-light"><b>Gender : </b>{{gender}}</span>
+                              <div><b>Age: </b>{{age}}</div>
                         </div>                                 
                     </div>                  
                      <div class="col text-right">
-                      <h4 class="mb-0">Hospital # : HP{{pat[0].card_number}}</h4>
+                      <h4 class="mb-0">Hospital # : HP{{card_number}}</h4>
                         <div class="h m-0">Appointment #: AP{{appId}}</div>
                         <div class="h m-0">Appointment Status: <span class="badge badge-warning">IPD</span></div>
                       </div>
@@ -94,7 +94,7 @@
                
                   <ul class="nav nav-tabs3 mt-2">
                     <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Activity">Activity</a></li>
-                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Feed">Feeds</a></li>                      
+                      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Feed" (click)="fetchForms()">Feeds</a></li>                      
                       <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Friends">Friends</a></li> -->
                   </ul>
               </div>                    
@@ -242,7 +242,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -255,64 +255,91 @@
                                           </li>
                                       </ul>
                                   </div>
-                                  <div class="body">
-                                    <form id="advanced-form" data-parsley-validate novalidate>
-                                      <div class="form-group">
-                                          <label for="text-input1">Min. 8 Characters</label>
-                                          <input type="text" id="text-input1" class="form-control" required data-parsley-minlength="8">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="text-input2">Between 5-10 Characters</label>
-                                          <input type="text" id="text-input2" class="form-control" required data-parsley-length="[5,10]">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="text-input3">Min. Number ( >= 5 )</label>
-                                          <input type="text" id="text-input3" class="form-control" required data-parsley-min="5">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="text-input4">Between 20-30</label>
-                                          <input type="text" id="text-input4" class="form-control" required data-parsley-range="[20,30]">
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="row clearfix">
-                                              <div class="col-lg-6 col-md-12">
-                                                  <label>Select Min. 2 Options</label>
-                                                  <br />
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox2" required data-parsley-mincheck="2" data-parsley-errors-container="#error-checkbox2">
-                                                      <span>Option 1</span>
-                                                  </label>
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox2">
-                                                      <span>Option 2</span>
-                                                  </label>
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox2">
-                                                      <span>Option 3</span>
-                                                  </label>
-                                                  <p id="error-checkbox2"></p>
+                                  <div class="body row">
+                                       
+                                    <form class="form-auth-small m-t-20 col-12" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm">              
+                                        <div class="row clearfix forms ">
+                                            <!-- <div class="col-md-6"> -->
+                                              <div class="form-group col-12">
+                                                <!-- <div class="input-group mb-3" *ngFor="let fr of form_res | paginate: { itemsPerPage:5, currentPage: p };let r = index"> -->
+                                                <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
+                                                     <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
+                                                                <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                                                <input matInput type="number" class="example-right-align form-control">
+                                                                <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
+                                                        </mat-form-field>
+                                                        <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
+                                                                <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                                                <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
+                                                                <mat-autocomplete #auto="matAutocomplete" >
+                                                                <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
+                                                                </mat-autocomplete>
+                                                        </mat-form-field> 
+                                                        <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                                            <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                                            <textarea matInput class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                                        </mat-form-field>
+                                          
+                                                    <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text">{{fr.value}}</label>
+                                                        </div> 
+                                                      <div  *ngIf="fr.value_type == 'radio'" class="ml-3">
+                                                        <ng-container  *ngFor="let rad of fr.value_options">
+                                                            <label class="fancy-radio custom-color-green"><input type="radio" class="fancy-radio custom-color-green"   ngModel name="{{fr.value}}"  value="{{rad}}" ><span><i></i><strong>{{rad}}</strong></span></label>
+                                                       </ng-container>
+                                                      </div>
+                                                      <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
+                                                        <ng-container  *ngFor="let rad of fr.value_options">
+                                                            <label class="fancy-checkbox mt-3">
+                                                                <!-- <input class="checkbox-tick" type="hidden" ngModel name="{{rad}}"  value="{{rad}}"> -->
+                                                               <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name=" {{rad}}"  value="{{rad}}">
+                                                                <span></span>
+                                                            </label>
+                                                       </ng-container>
+                                                      </div>
+                                                      <ng-container *ngFor="let ops of fr.options">
+                                                        <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                                            <mat-label style="color:grey">{{ops}}</mat-label>
+                                                            <textarea matInput class="form-control" ngModel name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                                        </mat-form-field>
+                                                      </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="fr.value_type == 'table'">
+                                                            <div class="row clearfix">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card">
+                                                                        <div class="body">
+                                                                            <table id="mainTable" class="table table-hover table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th *ngFor="let ops of fr.options">{{ops}}</th>
+                                                                                        <input type="button" value="Add" data-toggle="modal" data-target="#Table" (click)="tableDetails(fr.options,fr.id,fr.process_attribute_id,fr.suggestion)" class="btn btn-primary">
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <ng-container *ngIf="collection.length>=1">
+                                                                                        <tr *ngFor="let tbinfo of collection">
+                                                                                            <td *ngFor="let tb of tbinfo">{{tb[1]}}</td>
+                                                                                        </tr>
+                                                                                    </ng-container>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                      </ng-container>
+                                            </div>
                                               </div>
-                                              <div class="col-lg-6 col-md-12">
-                                                  <label>Select Between 1-2 Options</label>
-                                                  <br />
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox3" required data-parsley-check="[1,2]" data-parsley-errors-container="#error-checkbox3">
-                                                      <span>Option 1</span>
-                                                  </label>
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox3">
-                                                      <span>Option 2</span>
-                                                  </label>
-                                                  <label class="control-inline fancy-checkbox">
-                                                      <input type="checkbox" name="checkbox3">
-                                                      <span>Option 3</span>
-                                                  </label>
-                                                  <p id="error-checkbox3"></p>
-                                              </div>
-                                          </div>                                    
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Validate</button>
-                                  </form>                                   
+                                        </div>
+                                    <div class="row">
+                                        <div class="float-right">
+                                            <button type="submit" class="btn btn-round btn-primary">Submit<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                                            <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    </form>                               
                                   </div>
                               </div>
                           </div>                      
@@ -323,7 +350,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -412,7 +439,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -493,7 +520,7 @@
                           <div class="col-sm-12">
                               <div class="card" id="Gallery">
                                   <div class="header">
-                                      <h2>Gallery</h2>
+                                      <h2>{{formTittle}}</h2>
                                       <ul class="header-dropdown dropdown">                                
                                           <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                           <li class="dropdown">
@@ -577,19 +604,19 @@
                           </div>                      
                     </div>                      
                   </div>
-                  </div>
-                          
-                      <nav aria-label="Page navigation">
+                </div>
+                      <!-- <nav aria-label="Page navigation">
                           <ul class="pagination">
-                              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+                              
+                              <li class="page-item"><pagination-controls style="background: blue;" (pageChange)="p = $event" class="my-pagination"></pagination-controls></li>
                               <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
                               <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
                               <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
                               <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
                           </ul>
-                      </nav>
+                      </nav> -->
                   </div>
-                  <div class="col-xl-4 col-lg-5 col-md-12">
+                  <div class="col-xl-4 col-lg-5 col-md-12 process">
                    
                     <!-- <div class="card"> -->
                        <div class="card" style="margin-top: 53px;">
@@ -639,8 +666,11 @@
                       <div class="card">
                           <div class="body">
                               <!-- <a href="#"><img class="img-fluid img-thumbnail" src="../assets/images/preview.png" alt="..."></a> -->
-                              <h6 class="mt-4">Examination Note</h6>                            
-                              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                              <h6 class="mt-4">Examination Note</h6>     
+                              <div  class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let form of testingform">
+                                <button class="modal-title  h4 btn"  id="myLargeModalLabel" style="cursor: pointer;color:#17ACBF; background-color: inherit;" (click)="formValue(form.id,form.attribute)">{{form.attribute}}</button>
+                              </div>                   
+                              <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Preable</a>
                                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">SOAP</a>
                                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Differental Diagnosis</a>
@@ -664,6 +694,7 @@
                           <h6 class="mt-4">Other</h6>                            
                          
                             <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Order Next Appointment</a>         
+                         -->
                         </div>                             
                           </div>
                      
@@ -751,6 +782,7 @@
                   </div>
               </div>  
               </div>
+
               
                 <div class="modal fade" id="Addapp" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -804,6 +836,81 @@
                 </div>
                 </div>
                 </div>
+
+
+
+                
+              
+                <div class="modal fade" id="Table" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
+                        <div class="modal-body">        
+                            <div class="row clearfix">
+                                <div class="col-md-12" *ngFor="let tb of table_data">
+                                    <!-- <mat-form-field class="example-chip-list">
+                                        <mat-chip-list #chipList aria-label="Fruit selection">
+                                          <mat-chip
+                                            *ngFor="let fruit of fruits"
+                                            [selectable]="selectable"
+                                            [removable]="removable"
+                                            (removed)="remove(fruit)">
+                                            {{fruit}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                          </mat-chip>
+                                          <input 
+                                          (click)="addChips()"
+                                            placeholder="{{tb}}"
+                                            #fruitInput
+                                            [formControl]="fruitCtrl"
+                                            [matAutocomplete]="auto"
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="add($event)">
+                                        </mat-chip-list>
+                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                            {{fruit}}
+                                          </mat-option>
+                                        </mat-autocomplete>
+                                      </mat-form-field> -->
+                                        <mat-form-field class="example-full-width col-12" appearance="fill">
+                                            <mat-label style="color:grey">{{tb}}</mat-label>
+                                            <textarea matInput class="form-control" ngModel name="{{tb}}" [matAutocomplete]="auto"></textarea>
+                                            <mat-autocomplete #auto="matAutocomplete" >
+                                                <mat-option *ngFor="let street of suggestions" [value]="street">
+                                                 {{street}} 
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                     <!-- <div class="input-group mb-3 row">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text">{{tb}}</label>
+                                        </div> 
+                                        <textarea  class="form-control col-12" ngModel name="{{tb}}" id="" rows="4"  [matAutocomplete]="auto"></textarea>
+                                        <mat-autocomplete #auto="matAutocomplete" >
+                                          <mat-option *ngFor="let street of suggestions" [value]="street">
+                                           {{street}} 
+                                          </mat-option>
+                                      </mat-autocomplete>
+                                    </div> -->
+                                </div>           
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
             
           </div>         
       </div>

@@ -30,6 +30,7 @@ use App\Hospital_charges;
 use App\Centers;
 use App\Service_charges;
 use App\Hmo;
+use App\price_list;
 
 // Today's date working with displayItem,
 
@@ -82,7 +83,7 @@ class DisplayController extends Controller
     public function fetchteam()
     {
         return response()->json(
-            DB::table('team_tb')->select('team_name','id',)->where('id','!=',0)->get()
+            DB::table('team_tb')->select('team_name','id')->where('id','!=',0)->get()
         ); 
     }
     public function mydetails()
@@ -816,8 +817,7 @@ class DisplayController extends Controller
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
-                    ->where('appointments.status','!=','close')
-                    ->where('appointments.pharm_status', '!=', 'close')
+                    ->where('appointments.status','!=','close')                   
                     ->get(),
                     ]);            
             }
@@ -1061,6 +1061,28 @@ class DisplayController extends Controller
 
     // Prescriptions  
 
+    public function getEncounterType()
+    {
+        return DB::table("encounter_tittle")->get();
+    }
+
+    public function getEncounter($id)
+    {
+        return DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name') 
+                                        ->where('encounter_tb.appointment_id','=', $id)                          
+                                        ->get();
+    }
+
+    public function getEncounterDetails($id)
+    {
+        return response()->json([ 'view'=> DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name')   
+                                        ->where('encounter_tb.id','=', $id)            
+                                        ->first()
+        ]);
+    }
+
     public function displayPrescription()
     {
         return DB::table("doctor_prescriptions")->get();
@@ -1189,9 +1211,9 @@ class DisplayController extends Controller
             ->first();
      }
 
-    public function displayPharmPrescription($id)
+     public function displayEncounterPharm($appointment, $pharm)
     {
-        $bId= Auth()->user()->branch_id;
+        // $bId= Auth()->user()->branch_id;
         return response()->json([
             "pres" => Doctor_prescriptions::orderBy('id') 
                     ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
@@ -1200,34 +1222,9 @@ class DisplayController extends Controller
                     ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                     ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                     ->where('doctor_prescriptions.status', '=', 'save')
-                    ->where('doctor_prescriptions.appointment_id', '=', $id)
-                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->where('doctor_prescriptions.appointment_id', '=', $appointment)
+                    ->where('doctor_prescriptions.encounter_id', '=', $pharm)                  
                     ->get(),
-            "tquant" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
-                        ->sum('doctor_prescriptions.quantity'),
-            // "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
-            //             // ->where('doctor_prescriptions.status', '!=', 'close')
-            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
-            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
-            //             ->sum('doctor_prescriptions.refill'),
-            // "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
-            //             // ->where('doctor_prescriptions.status', '!=', 'close')
-            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
-            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
-            //             ->sum('doctor_prescriptions.remain'),
-            "eachcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                         ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
-                        ->sum('doctor_prescriptions.amount'),
-            "tcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
-                        ->where('doctor_prescriptions.status', '=', 'save')
-                        ->where('doctor_prescriptions.appointment_id', '=', $id)
-                        ->where('doctor_prescriptions.branch_id', '=', $bId)
-                        ->sum('doctor_prescriptions.amount_paid'),
         ]);
 
     }
@@ -1254,33 +1251,77 @@ class DisplayController extends Controller
         return DB::table("price_list_column")->get();
     }
 
+    public function displayPharmPrescription($id)
+    {
+        $bId= Auth()->user()->branch_id;
+        return response()->json([
+            "pres" => Doctor_prescriptions::orderBy('id') 
+                    ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                    ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                    // ->join ($branch, $branch.'.item_detail_id','=','doctor_prescriptions.item_id')
+                    ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                    ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.appointment_id', '=', $id)
+                    // ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    ->get(),
+            "tquant" => Doctor_prescriptions::select('doctor_prescriptions.*')
+                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.appointment_id', '=', $id)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        ->sum('doctor_prescriptions.quantity'),
+            // "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
+            //             // ->where('doctor_prescriptions.status', '!=', 'close')
+            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //             ->sum('doctor_prescriptions.refill'),
+            // "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
+            //             // ->where('doctor_prescriptions.status', '!=', 'close')
+            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
+            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
+            //             ->sum('doctor_prescriptions.remain'),
+            "eachcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
+                         ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.appointment_id', '=', $id)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        ->sum('doctor_prescriptions.amount'),
+            "tcost" => Doctor_prescriptions::select('doctor_prescriptions.*')
+                        ->where('doctor_prescriptions.status', '=', 'save')
+                        ->where('doctor_prescriptions.appointment_id', '=', $id)
+                        // ->where('doctor_prescriptions.branch_id', '=', $bId)
+                        ->sum('doctor_prescriptions.amount_paid'),
+        ]);
+
+    }
+
     public function displayPharmInvoice($Vid, $vid, $moduleid)
     {
         $voucher_id= Vouchers::find($Vid);
         $id= $voucher_id->appointment_id;
         $customeId= Appointments::orderBy('id')->where('id','=',$id)->select('appointments.*')->first(); 
-        $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
         $bId= Auth()->user()->branch_id;
 
         if($customeId->insurance_status == 'enabled'){
               
         }
-    
-        $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
-
-        $hmoNo= Hmo::find($customeId->hmo_id);
-
-        if ($chargeSum->care_type == 'primary') {
-            $discout_percent= $hmoNo->discount_1;
-        }
-        if ($chargeSum->care_type == 'secondary') {
-            $discout_percent= $hmoNo->discount_2;
-        }
-        if ($chargeSum->care_type == 'others') {
-            $discout_percent= $hmoNo->discount_3;
-        }
 
         if($moduleid == 2){
+            $serviceCharg= Service_charges::orderBy('id')->where('service_charges.appointment_id','=',$id)->where('service_charges.voucher_id','=',$voucher_id->id)->select('service_charges.*')->first();                                                                                                                         
+
+            $chargeSum= Hospital_charges::find($serviceCharg->service_charge_id);   
+
+            $hmoNo= Hmo::find($customeId->hmo_id);
+    
+            if ($chargeSum->care_type == 'primary') {
+                $discout_percent= $hmoNo->discount_1;
+            }
+            if ($chargeSum->care_type == 'secondary') {
+                $discout_percent= $hmoNo->discount_2;
+            }
+            if ($chargeSum->care_type == 'others') {
+                $discout_percent= $hmoNo->discount_3;
+            }
+
             $counting = Service_charges::orderBy('id')->where('service_charges.appointment_id', '=', $id)->count();
             return response()->json([
                 "pres" => Service_charges::orderBy('id')
@@ -1289,7 +1330,7 @@ class DisplayController extends Controller
                 ->join('hospital_charges', 'service_charges.service_charge_id', '=', 'hospital_charges.id')
                 ->join('scheme_hmo', 'appointments.hmo_id', '=', 'scheme_hmo.id')
                 ->join('price_list_column', 'scheme_hmo.price_list_column', '=', 'price_list_column.id')
-                ->select('service_charges.*', 'departments.name as department', 'hospital_charges.care_type', 'price_list_column.column_name as colum', 'hospital_charges.selling_price', 'hospital_charges.price_2', 'hospital_charges.price_3', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
+                ->select('service_charges.*', 'departments.name as department', 'appointments.insurance_status', 'hospital_charges.care_type', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
                 ->where('service_charges.appointment_id', '=', $id)
                 ->where('service_charges.voucher_id', '=', $Vid)
                 ->get(), 
@@ -1300,6 +1341,7 @@ class DisplayController extends Controller
                 ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
                 ->first(),
                 "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
             ]);
         }
 
@@ -1586,8 +1628,14 @@ class DisplayController extends Controller
         ->get();
     }
 
-    public function voucherAllStock($item)
+    public function voucherAllStock($item, $appoint)
     {
+        $item_remain = array();
+        $remain_branch = array();
+        $hmoNo= Appointments::find($appoint);
+        $hmoNo= Hmo::find($hmoNo->hmo_id);
+        $price_column= price_list::find($hmoNo->price_list_column);
+
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
 
@@ -1605,9 +1653,27 @@ class DisplayController extends Controller
         ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
         ->join ('shelves','shelves.id','=','item_details.shelve_id')
         ->where(['item_details.id' => $item, 'c_date' => $cDate])
-        ->get();
-        return $itemr;
+        ->first();
+        $r = $price_column->column_name;
+        $centers = Branches::where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get();
+        foreach($centers as $row){
+            $getitem = DB::table('item_details')->select('item_details.*', $row->br_name.'.total_remain')
+            ->join ($row->br_name, $row->br_name.'.item_detail_id','=','item_details.id')
+            ->where(['item_details.id' => $item, 'c_date' => $cDate])->first();
+            array_push($item_remain, (int)$getitem->total_remain);
+            array_push($remain_branch, $row->name);
+
+        };
+        
+        return response()->json([
+            'item' => $itemr,
+            'price' => [$r, $itemr->$r],
+            'item_remains' => $item_remain,
+            'totalremain' => array_sum($item_remain),
+            'branches' => $remain_branch
+        ]);
     }
+
     public function onEditBranch(Request $request){
          $id=$request->id;
         return
@@ -2196,15 +2262,9 @@ class DisplayController extends Controller
             // ->join('process_module_tb', 'process_tb.process_module_id', '=', 'process_module_tb.id')
             ->join('users', 'process_tb.created_by', '=', 'users.id')
             ->select('process_tb.*', 'positions.position_name as dept_name', 'users.firstname', 'users.lastname')
+            ->where('process_tb.status','=','active')
             ->get()
         ]);
-    }
-
-    public function displayProcessModules()
-    {
-        return DB::table('positions')
-        ->select('positions.*')
-        ->get();
     }
 
     public function displayProcessAttributes()
@@ -2212,6 +2272,7 @@ class DisplayController extends Controller
         return DB::table('process_attribute_tb')->orderBy('id', 'desc')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
         ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
         ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+        ->where('process_attribute_tb.status','=','active')
         ->get();
     }
 
@@ -2220,6 +2281,8 @@ class DisplayController extends Controller
         return DB::table('process_value_tb')->orderBy('id', 'desc')->join('users', 'process_value_tb.created_by', '=', 'users.id')
         ->join('process_attribute_tb', 'process_value_tb.process_attribute_id', '=', 'process_attribute_tb.id')
         ->select('process_value_tb.*', 'process_attribute_tb.attribute', 'users.firstname', 'users.lastname')
+        ->where('process_value_tb.status','=','active')
+
         ->get();
     }
 
@@ -2260,20 +2323,21 @@ class DisplayController extends Controller
         ->where('process_value_tb.id',$id)
         ->get();
     }
+   
     public function fetchForm()
     {
         $user = Auth()->user();
-        // $id = $user->posi;
         return  response()->json([
            "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
             ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
             ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
             ->where('process_tb.position_id',9)
-            ->get(),
-            "datas" => DB::table("form_process")->get()
+            ->where('process_attribute_tb.attribute','!=','VITASIGNS')
+            ->get()
 
         ]);
     }
+  
     public function formvalue($id)
     {
         
@@ -2288,4 +2352,46 @@ class DisplayController extends Controller
         // ->where('process_tb.department_id',$id)
         // ->get();
     }
+    public function vitasigns(Request $request)
+    {
+        // return $request->appointment_id;
+        $user = Auth()->user();
+        return response()->json([
+            "vitasigns" => DB::table("form_process")->orderBy('id', 'desc')->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+            ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+            ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+            ->where('form_process.position_id',4)
+            ->where('form_process.appointment_id',$request->appointment_id)
+            ->where('process_attribute_tb.attribute','=','VITASIGNS')
+            ->get()
+            ]);
+    }
+    public function NursingAssessment(Request $request){
+    return response()->json([
+        "datas" => DB::table("form_process")->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+        ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+        ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+        ->where('form_process.position_id',4)
+        ->where('form_process.appointment_id',$request->appointment_id)
+        ->where('process_attribute_tb.attribute','!=','VITASIGNS')
+        ->where('process_attribute_tb.attribute','!=','NURSING ASSESSMENT - CONTINUATION SHEET')
+        ->where('process_attribute_tb.attribute','!=','INTAKE AND OUTPUT CHART')
+        ->where('process_attribute_tb.attribute','!=','NURSING CARE PLAN')
+        ->where('process_attribute_tb.attribute','!=','NURSES RECORD SHEET')
+        ->get(),
+        "form" => DB::table('process_attribute_tb')->join('process_tb', 'process_attribute_tb.process_id', '=', 'process_tb.id')
+            ->join('users', 'process_attribute_tb.created_by', '=', 'users.id')
+            ->select('process_attribute_tb.*', 'process_tb.property', 'users.firstname', 'users.lastname')
+            ->where('process_tb.position_id',9)
+            ->where('process_attribute_tb.attribute','!=','VITASIGNS')
+            ->where('process_attribute_tb.attribute','!=','NURSING ASSESSMENT - CONTINUATION SHEET')
+            ->where('process_attribute_tb.attribute','!=','INTAKE AND OUTPUT CHART')
+            ->where('process_attribute_tb.attribute','!=','NURSING CARE PLAN')
+            ->where('process_attribute_tb.attribute','!=','NURSES RECORD SHEET')
+            ->get()
+        ]
+        );
+    }
+
+  
 }

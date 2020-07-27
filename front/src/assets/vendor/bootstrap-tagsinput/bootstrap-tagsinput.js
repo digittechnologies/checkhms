@@ -1,5 +1,4 @@
-function mutil_list(){
-
+function mutil_list(e){
 (function ($) {
   "use strict";
 
@@ -575,11 +574,16 @@ function mutil_list(){
       // Return the results from the invoked function calls
       return results.length > 1 ? results : results[0];
     } else {
-      console.log(results)
+
+      e=results[0].itemsArray;
+      returnsData(results[0].itemsArray)
       return results;
     }
   };
 
+  function returnsData(param){
+    localStorage.setItem('returnData', param)
+  }
   $.fn.tagsinput.Constructor = TagsInput;
 
   /**

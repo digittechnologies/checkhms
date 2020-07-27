@@ -136,7 +136,7 @@
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Basic">Appointments</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Order Service</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Book">Book Service</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Activat Discount</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#insurance">Activatepa Discount</a></li>
                                     <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Patient Profile</a></li>
                                     <li *ngIf="rolId !>'3003' || roId!='2001'" class="nav-item"><a class="nav-link" data-toggle="tab" href="#set_insurance">Set Payment Mode</a></li>
                                   
@@ -520,6 +520,22 @@
                                                             <option *ngFor="let asmt of charges" value="{{asmt.id}}">{{asmt.charge_name}}</option>
                                                                                                               
                                                     </select>
+                                                    <!-- <div><span>gggg</span> <button type="" class="btn btn-primary">Switch to GP</button></div> -->
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-outline-secondary" type="button">Price</button>
+                                                        </div>
+                                                        <select class="custom-select" id="inputGroupSelect04">
+                                                            <option selected>Choose...</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary" type="button">Button</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div *ngIf="ini_cate_id == 1"  class="col-lg-6 col-md-12">
@@ -635,7 +651,7 @@
                                                                                                               
                                                     </select>
                                                 </div>
-
+                                                <hr>
                                                 <div class="form-group">
                                                     <label class="fancy-radio custom-color-green">Note</label>  
                                                     <textarea ngModel name="note" type="text" style="text-decoration: none;" class="form-control" value="" ></textarea>

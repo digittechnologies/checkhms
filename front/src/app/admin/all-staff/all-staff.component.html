@@ -33,7 +33,7 @@
                     <table class="table table-hover table-custom spacing8">
                         <thead>
                             <tr> 
-                                <th>#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Designation</th>                                    
                                 <th>ID Number</th>
@@ -43,9 +43,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        
                             <tr *ngFor="let s of allstaff">
-                                <td class="w60">
-                                    <img src="https://back.{{imgLink}}/backend/public/upload/uploads/{{s.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                <td *ngIf="s.online_status == 'online'" class="w60 card c_grid c_green" style="width:1%;">
+                                    <div class="circle">
+                                    <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}" >
+                                </div>
+                                </td>
+                                <td *ngIf="s.online_status == 'offline'"  class="w60 card c_yellow c_grid " style="width:1%;">
+                                    <div class="circle">
+                                        <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}">
+                                    </div>
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" title="">{{s.firstname}} {{s.lastname}}</a>

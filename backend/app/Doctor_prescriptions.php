@@ -23,7 +23,7 @@ class Doctor_prescriptions extends Model
         'p_date',
         'p_time',
         'voucher_id',
-        // 'payment_id',
+        'encounter_id',
         'appointment_id',
         'doctor_id',
         'pharmacist_id', 
@@ -37,5 +37,6 @@ class Doctor_prescriptions extends Model
         'amount',
         'amount_paid',
         'instock',
+        'general_amount',
     ];
 }

@@ -28,6 +28,7 @@ export class SetdepartmentComponent implements OnInit {
   data: string;
   imgLink: any;
 
+
   constructor( 
     private Jarwis: JarwisService,
     private Token: TokenService,
@@ -123,7 +124,9 @@ onDelete(id: string) {
     })
     
   }
+onUpdate(form:NgForm){
 
+}
   councle(){}
 
 

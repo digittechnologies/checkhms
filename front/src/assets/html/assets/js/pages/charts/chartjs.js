@@ -1,5 +1,6 @@
 
 //=========================
+function chat1(){
 $(function () {
 
     var options;
@@ -178,3 +179,4 @@ $(function () {
         }
     });
 });
+}

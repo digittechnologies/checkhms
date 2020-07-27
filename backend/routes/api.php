@@ -212,8 +212,13 @@ Route::post('deleteCustCategories', 'AddController@deleteCustCategories');
 Route::get('displayAppointmentType','RecordModuleController@displayAppointmentType');
 //EPS Patients
 Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
-// Appointments 
+// Appointments   
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
+Route::get('getEncounterType','DisplayController@getEncounterType');
+Route::get('getEncounter/{id}','DisplayController@getEncounter');
+Route::get('getEncounterDetails/{id}','DisplayController@getEncounterDetails');
+Route::post('submitPreamble','AddController@submitPreamble');
+Route::post('submitEncounter','AddController@submitEncounter');
 Route::post('makeAppointment2','AddController@makeAppointment2');
 Route::get('displayDeptAppointment/{id}','DisplayController@displayDeptAppointment');
 Route::get('displayRevenueAppointment','DisplayController@displayRevenueAppointment');
@@ -258,6 +263,7 @@ Route::post('addInvoice', 'AddController@addInvoice');
 Route::post('updateInvoice', 'AddController@updateInvoice');
 Route::post('deleteInvoice', 'AddController@deleteInvoice');
 Route::post('saveToInvoice', 'AddController@saveToInvoice');
+Route::post('payService', 'AddController@payService');
 //Vouchers
 Route::get('edtVoucher/{id}','DisplayController@edtVoucher');
 Route::get('displayVoucher','DisplayController@displayVoucher');
@@ -291,7 +297,8 @@ Route::get('addedItems','DisplayController@addedItems');
 Route::get('transItems','DisplayController@transItems');
 Route::get('inStock/{id}','DisplayController@inStock');
 Route::post('inStockT','DisplayController@inStockT');
-Route::post('voucherAllStock/{id}','DisplayController@voucherAllStock');
+Route::post('voucherAllStock/{id}/{appointment}','DisplayController@voucherAllStock');
+Route::post('displayEncounterPharm/{appointment}/{pharm}','DisplayController@displayEncounterPharm');
 Route::get('editAdd/{id}', 'AddController@editAdd');
 Route::post('deleteAdd', 'AddController@deleteAdd');
 Route::post('updateAddItem', 'AddController@updateAddItem');
@@ -350,18 +357,25 @@ Route::get('displayProcessValues','DisplayController@displayProcessValues');
 Route::get('Value/{id}','DisplayController@Value');
 Route::get('formvalue/{id}','DisplayController@formvalue');
 Route::get('fetchForm','DisplayController@fetchForm');
+Route::post('NursingAssessment','DisplayController@NursingAssessment');
+Route::post('vitasigns','DisplayController@vitasigns');
 Route::post('addProcessProperties','AddController@addProcessProperties');
 Route::post('addProcessModules','AddController@addProcessModules');
 Route::post('addProcessAttributes','AddController@addProcessAttributes');
 Route::post('addProcessValues','AddController@addProcessValues');
 Route::post('addValues','AddController@addValues');
-Route::post('submitProcessVals','AddController@submitProcessVals');
 Route::get('editProperty/{id}','DisplayController@editProperty');
 Route::get('editAttribute/{id}','DisplayController@editAttribute');
 Route::get('editProcessValue/{id}','DisplayController@editProcessValue');
 Route::post('updateProperty', 'AddController@updateProperty');
 Route::post('updateAttribute', 'AddController@updateAttribute');
 Route::post('updateProcessValue', 'AddController@updateProcessValue');
+Route::post('deleteProp/{id}', 'AddController@deleteProp');
+Route::post('deleteAttr/{id}', 'AddController@deleteAttr');
+Route::post('deletePropVal/{id}', 'AddController@deletePropVal');
+Route::post('submitProcessVals','AddController@submitProcessVals');
+Route::post('onSubmitTable', 'AddController@onSubmitTable');
+
 
 
 

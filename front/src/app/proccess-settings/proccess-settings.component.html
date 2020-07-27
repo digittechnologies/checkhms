@@ -31,8 +31,10 @@
               <!-- Properties display start here -->
               <div class="tab-pane vvivify fadeIn delay-100 active" id="properties">
                 <div class="col-sm-12 col-lg-12">
-                  <div class="col-md-6 col-sm-12 text-right float-right">
-                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddProperty">Add Property</button></div>
+                  <div class="row text-right ">
+                    <input type="search" id="propertiesSearch" class="col-6 form-control" placeholder="search.....">
+                  <span class="col-6"><button class="btn btn-sm btn-primary float-right" title="" data-toggle="modal" data-target="#AddProperty">Add Property</button></span>
+                  </div>
                   <div class="table-responsive">
                       <table class="table table-hover table-custom spacing8">
                           <thead>
@@ -47,7 +49,7 @@
                                   <th>Action</th>
                               </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="searchproperties">
                               <tr *ngFor="let prop of process_properties; let r = index">
                                   <td>
                                       {{r+1}}
@@ -63,7 +65,7 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProperty" (click)="editProperty(prop.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeleteProp(prop.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
                               <div *ngIf="!process_properties">
@@ -87,8 +89,9 @@
               <!-- Attributes display start here  -->
               <div class="tab-pane vivify fadeIn delay-100" id="attributes">
                 <div class="col-sm-12 col-lg-12">
-                  <div class="col-md-6 col-sm-12 text-right float-right">
-                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddAttr">Add Attribute</button>
+                  <div class="row text-ri">
+                    <input type="search" class="col-6 form-control" id="atributtesSearch" placeholder="search.....">
+                    <span class="col-6"><button class="btn btn-sm btn-primary float-right" title="" data-toggle="modal" data-target="#AddAttr">Add Attribute</button></span>
                   </div>
                   <div class="table-responsive">
                       <table class="table table-hover table-custom spacing8">
@@ -105,7 +108,7 @@
                                   <th>Action</th>
                               </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="searchattribute">
                               <tr *ngFor="let propAttr of processAttributes; let r = index">
                                   <td>
                                       {{r+1}}
@@ -122,7 +125,7 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditAttribute" (click)="editAttribute(propAttr.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeleteAttr(propAttr.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
                               </tr>  
                               <div *ngIf="!processAttributes">
@@ -143,11 +146,13 @@
             </div>
             <!-- Attributes display end here -->
 
+
             <!-- Values display start here -->
+            
             <div class="tab-pane vivify fadeIn delay-100" id="values">
               <div class="col-sm-12 col-lg-12">
                 <div class="col-sm-12 col-lg-12">
-                  <div class="col-md-6 col-lg-12 col-sm-12 text-right">
+                  <div class="col-12 text-right">
                     <input type="search" id="valueSearch" class="col-6 form-control" placeholder="Search......" >
                     <button class="btn btn-sm btn-primary float-right" title="" data-toggle="modal" data-target="#AddValue">Add Values</button>
                   </div>
@@ -166,8 +171,8 @@
                                   <th>Action</th>
                               </tr>
                           </thead>
-                          <tbody>
-                            <ng-container *ngFor="let propVal of processValues; let r = index" id="searchValues">
+                          <tbody id="searchValues">
+                            <ng-container *ngFor="let propVal of processValues; let r = index">
                               <tr>
                                   <td>
                                       {{r+1}}
@@ -184,34 +189,9 @@
                                   </td>                       
                                   <td>
                                       <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditProcessValue" (click)="editProcessValue(propVal.id)"><i class="fa fa-pencil"></i></button>
-                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(d.id)"><i class="fa fa-trash-o"></i></button>
+                                      <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDeletePropVal(propVal.id)"><i class="fa fa-trash-o"></i></button>
                                   </td>
-                                 <td>
-                                  <!-- <div *ngFor="let test of propVal.value_body">
-                                    <h6>{{test}}</h6>
-                                    
-                                  </div> -->
-                                 </td>
-                              </tr>  
-                              <tr id="{{propVal.value}}" class="collapse col-12">
-                                   <td><select name="value_type" id="">
-                                     <option value="">--Select value type</option>
-                                     <option value="number">Number</option>
-                                     <option value="text">Text</option>
-                                     <option value="textarea">Textarea</option>
-                                   </select></td>
-                                   <td><input type="text" name="value" value="Value"></td>
-                                   <td><input type="text" name="normal_range" value="Normal Ranger"></td>
-                                   <td><input type="text" name="unit" value="Unit"></td>
-                                   <td>
-                                    <div class="body">
-                                      <div class="input-group demo-tagsinput-area">
-                                          <input type="text" class="form-control" data-role="tagsinput" value="Washington,Beijing,Cairo,Taiwoa" name="sugestion"/>
-                                      </div>
-                                  </div>
-                                   </td>
-
-                                </tr>
+                              </tr>
                             </ng-container>
                               <div *ngIf="!processValues">
                                   <div class="spinner-grow text-primary" role="status">
@@ -358,6 +338,7 @@
                               <option value="textarea">Textarea</option>
                               <option value="radio">Radio input</option>
                               <option value="checkbox">Checkbox input</option>
+                              <option value="table">Table</option>
                           </select>       
                       </div>                  
                       </div>
@@ -443,7 +424,7 @@
         </div>             
     </div>
 </div>  
-<div  *ngIf="value_type == 'radio' || value_type == 'checkbox'" class="modal-body">             
+<div  *ngIf="value_type == 'radio' || value_type == 'checkbox' || value_type == 'table' " class="modal-body">             
   <div class="row clearfix">
       <div class="col-md-8">
           <div class="form-group">                      
@@ -463,7 +444,7 @@
       </div>             
   </div>
 </div> 
-  <div *ngIf="value_type == 'number' || value_type == 'text' || value_type == 'textarea'"  class="modal-body">             
+  <div class="modal-body">             
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="form-group">                      

@@ -38,7 +38,8 @@ use App\Http\Requests\EpsRequest;
 use App\Process_tb;
 use App\Process_attribute_tb;
 use App\Process_module_tb;
-
+use App\Service_charges;
+use App\Encounter;
 
 class AddController extends Controller
 {
@@ -211,6 +212,53 @@ public function addCenter(Request $request)
             }';
         }
     }
+
+    public function submitEncounter(Request $request)
+    {
+       
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $staffId= Auth()->user()->id;
+
+        $request->merge(['created_time' => $cTime]);
+        $request->merge(['created_at' => $cDate]);
+        $request->merge(['created_by' => $staffId]);
+
+        $encounter= Encounter::insert($request->all());
+       
+        if($encounter){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function submitPreamble(Request $request)
+    {
+        // return $request->all();
+        $staffId= Auth()->user()->id;
+        $docProcess=DB::table('encounter_tb')->where('id', $request->value2)->where('appointment_id', $request->value3)->update(    
+           $request->value1
+        );
+        if($docProcess){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    } 
 
     public function suspendCenter(Request $request)
     {
@@ -2515,7 +2563,6 @@ public function addCenter(Request $request)
         // $request->merge(["voucher_id" => $request->voucher_id]);
 
         // return $request->all();
-        //appointment_id yet to be implemented
         $pharmP= Doctor_prescriptions::create($request-> all());
        
         if($pharmP){
@@ -2615,6 +2662,7 @@ public function addCenter(Request $request)
 
     public function saveTovoucher($cid)
     {
+        return $cid;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -2737,6 +2785,119 @@ public function addCenter(Request $request)
        
     }
 
+    public function payService(Request $request) 
+    {
+        
+         //GET DATE AND TIME
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+
+        //GET PHARMACIST AND BRANCH ID THROUGH AUTH
+        $staffID= auth()->user()->id;
+        $branchId= auth()->user()->branch_id;
+
+        $appointment_id = $request->appointment_id;
+        $voucher_id = $request->voucher_id;
+        $patient_id = $request->patient_id;  
+        
+        $amount = $request->subtotal;
+        $amount_topay = $request->total;
+        $paid = $request->total;
+        $balance = $request->total - $request->total;
+        $discount_amount = $request->discountamt;
+
+
+        $charges = Service_charges::orderBy('id')
+            ->join('departments', 'service_charges.dept_id', '=', 'departments.id')
+            ->join('appointments', 'service_charges.appointment_id', '=', 'appointments.id')
+            ->join('hospital_charges', 'service_charges.service_charge_id', '=', 'hospital_charges.id')
+            ->join('scheme_hmo', 'appointments.hmo_id', '=', 'scheme_hmo.id')
+            ->join('price_list_column', 'scheme_hmo.price_list_column', '=', 'price_list_column.id')
+            ->select('service_charges.*', 'departments.name as department', 'appointments.insurance_status', 'hospital_charges.care_type', 'scheme_hmo.discount_1','scheme_hmo.discount_2','scheme_hmo.discount_3','scheme_hmo.price_list_column')
+            ->where('service_charges.appointment_id', '=', $appointment_id)
+            ->where('service_charges.voucher_id', '=', $voucher_id)
+            ->get();
+        $patient = DB::table('customers')->where('customers.id', '=', $patient_id)
+            ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+            ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+            ->first();
+
+            foreach($charges as $row){
+                if($row->discount_1 != 0 && $row->care_type == 'primary' && $row->insurance_status != 'enabled') {
+                    $discount_percent = $row->discount_1;
+                    $discount_amount = $row->amount * $row->discount_1 / 100;
+                    $total_amount = $row->amount;
+                }
+                if($row->discount_2 != 0 && $row->care_type == 'secondary' && $row->insurance_status != 'enabled') {
+                    $discount_percent = $row->discount_2;
+                    $discount_amount = $row->amount * $row->discount_2 / 100;
+                    $total_amount = $row->amount;
+                }
+                if($row->discount_3 != 0 && $row->care_type == 'others' && $row->insurance_status != 'enabled') {
+                    $discount_percent = $row->discount_3;
+                    $discount_amount = $row->amount * $row->discount_3 / 100;
+                    $total_amount = $row->amount;
+                }
+                
+                if($row->discount_1 != 0 && $row->care_type == 'primary' && $row->insurance_status == 'enabled') {
+                    $discount_percent = $row->discount_1;
+                    $discount_amount = $row->amount_2 * $row->discount_1 / 100;
+                    $total_amount = $row->amount_2;
+                }
+                if($row->discount_2 != 0 && $row->care_type == 'secondary' && $row->insurance_status == 'enabled') {
+                    $discount_percent = $row->discount_2;
+                    $discount_amount = $row->amount_2 * $row->discount_2 / 100;
+                    $total_amount = $row->amount_2;
+                }
+                if($row->discount_3 != 0 && $row->care_type == 'others' && $row->insurance_status == 'enabled') {
+                    $discount_percent = $row->discount_3;
+                    $discount_amount = $row->amount_2 * $row->discount_3 / 100;
+                    $total_amount = $row->amount_2;
+                }
+                if($row->discount_1 == 0) {
+                    $discount_percent = 0;
+                    $total_amount = $row->total_amount;
+                }
+                $updateServiceCharges = DB::table('service_charges')->where('service_charges.id', '=', $row->id)
+                    ->update([
+                        'nhis_no' => $row->nhis_no,
+                        'hmo_no' => $row->hmo_no,
+                        'discount_percentage' => $discount_percent,
+                        'discount_amount' => $discount_amount,
+                        'total_amount' => $total_amount,
+                        'status' => 'paid',
+                    ]);
+            }
+            
+            $insertInvoice = DB::table('invoices')->insertGetId([
+                'amount' => $amount,
+                'amount_topay' => $amount_topay,
+                'paid' => $paid,
+                'balance' => $balance,
+                'discount_amount' => $discount_amount,
+                'status' => 'paid',
+                'delivery_status' => 'delivered',
+                'i_date' => $cDate,
+                'i_time' => $cTime,
+                'graph_date' => date("Y-m"),
+                'branch_id' => $branchId,
+                'staff_id' => $staffID,
+                'voucher_id' => $voucher_id,    
+            ]);  
+
+            if($insertInvoice) {
+                return '{
+                    "success":true,
+                    "message":"successful"
+                }' ;
+            } else {
+                return '{
+                    "success":false,
+                    "message":"failed"
+                }' ;
+            }
+    }
 
     public function saveToInvoice(Request $request)
     {
@@ -3067,9 +3228,8 @@ public function addCenter(Request $request)
 
     public function addValues(Request $request)
     {
-        // return $request->id;
+        // return $request->form['options'];
         $created_by= Auth()->user()->id;
-       
         if ($request->form['value_type'] == 'number') {
             $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
                 [
@@ -3097,9 +3257,19 @@ public function addCenter(Request $request)
                        'value_options' => $request->form['value_options'],
                        'comment' => $request->form['comment'],
                        'options' => $request->form['options'],
+                       'suggestion' =>$request->form['sugestion'],
                        'updated_by' => $created_by
                    ]); 
            }
+           if ($request->form['value_type'] == 'table') {                                
+            $create_process_value = DB::table('process_value_tb')->Where('id',$request->id)->update(
+                [
+                    'value_type' =>$request->form['value_type'],
+                    'options' => $request->form['options'],
+                    'suggestion' =>$request->form['sugestion'],
+                    'updated_by' => $created_by
+                ]); 
+        }
 
         if ($create_process_value) {
             return '{
@@ -3116,25 +3286,92 @@ public function addCenter(Request $request)
 
     public function submitProcessVals(Request $request)
     {
-        $value_option = array();
-        $process_id = array();
-        $requests = $request->all();
-        $getProcessValue = DB::table('process_value_tb')->get();
-            foreach($getProcessValue as $data) {
-                foreach ($requests as $key => $value) {
-                    if($data->value == $key){
-                        array_push($value_option, $value);
-                        array_push($process_id, $data->id);
-                    }
-                }
-            }
+        $forms = $request->form;
+        $form_data = array();
+    //    return  $forms =$forms;
+        foreach ($forms as  $form) {
+        $ans = DB::table('process_value_tb')->where('value',$form[0])->select('unit')->get();
+        if ($ans->count()>=1) {
+            array_push($form,$ans[0]->unit);
+            array_push($form_data,$form);
+        }
+        else{
+            array_push($form_data,$form);
+        }
+        }
+        $user_id = Auth()->user()->id;
+        $user_possintion_id = Auth()->user()->position_id;
             DB::table('form_process')->insert([
-                'position_id'=>1,
-                'user_id'   =>4,
-                'value_option'=> json_encode($request->form),
-                'process_value_tb_id' =>$request->process_value_tb_id,
+                'user_id'   =>$user_id,
+                'position_id'=>$user_possintion_id,
+                'appointment_id' =>$request->appointment_id,
+                'value_option'=> json_encode($form_data),
+                'process_attribute_id' =>$request->process_attribute_id,
             ]);
             
+       
+
+    }
+    public function onSubmitTable(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $user_id = Auth()->user()->id;
+        $pos_id = Auth()->user()->position_id;
+        $user_fname = Auth()->user()->firstname;
+        $user_lname = Auth()->user()->lastname;
+        $form_data = array();
+        $form_data = $request->form;
+        // foreach ($request->form as $value) {
+        //     array_push($value,$cDate,$cTime);
+        //     array_push($form_data,$value);
+        // } 
+        array_unshift( $form_data,['DATE',$cDate],['TIME',$cTime]);
+        array_push( $form_data,['STAFF',$user_fname.' '.$user_lname,$user_id]);
+
+        // return  $form_data;
+         $ans = DB::table('form_process')->where('appointment_id',$request->appoint__id)
+                                        ->where('process_value_id',$request->id)
+                                        // ->where('position_id',4)
+                                        ->where('user_id',$user_id)
+                                         ->select('value_option')->get();
+
+  if ($ans->count()>0) {
+    $as = json_decode($ans[0]->value_option);
+        // array_push($form_data,$as);
+        array_push($as,$form_data);
+        // return $as;
+      $resp =   DB::table('form_process')->where('appointment_id',$request->appoint__id)
+        ->where('process_value_id',$request->id)
+        // ->where('position_id',$pos_id)
+        ->where('user_id',$user_id)->update([
+            'value_option' =>  json_encode($as)
+        ]);
+}                         
+ else{
+
+    $resp =    DB::table('form_process')->insert([
+            'user_id'   =>$user_id,
+            'position_id'=>$pos_id,
+            'appointment_id' =>$request->appoint__id,
+            'value_option'=> json_encode(array($form_data)),
+            'process_value_id' =>$request->id,
+            'process_attribute_id' =>  $request->process_attribute_id
+        ]);
+
+ }
+ if($resp){
+    return '{
+        "success":true,
+        "message":"successful"
+    }' ;
+} else {
+    return '{
+        "success":false,
+        "message":"Failed"
+    }';
+}      
        
 
     }
@@ -3196,6 +3433,63 @@ public function addCenter(Request $request)
                 "message":"Failed"
             }';
         }
+    }
+
+    public function deleteProp($id)
+    {
+        $deletec=DB::table('process_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    public function deleteAttr($id)
+    {
+
+        $deletec=DB::table('process_attribute_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
+    }
+
+    public function deletePropVal($id)
+    {
+        $deletec=DB::table('process_value_tb')->where('id', $id)->update([
+            'status' => 'suspended'
+        ]);
+        if($deletec){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    
     }
 
     public function CenterTypes(Request $request)

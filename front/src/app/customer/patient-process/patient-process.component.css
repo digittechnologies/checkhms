@@ -1,0 +1,87 @@
+@media screen and (min-width:768px){  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background:#282B2F; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:grey; 
+  }
+.process{
+    height:100vh !important;
+    overflow-y: auto !important;
+    /* position: absolute; */
+    margin-bottom:50px;
+}
+.forms{
+    height:70vh !important;
+    overflow-y: auto !important;
+    /* position: absolute; */
+    margin-bottom:50px;
+}
+}
+.cont{
+  border: none;
+  border-bottom: 1px grey solid;
+  height:40px;
+}
+.cont input{
+  border: none;
+  width:auto;
+  height:70%;
+}
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: grey;
+}
+.mat-form-field-label {
+  color: grey;
+}
+.mat-label{
+  color: grey !important;
+}
+.mat-focused .mat-form-field-label {
+  color: grey !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color:lightgrey !important;
+}
+::ng-deep .mat-form-field-underline .mat-form-field-ripple{
+  background-color: white !important;
+}
+.example-chip-list {
+  width: 100%;
+}

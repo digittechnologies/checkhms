@@ -77,13 +77,17 @@ export class AddPatientComponent implements OnInit {
     categorySelected(params){
       this.category_id = params.target.value;
       document.getElementById('nextbtn').removeAttribute('disabled');
-      document.getElementById('one').classList.remove('active');
-      document.getElementById('two').classList.add('active');
       this.Jarwis.displayHospitalNum(this.category_id).subscribe(
         data=>{
         this.response = data;      
         this.hostitalNum = this.response;  
       })
+    }
+    activateNextB(){
+      document.getElementById('one').classList.remove('active');
+      document.getElementById('two').classList.add('active');
+      document.getElementById('noeps').classList.remove('active');
+      document.getElementById('eps').classList.add('active');
     }
   showAge(d) {
     let dob = d.target.value;
