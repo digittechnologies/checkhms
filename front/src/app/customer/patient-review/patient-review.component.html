@@ -81,10 +81,15 @@
                     <small class="text-muted">NURSING PROCESS</small>
                     <a href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a><br>            
                     <div class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true">History <span class="badge badge-info">2th July 2018</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Overview <span class="badge badge-danger">1</span></a>
+                        <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true" >History <span class="badge badge-info">2th July 2018</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" (click)="encouter()">Overview <span class="badge badge-danger">1</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" (click)="vitaSigns()">Vital Signs <span class="badge badge-success">Success</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" (click)="encouter(4)">Nursing Assessment <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" (click)="encouter()" >Nursing Assessment <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursecare" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(29)" >Nursing Care Plan <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurserecord" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursedocument" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="intake_output" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(27)">Intake and Output<span class="badge badge-warning">IPD</span></a>
+
                                  
                     <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                    
@@ -292,9 +297,7 @@
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another Action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else</a></li>
+                                                            <li><a href="javascript:void(0);" (click)="formValue(15,VITASIGNS)">Add New Vita Signs</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -306,8 +309,8 @@
                                                     <div class="col-lg-12 col-md-12">
                                                         <ul class="main_features row" >
                                                             <ng-container *ngFor="let datas of vt.value_option">
-                                                                <li *ngIf="datas[1] != null" class="col-12">{{datas[0]}}<a class="ml-5 mr-3" href="https://fonts.google.com/specimen/Krub" class="text-warning">{{datas[1]}}</a>{{datas[2]}} </li>
-                                                                <li *ngIf="datas[1] == null" class="col-12">{{datas[0]}}<a class="ml-5 mr-3" href="https://fonts.google.com/specimen/Krub" class="text-warning">0</a> {{datas[2]}}</li>
+                                                                <li *ngIf="datas[1] != null" class="col-12"><strong style="margin-right: 10px;"> {{datas[0]}} :</strong><a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{datas[1]}}</a>{{datas[2]}} </li>
+                                                                <li *ngIf="datas[1] == null" class="col-12"><strong style="margin-right: 10px;"> {{datas[0]}} :</strong><a href="https://fonts.google.com/specimen/Krub" class="text-warning">0</a> {{datas[2]}}</li>
     
                                                                 </ng-container> 
                                                                 <hr>
@@ -353,9 +356,7 @@
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu" *ngIf="testingform">
-                                                                      <li *ngFor="let datalist of testingform"><a href="javascript:void(0);">{{datalist.attribute}}</a></li>
-                                                                      <!-- <li><a href="javascript:void(0);">Another Action</a></li>
-                                                                      <li><a href="javascript:void(0);">Something else</a></li> -->
+                                                                      <li *ngFor="let datalist of testingform"><a href="javascript:void(0);"  (click)="formValue(datalist.id,datalist.attribute)">{{datalist.attribute}}</a></li>
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -371,49 +372,13 @@
                                                                        <ul>
                                                                     <ng-container *ngFor="let val of data.value_option">
                                                                         <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                                                        <li>{{val[0]}}<a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
-                                                                                                              
-                                                                            <!-- <span class="mr-3">
-                                                                                <label class="">{{val[0]}}</label>
-                                                                            </span> 
-                                                                            <label *ngIf="val[1] != true" class="input-group-text">{{val[1]}}</label> <span *ngIf="val[2] && val[2] != null">{{val[2]}}</span>
-                                                                            <label *ngIf="val[1] == true" class="fancy-checkbox mt-3">
-                                                                            <input class="checkbox-tick" type="checkbox"  checked>
-                                                                            <span></span>
-                                                                        </label> -->
+                                                                        <li> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
+                                                                        
                                                                     </div> 
                                                                     </ng-container>
                                                                 </ul>
                                                                 </div>
                                                                 
-                                                                        <!-- <div class="row clearfix" *ngIf="data.process_value_id != nulll">
-                                                                            <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
-                                                                            <div class="col-lg-12">
-                                                                                        
-                                                                                        <table class="table table-hover table-bordered">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <td>S/N</td>
-                                                                                                    <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody style="height: 100%;overflow: auto;">
-                                                                                                <tr *ngFor="let val of data.value_option;let r = index">
-                                                                                                  <td>{{r+1}}</td>
-                                                                                                  
-                                                                                                    <td *ngFor="let tb of val" class="col-1" scope="row">
-                                                                                                        <span>{{tb[1]}}</span> 
-                      
-                                                                                                        <span *ngIf="{{val.length>2}}" style="color: #007AFE;">{{tb[1]}}</span>
-                      
-                                                                                                       <span *ngIf="{{tb[2]}}" style="color: #007AFE;">{{tb[2]}}</span> 
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                           
-                                                                                        </table>
-                                                                            </div>
-                                                                        </div> -->
                                                                         </ng-container>
                                                                     </ng-container>
                                                               </div>
@@ -509,9 +474,86 @@
                                   </div>  
                             </div>
 
-                            <div *ngIf="open" class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">                 
-                               
-                                  
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-process" role="tabpanel" aria-labelledby="intake_output"> 
+                                <div class="row clearfix">
+                                      <div class="col-xl-12 col-lg-12 col-md-12">
+                            
+                                              <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="documenter_cover">
+                                                        <div class="body">
+                                                            <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
+                                                            <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                                            <ul>
+                                                                <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                                                    <li><strong>05/Nov/2018</strong></li>
+                                                                <li><strong class="text-orange">18/June/2019</strong></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>                        
+                      
+                                                <div class="col-sm-12">
+                                                  <div class="card" id="Gallery">
+                                                      <div id="lightgallery" class="row clearfix lightGallery">
+                                                        <div *ngIf="other_proce">
+                                                        <ng-container *ngFor="let datass of other_proce">
+                                                         <div class="header">
+                                                        <h2><strong>{{datass.games[0].attribute}}</strong></h2>  
+                                                            <ul class="header-dropdown dropdown">                                
+                                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                <li class="dropdown">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                    <ul class="dropdown-menu">init_dat
+                                                                        <li *ngFor="let datalist of datass.games"><a href="javascript:void(0);" data-toggle="modal" data-target="#Table" (click)="tableDetails(datalist.options,datalist.process_value_id,datalist.process_attribute_id,datalist.suggestion)">{{datalist.value}}</a></li>
+                                                                        <!-- <li><a href="javascript:void(0);">Another Action</a></li>
+                                                                        <li><a href="javascript:void(0);">Something else</a></li> -->
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                      
+                                                      <div class="body result">
+                                                                    <!-- <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div>  -->
+                                                                <ng-container *ngFor="let data of datass.games">
+                                                                        <div class="row clearfix" *ngIf="data.process_value_id != nulll">
+                                                                            <div class="col-12 text-center mb-3"><strong>{{data.value}}</strong></div>
+                                                                            <div class="col-lg-12">
+                                                                                        <table class="table table-hover table-bordered">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <td>S/N</td>
+                                                                                                    <th *ngFor="let vals of data.value_option[0]">{{vals[0]}}</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody style="height: 100%;overflow: auto;">
+                                                                                                <tr *ngFor="let val of data.value_option;let r = index">
+                                                                                                  <td>{{r+1}}</td>
+                                                                                                  
+                                                                                                    <td *ngFor="let tb of val" class="col-1" scope="row">
+                                                                                                        <span>{{tb[1]}}</span> 
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                           
+                                                                                        </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        </ng-container>
+                                                                       </div>
+                                                                    </ng-container>
+                                                              </div>
+                                                            </div>
+                                                      </div>
+                                                  </div>
+                                                    
+                                          </div>
+                                         
+                                      </div>              
+                                  </div>  
+                            </div>
+                            <div *ngIf="open" class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">    
+
                                     <div class="row clearfix">
                                           <div class="col-xl-12 col-lg-12 col-md-12">
                                 
@@ -2240,63 +2282,69 @@
 
 
 
-             <div class="modal fade" id="Table" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmittable(fmtable)" #fmtable="ngForm"> 
-                <div class="modal-body">        
-                    <div class="row clearfix">
-                        <div class="col-md-12" *ngFor="let tb of table_data">
-                            <!-- <mat-form-field class="example-chip-list">
-                                <mat-chip-list #chipList aria-label="Fruit selection">
-                                  <mat-chip
-                                    *ngFor="let fruit of fruits"
-                                    [selectable]="selectable"
-                                    [removable]="removable"
-                                    (removed)="remove(fruit)">
-                                    {{fruit}}
-                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                  </mat-chip>
-                                  <input 
-                                  (click)="addChips()"
-                                    placeholder="{{tb}}"
-                                    #fruitInput
-                                    [formControl]="fruitCtrl"
-                                    [matAutocomplete]="auto"
-                                    [matChipInputFor]="chipList"
-                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                    (matChipInputTokenEnd)="add($event)">
-                                </mat-chip-list>
-                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                                  <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-                                    {{fruit}}
-                                  </mat-option>
-                                </mat-autocomplete>
-                              </mat-form-field> -->
-                                <mat-form-field class="example-full-width col-12" appearance="fill">
-                                    <mat-label style="color:grey">{{tb}}</mat-label>
-                                    <textarea matInput class="form-control" ngModel name="{{tb}}" [matAutocomplete]="auto"></textarea>
-                                    <mat-autocomplete #auto="matAutocomplete" >
-                                        <mat-option *ngFor="let street of suggestions" [value]="street">
-                                         {{street}} 
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </mat-form-field>
-                        </div>           
+
+            <div class="modal fade" id="init_process" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
                     </div>
+                    <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSaveTestingProcessValue(valuepayload2)" #valuepayload2="ngForm"> 
+                    <div class="modal-body">        
+                        <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
+                            <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
+                                       <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                       <input matInput type="number"  ngModel name="{{fr.value}}" class="example-right-align form-control">
+                                       <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
+                               </mat-form-field>
+                               <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
+                                       <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                       <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
+                                       <mat-autocomplete #auto="matAutocomplete" >
+                                       <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
+                                       </mat-autocomplete>
+                               </mat-form-field> 
+                               <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                   <mat-label style="color:grey">{{fr.value}}</mat-label>
+                                   <textarea matInput class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                               </mat-form-field>
+                 
+                           <ng-container *ngIf="fr.value_type == 'radio' || fr.value_type == 'checkbox'">
+                               <div class="input-group-prepend">
+                                   <label class="input-group-text">{{fr.value}}</label>
+                               </div> 
+                             <div  *ngIf="fr.value_type == 'radio'" class="ml-3">
+                               <ng-container  *ngFor="let rad of fr.value_options">
+                                   <label class="fancy-radio custom-color-green"><input type="radio" class="fancy-radio custom-color-green"   ngModel name="{{fr.value}}"  value="{{rad}}" ><span><i></i><strong>{{rad}}</strong></span></label>
+                              </ng-container>
+                             </div>
+                             <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
+                                 <input class="checkbox-tick" type="hidden" ngModel name="{{fr.value}}"  [value]="fr.value">
+                               <ng-container  *ngFor="let rad of fr.value_options">
+                                   <label class="fancy-checkbox mt-3">
+                                      <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{rad}}"  value="{{rad}}">
+                                       <span></span>
+                                   </label>
+                              </ng-container>
+                             </div>
+                             <ng-container *ngFor="let ops of fr.options">
+                               <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
+                                   <mat-label style="color:grey">{{ops}}</mat-label>
+                                   <textarea matInput class="form-control" ngModel name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                               </mat-form-field>
+                             </ng-container>
+                           </ng-container>
+                   </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-round btn-primary">Submit<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                    <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
                 </div>
-                </form>
-            </div>
-            </div>
-            </div>
+                </div>
   </div>

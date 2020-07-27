@@ -3333,18 +3333,14 @@ public function addCenter(Request $request)
         // return  $form_data;
          $ans = DB::table('form_process')->where('appointment_id',$request->appoint__id)
                                         ->where('process_value_id',$request->id)
-                                        // ->where('position_id',4)
                                         ->where('user_id',$user_id)
                                          ->select('value_option')->get();
 
   if ($ans->count()>0) {
     $as = json_decode($ans[0]->value_option);
-        // array_push($form_data,$as);
         array_push($as,$form_data);
-        // return $as;
       $resp =   DB::table('form_process')->where('appointment_id',$request->appoint__id)
         ->where('process_value_id',$request->id)
-        // ->where('position_id',$pos_id)
         ->where('user_id',$user_id)->update([
             'value_option' =>  json_encode($as)
         ]);
