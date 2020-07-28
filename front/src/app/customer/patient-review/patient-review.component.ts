@@ -604,7 +604,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       return;
     } else { 
       this.disabled = true;
-      this.Jarwis.saveTovoucher(this.appId, {'prescription': this.selectedItems}).subscribe(
+      this.Jarwis.saveTovoucher(this.appId, {'prescription': this.selectedItems, 'amount': this.afterPercentCost}).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );
@@ -644,14 +644,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
 
   }
 
-  handleError(error) {
-    this.error = error.error.errors;
-    let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
-      duration: 2000
 
-    })
-    this.disabled = false;
-  }
 
   // columnName(view:string){
   //   this.column= view;
@@ -898,14 +891,22 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
 //  PROCESS END
-  handleResponse(data) {    // 
-    let snackBarRef = this.snackBar.open(data, 'Dismiss', {
-      duration: 2000
-    })   
-    this.ngOnInit();
-    
-  
-  }
+ 
+handleError(error) {
+  this.error = error.error.errors;
+  let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {
+    duration: 2000
 
+  })
+  this.disabled = false;
+}
+handleResponse(data) {    // 
+  let snackBarRef = this.snackBar.open("Operation successfuly", 'Dismiss', {
+    duration: 2000
+  })   
+  this.ngOnInit();
+  
+
+}
 }
 
