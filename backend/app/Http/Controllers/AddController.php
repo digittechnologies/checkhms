@@ -1314,15 +1314,11 @@ public function addCenter(Request $request)
         $cust_id = auth()->user()->id;
         $name = $request->category_name;
         $desc = $request->description;
-        $percent = $request->pacentage_value;
-        $priceList = $request->price_list_column;
         $id = $request->id;   
         $update = DB::table('customer_category')->where('id','=',$id)
             ->update([
                 'category_name'=> $name,
                 'description'=> $desc,
-                'pacentage_value'=> $percent,
-                'price_list_column'=> $priceList,
                 'update_by' => $cust_id,
             ]);
         if($update){

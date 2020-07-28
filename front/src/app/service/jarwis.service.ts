@@ -202,6 +202,10 @@ public  permite ="";
     return this.http.get(`${this.baseUrl}/displayCenter/${id}`,)
   }
 
+  displayChargesId(id: any) {
+    return this.http.get(`${this.baseUrl}/displayChargesId/${id}`,)
+  }
+
   displayAppointmentBranch(id: any) {
     return this.http.post<any>(`${this.baseUrl}/displayAppointmentBranch/${id}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`

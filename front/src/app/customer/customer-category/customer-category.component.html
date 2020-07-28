@@ -35,9 +35,7 @@
                           <tr> 
                               <th>#</th>
                               <th>Name</th>
-                              <th>Description</th>
-                              <th>Percentage value</th>
-                              <th>Price Scheme</th>
+                              <th>Description</th>                         
                               <th>Action</th>
                           </tr>
                       </thead>
@@ -49,17 +47,6 @@
                               </td>                              
                               <td style="color: #17C2D7;">{{c.category_name}}</td>
                               <td style="color: #17C2D7;">{{c.description}}</td>
-                              <td style="color: #17C2D7;">{{c.pacentage_value}}%</td>
-                              <td style="color: #17C2D7;">
-                                <span class="badge badge-success" *ngIf = "c.price_list_column == 'price_2'">GORAH Price</span>
-                                <span class="badge badge-success" *ngIf = "c.price_list_column == 'price_3'">NHIS Price</span>
-                                <span class="badge badge-success" *ngIf = "c.price_list_column == 'price_1'">General Price</span>
-                              </td>     
-                              
-                              <!-- <td>
-                                  <span class="badge badge-success" *ngIf ="c.status=== 'active'">Active</span>
-                                    <span class="badge badge-danger" *ngIf ="c.status=== 'suspend'">Suspend</span>                                   
-                              </td>                           -->
                               <td>
                                   <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditCustCat" (click)="editdept(c.id)"><i class="fa fa-pencil"></i></button>
                                   <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="onDelete(c.id)" *ngIf = "c.price_list_column != 'price_1'"><i class="fa fa-trash-o"></i></button>
@@ -115,7 +102,7 @@
             </div>             
         </div>
     </div>
-    <div class="modal-body">             
+    <!-- <div class="modal-body">             
       <div class="row clearfix">
           <div class="col-md-8">
               <div class="form-group">
@@ -138,7 +125,7 @@
                     </div>
               </div>             
           </div>
-      </div>      
+      </div>       -->
       <div class="modal-footer">
           <button type="submit" class="btn btn-round btn-primary">Add</button>
           <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
@@ -180,7 +167,7 @@
                     </div>             
                 </div>
             </div>
-            <div class="modal-body">             
+            <!-- <div class="modal-body">             
               <div class="row clearfix">
                   <div class="col-md-8">
                       <div class="form-group">
@@ -203,7 +190,7 @@
                       </div>
                 </div>             
             </div>
-        </div> 
+        </div>  -->
 
           </div>
           <div class="modal-footer">

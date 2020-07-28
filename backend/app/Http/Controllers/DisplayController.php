@@ -1106,6 +1106,13 @@ class DisplayController extends Controller
         ]);
     }
 
+    public function displayChargesId($id)
+    {
+        return response()->json([ 
+        'charges'=> Hospital_charges::find($id) 
+        ]);
+    }
+
     public function pres_refill_id($id)
     {
         return DB::table("doctor_prescriptions")->where('doctor_prescriptions.id',$id)->get();
@@ -2404,7 +2411,10 @@ class DisplayController extends Controller
             ->where('form_process.appointment_id',$request->appointment_id)
             ->where('process_attribute_tb.id','=',$request->id)
             ->get(),
-            "form"=> DB::table('process_attribute_tb')->join('process_value_tb','process_attribute_tb.id','=','process_value_tb.process_attribute_id')->get()
+            "form"=> DB::table('process_attribute_tb')->join('process_value_tb','process_attribute_tb.id','=','process_value_tb.process_attribute_id')
+            ->select('process_attribute_tb.*','process_value_tb.value','process_value_tb.options','process_value_tb.suggestion','process_attribute_tb.id AS  process_attribute_id ','process_value_tb.id  AS process_value_id')
+            ->where('process_attribute_tb.id','=',$request->id)
+            ->get()
         ]);
     }
 
