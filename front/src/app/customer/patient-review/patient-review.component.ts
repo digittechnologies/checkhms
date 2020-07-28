@@ -821,13 +821,13 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   onSaveTestingProcessValue(form:NgForm){
     console.log(form.value)
     const data = Object.entries(form.value)
-    console.log(data)
-  //    this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
-  //      data=>{
-  //        this.handleResponse("opration successfuly")
-  //      this.response = data;  
+    // console.log(data)
+     this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+       data=>{
+         this.handleResponse("opration successfuly")
+       this.response = data;  
       
-  //  })
+   })
  }
 
  closeMo(data){
@@ -840,9 +840,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
    this.table_id = id;
    this.process_attribute_id = process_attribute_id
    this.suggestions = suggestions;
+   console.log(this.table_id)
+   console.log( this.process_attribute_id)
    console.log(this.suggestions)
-    console.log(this.table_id)
-   console.log(data)
    this.closeModal = false;
  }
  onSubmittable(form:NgForm){

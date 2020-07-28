@@ -6,7 +6,7 @@
     .review .meb{ height:80%; overflow: auto; }
     .review .chatapp_body{height:100%;}
     .review .chat-history{height:75%;overflow: auto;}
-    .result{height:400px;width: 100%; overflow: auto;}
+    .result{max-height:400px;max-width: 95%; overflow: auto;}
 }
 @media screen and (min-width:768px){  
     /* Track */
