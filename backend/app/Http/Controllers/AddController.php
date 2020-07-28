@@ -2660,9 +2660,8 @@ public function addCenter(Request $request)
         }
     }
 
-    public function saveTovoucher($cid)
+    public function saveTovoucher($cid, Request $request)
     {
-        return $cid;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -2673,6 +2672,8 @@ public function addCenter(Request $request)
         $amount = 0;
         $refill = 0;
         $remain = 0;
+        $itemSelected = $request->prescription;
+        $amount = $request->amount;
 
         // GET DISCOUT VALUE;
         
@@ -2687,8 +2688,8 @@ public function addCenter(Request $request)
         // Get Charges Value
         $chargeSum= Hospital_charges::orderBy('id')
                     ->join('departments','hospital_charges.dept_id','=','departments.id')
-                    ->where('dept_id', 1)
-                    ->where('status', 'active')
+                    ->where('hospital_charges.dept_id', '=' ,'1')
+                    ->where('hospital_charges.status', '=' ,'active')
                     ->select('hospital_charges.*')               
                     ->sum('selling_price');
 
@@ -2726,12 +2727,12 @@ public function addCenter(Request $request)
         $create_voucher= Vouchers::insertGetId(
             [
                 'quantity' => $v_qty,
-                'amount' => $v_amount,
+                'amount' => $amount,
                 'discount_id'=> $getDv,
                 'discount_amount'=>  $discountAmount,
                 'charges'=>  $chargeSum,
-                'paid' => $amountPaid,
-                'balance' => $amountPaid,
+                'paid' => $amount,
+                'balance' => 0,
                 'refill_qty' => $refill_qty,
                 'refill_amount' => $refill_amount,
                 'price_list'=> $discoutValue[0]->price_list_column,
@@ -2741,7 +2742,8 @@ public function addCenter(Request $request)
                 'staff_id' => $pharmacistId,
                 'branch_id' => $branchId,
                 'v_date' => $cDate,
-                'v_time' => $cTime
+                'v_time' => $cTime,
+                'module_id' => '4'
             ]);    
         $get =  Doctor_prescriptions::orderBy('id') 
                         ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
@@ -2750,22 +2752,26 @@ public function addCenter(Request $request)
                         ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                         ->where('doctor_prescriptions.status', '=', 'save')
                         ->where('doctor_prescriptions.appointment_id', '=', $cid)
-                        ->where('doctor_prescriptions.branch_id', '=', $branchId)
                         ->get();
        
 
         //  return $get;
         foreach($get as $row2){
-            $getId = $row2->id;
-            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-            ->update([
-                'status' => 'close',
-                'voucher_id' => $create_voucher,
-            ]);
+            foreach($itemSelected as $itemSelect){
+                if($row2->id == $itemSelect) {
+                    $getId = $row2->id;
+                    $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                    ->update([
+                        'status' => 'save',
+                        'branch_id' => $branchId,
+                        'voucher_id' => $create_voucher,
+                    ]);
+                }
+            }
         }
         $updateAppointment = DB::table('appointments')
                                     ->where('appointments.id', '=', $cid)
-                                    ->where('appointments.pharm_id','=', $branchId)
+                                    // ->where('appointments.pharm_id','=', $branchId)
                                     ->update([                                       
                                         'status' => 'checkout',
                                     ]);
@@ -2776,10 +2782,10 @@ public function addCenter(Request $request)
                 "message":"successful"
             }' ;
         } else {
-         return '{
-            "success":false,
-            "message":"failed"
-        }' ;
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
         }
         
        
