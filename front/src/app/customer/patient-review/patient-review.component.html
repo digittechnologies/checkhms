@@ -701,14 +701,14 @@
                                                     <div class="col-sm-12">
                                                         <div class="card" id="grunt_file">
                                                             <div class="header">
-                                                                <h2><strong>PHARMACY ORDER</strong></h2>
+                                                                <h2><strong>ENCOUNTER PHARMACY ORDER</strong></h2>
                                                                 <ul class="header-dropdown dropdown">                                
                                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                     <li class="dropdown">
                                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                         <ul class="dropdown-menu">
                                                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li>
-                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u">Update</a></li>
+                                                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u_encounter">Update</a></li>
                                                                             <li><a href="javascript:void(0);">Print</a></li>
                                                                             <li><a href="javascript:void(0);">Export</a></li>
                                                                         </ul>
@@ -727,7 +727,7 @@
                                                                                     <tr>
                                                                                         <th>#</th>
                                                                                         <th>Item</th>
-                                                                                        <th>class</th>
+                                                                                        <th>Class</th>
                                                                                         <th>Quantity</th>
                                                                                         <th>Date, Time</th>
                                                                                     </tr>
@@ -1190,7 +1190,7 @@
                                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                     <ul class="dropdown-menu">
                                                         <!-- <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li> -->
-                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u">Update</a></li>
+                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u" (click)="itemSelected()">Update</a></li>
                                                         <li><a href="javascript:void(0);">Print</a></li>
                                                         <li><a href="javascript:void(0);">Export</a></li>
                                                     </ul>
@@ -1259,7 +1259,7 @@
         </div>
 
 
-        <div class="modal fade" id="preamble" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="preamble" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1288,7 +1288,7 @@
 
 
 
-        <div class="modal fade" id="subject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="subject" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1314,7 +1314,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="object" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="object" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1340,7 +1340,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="assessment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="assessment" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1366,7 +1366,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="presumption_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="presumption_d" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1392,7 +1392,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="diffrential_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="diffrential_d" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1418,7 +1418,7 @@
             </div>
         </div> 
 
-        <div class="modal fade" id="definitive_d" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="definitive_d" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1444,7 +1444,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1642,7 +1642,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="pharmacy_u" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="pharmacy_u" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1686,13 +1686,13 @@
                                                             <th>Cost</th>
                                                             <th>Amount</th>
                                                             <!-- <th>Refill Status</th> -->
-                                                            <th>Action</th>
+                                                            <!-- <th>Action</th> -->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let r of prescriptionsList; let i = index">
                                                             <ng-container *ngFor="let r2 of itemsitem;">
-                                                               <ng-container *ngIf="r.item_id == r2.item_id && r2.total_remain >= r.quantity" (onCreate)="itemSelected(r.item_id)">
+                                                               <ng-container *ngIf="r.item_id == r2.item_id && r2.total_remain >= r.quantity">
                                                                     <td>{{i+1}}</td> 
                                                                     <td class="fancy-checkbox">
                                                                         <label><input type="checkbox" disabled checked ><span>Available</span></label>
@@ -1719,10 +1719,10 @@
                                                                         Close
                                                                         </span>
                                                                     </td> -->
-                                                                    <td>
+                                                                    <!-- <td>
                                                                     <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
                                                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
-                                                                    </td>
+                                                                    </td> -->
                                                                 </ng-container>
 
                                                                 <ng-container *ngIf="r.item_id == r2.item_id && r.quantity > r2.total_remain">
@@ -1735,17 +1735,17 @@
                                                                     </td>
                                                                     <td>
                                                                         <del>
-                                                                            <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
-                                                                            <p class="mb-0">{{r.name}}</p>
+                                                                            <a href="javascript:void(0);" class="text-warning" title="">{{r.generic_name}}</a>
+                                                                            <p class="mb-0 text-warning">{{r.name}}</p>
                                                                         </del>
                                                                     </td>
-                                                                    <td disabled="true"><span class="badge badge-warning">{{r.cat_name}}</span></td>
-                                                                    <td><del>{{r.original_qty}}</del></td>
-                                                                    <td><del>{{r.quantity}}</del></td>                                                                          
+                                                                    <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
+                                                                    <td class="text-warning">{{r.original_qty}}</td>
+                                                                    <td class="text-warning">{{r.quantity}}</td>                                                                          
                                                                     <!-- <td>{{r.refill}}</td>
                                                                     <td>{{r.remain}}</td> -->                     
-                                                                    <td><del>{{r.amount | currency:'NGN':'symbol-narrow'}}</del></td>
-                                                                    <td><del>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</del></td>
+                                                                    <td class="text-warning">{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
+                                                                    <td class="text-warning">{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
                                                                     <!-- <td>
                                                                         <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
                                                                             Refill
@@ -1754,86 +1754,14 @@
                                                                         Close
                                                                         </span>
                                                                     </td> -->
-                                                                    <td>
+                                                                    <!-- <td>
                                                                     <button disabled type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
                                                                     <button disabled type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
-                                                                    </td>
+                                                                    </td> -->
                                                                 </ng-container>
                                                             </ng-container>                                                                
                                                         </tr>
-
-                                                        <div class="modal fade" id="EditTra" tabindex="-1" role="dialog">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div  class="modal-content">  
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">Make Refill</h4>
-                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    </div>
-                                                                    <div class="modal-body">             
-                                                                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
-                                                                                                            
-                                                                        <div class="modal-body">             
-                                                                            <div class="row clearfix"> 
-                                                                                <div class="col-lg-12 col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Instock</label>
-                                                                                        <input type="text" class="form-control" value="{{instock}}" disabled>
-                                                                                    </div>
-                                                                                </div>                                    
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label>General Quantity</label>
-                                                                                            <input type="text" class="form-control" value="{{original_qty}}" disabled>
-                                                                                        </div>
-                                                                                    </div> 
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                                <label>Refill Quatity</label>
-                                                                                            <input type="text" disabled class="form-control" value="{{refill_qty}}">
-                                                                                        </div>
-                                                                                    </div>                                                 
-                                                                                </div>
-                                                                                <div class="row clearfix">                                    
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label>Total Quantity</label>
-                                                                                            <input type="text" class="form-control" value="{{total_quantity}}" disabled>
-                                                                                        </div>
-                                                                                    </div> 
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                                <label>Amount</label>
-                                                                                            <input type="text" disabled class="form-control" value="{{total_amount}}">
-                                                                                        </div>
-                                                                                    </div>                                                 
-                                                                                </div>
-                                        
-                                                                                <div class="row clearfix">                                    
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label>Change Total Quantity</label>
-                                                                                            <input type="text" (keyup)="apartTablet2($event)" class="form-control" ngModel name="quantity" value="">
-                                                                                        </div>
-                                                                                    </div> 
-                                                                                    <div class="col-lg-6 col-md-12">
-                                                                                        <div class="form-group">
-                                                                                                <label>Amount</label>
-                                                                                            <input type="text" class="form-control" ngModel name="amount" value="{{amount_p | currency:'NGN':'symbol-narrow'}}">
-                                                                                        </div>
-                                                                                    </div>                                                 
-                                                                                </div>
-                                                                            </div>                                     
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-round btn-primary">Update<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
-                                                                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
-                                                                        </div>
-                                                                    </form>
-                                                                    </div>                                                                          
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div *ngIf="!prescriptionsList">
-                                                            
                                                             <div class="spinner-grow text-primary" role="status">
                                                                 <span class="sr-only">Loading...</span>
                                                             </div>
@@ -1861,7 +1789,7 @@
                                                             <th></th>
                                                             <th></th> 
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th></th>
                                                             <th></th>
                                                             <th></th> 
@@ -1874,7 +1802,7 @@
                                                             <th></th>
                                                             <th></th> 
                                                             <th></th>     
-                                                        </tr>
+                                                        </tr> -->
                                                         <tr *ngFor="let cg of charges">
                                                             <th></th>
                                                             <th></th>
@@ -1885,7 +1813,7 @@
                                                             <th><strong>{{cg.charge_name}}</strong></th>                                                                
                                                                                                             
                                                             <th *ngIf="schemePriceList == 'price_1'">{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</th>
-                                                            <th *ngIf="schemePriceList != 'price_1'"><del>{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</del></th>
+                                                            <th *ngIf="schemePriceList != 'price_1'" class="text-warning"><del>{{cg.selling_price | currency:'NGN':'symbol-narrow'}}</del></th>
                                                             <th></th> 
                                                             <th></th> 
                                                             <th></th>   
@@ -1929,7 +1857,7 @@
               </div>
           </div>
 
-        <div class="modal fade" id="pharmacy_u_encounter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="pharmacy_u_encounter" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1962,7 +1890,6 @@
                                                     <thead>
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Select</th>
                                                             <th>Image</th>
                                                             <th>Item</th>
                                                             <th>Category</th>
@@ -1978,12 +1905,9 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let r of encounter_pham; let i = index">
-                                                            <td>{{i+1}}</td> 
-                                                            <td class="fancy-checkbox">
-                                                                <label><input type="checkbox" disabled checked ><span>Available</span></label>
-                                                            </td>                                                                                    
+                                                            <td>{{i+1}}</td>                                                                                     
                                                             <td class="w60">
-                                                                <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
+                                                                <img src="http://{{ imgLink }}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                                             </td>
                                                             <td>
                                                                 <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
@@ -2109,7 +2033,7 @@
                                                             <th></th>
                                                             <th></th> 
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <th></th>
                                                             <th></th>
                                                             <th></th> 
@@ -2122,7 +2046,7 @@
                                                             <th></th>
                                                             <th></th> 
                                                             <th></th>     
-                                                        </tr>
+                                                        </tr> -->
                                                         <tr *ngFor="let cg of charges">
                                                             <th></th>
                                                             <th></th>

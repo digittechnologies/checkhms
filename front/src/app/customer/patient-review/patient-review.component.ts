@@ -62,12 +62,12 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   tquant: any;
   refill: any;
   remain: any;
-  tcost: any;
+  tcost = 0;
   prescription: any;
   voucher: any;
   invoice: any;
   disabled = false;
-  afterPercentCost: any;
+  afterPercentCost = 0;
   schemeAmt: any;
   catResponds: any;
   cust_cat: any;
@@ -160,6 +160,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   branch_id: any;
   items: any;
   itemsitem: any;
+  selectedItems = [];
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -256,7 +257,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     }
 
     editTrans(hh){  
-
       this.amt_value = hh;
       this.Jarwis.updatePrecription(this.amt_value).subscribe(
         data=>{
@@ -284,7 +284,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         form.value.refill_status= 'non-refillable';
       }
          
-        this.Jarwis.updatePrescription(form.value).subscribe(
+      this.Jarwis.updatePrescription(form.value).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error),  
       );
@@ -333,35 +333,41 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.tquant= this.prescriptions.tquant;
       this.refill = this.prescriptions.refill;
       this.remain = this.prescriptions.remain;
-      this.tcost = this.prescriptions.tcost;
-      if (this.schemePriceList == 'price_1') {
-        this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50;
-      } else {
-        this.afterPercentCost = this.schemePercent / 100 * this.tcost;
-      }
+      // this.tcost = this.prescriptions.tcost;
+      // if (this.schemePriceList == 'price_1') {
+      //   this.afterPercentCost = this.schemePercent / 100 * this.tcost + 50;
+      // } else {
+      //   this.afterPercentCost = this.schemePercent / 100 * this.tcost;
+      // }
        
       this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost + 50;
       this.prescriptionsList= this.PharmPreresponse.pres; 
     })
     
-      this.Jarwis.disItemDet().subscribe(
-        data=>{
-        this.ItemDetresponse = data;      
-        this.itemDet = this.ItemDetresponse;      
-      })
-  
-      this.Jarwis.displayInstruction().subscribe(
-        data=>{
-        this.Instructionresponse = data;      
-        this.instruct = this.Instructionresponse;      
-      })
-  
-      this.Jarwis.customer_category().subscribe(
-        data=>{
-        this.catResponds = data;      
-        this.cust_cat = this.catResponds;      
-      })
+    this.Jarwis.disItemDet().subscribe(
+      data=>{
+      this.ItemDetresponse = data;      
+      this.itemDet = this.ItemDetresponse;      
+    })
 
+    this.Jarwis.displayInstruction().subscribe(
+      data=>{
+      this.Instructionresponse = data;      
+      this.instruct = this.Instructionresponse;      
+    })
+
+    this.Jarwis.customer_category().subscribe(
+      data=>{
+      this.catResponds = data;      
+      this.cust_cat = this.catResponds;      
+    })
+
+    this.Jarwis.displayCharges().subscribe(
+      data=>{
+      this.chargesResponse = data;      
+      this.charges = this.chargesResponse.charges;
+      this.selling_price = this.chargesResponse.chargeSum;
+    })
 
     //Doctor Ecounter...
   this.Jarwis.profile().subscribe(
@@ -379,7 +385,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.response = data;      
     this.items = this.response;
     this.itemsitem=this.items.item;
-    console.log(this.itemsitem[0])
   })
 
   this.Jarwis.fetchteam().subscribe(
@@ -422,8 +427,22 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.imgLink = this.response[0].app_url;
   })
   }
-  left(){
 
+  itemSelected(){
+    this.tcost = 0
+    this.afterPercentCost = 0 
+    this.prescriptionsList.forEach(data => {
+      this.itemsitem.forEach(data2 => {
+        if(data.item_id == data2.item_id && data2.total_remain >= data.quantity) {
+          this.selectedItems.push(data.id)
+          this.tcost += data.amount_paid
+          this.afterPercentCost += data.amount_paid
+        }
+      });
+    });
+    if (this.schemePriceList == 'price_1') {
+      this.afterPercentCost += 50
+    }
   }
 
   onSelectItem(Itemid) {
@@ -578,19 +597,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     );
   }
 
-  itemSelected2(itemId, itemQty){
-    console.log(itemId, itemQty)
-    this.Jarwis.voucherAllStock(itemId, '', this.patientAppointment).subscribe(  
-      data=>{
-        this.remainInStockResponse = data;
-        this.remainInStock = this.remainInStockResponse.item_remains;
-      }
-    );
-  }
-
-  itemSelected(id){
-    console.log(id)
-  }
 
   saveTovoucher(){
     if(this.prescriptionsList.length <= 0){
@@ -598,7 +604,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       return;
     } else { 
       this.disabled = true;
-      this.Jarwis.saveTovoucher(this.appId, '').subscribe(
+      this.Jarwis.saveTovoucher(this.appId, {'prescription': this.selectedItems}).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error),  
     );

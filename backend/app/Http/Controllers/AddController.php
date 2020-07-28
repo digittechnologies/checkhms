@@ -2660,9 +2660,8 @@ public function addCenter(Request $request)
         }
     }
 
-    public function saveTovoucher($cid)
+    public function saveTovoucher($cid, Request $request)
     {
-        return $cid;
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -2673,6 +2672,7 @@ public function addCenter(Request $request)
         $amount = 0;
         $refill = 0;
         $remain = 0;
+        $itemSelected = $request->prescription;
 
         // GET DISCOUT VALUE;
         
@@ -2750,18 +2750,22 @@ public function addCenter(Request $request)
                         ->select('doctor_prescriptions.*', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
                         ->where('doctor_prescriptions.status', '=', 'save')
                         ->where('doctor_prescriptions.appointment_id', '=', $cid)
-                        ->where('doctor_prescriptions.branch_id', '=', $branchId)
                         ->get();
        
 
         //  return $get;
         foreach($get as $row2){
-            $getId = $row2->id;
-            $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
-            ->update([
-                'status' => 'close',
-                'voucher_id' => $create_voucher,
-            ]);
+            foreach($itemSelected as $itemSelect){
+                if($row2->id == $itemSelect) {
+                    $getId = $row2->id;
+                    $update = DB::table('doctor_prescriptions')->where('doctor_prescriptions.id', '=', $getId)
+                    ->update([
+                        'status' => 'close',
+                        'branch_id' => $branchId,
+                        'voucher_id' => $create_voucher,
+                    ]);
+                }
+            }
         }
         $updateAppointment = DB::table('appointments')
                                     ->where('appointments.id', '=', $cid)
@@ -2776,10 +2780,10 @@ public function addCenter(Request $request)
                 "message":"successful"
             }' ;
         } else {
-         return '{
-            "success":false,
-            "message":"failed"
-        }' ;
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
         }
         
        
