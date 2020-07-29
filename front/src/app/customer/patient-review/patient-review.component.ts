@@ -170,6 +170,8 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   AllEncounterResponce: Object;
   allencounter: Object;
   prescriptionsList2: any;
+  other_proce_id: any;
+  other_proce_forms: { date: string; games: any; }[];
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -884,6 +886,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.closeModal = true;
       let res:any = data
       this.closeMo(res.message)
+      this.other_process(this.other_proce_id)
        }
      )
  }
@@ -930,30 +933,52 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
   other_process(id){
+    this.other_proce_id = id;
     this.Jarwis.fetchnuresetables({appointment_id:this.appId,id:id}).subscribe(
       data=>{
         let res:any =data
-        if(res.nurseprocecess==""){
-          res.nurseprocecess = res.form
+        
+        for (let index = 0; index < res.form.length; index++) {
+          let dts:any = res.form[index];
+          if (dts.options != null) {
+            let opss = JSON.parse(dts.options)
+            dts.options = opss
+          }
+          else{
+            dts.options=''
+          }
+          if (dts.suggestion != null || dts.suggestion != "" ) {
+            let sug = JSON.parse(dts.suggestion)
+            dts.suggestion = sug
+          }
+          else{
+            dts.suggestion=''
+          }
         }
+        this.other_proce_forms = res.form
+        console.log(this.other_proce_forms)
+
+
+
+        
         if(res.nurseprocecess != ''){
         for (let index = 0; index < res.nurseprocecess.length; index++) {
           let dt:any = res.nurseprocecess[index];
-          if (dt.value_option) {
+          if (dt.value_option != null) {
             let vp = JSON.parse(dt.value_option)
             dt.value_option = vp
           }
           else{
             dt.value_option=''
           }
-          if (dt.options) {
+          if (dt.options !=null) {
             let ops = JSON.parse(dt.options)
             dt.options = ops
           }
           else{
             dt.options=''
           }
-          if (dt.suggestion) {
+          if (dt.suggestion != null) {
             let sug = JSON.parse(dt.suggestion)
             dt.suggestion = sug
           }

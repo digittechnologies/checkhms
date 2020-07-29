@@ -426,23 +426,23 @@
                                                 <div class="col-sm-12">
                                                   <div class="card" id="Gallery">
                                                       <div id="lightgallery" class=" lightGallery">
-                                                        <div *ngIf="other_proce">
-                                                        <ng-container *ngFor="let datass of other_proce">
-                                                         <div class="header">
-                                                        <h2><strong>{{datass.games[0].attribute}}</strong></h2>  
-                                                            <ul class="header-dropdown dropdown">                                
-                                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                                                <li class="dropdown">
-                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li *ngFor="let datalist of datass.games"><a href="javascript:void(0);" data-toggle="modal" data-target="#Table" (click)="tableDetails(datalist.options,datalist.process_value_id,datalist.process_attribute_id,datalist.suggestion)">{{datalist.value}}</a></li>
-                                                                        <!-- <li><a href="javascript:void(0);">Another Action</a></li>
-                                                                        <li><a href="javascript:void(0);">Something else</a></li> -->
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                      
+                                                          <div class="header" *ngIf="other_proce_forms">
+                                                              <h2><strong>{{other_proce_forms[0].attribute}}</strong></h2>  
+                                                              <ul class="header-dropdown dropdown">                                
+                                                                  <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                  <li class="dropdown">
+                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                      <ul class="dropdown-menu">
+                                                                          <li *ngFor="let datalist of other_proce_forms"><a href="javascript:void(0);" data-toggle="modal" data-target="#Table" (click)="tableDetails(datalist.options,datalist.process_value_id,datalist.process_attribute_id,datalist.suggestion)">{{datalist.value}}</a></li>
+                                                                          <!-- <li><a href="javascript:void(0);">Another Action</a></li>
+                                                                            <li><a href="javascript:void(0);">Something else</a></li> -->
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                <div *ngIf="other_proce">
+                                                <ng-container *ngFor="let datass of other_proce">
                                                 <div class="body result">
                                              <ng-container *ngFor="let data of datass.games">
                                                     <div class="row clearfix" *ngIf="data.process_value_id != nulll">
@@ -471,16 +471,16 @@
                                                     </ng-container>
                                                     </div>
                                                 </ng-container>
-                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                         </div>
-                                    </div>
-                                </div>
-                                
+                                        
+                                    </div>              
+                                </div>  
                         </div>
-                        
-                    </div>              
-                </div>  
-        </div>
                             <div *ngIf="open" class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">    
 
                                     <div class="row clearfix">
