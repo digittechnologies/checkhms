@@ -1061,6 +1061,19 @@ class DisplayController extends Controller
 
     // Prescriptions  
 
+    public function getAllEncounter($id)
+    {
+
+        $getPatientId= Appointments::where('appointments.id',$id)->select('appointments.*')->first();
+        $PatientId= $getPatientId->customer_id;
+
+        return DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')        
+                                        ->join('appointments','encounter_tb.appointment_id','=','appointments.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name') 
+                                        ->where('appointments.customer_id','=', $PatientId)                          
+                                        ->get();
+    }
+
     public function getEncounterType()
     {
         return DB::table("encounter_tittle")->get();
@@ -1277,11 +1290,14 @@ class DisplayController extends Controller
                         ->where('doctor_prescriptions.appointment_id', '=', $id)
                         // ->where('doctor_prescriptions.branch_id', '=', $bId)
                         ->sum('doctor_prescriptions.quantity'),
-            // "refill" => Doctor_prescriptions::select('doctor_prescriptions.*')
-            //             // ->where('doctor_prescriptions.status', '!=', 'close')
-            //             ->where('doctor_prescriptions.appointment_id', '=', $id)
-            //             ->where('doctor_prescriptions.branch_id', '=', $bId)
-            //             ->sum('doctor_prescriptions.refill'),
+            "pres2" => Doctor_prescriptions::orderBy('id') 
+                        ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
+                        ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
+                        ->join ('branches', 'doctor_prescriptions.branch_id','=','branches.id')
+                        ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
+                        ->select('doctor_prescriptions.*', 'branches.name as branchName', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name')
+                        ->where('doctor_prescriptions.appointment_id', '=', $id)
+                        ->get(),
             // "remain" => Doctor_prescriptions::select('doctor_prescriptions.*')
             //             // ->where('doctor_prescriptions.status', '!=', 'close')
             //             ->where('doctor_prescriptions.appointment_id', '=', $id)

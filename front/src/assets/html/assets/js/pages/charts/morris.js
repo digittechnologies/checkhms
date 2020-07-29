@@ -1,4 +1,4 @@
-function chat(){
+function chat2(){
 $(function () {
     "use strict";
     MorrisArea();
