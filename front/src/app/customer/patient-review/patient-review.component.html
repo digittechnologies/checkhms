@@ -94,7 +94,8 @@
                     <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                    
                         <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">Open</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
+                        <a *ngIf="team_reviews" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false" (click)="reviewMessages(team_reviews.team_review_id)">Team Review <span class="badge badge-warning">Active</span></a>
+                        <a *ngIf="!team_reviews" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="type" data-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type" aria-selected="false">AP Type <span class="badge badge-warning">OPD</span></a>
 
                                    
@@ -368,16 +369,16 @@
                                                                 <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
                                                                     <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
                                                                 <ng-container *ngFor="let data of datass.games">
-                                                                   <div *ngIf="data.process_value_id == nulll">
+                                                                   <!-- <div *ngIf="data.process_value_id == nulll"> -->
                                                                        <ul>
                                                                     <ng-container *ngFor="let val of data.value_option">
-                                                                        <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                                                        <li> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
-                                                                        
-                                                                    </div> 
+                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true"> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
+                                                                        <span *ngIf="val[1] != null && val[1] == true"> <strong>{{val[0]}}</strong> <input type="checkbox" name="" id=""></span>
+                                                                   
+                                                                    
                                                                     </ng-container>
                                                                 </ul>
-                                                                </div>
+                                                                <!-- </div> -->
                                                                 
                                                                         </ng-container>
                                                                     </ng-container>
@@ -852,7 +853,7 @@
                                             </div>
                                         </div>
                                     
-                                    <div class="row clearfix">
+                                    <div *ngIf="team_reviews" class="row clearfix">
                                         <div class="col-lg-12">                    
                                             <div class="card">
                                                 <div class="body">
@@ -2216,7 +2217,7 @@
                     </div>        
                 </div>
               
-              
+              <!-- OTHER NURSE PROCESS -->
           <div class="modal fade" id="Table" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -2278,10 +2279,49 @@
             </div>
 
 
+          <!-- CREATE TEAM REVIEW MODAL -->
+            <div class="modal fade" id="creat-Team_review" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Add Team review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">        
+                        <div class="row clearfix">
+                            <div class="col-md-12">
+                                <mat-form-field class="col-lg-12" appearance="fill">
+                                    <mat-label style="color:grey">Name</mat-label>
+                                    <input matInput type="text"  class="form-control" [(ngModel)]="name">
+                            </mat-form-field> 
+                            <mat-form-field class="col-lg-12" appearance="fill">
+                                <mat-label style="color:grey">Description</mat-label>
+                                <input matInput type="text"  class="form-control" [(ngModel)]="description">
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-12" appearance="fill">
+                            <mat-label>Invite Team</mat-label>
+                            <select matNativeControl class="form-control" [(ngModel)]="team_id">
+                              <option value="" selected></option>
+                              <option *ngFor="let team of teams" [value]="team.id">
+                                {{team.team_name}}
+                              </option>
+                            </select>
+                          </mat-form-field>
+                            </div>           
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-round btn-primary" (click)="createReview()">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </div>
+                </div>
+                </div>
 
 
-
-
+      <!-- NURSING FORM PROCESS -->
             <div class="modal fade" id="init_process" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">

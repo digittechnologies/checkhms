@@ -175,7 +175,10 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.Chat.TeamRiviewCreated().subscribe(
         data=>{
           console.log(data)
-          this.ngOnInit()
+            $('#creat-Team_review').modal('hide');
+            this.disabled  = false;
+            this.handleResponse(data.message) 
+            this.ngOnInit()
         }
       )
       this.Chat.allReview().subscribe(
@@ -188,9 +191,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.Chat.rievewDetails().subscribe(
         data=>{
           console.log(data)
-      this.reviw_admin = data.admin[0];
-      this.members = data.members;
-      this.review_messages = data.messages;
+          this.reviw_admin = data.admin[0];
+          this.members = data.members;
+          this.review_messages = data.messages;
         this.Chat.joinedReview().subscribe(
           data=>{
             console.log(data)
@@ -676,6 +679,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   createReview(){
     if(this.user_id && this.team_id){
       this.Chat.createTeamRiview({user_id:this.user_id,name:this.name,description:this.description,appoint_id:this.appId,team_id:this.team_id})
+      this.disabled = true
     }
   }
   reviewMessages(id){

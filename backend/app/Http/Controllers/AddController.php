@@ -3298,6 +3298,7 @@ public function addCenter(Request $request)
         else{
             array_push($form_data,$form);
         }
+        
         }
         $user_id = Auth()->user()->id;
         $user_possintion_id = Auth()->user()->position_id;
