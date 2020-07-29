@@ -369,18 +369,18 @@
                                                                    <!-- <div *ngIf="data.process_value_id == nulll"> -->
                                                                        <ul>
                                                                     <ng-container *ngFor="let val of data.value_option">
-                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true && val[1] != val[1]"> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
-                                                                        <li *ngIf="val[1] == val[1]"> <strong style="margin-right:10px;">{{val[0]}}:</strong></li>
+                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true && val[0] != val[1]"> <strong style="margin-right:10px;">{{val[0]}} :</strong> <a  class="text-warning">{{val[1]}}</a></li>
+                                                                       <li *ngIf="val[0] == val[1]"><strong style="margin-right:10px;" class="mr-3">{{val[0]}} :</strong></li> 
                                                                         <span *ngIf="val[1] != null && val[1] == true">
                                                                             <label class="fancy-checkbox mt-3">
-                                                                                <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[0]}}</a><input class="checkbox-tick" type="checkbox" checked>
+                                                                                <a   class="text-warning">{{val[0]}}</a><input class="checkbox-tick" disabled type="checkbox" checked>
                                                                                  <span></span>
                                                                              </label>
                                                                             
                                                                             <!-- <strong>{{val[0]}}</strong> <input type="checkbox" name="" id=""> -->
                                                                         
                                                                         </span>
-                                                                   
+                                                                      
                                                                     </ng-container>
                                                                 </ul>
                                                                 <!-- </div> -->
@@ -755,12 +755,7 @@
                                                                 <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
                                                                 <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5> 
                                                             </div>
-                                                            <div>
-                                                                <input type="text" class="form-control" placeholder="Search...">
-                                                            </div>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text"><i class="icon-magnifier"></i></span>
-                                                            </div>
+                                                            <hr>
                                                         </div>
                                                         <ul *ngIf="members" class="right_chat list-unstyled mb-0 meb">  
                                                         <ng-container  *ngFor="let member of members">
