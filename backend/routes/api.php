@@ -197,6 +197,7 @@ Route::post('updateCustomer', 'AddController@updateCustomer');
 Route::post('updateCustomer2', 'AddController@updateCustomer2');
 Route::post('deleteCustomer', 'AddController@deleteCustomer');
 Route::get('displayCharges','DisplayController@displayCharges');
+Route::get('displayChargesId/{id}','DisplayController@displayChargesId');
 Route::post('searchPatient','AddController@searchPatient');
 Route::get('patientdetails/{id}','DisplayController@patientdetails');
 Route::get('getpatientdetails/{id}','DisplayController@getpatientdetails');
@@ -214,6 +215,7 @@ Route::get('displayAppointmentType','RecordModuleController@displayAppointmentTy
 Route::post('addEpsCustomer', 'AddController@addEpsCustomer');
 // Appointments   
 Route::get('displayAllappointment','DisplayController@displayAllappointment');
+Route::get('getAllEncounter/{id}','DisplayController@getAllEncounter');
 Route::get('getEncounterType','DisplayController@getEncounterType');
 Route::get('getEncounter/{id}','DisplayController@getEncounter');
 Route::get('getEncounterDetails/{id}','DisplayController@getEncounterDetails');

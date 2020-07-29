@@ -118,6 +118,9 @@ export class PatientComponent implements OnInit {
   centerResponse: any;
   charges: any;
   searching =  false;
+  givenCharges: any;
+  chargesResponse: any;
+  getChargePrice: any;
 
   constructor( 
     private Jarwis: JarwisService,
@@ -215,6 +218,17 @@ export class PatientComponent implements OnInit {
       this.getCenter = this.centerResponse
       })
   
+  }
+
+  
+  onChange4(chg){
+    this.givenCharges = chg.target.value;
+    this.Jarwis.displayChargesId(this.givenCharges).subscribe(
+      data=>{
+      this.chargesResponse = data;      
+      this.getChargePrice = this.chargesResponse.charges.selling_price;
+      console.log(this.getChargePrice );
+      })  
   }
 
 

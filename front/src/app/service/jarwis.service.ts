@@ -175,10 +175,14 @@ public  permite ="";
   
   getEncounter(id: any) {
     return this.http.get(`${this.baseUrl}/getEncounter/${id}`,)
-  } 
+  }  
 
   getEncounterDetails(id: any) {
     return this.http.get(`${this.baseUrl}/getEncounterDetails/${id}`,)
+  }
+
+  getAllEncounter(id: any) {
+    return this.http.get(`${this.baseUrl}/getAllEncounter/${id}`,)
   }
 
   submitEncounter(data) {
@@ -200,6 +204,10 @@ public  permite ="";
 
   displayCenter(id: any) {
     return this.http.get(`${this.baseUrl}/displayCenter/${id}`,)
+  }
+
+  displayChargesId(id: any) {
+    return this.http.get(`${this.baseUrl}/displayChargesId/${id}`,)
   }
 
   displayAppointmentBranch(id: any) {
