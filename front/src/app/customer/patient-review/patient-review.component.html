@@ -85,10 +85,10 @@
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" (click)="encouter()">Overview <span class="badge badge-danger">1</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" (click)="vitaSigns()">Vital Signs <span class="badge badge-success">Success</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" (click)="encouter()" >Nursing Assessment <span class="badge badge-warning">IPD</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursecare" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(29)" >Nursing Care Plan <span class="badge badge-warning">IPD</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurserecord" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursedocument" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="intake_output" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(27)">Intake and Output<span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(29)" >Nursing Care Plan <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(27)">Intake and Output<span class="badge badge-warning">IPD</span></a>
 
                                  
                     <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
@@ -369,10 +369,18 @@
                                                                    <!-- <div *ngIf="data.process_value_id == nulll"> -->
                                                                        <ul>
                                                                     <ng-container *ngFor="let val of data.value_option">
-                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true"> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
-                                                                        <span *ngIf="val[1] != null && val[1] == true"> <strong>{{val[0]}}</strong> <input type="checkbox" name="" id=""></span>
+                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true && val[1] != val[1]"> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
+                                                                        <li *ngIf="val[1] == val[1]"> <strong style="margin-right:10px;">{{val[0]}}:</strong></li>
+                                                                        <span *ngIf="val[1] != null && val[1] == true">
+                                                                            <label class="fancy-checkbox mt-3">
+                                                                                <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[0]}}</a><input class="checkbox-tick" type="checkbox" checked>
+                                                                                 <span></span>
+                                                                             </label>
+                                                                            
+                                                                            <!-- <strong>{{val[0]}}</strong> <input type="checkbox" name="" id=""> -->
+                                                                        
+                                                                        </span>
                                                                    
-                                                                    
                                                                     </ng-container>
                                                                 </ul>
                                                                 <!-- </div> -->
@@ -396,7 +404,7 @@
                                   </div>  
                             </div>
 
-                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-process" role="tabpanel" aria-labelledby="intake_output"> 
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-process" role="tabpanel" aria-labelledby="other_process"> 
                                 <div class="row clearfix">
                                       <div class="col-xl-12 col-lg-12 col-md-12">
                             
@@ -727,8 +735,8 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12"> -->
                                         <div class="row clearfix">
                                             <div class="col-md-12 col-sm-12" *ngIf="team_reviews">
-                                                <h1>{{team_reviews.team_review_name}}</h1>
-                                                <small>{{team_reviews.description}}</small>
+                                                <h1>{{team_reviews[0].team_review_name}}</h1>
+                                                <small>{{team_reviews[0].description}}</small>
                                             </div>        
                                             <div class="col-md-12 col-sm-12 text-right hidden-xs">
                                                 <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
@@ -737,13 +745,19 @@
                                             </div>
                                         </div>
                                     
-                                    <div *ngIf="team_reviews" class="row clearfix">
+                                    <div *ngIf="team_reviews" class="row clearfix review">
                                         <div class="col-lg-12">                    
                                             <div class="card">
-                                                <div class="body">
-                                                    <div class="chatapp_list">
+                                                <div class="body row">
+                                                    <div class="chatapp_list col-lg-3 col-md-4 col-12">
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Search...">
+                                                            <div *ngIf="reviw_admin">
+                                                                <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
+                                                                <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5> 
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" class="form-control" placeholder="Search...">
+                                                            </div>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text"><i class="icon-magnifier"></i></span>
                                                             </div>
@@ -779,7 +793,7 @@
                                                             </ng-container>                             
                                                         </ul>
                                                     </div>
-                                                    <div class="chatapp_body">
+                                                    <div class="chatapp_body col-lg-8 col-md-8 col-12">
                                                         <div class="chat-history">
                                                             <ul class="message_data" *ngIf="review_messages"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
                                                             <ng-container *ngFor="let message of review_messages">
@@ -854,7 +868,6 @@
                                                         </div>
                                                         <div class="chat-message clearfix">
                                                             <div class="input-group mb-0 " *ngIf="reviw_admin">
-                                                                <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
                                                                     <div class="col-12">
                                                                         <div class="row">
                                                                             <span *ngIf="copiedMessage != ''" style="background-color:#3C4043; border:none;height: auto;"  class=" col-12"> <span>{{copiedMessage}}</span>
@@ -868,29 +881,14 @@
                                                                 <textarea *ngIf="review_messages ||  user_id == reviw_admin.id" type="text" [(ngModel)]="message" row="" class="form-control" placeholder="Enter text here..."></textarea>
                                                                     
                                                                         <span class="input-group-text" style="background-color: inherit;">
-                                                                            <!-- <input type="button"  class="btn btn-default fa fa-paper-plane text-primary" > -->
                                                                             <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:23px;cursor: pointer;"></i>
-                                                                            <!-- <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
-                                                                            <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a> -->
                                                                         </span>
                                                                     </div>
                                                             </div>
                                                         </div>   
                                                     </div>
-                                                    <div *ngIf="reviw_admin" class="chatapp_detail text-center vivify pullLeft delay-150">
-                                                        <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
-                                                        <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5>                                
-                                                        <!-- <small class="text-muted">Address: </small>
-                                                        <p> San Francisco</p>
-                                                        <small class="text-muted">Email address: </small>
-                                                        <p>louispierce@example.com</p>
-                                                        <small class="text-muted">Mobile: </small>
-                                                        <p>+ 202-222-2121</p>
-                                                        <button class="btn btn-round btn-success">View Profile</button> -->
-                                                    </div>
+                                                    
                                                 </div>
-                                            <!-- </div>
-                                        </div> -->
                                     </div>
                                 </div>                                
 
@@ -1922,8 +1920,8 @@
                                 <input matInput type="text"  class="form-control" [(ngModel)]="description">
                         </mat-form-field>
                         <mat-form-field class="col-lg-12" appearance="fill">
-                            <mat-label>Invite Team</mat-label>
-                            <select matNativeControl class="form-control" [(ngModel)]="team_id">
+                            <mat-label style="color:grey">Invite Team</mat-label>
+                            <select   matNativeControl class="form-control" [(ngModel)]="team_id">
                               <option value="" selected></option>
                               <option *ngFor="let team of teams" [value]="team.id">
                                 {{team.team_name}}
@@ -1947,7 +1945,7 @@
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Form</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                         </button>
@@ -1957,12 +1955,12 @@
                         <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
                             <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
                                        <mat-label style="color:grey">{{fr.value}}</mat-label>
-                                       <input matInput type="number"  ngModel name="{{fr.value}}" class="example-right-align form-control">
+                                       <input matInput type="number" [(ngModel)]="fr.value_option" name="{{fr.value}}" class="example-right-align form-control">
                                        <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
                                </mat-form-field>
                                <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
                                        <mat-label style="color:grey">{{fr.value}}</mat-label>
-                                       <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
+                                       <input matInput type="{{fr.value_type}}"  class="form-control"  [(ngModel)]="fr.value_option" name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
                                        <mat-autocomplete #auto="matAutocomplete" >
                                        <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
                                        </mat-autocomplete>
@@ -1982,7 +1980,7 @@
                               </ng-container>
                              </div>
                              <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
-                                 <input  type="text"  name="{{fr.value}}" value="keys">
+                                 <input  type="hidden" [(ngModel)]="fr.value" name="{{fr.value}}">
                                <ng-container  *ngFor="let rad of fr.value_options">
                                    <label class="fancy-checkbox mt-3">
                                       <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{rad}}"  value="{{rad}}">
@@ -1993,7 +1991,7 @@
                              <ng-container *ngFor="let ops of fr.options">
                                <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
                                    <mat-label style="color:grey">{{ops}}</mat-label>
-                                   <textarea matInput class="form-control" ngModel name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                   <textarea matInput class="form-control"  [(ngModel)]="fr.value_option" name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
                                </mat-form-field>
                              </ng-container>
                            </ng-container>

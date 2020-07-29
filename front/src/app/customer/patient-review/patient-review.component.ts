@@ -115,7 +115,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   team_id: any;
   description: any;
   members: any;
-  team_reviews:{rows :any};
+  team_reviews:any;
   reviw_admin: any;
   review_id: any;
   message:any;
@@ -190,9 +190,11 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       )
       this.Chat.allReview().subscribe(
         data=>{
-          this.team_reviews = data[0];
+          let res = data;
+            this.team_reviews = res
           // this.review_id =data.rows.row;
-          console.log(this.team_reviews);
+          console.log(this.team_reviews[0].id);
+          this.reviewMessages(this.team_reviews[0].id)
         }
       )
       this.Chat.rievewDetails().subscribe(
@@ -840,13 +842,18 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
   onSaveTestingProcessValue(form:NgForm){
+    this.disabled = true;
     console.log(form.value)
     const data = Object.entries(form.value)
-    // console.log(data)
+    console.log(data)
      this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
+         this.disabled = false;
+         $('#init_process').modal('hide')
          this.handleResponse("opration successfuly")
        this.response = data;  
+       this.encouter()
+
       
    })
  }
