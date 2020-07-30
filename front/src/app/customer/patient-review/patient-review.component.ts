@@ -13,6 +13,9 @@ declare var test3: any;
 declare var test4: any;
 declare var index2: any;
 declare var chat1: any;
+// declare var onload: any;
+// declare var Morris: any;
+// declare var element: any;
 declare var mutil_list: any;
 
 
@@ -152,6 +155,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   suggestions: any;
   closeModal: boolean;
   nurseAss=[];
+
+  other_proce: any;
+  init_dat: any;
   itemPrice2Name: any;
   itemPrice2Amount: any;
   general_selling_price: any;
@@ -161,6 +167,12 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   items: any;
   itemsitem: any;
   selectedItems = [];
+  AllEncounterResponce: any;
+  allencounter: any;
+  prescriptionsList2: any;
+  historylenght: any;
+  vitalStatus:any;
+  vitalenght: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -297,6 +309,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     new test4();
     new index2();
     new chat1();
+    // this.onload();
     new mutil_list();
 
     
@@ -342,6 +355,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
        
       this.schemeAmt = (100 - this.schemePercent)  / 100 * this.tcost + 50;
       this.prescriptionsList= this.PharmPreresponse.pres; 
+      this.prescriptionsList2= this.PharmPreresponse.pres2; 
     })
     
     this.Jarwis.disItemDet().subscribe(
@@ -392,7 +406,21 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
        let res:any = data;
        this.teams = res;
     }
-  )
+  )  
+
+  this.Jarwis.getAllEncounter(this.appId).subscribe(
+    data=>{
+       this.AllEncounterResponce = data;
+       this.allencounter = this.AllEncounterResponce.get;    
+       this.historylenght=this.AllEncounterResponce.lenght;  
+       this.vitalenght= this.AllEncounterResponce.vitasigns;
+       if (this.vitalenght == 0) {
+         this.vitalStatus= 'close'
+       } else {
+        this.vitalStatus= 'open'
+       }
+    }
+  );
 
   this.Jarwis.getEncounterType().subscribe(
     data=>{
@@ -426,6 +454,10 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.response = data;      
     this.imgLink = this.response[0].app_url;
   })
+  
+  }
+  onload() {
+    throw new Error("Method not implemented.");
   }
 
   itemSelected(){
@@ -701,9 +733,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   // TEAM REVIEW END
 
   // ENCOUTER START
-  encouter(id){
-    console.log({position_id:id,appointment_id:this.appId})
-    this.Jarwis.NursingAssessment({position_id:id,appointment_id:this.appId}).subscribe(
+  encouter(){
+    console.log({appointment_id:this.appId})
+    this.Jarwis.NursingAssessment({appointment_id:this.appId}).subscribe(
       data=>{
         console.log(data)
         let res:any =data
@@ -806,45 +838,49 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
          }
         
       }
-      
-      console.log(reses)
       this.form_res = reses;
+      $('#init_process').modal('show');  
       }
     )
   }
   onSaveTestingProcessValue(form:NgForm){
+    console.log(form.value)
     const data = Object.entries(form.value)
-    console.log(data)
-  //    this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
-  //      data=>{
-  //        this.handleResponse("opration successfuly")
-  //      this.response = data;  
-  //  })
+    // console.log(data)
+     this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+       data=>{
+         this.handleResponse("opration successfuly")
+       this.response = data;  
+      
+   })
  }
 
  closeMo(data){
    $('#Table').modal('hide');
-        this.handleResponse(data)  
+        this.handleResponse(data)
+        this.other_process(this.table_id)  
 }
  tableDetails(data,id,process_attribute_id,suggestions){
    this.table_data = data;
-   this.table_id   = id;
+   this.table_id = id;
    this.process_attribute_id = process_attribute_id
    this.suggestions = suggestions;
-   console.log(this.suggestions)
    console.log(this.table_id)
+   console.log( this.process_attribute_id)
+   console.log(this.suggestions)
    this.closeModal = false;
  }
  onSubmittable(form:NgForm){
   this.disabled = true;
+  console.log(form.value)
   const data = Object.entries(form.value)
-  this.collection.push(data)
+  console.log(data)
   this.Jarwis.onSubmitTable({form:data,id:this.table_id,appoint__id:this.appId,process_attribute_id:this.process_attribute_id}).subscribe(
     data=>{
       console.log(data)
       this.closeModal = true;
       let res:any = data
-     this.closeMo(res.message)
+      this.closeMo(res.message)
        }
      )
  }
@@ -852,9 +888,12 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.Jarwis.vitasigns({appointment_id:this.appId}).subscribe(
       data=>{
           let res:any = data
+
+
           if(res.vitasigns != ''){
           for (let index = 0; index < res.vitasigns.length; index++) {
             let dt:any = res.vitasigns[index];
+
             if (dt.value_option) {
               let vp = JSON.parse(dt.value_option)
               dt.value_option = vp
@@ -887,6 +926,64 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
           }
          
           // this.vitasigns = res.vitasigns
+      }
+    )
+  }
+  other_process(id){
+    this.Jarwis.fetchnuresetables({appointment_id:this.appId,id:id}).subscribe(
+      data=>{
+        let res:any =data
+        if(res.nurseprocecess==""){
+          res.nurseprocecess = res.form
+        }
+        if(res.nurseprocecess != ''){
+        for (let index = 0; index < res.nurseprocecess.length; index++) {
+          let dt:any = res.nurseprocecess[index];
+          if (dt.value_option) {
+            let vp = JSON.parse(dt.value_option)
+            dt.value_option = vp
+          }
+          else{
+            dt.value_option=''
+          }
+          if (dt.options) {
+            let ops = JSON.parse(dt.options)
+            dt.options = ops
+          }
+          else{
+            dt.options=''
+          }
+          if (dt.suggestion) {
+            let sug = JSON.parse(dt.suggestion)
+            dt.suggestion = sug
+          }
+          else{
+            dt.suggestion=''
+          }
+        }
+        // this.datas = res.datas;
+            const groups =  res.nurseprocecess.reduce((groups, game) => {
+              const date = game.process_attribute_id;
+              if (!groups[date]) {
+                groups[date] = [];
+              }
+              groups[date].push(game);
+              return groups;
+            }, {});
+            // Edit: to add it in the array format instead
+            const groupArrays = Object.keys(groups).map((date) => {
+              return {
+                date,
+                games: groups[date]
+              };
+            });
+          //  this.datas = groupArrays
+           this.other_proce = groupArrays
+        }
+        else{
+          this.other_proce = null
+        }
+          
       }
     )
   }

@@ -444,10 +444,10 @@
                     <li *ngIf="record && module_name == 'hms' || module_name == 'record'" class="header">Record Module</li>                    
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient']}}]"><i class="icon-user"></i><span>Patients</span></a></li>
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['add_patient']}}]"><i class="icon-user"></i><span>Add Patient</span></a></li>
-                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
+
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['record_charges']}}]"><i class="icon-user"></i><span>Service charge</span></a></li>                        
                         <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['scheme_hmo']}}]"><i class="icon-user"></i><span>Scheme HMO</span></a></li>
-                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['insurance']}}]"><i class="icon-user"></i><span>Insurance</span></a></li>
+                        <!-- <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['insurance']}}]"><i class="icon-user"></i><span>Insurance</span></a></li> -->
 
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'" class="header">Clinic Module</li>
                         <li *ngIf="clinic && module_name == 'hms' || module_name == 'clinic'">
@@ -485,11 +485,19 @@
                         </li>
                         
                     <li *ngIf="module_name == 'hms'" class="header">Audit Trail</li>
-                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['record_history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
-                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['record_report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
+                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['history']}}]"><i class="fa fa-history"></i><span>History</span></a></li>
+                        <li *ngIf="module_name == 'hms'"><a href="javascript:void(0);" [routerLink]="['/Admin', {outlets: {side: ['report']}}]"><i class="fa fa-check-square"></i><span>Report</span></a></li>
             
+
+                        <li *ngIf="record && module_name == 'hms' || module_name == 'record'"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
                       
                     <li *ngIf="module_name == 'hms'" class="header">Settings</li> 
+                    <li *ngIf="module_name == 'hms'">
+                        <a href="javascript:void(0);" class="has-arrow"><i class="icon-tag"></i><span>Set Patient</span></a>
+                        <ul>
+                            <li><a href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_category']}}]"><i class="icon-user"></i><span>Patients Category</span></a></li>
+                        </ul>
+                    </li>
                     <li *ngIf="module_name == 'hms'">
                         <a href="javascript:void(0);" class="has-arrow"><i class="icon-tag"></i><span>Set Pharmacy</span></a>
                         <ul>

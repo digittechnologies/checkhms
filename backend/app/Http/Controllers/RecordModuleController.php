@@ -433,7 +433,7 @@ class RecordModuleController extends Controller
         }
 
         if($request->hospital_charges != "0"){
-            $request->merge(['revenue_id' => $request->charges]);
+            // $request->merge(['revenue_id' => $request->charges]);
             $request->merge(['revenue_status' => 'open']);
         }
 
