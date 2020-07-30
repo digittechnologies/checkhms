@@ -33,7 +33,7 @@ var mysqlConnection = mysql.createConnection({
     const port = process.env.PORT || 8080;
 const server = app.listen(port, () => console.log(`Listening on port ${port}..`));
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server); 
 io.on("connection", (socket) => {
   socket.on("conn",(data)=>{
     var sql = "UPDATE users SET online_status = 'online' WHERE id = ?";
@@ -325,32 +325,6 @@ var fullDate =month+' '+date+','+' '+year
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   socket.on("create team review",(data)=>{
     var sql = `INSERT INTO team_review (user_id,team_review_name,appointment_id,description) VALUES ('${data.user_id}', '${data.name}','${data.appoint_id}','${data.description}')`;
     mysqlConnection.query(sql,async(err,res)=>{
@@ -485,32 +459,6 @@ var fullDate =month+' '+date+','+' '+year
     })
   })
   })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
