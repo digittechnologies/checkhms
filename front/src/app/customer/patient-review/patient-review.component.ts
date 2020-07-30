@@ -167,9 +167,12 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   items: any;
   itemsitem: any;
   selectedItems = [];
-  AllEncounterResponce: Object;
-  allencounter: Object;
+  AllEncounterResponce: any;
+  allencounter: any;
   prescriptionsList2: any;
+  historylenght: any;
+  vitalStatus:any;
+  vitalenght: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -408,7 +411,14 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   this.Jarwis.getAllEncounter(this.appId).subscribe(
     data=>{
        this.AllEncounterResponce = data;
-       this.allencounter = this.AllEncounterResponce;       
+       this.allencounter = this.AllEncounterResponce.get;    
+       this.historylenght=this.AllEncounterResponce.lenght;  
+       this.vitalenght= this.AllEncounterResponce.vitasigns;
+       if (this.vitalenght == 0) {
+         this.vitalStatus= 'close'
+       } else {
+        this.vitalStatus= 'open'
+       }
     }
   );
 
@@ -828,8 +838,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
          }
         
       }
-      
-      console.log(reses)
       this.form_res = reses;
       $('#init_process').modal('show');  
       }
@@ -880,9 +888,12 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.Jarwis.vitasigns({appointment_id:this.appId}).subscribe(
       data=>{
           let res:any = data
+
+
           if(res.vitasigns != ''){
           for (let index = 0; index < res.vitasigns.length; index++) {
             let dt:any = res.vitasigns[index];
+
             if (dt.value_option) {
               let vp = JSON.parse(dt.value_option)
               dt.value_option = vp

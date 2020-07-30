@@ -1411,6 +1411,7 @@ public function addCenter(Request $request)
 
     public function updateCustomer2(Request $request)
     {
+        // return $request->all();
 
         $id=$request->formdata['id'];
         $user=Customers::find($id);
@@ -1506,10 +1507,10 @@ public function addCenter(Request $request)
                         'show'=>"show",
                         'category' => $category,
                         'cate'=>DB::table('customer_category')->get(),
-                        "app" => DB::table('appointments')->orderBy('id')->join('centers','appointments.branch_id','=','centers.id')
+                        "app" => DB::table('appointments')->orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
                         ->join('customers','appointments.customer_id','=','customers.id')
-                        ->select('appointments.*','centers.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
-                        ->where('appointments.customer_id','=',$row->id)->get(),
+                        ->select('appointments.*','branches.name as dept_name', 'customers.name as pat_name', 'customers.othername', 'customers.patient_image', 'customers.card_number')   
+                        ->where('appointments.customer_id','=',$search[0]->id)->get(),
 
                         "count1" => DB::table('appointments')->orderBy('id')->select('appointments.*')   
                         ->where('appointments.customer_id','=',$row->id)->count(),

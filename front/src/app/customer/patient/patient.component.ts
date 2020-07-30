@@ -406,6 +406,18 @@ export class PatientComponent implements OnInit {
           this.cate_id = this.ini_cate_id;
           this.schm_id = this.patient.scheme_id;
           this.hmo = this.patient.hmo_no;
+          this.discount_1 = this.patient.discount_1;
+          this.discount_2 = this.patient.discount_2;
+          this.discount_3 = this.patient.discount_3;                    
+          this.hmo_address = this.patient.hmo_address;
+          this.hmo_contact = this.patient.hmo_contact;
+          this.hmo_name = this.patient.hmo_name;
+          this.hmo_no = this.patient.hmo_no;
+          this.scheme_name = this.patient.scheme_name;
+
+          this.ini_cate_id = this.patient.cust_category_id;
+          this.ini_cate_name = this.patient.cate_name;
+          this.change_cate  = this.searchResponse.cate;
 
 
           this.submissionForm = this.formBuilder.group(

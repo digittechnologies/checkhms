@@ -777,12 +777,21 @@ class DisplayController extends Controller
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
-                    // ->where('appointments.date', '=', $cDate)
+                    ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
+                
+                'data2' => Appointments::orderBy('id', 'DESC')
+                    ->join('customers','appointments.customer_id','=','customers.id')
+                    ->join('users','appointments.created_by','=','users.id')
+                    ->join('branches','appointments.created_branch','=','branches.id')
+                    ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                    ->where('appointments.status','!=','close')
+                    ->where('appointments.a_date', '>', $cDate)
+                    ->get(),
+
                 'bName' => $branName
                     ]);            
              }
-
         if ($moduleId->module_id == '2') {
             return response()->json([
                 'data' => Appointments::orderBy('id', 'DESC')
@@ -792,6 +801,7 @@ class DisplayController extends Controller
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
                     ->where('appointments.clinic_status', '!=', 'close')
+                    ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                     ]);            
             }
@@ -805,6 +815,7 @@ class DisplayController extends Controller
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
                     ->where('appointments.investigation_status', '!=', 'close')
+                    ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                     ]);            
             }
@@ -817,7 +828,8 @@ class DisplayController extends Controller
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
-                    ->where('appointments.status','!=','close')                   
+                    ->where('appointments.status','!=','close')   
+                    ->where('appointments.a_date', '<=', $cDate)                
                     ->get(),
                     ]);            
             }
@@ -915,6 +927,12 @@ class DisplayController extends Controller
          }
 
     }
+
+    public function displayBookedAppointment()
+    {
+
+    }
+    
     public function getNewappoint($lastId){
         $deptId= Auth()->user()->dept_id;
         $branchId= Auth()->user()->branch_id;
@@ -1067,12 +1085,26 @@ class DisplayController extends Controller
         $getPatientId= Appointments::where('appointments.id',$id)->select('appointments.*')->first();
         $PatientId= $getPatientId->customer_id;
 
-        return DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')        
+        return response()->json([ 'get'=> DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')        
                                         ->join('appointments','encounter_tb.appointment_id','=','appointments.id')                                       
                                         ->select('encounter_tb.*','encounter_tittle.tittle_name') 
                                         ->where('appointments.customer_id','=', $PatientId)                          
-                                        ->get();
-    }
+                                        ->get(),
+                                'lenght'=> DB::table("encounter_tb") ->join('encounter_tittle','encounter_tb.encounter_tittle_id','=','encounter_tittle.id')        
+                                        ->join('appointments','encounter_tb.appointment_id','=','appointments.id')                                       
+                                        ->select('encounter_tb.*','encounter_tittle.tittle_name') 
+                                        ->where('appointments.customer_id','=', $PatientId)                          
+                                        ->count(),
+                                "vitasigns" => DB::table("form_process")->orderBy('id', 'desc')->join('process_attribute_tb','form_process.process_attribute_id','=','process_attribute_tb.id')
+                                        ->leftjoin('process_value_tb','process_value_tb.id','form_process.process_value_id')
+                                        ->select('form_process.*','process_attribute_tb.attribute','process_value_tb.value')
+                                        ->where('form_process.position_id',4)
+                                        ->where('form_process.appointment_id',$id)
+                                        ->where('process_attribute_tb.attribute','=','VITASIGNS')
+                                        ->count()
+                               
+                            ]);
+    }   
 
     public function getEncounterType()
     {
