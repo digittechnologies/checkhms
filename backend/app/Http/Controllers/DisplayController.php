@@ -1407,13 +1407,14 @@ class DisplayController extends Controller
             ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
             ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-            // ->where('doctor_prescriptions.status', '=', 'close')
+            ->where('doctor_prescriptions.status', '=', 'save')
             ->where('doctor_prescriptions.appointment_id', '=', $id)
             // ->where('doctor_prescriptions.branch_id', '=', $bId)
             ->count();
-            if($pc=='0'){
+
+            // if($pc=='0'){
                 return response()->json([
-                    "pres" =>$p=  Doctor_prescriptions::orderBy('id') 
+                    "pres" => Doctor_prescriptions::orderBy('id') 
                     ->join ('item_details','doctor_prescriptions.item_id','=','item_details.id')
                     ->join ('durations','doctor_prescriptions.instruction','=','durations.id')
                     ->join ('daily_supply','doctor_prescriptions.day_supply','=','daily_supply.id')
@@ -1423,16 +1424,22 @@ class DisplayController extends Controller
                     ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                     ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                     ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                    // ->where('doctor_prescriptions.status', '=', 'close')
+                    ->where('doctor_prescriptions.status', '=', 'save')
                     ->where('doctor_prescriptions.appointment_id', '=', $id)
-                    ->where('doctor_prescriptions.branch_id', '=', $bId)
+                    // ->where('doctor_prescriptions.branch_id', '=', $bId)
                     ->get(),
                     "isE" =>$pc,
                     "module" => 'pharmacy',
-                    ]);
+                    "patient" => DB::table('customers')->where('customers.id', '=', $customeId->customer_id)
+                    ->join ('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
+                    ->select('customers.*', 'customer_category.category_name', 'customer_category.pacentage_value', 'customer_category.price_list_column')
+                    ->first(),
+                    "totalAmount" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.amount')->first(),
+                    "voucher_status" => DB::table('vouchers')->where('id', '=', $Vid)->select('vouchers.*')->first(),
+                ]);
             
                 
-            }
+            // }
             // if($vid=='inv'){
             //     return response()->json([
             //         "pres" =>$p =  Doctor_prescriptions::orderBy('id') 

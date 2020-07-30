@@ -41,7 +41,7 @@
                                                     </div>
                                                 </div>                                        
                                             </td>                                            
-                                            <td>{{v.created_at}}</td>
+                                            <td>{{v.v_date}} <span>{{v.v_time}}</span></td>
                                             <td>{{v.amount | currency:'NGN':'symbol-narrow'}}</td>                                            
                                             <td>{{v.charges}}%</td>
                                             <td><span class="badge badge-danger ml-0 mr-0">{{v.balance | currency:'NGN':'symbol-narrow'}}</span></td>
@@ -97,17 +97,17 @@
                                 </div>                            
                                 <article class="media body mb-0">
                                     <div class="mr-3">
-                                        <img class="rounded" src="../assets/images/xs/avatar4.jpg" alt="">
+                                        <img class="w35 rounded" src="http://{{ imgLink}}/backend/public/upload/uploads/{{passport}}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="content">
                                             <span><strong>RX#: </strong> {{voucher_Id}}</span>
                                             <p class="h5">{{name}} {{othername}}: {{card_number}} <strong *ngIf="v_status == 'open'" class="float-right badge badge-warning">UNPAID</strong>  <strong *ngIf="v_status == 'paid'" class="float-right badge badge-success">PAID</strong></p>
-                                            <p>{{address}}, {{city}}, {{state}}, {{country}}</p>
+                                            <p>{{address}} {{city}} {{state}} {{country}}</p>
                                             <p>{{mobile_no}}</p>
                                         </div>
                                         <nav class="d-flex text-muted">
-                                            <a href="javascript:void(0);" class="badge badge-primary">{{p_date}}</a>                                            
+                                            <strong class="badge badge-primary">{{p_date}}</strong>                                            
                                         </nav>
                                     </div>
                                 </article>
@@ -161,15 +161,15 @@
                                                         <td colspan="3"><span><strong>Note:</strong> Note...</span></td>
                                                         <td>
                                                           Sub Total: <br>
-                                                          Discount %:<br>
+                                                          <!-- Discount %:<br> -->
                                                           Service Charge: <br>
                                                           Total: <br>
                                                       </td>
                                                       <td>
                                                           <strong class="text-success">{{amount | currency:'NGN':'symbol-narrow'}}</strong><br>
-                                                          <strong class="text-warning">{{schemePercentToView}}%</strong><br>
-                                                          <strong class="text-success">{{selling_price  | currency:'NGN':'symbol-narrow'}}</strong><br>
-                                                          <strong class="text-success">{{afterPercentCost  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <!-- <strong class="text-warning">{{schemePercentToView}}%</strong><br> -->
+                                                          <strong class="text-success">{{serviceCharges  | currency:'NGN':'symbol-narrow'}}</strong><br>
+                                                          <strong class="text-success">{{amount  | currency:'NGN':'symbol-narrow'}}</strong><br>
                                                       </td>
                                                     </tr>
                                                 </tfoot>
@@ -255,7 +255,7 @@
                             </div>
                                 <div class="row clearfix">
                                     <div class="col-md-12 text-right">
-                                        <button *ngIf="v_status== 'open' && invoiceModule == 'pharmacy'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i class="icon-cash"></i> Pay Prescription</button> &nbsp;
+                                        <button *ngIf="v_status== 'open' && invoiceModule == 'pharmacy'" class="btn btn-danger" [hidden]="dept!='11'" data-toggle="modal" data-target="#payment"><i *ngIf="disabled" class="fa fa-spin fa-spinner"></i><i *ngIf="!disabled" class="fa fa-money"></i> Pay Prescription</button> &nbsp;
 
                                         <button *ngIf="v_status== 'open' && invoiceModule == 'other'" class="btn btn-danger" [hidden]="dept!='11'" (click)="payService()"><i *ngIf="disabled" class="fa fa-spin fa-spinner"></i><i *ngIf="!disabled" class="fa fa-money"></i> Pay Service</button> &nbsp;
 
@@ -283,8 +283,7 @@
                                                             <div class="form-group">
                                                                 <label>Payment Method</label>
                                                                 <select class="form-control show-tick" ngModel name="method">
-                                                                    <option>--Select Status--</option>
-                                                                    <option value="cash">Cash Payment</option>
+                                                                    <option value="cash" selected="true">Cash Payment</option>
                                                                     <option value="pos">Pay with POS</option>  
                                                                     <option value="wallet">Pay From Wallet</option> 
                                                                 </select>                                                         

@@ -2887,9 +2887,18 @@ public function addCenter(Request $request)
                 'branch_id' => $branchId,
                 'staff_id' => $staffID,
                 'voucher_id' => $voucher_id,    
-            ]);  
+            ]);
+            
+             //UPDATE VOUCHER AND ADD THE INVOICE ID OF THE OBJECT TO THE RETURNED INVOICE ID ABOVE
+             $updateVoucher = DB::table('vouchers')->where('id', $voucher_id)
+             ->update([
+                 'paid_status' => 'paid',
+                 'invoice_id' => $insertInvoice,
+                 'balance' => $balance,
+                 'revenue_branch_id' => $branchId,
+             ]);
 
-            if($insertInvoice) {
+            if($updateVoucher) {
                 return '{
                     "success":true,
                     "message":"successful"
@@ -2904,16 +2913,16 @@ public function addCenter(Request $request)
 
     public function saveToInvoice(Request $request)
     {
-        // return $request->all();
         $substituteItemFromCenter = true;
         $keepLogAfterSubstitution = true;
 
-        $vid= $request->voucher_Id;
+        $vid= $request->voucherID;
         $v_method= $request->method;
-        $selling_price = $request->charge_amt;
-        $discount = $request->discount;
-        $tobalance = $request->bal;
+        $service_charge = $request->charge_amt;
+        // $discount = $request->discount;
+        $amount_topay = $request->topay;
         $paying = $request->topay;
+        $tobalance = $request->bal;
         //GET DATE AND TIME
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
@@ -2922,9 +2931,34 @@ public function addCenter(Request $request)
         $pharmacistId= auth()->user()->id;
         $branchId= auth()->user()->branch_id;
 
+        $getV = DB::table('vouchers')->select('vouchers.amount', 'vouchers.branch_id', 'vouchers.refill_status', 'vouchers.appointment_id')->where('id', '=', $vid)->first();
+return $getV;
+        $insertInvoice = DB::table('invoices')->insertGetId([
+            'amount' => $getV->amount,
+            'ampunt_topay' => $amount_topay,
+            'paid' => $paying,
+            'balance' => $tobalance,
+            // 'discount' => $discount,
+            'service_charge' => $service_charge,
+            'other_charges' => 0,
+            'status' => 'paid',
+            'delivery_status' => 'delivered',
+            'pharm_branch_id' => $getV->branch_id,
+            'branch_id' => $branchId,
+            'staff_id' => $pharmacistId,
+            'voucher_id' => $vid,
+            'i_date' => $cDate,
+            'i_time' => $cTime,
+            'graph_date' => date("Y-m"),
+            'payment_method' => $v_method,
+        ]); 
+
+        return $request->all();
+
         //GET THE PAID PRESCRIPTIONS 
         $all_item =  Doctor_prescriptions::orderBy('id') ->where('doctor_prescriptions.status', '=', 'close')
         ->where('doctor_prescriptions.voucher_id', '=', $vid)
+        ->where('doctor_prescriptions.status', '=', 'save')
         // ->where('doctor_prescriptions.branch_id', '=', $branchId)
         ->get();    
 
@@ -2975,11 +3009,8 @@ public function addCenter(Request $request)
                             'balance' => $balance,
                             'physical_balance' => $physical,
                             'amount'=> $amount_v,
-                            ]);  
-
-                            
+                            ]);    
                         }
-
                     }
                 // Commit Transaction
                 DB::commit();
@@ -3011,10 +3042,11 @@ public function addCenter(Request $request)
                 if($v_method == 'cash') {
                     $insertInvoice = DB::table('invoices')->insertGetId([
                         'amount' => $getV->amount,
+                        'ampunt_topay' => $amount_topay,
                         'paid' => $paying,
                         'balance' => $tobalance,
-                        'discount' => $discount,
-                        'service_charge' => $selling_price,
+                        // 'discount' => $discount,
+                        'service_charge' => $service_charge,
                         'other_charges' => 0,
                         'status' => 'paid',
                         'delivery_status' => 'delivered',
