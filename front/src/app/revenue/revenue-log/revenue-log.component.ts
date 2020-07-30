@@ -88,6 +88,8 @@ record_empty:null;
   footerDiscountAmount = 0;
   appointment_id: any;
   patient_id: any;
+  passport: any;
+  serviceCharges: any;
 
 
 
@@ -238,6 +240,7 @@ record_empty:null;
         this.address=this.inv.patient.address
         this.city=this.inv.patient.city
         this.mobile_no=this.inv.patient.mobile_number
+        this.passport = this.inv.patient.patient_image;
         this.state=this.inv.patient.state
         this.country=this.inv.patient.country
         this.schemePercentToView = 100 - this.inv.patient.pacentage_value;
@@ -245,6 +248,7 @@ record_empty:null;
         this.amount=this.inv.totalAmount.amount
         this.afterPercentCost = this.schemePercent / 100 * this.amount
         this.v_status=this.inv.voucher_status.paid_status
+        this.serviceCharges = this.inv.voucher_status.charges
         this.appointment_id = this.inv.pres[0].appointment_id
 
         this.pres.forEach(e => {
@@ -380,12 +384,11 @@ record_empty:null;
 
     onPaid(form:NgForm){
       this.disabled = true;
-
-      form.value.voucher_Id = this.voucher_Id;  
       form.value.bal = this.balanceAmount;  
       // form.value.chargeID = this.charge_id; 
       form.value.charge_amt = this.v_charges_amount;
       form.value.discount = this.v_discount;
+      form.value.voucherID = this.voucher_Id;
       if(form.value.topay == '') form.value.topay = this.amountPaid;
       this.Jarwis.saveToInvoice(form.value).subscribe(
         data => this.handleResponse(data),
@@ -407,6 +410,22 @@ record_empty:null;
         data => this.handleResponse(data),
         error => this.handleError(error), 
       ); 
+    }
+
+    payPriscriptions(){
+      this.disabled = true;
+      let form = {
+        patient_id: this.patient_id,
+        voucher_id: this.voucher_Id,
+        charge_amt: this.serviceCharges,
+        subtotal: this.amount,
+        total: this.amount,
+        appointment_id: this.appointment_id
+      }
+      this.Jarwis.saveToInvoice(form).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error), 
+      );
     }
 
     openPrintDialogue(label){

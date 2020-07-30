@@ -104,6 +104,7 @@ Route::post('addCenter', 'AddController@addCenter');
 Route::get('displayStaffBranch/{id}','DisplayController@displayStaffBranch');
 Route::post('displayAppointmentBranch/{id}','DisplayController@displayAppointmentBranch');
 Route::get('edtBranch/{id}','DisplayController@edtBranch');
+Route::get('displayDoctor/{id}','DisplayController@displayDoctor');
 Route::get('displayCenter/{id}','DisplayController@displayCenter');
 Route::get('displayBranch','DisplayController@displayBranch');
 Route::get('displayPharmacyBranch','DisplayController@displayPharmacyBranch');

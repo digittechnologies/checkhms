@@ -200,6 +200,10 @@ public  permite ="";
   // Branch
   displayStaffBranch(id: any) {
     return this.http.get(`${this.baseUrl}/displayStaffBranch/${id}`,)
+  } 
+
+  displayDoctor(id: any) {
+    return this.http.get(`${this.baseUrl}/displayDoctor/${id}`,)
   }
 
   displayCenter(id: any) {
