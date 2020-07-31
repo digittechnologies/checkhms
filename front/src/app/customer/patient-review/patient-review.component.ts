@@ -115,7 +115,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   team_id: any;
   description: any;
   members: any;
-  team_reviews:{rows :any};
+  team_reviews:any;
   reviw_admin: any;
   review_id: any;
   message:any;
@@ -170,6 +170,8 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   AllEncounterResponce: any;
   allencounter: any;
   prescriptionsList2: any;
+  other_proce_id: any;
+  other_proce_forms: { date: string; games: any; }[];
   historylenght: any;
   vitalStatus:any;
   vitalenght: any;
@@ -197,22 +199,27 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.Chat.TeamRiviewCreated().subscribe(
         data=>{
           console.log(data)
-          this.ngOnInit()
+            $('#creat-Team_review').modal('hide');
+            this.disabled  = false;
+            this.handleResponse(data.message) 
+            this.ngOnInit()
         }
       )
       this.Chat.allReview().subscribe(
         data=>{
-          this.team_reviews = data[0];
+          let res = data;
+            this.team_reviews = res
           // this.review_id =data.rows.row;
-          console.log(this.team_reviews);
+          console.log(this.team_reviews[0].id);
+          this.reviewMessages(this.team_reviews[0].id)
         }
       )
       this.Chat.rievewDetails().subscribe(
         data=>{
           console.log(data)
-      this.reviw_admin = data.admin[0];
-      this.members = data.members;
-      this.review_messages = data.messages;
+          this.reviw_admin = data.admin[0];
+          this.members = data.members;
+          this.review_messages = data.messages;
         this.Chat.joinedReview().subscribe(
           data=>{
             console.log(data)
@@ -750,6 +757,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   createReview(){
     if(this.user_id && this.team_id){
       this.Chat.createTeamRiview({user_id:this.user_id,name:this.name,description:this.description,appoint_id:this.appId,team_id:this.team_id})
+      this.disabled = true
     }
   }
   reviewMessages(id){
@@ -891,13 +899,18 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
   onSaveTestingProcessValue(form:NgForm){
+    this.disabled = true;
     console.log(form.value)
     const data = Object.entries(form.value)
-    // console.log(data)
+    console.log(data)
      this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
        data=>{
+         this.disabled = false;
+         $('#init_process').modal('hide')
          this.handleResponse("opration successfuly")
        this.response = data;  
+       this.encouter()
+
       
    })
  }
@@ -928,6 +941,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.closeModal = true;
       let res:any = data
       this.closeMo(res.message)
+      this.other_process(this.other_proce_id)
        }
      )
  }
@@ -977,30 +991,52 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
   other_process(id){
+    this.other_proce_id = id;
     this.Jarwis.fetchnuresetables({appointment_id:this.appId,id:id}).subscribe(
       data=>{
         let res:any =data
-        if(res.nurseprocecess==""){
-          res.nurseprocecess = res.form
+        
+        for (let index = 0; index < res.form.length; index++) {
+          let dts:any = res.form[index];
+          if (dts.options != null) {
+            let opss = JSON.parse(dts.options)
+            dts.options = opss
+          }
+          else{
+            dts.options=''
+          }
+          if (dts.suggestion != null || dts.suggestion != "" ) {
+            let sug = JSON.parse(dts.suggestion)
+            dts.suggestion = sug
+          }
+          else{
+            dts.suggestion=''
+          }
         }
+        this.other_proce_forms = res.form
+        console.log(this.other_proce_forms)
+
+
+
+        
         if(res.nurseprocecess != ''){
         for (let index = 0; index < res.nurseprocecess.length; index++) {
           let dt:any = res.nurseprocecess[index];
-          if (dt.value_option) {
+          if (dt.value_option != null) {
             let vp = JSON.parse(dt.value_option)
             dt.value_option = vp
           }
           else{
             dt.value_option=''
           }
-          if (dt.options) {
+          if (dt.options !=null) {
             let ops = JSON.parse(dt.options)
             dt.options = ops
           }
           else{
             dt.options=''
           }
-          if (dt.suggestion) {
+          if (dt.suggestion != null) {
             let sug = JSON.parse(dt.suggestion)
             dt.suggestion = sug
           }

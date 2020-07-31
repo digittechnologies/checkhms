@@ -200,6 +200,19 @@ export class ChatComponent implements OnInit,OnDestroy {
       // alert("we are good")
 
   }
+  chat_one(id){
+    this.chat.privatechat({sender:this.sender_id,receiver:id})
+    this.chat.displayMessage({sender:this.sender_id,receiver:id})
+    this.receiver_id = id;
+    this.chats=true;
+    this.lists=false;
+    this.group_chats=false;
+    this.groups=false;
+    this.group_setting=false;
+    this.group_id = 0;
+    this.chat.readMessage({sender:this.sender_id,receiver:id})
+  }
+
   grou(){
     this.chat.fetchGroups(this.sender_id)
     this.groups=true;

@@ -135,6 +135,14 @@
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" (click)="encouter()">Overview <span class="badge badge-danger">1</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" (click)="vitaSigns()">Vital Signs <span *ngIf="vitalStatus == 'close'" class="badge badge-danger">{{vitalStatus}}</span>   <span *ngIf="vitalStatus == 'open'" class="badge badge-success">{{vitalStatus}}</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurse" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" (click)="encouter()" >Nursing Assessment <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(29)" >Nursing Care Plan <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
+                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="other_process" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(27)">Intake and Output<span class="badge badge-warning">IPD</span></a>
+
+                                 
+                    <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
+                   
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursecare" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(29)" >Nursing Care Plan <span class="badge badge-warning">IPD</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurserecord" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursedocument" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
@@ -144,7 +152,8 @@
                         <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
                         <a *ngIf=" dept == '2' || dept == '10'" href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a>                   
                         <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">Open</span></a>
-                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
+                        <a *ngIf="team_reviews" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false" (click)="reviewMessages(team_reviews.team_review_id)">Team Review <span class="badge badge-warning">Active</span></a>
+                        <a *ngIf="!team_reviews" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="type" data-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type" aria-selected="false">AP Type <span class="badge badge-warning">OPD</span></a>
 
                     </div><br>
@@ -418,16 +427,24 @@
                                                                 <ng-container *ngFor="let datass of datas | paginate: { itemsPerPage:1, currentPage: p };let r = index">
                                                                     <div class="col-12 text-center mb-3"><strong>{{datass.games[0].attribute}}</strong></div> 
                                                                 <ng-container *ngFor="let data of datass.games">
-                                                                   <div *ngIf="data.process_value_id == nulll">
+                                                                   <!-- <div *ngIf="data.process_value_id == nulll"> -->
                                                                        <ul>
                                                                     <ng-container *ngFor="let val of data.value_option">
-                                                                        <div *ngIf="val[1] != null && val[1] != false" class="input-group mb-4">
-                                                                        <li> <strong style="margin-right:10px;">{{val[0]}}:</strong> <a href="https://fonts.google.com/specimen/Krub" class="text-warning">{{val[1]}}</a></li>
+                                                                        <li *ngIf="val[1] != null && val[1] != false && val[1] != true && val[0] != val[1]"> <strong style="margin-right:10px;">{{val[0]}} :</strong> <a  class="text-warning">{{val[1]}}</a></li>
+                                                                       <li *ngIf="val[0] == val[1]"><strong style="margin-right:10px;" class="mr-3">{{val[0]}} :</strong></li> 
+                                                                        <span *ngIf="val[1] != null && val[1] == true">
+                                                                            <label class="fancy-checkbox mt-3">
+                                                                                <a   class="text-warning">{{val[0]}}</a><input class="checkbox-tick" disabled type="checkbox" checked>
+                                                                                 <span></span>
+                                                                             </label>
+                                                                            
+                                                                            <!-- <strong>{{val[0]}}</strong> <input type="checkbox" name="" id=""> -->
                                                                         
-                                                                    </div> 
+                                                                        </span>
+                                                                      
                                                                     </ng-container>
                                                                 </ul>
-                                                                </div>
+                                                                <!-- </div> -->
                                                                 
                                                                         </ng-container>
                                                                     </ng-container>
@@ -448,7 +465,7 @@
                                   </div>  
                             </div>
 
-                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-process" role="tabpanel" aria-labelledby="intake_output"> 
+                            <div class="tab-pane vivify fadeIn delay-100" id="v-pills-process" role="tabpanel" aria-labelledby="other_process"> 
                                 <div class="row clearfix">
                                       <div class="col-xl-12 col-lg-12 col-md-12">
                             
@@ -470,23 +487,23 @@
                                                 <div class="col-sm-12">
                                                   <div class="card" id="Gallery">
                                                       <div id="lightgallery" class=" lightGallery">
-                                                        <div *ngIf="other_proce">
-                                                        <ng-container *ngFor="let datass of other_proce">
-                                                         <div class="header">
-                                                        <h2><strong>{{datass.games[0].attribute}}</strong></h2>  
-                                                            <ul class="header-dropdown dropdown">                                
-                                                                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                                                <li class="dropdown">
-                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li *ngFor="let datalist of datass.games"><a href="javascript:void(0);" data-toggle="modal" data-target="#Table" (click)="tableDetails(datalist.options,datalist.process_value_id,datalist.process_attribute_id,datalist.suggestion)">{{datalist.value}}</a></li>
-                                                                        <!-- <li><a href="javascript:void(0);">Another Action</a></li>
-                                                                        <li><a href="javascript:void(0);">Something else</a></li> -->
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                      
+                                                          <div class="header" *ngIf="other_proce_forms">
+                                                              <h2><strong>{{other_proce_forms[0].attribute}}</strong></h2>  
+                                                              <ul class="header-dropdown dropdown">                                
+                                                                  <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                  <li class="dropdown">
+                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                      <ul class="dropdown-menu">
+                                                                          <li *ngFor="let datalist of other_proce_forms"><a href="javascript:void(0);" data-toggle="modal" data-target="#Table" (click)="tableDetails(datalist.options,datalist.process_value_id,datalist.process_attribute_id,datalist.suggestion)">{{datalist.value}}</a></li>
+                                                                          <!-- <li><a href="javascript:void(0);">Another Action</a></li>
+                                                                            <li><a href="javascript:void(0);">Something else</a></li> -->
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                <div *ngIf="other_proce">
+                                                <ng-container *ngFor="let datass of other_proce">
                                                 <div class="body result">
                                              <ng-container *ngFor="let data of datass.games">
                                                     <div class="row clearfix" *ngIf="data.process_value_id != nulll">
@@ -515,16 +532,16 @@
                                                     </ng-container>
                                                     </div>
                                                 </ng-container>
-                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                         </div>
-                                    </div>
-                                </div>
-                                
+                                        
+                                    </div>              
+                                </div>  
                         </div>
-                        
-                    </div>              
-                </div>  
-        </div>
                             <div *ngIf="open" class="tab-pane vivify fadeIn delay-100" id="v-pills-{{encId}}" role="tabpanel" aria-labelledby="1">    
 
                                     <div class="row clearfix">
@@ -779,8 +796,8 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12"> -->
                                         <div class="row clearfix">
                                             <div class="col-md-12 col-sm-12" *ngIf="team_reviews">
-                                                <h1>{{team_reviews.team_review_name}}</h1>
-                                                <small>{{team_reviews.description}}</small>
+                                                <h1>{{team_reviews[0].team_review_name}}</h1>
+                                                <small>{{team_reviews[0].description}}</small>
                                             </div>        
                                             <div class="col-md-12 col-sm-12 text-right hidden-xs">
                                                 <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a> -->
@@ -789,16 +806,17 @@
                                             </div>
                                         </div>
                                     
-                                    <div class="row clearfix">
+                                    <div *ngIf="team_reviews" class="row clearfix review">
                                         <div class="col-lg-12">                    
                                             <div class="card">
-                                                <div class="body">
-                                                    <div class="chatapp_list">
+                                                <div class="body row">
+                                                    <div class="chatapp_list col-lg-3 col-md-4 col-12">
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Search...">
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                                            <div *ngIf="reviw_admin">
+                                                                <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
+                                                                <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5> 
                                                             </div>
+                                                            <hr>
                                                         </div>
                                                         <ul *ngIf="members" class="right_chat list-unstyled mb-0 meb">  
                                                         <ng-container  *ngFor="let member of members">
@@ -831,7 +849,7 @@
                                                             </ng-container>                             
                                                         </ul>
                                                     </div>
-                                                    <div class="chatapp_body">
+                                                    <div class="chatapp_body col-lg-8 col-md-8 col-12">
                                                         <div class="chat-history">
                                                             <ul class="message_data" *ngIf="review_messages"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
                                                             <ng-container *ngFor="let message of review_messages">
@@ -906,7 +924,6 @@
                                                         </div>
                                                         <div class="chat-message clearfix">
                                                             <div class="input-group mb-0 " *ngIf="reviw_admin">
-                                                                <!-- <div *ngIf="copiedMessage != ''">{{copiedMessage}}</div> -->
                                                                     <div class="col-12">
                                                                         <div class="row">
                                                                             <span *ngIf="copiedMessage != ''" style="background-color:#3C4043; border:none;height: auto;"  class=" col-12"> <span>{{copiedMessage}}</span>
@@ -920,29 +937,14 @@
                                                                 <textarea *ngIf="review_messages ||  user_id == reviw_admin.id" type="text" [(ngModel)]="message" row="" class="form-control" placeholder="Enter text here..."></textarea>
                                                                     
                                                                         <span class="input-group-text" style="background-color: inherit;">
-                                                                            <!-- <input type="button"  class="btn btn-default fa fa-paper-plane text-primary" > -->
                                                                             <i (click)="send()" class="fa fa-paper-plane text-primary" style="font-size:23px;cursor: pointer;"></i>
-                                                                            <!-- <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camera text-warning"></i></a>
-                                                                            <a href="javascript:void(0);" class="btn btn-link"><i class="icon-camcorder text-warning"></i></a> -->
                                                                         </span>
                                                                     </div>
                                                             </div>
                                                         </div>   
                                                     </div>
-                                                    <div *ngIf="reviw_admin" class="chatapp_detail text-center vivify pullLeft delay-150">
-                                                        <div class="profile-image"><img src="{{Jarwis.imageUrl}}/uploads/{{reviw_admin.image}}"class="rounded-circle mb-3" style="width:40px; height:40px;" alt=""></div>
-                                                        <h5 class="mb-0">{{reviw_admin.firstname}} {{reviw_admin.lastname}}</h5>                                
-                                                        <!-- <small class="text-muted">Address: </small>
-                                                        <p> San Francisco</p>
-                                                        <small class="text-muted">Email address: </small>
-                                                        <p>louispierce@example.com</p>
-                                                        <small class="text-muted">Mobile: </small>
-                                                        <p>+ 202-222-2121</p>
-                                                        <button class="btn btn-round btn-success">View Profile</button> -->
-                                                    </div>
+                                                    
                                                 </div>
-                                            <!-- </div>
-                                        </div> -->
                                     </div>
                                 </div>                                
 
@@ -1890,7 +1892,7 @@
                     </div>        
                 </div>
               
-              
+              <!-- OTHER NURSE PROCESS -->
           <div class="modal fade" id="Table" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -1952,15 +1954,54 @@
             </div>
 
 
+          <!-- CREATE TEAM REVIEW MODAL -->
+            <div class="modal fade" id="creat-Team_review" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Add Team review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">        
+                        <div class="row clearfix">
+                            <div class="col-md-12">
+                                <mat-form-field class="col-lg-12" appearance="fill">
+                                    <mat-label style="color:grey">Name</mat-label>
+                                    <input matInput type="text"  class="form-control" [(ngModel)]="name">
+                            </mat-form-field> 
+                            <mat-form-field class="col-lg-12" appearance="fill">
+                                <mat-label style="color:grey">Description</mat-label>
+                                <input matInput type="text"  class="form-control" [(ngModel)]="description">
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-12" appearance="fill">
+                            <mat-label style="color:grey">Invite Team</mat-label>
+                            <select   matNativeControl class="form-control" [(ngModel)]="team_id">
+                              <option value="" selected></option>
+                              <option *ngFor="let team of teams" [value]="team.id">
+                                {{team.team_name}}
+                              </option>
+                            </select>
+                          </mat-form-field>
+                            </div>           
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-round btn-primary" (click)="createReview()">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </div>
+                </div>
+                </div>
 
 
-
-
+      <!-- NURSING FORM PROCESS -->
             <div class="modal fade" id="init_process" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title h4" id="myLargeModalLabel">Add to this table</h5>
+                        <h5 class="modal-title h4" id="myLargeModalLabel">Form</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                         </button>
@@ -1970,12 +2011,12 @@
                         <div class="input-group mb-3 row" *ngFor="let fr of form_res; let r = index">
                             <mat-form-field class="col-lg-12"  appearance="fill" *ngIf="fr.value_type == 'number'">
                                        <mat-label style="color:grey">{{fr.value}}</mat-label>
-                                       <input matInput type="number"  ngModel name="{{fr.value}}" class="example-right-align form-control">
+                                       <input matInput type="number" [(ngModel)]="fr.value_option" name="{{fr.value}}" class="example-right-align form-control">
                                        <span *ngIf="fr.unit" matSuffix class="ml-3">{{fr.unit}}</span>
                                </mat-form-field>
                                <mat-form-field class="col-lg-12" appearance="fill"  *ngIf="fr.value_type == 'text'">
                                        <mat-label style="color:grey">{{fr.value}}</mat-label>
-                                       <input matInput type="{{fr.value_type}}"  class="form-control" ngModel name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
+                                       <input matInput type="{{fr.value_type}}"  class="form-control"  [(ngModel)]="fr.value_option" name="{{fr.value}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"  >
                                        <mat-autocomplete #auto="matAutocomplete" >
                                        <mat-option *ngFor="let street of fr.suggestion" [value]="street">{{street}}</mat-option>
                                        </mat-autocomplete>
@@ -1995,7 +2036,7 @@
                               </ng-container>
                              </div>
                              <div  *ngIf="fr.value_type == 'checkbox'" class="ml-3">
-                                 <input  type="text"  name="{{fr.value}}" value="keys">
+                                 <input  type="hidden" [(ngModel)]="fr.value" name="{{fr.value}}">
                                <ng-container  *ngFor="let rad of fr.value_options">
                                    <label class="fancy-checkbox mt-3">
                                       <strong>{{rad}}</strong><input class="checkbox-tick" type="checkbox" ngModel name="{{rad}}"  value="{{rad}}">
@@ -2006,7 +2047,7 @@
                              <ng-container *ngFor="let ops of fr.options">
                                <mat-form-field class="example-full-width col-12" appearance="fill" *ngIf="fr.value_type == 'textarea'">
                                    <mat-label style="color:grey">{{ops}}</mat-label>
-                                   <textarea matInput class="form-control" ngModel name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
+                                   <textarea matInput class="form-control"  [(ngModel)]="fr.value_option" name="{{ops}}" placeholder="{{fr.value_option}}" [matAutocomplete]="auto"></textarea>
                                </mat-form-field>
                              </ng-container>
                            </ng-container>
