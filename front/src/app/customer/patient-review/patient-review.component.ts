@@ -12,11 +12,11 @@ declare let $ : any;
 declare var test3: any;
 declare var test4: any;
 declare var index2: any;
-declare var chat1: any;
+// declare var chat1: any;
 // declare var onload: any;
 // declare var Morris: any;
 // declare var element: any;
-declare var mutil_list: any;
+// declare var mutil_list: any;
 
 
 @Component({
@@ -173,6 +173,18 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   historylenght: any;
   vitalStatus:any;
   vitalenght: any;
+  uBranch: any;
+  uBranchName: any;
+  role: any;
+  dept: any;
+  giventype: any;
+  givenBranch: any;
+  centerResponse: Object;
+  getCenter: Object;
+  sResponse: any;
+  sbranch: any;
+  docResponse: Object;
+  getDoctor: Object;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -308,10 +320,18 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     new test3();
     new test4();
     new index2();
-    new chat1();
+    // new chat1();
     // this.onload();
-    new mutil_list();
+    // new mutil_list();
 
+    this.Jarwis.profile().subscribe(
+      data=>{
+      this.response = data;
+      this.uBranch= this.response.det[0].branch_id
+      this.uBranchName= this.response.det[0].br_name
+      this.role= this.response.det[0].role_id
+      this.dept = this.response.det[0].dept_id;
+    })
     
     let getReturnData =  localStorage.getItem('returnData') 
     this.actRoute.paramMap.subscribe((params => {
@@ -357,6 +377,13 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       this.prescriptionsList= this.PharmPreresponse.pres; 
       this.prescriptionsList2= this.PharmPreresponse.pres2; 
     })
+
+    this.Jarwis.displayAppointmentBranch(2).subscribe(
+      data=>{
+            this.sResponse = data;      
+            this.sbranch = this.sResponse.center_type
+            this.charges= this.sResponse.charges
+      })
     
     this.Jarwis.disItemDet().subscribe(
       data=>{
@@ -456,6 +483,26 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   })
   
   }
+
+  
+  onChange3(d){
+    this.giventype = d.target.value;  
+    this.Jarwis.displayDoctor(this.giventype).subscribe(
+      data=>{
+      this.docResponse = data;      
+      this.getDoctor = this.docResponse
+      })
+  
+  }
+
+  onChange2(bch){
+    this.givenBranch = bch.target.value;
+    this.Jarwis.displayCenter(this.givenBranch).subscribe(
+      data=>{
+      this.centerResponse = data;      
+      this.getCenter = this.centerResponse
+      })
+    }
   onload() {
     throw new Error("Method not implemented.");
   }

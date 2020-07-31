@@ -76,11 +76,61 @@
                 </div>
                 </div>
 
+                <div class="modal fade" id="AddDoc" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title h4" id="myLargeModalLabel">Add New Encounter</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm"> 
+                        <div class="modal-body">             
+                            <div class="row clearfix">
+                                <div class="col-md-10">
+                                    <div class="form-group"> 
+                                        <label class="fancy-radio custom-color-green">Clinic Type</label>  
+                                        <select class="form-control" (change)="onChange2($event)" ngModel name="branch_id">
+                                            <option>--Select Branch--</option>                                                      
+                                                <option *ngFor="let br of sbranch" value="{{br.id}}">{{br.name}}</option>                     
+                                                                                                  
+                                        </select>
+                                    </div>
+                                    <div class="form-group"> 
+                                        <label class="fancy-radio custom-color-green">Center</label>  
+                                        <select class="form-control" (change)="onChange3($event)" ngModel name="center_id">
+                                            <option>--Select Center--</option>                                                      
+                                                <option *ngFor="let cent of getCenter" value="{{cent.id}}">{{cent.name}}</option>                                    
+                                                                                                  
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <select class="form-control show-tick" ngModel name="encounter_tittle_id">
+                                            <option value="0">Select Encounter Title</option>
+                                            <option *ngFor="let title of titles" value="{{title.id}}">{{title.tittle_name}}</option>                                
+                                        </select>                  
+                                    </div> -->
+                                </div>                                     
+                            </div>
+                        </div>
+                            
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+                            <button type="button" class="btn btn-round btn-default" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
+
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-4 col-sm-12">
-                    <small class="text-muted">NURSING PROCESS</small>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a><br>            
-                    <div class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    
+                    <a *ngIf="dept == '18' || dept == '2' || dept == '10'" href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#AddDoc">Assign To Doctor</a>            
+                    <div>
+                    <div *ngIf=" dept == '18' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical"> 
+                        <small class="text-muted">NURSING PROCESS</small>
                         <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true" >History <span class="badge badge-info">{{historylenght}}</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" (click)="encouter()">Overview <span class="badge badge-danger">1</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="signs" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" (click)="vitaSigns()">Vital Signs <span *ngIf="vitalStatus == 'close'" class="badge badge-danger">{{vitalStatus}}</span>   <span *ngIf="vitalStatus == 'open'" class="badge badge-success">{{vitalStatus}}</span></a>
@@ -89,23 +139,26 @@
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nurserecord" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(30)" >Nursing Record Sheet <span class="badge badge-warning">IPD</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="nursedocument" data-toggle="pill" href="#v-pills-processs" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(28)" >Nurse Documentation <span class="badge badge-warning">IPD</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="intake_output" data-toggle="pill" href="#v-pills-process" role="tab" aria-controls="v-pills-process" aria-selected="false" (click)="other_process(27)">Intake and Output<span class="badge badge-warning">IPD</span></a>
-
-                                 
-                    <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
-                   
+                    </div><br>
+                    <div *ngIf=" dept == '2' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">           
+                        <small class="text-muted mb-2 mt-1">DOCTOR ENCOUNTER</small>
+                        <a *ngIf=" dept == '2' || dept == '10'" href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#Addapp">Add New Encounter</a>                   
                         <a *ngFor="let encounter of encounters" class="nav-link list-group-item d-flex justify-content-between align-items-center" id="{{encounter.id}}" data-toggle="pill" href="#v-pills-{{encounter.id}}" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="onId(encounter.id)">{{encounter.tittle_name}} <span class="badge badge-success">Open</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="team" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Team Review <span class="badge badge-warning">Active</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="type" data-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type" aria-selected="false">AP Type <span class="badge badge-warning">OPD</span></a>
 
-                                   
+                    </div><br>
+                    <div *ngIf=" dept == '1' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">     
                     <small class="text-muted mb-2 mt-1">PHARMACY</small>
                        <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="pharmacy" data-toggle="pill" href="#v-pills-pharmacy" role="tab" aria-controls="v-pills-pharmacy" aria-selected="false">Prescription List <span class="badge badge-info">Open</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="label" data-toggle="pill" href="#v-pills-label" role="tab" aria-controls="v-pills-settings" aria-selected="false">Label<span class="badge badge-success">Success</span></a>
-                   
+                   </div><br>
+                   <div *ngIf=" dept == '11' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical">     
                         <small class="text-muted mb-2 mt-1">REVENUE</small>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="voucher" data-toggle="pill" href="#v-pills-voucher" role="tab" aria-controls="v-pills-voucher" aria-selected="false">Voucher<span class="badge badge-info">Open</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="invoice" data-toggle="pill" href="#v-pills-invoice" role="tab" aria-controls="v-pills-invoice" aria-selected="false">Invoice<span class="badge badge-success">Success</span></a>
            
+                    </div>
                    </div>   
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-12">

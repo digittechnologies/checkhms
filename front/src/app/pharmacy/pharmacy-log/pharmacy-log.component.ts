@@ -108,7 +108,7 @@ export class PharmacyLogComponent implements OnInit,OnDestroy {
       this.role= this.response.det[0].role_id
       this.dept = this.response.det[0].dept_id;
     })
-
+    
     this.Jarwis.displayPharmacyBranch().subscribe(
       data=>{
       this.response = data;      

@@ -20,7 +20,7 @@ var mysqlConnection = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'buth_pharmacy',
-  port: 3306,
+  port: 3308,
   multipleStatements: true
 });
 

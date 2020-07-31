@@ -609,12 +609,21 @@ class DisplayController extends Controller
        return response()->json($request->dept);
     }
 
-    public function displayCenter($id)
+    public function displayDoctor($id)
     {
         return response()->json(
             Branches::orderBy('id')
             ->select('branches.*')     
             ->where('center_type','=',$id)          
+            ->get()   
+        );
+    }
+
+    public function displayCenter($id)
+    {
+        return response()->json(
+            User::where('branch_id','=',$id)
+            ->select('users.*')                     
             ->get()   
         );
     }
@@ -1407,7 +1416,7 @@ class DisplayController extends Controller
             ->join ('customers', 'doctor_prescriptions.customer_id', '=', 'customers.id')
             ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
             ->select('doctor_prescriptions.*','customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-            ->where('doctor_prescriptions.status', '=', 'save')
+            ->where('doctor_prescriptions.status', '=', 'checkout')
             ->where('doctor_prescriptions.appointment_id', '=', $id)
             // ->where('doctor_prescriptions.branch_id', '=', $bId)
             ->count();
@@ -1424,7 +1433,7 @@ class DisplayController extends Controller
                     ->join('customer_category', 'customers.cust_category_id', '=', 'customer_category.id')
                     ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
                     ->select('doctor_prescriptions.*',  'customer_category.category_name', 'durations.duration_name', 'users.firstname', 'users.lastname', 'daily_supply.name as daily_name', 'customer_category.pacentage_value', 'customer_category.price_list_column', 'customers.name AS fname', 'customers.othername', 'card_number', 'customers.mobile_number', 'customers.address', 'customers.city', 'customers.state', 'customers.country', 'item_details.selling_price', 'item_details.generic_name', 'item_details.item_img', 'item_categories.cat_name', 'item_details.selling_price', 'manufacturer_details.name AS manuf')
-                    ->where('doctor_prescriptions.status', '=', 'save')
+                    ->where('doctor_prescriptions.status', '=', 'checkout')
                     ->where('doctor_prescriptions.appointment_id', '=', $id)
                     // ->where('doctor_prescriptions.branch_id', '=', $bId)
                     ->get(),
