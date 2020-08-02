@@ -473,7 +473,28 @@ public function addCenter(Request $request)
                 "message":"Failed"
             }';
         }
-    
+      
+    }  
+
+    public function submitAppointmentUser(Request $request)
+    {
+        return $request->all();
+        // $user_id = Auth()->user()->id;
+        // $request ->merge(['created_by'=>$user_id]);
+        // $request ->merge(['updated_by'=>$user_id]);
+        // $position= Positions::create($request-> all());
+        // return $position->id;
+        // if($dept){
+        //     return '{
+        //         "success":true,
+        //         "message":"successful"
+        //     }' ;
+        // } else {
+        //       return '{
+        //         "success":false,
+        //         "message":"Failed"
+        //     }';
+        // }
     }
 
     public function Addposition(Request $request)

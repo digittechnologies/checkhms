@@ -158,12 +158,12 @@ class DisplayController extends Controller
            "dept" => DB::table('possition_module')
             ->join('component_tb','possition_module.component_id','=','component_tb.id')
             ->select('component_tb.*')
-            >where('possition_module.status','=','permite')
+            ->where('possition_module.status','=','permite')
             ->where('possition_module.position_id','=', $id)
             ->get(),
             "department" => DB::table('positions')
             ->join('departments','positions.dept_id','=','departments.id')
-            ->select('departments.name')
+            ->select('departments.*')
             ->where('positions.id','=', $id)
             ->get(),
             "centers" => DB::table('branches')
@@ -612,9 +612,9 @@ class DisplayController extends Controller
     public function displayDoctor($id)
     {
         return response()->json(
-            Branches::orderBy('id')
-            ->select('branches.*')     
-            ->where('center_type','=',$id)          
+            User::orderBy('id')
+            ->where('branch_id','=',$id)
+            ->select('users.*')                     
             ->get()   
         );
     }
@@ -622,8 +622,9 @@ class DisplayController extends Controller
     public function displayCenter($id)
     {
         return response()->json(
-            User::where('branch_id','=',$id)
-            ->select('users.*')                     
+            Branches::orderBy('id')
+            ->select('branches.*')     
+            ->where('center_type','=',$id)       
             ->get()   
         );
     }
@@ -786,7 +787,7 @@ class DisplayController extends Controller
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
-                    ->where('appointments.a_date', '<=', $cDate)
+                    // ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                 
                 'data2' => Appointments::orderBy('id', 'DESC')
@@ -795,7 +796,7 @@ class DisplayController extends Controller
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
-                    ->where('appointments.a_date', '>', $cDate)
+                    // ->where('appointments.a_date', '>', $cDate)
                     ->get(),
 
                 'bName' => $branName
@@ -810,7 +811,7 @@ class DisplayController extends Controller
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
                     ->where('appointments.clinic_status', '!=', 'close')
-                    ->where('appointments.a_date', '<=', $cDate)
+                    // ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                     ]);            
             }
@@ -824,7 +825,7 @@ class DisplayController extends Controller
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
                     ->where('appointments.investigation_status', '!=', 'close')
-                    ->where('appointments.a_date', '<=', $cDate)
+                    // ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                     ]);            
             }
@@ -838,7 +839,7 @@ class DisplayController extends Controller
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')   
-                    ->where('appointments.a_date', '<=', $cDate)                
+                    // ->where('appointments.a_date', '<=', $cDate)                
                     ->get(),
                     ]);            
             }

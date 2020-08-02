@@ -43,6 +43,7 @@ export class AllStaffComponent implements OnInit {
   added = [];
   ranks: any;
   teams: any;
+  deptId: any;
 
   constructor( public Jarwis: JarwisService,
     private Token: TokenService,
@@ -123,6 +124,7 @@ export class AllStaffComponent implements OnInit {
         this.sbranch = this.res.centers;
         this.modules = this.res.dept;
         this.deptname = this.res.department[0].name;
+        this.deptId = this.res.department[0].id;
       }
     )
    
@@ -171,6 +173,7 @@ export class AllStaffComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.disabled = true;
+    form.value.dept_id= this.deptId;
     this.Jarwis.signup(form.value).subscribe(
      data=>{
        this.Jarwis.permision({user_id:data,permites:this.permisions}).subscribe(

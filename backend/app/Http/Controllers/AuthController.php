@@ -60,9 +60,10 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {   
+        // return $request->all();
         $word = "aztm".date('sdmy');
         $cot= str_shuffle(substr($word, 0, 8));
-        $request->merge(['password' => $cot]);
+        $request->merge(['password' => '123456']);
 
         $GLOBALS['email']=$request->email;
         // $data = array('email'=>$GLOBALS['email'], 'password'=>$cot);

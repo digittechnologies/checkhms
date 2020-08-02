@@ -718,25 +718,25 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     
   }
   onSubmit(form:NgForm){
-
-    form.value.appointment_id= this.appId
-
+    form.value.appointment_id= this.appId;
     this.Jarwis.submitEncounter(form.value).subscribe(
       data=>{
         this.handleResponse("Operation successfuly")
         this.response = data;  
         this.ngOnInit();
   })
-
   }
 
+  onSubmit2(form:NgForm){
 
-
-  // columnName(view:string){
-  //   this.column= view;
-  //   alert( this.column)
-  // }
-
+    form.value.appointment_id= this.appId
+    this.Jarwis.submitAppointmentUser(form.value).subscribe(
+      data=>{
+        // this.handleResponse("Operation successfuly")
+        // this.response = data;  
+        // this.ngOnInit();
+  })
+}
   onPreamble(form:NgForm){
 
     // form.value.appointment_id= this.appId

@@ -45,12 +45,12 @@
                         <tbody>
                         
                             <tr *ngFor="let s of allstaff">
-                                <td *ngIf="s.online_status == 'online'" class="w60 card c_grid c_green" style="width:1%;">
+                                <td *ngIf="s.online_status == 'online'" class="w40 card c_grid c_green" style="width:1%;">
                                     <div class="circle">
                                     <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}" >
                                 </div>
                                 </td>
-                                <td *ngIf="s.online_status == 'offline'"  class="w60 card c_yellow c_grid " style="width:1%;">
+                                <td *ngIf="s.online_status == 'offline'"  class="w40 card c_yellow c_grid " style="width:1%;">
                                     <div class="circle">
                                         <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}">
                                     </div>

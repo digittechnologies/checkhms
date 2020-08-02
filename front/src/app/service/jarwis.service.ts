@@ -191,6 +191,12 @@ public  permite ="";
     }})
   }
 
+  submitAppointmentUser(data){
+    return this.http.post(`${this.baseUrl}/submitAppointmentUser`,data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   submitPreamble(data) {
     return this.http.post(`${this.baseUrl}/submitPreamble`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -615,7 +621,7 @@ public  permite ="";
     return this.http.get(`${this.baseUrl}/checkPermision/${data}`,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
-  }
+  } 
   
 // Branches
 // displayCategories() {
