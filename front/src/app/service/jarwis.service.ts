@@ -1177,6 +1177,10 @@ fetchnuresetables(data) {
   return this.http.post<any>(`${this.baseUrl}/fetchnuresetables`,data,{headers:{Authorization:`Bearer ${localStorage.token}`}}
   )
 }
+fetchlabForms() {
+  return this.http.post<any>(`${this.baseUrl}/fetchlabForms`,{headers:{Authorization:`Bearer ${localStorage.token}`}}
+  )
+}
 
 NursingAssessment(data) {
   return this.http.post<any>(`${this.baseUrl}/NursingAssessment`,data)

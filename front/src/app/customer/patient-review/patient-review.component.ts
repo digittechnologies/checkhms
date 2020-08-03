@@ -189,6 +189,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   getDoctor: Object;
   charges2: any;
   care_type: any;
+  lab_forms: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -718,18 +719,17 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         data=>{
         this.PharmEncreresponse = data;   
         this.encounter_pham= this.PharmEncreresponse.pres; 
-
-        this.tcost = 0
-        this.afterPercentCost = 0 
-        this.prescriptionsList.forEach(data => {
-          this.itemsitem.forEach(data2 => {
-            if(data.item_id == data2.item_id && data2.total_remain >= data.quantity) {
-              this.selectedItems.push(data.id)
-              this.tcost += data.amount_paid
-              this.afterPercentCost += data.discount_amount
-            }
-          });
-        });
+            this.tcost = 0
+            this.afterPercentCost = 0 
+            this.prescriptionsList.forEach(data => {
+              this.itemsitem.forEach(data2 => {
+                if(data.item_id == data2.item_id && data2.total_remain >= data.quantity) {
+                  this.selectedItems.push(data.id)
+                  this.tcost += data.amount_paid
+                  this.afterPercentCost += data.discount_amount
+                }
+              });
+            });
         if (this.schemePriceList == 'price_1') {
           this.afterPercentCost += 50
         }
@@ -1034,10 +1034,6 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         }
         this.other_proce_forms = res.form
         console.log(this.other_proce_forms)
-
-
-
-        
         if(res.nurseprocecess != ''){
         for (let index = 0; index < res.nurseprocecess.length; index++) {
           let dt:any = res.nurseprocecess[index];
@@ -1090,7 +1086,33 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     )
   }
 //  PROCESS END
- 
+// LAB START
+getLabForms(){
+ this.Jarwis.fetchlabForms().subscribe(
+   data=>{
+     let res:any =data
+     for (let index = 0; index < res.form.length; index++) {
+       let dts:any = res.form[index];
+       if (dts.options != null) {
+         let opss = JSON.parse(dts.options)
+         dts.options = opss
+       }
+       else{
+         dts.options=''
+       }
+       if (dts.suggestion != null || dts.suggestion != "" ) {
+         let sug = JSON.parse(dts.suggestion)
+         dts.suggestion = sug
+       }
+       else{
+         dts.suggestion=''
+       }
+     }
+     this.lab_forms = res.form;
+   }
+ )
+}
+// LAB END
 handleError(error) {
   this.error = error.error.errors;
   let snackBarRef = this.snackBar.open(this.error, 'Dismiss', {

@@ -109,6 +109,11 @@ export class ProccessSettingsComponent implements OnInit {
       this.response = data;      
       this.dept = this.response   
     })
+    this.Jarwis.displayAllposition().subscribe(
+      data=>{
+       this.processModules = data;
+      }
+    )
     // $("#sugestion").on("click",function(){
     //   console.log($(this).val())
     // })
@@ -152,8 +157,6 @@ export class ProccessSettingsComponent implements OnInit {
        error => this.handleError(error),   
      );    
    }
-
-
    onSaveProcessAttribute(form: NgForm) {
     this.disabled = true;
      this.Jarwis.addProcessAttributes(form.value).subscribe(     

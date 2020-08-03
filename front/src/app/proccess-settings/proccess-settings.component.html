@@ -497,14 +497,14 @@
                         <div class="input-group-prepend">
                             <label class="input-group-text">Process Modules</label>
                         </div> 
-                        <select class="custom-select" ngModel name="position_id"> 
+                        <select class="custom-select"  ngModel name="position_id"> 
                             <option value="">-- Select Process Module--</option>   
                             <ng-container *ngFor="let pm of processModules">
                                 <ng-container>
-                                    <option value="{{pm.id}}">{{pm.position_name}}</option>
+                                    <option value="{{pm.id}}" >{{pm.position_name}}</option>
                                 </ng-container>
                             </ng-container>                                                                           
-                        </select>        
+                        </select>     
                     </div>
                   </div>
                 </div>             

@@ -362,6 +362,7 @@ Route::get('Value/{id}','DisplayController@Value');
 Route::get('formvalue/{id}','DisplayController@formvalue');
 Route::get('fetchForm','DisplayController@fetchForm');
 Route::post('fetchnuresetables','DisplayController@fetchnuresetables');
+Route::post('fetchlabForms','DisplayController@fetchlabForms');
 Route::post('NursingAssessment','DisplayController@NursingAssessment');
 Route::post('vitasigns','DisplayController@vitasigns');
 Route::post('addProcessProperties','AddController@addProcessProperties');
