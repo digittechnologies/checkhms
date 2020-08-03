@@ -154,23 +154,20 @@
 <div class="col-lg-3 col-md-4 col-sm-6" id="patient-log" *ngFor= "let l of log">
     <div *ngIf="l.insurance_status == 'enabled'" class="card c_grid c_green">        
         <div class="body text-center p-1 ">
-            <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
+            <div class="row mb-5" style="padding-right:5%;padding-left: 5%;">
                 <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
                 <div class="col-5">
                    <span class="row float-right" style="padding-right:5px" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
                    <span class="row float-right"  *ngIf = "l.status == 'checkout'  && dept =='16'"><i class="row fa fa-exclamation text-warning" style="border: grey solid 1px;border-radius: 100%;padding:2px;"></i></span>
                    <span class="row float-right" style="padding-right:8px" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
                 </div>
-                <div class="ribbon col-12">
-                <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-                 <small  class="text-light"> {{l.service_flow}}</small> 
-               </div>
-               <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-                <small  class="text-light"> {{l.service_flow}}</small> 
-               </div>
-               <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-                <small  class="text-light"> {{l.service_flow}}</small> 
-               </div>
+                <div class="ribbon col-12">             
+                    <div *ngIf ="l.revenue_status ==='open'" class="ribbon-box orange">
+                        <small  class="text-light"> {{l.service_flow}}</small> 
+                       </div>
+                       <div *ngIf ="l.revenue_status ==='close'" class="ribbon-box green">
+                        <small  class="text-light"> {{l.service_flow}}</small> 
+                    </div>
                 </div>
                 </div>
                 <!-- <div *ngIf="l.pharm_status == 'full-payment'" class="c_green"> -->
@@ -181,7 +178,7 @@
             <div>
                 <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
                 <!-- <span>jason-porter@info.com</span> -->
-                <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+                <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span><strong>{{l.card_number}}</strong></span></a>
             </div>
         
             <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
@@ -206,7 +203,7 @@
 
 <div *ngIf="l.insurance_status == 'disabled'" class="card c_grid c_yellow">        
     <div class="body text-center p-1 ">
-        <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
+        <div class="row mb-5" style="padding-right:5%;padding-left: 5%;">
             <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
             <div class="col-5">
                <span class="row float-right" style="padding-right:5px" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
@@ -214,15 +211,12 @@
                <span class="row float-right" style="padding-right:8px" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
             </div>
             <div class="ribbon col-12">
-            <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-                <small  class="text-light"> {{l.service_flow}}</small> 
-            </div>
-            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-             <small  class="text-light"> {{l.service_flow}}</small> 
-            </div>
-            <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-             <small  class="text-light"> {{l.service_flow}}</small> 
-           </div>
+                <div *ngIf ="l.revenue_status ==='open'" class="ribbon-box orange">
+                    <small  class="text-light"> {{l.service_flow}}</small> 
+                   </div>
+                   <div *ngIf ="l.revenue_status ==='close'" class="ribbon-box green">
+                    <small  class="text-light"> {{l.service_flow}}</small> 
+                   </div>
             </div>
             </div>
             <!-- <div *ngIf="l.pharm_status == 'full-payment'" class="c_green"> -->
@@ -233,7 +227,7 @@
         <div>
             <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
             <!-- <span>jason-porter@info.com</span> -->
-            <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+            <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span><strong>{{l.card_number}}</strong></span></a>
         </div>
     
         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">
@@ -259,7 +253,7 @@
 
 <div *ngIf="l.insurance_status == 'unknow'" class="card c_grid c_blue">        
     <div class="body text-center p-1 ">
-        <div class="row mb-5" style="padding-right:5%;padding-left: 8%;">
+        <div class="row mb-5" style="padding-right:5%;padding-left: 5%;">
             <div class="col-7"><small class="row"><small>{{l.created_at.slice(0,10)}},</small>  <small *ngIf="l.created_at.slice(10,13)%12==0">{{l.created_at.slice(10,13)%12+12}}</small><small *ngIf="l.created_at.slice(10,13)%12!=0">{{l.created_at.slice(10,13)%12}}</small><small>{{l.created_at.slice(13,16)}}</small> <small *ngIf="l.created_at.slice(11,13)<=11">am</small><small *ngIf="l.created_at.slice(11,13)>=12">pm</small></small></div> 
             <div class="col-5">
                <span class="row float-right" style="padding-right:5px" *ngIf ="l.status =='open' && dept =='16'"> <i class="row fa fa-remove text-danger " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="cancle(l.id)" title="" data-toggle="modal" data-target="#AddDepartments"></i></span>
@@ -267,15 +261,12 @@
                <span class="row float-right" style="padding-right:8px" *ngIf = "l.status == 'paid'  && dept =='16'"><i class="row fa fa-check text-success " style="border: grey solid 1px;border-radius: 100%;padding:2px;" (click)="end(l.id,l.voucher_id)" title="" data-toggle="modal" data-target="#endAppointment"></i></span>
             </div>
             <div class="ribbon col-12">
-            <div *ngIf ="l.status ==='open'" class="ribbon-box indigo">
-                <small  class="text-light"> {{l.service_flow}}</small> 
-            </div>
-            <div *ngIf ="l.status ==='checkout'" class="ribbon-box orange">
-             <small  class="text-light"> {{l.service_flow}}</small> 
-            </div>
-            <div *ngIf ="l.status ==='paid'" class="ribbon-box green">
-             <small  class="text-light"> {{l.service_flow}}</small>  
-           </div>
+                <div *ngIf ="l.revenue_status ==='open'" class="ribbon-box orange">
+                    <small  class="text-light"> {{l.service_flow}}</small> 
+                   </div>
+                   <div *ngIf ="l.revenue_status ==='close'" class="ribbon-box green">
+                    <small  class="text-light"> {{l.service_flow}}</small> 
+                </div>
             </div>
             </div>
             <!-- <div *ngIf="l.pharm_status == 'full-payment'" class="c_green"> -->
@@ -286,7 +277,7 @@
         <div>
             <h6 class="mt-3 mb-0">{{l.pat_name+ ' ' +l.othername}}</h6>
             <!-- <span>jason-porter@info.com</span> -->
-            <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span>{{l.card_number}}</span></a>
+            <a class="p-1" href="#" [routerLink]="['/Admin', {outlets: {side: ['treatment', l.cust_id]}}]"><span><strong>{{l.card_number}}</strong></span></a>
         </div>
     
         <ul class="mt-3 mb-4 list-unstyled d-flex justify-content-center">

@@ -3,11 +3,11 @@
       <div class="block-header">
           <div class="row clearfix">
               <div class="col-md-6 col-sm-12">
-                  <h2>Social</h2>
+                  <h2>Appointment Process</h2>
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Oculux</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Social</li>
+                      <li class="breadcrumb-item"><a href="#">Appointments</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Process</li>
                       </ol>
                   </nav>
               </div>            
@@ -91,8 +91,8 @@
                                 <div class="col-md-10">
                                     <div class="form-group"> 
                                         <label class="fancy-radio custom-color-green">Clinic Type</label>  
-                                        <select class="form-control" (change)="onChange2($event)" ngModel name="branch_id">
-                                            <option>--Select Branch--</option>                                                      
+                                        <select class="form-control" (change)="onChange2($event)" ngModel name="clinic_type">
+                                            <option>--Select Clinic Type--</option>                                                      
                                                 <option *ngFor="let br of sbranch" value="{{br.id}}">{{br.name}}</option>                     
                                                                                                   
                                         </select>
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="fancy-radio custom-color-green">Doctor</label>  
-                                        <select class="form-control show-tick" ngModel name="doctor">
+                                        <select class="form-control show-tick" ngModel name="user_id">
                                             <option value="0">Choose Doctor</option>
                                             <option *ngFor="let doc of getDoctor" value="{{doc.id}}">{{doc.firstname}} {{doc.lastname}}</option>                                
                                         </select>                  
@@ -165,7 +165,7 @@
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-12">
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane vivify fadeIn delay-100 active show" id="v-pills-history" role="tabpanel" aria-labelledby="history">                       <div class="row clearfix">
+                            <div class="tab-pane vivify fadeIn delay-100 active show" id="v-pills-history" role="tabpanel" aria-labelledby="history"><div class="row clearfix">
                                 
                                 <div class="col-sm-12">
                                     <div class="card" id="documenter_cover">
@@ -206,13 +206,13 @@
                                                           
                                                       </div>
                                                 </li>
-                                                <li class="timeline-item period">
+                                                <!-- <li class="timeline-item period">
                                                     <div class="timeline-info"></div>
                                                     <div class="timeline-marker"></div>
                                                     <div class="timeline-content">
                                                         <h2 class="timeline-title">April 2018</h2>
                                                     </div>
-                                                </li>                                        
+                                                </li>                                         -->
                                             </ul>
                                             <hr>
                                       <div class="col-md-6 col-sm-12 text-right hidden-xs">
@@ -722,6 +722,29 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-sm-12">
+                                                    <div class="card" id="SCSS">
+                                                        <div class="header">
+                                                            <h2><strong>Plan</strong></h2>
+                                                            <ul class="header-dropdown dropdown">                                
+                                                              <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                              <li class="dropdown">
+                                                                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                  <ul class="dropdown-menu">
+                                                                      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#plan">Update</a></li>
+                                                                      <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                  </ul>
+                                                              </li>
+                                                          </ul>
+                                                        </div>
+                                                        <div class="body" *ngIf="encountersD">
+                                                          <p style="white-space: pre-line">{{encountersD.plan}}</p>
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
                                                     <div class="col-sm-12">
                                                         <div class="card" id="grunt_file">
@@ -775,7 +798,53 @@
                                                                 </div>
                                                             </div>                    
                                                         </div>
-                                                    </div>                                              
+                                                    </div>   
+                                                    
+                                                    <div class="col-sm-12">
+                                                        <div class="card" id="SCSS">
+                                                            <div class="header">
+                                                                <h2><strong>Lab Test</strong></h2>
+                                                                <ul class="header-dropdown dropdown">                                
+                                                                  <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                  <li class="dropdown">
+                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                      <ul class="dropdown-menu">
+                                                                          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#plan">Update</a></li>
+                                                                          <li><a href="javascript:void(0);">Print</a></li>
+                                                                          <li><a href="javascript:void(0);">Export</a></li>
+                                                                      </ul>
+                                                                  </li>
+                                                              </ul>
+                                                            </div>
+                                                            <div class="body" *ngIf="encountersD">
+                                                              <p style="white-space: pre-line">{{encountersD.plan}}</p>
+                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <div class="card" id="SCSS">
+                                                            <div class="header">
+                                                                <h2><strong>Image Test</strong></h2>
+                                                                <ul class="header-dropdown dropdown">                                
+                                                                  <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                  <li class="dropdown">
+                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                      <ul class="dropdown-menu">
+                                                                          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#plan">Update</a></li>
+                                                                          <li><a href="javascript:void(0);">Print</a></li>
+                                                                          <li><a href="javascript:void(0);">Export</a></li>
+                                                                      </ul>
+                                                                  </li>
+                                                              </ul>
+                                                            </div>
+                                                            <div class="body" *ngIf="encountersD">
+                                                              <p style="white-space: pre-line">{{encountersD.plan}}</p>
+                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                               </div>
                                              
                                           </div>              
@@ -1230,6 +1299,32 @@
             </div>
         </div>
 
+        <div class="modal fade" id="plan" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Plan Input</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onPreamble(plan)" #plan="ngForm"> 
+                    <div class="modal-body">
+                        
+                        <div class="form-group" *ngIf="encountersD">
+                            <textarea rows="4" class="form-control no-resize" ngModel name="plan" >{{encountersD.plan}}</textarea>                           
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
+        
         <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -1460,29 +1555,24 @@
                                                 <table class="table table-hover table-custom spacing8">
                                                     <thead>
                                                         <tr>
-                                                            <th>S/N</th>
-                                                            <th>Select</th>
+                                                            <th>S/N</th>                                                            
                                                             <th>Image</th>
                                                             <th>Item</th>
-                                                            <th>Category</th>
-                                                            <th>Original Quantity</th>
+                                                            <th>Category</th>                                                            
                                                             <th>Quantity</th>                                                                            
                                                             <!-- <th>Refill</th>  
                                                             <th>Remain</th>                            -->                         
                                                             <th>Cost</th>
                                                             <th>Amount</th>
-                                                            <!-- <th>Refill Status</th> -->
-                                                            <!-- <th>Action</th> -->
+                                                            <th>Less Discount   </th>
+                                                            <th>Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let r of prescriptionsList; let i = index">
                                                             <ng-container *ngFor="let r2 of itemsitem;">
                                                                <ng-container *ngIf="r.item_id == r2.item_id && r2.total_remain >= r.quantity">
-                                                                    <td>{{i+1}}</td> 
-                                                                    <td class="fancy-checkbox">
-                                                                        <label><input type="checkbox" disabled checked ><span>Available</span></label>
-                                                                    </td>                                                                                    
+                                                                    <td>{{i+1}}</td>                                                                                                                                                      
                                                                     <td class="w60">
                                                                         <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                                                     </td>
@@ -1490,21 +1580,15 @@
                                                                         <a href="javascript:void(0);" title="">{{r.generic_name}}</a>
                                                                         <p class="mb-0">{{r.name}}</p>
                                                                     </td>
-                                                                    <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
-                                                                    <td>{{r.original_qty}}</td>
-                                                                    <td>{{r.quantity}}</td>                                                                          
-                                                                    <!-- <td>{{r.refill}}</td>
-                                                                    <td>{{r.remain}}</td> -->                     
+                                                                    <td><span class="badge badge-warning">{{r.cat_name}}</span></td>                                                                    
+                                                                    <td>{{r.quantity}}</td>                                                                         
                                                                     <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                                                                     <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                                                                    <!-- <td>
-                                                                        <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
-                                                                            Refill
-                                                                        </span>
-                                                                        <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
-                                                                        Close
-                                                                        </span>
-                                                                    </td> -->
+                                                                    <td class="hidden-sm-down" *ngIf="r.percentage == 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{r.percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
+                                                                    <td class="hidden-sm-down" *ngIf="r.percentage > 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-success">({{r.percentage}}%) <i class="fa fa-caret-up"></i></span></td>   
+                                                                    <td class="fancy-checkbox">
+                                                                        <label><input type="checkbox" disabled checked ><span>Available</span></label>
+                                                                    </td>  
                                                                     <!-- <td>
                                                                     <button type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
                                                                     <button type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
@@ -1512,10 +1596,7 @@
                                                                 </ng-container>
 
                                                                 <ng-container *ngIf="r.item_id == r2.item_id && r.quantity > r2.total_remain">
-                                                                    <td>{{i+1}}</td> 
-                                                                    <td class="fancy-checkbox">
-                                                                        <label><input type="checkbox" disabled ><span>Un-available</span></label>
-                                                                    </td>                                                                                    
+                                                                    <td>{{i+1}}</td>                                                                                                                                                    
                                                                     <td class="w60">
                                                                         <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{r.item_img}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 rounded">
                                                                     </td>
@@ -1526,20 +1607,15 @@
                                                                         </del>
                                                                     </td>
                                                                     <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
-                                                                    <td class="text-warning">{{r.original_qty}}</td>
-                                                                    <td class="text-warning">{{r.quantity}}</td>                                                                          
-                                                                    <!-- <td>{{r.refill}}</td>
-                                                                    <td>{{r.remain}}</td> -->                     
+                                                         
+                                                                    <td class="text-warning">{{r.quantity}}</td>                                                                           
                                                                     <td class="text-warning">{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                                                                     <td class="text-warning">{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
-                                                                    <!-- <td>
-                                                                        <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
-                                                                            Refill
-                                                                        </span>
-                                                                        <span class="badge badge-success" *ngIf="r.refill_status == 'non-refillable' ">
-                                                                        Close
-                                                                        </span>
-                                                                    </td> -->
+                                                                    <td class="hidden-sm-down" *ngIf="r.percentage == 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{r.percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
+                                                                    <td class="hidden-sm-down" *ngIf="r.percentage > 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}    <span class="text-success">({{r.percentage}}%) <i class="fa fa-caret-up"></i></span></td> 
+                                                                    <td class="fancy-checkbox">
+                                                                        <label><input type="checkbox" disabled ><span>Un-available</span></label>
+                                                                    </td>    
                                                                     <!-- <td>
                                                                     <button disabled type="button" class="btn btn-default btn-sm" style="color: blue;" title="Edit" data-toggle="modal" data-target="#EditTra" (click)="editTrans(r.id)"><i class="fa fa-pencil"></i></button>
                                                                     <button disabled type="button" class="btn btn-default btn-sm" style="color: red;" title="Delete" data-toggle="modal" (click)="deleteTrans(r.id)"><i class="fa fa-trash-o"></i></button>
@@ -1621,12 +1697,12 @@
                                                     </tfoot>
                                                 </table>
                                                 <div>
-                                                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
+                                                    <button *ngIf="dept == '11'" type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
                                 
                                                     <!-- <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                                                     <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp; -->
-                                                    <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp;
-                                                    <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                                                    <!-- <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp; -->
+                                                    <button type="button" *ngIf ="invoice == 'paid' && dept == '11'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                                                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                                                 </div><br>              
                                                 </div>
@@ -1647,7 +1723,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Encounter Pharmacy Order</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update Pharmacy Order</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -1658,7 +1734,7 @@
 
                                 <div class="card">
                                     <div class="header">
-                                        <h2>Encounter Voucher</h2>
+                                        <h2>Update Prescription</h2>
                                         <ul class="header-dropdown dropdown">                                
                                             <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                             <li class="dropdown">
@@ -1678,14 +1754,13 @@
                                                             <th>S/N</th>
                                                             <th>Image</th>
                                                             <th>Item</th>
-                                                            <th>Category</th>
-                                                            <th>Original Quantity</th>
+                                                            <th>Category</th>                                                           
                                                             <th>Quantity</th>                                                                            
                                                             <!-- <th>Refill</th>  
                                                             <th>Remain</th>                            -->                         
                                                             <th>Cost</th>
                                                             <th>Amount</th>
-                                                            <!-- <th>Refill Status</th> -->
+                                                            <th>Less Discount</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -1700,12 +1775,14 @@
                                                                 <p class="mb-0">{{r.name}}</p>
                                                             </td>
                                                             <td><span class="badge badge-warning">{{r.cat_name}}</span></td>
-                                                            <td>{{r.original_qty}}</td>
+                                                           
                                                             <td>{{r.quantity}}</td>                                                                          
                                                             <!-- <td>{{r.refill}}</td>
                                                             <td>{{r.remain}}</td> -->                     
                                                             <td>{{r.amount | currency:'NGN':'symbol-narrow'}}</td>
                                                             <td>{{r.amount_paid | currency:'NGN':'symbol-narrow'}}</td>
+                                                            <td class="hidden-sm-down" *ngIf="r.percentage == 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{r.percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
+                                                            <td class="hidden-sm-down" *ngIf="r.percentage > 0" >{{r.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-success">({{r.percentage}}%) <i class="fa fa-caret-up"></i></span></td>   
                                                             <!-- <td>
                                                                 <span class="badge badge-warning" *ngIf="r.refill_status == 'refillable' ">
                                                                     Refill
@@ -1865,12 +1942,12 @@
                                                     </tfoot>
                                                 </table>
                                                 <div>
-                                                    <button type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
+                                                    <button *ngIf="dept == '11'" type="button" (click)="saveTovoucher()" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp;
                                 
                                                     <!-- <button type="button" *ngIf = "voucher != 'open' " disabled class="btn btn-round btn-primary">Checkout</button> &nbsp;&nbsp;
                                                     <button type="button" (click)="saveTovoucher()" *ngIf = "voucher == 'open'" class="btn btn-round btn-primary">Checkout<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button> &nbsp; -->
-                                                    <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp;
-                                                    <button type="button" *ngIf ="invoice == 'paid'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
+                                                    <!-- <button type="button" class="btn btn-round btn-secondary"><a class="p-1 text-white" style="text-decoration:none" href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', appId]}}]">Voucher</a></button> &nbsp;&nbsp; -->
+                                                    <button type="button" *ngIf ="invoice == 'paid' && dept == '11'" [routerLink]="['/Admin', {outlets: {side: ['invoice',appId]}}]" class="btn btn-round btn-secondary">Invoice</button> &nbsp;&nbsp;
                                                     <a type="button" [routerLink]="['/Admin', {outlets: {side: ['pharmacy_log']}}]" class="btn btn-round btn-default">Cancel</a>
                                                 </div><br>              
                                                 </div>

@@ -31,6 +31,7 @@ use App\Centers;
 use App\Service_charges;
 use App\Hmo;
 use App\price_list;
+use App\Doctor_encounter;
 
 // Today's date working with displayItem,
 
@@ -763,9 +764,9 @@ class DisplayController extends Controller
     {
         $branchId = Auth()->user()->branch_id;
         $branch = Branches::select('branches.id', 'branches.name')      
-        ->where('id', $branchId)
-        ->orWhere('name', $branchId)
-        ->first();  
+                            ->where('id', $branchId)
+                            ->orWhere('name', $branchId)
+                            ->first();  
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
@@ -777,6 +778,11 @@ class DisplayController extends Controller
                                 ->where('departments.id','=', $deptId) 
                                 ->where('module.status','=', 'active')            
                                 ->first();
+
+        // $doc = Doctor_encounter::select('branches.id', 'branches.name')      
+        //                         ->where('id', $branchId)
+        //                         ->orWhere('name', $branchId)
+        //                         ->first();  
 
         if ($moduleId->module_id == '1' || $moduleId->module_id == '5') {
 
@@ -803,17 +809,34 @@ class DisplayController extends Controller
                     ]);            
              }
         if ($moduleId->module_id == '2') {
-            return response()->json([
-                'data' => Appointments::orderBy('id', 'DESC')
+            if (Auth()->user()->dept_id == 18) {
+                return response()->json([
+                    'data' => Appointments::orderBy('id', 'DESC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
                     ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                     ->where('appointments.status','!=','close')
-                    ->where('appointments.clinic_status', '!=', 'close')
                     // ->where('appointments.a_date', '<=', $cDate)
-                    ->get(),
-                    ]);            
+                    ->get()
+                        ]);    
+            }
+
+            if (Auth()->user()->dept_id == 2) {
+                return response()->json([
+                    'data' => Appointments::orderBy('id', 'DESC')
+                        ->join('customers','appointments.customer_id','=','customers.id')
+                        ->join('doctor_encounter','doctor_encounter.appointment_id','=','appointments.id')
+                        ->join('users','appointments.created_by','=','users.id')
+                        ->join('branches','appointments.created_branch','=','branches.id')
+                        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                        ->where('appointments.status','!=','close')
+                        ->where('appointments.clinic_status', '!=', 'close')
+                        ->where('doctor_encounter.user_id', '<=', Auth()->user()->id)
+                        ->get(),
+                        ]);     
+            }
+                 
             }
 
         if ($moduleId->module_id == '3') {

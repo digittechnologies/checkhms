@@ -9,6 +9,7 @@ use App\Positions;
 use App\Departments;
 use App\User;
 use App\Hmo;
+use App\Doctor_encounter;
 use Image;
 use Validator;
 use App\Item_types;
@@ -478,23 +479,21 @@ public function addCenter(Request $request)
 
     public function submitAppointmentUser(Request $request)
     {
-        return $request->all();
-        // $user_id = Auth()->user()->id;
-        // $request ->merge(['created_by'=>$user_id]);
-        // $request ->merge(['updated_by'=>$user_id]);
-        // $position= Positions::create($request-> all());
-        // return $position->id;
-        // if($dept){
-        //     return '{
-        //         "success":true,
-        //         "message":"successful"
-        //     }' ;
-        // } else {
-        //       return '{
-        //         "success":false,
-        //         "message":"Failed"
-        //     }';
-        // }
+        $user_id = Auth()->user()->id;
+        $request ->merge(['created_by'=>$user_id]);
+        $request ->merge(['updated_by'=>$user_id]);
+        $added= Doctor_encounter::create($request-> all());    
+        if($added){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+              return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 
     public function Addposition(Request $request)
@@ -2561,13 +2560,37 @@ public function addCenter(Request $request)
         $dt = Carbon::now();
         $cDate = $dt->toFormattedDateString();
         $cTime = $dt->format('h:i:s A');
+
+        $checkAppointment= Appointments::orderBy('id')->select('appointments.hmo_id')
+                                                    ->where('appointments.id', $request->appointment_id)
+                                                    ->first();         
+
+        $hmoNo= Hmo::find($checkAppointment->hmo_id);
+
+        // return $request->all();
+
+        if ($request->care_type == 'primary') {
+            $percentage= $hmoNo->discount_1;
+        }
+        if ($request->care_type == 'secondary') {
+            $percentage= $hmoNo->discount_2;
+        }
+        if ($request->care_type == 'others') {
+            $percentage= $hmoNo->discount_3;
+        }       
+
+        $total_amount = $percentage * $request->amount_paid / 100;
+        $discount_amount = $request->amount_paid - $total_amount;
+
         
         $pharmacistId= Auth()->user()->id;
         $branchId= Auth()->user()->branch_id;
 
         $request->merge(["p_date" => $cDate]);
         $request->merge(["p_time" => $cTime]);
-
+        $request->merge(["percentage" => $percentage]);
+        $request->merge(["discount_amount" => $discount_amount]);
+        $request->merge(["price_list" => $request->price_list]);
         
         //dispense
        
@@ -2580,7 +2603,6 @@ public function addCenter(Request $request)
         $request->merge(["branch_id" => $branchId]);
         // $request->merge(["voucher_id" => $request->voucher_id]);
 
-        // return $request->all();
         $pharmP= Doctor_prescriptions::create($request-> all());
        
         if($pharmP){

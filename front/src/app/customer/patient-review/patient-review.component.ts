@@ -187,6 +187,8 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   sbranch: any;
   docResponse: Object;
   getDoctor: Object;
+  charges2: any;
+  care_type: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -389,7 +391,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
       data=>{
             this.sResponse = data;      
             this.sbranch = this.sResponse.center_type
-            this.charges= this.sResponse.charges
+            // this.charges= this.sResponse.charges
       })
     
     this.Jarwis.disItemDet().subscribe(
@@ -522,7 +524,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         if(data.item_id == data2.item_id && data2.total_remain >= data.quantity) {
           this.selectedItems.push(data.id)
           this.tcost += data.amount_paid
-          this.afterPercentCost += data.amount_paid
+          this.afterPercentCost += data.discount_amount
         }
       });
     });
@@ -535,7 +537,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     this.Jarwis.voucherAllStock(Itemid.target.value, '', this.patientAppointment).subscribe(  
       data=>{
 
-        // console.log(data)
+       
         this.AllStockresponse = data;
         this.total = this.AllStockresponse.item;
         this.item_remains = this.AllStockresponse.item_remains;
@@ -544,6 +546,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         this.generic_name= this.total.generic_name
         this.total_name= this.total.name;
         this.cat_name= this.total.cat_name;
+        this.care_type= this.total.care_type;
         this.type_name= this.total.type_name;
         this.total_remain= this.total.total_remain;
         this.shelve_name= this.total.shelve_name;
@@ -555,7 +558,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
         this.itemPrice = this.AllStockresponse.price[1];
         this.itemPrice2Name = this.AllStockresponse.price[0]
         this.itemPrice2Amount = this.AllStockresponse.price[1];
-        ;
+
         if(this.itemPrice2Amount == 0 ){
           let confirmPrice = confirm("Item price is 0 under this category, switch to general price");
           if(confirmPrice){
@@ -661,6 +664,8 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     form.value.encounter_id = this.encId
     form.value.original_qty = this.tQuantity
     form.value.days = this.useFor
+    form.value.price_list =this.itemPrice2Name;
+    form.value.care_type =this.care_type;
     // if(this.schemePriceList == 'price_2'){
     //   form.value.amount = this.total.price_2;
     //   form.value.amount_paid = parseInt(this.total.price_2) * parseInt(this.quant) 
@@ -711,9 +716,23 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
 
       this.Jarwis.displayEncounterPharm(this.appId, this.encId).subscribe(
         data=>{
-        this.PharmEncreresponse = data;     
-      
+        this.PharmEncreresponse = data;   
         this.encounter_pham= this.PharmEncreresponse.pres; 
+
+        this.tcost = 0
+        this.afterPercentCost = 0 
+        this.prescriptionsList.forEach(data => {
+          this.itemsitem.forEach(data2 => {
+            if(data.item_id == data2.item_id && data2.total_remain >= data.quantity) {
+              this.selectedItems.push(data.id)
+              this.tcost += data.amount_paid
+              this.afterPercentCost += data.discount_amount
+            }
+          });
+        });
+        if (this.schemePriceList == 'price_1') {
+          this.afterPercentCost += 50
+        }
       })
     
   }
@@ -732,9 +751,9 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
     form.value.appointment_id= this.appId
     this.Jarwis.submitAppointmentUser(form.value).subscribe(
       data=>{
-        // this.handleResponse("Operation successfuly")
-        // this.response = data;  
-        // this.ngOnInit();
+        this.handleResponse("Operation successfuly")
+        this.response = data;  
+        this.ngOnInit();
   })
 }
   onPreamble(form:NgForm){
