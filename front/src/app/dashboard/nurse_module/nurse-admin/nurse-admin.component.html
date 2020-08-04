@@ -3,18 +3,18 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>My Page</h1>
-                    <nav aria-label="breadcrumb">
+                    <h1>Nurse Dashboard</h1>
+                    <!-- <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Oculux</a></li>
                         <li class="breadcrumb-item active" aria-current="page">My Page</li>
                         </ol>
-                    </nav>
+                    </nav> -->
                 </div>            
-                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
                     <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -25,8 +25,8 @@
                         <div class="d-flex align-items-center">
                             <div class="icon-in-bg bg-indigo text-white rounded-circle"><i class="fa fa-briefcase"></i></div>
                             <div class="ml-4">
-                                <span>Total income</span>
-                                <h4 class="mb-0 font-weight-medium">$7,805</h4>
+                                <span>Total OPD</span>
+                                <h4 class="mb-0 font-weight-medium">{{countOPD}}</h4>
                             </div>
                         </div>
                     </div>
@@ -38,8 +38,8 @@
                         <div class="d-flex align-items-center">
                             <div class="icon-in-bg bg-azura text-white rounded-circle"><i class="fa fa-credit-card"></i></div>
                             <div class="ml-4">
-                                <span>New expense</span>
-                                <h4 class="mb-0 font-weight-medium">$3,651</h4>
+                                <span>Total GOPD</span>
+                                <h4 class="mb-0 font-weight-medium">{{countGOPD}}</h4>
                             </div>
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                         <div class="d-flex align-items-center">
                             <div class="icon-in-bg bg-orange text-white rounded-circle"><i class="fa fa-users"></i></div>
                             <div class="ml-4">
-                                <span>Daily Visits</span>
-                                <h4 class="mb-0 font-weight-medium">5,805</h4>
+                                <span>Total COPD</span>
+                                <h4 class="mb-0 font-weight-medium">{{countCOPD}}</h4>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                         <div class="d-flex align-items-center">
                             <div class="icon-in-bg bg-pink text-white rounded-circle"><i class="fa fa-life-ring"></i></div>
                             <div class="ml-4">
-                                <span>Bounce rate</span>
-                                <h4 class="mb-0 font-weight-medium">$13,651</h4>
+                                <span>Total MC</span>
+                                <h4 class="mb-0 font-weight-medium">{{countMC}}</h4>
                             </div>
                         </div>
                     </div>
@@ -77,21 +77,21 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="header">
-                      <h2>Earning Report</h2>
+                      <h2>IPD Report</h2>
                     </div>
                     <div class="body">
                         <div class="row text-center">
                             <div class="col-lg-4 col-sm-12 border-right pb-4 pt-4">
-                                <label class="mb-0">Total Students</label>
-                                <h4 class="font-30 font-weight-bold text-col-blue">2,025</h4>
+                                <label class="mb-0">Total IPD</label>
+                                <h4 class="font-30 font-weight-bold text-col-blue">{{countIPD}}</h4>
                             </div>
                             <div class="col-lg-4 col-sm-12 border-right pb-4 pt-4">
-                                <label class="mb-0">New Students</label>
-                                <h4 class="font-30 font-weight-bold text-col-blue">754</h4>
+                                <label class="mb-0">Male</label>
+                                <h4 class="font-30 font-weight-bold text-col-blue">{{countMale}}</h4>
                             </div>
                             <div class="col-lg-4 col-sm-12 pb-4 pt-4">
-                                <label class="mb-0">Teacher or Staff</label>
-                                <h4 class="font-30 font-weight-bold text-col-blue">54</h4>
+                                <label class="mb-0">Female</label>
+                                <h4 class="font-30 font-weight-bold text-col-blue">{{countFemale}}</h4>
                             </div>
                         </div>
                         <hr>

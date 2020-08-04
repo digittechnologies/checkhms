@@ -644,8 +644,38 @@ class DisplayController extends Controller
 
     public function countCustomer()
     {
-        return DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
-        ->get();
+        return response()->json([
+            "customer" => DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
+            ->get(),
+            "opd" => Appointments::where('appointments.patient_status','=', 'opd')->where('appointments.status','=', 'open')->select('appointments.*')->count(),
+            "ipd" => Appointments::where('appointments.patient_status','=', 'ipd')->where('appointments.status','=', 'open')->select('appointments.*')->count(),
+            "gopd" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
+            ->join('center_type','branches.center_type','=','center_type.id')
+            ->select('appointments.*')  
+            ->where('appointments.status','=', 'open') 
+            ->where('center_type.id','=', 1)->count(),
+            "copd" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
+            ->join('center_type','branches.center_type','=','center_type.id')
+            ->select('appointments.*')   
+            ->where('appointments.status','=', 'open')
+            ->where('center_type.id','=', 2)->count(),
+            "mc" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
+            ->join('center_type','branches.center_type','=','center_type.id')
+            ->select('appointments.*')   
+            ->where('appointments.status','=', 'open')
+            ->where('center_type.id','=', 3)->count(),
+
+            "male" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
+                                    ->where('appointments.patient_status','=', 'ipd')
+                                    ->where('appointments.status','=', 'open')
+                                    ->where('customers.gender','=', 'male')
+                                    ->select('appointments.*')->count(),
+            "female" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
+                                    ->where('appointments.patient_status','=', 'ipd')
+                                    ->where('appointments.status','=', 'open')
+                                    ->where('customers.gender','=', 'female')
+                                    ->select('appointments.*')->count(),
+        ]);
     }
 
     public function countAppointmentDash()
@@ -787,7 +817,7 @@ class DisplayController extends Controller
         if ($moduleId->module_id == '1' || $moduleId->module_id == '5') {
 
             return response()->json([
-                'data' => Appointments::orderBy('id', 'DESC')
+                'data' => Appointments::orderBy('id', 'ASC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
@@ -796,7 +826,7 @@ class DisplayController extends Controller
                     // ->where('appointments.a_date', '<=', $cDate)
                     ->get(),
                 
-                'data2' => Appointments::orderBy('id', 'DESC')
+                'data2' => Appointments::orderBy('id', 'ASC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
@@ -811,7 +841,7 @@ class DisplayController extends Controller
         if ($moduleId->module_id == '2') {
             if (Auth()->user()->dept_id == 18) {
                 return response()->json([
-                    'data' => Appointments::orderBy('id', 'DESC')
+                    'data' => Appointments::orderBy('id', 'ASC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
@@ -824,7 +854,7 @@ class DisplayController extends Controller
 
             if (Auth()->user()->dept_id == 2) {
                 return response()->json([
-                    'data' => Appointments::orderBy('id', 'DESC')
+                    'data' => Appointments::orderBy('id', 'ASC')
                         ->join('customers','appointments.customer_id','=','customers.id')
                         ->join('doctor_encounter','doctor_encounter.appointment_id','=','appointments.id')
                         ->join('users','appointments.created_by','=','users.id')
@@ -832,7 +862,7 @@ class DisplayController extends Controller
                         ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                         ->where('appointments.status','!=','close')
                         ->where('appointments.clinic_status', '!=', 'close')
-                        ->where('doctor_encounter.user_id', '<=', Auth()->user()->id)
+                        ->where('doctor_encounter.user_id', Auth()->user()->id)
                         ->get(),
                         ]);     
             }
@@ -841,7 +871,7 @@ class DisplayController extends Controller
 
         if ($moduleId->module_id == '3') {
             return response()->json([
-                'data' => Appointments::orderBy('id', 'DESC')
+                'data' => Appointments::orderBy('id', 'ASC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
@@ -856,7 +886,7 @@ class DisplayController extends Controller
         if ($moduleId->module_id == '4') {
 
             return response()->json([
-                'data' => Appointments::orderBy('id', 'DESC')
+                'data' => Appointments::orderBy('id', 'ASC')
                     ->join('customers','appointments.customer_id','=','customers.id')
                     ->join('users','appointments.created_by','=','users.id')
                     ->join('branches','appointments.created_branch','=','branches.id')
@@ -870,7 +900,7 @@ class DisplayController extends Controller
             if ($moduleId->module_id == '6') {
 
                 return response()->json([
-                    'data' => Appointments::orderBy('id', 'DESC')
+                    'data' => Appointments::orderBy('id', 'ASC')
                         ->join('customers','appointments.customer_id','=','customers.id')
                         ->join('users','appointments.created_by','=','users.id')
                         ->join('branches','appointments.created_branch','=','branches.id')
@@ -1740,14 +1770,13 @@ class DisplayController extends Controller
             ->where('id', $id)
             ->get(); 
         $branch = $branch1[0]->br_name;
-        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.id AS type_id', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', $branch.'.total_remain', 'shelves.name AS shelve_name', 'shelves.point AS shelve_point')
+        $itemr = DB::table('item_details')->select('item_details.*', 'item_types.type_name', 'item_types.id AS type_id', 'item_types.image', 'item_categories.cat_name', 'manufacturer_details.name','item_categories.cat_name', 'item_details.item_img', 'item_details.selling_price', 'shelves.name AS shelve_name', 'shelves.point AS shelve_point')
         ->join ('item_types','item_details.item_type_id','=','item_types.id')
         ->join ('item_categories','item_details.item_category_id','=','item_categories.id')
         ->join ('item_units','item_details.item_unit_id','=','item_units.id')
         ->join ('manufacturer_details','item_details.manufacturer_id','=','manufacturer_details.id')
-        ->join ($branch,$branch.'.item_detail_id','=','item_details.id')
         ->join ('shelves','shelves.id','=','item_details.shelve_id')
-        ->where(['item_details.id' => $item, 'c_date' => $cDate])
+        ->where(['item_details.id' => $item])
         ->first();
         $r = $price_column->column_name;
         $centers = Branches::where(['status' => 'active', 'branches.dept_id' => '1'])->orderBy('id')->get();

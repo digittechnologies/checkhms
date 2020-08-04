@@ -2,14 +2,14 @@
   "name": "front",
   "version": "0.0.0",
   "scripts": {
+    "build-checkhms": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build",
     "ng": "ng",
     "start": " ng serve --port 8000 --proxy-config config.json",
     "start:prod": "ng build --prod && lite-server --baseDir dist/my-pwa",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build-checkhms": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

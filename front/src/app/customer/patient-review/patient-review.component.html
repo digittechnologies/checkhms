@@ -127,10 +127,8 @@
 
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-4 col-sm-12">
-                    
-                    <a *ngIf="dept == '18' || dept == '2' || dept == '10'" href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#AddDoc">Assign To Doctor</a>            
-                    <div>
-                    <div *ngIf=" dept == '18' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical"> 
+                    <a *ngIf="dept == '18' || dept == '2' || dept == '10'" href="javascript:void(0);" class="btn btn-sm btn-success btn-block" title="" data-toggle="modal" data-target="#AddDoc">Assign To Doctor</a>
+                    <div *ngIf="dept == '18' || dept == '2' || dept == '10'"  class="nav flex-column nav-pills list-group" id="v-pills-tab" role="tablist" aria-orientation="vertical"> 
                         <small class="text-muted">NURSING PROCESS</small>
                         <a class="nav-link active show list-group-item d-flex justify-content-between align-items-center" id="history" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-home" aria-selected="true" >History <span class="badge badge-info">{{historylenght}}</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="overview" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" (click)="encouter()">Overview <span class="badge badge-danger">1</span></a>
@@ -160,8 +158,7 @@
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="voucher" data-toggle="pill" href="#v-pills-voucher" role="tab" aria-controls="v-pills-voucher" aria-selected="false">Voucher<span class="badge badge-info">Open</span></a>
                         <a class="nav-link list-group-item d-flex justify-content-between align-items-center" id="invoice" data-toggle="pill" href="#v-pills-invoice" role="tab" aria-controls="v-pills-invoice" aria-selected="false">Invoice<span class="badge badge-success">Success</span></a>
            
-                    </div>
-                   </div>   
+                    </div>   
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-12">
                         <div class="tab-content" id="v-pills-tabContent">
@@ -248,7 +245,7 @@
                                         <div class="card">
                                             <div class="header">
                                                 <h2><strong>Vital Signs</strong></h2>
-                                                <ul class="header-dropdown dropdown">                                
+                                                <ul *ngIf="dept == '18' || dept == '10'" class="header-dropdown dropdown">                                
                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -272,7 +269,7 @@
                                         <div class="card">
                                             <div class="header">
                                                 <h2><strong>Vital Signs</strong></h2>
-                                                <ul class="header-dropdown dropdown">                                
+                                                <ul *ngIf="dept == '18' || dept == '10'" class="header-dropdown dropdown">                                
                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -342,12 +339,12 @@
                                         <div class="card" id="features">
                                             <div class="header col-12">
                                                 <h2><strong>Vital Signs</strong></h2>
-                                                <ul class="header-dropdown dropdown">                                
+                                                <ul *ngIf="dept == '18' || dept == '10'" class="header-dropdown dropdown">                                
                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:void(0);" (click)="formValue(15,VITASIGNS)">Add New Vita Signs</a></li>
+                                                            <li><a href="javascript:void(0);" (click)="formValue(15,'VITASIGNS')">Add New Vita Signs</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -403,7 +400,7 @@
                                                   <div class="card" id="Gallery">
                                                       <div class="header">
                                                           <h2><strong>Nurse Assessment</strong></h2>
-                                                          <ul class="header-dropdown dropdown">                                
+                                                          <ul *ngIf="dept == '18' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -466,12 +463,12 @@
                                                 <div class="col-sm-12">
                                                     <div class="card" id="documenter_cover">
                                                         <div class="body">
-                                                            <h4 class="mb-3">Oculux - Bootstrap 4 admin dashboard</h4>
-                                                            <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                                            <h4 class="mb-3">NURSING CARE PLAN</h4>
+                                                            <p>This is Nursing Care Plan.</p>
                                                             <ul>
-                                                                <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                                                                <!-- <li>eMail: <strong>puffintheme@gmail.com</strong></li>
                                                     <li><strong>05/Nov/2018</strong></li>
-                                                                <li><strong class="text-orange">18/June/2019</strong></li>
+                                                                <li><strong class="text-orange">18/June/2019</strong></li> -->
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -482,7 +479,7 @@
                                                       <div id="lightgallery" class=" lightGallery">
                                                           <div class="header" *ngIf="other_proce_forms">
                                                               <h2><strong>{{other_proce_forms[0].attribute}}</strong></h2>  
-                                                              <ul class="header-dropdown dropdown">                                
+                                                              <ul *ngIf="dept == '18' || dept == '10'" class="header-dropdown dropdown">                                
                                                                   <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                   <li class="dropdown">
                                                                       <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -544,13 +541,13 @@
                                                     <div class="col-sm-12">
                                                         <div class="card" id="documenter_cover">
                                                             <div class="body">
-                                                                <h4 class="mb-3">Doctor Process {{encId}}</h4>
-                                                                <p>Oculux is a popular open source WebApp template for admin dashboards and admin panels. It’s responsive HTML template, which is based on the Bootstrap 4X framework. It utilizes all of the Bootstrap components in design and re-styles many commonly used plugins to create a consistent design that can be used as a user interface for backend applications.</p>
+                                                                <h4 class="mb-3">Doctor Process</h4>
+                                                                <p>This is Doctor Process.</p>
                                                                 <ul>
-                                                                    <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                                                                    <!-- <li>eMail: <strong>puffintheme@gmail.com</strong></li>
                                                                     <li><strong>05/Nov/2018</strong></li>
-                                                                    <li><strong class="text-orange">18/June/2019</strong></li>
-                                                                    <li><strong class="text-orange">{{encId}}</strong></li>
+                                                                    <li><strong class="text-orange">18/June/2019</strong></li> -->
+                                                                    <!-- <li><strong class="text-orange">{{encId}}</strong></li> -->
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -560,14 +557,14 @@
                                                       <div class="card" id="Gallery">
                                                           <div class="header">
                                                               <h2><strong>PREAMBLE</strong></h2>
-                                                              <ul class="header-dropdown dropdown">                                
+                                                              <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                                   <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                   <li class="dropdown">
                                                                       <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                       <ul class="dropdown-menu">                                                                        
                                                                           <li><a href="javascript:void(0);" data-toggle="modal" data-target="#preamble">Update</a></li>
-                                                                          <li><a href="javascript:void(0);">Print</a></li>
-                                                                          <li><a href="javascript:void(0);">Export</a></li>
+                                                                          <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                          <li><a href="javascript:void(0);">Export</a></li> -->
                                                                       </ul>
                                                                   </li>
                                                               </ul>
@@ -588,14 +585,14 @@
                                                       <div class="card" id="SCSS">
                                                           <div class="header">
                                                               <h2><strong>SUBJECTIVITY</strong></h2>
-                                                              <ul class="header-dropdown dropdown">                                
+                                                              <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                                 <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                 <li class="dropdown">
                                                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#subject">Update</a></li>
-                                                                        <li><a href="javascript:void(0);">Print</a></li>
-                                                                        <li><a href="javascript:void(0);">Export</a></li>
+                                                                        <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                        <li><a href="javascript:void(0);">Export</a></li> -->
                                                                     </ul>
                                                                 </li>
                                                             </ul>
@@ -611,14 +608,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>OBJECTIVITY</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#object">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -634,14 +631,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>ASSESSMENT</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#assessment">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -657,14 +654,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>PRESUMPTIVE DIAGNOSIS</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#presumption_d">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -680,14 +677,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>DIFFERENTIAL DIAGNOSIS</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#diffrential_d">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -703,14 +700,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>DEFINITIVE DIAGNOSIS</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#definitive_d">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -726,14 +723,14 @@
                                                     <div class="card" id="SCSS">
                                                         <div class="header">
                                                             <h2><strong>Plan</strong></h2>
-                                                            <ul class="header-dropdown dropdown">                                
+                                                            <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                               <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                               <li class="dropdown">
                                                                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                   <ul class="dropdown-menu">
                                                                       <li><a href="javascript:void(0);" data-toggle="modal" data-target="#plan">Update</a></li>
-                                                                      <li><a href="javascript:void(0);">Print</a></li>
-                                                                      <li><a href="javascript:void(0);">Export</a></li>
+                                                                      <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                      <li><a href="javascript:void(0);">Export</a></li> -->
                                                                   </ul>
                                                               </li>
                                                           </ul>
@@ -749,16 +746,16 @@
                                                     <div class="col-sm-12">
                                                         <div class="card" id="grunt_file">
                                                             <div class="header">
-                                                                <h2><strong>ENCOUNTER PHARMACY ORDER</strong></h2>
-                                                                <ul class="header-dropdown dropdown">                                
+                                                                <h2><strong>PHARMACY ORDER</strong></h2>
+                                                                <ul *ngIf="dept == '2'" class="header-dropdown dropdown">                                
                                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                     <li class="dropdown">
                                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                                         <ul class="dropdown-menu">
                                                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li>
                                                                             <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u_encounter">Update</a></li>
-                                                                            <li><a href="javascript:void(0);">Print</a></li>
-                                                                            <li><a href="javascript:void(0);">Export</a></li>
+                                                                            <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                                            <li><a href="javascript:void(0);">Export</a></li> -->
                                                                         </ul>
                                                                     </li>
                                                                 </ul>
@@ -803,8 +800,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="card" id="SCSS">
                                                             <div class="header">
-                                                                <h2><strong>Lab Test</strong></h2>
-                                                                <ul class="header-dropdown dropdown">                                
+                                                                <h2><strong>Lab Test Order</strong></h2>
+                                                                <ul *ngIf="dept == '2' " class="header-dropdown dropdown">                                
                                                                     <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                     <li class="dropdown">
                                                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" (click)="getLabForms()"></a>
@@ -829,7 +826,7 @@
                                                         <div class="card" id="SCSS">
                                                             <div class="header">
                                                                 <h2><strong>Image Test</strong></h2>
-                                                                <ul class="header-dropdown dropdown">                                
+                                                                <ul *ngIf="dept == '2' || dept == '10'" class="header-dropdown dropdown">                                
                                                                   <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                                   <li class="dropdown">
                                                                       <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -1019,11 +1016,11 @@
                                         <div class="card" id="documenter_cover">
                                             <div class="body">
                                                 <h4 class="mb-3">PHARMACY ORDER</h4>
-                                                <p>PHARMACY ORDER.</p>
+                                                <p>This is Pharmacy .</p>
                                                 <ul>
-                                                    <li>eMail: <strong>puffintheme@gmail.com</strong></li>
+                                                    <!-- <li>eMail: <strong>puffintheme@gmail.com</strong></li>
                                                     <li><strong>05/Nov/2018</strong></li>
-                                                    <li><strong class="text-orange">18/June/2019</strong></li>
+                                                    <li><strong class="text-orange">18/June/2019</strong></li> -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -1036,15 +1033,15 @@
                                     <div class="card" id="grunt_file">
                                         <div class="header">
                                             <h2><strong>PHARMACY ORDER</strong></h2>
-                                            <ul class="header-dropdown dropdown">                                
+                                            <ul *ngIf="dept == '1' || dept == '10'" class="header-dropdown dropdown">                                
                                                 <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
                                                 <li class="dropdown">
                                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                                                     <ul class="dropdown-menu">
                                                         <!-- <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_o">New Order</a></li> -->
                                                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pharmacy_u" (click)="itemSelected()">Update</a></li>
-                                                        <li><a href="javascript:void(0);">Print</a></li>
-                                                        <li><a href="javascript:void(0);">Export</a></li>
+                                                        <!-- <li><a href="javascript:void(0);">Print</a></li>
+                                                        <li><a href="javascript:void(0);">Export</a></li> -->
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -1093,10 +1090,8 @@
                                 </div>                                
                             </div>
                             </div>
-                            <div class="tab-pane" id="v-pills-label" role="tabpanel" aria-labelledby="">    
-                                 
-
-                            </div>
+                            <div class="tab-pane" id="v-pills-label" role="tabpanel" aria-labelledby="">
+                        </div>
 
                             <div class="tab-pane" id="v-pills-voucher" role="tabpanel" aria-labelledby="">    
                                 <div class="row clearfix">
@@ -1107,9 +1102,7 @@
 
                             </div>  
                             <div class="tab-pane" id="v-pills-invoice" role="tabpanel" aria-labelledby="">    
-                                 
-
-                            </div>
+                        </div>
                                                         
                         </div>
             </div>

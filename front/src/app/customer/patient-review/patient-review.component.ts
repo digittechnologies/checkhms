@@ -1134,7 +1134,7 @@ labform(data){
   let dt= data
   console.log(dt)
   const groups =  dt.reduce((groups, param) => {
-    const data = param.attribute;
+    const data = param.process_attribute_id;
     if (!groups[data]) {
       groups[data] = [];
     }

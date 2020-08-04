@@ -139,7 +139,7 @@
                                                                 <td class="hidden-sm-down">{{i.amount  | currency:'NGN':'symbol-narrow'}}</td>
                                                                 <td class="text-right">{{i.amount_paid  | currency:'NGN':'symbol-narrow'}}</td>
                                                                 <td class="hidden-sm-down" *ngIf="i.percentage == 0" >{{i.discount_amount  | currency:'NGN':'symbol-narrow'}}  <span class="text-warning">({{i.percentage}}%) <i class="fa fa-caret-down"></i></span></td>   
-                <td class="hidden-sm-down" *ngIf="i.percentage > 0" >{{i.discount_amount  | currency:'NGN':'symbol-narrow'}}    <span class="text-success">({{i.percentage}}%) <i class="fa fa-caret-up"></i></span></td> 
+                                                                <td class="hidden-sm-down" *ngIf="i.percentage > 0" >{{i.discount_amount  | currency:'NGN':'symbol-narrow'}}    <span class="text-success">({{i.percentage}}%) <i class="fa fa-caret-up"></i></span></td> 
                                                             <!-- </ng-container> -->
                                                         </tr>
                                                      

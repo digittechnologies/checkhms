@@ -160,6 +160,43 @@ onSubmit(form:NgForm){
 //   return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
 // }
 
+fetchForms(){
+  this.Jarwis.fetchForm().subscribe(
+    data=>{
+      let res = data
+      this.testingform = res
+    }
+  )
+}
+
+onSaveTestingProcessValue(form:NgForm){
+  this.disabled = true;
+  console.log(form.value)
+  const data = Object.entries(form.value)
+  console.log(data)
+   this.Jarwis.submitProcessVals({form:data,process_attribute_id:this.form_id,appointment_id:this.appId}).subscribe(
+     data=>{
+       this.disabled = false;
+       $('#init_process').modal('hide')
+       this.handleResponse("opration successfuly")
+     this.response = data;      
+ })
+}
+
+onSubmittable(form:NgForm){
+  this.disabled = true;
+  console.log(form.value)
+  const data = Object.entries(form.value)
+  console.log(data)
+  this.Jarwis.onSubmitTable({form:data,id:this.table_id,appoint__id:this.appId,process_attribute_id:this.process_attribute_id}).subscribe(
+    data=>{
+      console.log(data)
+      this.closeModal = true;
+      let res:any = data
+       }
+     )
+ }
+
 handleResponse(data) {    // 
   this.disabled = false;
   let snackBarRef = this.snackBar.open(data, 'Dismiss', {

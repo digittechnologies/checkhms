@@ -4,10 +4,10 @@
     "reportVersion": 1,
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20200609.214659.47516.0.001.json",
-    "dumpEventTime": "2020-06-09T21:46:59Z",
-    "dumpEventTimeStamp": "1591735619327",
-    "processId": 47516,
+    "filename": "report.20200804.160241.33524.0.001.json",
+    "dumpEventTime": "2020-08-04T16:02:41Z",
+    "dumpEventTimeStamp": "1596553361999",
+    "processId": 33524,
     "cwd": "C:\\wamp64\\www\\buth-pharm\\front",
     "commandLine": [
       "node",
@@ -52,38 +52,38 @@
       {
         "model": "Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz",
         "speed": 2304,
-        "user": 194960625,
+        "user": 43563125,
         "nice": 0,
-        "sys": 181132390,
-        "idle": 393710578,
-        "irq": 20320546
+        "sys": 29905015,
+        "idle": 78383265,
+        "irq": 4367203
       },
       {
         "model": "Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz",
         "speed": 2304,
-        "user": 202472859,
+        "user": 47839359,
         "nice": 0,
-        "sys": 148737093,
-        "idle": 418593265,
-        "irq": 6575812
+        "sys": 24381812,
+        "idle": 79629859,
+        "irq": 1418609
       },
       {
         "model": "Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz",
         "speed": 2304,
-        "user": 206648140,
+        "user": 47336781,
         "nice": 0,
-        "sys": 160385734,
-        "idle": 402769312,
-        "irq": 2134796
+        "sys": 26608812,
+        "idle": 77905421,
+        "irq": 748375
       },
       {
         "model": "Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz",
         "speed": 2304,
-        "user": 214659390,
+        "user": 51117734,
         "nice": 0,
-        "sys": 154587265,
-        "idle": 400556531,
-        "irq": 1596953
+        "sys": 23758781,
+        "idle": 76974484,
+        "irq": 333609
       }
     ],
     "networkInterfaces": [
@@ -132,71 +132,71 @@
   },
   "nativeStack": [
     {
-      "pc": "0x00007ff620861759",
+      "pc": "0x00007ff634b91759",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
     },
     {
-      "pc": "0x00007ff620865b7c",
+      "pc": "0x00007ff634b95b7c",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
     },
     {
-      "pc": "0x00007ff620864b38",
+      "pc": "0x00007ff634b94b38",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
     },
     {
-      "pc": "0x00007ff62095433b",
+      "pc": "0x00007ff634c8433b",
       "symbol": "v8::base::CPU::has_sse+37723"
     },
     {
-      "pc": "0x00007ff621158c5e",
+      "pc": "0x00007ff635488c5e",
       "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
     },
     {
-      "pc": "0x00007ff621140ca1",
+      "pc": "0x00007ff635470ca1",
       "symbol": "v8::SharedArrayBuffer::Externalize+833"
     },
     {
-      "pc": "0x00007ff62100e56c",
+      "pc": "0x00007ff63533e56c",
       "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
     },
     {
-      "pc": "0x00007ff621019910",
+      "pc": "0x00007ff635349910",
       "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
     },
     {
-      "pc": "0x00007ff621016444",
+      "pc": "0x00007ff635346444",
       "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
     },
     {
-      "pc": "0x00007ff62100bcd3",
+      "pc": "0x00007ff63533bcd3",
       "symbol": "v8::internal::Heap::CollectGarbage+1283"
     },
     {
-      "pc": "0x00007ff62100a4a4",
+      "pc": "0x00007ff63533a4a4",
       "symbol": "v8::internal::Heap::AddRetainedMap+2356"
     },
     {
-      "pc": "0x00007ff62102b775",
+      "pc": "0x00007ff63535b775",
       "symbol": "v8::internal::Factory::NewFillerObject+53"
     },
     {
-      "pc": "0x00007ff620d97a49",
+      "pc": "0x00007ff6350c7a49",
       "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+4057"
     },
     {
-      "pc": "0x00007ff62158463d",
+      "pc": "0x00007ff6358b463d",
       "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+567949"
     },
     {
-      "pc": "0x00000386e532b43c",
+      "pc": "0x00000175e20f8030",
       "symbol": ""
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 2176102400,
-    "totalCommittedMemory": 2176102400,
-    "usedMemory": 2125574240,
-    "availableMemory": 55800248,
+    "totalMemory": 2167590912,
+    "totalCommittedMemory": 2167590912,
+    "usedMemory": 2135001928,
+    "availableMemory": 34022000,
     "memoryLimit": 2197815296,
     "heapSpaces": {
       "read_only_space": {
@@ -207,38 +207,38 @@
         "available": 229576
       },
       "new_space": {
-        "memorySize": 25165824,
-        "committedMemory": 25165824,
-        "capacity": 12569856,
-        "used": 1204624,
-        "available": 11365232
+        "memorySize": 4194304,
+        "committedMemory": 4194304,
+        "capacity": 2094976,
+        "used": 740504,
+        "available": 1354472
       },
       "old_space": {
-        "memorySize": 2085990400,
-        "committedMemory": 2085990400,
-        "capacity": 2082747168,
-        "used": 2072824480,
-        "available": 9922688
+        "memorySize": 2054008832,
+        "committedMemory": 2054008832,
+        "capacity": 2041843696,
+        "used": 2041725104,
+        "available": 118592
       },
       "code_space": {
-        "memorySize": 4358144,
-        "committedMemory": 4358144,
-        "capacity": 3621696,
-        "used": 3621696,
+        "memorySize": 5406720,
+        "committedMemory": 5406720,
+        "capacity": 4532800,
+        "used": 4532800,
         "available": 0
       },
       "map_space": {
-        "memorySize": 23859200,
-        "committedMemory": 23859200,
-        "capacity": 11638480,
-        "used": 11638480,
+        "memorySize": 24121344,
+        "committedMemory": 24121344,
+        "capacity": 8855760,
+        "used": 8855760,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 35844096,
-        "committedMemory": 35844096,
-        "capacity": 35702264,
-        "used": 35702264,
+        "memorySize": 78974976,
+        "committedMemory": 78974976,
+        "capacity": 78565064,
+        "used": 78565064,
         "available": 0
       },
       "code_large_object_space": {
@@ -251,23 +251,23 @@
       "new_large_object_space": {
         "memorySize": 0,
         "committedMemory": 0,
-        "capacity": 12569856,
+        "capacity": 2094976,
         "used": 0,
-        "available": 12569856
+        "available": 2094976
       }
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 137.906,
-    "kernelCpuSeconds": 10.078,
-    "cpuConsumptionPercent": 147.984,
-    "maxRss": 2273284096,
+    "userCpuSeconds": 346.14,
+    "kernelCpuSeconds": 16.781,
+    "cpuConsumptionPercent": 145.751,
+    "maxRss": 2506358784,
     "pageFaults": {
-      "IORequired": 893889,
+      "IORequired": 1672326,
       "IONotRequired": 0
     },
     "fsActivity": {
-      "reads": 5830,
+      "reads": 6478,
       "writes": 5
     }
   },
@@ -295,8 +295,9 @@
     "NUMBER_OF_PROCESSORS": "4",
     "OneDrive": "C:\\Users\\JOYTUNE\\OneDrive",
     "OnlineServices": "Online Services",
+    "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
     "OS": "Windows_NT",
-    "Path": "C:\\windows\\system32;C:\\windows;C:\\windows\\System32\\Wbem;C:\\windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\windows\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\wamp64\\bin\\php\\php7.4.0;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\Git\\cmd;C:\\Users\\JOYTUNE\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\JOYTUNE\\AppData\\Roaming\\npm;C:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\JOYTUNE\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\JOYTUNE\\AppData\\Roaming\\Composer\\vendor\\bin",
+    "Path": "C:\\windows\\system32;C:\\windows;C:\\windows\\System32\\Wbem;C:\\windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\windows\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\wamp64\\bin\\php\\php7.4.0;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\Git\\cmd;C:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Python\\Python38-32\\Scripts\\;C:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Python\\Python38-32\\;C:\\Users\\JOYTUNE\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\JOYTUNE\\AppData\\Roaming\\npm;C:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\JOYTUNE\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\JOYTUNE\\AppData\\Roaming\\Composer\\vendor\\bin",
     "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC",
     "platformcode": "KV",
     "PROCESSOR_ARCHITECTURE": "AMD64",
@@ -323,9 +324,13 @@
     "VSEDEFLOGDIR": "C:\\ProgramData\\McAfee\\DesktopProtection",
     "windir": "C:\\windows",
     "TERM_PROGRAM": "vscode",
-    "TERM_PROGRAM_VERSION": "1.43.2",
+    "TERM_PROGRAM_VERSION": "1.46.1",
     "LANG": "en_GB.UTF-8",
     "COLORTERM": "truecolor",
+    "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-bd9025e4b5-sock",
+    "GIT_ASKPASS": "c:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\JOYTUNE\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
     "_prog": "node"
   },
   "sharedObjects": [
