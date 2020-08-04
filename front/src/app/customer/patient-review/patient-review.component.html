@@ -805,16 +805,18 @@
                                                             <div class="header">
                                                                 <h2><strong>Lab Test</strong></h2>
                                                                 <ul class="header-dropdown dropdown">                                
-                                                                  <li ><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
-                                                                  <li class="dropdown">
-                                                                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" (click)="getLabForms()"></a>
-                                                                      <ul class="dropdown-menu">
-                                                                          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#plan">Update</a></li>
-                                                                          <li><a href="javascript:void(0);">Print</a></li>
-                                                                          <li><a href="javascript:void(0);">Export</a></li>
-                                                                      </ul>
-                                                                  </li>
-                                                              </ul>
+                                                                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-frame"></i></a></li>
+                                                                    <li class="dropdown">
+                                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" (click)="getLabForms()"></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <ng-container  *ngIf="lab_forms">
+                                                                            <li *ngFor="let labt of lab_forms" (click)="labform(labt.games)"><a href="javascript:void(0);" data-toggle="modal" data-target="#latTest">{{labt.data}}</a></li>
+                                                                           
+                                                                        </ng-container>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                                
                                                             </div>
                                                             <div class="body" *ngIf="encountersD">
                                                               <p style="white-space: pre-line">{{encountersD.plan}}</p>
@@ -1324,7 +1326,62 @@
                 </div>
             </div>
         </div>
-        
+
+
+        <div class="modal fade" id="latTest" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Request for Lab</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="labrequestform(labtest)" #labtest="ngForm"> 
+                    <div class="modal-body">
+                       <div *ngIf="lab_form">
+                           <table>
+                           <div *ngFor="let labs of lab_form" class="mb-4">
+                                   <thead>
+                                       <th><strong>{{labs.data}}</strong></th>
+                                   </thead>
+                                   <tbody>
+                                    <!-- <ng-container *ngFor="let g of labs.games"> -->
+                                        <tr *ngFor="let g of labs.games">
+                                         <td>
+                                             <span class="mr-3">{{g.value}}</span>
+                                            <label class="fancy-checkbox mt-3">
+                                                <input class="checkbox-tick"  type="checkbox"value="{{g.value}}" (click)="labchoose(labs.data,g.value)">
+                                                <span></span>
+                                             </label>
+                                            </td>
+                                            <!-- <td>
+                                                <span class="mr-3">{{g.value}}</span>
+                                               <label class="fancy-checkbox mt-3">
+                                                   <input class="checkbox-tick" type="checkbox">
+                                                   <span></span>
+                                                </label>
+                                               </td> -->
+                                        </tr>
+                                        
+                                     <!-- </ng-container> -->
+                                    
+                                   </tbody>
+                                   
+                                </div>
+                            </table>
+
+                       </div>
+                     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-round btn-primary">Save</button>
+                    </div>
+                </form> 
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="pharmacy_o" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">

@@ -2509,9 +2509,11 @@ class DisplayController extends Controller
     {
         $user = Auth()->user();
         return response()->json([
-            "form"=> DB::table('process_attribute_tb')->join('process_value_tb','process_attribute_tb.id','=','process_value_tb.process_attribute_id')
-            ->select('process_attribute_tb.*','process_value_tb.value','process_value_tb.options','process_value_tb.suggestion','process_attribute_tb.id AS process_attribute_id','process_value_tb.id  AS process_value_id')
-            ->where('process_attribute_tb.process_id','=',13)
+            "form"=> DB::table( 'process_tb')
+            ->join('process_attribute_tb','process_tb.id','=','process_attribute_tb.process_id')
+            ->join('process_value_tb','process_attribute_tb.id','=','process_value_tb.process_attribute_id')
+            ->select('process_attribute_tb.*','process_tb.property','process_value_tb.value','process_value_tb.options','process_value_tb.suggestion','process_attribute_tb.id AS process_attribute_id','process_value_tb.id  AS process_value_id')
+            ->where('process_tb.position_id','=',7)
             ->get()
         ]);
     }

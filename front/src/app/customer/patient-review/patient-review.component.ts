@@ -190,6 +190,7 @@ export class PatientReviewComponent implements OnInit,OnDestroy {
   charges2: any;
   care_type: any;
   lab_forms: any;
+  lab_form: any;
 
   constructor(   private Jarwis: JarwisService,
     private Chat:ChatService,
@@ -1108,9 +1109,58 @@ getLabForms(){
          dts.suggestion=''
        }
      }
-     this.lab_forms = res.form;
+ 
+     const groups =  res.form.reduce((groups, param) => {
+      const data = param.property;
+      if (!groups[data]) {
+        groups[data] = [];
+      }
+      groups[data].push(param);
+      return groups;
+    }, {});
+    const groupArrays = Object.keys(groups).map((data) => {
+      return {
+        data,
+        games: groups[data]
+      };
+    });
+  //  this.datas = groupArrays
+   this.lab_forms = groupArrays;
+   console.log(this.lab_forms)
    }
  )
+}
+labform(data){
+  let dt= data
+  console.log(dt)
+  const groups =  dt.reduce((groups, param) => {
+    const data = param.attribute;
+    if (!groups[data]) {
+      groups[data] = [];
+    }
+    groups[data].push(param);
+    return groups;
+  }, {});
+  const groupArrays = Object.keys(groups).map((data) => {
+    return {
+      data,
+      games: groups[data]
+    };
+  });
+//  this.datas = groupArrays
+  this.lab_form = groupArrays;
+ 
+  console.log(this.lab_form)
+
+}
+labchoose(a,e){
+console.log(a,e)
+}
+labrequestform(form:NgForm){
+  this.disabled = true;
+  console.log(form.value)
+  const data = Object.entries(form.value)
+  console.log(data)
 }
 // LAB END
 handleError(error) {
