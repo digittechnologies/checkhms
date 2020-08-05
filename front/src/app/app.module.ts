@@ -143,6 +143,8 @@ import { SchemeHmoComponent } from './customer/scheme-hmo/scheme-hmo.component';
 import { InsuranceComponent } from './customer/insurance/insurance.component';
 import { TeamReviewComponent } from './admin/team-review/team-review.component';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { WardTypeComponent } from './nurse/ward-type/ward-type.component';
+import { WardComponent } from './nurse/ward/ward.component';
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
@@ -349,6 +351,10 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     InsuranceComponent,
   
     TeamReviewComponent,
+  
+    WardTypeComponent,
+  
+    WardComponent,
   
   ],
   imports: [

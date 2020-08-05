@@ -30,6 +30,16 @@ export class NurseAdminComponent implements OnInit {
   countMC: any;
   countFemale: any;
   countMale: any;
+  wards: any;
+  appt: any;
+  approve: any;
+  asign: any;
+  reject: any;
+  apptList: any;
+  onScroll:any;
+  apptUser: any;
+  appointmentDetails: Object;
+  apptVstatus: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -66,9 +76,33 @@ export class NurseAdminComponent implements OnInit {
     this.countMC = this.response.mc;
     this.countFemale = this.response.female;
     this.countMale = this.response.male;
-    
+    this.wards = this.response.ward;
+    this.appt = this.response.appt;
+    this.approve = this.response.approve;
+    this.asign = this.response.asign;
+    this.reject = this.response.reject;
+    this.apptList = this.response.apptList;
+    this.apptUser = this.response.apptList[0];
+
+    this.Jarwis.getVoucherStatus(this.apptUser.id).subscribe(
+      data=>{
+        let vresponse:any = data
+        this.apptVstatus = vresponse.paidstatus.paid_status;   
+      }
+    )
+        
     // this.onLoad(this.pat,this.branches,this.dashboardData,this.dashboardDataStaff,this.dashboardDataAppt,this.dashboardDataInv)
   })
+  }
+  appcustomer(id){
+    this.Jarwis.getappcustomer(id).subscribe(
+      data=>{
+        let response:any = data
+        this.apptUser = response.apptList[0];
+        this.apptVstatus = response.paidstatus.paid_status; 
+      }
+    )
+
   }
 
 }

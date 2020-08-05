@@ -543,6 +543,7 @@ public function addCenter(Request $request)
     
     public function updatePos(Request $request)
     {
+        // return $request->all();
         $user_id = Auth()->user()->id;
         $id = $request->id;
         $name = $request->position_name;
@@ -551,7 +552,7 @@ public function addCenter(Request $request)
         $update = DB::table('positions')->where('id','=',$id)
         ->update([
             'position_name'=> $name,
-            'describ' => $description,
+            'description' => $describ,
             'status' => $status
         ]);
         if($update){
@@ -3633,6 +3634,56 @@ return $getV;
     public function editCentertypes(Request $request)
     {
      return $center_type = DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->select('center_type.*','departments.name AS deptname')->where('center_type.id',$request[0])->get();
+    } 
+
+    public function AddWardType(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $request->merge(["c_date" => $cDate]);
+        $request->merge(["c_time" => $cTime]);
+        $center_type = DB::table('ward_type')->insert($request->all());
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
+    }
+
+    public function AddWard(Request $request)
+    {
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+        $created_by= Auth()->user()->id;
+        $request->merge(["created_by" => $created_by]);
+        $request->merge(["updated_by" => $created_by]);
+        $request->merge(["c_date" => $cDate]);
+        $request->merge(["c_time" => $cTime]);
+        $center_type = DB::table('ward_tb')->insert($request->all());
+
+        if ($center_type) {
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"failed"
+            }' ;
+        } 
     }
 
     public function AddRank(Request $request)

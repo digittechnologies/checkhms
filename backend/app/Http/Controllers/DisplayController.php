@@ -644,38 +644,110 @@ class DisplayController extends Controller
 
     public function countCustomer()
     {
+        $ward = array();
+            $wards= DB::table('ward_tb')->join('ward_type','ward_tb.ward_type_id','=','ward_type.id')->select('ward_tb.*','ward_type.type_name')->get();  
+             foreach ($wards as $value) {
+                 $app = DB::table('appointments')->where('ward_id','=',$value->id)->where('appointments.patient_status','=', 'ipd')->where('appointments.status','!=', 'close')->count();
+                 if($app){
+                     $vals = array();
+                     array_push($vals,$value->ward_name);                     
+                     array_push($vals,$app);
+                     array_push($vals,$value->beds);
+                     array_push($ward,$vals);
+                 }
+                 else{
+                     array_push($ward,$value->ward_name,$value->beds);
+                 }
+             }
         return response()->json([
             "customer" => DB::table('customers')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
             ->get(),
-            "opd" => Appointments::where('appointments.patient_status','=', 'opd')->where('appointments.status','=', 'open')->select('appointments.*')->count(),
-            "ipd" => Appointments::where('appointments.patient_status','=', 'ipd')->where('appointments.status','=', 'open')->select('appointments.*')->count(),
+            "opd" => Appointments::where('appointments.patient_status','=', 'opd')->where('appointments.status','!=', 'close')->select('appointments.*')->count(),
+            "ipd" => Appointments::where('appointments.patient_status','=', 'ipd')->where('appointments.status','!=', 'close')->select('appointments.*')->count(),
             "gopd" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
             ->join('center_type','branches.center_type','=','center_type.id')
             ->select('appointments.*')  
-            ->where('appointments.status','=', 'open') 
+            ->where('appointments.status','!=', 'close') 
             ->where('center_type.id','=', 1)->count(),
             "copd" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
             ->join('center_type','branches.center_type','=','center_type.id')
             ->select('appointments.*')   
-            ->where('appointments.status','=', 'open')
+            ->where('appointments.status','!=', 'close')
             ->where('center_type.id','=', 2)->count(),
             "mc" => Appointments::orderBy('id')->join('branches','appointments.clinic_id','=','branches.id')
             ->join('center_type','branches.center_type','=','center_type.id')
             ->select('appointments.*')   
-            ->where('appointments.status','=', 'open')
+            ->where('appointments.status','!=', 'close')
             ->where('center_type.id','=', 3)->count(),
 
+            "apptList" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
+                                    ->join('branches','appointments.clinic_id','=','branches.id')
+                                    ->join('users','appointments.created_by','=','users.id')
+                                    ->where('appointments.status','!=', 'close')                                   
+                                    ->select('appointments.*', 'customers.card_number', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.name', 'customers.patient_image','customers.mobile_number')
+                                    ->get(),
+
+            "appt" => Appointments::orderBy('id')           
+                                    ->select('appointments.*')   
+                                    ->where('appointments.status','!=', 'close')
+                                    ->count(),
+            "asign" => Appointments::orderBy('id')
+                                    ->select('appointments.*')   
+                                    ->where('appointments.status','=', 'assigned')
+                                    ->count(),
+            "approve" => Appointments::orderBy('id')
+                                    ->select('appointments.*')   
+                                    ->where('appointments.status','=', 'approved')
+                                    ->count(),
+            "reject" => Appointments::orderBy('id')
+                                    ->select('appointments.*')   
+                                    ->where('appointments.status','=', 'rejected')
+                                    ->count(),
             "male" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
                                     ->where('appointments.patient_status','=', 'ipd')
-                                    ->where('appointments.status','=', 'open')
+                                    ->where('appointments.status','!=', 'close')  
                                     ->where('customers.gender','=', 'male')
                                     ->select('appointments.*')->count(),
             "female" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
                                     ->where('appointments.patient_status','=', 'ipd')
-                                    ->where('appointments.status','=', 'open')
+                                    ->where('appointments.status','!=', 'close')  
                                     ->where('customers.gender','=', 'female')
                                     ->select('appointments.*')->count(),
+            // "ward" => DB::table('ward_tb')->select(DB::raw('count(id) as "patient", (select COUNT(id) from customers where gender = "Male") as "male", (select COUNT(id) from customers where gender = "Female") as "female",  (select COUNT(id) from customers where gender = "Female") as "female" '))    
+            // ->get(),
+             'ward' =>$ward
         ]);
+    }
+    public function getappcustomer($id)
+    {
+
+        return response()->json(
+            [
+                "apptList" => Appointments::join('customers','appointments.customer_id','=','customers.card_number')
+                ->join('branches','appointments.clinic_id','=','branches.id')
+                ->join('users','appointments.created_by','=','users.id')
+                ->where('appointments.status','!=', 'close')                                   
+                ->where('appointments.id','=', $id)
+                ->select('appointments.*', 'customers.card_number',  'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.name', 'customers.patient_image','customers.mobile_number')
+                ->get(),
+
+                "paidstatus" => Vouchers::where('vouchers.appointment_id','!=', $id)                                   
+                ->where('vouchers.module_id','=', 2)
+                ->select('vouchers.paid_status')
+                ->first(),
+            ]);
+    }
+
+    public function getVoucherStatus($id)
+    {
+
+        return response()->json(
+            [
+                "paidstatus" => Vouchers::where('vouchers.appointment_id','!=', $id)                                   
+                ->where('vouchers.module_id','=', 2)
+                ->select('vouchers.paid_status')
+                ->first(),
+            ]);
     }
 
     public function countAppointmentDash()
@@ -859,7 +931,7 @@ class DisplayController extends Controller
                         ->join('doctor_encounter','doctor_encounter.appointment_id','=','appointments.id')
                         ->join('users','appointments.created_by','=','users.id')
                         ->join('branches','appointments.created_branch','=','branches.id')
-                        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
+                        ->select('appointments.*', 'customers.name as pat_name', 'users.firstname', 'doctor_encounter.permission', 'users.lastname', 'branches.name as br_name', 'customers.id as cust_id', 'customers.othername', 'customers.card_number', 'customers.patient_image', 'customers.blood_group', 'customers.genotype')        
                         ->where('appointments.status','!=','close')
                         ->where('appointments.clinic_status', '!=', 'close')
                         ->where('doctor_encounter.user_id', Auth()->user()->id)
@@ -2357,6 +2429,19 @@ class DisplayController extends Controller
             'departments' =>  DB::table('departments')->select('departments.name','departments.id')->get()
             ]);
     }
+
+    public function DisplayWardType(){
+        return response()->json([
+            'wardT'=> DB::table('ward_type')->get()
+            ]);
+    }
+
+    public function DisplayWard(){
+        return response()->json([
+            'wards'=> DB::table('ward_tb')->join('ward_type','ward_tb.ward_type_id','=','ward_type.id')->select('ward_tb.*','ward_type.type_name')->get()  
+        ]);         
+    }
+
     public function Teams(){
         return response()->json([
             'teams'=> DB::table('team_tb')->join('branches','team_tb.center_tb_id','=','branches.id')->where('team_tb.status','active')->select('team_tb.*','branches.name AS center_name')->get(),

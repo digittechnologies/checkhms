@@ -124,6 +124,8 @@ import { NurseUserComponent } from './dashboard/nurse_module/nurse-user/nurse-us
 //WARD
 import { WardAdminComponent } from './dashboard/ward_module/ward-admin/ward-admin.component';
 import { WardUserComponent } from './dashboard/ward_module/ward-user/ward-user.component';
+import { WardTypeComponent } from './nurse/ward-type/ward-type.component';
+import { WardComponent } from './nurse/ward/ward.component';
 //Report and History
 import { ReportComponent } from './record/report/report.component';
 import { RecordHistoryComponent } from './record/record-history/record-history.component';
@@ -208,6 +210,8 @@ const routes: Routes = [
         //WARD START 
         {path: 'Ward-department_admin', component:WardAdminComponent, outlet: 'side',canActivate: [],  },
         {path: 'Ward-staff', component:WardUserComponent, outlet: 'side',canActivate: [],  },
+        {path: 'ward', component:WardComponent, outlet: 'side',canActivate: [],  },
+        {path: 'ward-type', component:WardTypeComponent, outlet: 'side',canActivate: [],  },
         //WARD END
 
         // //CLINIC START

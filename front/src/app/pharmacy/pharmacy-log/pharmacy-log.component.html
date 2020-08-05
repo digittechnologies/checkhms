@@ -189,9 +189,10 @@
             <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
             <li ><button class="btn bnt-default" [hidden]=" dept!='16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
             <!--Nurse-->
-            <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-            <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-            <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+            <li *ngIf="l.permission == 'assigned'" ><button class="btn btn-success" data-toggle="modal" data-target="#accept">Accept</button></li>
+            <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-danger" data-toggle="modal" data-target="#reject">Reject</button></li>
+            <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-primary" data-toggle="modal" data-target="#re_asign">Re-assign</button></li>
+            <li *ngIf="l.permission == 'approved'"><button class="btn btn-outline-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Encounter</button></li>
         </ul>
         <hr>Created by<hr>
         <div class="d-flex justify-content-between">
@@ -239,9 +240,10 @@
         <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
         <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
         <!--Nurse-->
-        <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-        <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-        <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+        <li *ngIf="l.permission == 'assigned'" ><button class="btn btn-success" data-toggle="modal" data-target="#accept">Accept</button></li>
+        <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-danger" data-toggle="modal" data-target="#reject">Reject</button></li>
+        <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-primary"  data-toggle="modal" data-target="#re_asign">Re-assign</button></li>
+        <li *ngIf="l.permission == 'approved'"><button class="btn btn-outline-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Encounter</button></li>
     </ul>
     <hr>Created by<hr>
     <div class="d-flex justify-content-between">
@@ -288,9 +290,10 @@
         <li ><button class="btn bnt-default text-primary" [hidden]=" dept!='  16' " data-toggle="modal" data-target="#transfer" (click)="editappoint(l.id,l.branch_id)">Relocate</button></li>
         <li ><button class="btn bnt-default" [hidden]=" dept!='  16' "><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['revenue_log', l.id]}}]">Voucher</a></button></li> -->
          <!--Nurse-->
-         <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['patient_history', l.id]}}]">History</a></button></li>
-         <li ><button class="btn bnt-default text-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Review</button></li>
-         <li ><button class="btn bnt-default"><a  href="#" [routerLink]="['/Admin', {outlets: {side: ['clinic_process', l.id]}}]">Process</a></button></li>
+         <li *ngIf="l.permission == 'assigned'" ><button class="btn btn-success" data-toggle="modal" data-target="#accept">Accept</button></li>
+            <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-danger" data-toggle="modal" data-target="#reject">Reject</button></li>
+            <li *ngIf="l.permission == 'assigned'"><button class="btn btn-outline-primary"  data-toggle="modal" data-target="#re_asign">Re-assign</button></li>
+            <li *ngIf="l.permission == 'approved'"><button class="btn btn-outline-primary" [routerLink]="['/Admin', {outlets: {side: ['patient_review', l.id]}}]">Encounter</button></li>
     </ul>
     <hr>Created by<hr>
     <div class="d-flex justify-content-between">
@@ -507,3 +510,63 @@
       </div>
     </div>
     </div>
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">  
+        <div class="modal-header">
+        <h4 class="modal-title">Note !</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">             
+        <div class="row  justify-content-center">
+                <h6>Do you want to accept this appointment</h6>     
+        </div>
+        </div>      
+        <div class="modal-footer">
+        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+        <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="suspend()">Yes</button>
+        </div>
+        </div>
+        </div>
+        </div>
+       
+    <div class="modal fade" id="reject" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">  
+        <div class="modal-header">
+        <h4 class="modal-title">Note !</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">             
+        <div class="row  justify-content-center">
+                <h6>Do you want to reject this appointment</h6>     
+        </div>
+        </div>      
+        <div class="modal-footer">
+        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+        <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="suspend()">Yes</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="modal fade" id="re_asign" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">  
+            <div class="modal-header">
+            <h4 class="modal-title">Note !</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">             
+            <div class="row  justify-content-center">
+                    <select name="" id="" class="form-control">
+                        <option value="">doctor lists</option>
+                    </select>     
+            </div>
+            </div>      
+            <div class="modal-footer">
+            <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+            <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="suspend()">Re-asign</button>
+            </div>
+            </div>
+            </div>
+            </div>

@@ -67,7 +67,7 @@
         <li *ngIf=" role=='3003' && department=='Revenue' || role=='1001' || role==2002 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#revenue" (click)="branch('revenue')">Revenue</a></li>
     <!-- </ng-container> -->
     <li *ngIf="  role=='3003' && department=='Theater' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#theater" (click)="branch('theater')">Theater</a></li>
-    <li *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li>
+    <!-- <li *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li> -->
     <li *ngIf=" role=='3003' && department=='Nurse' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#nurse" (click)="branch('nurse')">Nurse</a></li>
     <li *ngIf=" role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 " class="nav-item"><a class="nav-link " data-toggle="tab" href="#lab" (click)="branch('lab')">Lab</a></li>
     <li  *ngIf="role=='1001' || role==1002" class="nav-item"><a class="nav-link " data-toggle="tab" href="#admin" (click)="branch('admin')">Admin</a></li>
@@ -420,7 +420,7 @@
     </table>
 
     </div>
-    <div *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="ward">
+    <!-- <div *ngIf=" role=='3003' && department=='Ward' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="ward">
     <table class="table table-hover table-custom spacing8">
     <thead>
         <tr> 
@@ -468,7 +468,7 @@
     </tbody>
     </table>
 
-    </div>
+    </div> -->
     <div *ngIf=" role=='3003' && department=='Laboratory' || role=='1001' || role==2001 || role==1002 " class="tab-pane" id="lab">
     <table class="table table-hover table-custom spacing8">
     <thead>

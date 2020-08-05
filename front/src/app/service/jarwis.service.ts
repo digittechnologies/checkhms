@@ -254,6 +254,7 @@ public  permite ="";
   centerType() {
     return this.http.get(`${this.baseUrl}/centerType`,)
   }
+
   Ranks() {
     return this.http.get(`${this.baseUrl}/Ranks`,)
   }
@@ -262,6 +263,25 @@ public  permite ="";
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+
+  DisplayWard() {
+    return this.http.get(`${this.baseUrl}/DisplayWard`,)
+  }
+  Addward(data) {
+    return this.http.post<any>(`${this.baseUrl}/Addward`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  DisplayWardType() {
+    return this.http.get(`${this.baseUrl}/DisplayWardType`,)
+  }
+  AddWardType(data) {
+    return this.http.post<any>(`${this.baseUrl}/AddWardType`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
   editingRank(data){
     return this.http.post<any>(`${this.baseUrl}/editingRank`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -671,8 +691,15 @@ displayHospitalNum(id: any){
   return this.http.get(`${this.baseUrl}/displayHospitalNum/${id}`,)
 }
 
-countCustomer() {
+countCustomer(){
   return this.http.get(`${this.baseUrl}/countCustomer`,)
+} 
+getappcustomer(id:any){
+  return this.http.get(`${this.baseUrl}/getappcustomer/${id}`,)
+}
+
+getVoucherStatus(id:any){
+  return this.http.get(`${this.baseUrl}/getVoucherStatus/${id}`,)
 }
 
 addCustomer(data) {

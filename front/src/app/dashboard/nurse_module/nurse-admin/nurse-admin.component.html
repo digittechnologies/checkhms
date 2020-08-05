@@ -95,230 +95,114 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="mb-4 mt-3">
-                            <label class="d-block">Biology - BIO<span class="float-right">77%</span></label>
+                        <div *ngIf="wards">
+                        <div *ngFor="let ward of wards" class="mb-4 mt-3">
+                            <label class="d-block">{{ward[0]}}<span class="float-right">{{ward[1]}}</span></label>
                             <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="" style="width: 100%;"></div>
                             </div>
                         </div>
-                        <div class="mb-4">
-                            <label class="d-block">Business Analysis - BUS<span class="float-right">50%</span></label>
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;"></div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="d-block">Computer Technology - CT <span class="float-right">69%</span></label>
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100" style="width: 69%;"></div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="d-block">Management - MGT <span class="float-right">23%</span></label>
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-                            </div>
-                        </div>
-                        <div class="mb-0">
-                            <label class="d-block">Premedical Studies - PMD <span class="float-right">48%</span></label>
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar bg-indigo" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" style="width: 48%;"></div>
-                            </div>
-                        </div>
+                    </div>
+                   
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="card user_statistics">
                     <div class="header">
-                        <h2>Earning Report</h2>
+                        <h2>Monthly Report</h2>
                     </div>
                     <div class="body">                            
                         <div id="chart-pie" style="height: 300px"></div>
                     </div>
                 </div>
             </div>                
-            <div class="col-lg-8 col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-hover table-custom spacing5">
+            <div class="col-lg-8 col-md-12">             
+                <div class="table-responsive"> 
+                    <div class="card">                       
+                        <div class="body">
+                            <div class="row text-center">
+                                <div class="col-lg-3 col-sm-6 border-right pt-2">
+                                    <label class="mb-0">Total Appointments</label>
+                                    <h4 class="font-30 text-info font-weight-bold text-col-blue">{{appt}}</h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 border-right pt-2">
+                                    <label class="mb-0">Assigned</label>
+                                    <h4 class="font-30 text-warning font-weight-bold text-col-blue">{{asign}}</h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 border-right pt-2">
+                                    <label class="mb-0">Approved</label>
+                                    <h4 class="font-30 text-success font-weight-bold text-col-blue">{{approve}}</h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6  pt-2">
+                                    <label class="mb-0">Rejected</label>
+                                    <h4 class="font-30 text-danger font-weight-bold text-col-blue">{{reject}}</h4>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>     
+                    <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="10" (scrolled)="onScroll()">            
+                     <table class="table table-hover table-custom spacing5" style="padding: top 10px;">
                         <thead>
                             <tr> 
                                 <th style="width: 20px;">#</th>
-                                <th>Client</th>
-                                <th style="width: 50px;">Amount</th>
+                                <th>Patient</th>
+                                <th style="width: 50px;">HN</th>
                                 <th style="width: 50px;">Status</th>
                                 <th style="width: 110px;">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody>                           
+                            <tr *ngFor="let appL of apptList; let i = index">
                                 <td>
-                                    <span>01</span>
+                                    <span>{{i+1}}</span>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>SS</span></div>
+                                        <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{appL.patient_image}}" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
                                         <div class="ml-3">
-                                            <a href="page-invoices-detail.html" title="">South Shyanne</a>
-                                            <p class="mb-0">south.shyanne@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$1200</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>02</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Zoe Baker</a>
-                                            <p class="mb-0">zoe.baker@example.com</p>
+                                            <a href="javascript:void(0);" (click)="appcustomer(appL.id)" title="Patient Name">{{appL.name}}</a>
+                                            <p class="mb-0">{{appL.mobile_number}}</p>
                                         </div>
                                     </div>                                        
                                 </td>
-                                <td>$378</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
+                                <td>{{appL.card_number}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
+                                    <span *ngIf="appL.status == 'open'" class="badge badge-info ml-0 mr-0">{{appL.status}}</span>
+                                    <span *ngIf="appL.status == 'assigned'" class="badge badge-warning ml-0 mr-0">{{appL.status}}</span>
+                                    <span *ngIf="appL.status == 'approved'" class="badge badge-success ml-0 mr-0">{{appL.status}}</span>
+                                    <span *ngIf="appL.status == 'rejected'" class="badge badge-danger ml-0 mr-0">{{appL.status}}</span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" (click)="appcustomer(appL.id)" data-toggle="tooltip" data-placement="top"><i class="icon-eye"></i></button>
+                                    <!-- <button type="button" class="btn btn-sm btn-default " title="Assign to doctor" data-toggle="tooltip" data-placement="top"><i class="fa fa-share-square-o"></i></button> -->
                                     <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>03</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                            <div class="avtar-pic w35 bg-indigo" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>CB</span></div>
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Colin Brown</a>
-                                            <p class="mb-0">colinbrown@example.com</p>
-                                        </div>
-                                    </div>                                        
-                                </td>
-                                <td>$653</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>04</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avtar-pic w35 bg-green" data-toggle="tooltip" data-placement="top" title="Avatar Name"><span>KG</span></div>
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Kevin Gill</a>
-                                            <p class="mb-0">kevin.gill@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$451</td>
-                                <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>05</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar5.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Brandon Smith</a>
-                                            <p class="mb-0">Maria.gill@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$1,989</td>
-                                <td><span class="badge badge-success  ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>06</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar6.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Kevin Baker</a>
-                                            <p class="mb-0">kevin.baker@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>$343</td>
-                                <td><span class="badge badge-warning  ml-0 mr-0">Panding</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>07</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/images/xs/avatar2.jpg" data-toggle="tooltip" data-placement="top" title="Avatar Name" alt="Avatar" class="w35 h35 rounded">
-                                        <div class="ml-3">
-                                            <a href="javascript:void(0);" title="">Zoe Baker</a>
-                                            <p class="mb-0">zoe.baker@example.com</p>
-                                        </div>
-                                    </div>                                        
-                                </td>
-                                <td>$378</td>
-                                <td><span class="badge badge-success ml-0 mr-0">Done</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-default" title="Send Invoice" data-toggle="tooltip" data-placement="top"><i class="icon-envelope"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default " title="Print" data-toggle="tooltip" data-placement="top"><i class="icon-printer"></i></button>
-                                    <button type="button" class="btn btn-sm btn-default" title="Delete" data-toggle="tooltip" data-placement="top"><i class="icon-trash"></i></button>
-                                </td>
-                            </tr>
+                            </tr>                          
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <a class="card" href="javascript:void(0)">
                     <div class="body text-center">
-                        <img class="img-thumbnail rounded-circle" src="../assets/images/sm/avatar1.jpg" alt="">
-                        <h6 class="mt-3">Michelle Green</h6>
-                        <div class="text-center text-muted">Intranet Developer</div>
+                        <img class="img-thumbnail rounded-circle" width="80%" src="http://{{ imgLink}}/backend/public/upload/uploads/{{apptUser.patient_image}}" alt="">
+                        <h6 class="mt-3">{{apptUser.name}}</h6>
+                        <h4 class="mt-3">{{apptUser.card_number}}</h4>
+                        <div class="text-center text-muted"><span class="badge badge-warning ml-0 mr-0">{{apptUser.br_name}}</span></div>
                     </div>
                     <div class="card-footer text-center">
                         <div class="row clearfix">
-                            <div class="col-6">
-                                <i class="fa fa-tag font-22"></i>
-                                <div><span class="text-muted">9 Badges</span></div>
+                            <div class="col-12">
+                                <!-- <i class="fa fa-tag font-22"></i> -->
+                                <button type="button" class="btn btn-primary" title="Click to Start Process" [routerLink]="['/Admin', {outlets: {side: ['patient_review', apptUser.id]}}]" data-toggle="tooltip" data-placement="top"><i class="fa fa-paper-plane-o"></i> Start Process</button>
                             </div>
-                            <div class="col-6">
+                            <!-- <div class="col-6">
                                 <i class="fa fa-dollar font-22"></i>
                                 <div><span class="text-muted">$ 3.100</span></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </a>
@@ -326,32 +210,26 @@
                     <div class="body">
                         <div class="card-text">
                             <div class="mt-0">
-                                <small class="float-right text-muted">10/200 GB</small>
-                                <span>Memory</span>
-                                <div class="progress progress-xxs">
-                                    <div style="width: 60%;" class="progress-bar"></div>
-                                </div>
+                                <span *ngIf="apptVstatus == 'paid'" class="float-right badge badge-success ml-0 mr-0">paid</span>
+                                <span *ngIf="apptVstatus == 'unpaid'" class="float-right badge badge-danger ml-0 mr-0">Un-paid</span>
+                                <span >Service Charge</span>                               
                             </div>
                             <div class="mt-4">
-                                <small class="float-right text-muted">40 MB</small>
-                                <span>Bandwidth</span>
-                                <div class="progress progress-xxs">
-                                    <div style="width: 50%;" class="progress-bar"></div>
-                                </div>
+                                <small class="float-right badge badge-danger ml-0 mr-0">Close</small>
+                                <span>Vital Sings</span>                                
                             </div>
                             <div class="mt-4">
-                                <small class="float-right text-muted">73%</small>
-                                <span>Activity</span>
-                                <div class="progress progress-xxs">
-                                    <div style="width: 40%;" class="progress-bar"></div>
-                                </div>
+                                <small class="float-right badge badge-info ml-0 mr-0">{{apptUser.patient_status}}</small>
+                                <span>Appointment Type</span>                               
                             </div>
                             <div class="mt-4">
-                                <small class="float-right text-muted">400 GB</small>
-                                <span>FTP</span>
-                                <div class="progress progress-xxs mb-0">
-                                    <div style="width: 80%;" class="progress-bar bg-danger"></div>
-                                </div>
+                                <span *ngIf="apptUser.insurance_status == 'disabled'" class="float-right badge badge-warning ml-0 mr-0">{{apptUser.insurance_status}}</span>
+                                <span *ngIf="apptUser.insurance_status == 'enabled'" class="float-right badge badge-success ml-0 mr-0">{{apptUser.insurance_status}}</span>
+                                <span>Discount(NHIS)</span>                               
+                            </div>
+                            <div class="mt-4">
+                                <small class="float-right badge badge-info ml-0 mr-0">{{apptUser.firstname}} {{apptUser.lastname}}</small>
+                                <span>Appointment Type</span>                               
                             </div>
                         </div>
                     </div>
